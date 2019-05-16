@@ -191,6 +191,17 @@ INSERT INTO `merits` VALUES (1684,'realmrazor',1,3,573519,0,25);
 INSERT INTO `merits` VALUES (1686,'shattersoul',1,3,549455,0,25);
 INSERT INTO `merits` VALUES (1688,'apex_arrow',1,3,3072,0,25);
 INSERT INTO `merits` VALUES (1690,'last_stand',1,3,66592,0,25);
+INSERT INTO `merits` VALUES (1728,'full_circle_effect',5,2,1048576,6,26);
+INSERT INTO `merits` VALUES (1730,'ecliptic_attrition_recast',5,10,1048576,6,26);
+INSERT INTO `merits` VALUES (1732,'life_cycle_recast',5,10,1048576,6,26);
+INSERT INTO `merits` VALUES (1734,'blaze_of_glory_recast',5,20,1048576,6,26);
+INSERT INTO `merits` VALUES (1736,'dematerialize_recast',5,20,1048576,6,26);
+
+INSERT INTO `merits` VALUES (1796,'rune_enchantement_effect',5,2,2097152,6,27);
+INSERT INTO `merits` VALUES (1798,'vallation_effect',5,1,2097152,6,27);
+INSERT INTO `merits` VALUES (1800,'lunge_effect',5,3,2097152,6,27);
+INSERT INTO `merits` VALUES (1802,'pflug_effect',5,1,2097152,6,27);
+INSERT INTO `merits` VALUES (1804,'gambit_effect',5,10,2097152,6,27);
 INSERT INTO `merits` VALUES (2048,'warriors_charge',5,5,1,7,31);
 INSERT INTO `merits` VALUES (2050,'tomahawk',5,15,1,7,31);
 INSERT INTO `merits` VALUES (2052,'savagery',5,10,1,7,31);
@@ -283,5 +294,13 @@ INSERT INTO `merits` VALUES (3268,'tranquility',5,10,524288,7,50);
 INSERT INTO `merits` VALUES (3270,'enquanimity',5,10,524288,7,50);
 INSERT INTO `merits` VALUES (3272,'enlightenment',5,5,524288,7,50);
 INSERT INTO `merits` VALUES (3274,'stormsurge',5,1,524288,7,50);
+INSERT INTO `merits` VALUES (3328,'cure_recantation',5,5,1048576,7,51);
+INSERT INTO `merits` VALUES (3330,'primeval_zeal',5,10,1048576,7,51);
+INSERT INTO `merits` VALUES (3332,'mending_halation',5,5,1048576,7,51);
+INSERT INTO `merits` VALUES (3334,'radial_arcana',5,3,1048576,7,51);
+INSERT INTO `merits` VALUES (3392,'battuta',5,4,2097152,7,52);
+INSERT INTO `merits` VALUES (3394,'rayke',5,3,2097152,7,52);
+INSERT INTO `merits` VALUES (3396,'inspiration',5,10,2097152,7,52);
+INSERT INTO `merits` VALUES (3398,'sleight_of_sword',5,5,2097152,7,52);
 
 -- Dump completed on 2017-01-31 10:58:26

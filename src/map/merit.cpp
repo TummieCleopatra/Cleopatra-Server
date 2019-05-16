@@ -121,6 +121,9 @@ static const MeritCategoryInfo_t meritCatInfo[] =
 
     {14,15,8}, //MCATEGORY_WS
 
+    {5,10,6},  //MCATEGORY_GEO_1
+    {5,10,6},  //MCATEGORY_RUN_1
+
 	{0,0,8},   //MCATEGORY_UNK_0	26
     {0,0,8},   //MCATEGORY_UNK_1
     {0,0,8},   //MCATEGORY_UNK_2
@@ -147,6 +150,8 @@ static const MeritCategoryInfo_t meritCatInfo[] =
     {4,10,7},  //MCATEGORY_PUP_2
     {4,10,7},  //MCATEGORY_DNC_2
     {6,10,7},  //MCATEGORY_SHC_2
+    {4,10,7},  //MCATEGORY_GEO_2
+    {4,10,7},  //MCATEGORY_RUN_2
 };
 
 #define GetMeritCategory(merit) ((merit >> 6) - 1)      // получаем категорию из merit
@@ -201,10 +206,10 @@ void CMeritPoints::LoadMeritPoints(uint32 charid)
 
     for (uint16 i = 0; i < MERITS_COUNT; ++i)
     {
-        if ((catNumber < 51 && i == meritNameSpace::groupOffset[catNumber]) || (catNumber > 25 && catNumber < 31))
+        if ((catNumber < 53 && i == meritNameSpace::groupOffset[catNumber]) || (catNumber > 27 && catNumber < 31))
         {
 
-            if (catNumber > 25 && catNumber < 31) // point these to valid merits to prevent crash
+            if (catNumber > 27 && catNumber < 31) // point these to valid merits to prevent crash
                 Categories[catNumber] = &merits[163];
             else
                 Categories[catNumber] = &merits[i];

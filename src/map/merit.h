@@ -93,8 +93,8 @@ enum MERIT_CATEGORY
     MCATEGORY_PUP_2      = 0x0C40,
     MCATEGORY_DNC_2      = 0x0C80,
     MCATEGORY_SCH_2      = 0x0CC0,
-    MCATEGORY_GEO_2      = 0x0400,
-    MCATEGORY_RUN_2      = 0x0440,
+    MCATEGORY_GEO_2      = 0x0D00,
+    MCATEGORY_RUN_2      = 0x0D40,
 
     MCATEGORY_START      = 0x0040,
     MCATEGORY_COUNT      = 0x0D80,
@@ -517,7 +517,7 @@ struct Merit_t
         uint32 data;        // data sent in packet
     };
 
-    uint32 value;           // the coefficient of variation of the parameter that is bound to merit 
+    uint32 value;           // the coefficient of variation of the parameter that is bound to merit
     uint8  upgrade;         // maximum number of upgrades
     uint32 jobs;            // bitmask of jobs for which merit has effect
 	uint8  upgradeid;		// which set of upgrade values the merit will use
