@@ -173,3 +173,6 @@ cmake_install.cmake
 
 # ignore servers
 *-server
+conf/server_message.conf
+conf/map_darkstar.conf
+conf/login_darkstar.conf
