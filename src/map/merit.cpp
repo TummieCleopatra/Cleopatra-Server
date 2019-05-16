@@ -124,8 +124,8 @@ static const MeritCategoryInfo_t meritCatInfo[] =
     {5,10,6},  //MCATEGORY_GEO_1
     {5,10,6},  //MCATEGORY_RUN_1
 
-	{0,0,8},   //MCATEGORY_UNK_0	26
-    {0,0,8},   //MCATEGORY_UNK_1
+	//{0,0,8},   //MCATEGORY_UNK_0	26
+    //{0,0,8},   //MCATEGORY_UNK_1
     {0,0,8},   //MCATEGORY_UNK_2
     {0,0,8},   //MCATEGORY_UNK_3
     {0,0,8},   //MCATEGORY_UNK_4	30

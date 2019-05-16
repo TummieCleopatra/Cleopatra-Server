@@ -176,3 +176,4 @@ cmake_install.cmake
 conf/server_message.conf
 conf/map_darkstar.conf
 conf/login_darkstar.conf
+conf/search_server.conf
