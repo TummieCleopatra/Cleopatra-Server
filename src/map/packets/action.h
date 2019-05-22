@@ -49,7 +49,7 @@ enum ACTIONTYPE : uint8
     ACTION_RANGED_START = 12,
     ACTION_PET_MOBABILITY_FINISH = 13,
     ACTION_DANCE = 14,
-    ACTION_QUARRY = 15,
+    ACTION_RUNE = 15,
     ACTION_SPRINT = 16,
 
     //these aren't actual action packet IDs - they exist for simplicity

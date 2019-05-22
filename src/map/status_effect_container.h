@@ -91,6 +91,12 @@ public:
     void RemoveOldestManeuver();
     void RemoveAllManeuvers();
 
+    void GetRuneTypes(EFFECT &type1, EFFECT &type2, EFFECT &type3);
+    uint8 GetActiveRunes();
+    void RemoveOldestRune();
+    void RemoveAllRunes();
+    EFFECT GetNewestRune();
+
     void WakeUp(); // remove sleep effects
     bool IsAsleep();
     bool HasPreventActionEffect(); // checks if owner has an effect that prevents actions, like stun, petrify, sleep etc

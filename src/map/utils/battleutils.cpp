@@ -1712,6 +1712,17 @@ namespace battleutils
                     parryRate = parryRate + issekiganBonus;
                 }
 
+                // Add Rune Fencer Trait Bonus
+                parryRate = parryRate + PDefender->getMod(Mod::PARRY_BONUS);
+
+                // Battata grants a flat bonus of 40% TODO add counter
+                if (PDefender->objtype == TYPE_PC && PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_BATTUTA)) {
+                    int8 battutaMerit = ((CCharEntity*)PDefender)->PMeritPoints->GetMeritValue(MERIT_BATTUTA, (CCharEntity*)PDefender);
+                    int16 battutaBonus = battutaMerit + 40;
+                    ShowDebug(CL_CYAN"GetParryRate: RUNE Battuta Active, Parry Rate %d -> %d...\n" CL_RESET, parryRate, (parryRate+battutaBonus));
+                    parryRate = parryRate + battutaBonus;
+                }
+
                 return parryRate;
             }
         }

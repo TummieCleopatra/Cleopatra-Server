@@ -1894,7 +1894,7 @@ INSERT INTO `item_armor` VALUES (12125,'ebur_visor',71,0,66560,251,0,0,16,0);
 INSERT INTO `item_armor` VALUES (12126,'shikkoku_hatsuburi',71,0,133122,252,0,0,16,0);
 INSERT INTO `item_armor` VALUES (12127,'shinku_hatsuburi',71,0,133122,253,0,0,16,0);
 INSERT INTO `item_armor` VALUES (12128,'ginhaku_hatsuburi',71,0,133122,254,0,0,16,0);
-INSERT INTO `item_armor` VALUES (12129,'ebon_headgear',71,0,2363424,255,0,0,16,0);
+INSERT INTO `item_armor` VALUES (12129,'ebon_headgear',71,0,2097152,338,0,0,16,0);  -- RUN AF HEAD
 INSERT INTO `item_armor` VALUES (12130,'furia_headgear',71,0,2363424,256,0,0,16,0);
 INSERT INTO `item_armor` VALUES (12131,'ebur_headgear',71,0,2363424,257,0,0,16,0);
 INSERT INTO `item_armor` VALUES (12132,'ebon_tam',71,0,33296,258,0,0,16,0);
@@ -1930,7 +1930,7 @@ INSERT INTO `item_armor` VALUES (12161,'ebur_jerkin',71,0,66560,251,0,0,32,0);
 INSERT INTO `item_armor` VALUES (12162,'shikkoku_togi',71,0,133122,252,0,0,32,0);
 INSERT INTO `item_armor` VALUES (12163,'shinku_togi',71,0,133122,253,0,0,32,0);
 INSERT INTO `item_armor` VALUES (12164,'ginhaku_togi',71,0,133122,254,0,0,32,0);
-INSERT INTO `item_armor` VALUES (12165,'ebon_vest',71,0,2363424,255,0,0,32,0);
+INSERT INTO `item_armor` VALUES (12165,'ebon_vest',71,0,2097152,338,0,0,32,0);  -- RUN AF Body
 INSERT INTO `item_armor` VALUES (12166,'furia_vest',71,0,2363424,256,0,0,32,0);
 INSERT INTO `item_armor` VALUES (12167,'ebur_vest',71,0,2363424,257,0,0,32,0);
 INSERT INTO `item_armor` VALUES (12168,'ebon_talar',71,0,33296,258,0,0,32,0);
@@ -1966,7 +1966,7 @@ INSERT INTO `item_armor` VALUES (12197,'ebur_bracers',71,0,66560,251,0,0,64,0);
 INSERT INTO `item_armor` VALUES (12198,'shikkoku_kote',71,0,133122,252,0,0,64,0);
 INSERT INTO `item_armor` VALUES (12199,'shinku_kote',71,0,133122,253,0,0,64,0);
 INSERT INTO `item_armor` VALUES (12200,'ginhaku_kote',71,0,133122,254,0,0,64,0);
-INSERT INTO `item_armor` VALUES (12201,'ebon_wristbands',71,0,2363424,255,0,0,64,0);
+INSERT INTO `item_armor` VALUES (12201,'ebon_wristbands',71,0,2097152,338,0,0,64,0);
 INSERT INTO `item_armor` VALUES (12202,'furia_wristbands',71,0,2363424,256,0,0,64,0);
 INSERT INTO `item_armor` VALUES (12203,'ebur_wristbands',71,0,2363424,257,0,0,64,0);
 INSERT INTO `item_armor` VALUES (12204,'ebon_gants',71,0,33296,258,0,0,64,0);
@@ -2002,7 +2002,7 @@ INSERT INTO `item_armor` VALUES (12233,'ebur_braccae',71,0,66560,251,0,0,128,0);
 INSERT INTO `item_armor` VALUES (12234,'shikkoku_haidate',71,0,133122,252,0,0,128,0);
 INSERT INTO `item_armor` VALUES (12235,'shinku_haidate',71,0,133122,253,0,0,128,0);
 INSERT INTO `item_armor` VALUES (12236,'ginhaku_haidate',71,0,133122,254,0,0,128,0);
-INSERT INTO `item_armor` VALUES (12237,'ebon_tights',71,0,2363424,255,0,0,128,0);
+INSERT INTO `item_armor` VALUES (12237,'ebon_tights',71,0,2097152,338,0,0,128,0);  -- RUN Legs
 INSERT INTO `item_armor` VALUES (12238,'furia_tights',71,0,2363424,256,0,0,128,0);
 INSERT INTO `item_armor` VALUES (12239,'ebur_tights',71,0,2363424,257,0,0,128,0);
 INSERT INTO `item_armor` VALUES (12240,'ebon_slacks',71,0,33296,258,0,0,128,0);
@@ -2038,7 +2038,7 @@ INSERT INTO `item_armor` VALUES (12269,'ebur_socks',71,0,66560,251,0,0,256,0);
 INSERT INTO `item_armor` VALUES (12270,'shikkoku_sune-ate',71,0,133122,252,0,0,256,0);
 INSERT INTO `item_armor` VALUES (12271,'shinku_sune-ate',71,0,133122,253,0,0,256,0);
 INSERT INTO `item_armor` VALUES (12272,'ginhaku_sune-ate',71,0,133122,254,0,0,256,0);
-INSERT INTO `item_armor` VALUES (12273,'ebon_gaiters',71,0,2363424,255,0,0,256,0);
+INSERT INTO `item_armor` VALUES (12273,'ebon_gaiters',71,0,2097152,338,0,0,256,0);  -- RUN AF
 INSERT INTO `item_armor` VALUES (12274,'furia_gaiters',71,0,2363424,256,0,0,256,0);
 INSERT INTO `item_armor` VALUES (12275,'ebur_gaiters',71,0,2363424,257,0,0,256,0);
 INSERT INTO `item_armor` VALUES (12276,'ebon_brogues',71,0,33296,258,0,0,256,0);

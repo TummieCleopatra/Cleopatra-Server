@@ -1523,8 +1523,10 @@ dsp.mod =
     FENCER_TP_BONUS                 = 903, -- TP Bonus to weapon skills from Fencer Trait
     FENCER_CRITHITRATE              = 904, -- Increased Crit chance from Fencer Trait
     SHIELD_DEF_BONUS                = 905, -- Shield Defense Bonus
-    SNEAK_DURATION                  = 946, -- Additional duration in seconds 
+    SNEAK_DURATION                  = 946, -- Additional duration in seconds
     INVISIBLE_DURATION              = 947, -- Additional duration in seconds
+
+    PARRY_BONUS                     = 948, -- Inquartata Parry Bonus
 
     -- The spares take care of finding the next ID to use so long as we don't forget to list IDs that have been freed up by refactoring.
     -- 570 - 825 used by WS DMG mods these are not spares.
@@ -1627,8 +1629,8 @@ local MCATEGORY_SCH_1 = 0x0640
 
 local MCATEGORY_WS = 0x0680
 
-local MCATEGORY_UNK_0 = 0x06C0
-local MCATEGORY_UNK_1 = 0x0700
+local MCATEGORY_GEO_1 = 0x06C0
+local MCATEGORY_RUN_1 = 0x0700
 local MCATEGORY_UNK_2 = 0x0740
 local MCATEGORY_UNK_3 = 0x0780
 local MCATEGORY_UNK_4 = 0x07C0
@@ -1653,6 +1655,8 @@ local MCATEGORY_COR_2 = 0x0C00
 local MCATEGORY_PUP_2 = 0x0C40
 local MCATEGORY_DNC_2 = 0x0C80
 local MCATEGORY_SCH_2 = 0x0CC0
+local MCATEGORY_GEO_2 = 0x0D00
+local MCATEGORY_RUN_2 = 0x0D40
 
 local MCATEGORY_START = 0x0040
 local MCATEGORY_COUNT = 0x0D00
@@ -1858,6 +1862,20 @@ dsp.merit =
     HELIX_MAGIC_ACC_ATT         = MCATEGORY_SCH_1 + 0x04,
     MAX_SUBLIMATION             = MCATEGORY_SCH_1 + 0x06,
 
+    -- GEO 1
+    MERIT_FULL_CIRCLE               = MCATEGORY_GEO_1 + 0x00
+    MERIT_ECLIPTIC_ATT_RECAST       = MCATEGORY_GEO_1 + 0x02
+    MERIT_LIFE_CYCLE_RECAST         = MCATEGORY_GEO_1 + 0x04
+    MERIT_BLAZE_OF_GLORY_RECAST     = MCATEGORY_GEO_1 + 0x06
+    MERIT_DEMATERIALIZE_RECAST      = MCATEGORY_GEO_1 + 0x08
+
+    -- RUN 1
+    MERIT_RUNE_ENHANCE              = MCATEGORY_RUN_1 + 0x00
+    MERIT_VALLATION_EFFECT          = MCATEGORY_RUN_1 + 0x02
+    MERIT_LUNGE_EFFECT              = MCATEGORY_RUN_1 + 0x04
+    MERIT_PFLUG_EFFECT              = MCATEGORY_RUN_1 + 0x06
+    MERIT_GAMBIT_EFFECT             = MCATEGORY_RUN_1 + 0x08
+
     -- WEAPON SKILLS
     SHIJIN_SPIRAL               = MCATEGORY_WS + 0x00,
     EXENTERATOR                 = MCATEGORY_WS + 0x02,
@@ -2012,6 +2030,18 @@ dsp.merit =
     EQUANIMITY                  = MCATEGORY_SCH_2 + 0x06,
     ENLIGHTENMENT               = MCATEGORY_SCH_2 + 0x08,
     STORMSURGE                  = MCATEGORY_SCH_2 + 0x0A,
+
+    -- GEO 2
+    MERIT_MENDING_HALATION          = MCATEGORY_GEO_2 + 0x00,
+    MERIT_RADIAL_ARCANA             = MCATEGORY_GEO_2 + 0x02,
+    MERIT_CURATIVE_RECANTATION      = MCATEGORY_GEO_2 + 0x04,
+    MERIT_PRIMEVAL_ZEAL             = MCATEGORY_GEO_2 + 0x06,
+
+    -- RUN 2
+    MERIT_BATTUTA                   = MCATEGORY_RUN_2 + 0x00,
+    MERIT_RAYKE                     = MCATEGORY_RUN_2 + 0x02,
+    MERIT_INSPIRATION               = MCATEGORY_RUN_2 + 0x04,
+    MERIT_SLEIGHT_OF_SWORD          = MCATEGORY_RUN_2 + 0x06,
 }
 
 ------------------------------------

@@ -856,6 +856,7 @@ inline int32 CLuaBaseEntity::injectActionPacket(lua_State* L)
         case 11: actiontype = ACTION_MOBABILITY_FINISH; break;
         case 13: actiontype = ACTION_PET_MOBABILITY_FINISH; break;
         case 14: actiontype = ACTION_DANCE; break;
+        case 15: actiontype = ACTION_RUNE; break;
     }
 
     action_t Action;
@@ -14256,6 +14257,67 @@ inline int32 CLuaBaseEntity::getTHlevel(lua_State* L)
     return 1;
 }
 
+inline int32 CLuaBaseEntity::getActiveRunes(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+    lua_pushinteger(L, PEntity->StatusEffectContainer->GetActiveRunes());
+
+    return 1;
+}
+
+inline int32 CLuaBaseEntity::getNewestRune(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+    lua_pushinteger(L, PEntity->StatusEffectContainer->GetNewestRune());
+
+    return 1;
+}
+
+inline int32 CLuaBaseEntity::getRuneTypes(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+    EFFECT type1 = (EFFECT)0;
+    EFFECT type2 = (EFFECT)0;
+    EFFECT type3 = (EFFECT)0;
+    PEntity->StatusEffectContainer->GetRuneTypes(type1, type2, type3);
+    lua_pushinteger(L, type1);
+    lua_pushinteger(L, type2);
+    lua_pushinteger(L, type3);
+
+    return 3;
+}
+
+inline int32 CLuaBaseEntity::removeOldestRune(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+    PEntity->StatusEffectContainer->RemoveOldestRune();
+
+    return 0;
+}
+
+inline int32 CLuaBaseEntity::removeAllRunes(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+    PEntity->StatusEffectContainer->RemoveAllRunes();
+
+    return 0;
+}
+
+
 //=======================================================//
 
 const char CLuaBaseEntity::className[] = "CBaseEntity";
@@ -14921,6 +14983,14 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getTHlevel),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getPlayerRegionInZone),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,updateToEntireZone),
+
+    //Rune Fencer
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getActiveRunes),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getNewestRune),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getRuneTypes),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeOldestRune),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeAllRunes),
+
 
     {nullptr,nullptr}
 };

@@ -1597,3 +1597,98 @@ bool CStatusEffectContainer::HasBustEffect(uint16 id)
     }
     return false;
 }
+
+uint8 CStatusEffectContainer::GetActiveRunes()
+{
+    uint8 count = 0;
+    for (auto PStatusEffect : m_StatusEffectList)
+    {
+        if (PStatusEffect->GetStatusID() >= EFFECT_IGNIS &&
+            PStatusEffect->GetStatusID() <= EFFECT_TENEBRAE)
+        {
+            count++;
+        }
+    }
+    return count;
+}
+
+void CStatusEffectContainer::GetRuneTypes(EFFECT &type1, EFFECT &type2, EFFECT &type3)
+{
+    uint8 count = 0;
+    for (auto PStatusEffect : m_StatusEffectList)
+    {
+
+        if (PStatusEffect->GetStatusID() >= EFFECT_IGNIS &&
+            PStatusEffect->GetStatusID() <= EFFECT_TENEBRAE)
+        {
+            count++;
+            if (count == 1)
+                type1 = PStatusEffect->GetStatusID();
+            else if (count == 2)
+                type2 = PStatusEffect->GetStatusID();
+            else if (count == 3)
+                type3 = PStatusEffect->GetStatusID();
+
+        }
+    }
+}
+
+void CStatusEffectContainer::RemoveOldestRune()
+{
+    CStatusEffect* oldest = nullptr;
+    int index = 0;
+    for (uint16 i = 0; i < m_StatusEffectList.size(); ++i)
+    {
+        CStatusEffect* PStatusEffect = m_StatusEffectList.at(i);
+        if (PStatusEffect->GetStatusID() >= EFFECT_IGNIS &&
+            PStatusEffect->GetStatusID() <= EFFECT_TENEBRAE)
+        {
+            if (!oldest || PStatusEffect->GetStartTime() < oldest->GetStartTime())
+            {
+                oldest = PStatusEffect;
+                index = i;
+            }
+        }
+    }
+    if (oldest)
+    {
+        RemoveStatusEffect(index, true);
+    }
+}
+
+EFFECT CStatusEffectContainer::GetNewestRune()
+{
+    CStatusEffect* newest = nullptr;
+    int index = 0;
+    for (uint16 i = 0; i < m_StatusEffectList.size(); ++i)
+    {
+        CStatusEffect* PStatusEffect = m_StatusEffectList.at(i);
+        if (PStatusEffect->GetStatusID() >= EFFECT_IGNIS &&
+            PStatusEffect->GetStatusID() <= EFFECT_TENEBRAE)
+        {
+            if (!newest || PStatusEffect->GetStartTime() > newest->GetStartTime())
+            {
+                newest = PStatusEffect;
+                index = i;
+            }
+        }
+    }
+    EFFECT effectID = EFFECT_NONE;
+    if (newest != nullptr)
+    {
+        effectID = newest->GetStatusID();
+    }
+    return effectID;
+}
+
+void CStatusEffectContainer::RemoveAllRunes()
+{
+    for (uint16 i = 0; i < m_StatusEffectList.size(); ++i)
+    {
+        if (m_StatusEffectList.at(i)->GetStatusID() >= EFFECT_IGNIS &&
+            m_StatusEffectList.at(i)->GetStatusID() <= EFFECT_TENEBRAE)
+        {
+            RemoveStatusEffect(i, true);
+        }
+    }
+}

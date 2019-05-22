@@ -77,6 +77,7 @@ CActionPacket::CActionPacket(action_t& action)
     }
     break;
     case ACTION_DANCE:
+    case ACTION_RUNE:
     case ACTION_JOBABILITY_FINISH:
     {
         packBitsBE(data, action.actionid, 86, 10);
