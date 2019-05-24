@@ -1,5 +1,5 @@
 -----------------------------------
--- Ability: Pflug
+-- Ability: Embolden
 -----------------------------------
 
 require("scripts/globals/status");
@@ -17,10 +17,6 @@ end;
 -- onUseAbility
 -----------------------------------
 
-function onUseAbility(player,target,ability,action)
-    local merits = player:getMerit(dsp.merit.MERIT_PFLUG_EFFECT)
-    local resistance, power = pflugResist(player)
-    local animation = getPflugAnimation(player)
-    player:injectActionPacket(15,1,animation,0)
-    player:addStatusEffect(dsp.effect.PFLUG,power + merits,3,120)
+function onUseAbility(player,target,ability)
+    target:addStatusEffect(dsp.effect.EMBOLDEN,1,0,60)
 end;

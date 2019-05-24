@@ -608,6 +608,43 @@ namespace battleutils
             }
         }
 
+        // Handle Battuta Counter
+        else if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_BATTUTA) && PDefender->PAI->IsEngaged()
+            && isFaceing(PDefender->loc.p, PAttacker->loc.p, 40))
+        {
+            Action->reaction = REACTION_HIT;
+            Action->spikesEffect = SUBEFFECT_COUNTER;
+
+            if (battleutils::IsAbsorbByShadow(PAttacker)) // Struck a shadow
+            {
+                Action->spikesMessage = 14;
+            }
+            else // Struck the target
+            {
+                if (PDefender->objtype == TYPE_PC)
+                {
+                    // Check for skillup
+                    uint8 skilltype = PDefender->m_Weapons[SLOT_MAIN]->getSkillType();
+                    charutils::TrySkillUP((CCharEntity*)PDefender, (SKILLTYPE)skilltype, PAttacker->GetMLevel());
+                }
+
+                // Check if crit
+                bool crit = battleutils::GetCritHitRate(PDefender, PAttacker, true) > dsprand::GetRandomNumber(100);
+
+                // Dmg math.
+                float DamageRatio = GetDamageRatio(PDefender, PAttacker, crit, 0.f);
+                uint16 dmg = (uint32)((PDefender->GetMainWeaponDmg() + battleutils::GetFSTR(PDefender, PAttacker, SLOT_MAIN)) * DamageRatio);
+                dmg = attackutils::CheckForDamageMultiplier(((CCharEntity*)PDefender), PDefender->m_Weapons[SLOT_MAIN], dmg, PHYSICAL_ATTACK_TYPE::NORMAL, SLOT_MAIN);
+                //uint16 bonus = dmg * (PDefender->getMod(Mod::RETALIATION) / 100);
+                //dmg = dmg + bonus;
+
+                // FINISH HIM! dun dun dun
+                // TP and stoneskin are handled inside TakePhysicalDamage
+                Action->spikesMessage = 33;
+                Action->spikesParam = battleutils::TakePhysicalDamage(PDefender, PAttacker, PHYSICAL_ATTACK_TYPE::NORMAL, dmg, false, SLOT_MAIN, 1, nullptr, true, true, true);
+            }
+        }
+
         // Handle spikes from spells or auto-spikes (scripted) effects
         else if (Action->spikesEffect > 0)
         {
@@ -4421,7 +4458,14 @@ namespace battleutils
     }
 
     int32 HandleSevereDamage(CBattleEntity* PDefender, int32 damage, bool isPhysical) {
-        damage = HandleSevereDamageEffect(PDefender, EFFECT_MIGAWARI, damage, true);
+        if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_FOIL))
+        {
+            damage = HandleSevereDamageEffect(PDefender, EFFECT_FOIL, damage, true);
+        }
+        else
+        {
+            damage = HandleSevereDamageEffect(PDefender, EFFECT_MIGAWARI, damage, true);
+        }
         // In the future, handle other Severe Damage Effects like Earthen Armor here
 
         if (isPhysical && PDefender->objtype == TYPE_PET && PDefender->getMod(Mod::AUTO_SCHURZEN) != 0 && damage >= PDefender->health.hp &&

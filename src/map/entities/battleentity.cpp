@@ -1458,6 +1458,7 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
                 actionTarget.speceffect = SPECEFFECT_NONE;
                 battleutils::HandleTacticalParry(PTarget);
                 battleutils::HandleIssekiganEnmityBonus(PTarget, this);
+                battleutils::HandleSpikesDamage(this, PTarget, &actionTarget, attack.GetDamage());
             }
             else if (attack.CheckAnticipated() || attack.CheckCounter())
             {

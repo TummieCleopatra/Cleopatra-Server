@@ -306,16 +306,16 @@ INSERT INTO `abilities` VALUES (351,'Swordplay',22,20,1,300,24,0,0,299,2000,0,6,
 INSERT INTO `abilities` VALUES (352,'Lunge',22,25,4,300,25,0,0,15,2000,0,15,20.0,0,1,300,0,0,'SOA');
 INSERT INTO `abilities` VALUES (353,'Pflug',22,40,1,300,59,0,0,0,2000,0,15,20.0,0,1,300,0,0,'SOA');
 INSERT INTO `abilities` VALUES (354,'Embolden',22,60,1,600,72,0,0,300,2000,0,6,20.0,0,1,300,0,0,'SOA');
-INSERT INTO `abilities` VALUES (355,'Valiance',22,50,1,300,113,0,0,0,2000,0,15,20.0,0,1,300,0,0,'SOA');
-INSERT INTO `abilities` VALUES (356,'Gambit',22,70,4,300,116,0,0,0,2000,0,15,20.0,0,1,300,0,0,'SOA');
+INSERT INTO `abilities` VALUES (355,'Valiance',22,50,1,300,113,0,0,0,2000,0,15,20.0,1,1,300,0,0,'SOA');
+INSERT INTO `abilities` VALUES (356,'Gambit',22,70,4,300,116,0,0,0,2000,0,15,20.0,0,640,1280,0,0,'SOA');
 -- INSERT INTO `abilities` VALUES (357,'Liement',22,20,1,300,117,0,0,???,2000,0,6,20.0,0,1,300,0,0,'SOA');
 -- INSERT INTO `abilities` VALUES (358,'One_for_all',22,95,1,300,0,0,0,301,2000,0,6,20.0,1,1,300,0,0,'SOA');
-INSERT INTO `abilities` VALUES (359,'Rayke',22,75,1,300,0,0,0,301,2000,0,6,20.0,0,1,300,0,0,'SOA');
-INSERT INTO `abilities` VALUES (360,'Battuta',22,75,1,0,300,0,0,1,2000,0,15,20.0,0,1,300,0,0,'SOA');
+INSERT INTO `abilities` VALUES (359,'Rayke',22,75,4,300,0,0,0,301,2000,0,15,20.0,0,640,1260,0,0,'SOA');
+INSERT INTO `abilities` VALUES (360,'Battuta',22,75,1,0,300,0,0,1,2000,0,15,20.0,0,450,900,0,0,'SOA');
 INSERT INTO `abilities` VALUES (363,'Ward',22,10,1,0,0,0,0,0,2000,0,6,20.0,0,1,300,0,0,NULL);
 INSERT INTO `abilities` VALUES (364,'Effusion',22,25,1,0,0,0,0,0,2000,0,6,20.0,0,1,300,0,0,NULL);
 INSERT INTO `abilities` VALUES (365,'chocobo_jig_ii',19,70,1,60,218,126,0,13,2000,0,14,20.0,1,1,300,0,0,'WOTG');
-INSERT INTO `abilities` VALUES (367,'Vivacious_pulse',22,1,1,300,0,0,0,327,2000,0,6,20.0,0,1,300,0,0,NULL);
+INSERT INTO `abilities` VALUES (367,'Vivacious_pulse',22,65,1,60,0,0,0,327,2000,0,6,20.0,0,1,300,0,0,NULL);
 INSERT INTO `abilities` VALUES (369,'apogee',15,70,1,180,108,0,0,333,2000,0,6,20.0,0,1,0,0,0,NULL);
 INSERT INTO `abilities` VALUES (373,'consume_mana',8,55,1,60,373,0,0,337,2000,0,6,20.0,0,1,1300,0,0,'SOA');
 INSERT INTO `abilities` VALUES (374,'naturalists_roll',17,67,1,60,193,420,0,328,2000,0,6,8.0,1,1,80,0,8,'SOA'); -- No Enhancing Magic Duration MOD, Empty PH effect exists

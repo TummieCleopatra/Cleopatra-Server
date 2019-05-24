@@ -1,5 +1,5 @@
 -----------------------------------
--- Ability: Pflug
+-- Ability: Rayke
 -----------------------------------
 
 require("scripts/globals/status");
@@ -18,9 +18,5 @@ end;
 -----------------------------------
 
 function onUseAbility(player,target,ability,action)
-    local merits = player:getMerit(dsp.merit.MERIT_PFLUG_EFFECT)
-    local resistance, power = pflugResist(player)
-    local animation = getPflugAnimation(player)
-    player:injectActionPacket(15,1,animation,0)
-    player:addStatusEffect(dsp.effect.PFLUG,power + merits,3,120)
+    addRayke(player, target, action, ability, dsp.effect.RAYKE);
 end;

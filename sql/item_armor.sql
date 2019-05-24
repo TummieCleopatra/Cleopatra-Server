@@ -9906,7 +9906,7 @@ INSERT INTO `item_armor` VALUES (20779,'senbaak_nagan',99,117,2097344,73,0,0,1,0
 INSERT INTO `item_armor` VALUES (20780,'senbaak_nagan_+1',99,118,2097344,73,0,0,1,0);
 INSERT INTO `item_armor` VALUES (20781,'sowilo_claymore',1,0,2097152,68,0,0,1,0);
 INSERT INTO `item_armor` VALUES (20782,'coalition_sword',99,100,2097344,608,0,0,1,0);
-INSERT INTO `item_armor` VALUES (20783,'uruz_blade',75,0,2097152,72,0,0,1,0);
+INSERT INTO `item_armor` VALUES (20783,'uruz_blade',75,0,2097152,705,0,0,1,0); -- RUN Weapon
 INSERT INTO `item_armor` VALUES (20784,'uruz_blade_+1',75,0,2097152,72,0,0,1,0);
 INSERT INTO `item_armor` VALUES (20785,'thurisaz_blade',99,100,2097152,67,0,0,1,0);
 INSERT INTO `item_armor` VALUES (20786,'thurisaz_blade_+1',99,101,2097152,67,0,0,1,0);

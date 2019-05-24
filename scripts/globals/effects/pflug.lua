@@ -16,6 +16,7 @@ require("scripts/globals/job_util");
 function onEffectGain(target,effect)
     -- local merits = player:getMerit(dsp.merit.PFLUG_EFFECT)
     local resistance, power = pflugResist(target)
+    target:setVar("pflugresist",resistance)
     target:addMod(resistance, effect:getPower())
 end;
 
@@ -32,5 +33,7 @@ end;
 -----------------------------------
 
 function onEffectLose(target,effect)
+    local resistance = target:getVar("pflugresist")
     target:delMod(resistance, effect:getPower())
+    target:setVar("pflugresist",0)
 end;

@@ -26,11 +26,18 @@ function onSpellCast(caster, target, spell)
 
     -- Cap at 35
     final = math.min(final, 35)
-
-    if target:addStatusEffect(dsp.effect.PHALANX, final, 0, duration) then
-        spell:setMsg(dsp.msg.basic.MAGIC_GAIN_EFFECT)
+    if (target:hasStatusEffect(dsp.effect.EMBOLDEN) and caster:getID() ~= target:getID())  then
+        if target:addStatusEffect(dsp.effect.PHALANX, final * 1.5, 0, duration / 2) then
+            spell:setMsg(dsp.msg.basic.MAGIC_GAIN_EFFECT)
+        else
+            spell:setMsg(dsp.msg.basic.MAGIC_NO_EFFECT)
+        end
     else
-        spell:setMsg(dsp.msg.basic.MAGIC_NO_EFFECT)
+        if target:addStatusEffect(dsp.effect.PHALANX, final, 0, duration) then
+            spell:setMsg(dsp.msg.basic.MAGIC_GAIN_EFFECT)
+        else
+            spell:setMsg(dsp.msg.basic.MAGIC_NO_EFFECT)
+        end
     end
 
     return dsp.effect.PHALANX

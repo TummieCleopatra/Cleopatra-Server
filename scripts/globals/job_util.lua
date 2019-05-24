@@ -114,8 +114,102 @@ function addVallation(player, effect)
     player:addMod(dsp.mod.REGEN, lux * ((lvl / 10) + 1))
     player:addMod(dsp.mod.REFRESH, tenebrae * ((lvl / 37) + 1)) ]]--
     local animation = getVallationAnimation(player)
-    player:injectActionPacket(15,1,animation,0)
+    player:injectActionPacket(15,2,animation,0)
     player:addStatusEffect(effect,0,3,120);
+end;
+
+function addGambit(player, target, action, effect)
+    local lvl = player:getMainLvl()
+
+    local ignis = player:countEffect(dsp.effect.IGNIS)
+    local gelus = player:countEffect(dsp.effect.GELUS)
+    local flabra = player:countEffect(dsp.effect.FLABRA)
+    local tellus = player:countEffect(dsp.effect.TELLUS)
+    local sulpor = player:countEffect(dsp.effect.SULPOR)
+    local unda = player:countEffect(dsp.effect.UNDA)
+    local lux = player:countEffect(dsp.effect.LUX)
+    local tenebrae = player:countEffect(dsp.effect.TENEBRAE)
+
+    target:addMod(dsp.mod.ICEDEF, -(ignis * 10))
+    target:addMod(dsp.mod.WINDDEF, -(gelus * 10))
+    target:addMod(dsp.mod.EARTHDEF, -(flabra * 10))
+    target:addMod(dsp.mod.THUNDERDEF, -(tellus * 10))
+    target:addMod(dsp.mod.WATERDEF, -(sulpor * 10))
+    target:addMod(dsp.mod.FIREDEF, -(unda * 10))
+    target:addMod(dsp.mod.DARKDEF, -(lux * 10))
+    target:addMod(dsp.mod.LIGHTDEF, -(tenebrae * 10))
+
+    --[[
+    player:addMod(dsp.mod.ATT, ignis * ((lvl / 10) + 1))
+    player:addMod(dsp.mod.WINDDEF, gelus * 15)
+    player:addMod(dsp.mod.EARTHDEF, flabra * 15)
+    player:addMod(dsp.mod.THUNDERDEF, tellus * 15)
+    player:addMod(dsp.mod.WATERDEF, sulpor * 15)
+    player:addMod(dsp.mod.FIREDEF, unda * 15)
+    player:addMod(dsp.mod.REGEN, lux * ((lvl / 10) + 1))
+    player:addMod(dsp.mod.REFRESH, tenebrae * ((lvl / 37) + 1)) ]]--
+    local animation = getVallationAnimation(player)
+    action:speceffect(target:getID(),animation)
+    action:animation(target:getID(), 3)
+    player:removeAllRunes()
+    if target:addStatusEffect(effect,0,3,120) then
+        -- skill:setMsg(dsp.msg.basic.SKILL_GAIN_EFFECT)
+    else
+        ability:setMsg(dsp.msg.basic.JA_NO_EFFECT)
+    end
+
+end;
+
+function addRayke(player, target, action, ability, effect)
+    local lvl = player:getMainLvl()
+
+    local ignis = player:countEffect(dsp.effect.IGNIS)
+    local gelus = player:countEffect(dsp.effect.GELUS)
+    local flabra = player:countEffect(dsp.effect.FLABRA)
+    local tellus = player:countEffect(dsp.effect.TELLUS)
+    local sulpor = player:countEffect(dsp.effect.SULPOR)
+    local unda = player:countEffect(dsp.effect.UNDA)
+    local lux = player:countEffect(dsp.effect.LUX)
+    local tenebrae = player:countEffect(dsp.effect.TENEBRAE)
+
+    local bonus = player:getMerit(dsp.merit.MERIT_RAYKE)
+    target:addMod(dsp.mod.ICERES, -(ignis * 10) + bonus)
+    target:addMod(dsp.mod.WINDRES, -(gelus * 10) + bonus)
+    target:addMod(dsp.mod.EARTHRES, -(flabra * 10) + bonus)
+    target:addMod(dsp.mod.THUNDERRES, -(tellus * 10) + bonus)
+    target:addMod(dsp.mod.WATERRES, -(sulpor * 10) + bonus)
+    target:addMod(dsp.mod.FIRERES, -(unda * 10) + bonus)
+    target:addMod(dsp.mod.DARKRES, -(lux * 10) + bonus)
+    target:addMod(dsp.mod.LIGHTRES, -(tenebrae * 10) + bonus)
+
+    target:setLocalVar("ignis", (ignis * 10) + bonus)
+    target:setLocalVar("gelus", (gelus * 10) + bonus)
+    target:setLocalVar("flabra", (flabra * 10) + bonus)
+    target:setLocalVar("tellus", (tellus * 10) + bonus)
+    target:setLocalVar("sulpor", (sulpor * 10) + bonus)
+    target:setLocalVar("unda", (unda * 10) + bonus)
+    target:setLocalVar("lux", (lux * 10) + bonus)
+    target:setLocalVar("tenebrae", (tenebrae * 10) + bonus)
+
+    --[[
+    player:addMod(dsp.mod.ATT, ignis * ((lvl / 10) + 1))
+    player:addMod(dsp.mod.WINDDEF, gelus * 15)
+    player:addMod(dsp.mod.EARTHDEF, flabra * 15)
+    player:addMod(dsp.mod.THUNDERDEF, tellus * 15)
+    player:addMod(dsp.mod.WATERDEF, sulpor * 15)
+    player:addMod(dsp.mod.FIREDEF, unda * 15)
+    player:addMod(dsp.mod.REGEN, lux * ((lvl / 10) + 1))
+    player:addMod(dsp.mod.REFRESH, tenebrae * ((lvl / 37) + 1)) ]]--
+    local animation = getVallationAnimation(player)
+    action:speceffect(target:getID(),animation)
+    action:animation(target:getID(), 1)
+    player:removeAllRunes()
+    if target:addStatusEffect(effect,0,3,120) then
+        -- ability:setMsg(dsp.msg.basic.JA_ENFEEB_IS)
+    else
+        ability:setMsg(dsp.msg.basic.JA_NO_EFFECT)
+    end
+
 end;
 
 function getVallationAnimation(player)
@@ -130,6 +224,49 @@ function getVallationAnimation(player)
     local tenebrae = player:countEffect(dsp.effect.TENEBRAE)
     local animation = 0
     local vallationList = {{523,1},{524,2},{525,3},{526,4},{527,5},{528,6},{529,7},{530,8}}
+
+    if (ignis < 2 and gelus < 2 and flabra < 2 and tellus < 2 and sulpor < 2 and unda < 2 and lux < 2 and tenebrae < 2) then
+        printf("No Dominant Rune Found")
+        local newRune = player:getNewestRune()
+        for i = 1, #vallationList do
+            if (newRune == vallationList[i][1]) then
+                animation = vallationList[i][2]
+                break
+            end
+        end
+    elseif (ignis > 1) then
+        animation = 1
+    elseif (gelus > 1) then
+        animation = 2
+    elseif (flabra > 1) then
+        animation = 3
+    elseif (tellus > 1) then
+        animation = 4
+    elseif (sulpor > 1) then
+        animation = 5
+    elseif (unda > 1) then
+        animation = 6
+    elseif (lux > 1) then
+        animation = 7
+    elseif (tenebrae > 1) then
+        animation = 8
+    end
+
+    return animation
+end
+
+function getPflugAnimation(player)
+
+    local ignis = player:countEffect(dsp.effect.IGNIS)
+    local gelus = player:countEffect(dsp.effect.GELUS)
+    local flabra = player:countEffect(dsp.effect.FLABRA)
+    local tellus = player:countEffect(dsp.effect.TELLUS)
+    local sulpor = player:countEffect(dsp.effect.SULPOR)
+    local unda = player:countEffect(dsp.effect.UNDA)
+    local lux = player:countEffect(dsp.effect.LUX)
+    local tenebrae = player:countEffect(dsp.effect.TENEBRAE)
+    local animation = 0
+    local vallationList = {{523,35},{524,37},{525,39},{526,41},{527,43},{528,45},{529,47},{530,49}}
 
     if (ignis < 2 and gelus < 2 and flabra < 2 and tellus < 2 and sulpor < 2 and unda < 2 and lux < 2 and tenebrae < 2) then
         printf("No Dominant Rune Found")
@@ -256,4 +393,32 @@ function pflugResist(player)
     end
 
     return resistance, power
+end
+
+function doVivaciousPulse(player, ability)
+    local ignis = player:countEffect(dsp.effect.IGNIS)
+    local gelus = player:countEffect(dsp.effect.GELUS)
+    local flabra = player:countEffect(dsp.effect.FLABRA)
+    local tellus = player:countEffect(dsp.effect.TELLUS)
+    local sulpor = player:countEffect(dsp.effect.SULPOR)
+    local unda = player:countEffect(dsp.effect.UNDA)
+    local lux = player:countEffect(dsp.effect.LUX)
+    local tenebrae = player:countEffect(dsp.effect.TENEBRAE)
+
+    local str = (player:getStat(dsp.mod.STR) * ignis) * 0.5
+    local int = (player:getStat(dsp.mod.INT) * gelus) * 0.5
+    local agi = (player:getStat(dsp.mod.AGI) * flabra) * 0.5
+    local vit = (player:getStat(dsp.mod.VIT) * tellus) * 0.5
+    local dex = (player:getStat(dsp.mod.DEX) * sulpor) * 0.5
+    local mnd = (player:getStat(dsp.mod.MND) * unda) * 0.5
+    local chr = (player:getStat(dsp.mod.CHR) * lux) * 0.5
+
+    local divine = player:getSkillLevel(dsp.skill.DIVINE_MAGIC)
+
+    local hp = 10 + math.floor(divine / 2) + (math.floor(str + int + agi + vit + dex + mnd + chr))
+    local mp = 0
+
+    return hp, mp
+
+
 end

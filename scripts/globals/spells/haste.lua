@@ -17,8 +17,14 @@ function onSpellCast(caster, target, spell)
 
     local power = 1465 -- 150/1024 ~14.65%
 
-    if not target:addStatusEffect(dsp.effect.HASTE, power, 0, duration) then
-        spell:setMsg(dsp.msg.basic.MAGIC_NO_EFFECT)
+    if (target:hasStatusEffect(dsp.effect.EMBOLDEN) and caster:getID() ~= target:getID())  then
+        if not target:addStatusEffect(dsp.effect.HASTE, power * 1.5, 0, duration / 2) then
+            spell:setMsg(dsp.msg.basic.MAGIC_NO_EFFECT)
+        end
+    else
+        if not target:addStatusEffect(dsp.effect.HASTE, power, 0, duration) then
+            spell:setMsg(dsp.msg.basic.MAGIC_NO_EFFECT)
+        end
     end
 
     return dsp.effect.HASTE

@@ -19,10 +19,18 @@ function onSpellCast(caster, target, spell)
     local duration = calculateDuration(60 + caster:getMod(dsp.mod.REGEN_DURATION), spell:getSkillType(), spell:getSpellGroup(), caster, target)
     duration = calculateDurationForLvl(duration, 44, target:getMainLvl())
 
-    if target:addStatusEffect(dsp.effect.REGEN, hp, 0, duration) then
-        spell:setMsg(dsp.msg.basic.MAGIC_GAIN_EFFECT)
+    if (target:hasStatusEffect(dsp.effect.EMBOLDEN) and caster:getID() ~= target:getID())  then
+        if target:addStatusEffect(dsp.effect.REGEN, hp * 1.5, 0, duration / 2) then
+            spell:setMsg(dsp.msg.basic.MAGIC_GAIN_EFFECT)
+        else
+            spell:setMsg(dsp.msg.basic.MAGIC_NO_EFFECT) -- no effect
+        end
     else
-        spell:setMsg(dsp.msg.basic.MAGIC_NO_EFFECT) -- no effect
+        if target:addStatusEffect(dsp.effect.REGEN, hp, 0, duration) then
+            spell:setMsg(dsp.msg.basic.MAGIC_GAIN_EFFECT)
+        else
+            spell:setMsg(dsp.msg.basic.MAGIC_NO_EFFECT) -- no effect
+        end
     end
 
     return dsp.effect.REGEN
