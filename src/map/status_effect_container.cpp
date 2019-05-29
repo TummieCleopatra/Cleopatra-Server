@@ -1692,3 +1692,15 @@ void CStatusEffectContainer::RemoveAllRunes()
         }
     }
 }
+
+void CStatusEffectContainer::RemoveAllIndicolure()
+{
+    for (uint16 i = 0; i < m_StatusEffectList.size(); ++i)
+    {
+        if (m_StatusEffectList.at(i)->GetStatusID() >= EFFECT_REGEN_II &&
+            m_StatusEffectList.at(i)->GetStatusID() <= EFFECT_WEIGHT_II)
+        {
+            RemoveStatusEffect(i, true);
+        }
+    }
+}

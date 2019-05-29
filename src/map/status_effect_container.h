@@ -95,6 +95,7 @@ public:
     uint8 GetActiveRunes();
     void RemoveOldestRune();
     void RemoveAllRunes();
+    void RemoveAllIndicolure();
     EFFECT GetNewestRune();
 
     void WakeUp(); // remove sleep effects

@@ -10553,7 +10553,7 @@ INSERT INTO `item_armor` VALUES (21456,'animator_p',99,119,131072,0,0,0,4,0);
 INSERT INTO `item_armor` VALUES (21457,'animator_p_+1',99,119,131072,0,0,0,4,0);
 INSERT INTO `item_armor` VALUES (21458,'animator_p_ii',99,119,131072,0,0,0,4,0);
 INSERT INTO `item_armor` VALUES (21459,'animator_p_ii_+1',99,119,131072,0,0,0,4,0);
-INSERT INTO `item_armor` VALUES (21460,'matre_bell',1,0,1048576,0,0,0,4,0);
+INSERT INTO `item_armor` VALUES (21460,'matre_bell',1,0,1048576,113,0,0,4,0);
 INSERT INTO `item_armor` VALUES (21461,'filiae_bell',99,0,1048576,0,0,0,4,0);
 INSERT INTO `item_armor` VALUES (21462,'eminent_bell',99,0,1048576,0,0,0,4,0);
 INSERT INTO `item_armor` VALUES (21463,'nepote_bell',99,0,1048576,0,0,0,4,0);

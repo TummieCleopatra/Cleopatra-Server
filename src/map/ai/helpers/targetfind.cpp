@@ -203,6 +203,33 @@ void CTargetFind::findWithinCone(CBattleEntity* PTarget, float distance, float a
     findWithinArea(PTarget, AOERADIUS_ATTACKER, distance);
 }
 
+void CTargetFind::addNearby(CBattleEntity* PTarget, float radius, uint16 flags)
+{
+    m_radius = radius;
+    m_PRadiusAround = &(m_PBattleEntity->loc.p);
+    if (flags & 16) {
+        if (PTarget->objtype == TYPE_PET) {
+            zoneutils::GetZone(PTarget->getZone())->ForEachMobInstance(PTarget, [&](CMobEntity *PMob) {
+                if (PMob && isWithinArea(&(PMob->loc.p)) && PMob->PEnmityContainer->HasID(PTarget->PMaster->id)) {
+                    m_targets.push_back(PMob);
+                }
+            });
+        } else {
+            zoneutils::GetZone(PTarget->getZone())->ForEachMobInstance(PTarget, [&](CMobEntity *PMob) {
+                if (PMob && isWithinArea(&(PMob->loc.p)) && PMob->PEnmityContainer->HasID(PTarget->id)) {
+                    m_targets.push_back(PMob);
+                }
+            });
+        }
+    } else if (flags & 8) {
+        zoneutils::GetZone(PTarget->getZone())->ForEachMobInstance(PTarget, [&](CMobEntity *PMob) {
+            if (PMob && isWithinArea(&(PMob->loc.p))) {
+                m_targets.push_back(PMob);
+            }
+        });
+    }
+}
+
 void CTargetFind::addAllInMobList(CBattleEntity* PTarget, bool withPet)
 {
     CCharEntity* PChar = dynamic_cast<CCharEntity*>(findMaster(m_PBattleEntity));

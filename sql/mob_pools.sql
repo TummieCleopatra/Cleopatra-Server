@@ -6077,7 +6077,7 @@ INSERT INTO `mob_pools` VALUES (5896,'Shantotto','Shantotto',153,0x0000B80B00000
 -- INSERT INTO `mob_pools` VALUES (6017,'arciela_ii',
 -- INSERT INTO `mob_pools` VALUES (6018,'iroha_ii',
 INSERT INTO `mob_pools` VALUES (6019,'shantotto_ii','shantotto_ii',153,0x0000260C00000000000000000000000000000000,4,5,2,240,100,0,2,0,0,0,0,32,0,3,0,0,276,1,0,750);
--- Reserved for future Trust 6020
+INSERT INTO `mob_pools` VALUES (6020,'Luopan','Luopan',498,0x0000280B00000000000000000000000000000000,1,1,2,360,100,0,2,0,0,0,0,0,0,1183,0,0,0,1,0,755);
 -- Reserved for future Trust 6021
 -- Reserved for future Trust 6022
 -- Reserved for future Trust 6023

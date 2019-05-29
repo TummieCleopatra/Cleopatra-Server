@@ -636,7 +636,7 @@ INSERT INTO `status_effects` VALUES (608,'negate_virus',289,0,0,0,0,0,0,0);
 INSERT INTO `status_effects` VALUES (609,'negate_curse',289,0,0,0,0,0,0,0);
 INSERT INTO `status_effects` VALUES (610,'negate_charm',289,0,0,0,0,0,0,0);
 INSERT INTO `status_effects` VALUES (611,'magic_evasion_boost_ii',32,0,0,0,0,0,0,0);
-
+INSERT INTO `status_effects` VALUES (612,'colure_active',32,0,0,0,0,0,0,0);
 
 INSERT INTO `status_effects` VALUES (768,'abyssea_str',256,0,0,0,0,0,1,0);
 INSERT INTO `status_effects` VALUES (769,'abyssea_dex',256,0,0,0,0,0,6,0);
@@ -672,6 +672,9 @@ INSERT INTO `status_effects` VALUES (798,'chainbound',32,0,0,0,0,0,0,0);
 INSERT INTO `status_effects` VALUES (799,'skillchain',32,0,0,0,0,0,0,0);
 INSERT INTO `status_effects` VALUES (800,'dynamis',0,0,0,0,0,0,0,0);
 INSERT INTO `status_effects` VALUES (801,'meditate',32,0,0,0,0,0,7,0);
+
+INSERT INTO `status_effects` VALUES (822,'indi-poison',32,0,0,0,0,0,0,0);
+INSERT INTO `status_effects` VALUES (850,'custom_effect',32,0,0,0,0,0,0,0);
 /*!40000 ALTER TABLE `status_effects` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

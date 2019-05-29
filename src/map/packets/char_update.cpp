@@ -59,6 +59,57 @@ CCharUpdatePacket::CCharUpdatePacket(CCharEntity* PChar)
         ref<uint8>(0x38) = 0x04;
     }
 
+	// Enemey Geo Debuffs
+	if (PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_POISON))  // Water
+	{
+	    ref<uint8>(0x58) = 0x5D;
+	}
+	if (PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_SLOW) || PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_SLIP))  // Earth
+    {
+	    ref<uint8>(0x58) = 0x5B;
+    }
+	if (PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_TOPOR) || PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_PARALYSIS))  // Ice
+    {
+	    ref<uint8>(0x58) = 0x59;
+    }
+	if (PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_LANGUOR))  // Dark
+	{
+	    ref<uint8>(0x58) = 0x57;
+	}
+
+
+	// Party Geo Buffs
+
+	if (PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_REFRESH) || PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_REGEN) ||
+	    PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_ATTUNEMENT) || PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_CHR)) // Light
+	{
+	    ref<uint8>(0x58) = 0x56;
+	}
+    if (PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_FEND) || PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_MND)) // Water
+	{
+	    ref<uint8>(0x58) = 0x55;
+	}
+    if (PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_PRECISION) || PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_DEX)) // Thunder
+	{
+	    ref<uint8>(0x58) = 0x54;
+	}
+    if (PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_BARRIER) || PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_VIT)) // Stone
+	{
+	    ref<uint8>(0x58) = 0x53;
+	}
+    if (PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_VOIDANCE) || PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_AGI)) // Wind
+	{
+	    ref<uint8>(0x58) = 0x52;
+	}
+    if (PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_ACUMEN) || PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_INT)) // Ice
+	{
+	    ref<uint8>(0x58) = 0x51;
+	}
+    if (PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_FURY) || PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_STR)) // Fire
+	{
+	    ref<uint8>(0x58) = 0x50;
+	}
+
     if (PChar->menuConfigFlags.flags & NFLAG_MENTOR)
         ref<uint8>(0x38) |= 0x10; // Mentor flag.
     if (PChar->isNewPlayer())
@@ -86,10 +137,10 @@ CCharUpdatePacket::CCharUpdatePacket(CCharEntity* PChar)
     //Status flag: bit 4: frozen anim (terror),
     //  bit 6/7/8 related to Ballista (6 set - normal, 7 set san d'oria, 6+7 set bastok, 8 set windurst)
     uint8 flag = (PChar->allegiance << 5);
-    
+
     if (PChar->StatusEffectContainer->HasStatusEffect(EFFECT_TERROR))
         flag |= 0x08;
-    
+
     ref<uint8>(0x36) = flag;
 
     uint32 timeRemainingToForcedHomepoint = PChar->GetTimeRemainingUntilDeathHomepoint();

@@ -743,6 +743,11 @@ void CCharEntity::OnCastFinished(CMagicState& state, action_t& action)
     if (PSpell->tookEffect())
     {
         charutils::TrySkillUP(this, (SKILLTYPE)PSpell->getSkillType(), PTarget->GetMLevel());
+        if (PSpell->getSkillType() == SKILL_GEOMANCY)
+        {
+            charutils::TrySkillUP(this, SKILL_GEOMANCY, PTarget->GetMLevel());
+            charutils::TrySkillUP(this, SKILL_HND, PTarget->GetMLevel());
+        }
         if (PSpell->getSkillType() == SKILL_SINGING)
         {
             CItemWeapon* PItem = static_cast<CItemWeapon*>(getEquip(SLOT_RANGED));

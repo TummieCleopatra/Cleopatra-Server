@@ -717,12 +717,42 @@ enum EFFECT
     EFFECT_SKILLCHAIN               = 799,
     EFFECT_DYNAMIS                  = 800,
     EFFECT_MEDITATE                 = 801, // Dummy effect for SAM Meditate JA
+
+    EFFECT_INDI_REGEN                = 821,
+	EFFECT_INDI_POISON               = 822,
+	EFFECT_INDI_REFRESH              = 823,
+	EFFECT_INDI_STR                  = 824,
+	EFFECT_INDI_DEX                  = 825,
+	EFFECT_INDI_VIT                  = 826,
+	EFFECT_INDI_AGI                  = 827,
+	EFFECT_INDI_INT                  = 828,
+	EFFECT_INDI_MND                  = 829,
+	EFFECT_INDI_CHR                  = 830,
+	EFFECT_INDI_FURY                 = 831,
+	EFFECT_INDI_BARRIER              = 832,
+	EFFECT_INDI_ACUMEN               = 833,
+	EFFECT_INDI_FEND                 = 834,
+	EFFECT_INDI_PRECISION            = 835,
+	EFFECT_INDI_VOIDANCE             = 836,
+	EFFECT_INDI_FOCUS                = 837,
+	EFFECT_INDI_ATTUNEMENT           = 838,
+	EFFECT_INDI_WILT                 = 839,
+	EFFECT_INDI_FRAILTY              = 840,
+	EFFECT_INDI_FADE                 = 841,
+	EFFECT_INDI_MALAISE              = 842,
+	EFFECT_INDI_SLIP                 = 843,
+	EFFECT_INDI_TOPOR                = 844,
+	EFFECT_INDI_VEX                  = 845,
+	EFFECT_INDI_LANGUOR              = 846,
+	EFFECT_INDI_SLOW                 = 847,
+	EFFECT_INDI_PARALYSIS            = 848,
+	EFFECT_INDI_GRAVITY              = 849,
     // EFFECT_PLACEHOLDER              = 802 // Description
     // 802-1022
     // EFFECT_PLACEHOLDER             = 1023 // The client dat file seems to have only this many "slots", results of exceeding that are untested.
 };
 
-#define MAX_EFFECTID    802  // 768 real + 32 custom
+#define MAX_EFFECTID    851  // 768 real + 32 custom
 
 /************************************************************************
 *                                                                       *

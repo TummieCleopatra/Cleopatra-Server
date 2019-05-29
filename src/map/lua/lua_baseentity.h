@@ -706,6 +706,8 @@ public:
     int32 getRuneTypes(lua_State*);
     int32 removeOldestRune(lua_State*);
     int32 removeAllRunes(lua_State*);
+    int32 removeAllIndicolure(lua_State*);
+    int32 getTargetsWithinArea(lua_State* L);
 };
 
 #endif

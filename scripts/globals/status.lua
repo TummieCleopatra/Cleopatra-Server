@@ -771,6 +771,7 @@ dsp.effect =
     NEGATE_CURSE             = 609,
     NEGATE_CHARM             = 610,
     MAGIC_EVASION_BOOST_II   = 611,
+    COLURE_ACTIVE            = 612,
     -- Effect icons in packet can go from 0-767, so no custom effects should go in that range.
 
     -- Purchased from Cruor Prospector
@@ -812,6 +813,37 @@ dsp.effect =
     SKILLCHAIN               = 799,
     DYNAMIS                  = 800,
     MEDITATE                 = 801, -- Dummy effect for SAM Meditate JA
+
+    INDI_REGEN               = 821,
+	INDI_POISON              = 822,
+	INDI_REFRESH             = 823,
+	INDI_STR                 = 824,
+	INDI_DEX                 = 825,
+	INDI_VIT                 = 826,
+	INDI_AGI                 = 827,
+	INDI_INT                 = 828,
+	INDI_MND                 = 829,
+	INDI_CHR                 = 830,
+	INDI_FURY                = 831,
+	INDI_BARRIER             = 832,
+	INDI_ACUMEN              = 833,
+	INDI_FEND                = 834,
+	INDI_PRECISION           = 835,
+	INDI_VOIDANCE            = 836,
+	INDI_FOCUS               = 837,
+	INDI_ATTUNEMENT          = 838,
+	INDI_WILT                = 839,
+	INDI_FRAILTY             = 840,
+	INDI_FADE                = 841,
+	INDI_MALAISE             = 842,
+	INDI_SLIP                = 843,
+	INDI_TOPOR               = 844,
+	INDI_VEX                 = 845,
+	INDI_LANGUOR             = 846,
+	INDI_SLOW                = 847,
+	INDI_PARALYSIS           = 848,
+	INDI_GRAVITY             = 849,
+    CUSTOM_EFFECT            = 850,
     -- PLACEHOLDER              = 802, -- Description
     -- 802-1022
     -- PLACEHOLDER             = 1023 -- The client dat file seems to have only this many "slots", results of exceeding that are untested.
@@ -1527,6 +1559,7 @@ dsp.mod =
     INVISIBLE_DURATION              = 947, -- Additional duration in seconds
 
     PARRY_BONUS                     = 948, -- Inquartata Parry Bonus
+    INDI_DURATION                   = 949,
 
     -- The spares take care of finding the next ID to use so long as we don't forget to list IDs that have been freed up by refactoring.
     -- 570 - 825 used by WS DMG mods these are not spares.
@@ -2392,6 +2425,7 @@ dsp.skill =
     WIND_INSTRUMENT = 42,
     BLUE_MAGIC = 43,
     GEOMANCY = 44,
+    BELL = 45,
 
     -- 45~47 unused
 
