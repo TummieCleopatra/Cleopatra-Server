@@ -1,6 +1,6 @@
 -----------------------------------
 --
---  dsp.effect.INDI_POISON
+--  dsp.effect.INDI_BARRIER
 --
 -----------------------------------
 
@@ -11,7 +11,7 @@ require("scripts/globals/status");
 -----------------------------------
 
 function onEffectGain(target,effect)
-
+	target:addMod(dsp.mod.DEFP, effect:getPower());
 end;
 
 -----------------------------------
@@ -19,23 +19,6 @@ end;
 -----------------------------------
 
 function onEffectTick(target,effect)
-    local boost = 1
-    if (target:getObjType() == dsp.objType.PET) then
-        boost = target:getLocalVar("potboost")
-    end
-	local nearbyTargets = target:getTargetsWithinArea(7, 8);
-    for i,member in ipairs(nearbyTargets) do
-
-
-	    if (member:getObjType() == dsp.objType.MOB) then
-
-		    local mob = member:getID();
-			GetMobByID(mob):updateEnmity(target);
-		    member:addStatusEffect(dsp.effect.POISON_II, effect:getPower() * boost, 0, 6);
-
-        end
-
-	end
 
 end;
 
@@ -44,5 +27,5 @@ end;
 -----------------------------------
 
 function onEffectLose(target,effect)
-
+	target:delMod(dsp.mod.DEFP, effect:getPower());
 end;

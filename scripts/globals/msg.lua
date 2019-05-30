@@ -199,6 +199,13 @@ dsp.msg.basic =
     PET_CANNOT_DO_ACTION   = 574, -- <player>'s pet is currently unable to perform that action.
     PET_NOT_ENOUGH_TP      = 575, -- <player>'s pet does not have enough TP to perform that action.
 
+    -- Luopans
+    EFFECT_ACTIVE_ON_LUOPAN       = 660, -- The same effect is already active on that luopan!
+    ALREADY_PLACED_LUOPAN         = 661, -- $(actor) has already placed a luopan.  Unable to use ability
+    REQUIRES_A_LUOPAN             = 662, -- This action requires a luopan
+    LUOPAN_CONSUMPTION_REDUCED    = 663, -- The Luopan's HP consumption rate has been reduced
+    LUOPAN_CONSUMPTION_INCREASED  = 664, -- The effects of the luopan and its HP consumption rate have increased
+
     -- Food
     IS_FULL                 = 246,  -- ${target} is full.
     CANNOT_EAT              = 247,  -- ${actor} can't eat the ${item}.

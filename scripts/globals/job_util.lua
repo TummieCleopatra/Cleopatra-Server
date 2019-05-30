@@ -635,6 +635,10 @@ function doGeoPotency(caster, target, spell)
 	-- Topor
 	-- Vex
 	-- Wilt
+
+    -- set default potency bonus for Ecliptic Attrition
+    pet:setLocalVar("potboost",1)
+
     return potency;
 end
 
