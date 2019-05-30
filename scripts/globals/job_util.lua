@@ -637,3 +637,4 @@ function doGeoPotency(caster, target, spell)
 	-- Wilt
     return potency;
 end
+

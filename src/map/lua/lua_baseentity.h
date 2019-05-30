@@ -181,6 +181,7 @@ public:
     int32 getEquipID(lua_State*);            // Gets the Item Id of the item in specified slot
     int32 hasItem(lua_State*);               // Check to see if Entity has item in inventory (hasItem(itemNumber))
     int32 addItem(lua_State*);               // Add item to Entity inventory (additem(itemNumber,quantity))
+    int32 addWeaponMezzotint(lua_State*);    // Sets Weapons to special Mezzotints that were added for New Dynamis
     int32 delItem(lua_State*);
     int32 addUsedItem(lua_State*);           // Add charged item with timer already on full cooldown
     int32 addTempItem(lua_State*);           // Add temp item to Entity Temp inventory

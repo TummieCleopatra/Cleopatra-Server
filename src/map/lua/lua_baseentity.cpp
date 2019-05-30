@@ -3405,6 +3405,73 @@ inline int32 CLuaBaseEntity::addItem(lua_State *L)
 }
 
 /************************************************************************
+*  Function: addWeaponMezzotint()
+*  Purpose : Adds special Mezzotint Weapons from 3rd Augment Table
+*  Example : player:addItem(4102,12) -- a stack of Light Crystals
+*  Notes   : See format and variable options below
+************************************************************************/
+
+inline int32 CLuaBaseEntity::addWeaponMezzotint(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+
+    bool silence = false;
+    uint16 itemID = (uint16)lua_tointeger(L, 1);
+    uint32 quantity = 1;
+    uint16 points = 0; uint8 blankval0 = 0;
+    uint16 mult = 0; uint8 type = 0;
+	uint8 rank = 0;  uint16 augment0 = 0;
+
+    if (!lua_isnil(L, 2) && lua_isboolean(L, 2))
+        silence = (uint32)lua_toboolean(L, 2);
+    if (!lua_isnil(L, 2) && lua_isnumber(L, 2))
+        quantity = (uint32)lua_tointeger(L, 2);
+
+    if (!lua_isnil(L, 3) && lua_isnumber(L, 3))
+        points = (uint16)lua_tointeger(L, 3);
+    if (!lua_isnil(L, 4) && lua_isnumber(L, 4))
+        type = (uint8)lua_tointeger(L, 4);
+    if (!lua_isnil(L, 5) && lua_isnumber(L, 5))
+        mult = (uint16)lua_tointeger(L, 5);
+    if (!lua_isnil(L, 6) && lua_isnumber(L, 6))
+        rank = (uint8)lua_tointeger(L, 6);
+    if (!lua_isnil(L, 7) && lua_isnumber(L, 7))
+        augment0 = (uint16)lua_tointeger(L, 7);
+
+
+    uint8 SlotID = ERROR_SLOTID;
+
+    CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
+
+    if (PChar->getStorage(LOC_INVENTORY)->GetFreeSlotsCount() != 0 && quantity != 0)
+    {
+        CItem* PItem = itemutils::GetItem(itemID);
+
+        if (PItem != nullptr)
+        {
+            PItem->setQuantity(quantity);
+
+            if (PItem->isType(ITEM_ARMOR))
+            {
+			    if (points != 0) ((CItemArmor*)PItem)->setMezzotintWeapons(0, (points * 4) + type, 0);
+			    if (mult >= 0) ((CItemArmor*)PItem)->setMezzotintWeapons(1, (mult * 4), rank);
+                if (augment0 != 0) ((CItemArmor*)PItem)->setMezzotintWeapons(2, augment0, 0);
+            }
+            SlotID = charutils::AddItem(PChar, LOC_INVENTORY, PItem, silence);
+        }
+        else
+        {
+            ShowWarning(CL_YELLOW"charplugin::AddItem: Item <%i> is not found in a database\n" CL_RESET, itemID);
+        }
+    }
+    lua_pushboolean(L, (SlotID != ERROR_SLOTID));
+    return 1;
+}
+
+/************************************************************************
 *  Function: delItem()
 *  Purpose : Deletes an item from a player's inventory
 *  Example : player:delItem(4102,12)
@@ -14494,6 +14561,7 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
 
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,hasItem),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,addItem),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,addWeaponMezzotint),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,delItem),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,addUsedItem),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,addTempItem),

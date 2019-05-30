@@ -2351,4 +2351,271 @@ INSERT INTO `augments` VALUES (2046, 0, 0, 0, 0, 0);
 
 INSERT INTO `augments` VALUES (2047, 0, 0, 0, 0, 0); -- ??? (it literally just says "???") - used by WotG scenario reward
 
--- Dump completed on 2017-03-02  0:17:46
+-- Augments below are only available on V1 mezzotints
+-- Format addItem(itemid, quantity, path, points, aug1, aug1val, aug2, aug2val, aug3, aug3val)
+INSERT INTO `augments` VALUES (2048, 0, 0, 0, 0, 0); -- "----------------" This is the etching pattern that is placed on items that are Rank 0
+INSERT INTO `augments` VALUES (2049, 0, 0, 0, 0, 0); -- HP+1
+INSERT INTO `augments` VALUES (2050, 0, 0, 0, 0, 0); -- HP+256
+INSERT INTO `augments` VALUES (2051, 0, 0, 0, 0, 0); -- MP+1
+INSERT INTO `augments` VALUES (2052, 0, 0, 0, 0, 0); -- MP+256
+INSERT INTO `augments` VALUES (2053, 0, 0, 0, 0, 0); -- Attack+1
+INSERT INTO `augments` VALUES (2054, 0, 0, 0, 0, 0); -- Attack+256
+INSERT INTO `augments` VALUES (2055, 0, 0, 0, 0, 0); -- Rng.Atk.+1
+INSERT INTO `augments` VALUES (2056, 0, 0, 0, 0, 0); -- Rng.Atk.+256
+INSERT INTO `augments` VALUES (2057, 0, 0, 0, 0, 0); -- Accuracy+1
+INSERT INTO `augments` VALUES (2058, 0, 0, 0, 0, 0); -- Accuracy+256
+INSERT INTO `augments` VALUES (2059, 0, 0, 0, 0, 0); -- Rng.Acc.+1
+INSERT INTO `augments` VALUES (2060, 0, 0, 0, 0, 0); -- Rng.Acc.+256
+INSERT INTO `augments` VALUES (2061, 0, 0, 0, 0, 0); -- DEF+1
+INSERT INTO `augments` VALUES (2062, 0, 0, 0, 0, 0); -- DEF+256
+INSERT INTO `augments` VALUES (2063, 0, 0, 0, 0, 0); -- Evasion+1
+INSERT INTO `augments` VALUES (2064, 0, 0, 0, 0, 0); -- Evasion+256
+INSERT INTO `augments` VALUES (2065, 0, 0, 0, 0, 0); -- Mag.Atk.Bns.+1
+INSERT INTO `augments` VALUES (2066, 0, 0, 0, 0, 0); -- Mag.Atk.Bns.+256
+INSERT INTO `augments` VALUES (2067, 0, 0, 0, 0, 0); -- Mag.Def.Bns.+1
+INSERT INTO `augments` VALUES (2068, 0, 0, 0, 0, 0); -- Mag.Def.Bns.+256
+INSERT INTO `augments` VALUES (2069, 0, 0, 0, 0, 0); -- Mag. Acc.+1
+INSERT INTO `augments` VALUES (2070, 0, 0, 0, 0, 0); -- Mag. Acc.+256
+INSERT INTO `augments` VALUES (2071, 0, 0, 0, 0, 0); -- Mag. Evasion+1
+INSERT INTO `augments` VALUES (2072, 0, 0, 0, 0, 0); -- Mag. Evasion+256
+INSERT INTO `augments` VALUES (2073, 0, 0, 0, 0, 0); -- DMG:+1
+INSERT INTO `augments` VALUES (2074, 0, 0, 0, 0, 0); -- DMG:+256
+
+-- 28 to 113 currently unused. Shows ???. Leave at zero.
+INSERT INTO `augments` VALUES (2075, 0, 0, 0, 0, 0);		
+INSERT INTO `augments` VALUES (2076, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2077, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2078, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2079, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2080, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2081, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2082, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2083, 0, 0, 0, 0, 0);		
+INSERT INTO `augments` VALUES (2084, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2085, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2086, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2087, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2088, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2089, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2090, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2091, 0, 0, 0, 0, 0);		
+INSERT INTO `augments` VALUES (2092, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2093, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2094, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2095, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2096, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2097, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2098, 0, 0, 0, 0, 0);				
+INSERT INTO `augments` VALUES (2099, 0, 0, 0, 0, 0);		
+INSERT INTO `augments` VALUES (2100, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2101, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2102, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2103, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2104, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2105, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2106, 0, 0, 0, 0, 0);	
+INSERT INTO `augments` VALUES (2107, 0, 0, 0, 0, 0);		
+INSERT INTO `augments` VALUES (2108, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2109, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2110, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2111, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2112, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2113, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2114, 0, 0, 0, 0, 0);	
+INSERT INTO `augments` VALUES (2115, 0, 0, 0, 0, 0);		
+INSERT INTO `augments` VALUES (2116, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2117, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2118, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2119, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2120, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2121, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2122, 0, 0, 0, 0, 0);	
+INSERT INTO `augments` VALUES (2123, 0, 0, 0, 0, 0);		
+INSERT INTO `augments` VALUES (2124, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2125, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2126, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2127, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2128, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2129, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2130, 0, 0, 0, 0, 0);	
+INSERT INTO `augments` VALUES (2131, 0, 0, 0, 0, 0);		
+INSERT INTO `augments` VALUES (2132, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2133, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2134, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2135, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2136, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2137, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2138, 0, 0, 0, 0, 0);	
+INSERT INTO `augments` VALUES (2139, 0, 0, 0, 0, 0);		
+INSERT INTO `augments` VALUES (2140, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2141, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2142, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2143, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2144, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2145, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2146, 0, 0, 0, 0, 0);	
+INSERT INTO `augments` VALUES (2147, 0, 0, 0, 0, 0);		
+INSERT INTO `augments` VALUES (2148, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2149, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2150, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2151, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2152, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2153, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2154, 0, 0, 0, 0, 0);	
+INSERT INTO `augments` VALUES (2155, 0, 0, 0, 0, 0);		
+INSERT INTO `augments` VALUES (2156, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2157, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2158, 0, 0, 0, 0, 0);			
+INSERT INTO `augments` VALUES (2159, 0, 0, 0, 0, 0);					
+INSERT INTO `augments` VALUES (2160, 0, 0, 0, 0, 0);
+-- End unused block
+		
+INSERT INTO `augments` VALUES (2161, 0, 0, 0, 0, 0); -- Weapon skill damage+1
+INSERT INTO `augments` VALUES (2162, 0, 0, 0, 0, 0); -- Magic damage+1
+INSERT INTO `augments` VALUES (2163, 0, 0, 0, 0, 0); -- Blood Pact Dmg.+1
+INSERT INTO `augments` VALUES (2164, 0, 0, 0, 0, 0); -- Avatar perpetuation cost+1
+INSERT INTO `augments` VALUES (2165, 0, 0, 0, 0, 0); -- Blood Pact" ability delay+1
+INSERT INTO `augments` VALUES (2166, 0, 0, 0, 0, 0); -- Haste+1
+INSERT INTO `augments` VALUES (2167, 0, 0, 0, 0, 0); -- Enmity+1
+INSERT INTO `augments` VALUES (2168, 0, 0, 0, 0, 0); -- Enmity+1
+INSERT INTO `augments` VALUES (2169, 0, 0, 0, 0, 0); -- Crit. hit rate+1
+INSERT INTO `augments` VALUES (2170, 0, 0, 0, 0, 0); -- Cure spellcasting time+1
+INSERT INTO `augments` VALUES (2171, 0, 0, 0, 0, 0); -- Cure potency+1
+INSERT INTO `augments` VALUES (2172, 0, 0, 0, 0, 0); -- Refresh+1
+INSERT INTO `augments` VALUES (2173, 0, 0, 0, 0, 0); -- Spell interruption rate down+1
+INSERT INTO `augments` VALUES (2174, 0, 0, 0, 0, 0); -- Potency of "Cure" effect received+1
+INSERT INTO `augments` VALUES (2175, 0, 0, 0, 0, 0); -- Pet: "Mag.Atk.Bns.+1
+INSERT INTO `augments` VALUES (2176, 0, 0, 0, 0, 0); -- Pet: Mag. Acc.+1
+INSERT INTO `augments` VALUES (2177, 0, 0, 0, 0, 0); -- Pet: Attack+1
+INSERT INTO `augments` VALUES (2178, 0, 0, 0, 0, 0); -- Pet: Accuracy+1
+INSERT INTO `augments` VALUES (2179, 0, 0, 0, 0, 0); -- Pet: Enmity+1
+INSERT INTO `augments` VALUES (2180, 0, 0, 0, 0, 0); -- Pet: Enmity+1
+INSERT INTO `augments` VALUES (2181, 0, 0, 0, 0, 0); -- Pet: HP+1
+INSERT INTO `augments` VALUES (2182, 0, 0, 0, 0, 0); -- Pet: MP+1
+INSERT INTO `augments` VALUES (2183, 0, 0, 0, 0, 0); -- Pet: STR+1
+INSERT INTO `augments` VALUES (2184, 0, 0, 0, 0, 0); -- Pet: DEX+1
+INSERT INTO `augments` VALUES (2185, 0, 0, 0, 0, 0); -- Pet: VIT+1
+INSERT INTO `augments` VALUES (2186, 0, 0, 0, 0, 0); -- Pet: AGI+1
+INSERT INTO `augments` VALUES (2187, 0, 0, 0, 0, 0); -- Pet: INT+1
+INSERT INTO `augments` VALUES (2188, 0, 0, 0, 0, 0); -- Pet: MND+1
+INSERT INTO `augments` VALUES (2189, 0, 0, 0, 0, 0); -- Pet: CHR+1
+INSERT INTO `augments` VALUES (2190, 0, 0, 0, 0, 0); -- 144 currently unused. Leave at zero.     
+INSERT INTO `augments` VALUES (2191, 0, 0, 0, 0, 0); -- 145 currently unused. Leave at zero.
+INSERT INTO `augments` VALUES (2192, 0, 0, 0, 0, 0); -- 146 currently unused. Leave at zero.
+INSERT INTO `augments` VALUES (2193, 0, 0, 0, 0, 0); -- 147 currently unused. Leave at zero.
+INSERT INTO `augments` VALUES (2194, 0, 0, 0, 0, 0); -- 148 currently unused. Leave at zero.
+INSERT INTO `augments` VALUES (2195, 0, 0, 0, 0, 0); -- 149 currently unused. Leave at zero.
+INSERT INTO `augments` VALUES (2196, 0, 0, 0, 0, 0); -- 150 currently unused. Leave at zero.
+INSERT INTO `augments` VALUES (2197, 0, 0, 0, 0, 0); -- 151 currently unused. Leave at zero.
+INSERT INTO `augments` VALUES (2198, 0, 0, 0, 0, 0); -- 152 currently unused. Leave at zero.		   
+INSERT INTO `augments` VALUES (2199, 0, 0, 0, 0, 0); -- Pet: "Dbl. Atk.+1
+INSERT INTO `augments` VALUES (2200, 0, 0, 0, 0, 0); -- Pet: Damage taken+1
+INSERT INTO `augments` VALUES (2201, 0, 0, 0, 0, 0); -- Pet: "Regen+1
+INSERT INTO `augments` VALUES (2202, 0, 0, 0, 0, 0); -- Pet: Haste+1
+INSERT INTO `augments` VALUES (2203, 0, 0, 0, 0, 0); -- Automaton: "Cure" potency+1
+INSERT INTO `augments` VALUES (2204, 0, 0, 0, 0, 0); -- Automaton: "Fast Cast+1
+INSERT INTO `augments` VALUES (2205, 0, 0, 0, 0, 0); -- 158 currently unused. Leave at zero.     
+INSERT INTO `augments` VALUES (2206, 0, 0, 0, 0, 0); -- 159 currently unused. Leave at zero.
+INSERT INTO `augments` VALUES (2207, 0, 0, 0, 0, 0); -- 160 currently unused. Leave at zero.   
+INSERT INTO `augments` VALUES (2208, 0, 0, 0, 0, 0); -- 161 currently unused. Leave at zero.   
+INSERT INTO `augments` VALUES (2209, 0, 0, 0, 0, 0); -- 162 currently unused. Leave at zero.   
+INSERT INTO `augments` VALUES (2210, 0, 0, 0, 0, 0); -- 163 currently unused. Leave at zero.   
+INSERT INTO `augments` VALUES (2211, 0, 0, 0, 0, 0); -- 164 currently unused. Leave at zero.   
+INSERT INTO `augments` VALUES (2212, 0, 0, 0, 0, 0); -- 165 currently unused. Leave at zero.   
+INSERT INTO `augments` VALUES (2213, 0, 0, 0, 0, 0); -- 166 currently unused. Leave at zero.   
+INSERT INTO `augments` VALUES (2214, 0, 0, 0, 0, 0); -- 167 currently unused. Leave at zero.   
+INSERT INTO `augments` VALUES (2215, 0, 0, 0, 0, 0); -- 168 currently unused. Leave at zero.   
+INSERT INTO `augments` VALUES (2216, 0, 0, 0, 0, 0); -- 169 currently unused. Leave at zero.   
+INSERT INTO `augments` VALUES (2217, 0, 0, 0, 0, 0); -- 170 currently unused. Leave at zero.   
+INSERT INTO `augments` VALUES (2218, 0, 0, 0, 0, 0); -- Dual Wield+1
+INSERT INTO `augments` VALUES (2219, 0, 0, 0, 0, 0); -- Damage Taken+1
+INSERT INTO `augments` VALUES (2220, 0, 0, 0, 0, 0); -- All songs+1
+INSERT INTO `augments` VALUES (2221, 0, 0, 0, 0, 0); -- 174 currently unused. Leave at zero.   
+INSERT INTO `augments` VALUES (2222, 0, 0, 0, 0, 0); -- 175 currently unused. Leave at zero.
+INSERT INTO `augments` VALUES (2223, 0, 0, 0, 0, 0); -- 176 currently unused. Leave at zero.	 
+INSERT INTO `augments` VALUES (2224, 0, 0, 0, 0, 0); -- Conserve MP+1
+INSERT INTO `augments` VALUES (2225, 0, 0, 0, 0, 0); -- Counter+1
+INSERT INTO `augments` VALUES (2226, 0, 0, 0, 0, 0); -- Triple Atk.+1
+INSERT INTO `augments` VALUES (2227, 0, 0, 0, 0, 0); -- Fast Cast+1
+INSERT INTO `augments` VALUES (2228, 0, 0, 0, 0, 0); -- Blood Boon+1
+INSERT INTO `augments` VALUES (2229, 0, 0, 0, 0, 0); -- Subtle Blow+1
+INSERT INTO `augments` VALUES (2230, 0, 0, 0, 0, 0); -- Rapid Shot+1
+INSERT INTO `augments` VALUES (2231, 0, 0, 0, 0, 0); -- Recycle+1
+INSERT INTO `augments` VALUES (2232, 0, 0, 0, 0, 0); -- Store TP+1
+INSERT INTO `augments` VALUES (2233, 0, 0, 0, 0, 0); -- Dbl.Atk.+1
+INSERT INTO `augments` VALUES (2234, 0, 0, 0, 0, 0); -- Snapshot+1
+INSERT INTO `augments` VALUES (2235, 0, 0, 0, 0, 0); -- Phys. dmg. taken +1
+INSERT INTO `augments` VALUES (2236, 0, 0, 0, 0, 0); -- Magic dmg. taken +1
+INSERT INTO `augments` VALUES (2237, 0, 0, 0, 0, 0); -- Breath dmg. taken +1
+INSERT INTO `augments` VALUES (2238, 0, 0, 0, 0, 0); -- STR+1
+INSERT INTO `augments` VALUES (2239, 0, 0, 0, 0, 0); -- DEX+1
+INSERT INTO `augments` VALUES (2240, 0, 0, 0, 0, 0); -- VIT+1
+INSERT INTO `augments` VALUES (2241, 0, 0, 0, 0, 0); -- AGI+1
+INSERT INTO `augments` VALUES (2242, 0, 0, 0, 0, 0); -- INT+1
+INSERT INTO `augments` VALUES (2243, 0, 0, 0, 0, 0); -- MND+1
+INSERT INTO `augments` VALUES (2244, 0, 0, 0, 0, 0); -- CHR+1
+INSERT INTO `augments` VALUES (2245, 0, 0, 0, 0, 0); -- currently unused. Leave at zero.
+INSERT INTO `augments` VALUES (2246, 0, 0, 0, 0, 0); -- currently unused. Leave at zero.
+INSERT INTO `augments` VALUES (2247, 0, 0, 0, 0, 0); -- currently unused. Leave at zero.
+INSERT INTO `augments` VALUES (2248, 0, 0, 0, 0, 0); -- currently unused. Leave at zero.
+INSERT INTO `augments` VALUES (2249, 0, 0, 0, 0, 0); -- currently unused. Leave at zero.
+INSERT INTO `augments` VALUES (2250, 0, 0, 0, 0, 0); -- currently unused. Leave at zero.
+INSERT INTO `augments` VALUES (2251, 0, 0, 0, 0, 0); -- currently unused. Leave at zero.
+INSERT INTO `augments` VALUES (2252, 0, 0, 0, 0, 0); -- currently unused. Leave at zero.
+INSERT INTO `augments` VALUES (2253, 0, 0, 0, 0, 0); -- STR+1,DEX+1,VIT+1,AGI+1,INT+1,MND+1,CHR+1
+INSERT INTO `augments` VALUES (2254, 0, 0, 0, 0, 0); -- currently unused. Leave at zero.
+INSERT INTO `augments` VALUES (2255, 0, 0, 0, 0, 0); -- Hand-to-Hand skill +1
+INSERT INTO `augments` VALUES (2256, 0, 0, 0, 0, 0); -- Dagger skill +1
+INSERT INTO `augments` VALUES (2257, 0, 0, 0, 0, 0); -- Sword skill+1
+INSERT INTO `augments` VALUES (2258, 0, 0, 0, 0, 0); -- Great Sword skill+1
+INSERT INTO `augments` VALUES (2259, 0, 0, 0, 0, 0); -- Axe skill+1
+INSERT INTO `augments` VALUES (2260, 0, 0, 0, 0, 0); -- Great Axe skill+1
+INSERT INTO `augments` VALUES (2261, 0, 0, 0, 0, 0); -- Scythe skill+1
+INSERT INTO `augments` VALUES (2262, 0, 0, 0, 0, 0); -- Polearm skill+1
+INSERT INTO `augments` VALUES (2263, 0, 0, 0, 0, 0); -- Katana skill+1
+INSERT INTO `augments` VALUES (2264, 0, 0, 0, 0, 0); -- Great Katana skill+1
+INSERT INTO `augments` VALUES (2265, 0, 0, 0, 0, 0); -- Club skill+1
+INSERT INTO `augments` VALUES (2266, 0, 0, 0, 0, 0); -- Staff skill+1
+INSERT INTO `augments` VALUES (2267, 0, 0, 0, 0, 0); -- 269
+INSERT INTO `augments` VALUES (2268, 0, 0, 0, 0, 0); -- 270
+INSERT INTO `augments` VALUES (2269, 0, 0, 0, 0, 0); -- 271
+INSERT INTO `augments` VALUES (2270, 0, 0, 0, 0, 0); -- 272
+INSERT INTO `augments` VALUES (2271, 0, 0, 0, 0, 0); -- 273
+INSERT INTO `augments` VALUES (2272, 0, 0, 0, 0, 0); -- 274
+INSERT INTO `augments` VALUES (2273, 0, 0, 0, 0, 0); -- 275
+INSERT INTO `augments` VALUES (2274, 0, 0, 0, 0, 0); -- 276
+INSERT INTO `augments` VALUES (2275, 0, 0, 0, 0, 0); -- 277
+INSERT INTO `augments` VALUES (2276, 0, 0, 0, 0, 0); -- Melee skill+1 -- Automaton
+INSERT INTO `augments` VALUES (2277, 0, 0, 0, 0, 0); -- Ranged skill+1 -- Automaton
+INSERT INTO `augments` VALUES (2278, 0, 0, 0, 0, 0); -- Magic skill+1 -- Automaton
+INSERT INTO `augments` VALUES (2279, 0, 0, 0, 0, 0); -- Archery skill+1
+INSERT INTO `augments` VALUES (2280, 0, 0, 0, 0, 0); -- Marksmanship skill+1
+INSERT INTO `augments` VALUES (2281, 0, 0, 0, 0, 0); -- Throwing skill+1
+INSERT INTO `augments` VALUES (2282, 0, 0, 0, 0, 0); -- 284
+INSERT INTO `augments` VALUES (2283, 0, 0, 0, 0, 0); -- 285
+INSERT INTO `augments` VALUES (2284, 0, 0, 0, 0, 0); -- Shield skill+1
+INSERT INTO `augments` VALUES (2285, 0, 0, 0, 0, 0); -- 287
+INSERT INTO `augments` VALUES (2286, 0, 0, 0, 0, 0); -- Divine magic skill+1
+INSERT INTO `augments` VALUES (2287, 0, 0, 0, 0, 0); -- Healing magic skill+1
+INSERT INTO `augments` VALUES (2288, 0, 0, 0, 0, 0); -- Enha.mag. skill+1
+INSERT INTO `augments` VALUES (2289, 0, 0, 0, 0, 0); -- Enfb.mag. skill+1
+INSERT INTO `augments` VALUES (2290, 0, 0, 0, 0, 0); -- Elem. magic skill+1
+INSERT INTO `augments` VALUES (2291, 0, 0, 0, 0, 0); -- Dark magic skill+1
+INSERT INTO `augments` VALUES (2292, 0, 0, 0, 0, 0); -- Summoning magic skill+1
+INSERT INTO `augments` VALUES (2293, 0, 0, 0, 0, 0); -- Ninjutsu skill+1
+INSERT INTO `augments` VALUES (2294, 0, 0, 0, 0, 0); -- Singing skill+1
+INSERT INTO `augments` VALUES (2295, 0, 0, 0, 0, 0); -- String instrument skill+1
+INSERT INTO `augments` VALUES (2296, 0, 0, 0, 0, 0); -- Wind instrument skill+1
+INSERT INTO `augments` VALUES (2297, 0, 0, 0, 0, 0); -- Blue Magic skill+1
+INSERT INTO `augments` VALUES (2298, 0, 0, 0, 0, 0); -- Geomancy Skill+1
+INSERT INTO `augments` VALUES (2299, 0, 0, 0, 0, 0); -- Handbell Skill+1
+INSERT INTO `augments` VALUES (2300, 0, 0, 0, 0, 0); -- 302
+INSERT INTO `augments` VALUES (2301, 0, 0, 0, 0, 0); -- 303
+
+-- Augments below are only available on V2 mezzotints
+-- Format addItemMezzotintWeapon(itemid, quantity, points, path, rank, 0, augment)
+-- Augment values are static for these and are dirctly tied to the rank as the multplier
+-- There are a lot of duplicates for some reason
+INSERT INTO `augments` VALUES (2501, 0, 0, 0, 0, 0); -- Dex Agi/  ?? / Subtle Blow
+INSERT INTO `augments` VALUES (2502, 0, 0, 0, 0, 0); -- INT MND + x / Enmity - x / Fast Cast + x%
+INSERT INTO `augments` VALUES (2503, 0, 0, 0, 0, 0); -- INT MND + x / Magic Burst Damage / Magic Burst Acc
