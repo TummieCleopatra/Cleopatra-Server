@@ -87,8 +87,9 @@ public:
 	int32	 getCustomOffset();
 
 	void	 setCustomOffset(int32 offset);
-	
+
 	time_point   lastConquestUpdate;
+    time_point   lastCampaignUpdate;
     time_point   lastVHourlyUpdate;
     time_point   lastVDailyUpdate;
     time_point   lastConquestTally;

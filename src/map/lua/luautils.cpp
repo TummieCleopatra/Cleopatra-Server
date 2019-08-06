@@ -44,6 +44,7 @@
 #include "../utils/battleutils.h"
 #include "../entities/charentity.h"
 #include "../conquest_system.h"
+#include "../campaign_system.h"
 #include "../map.h"
 #include "../mobskill.h"
 #include "../party.h"
@@ -3728,11 +3729,30 @@ namespace luautils
         CLuaZone LuaZone(PZone);
         Lunar<CLuaZone>::push(LuaHandle, &LuaZone);
 
-        lua_pushinteger(LuaHandle, type);
-
         if (lua_pcall(LuaHandle, 2, 0, 0))
         {
             ShowError("luautils::onConquestUpdate: %s\n", lua_tostring(LuaHandle, -1));
+            lua_pop(LuaHandle, 1);
+            return -1;
+        }
+
+        return 0;
+    }
+
+    int32 OnCampaignUpdate(CZone* PZone)
+    {
+        lua_prepscript("scripts/zones/%s/Zone.lua", PZone->GetName());
+
+        if (prepFile(File, "onCampaignUpdate"))
+        {
+            return -1;
+        }
+        CLuaZone LuaZone(PZone);
+        Lunar<CLuaZone>::push(LuaHandle, &LuaZone);
+
+        if (lua_pcall(LuaHandle, 1, 0, 0))
+        {
+            ShowError("luautils::onCampaignUpdate %s\n", lua_tostring(LuaHandle, -1));
             lua_pop(LuaHandle, 1);
             return -1;
         }

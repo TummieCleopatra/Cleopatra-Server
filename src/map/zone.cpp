@@ -147,6 +147,11 @@ CZone::CZone(ZONEID ZoneID, REGIONTYPE RegionID, CONTINENTTYPE ContinentID)
     m_navMesh = nullptr;
     m_zoneEntities = new CZoneEntities(this);
 
+    if (m_zoneID == 48)
+    {
+        createZoneTimer(); //This allows mobs to roam and act without a player in the zone
+    }
+
     // settings should load first
     LoadZoneSettings();
 

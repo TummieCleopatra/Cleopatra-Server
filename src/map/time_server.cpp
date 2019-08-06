@@ -31,6 +31,7 @@
 #include "vana_time.h"
 #include "utils/zoneutils.h"
 #include "conquest_system.h"
+#include "campaign_system.h"
 #include "lua/luautils.h"
 #include "entities/charentity.h"
 #include "latent_effect_container.h"
@@ -57,6 +58,29 @@ int32 time_server(time_point tick,CTaskMgr::CTask* PTask)
         {
             conquest::UpdateConquestSystem();
             CVanaTime::getInstance()->lastConquestUpdate = tick;
+        }
+    }
+    // 6 min Campaign Update
+    /*
+    else if (CVanaTime::getInstance()->getSysMinute() == 3 || CVanaTime::getInstance()->getSysMinute() == 9 || CVanaTime::getInstance()->getSysMinute() == 15 ||
+    CVanaTime::getInstance()->getSysMinute() == 21 || CVanaTime::getInstance()->getSysMinute() == 27 || CVanaTime::getInstance()->getSysMinute() == 33 ||
+    CVanaTime::getInstance()->getSysMinute() == 39 || CVanaTime::getInstance()->getSysMinute() == 45 || CVanaTime::getInstance()->getSysMinute() == 51 ||
+    CVanaTime::getInstance()->getSysMinute() == 57)
+    {*/
+    else if (CVanaTime::getInstance()->getSysMinute() == 3 || CVanaTime::getInstance()->getSysMinute() == 6 || CVanaTime::getInstance()->getSysMinute() == 9 ||
+    CVanaTime::getInstance()->getSysMinute() == 12 || CVanaTime::getInstance()->getSysMinute() == 15 || CVanaTime::getInstance()->getSysMinute() == 18 ||
+    CVanaTime::getInstance()->getSysMinute() == 21 || CVanaTime::getInstance()->getSysMinute() == 24 || CVanaTime::getInstance()->getSysMinute() == 27 ||
+    CVanaTime::getInstance()->getSysMinute() == 30 || CVanaTime::getInstance()->getSysMinute() == 33 || CVanaTime::getInstance()->getSysMinute() == 36 ||
+    CVanaTime::getInstance()->getSysMinute() == 39 || CVanaTime::getInstance()->getSysMinute() == 42 || CVanaTime::getInstance()->getSysMinute() == 45 ||
+    CVanaTime::getInstance()->getSysMinute() == 48 || CVanaTime::getInstance()->getSysMinute() == 51 || CVanaTime::getInstance()->getSysMinute() == 54 ||
+    CVanaTime::getInstance()->getSysMinute() == 57 || CVanaTime::getInstance()->getSysMinute() == 59 || CVanaTime::getInstance()->getSysMinute() == 01)
+    {
+        if (tick > (CVanaTime::getInstance()->lastCampaignUpdate + 2min))
+        {
+            ShowDebug(CL_CYAN"Besiege/Campaign Update \n" CL_RESET);
+            conquest::UpdateBesiegeMap();
+            campaign::UpdateCampaignSystem();
+            CVanaTime::getInstance()->lastCampaignUpdate = tick;
         }
     }
 
@@ -128,7 +152,7 @@ int32 time_server(time_point tick,CTaskMgr::CTask* PTask)
 
     CTriggerHandler::getInstance()->triggerTimer();
     CTransportHandler::getInstance()->TransportTimer();
-    
+
 	instanceutils::CheckInstance();
     return 0;
 }

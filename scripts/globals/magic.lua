@@ -4,6 +4,7 @@ require("scripts/globals/weather");
 require("scripts/globals/status");
 require("scripts/globals/utils");
 require("scripts/globals/msg");
+require("scripts/globals/besieged_points");
 ------------------------------------
 
 dsp = dsp or {};
@@ -301,6 +302,9 @@ function getCureFinal(caster, spell, basecure, minCure, isBlueMagic)
     end
 
     local final = math.floor(math.floor(math.floor(math.floor(basecure) * potency) * dayWeatherBonus) * rapture) * dSeal;
+    if (caster:getObjType() == dsp.objType.PC and caster:hasStatusEffect(dsp.effect.BESIEGED)) then
+        curePoints(caster,final)
+    end
     return final;
 end;
 
@@ -1131,16 +1135,16 @@ function doElementalNuke(caster, spell, target, spellParams)
         local I = spellParams.I; -- Inflection point
         local cap = I * 2 + V; -- Base damage soft cap
 
-        if dINT < 0 then 
+        if dINT < 0 then
             -- If dINT is a negative value the tier multiplier is always 1
             DMG = V + dINT;
 
             -- Check/ set lower limit of 0 damage for negative dINT
             if DMG < 1 then
                 return 0;
-            end			
+            end
 
-        elseif dINT < I then 
+        elseif dINT < I then
              -- If dINT > 0 but below inflection point I
             DMG = V + dINT * M;
 
@@ -1151,8 +1155,8 @@ function doElementalNuke(caster, spell, target, spellParams)
 
         -- Check/ set damage soft cap
         if DMG > cap then
-            DMG = cap; 
-        end	
+            DMG = cap;
+        end
 
     else
         local hasMultipleTargetReduction = spellParams.hasMultipleTargetReduction; --still unused!!!
@@ -1214,6 +1218,9 @@ function doElementalNuke(caster, spell, target, spellParams)
 
     --add in final adjustments
     DMG = finalMagicAdjustments(caster, target, spell, DMG);
+	if (caster:getObjType() == dsp.objType.PC and caster:hasStatusEffect(dsp.effect.BESIEGED)) then
+        nukePoints(caster,DMG)
+    end
 
     return DMG;
 end

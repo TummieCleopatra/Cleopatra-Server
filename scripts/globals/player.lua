@@ -148,8 +148,34 @@ function onGameIn(player, firstLogin, zoning)
         if firstLogin then
             CharCreate(player)
         end
+
+        --[[
+        local jpmid = getMidnight()
+        local loginday = player:getVar("loginDay")
+        printf("Midnight is %u",jpmid)
+        if (loginday < jpmid) then
+            printf("GIFT TRIGGERED!!!!!")
+            player:addStatusEffect(dsp.effect.CUSTOM_EFFECT,0,3,12)
+        end --]]
+        -- Check for Besieged if player is logging into the zone
+        local undead = GetServerVariable("[BESIEGED]Undead_Swarm_Status");
+        if (undead == 3) then
+            -- apply besieged effect
+            player:addStatusEffect(dsp.effect.BESIEGED,0,3,3600);
+        end
+
+
+
     else
         -- things checked ONLY during zone in go here
+        local prevZone = player:getPreviousZone()
+        if (prevZone == 48) then
+            player:delStatusEffect(dsp.effect.BESIEGED)
+        end
+
+        if (player:getZone() == 48) then
+            player:addStatusEffect(dsp.effect.BESIEGED,0,3,3600)
+        end
     end
 
     -- apply mods from gearsets (scripts/globals/gear_sets.lua)

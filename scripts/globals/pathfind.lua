@@ -14,7 +14,7 @@ dsp.path =
         WALLHACK = 2,
         REVERSE  = 4,
     },
-    
+
     -- returns the point at the given index
     get = function(points, index)
         local pos = {}
@@ -66,6 +66,31 @@ dsp.path =
         local count = 1
         local pos = start + 1
         local index = 1
+
+        while pos <= length and count <= maxLength do
+            local pt = dsp.path.get(points, pos)
+
+            t2[index] = pt[1]
+            t2[index+1] = pt[2]
+            t2[index+2] = pt[3]
+
+            pos = pos + 1
+            count = count + 1
+            index = index + 3
+        end
+
+        return t2
+    end,
+
+    -- returns the start path from the Last Index
+    fromLast = function(points, last)
+
+        local t2 = {}
+        local maxLength = 50
+        local length = dsp.path.length(points)
+        local count = 1
+        local pos = last + 1
+        local index = last
 
         while pos <= length and count <= maxLength do
             local pt = dsp.path.get(points, pos)

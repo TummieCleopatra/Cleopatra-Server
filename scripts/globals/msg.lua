@@ -205,7 +205,7 @@ dsp.msg.basic =
     REQUIRES_A_LUOPAN             = 662, -- This action requires a luopan
     LUOPAN_CONSUMPTION_REDUCED    = 663, -- The Luopan's HP consumption rate has been reduced
     LUOPAN_CONSUMPTION_INCREASED  = 664, -- The effects of the luopan and its HP consumption rate have increased
-
+    LUOPAN_HAS_PET                = 665, -- The effects of the luopan and its HP consumption rate have increased
     -- Food
     IS_FULL                 = 246,  -- ${target} is full.
     CANNOT_EAT              = 247,  -- ${actor} can't eat the ${item}.

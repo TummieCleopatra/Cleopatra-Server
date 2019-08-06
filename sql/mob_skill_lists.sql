@@ -685,7 +685,13 @@ INSERT INTO `mob_skill_lists` VALUES ('Asterion_0',156,499); -- back_swish
 INSERT INTO `mob_skill_lists` VALUES ('Asterion_0',156,500); -- mow
 INSERT INTO `mob_skill_lists` VALUES ('Asterion_0',156,501); -- frightful_roar
 INSERT INTO `mob_skill_lists` VALUES ('Asterion_0',156,502); -- mortal_ray
--- 157 to 163: free
+
+INSERT INTO `mob_skill_lists` VALUES ('Gadalar',157,2135);
+INSERT INTO `mob_skill_lists` VALUES ('Mihli',158,2138);
+INSERT INTO `mob_skill_lists` VALUES ('Najelith',159,2136);
+INSERT INTO `mob_skill_lists` VALUES ('Rughadjeen',160,2134);
+INSERT INTO `mob_skill_lists` VALUES ('Zazarg',161,2137);
+-- 162 to 163: free
 INSERT INTO `mob_skill_lists` VALUES ('Hydra',164,1828);
 INSERT INTO `mob_skill_lists` VALUES ('Hydra',164,1829);
 INSERT INTO `mob_skill_lists` VALUES ('Hydra',164,1830);
@@ -2111,7 +2117,9 @@ INSERT INTO `mob_skill_lists` VALUES ('Gallu',467,2790);
 INSERT INTO `mob_skill_lists` VALUES ('Umbril',468,2970);
 INSERT INTO `mob_skill_lists` VALUES ('Umbril',468,2971);
 INSERT INTO `mob_skill_lists` VALUES ('Umbril',468,2972);
--- 469: free
+-- INSERT INTO `mob_skill_lists` VALUES ('Luopan',469,3045);
+-- INSERT INTO `mob_skill_lists` VALUES ('Luopan',469,3051);
+-- INSERT INTO `mob_skill_lists` VALUES ('Luopan',469,3052);
 INSERT INTO `mob_skill_lists` VALUES ('Yilbegan',470,2519);
 INSERT INTO `mob_skill_lists` VALUES ('Yilbegan',470,2520);
 INSERT INTO `mob_skill_lists` VALUES ('Yilbegan',470,2521);
