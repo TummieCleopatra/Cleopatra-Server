@@ -7,18 +7,30 @@ mixins = {require("scripts/mixins/rage")}
 require("scripts/globals/settings")
 require("scripts/globals/status")
 require("scripts/globals/titles")
+require("scripts/globals/mobscaler");
 -----------------------------------
 
 function onMobSpawn(mob)
     if LandKingSystem_NQ > 0 or LandKingSystem_HQ > 0 then
         GetNPCByID(ID.npc.ADAMANTOISE_QM):setStatus(dsp.status.DISAPPEAR)
     end
-
+    mob:setLocalVar("PartySize",5);
     mob:setLocalVar("[rage]timer", 3600) -- 60 minutes
+end
+
+function onMobFight(mob, target)
+    mobScaler(mob,target);
+    local mobId = mob:getID();
+    if (GetMobAction(mobId) ~= dsp.act.ATTACK) then
+	    mob:setLocalVar("depopTime", os.time());
+    end
 end
 
 function onMobDeath(mob, player, isKiller)
     player:addTitle(dsp.title.ASPIDOCHELONE_SINKER)
+	player:setVar("Aspi_Win",1);
+	player:addCurrency('prestige', 250);
+	player:PrintToPlayer("You obtain 250 Prestige Points!", 0xD);
 end
 
 function onMobDespawn(mob)

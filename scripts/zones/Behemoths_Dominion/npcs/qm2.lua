@@ -17,11 +17,12 @@ function onSpawn(npc)
 end
 
 function onTrade(player,npc,trade)
+    local paragon = player:getVar("Kupo_Paragon");
     if not GetMobByID(ID.mob.BEHEMOTH):isSpawned() and not GetMobByID(ID.mob.KING_BEHEMOTH):isSpawned() then
-        if LandKingSystem_NQ ~= 0 and npcUtil.tradeHas(trade, 3341) and npcUtil.popFromQM(player, npc, ID.mob.BEHEMOTH) then
+        if LandKingSystem_NQ ~= 0 and npcUtil.tradeHas(trade, 3341) and npcUtil.popFromQM(player, npc, ID.mob.BEHEMOTH) and paragon == 1 then
             player:confirmTrade()
-        elseif LandKingSystem_HQ ~= 0 and npcUtil.tradeHas(trade, 3342) and npcUtil.popFromQM(player, npc, ID.mob.KING_BEHEMOTH) then
-            player:confirmTrade()        
+        elseif LandKingSystem_HQ ~= 0 and npcUtil.tradeHas(trade, 3342) and npcUtil.popFromQM(player, npc, ID.mob.KING_BEHEMOTH) and paragon == 1 then
+            player:confirmTrade()
         end
     end
 end

@@ -7,17 +7,19 @@ mixins = {require("scripts/mixins/rage")}
 require("scripts/globals/settings")
 require("scripts/globals/status")
 require("scripts/globals/titles")
+require("scripts/globals/mobscaler");
 -----------------------------------
 
 function onMobSpawn(mob)
     if LandKingSystem_NQ > 0 or LandKingSystem_HQ > 0 then
         GetNPCByID(ID.npc.FAFNIR_QM):setStatus(dsp.status.DISAPPEAR)
     end
-
+    mob:setLocalVar("PartySize",11);
     mob:setLocalVar("[rage]timer", 3600) -- 60 minutes
 end
 
 function onMobFight(mob, target)
+    mobScaler(mob,target);
     local battletime = mob:getBattleTime()
     local twohourTime = mob:getLocalVar("twohourTime")
 
@@ -35,6 +37,9 @@ end
 
 function onMobDeath(mob, player, isKiller)
     player:addTitle(dsp.title.NIDHOGG_SLAYER)
+	player:setVar("Nidhogg_Win",1);
+	player:addCurrency('prestige', 250);
+	player:PrintToPlayer("You obtain 250 Prestige Points!", 0xD);
 end
 
 function onMobDespawn(mob)

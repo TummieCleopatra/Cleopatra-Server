@@ -7,6 +7,7 @@ mixins = {require("scripts/mixins/rage")}
 require("scripts/globals/settings")
 require("scripts/globals/status")
 require("scripts/globals/titles")
+require("scripts/globals/mobscaler");
 -----------------------------------
 
 function onMobSpawn(mob)
@@ -16,12 +17,23 @@ function onMobSpawn(mob)
     if LandKingSystem_HQ == 0 then
         SetDropRate(24,3344,0) -- do not drop clump_of_red_pondweed
     end
-
+    mob:setLocalVar("PartySize",1);
     mob:setLocalVar("[rage]timer", 1800) -- 30 minutes
+end
+
+function onMobFight(mob, target)
+    mobScaler(mob,target);
+    local mobId = mob:getID();
+    if (GetMobAction(mobId) ~= dsp.act.ATTACK) then
+	    mob:setLocalVar("depopTime", os.time());
+    end
 end
 
 function onMobDeath(mob, player, isKiller)
     player:addTitle(dsp.title.TORTOISE_TORTURER)
+	player:setVar("Adamantoise_Win",1);
+	player:addCurrency('prestige', 100);
+	player:PrintToPlayer("You obtain 100 Prestige Points!", 0xD);
 end
 
 function onMobDespawn(mob)
