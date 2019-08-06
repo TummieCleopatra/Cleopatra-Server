@@ -11,7 +11,9 @@ require("scripts/globals/status");
 -----------------------------------
 
 function onEffectGain(target,effect)
-	target:addMod(dsp.mod.REFRESH, effect:getPower());
+    if (target:getObjType() ~= dsp.objType.PET) then
+	    target:addMod(dsp.mod.REFRESH, effect:getPower());
+    end
 end;
 
 -----------------------------------
@@ -19,11 +21,21 @@ end;
 -----------------------------------
 
 function onEffectTick(target,effect)
-    target:forMembersInRange(10, function(member)
-        if not member:hasStatusEffect(dsp.effect.REFRESH_II) then
-            member:addStatusEffect(dsp.effect.REFRESH_II, effect:getPower(), 0, 3)
+    if (target:getObjType() == dsp.objType.PC) then
+        target:forMembersInRange(10, function(member)
+            --if not member:hasStatusEffect(dsp.effect.REFRESH_II) then
+                member:addStatusEffect(dsp.effect.REFRESH_II, effect:getPower(), 0, 6)
+           -- end
+        end)
+    else
+
+        local nearbyChars = target:getTargetsWithinArea(7, 1)
+        for i,members in pairs(nearbyChars) do
+            if (members:getObjType() == dsp.objType.PC and members:getAllegiance() == target:getAllegiance()) then
+                members:addStatusEffect(dsp.effect.REFRESH_II, effect:getPower(), 0, 3)
+            end
         end
-    end)
+    end
 
 end;
 
@@ -32,5 +44,7 @@ end;
 -----------------------------------
 
 function onEffectLose(target,effect)
-	target:delMod(dsp.mod.REFRESH, effect:getPower());
+    if (target:getObjType() ~= dsp.objType.PET) then
+	    target:delMod(dsp.mod.REFRESH, effect:getPower());
+    end
 end;

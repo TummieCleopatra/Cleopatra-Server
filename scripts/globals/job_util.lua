@@ -452,6 +452,7 @@ function doGeoPotency(caster, target, spell)
 
 	if (caster:hasStatusEffect(dsp.effect.BLAZE_OF_GLORY)) then
 	    bolster = 1.5;
+        caster:delStatusEffect(dsp.effect.BLAZE_OF_GLORY)
 	end
 
     -- TODO: Turn this into an array
@@ -637,8 +638,30 @@ function doGeoPotency(caster, target, spell)
 	-- Wilt
 
     -- set default potency bonus for Ecliptic Attrition
-    pet:setLocalVar("potboost",1)
+
 
     return potency;
+end
+
+function finalizeLuopan(pet, target, hploss)
+    local pos = target:getPos()
+    pet:addMod(dsp.mod.REGEN_DOWN, hploss);
+    pet:setLocalVar("potboost",1)
+    pet:setPos(pos.x,pos.y,pos.z);
+    pet:addStatusEffect(dsp.effect.BIND,1,0,3000)
+end
+
+function potencyBoost(target,effect)
+    if (target:getObjType() == dsp.objType.PET) then
+        local potboost = target:getLocalVar("Potency")
+        local potency = effect:getPower()
+        if (potboost == 1) then
+            effect:setPower(potency * 1.25)
+            target:setLocalVar("Potency", 0)
+        elseif (potboost == 2) then
+            effect:setPower(potency * 2)
+            target:setLocalVar("Potency", 0)
+        end
+    end
 end
 

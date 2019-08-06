@@ -299,6 +299,9 @@ INSERT INTO `abilities` VALUES (332,'collimated_fervor',21,40,1,300,245,0,0,83,2
 INSERT INTO `abilities` VALUES (333,'life_cycle',21,5,50,600,246,0,0,83,2000,0,6,20.0,0,1,300,1732,0,null);
 INSERT INTO `abilities` VALUES (334,'blaze_of_glory',21,60,1,600,247,0,0,308,2000,0,6,20.0,0,1,300,1734,0,null);
 INSERT INTO `abilities` VALUES (335,'dematerialize',21,70,1,600,248,0,0,310,2000,0,6,20.0,0,1,300,1736,0,null);
+INSERT INTO `abilities` VALUES (337,'concentric_pulse',21,45,1,300,250,0,0,83,2000,0,6,20.0,0,1,300,0,0,null);
+INSERT INTO `abilities` VALUES (338,'mending_halation',21,55,1,300,251,0,0,83,2000,0,6,20.0,0,1,300,0,0,null);
+
 
 INSERT INTO `abilities` VALUES (340,'elemental_sforzo',22,0,1,3600,0,0,0,302,2000,0,6,20.0,0,0,0,0,0,'SOA');
 INSERT INTO `abilities` VALUES (341,'Rune_enchantment',22,5,1,0,10,0,0,0,2000,0,6,0.0,0,0,0,0,0,'SOA');

@@ -20,14 +20,11 @@ local dot = 0;
 
 
 function onMagicCastingCheck(caster,target,spell)
-	--[[local result = 0;
-	if(caster:hasPet()) then
-      result = 1;
-   elseif (not caster:canUsePet()) then
-		result = dsp.msg.basic.CANT_BE_USED_IN_AREA;
-    end]]
-
-return 0;
+    if (caster:getPet() ~= nil) then
+        return caster:messageBasic(dsp.msg.basic.LUOPAN_HAS_PET, 0);
+    else
+        return 0, 0;
+    end
 end;
 
 function onSpellCast(caster,target,spell)

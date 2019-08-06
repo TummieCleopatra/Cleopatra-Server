@@ -20,15 +20,12 @@ end;
 
 function onEffectTick(target,effect)
     local boost = 1
-    if (target:getObjType() == dsp.objType.PET) then
-        boost = target:getLocalVar("potboost")
-    end
+    local hp = target:getHP()
 	local nearbyTargets = target:getTargetsWithinArea(7, 8);
     for i,member in ipairs(nearbyTargets) do
 
 
 	    if (member:getObjType() == dsp.objType.MOB) then
-
 		    local mob = member:getID();
 			GetMobByID(mob):updateEnmity(target);
 		    member:addStatusEffect(dsp.effect.POISON_II, effect:getPower() * boost, 0, 6);

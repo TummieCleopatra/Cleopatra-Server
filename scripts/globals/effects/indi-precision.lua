@@ -5,13 +5,16 @@
 -----------------------------------
 
 require("scripts/globals/status");
+require("scripts/globals/job_util");
 
 -----------------------------------
 -- onEffectGain Action
 -----------------------------------
 
 function onEffectGain(target,effect)
-	target:addMod(dsp.mod.ACC, effect:getPower());
+    if (target:getObjType() ~= dsp.objType.PET) then
+	    target:addMod(dsp.mod.ACC, effect:getPower());
+    end
 end;
 
 -----------------------------------
@@ -19,11 +22,22 @@ end;
 -----------------------------------
 
 function onEffectTick(target,effect)
-    target:forMembersInRange(10, function(member)
-        if not member:hasStatusEffect(dsp.effect.INDI_PRECISION) then
-            member:addStatusEffect(dsp.effect.ACCURACY_BOOST_II, effect:getPower(), 0, 3)
+    potencyBoost(target,effect)
+    if (target:getObjType() == dsp.objType.PC) then
+        target:forMembersInRange(10, function(member)
+            if not member:hasStatusEffect(dsp.effect.ACCURACY_BOOST_II) then
+                member:addStatusEffect(dsp.effect.ACCURACY_BOOST_II, effect:getPower(), 0, 3)
+            end
+        end)
+    else
+
+        local nearbyChars = target:getTargetsWithinArea(7, 1)
+        for i,members in pairs(nearbyChars) do
+            if (members:getObjType() == dsp.objType.PC) then
+                members:addStatusEffect(dsp.effect.ACCURACY_BOOST_II, effect:getPower(), 0, 3)
+            end
         end
-    end)
+    end
 
 end;
 
@@ -32,5 +46,7 @@ end;
 -----------------------------------
 
 function onEffectLose(target,effect)
-	target:delMod(dsp.mod.ACC, effect:getPower());
+    if (target:getObjType() ~= dsp.objType.PET) then
+	    target:delMod(dsp.mod.ACC, effect:getPower());
+    end
 end;

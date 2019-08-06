@@ -19,7 +19,7 @@ require("scripts/globals/msg");
 
 function onAbilityCheck(player,target,ability)
     if (player:getPet() == nil or not player:getPetID() == 75) then
-        return player:messageBasic(dsp.msg.basic.REQUIRES_A_LUOPAN, 0;
+        return player:messageBasic(dsp.msg.basic.REQUIRES_A_LUOPAN, 0);
     else
         return 0, 0;
     end
@@ -31,9 +31,10 @@ end;
 
 function onUseAbility(player,target,ability)
     local pet = player:getPet();
-    local hploss = math.floor((player:getMainLvl()/4) * 1.25);
-	pet:delMod(dsp.mod.REGEN_DOWN)
+    --local hploss = math.floor((player:getMainLvl()/4) * 1.25);
+	--pet:delMod(dsp.mod.REGEN_DOWN)
+    local hploss = math.floor((pet:getMaxHP())/280);  -- Sets DoT
 	pet:addMod(dsp.mod.REGEN_DOWN, hploss)
-    pet:setLocalVar("potboost",1.25)
-    player:messageBastic(dsp.msg.basic.LUOPAN_CONSUMPTION_INCREASED)
+    pet:setLocalVar("Potency",1)
+    player:messageBasic(dsp.msg.basic.LUOPAN_CONSUMPTION_INCREASED)
 end;

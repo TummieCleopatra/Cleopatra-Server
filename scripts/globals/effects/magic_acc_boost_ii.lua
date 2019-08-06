@@ -3,6 +3,7 @@
 --     dsp.effect.MAGIC_ACC_BOOST_II
 --
 -----------------------------------
+require("scripts/globals/status")
 
 function onEffectGain(target,effect)
     target:addMod(dsp.mod.MACC, effect:getPower());
