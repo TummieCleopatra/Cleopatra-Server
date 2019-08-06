@@ -13091,7 +13091,7 @@ INSERT INTO `item_armor` VALUES (27922,'orvail_robe',99,100,3850780,344,0,0,32,0
 INSERT INTO `item_armor` VALUES (27923,'councilors_garb',1,0,4194303,345,0,0,32,0);
 INSERT INTO `item_armor` VALUES (27924,'thurandaut_tabard',99,100,2593826,343,0,0,32,0);
 INSERT INTO `item_armor` VALUES (27925,'karieyh_haubert',99,100,10689,342,0,0,32,0);
-INSERT INTO `item_armor` VALUES (27926,'geomancy_tunic',99,109,1048576,308,0,0,32,0);
+INSERT INTO `item_armor` VALUES (27926,'geomancy_tunic',75,109,1048576,308,0,0,32,0);
 INSERT INTO `item_armor` VALUES (27927,'runeist_coat',99,109,2097152,310,0,0,32,0);
 INSERT INTO `item_armor` VALUES (27928,'ares_gauntlets_+1',99,0,8385,182,0,0,64,0);
 INSERT INTO `item_armor` VALUES (27929,'skd._bazubands_+1',99,0,2426144,183,0,0,64,0);

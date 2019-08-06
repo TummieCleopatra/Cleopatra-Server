@@ -83,6 +83,7 @@ public:
 	int16	getModifier(Mod mod);
     uint8   getSlotType();
     uint16  getAugment(uint8 slot);
+	uint16  getMezzotint(uint8 slot);
 	uint16  getMezzotintWeapons(uint8 slot);
 	uint16  getTrialNumber();
 
@@ -97,12 +98,16 @@ public:
 	void	setEquipSlotId(uint16 equipSlot);
 	void	setRemoveSlotId(uint16 removSlot);
     void    setAugment(uint8 slot, uint16 type, uint8 value);
+	void    setMezzotint(uint8 slot, uint16 type, uint8 value);
     void    setMezzotintWeapons(uint8 slot, uint16 type, uint8 value);
 	void    setTrialNumber(uint16);
 
     void    LoadAugment(uint8 slot, uint16 augment);
     bool    PushAugment(uint16 type, uint8 value);
     void    ApplyAugment(uint8 slot);
+
+	void    LoadMezzotint(uint8 slot, uint16 augment);
+	void    ApplyMezzotint(uint8 slot);
 
 	void    LoadMezzotintWeapons(uint8 slot, uint16 augment);
 	void    ApplyMezzotintWeapons(uint8 slot);
@@ -128,6 +133,7 @@ private:
 	uint16	m_removeSlotID;
 
     void    SetAugmentMod(uint16 type, uint8 value);
+	void    SetMezzotintMod(uint16 type, uint8 value);
     void    SetMezzotintWeaponsMod(uint16 type, uint8 value);
 };
 

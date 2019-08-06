@@ -3404,8 +3404,91 @@ inline int32 CLuaBaseEntity::addItem(lua_State *L)
     return 1;
 }
 
+//==========================================================//
+
 /************************************************************************
-*  Function: addWeaponMezzotint()
+*  Function: addItemMezzotint() This is for regular Mezzotints
+*  Purpose : Adds special Mezzotint Weapons from 3rd Augment Table
+*  Example : player:addItem(4102,12) -- a stack of Light Crystals
+*  Notes   : See format and variable options below
+************************************************************************/
+
+inline int32 CLuaBaseEntity::addItemMezzotint(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+
+    bool silence = false;
+    uint16 itemID = (uint16)lua_tointeger(L, 1);
+    uint32 quantity = 1;
+    uint16 type = 0; uint8 blankval0 = 0;
+    uint16 points = 0; uint8 blankval = 0;
+    uint16 augment0 = 0; uint8 augment0val = 0;
+    uint16 augment1 = 0; uint8 augment1val = 0;
+    uint16 augment2 = 0; uint8 augment2val = 0;
+    uint16 trialNumber = 0;
+
+    if (!lua_isnil(L, 2) && lua_isboolean(L, 2))
+        silence = (uint32)lua_toboolean(L, 2);
+    if (!lua_isnil(L, 2) && lua_isnumber(L, 2))
+        quantity = (uint32)lua_tointeger(L, 2);
+
+    if (!lua_isnil(L, 3) && lua_isnumber(L, 3))
+        type = (uint16)lua_tointeger(L, 3);
+   // if (!lua_isnil(L, 4) && lua_isnumber(L, 4))
+   //     augment0val = (uint8)lua_tointeger(L, 4);
+    if (!lua_isnil(L, 4) && lua_isnumber(L, 4))
+        points = (uint16)lua_tointeger(L, 4);
+   // if (!lua_isnil(L, 5) && lua_isnumber(L, 6))
+   //     augment1val = (uint8)lua_tointeger(L, 6);
+    if (!lua_isnil(L, 5) && lua_isnumber(L, 5))
+        augment0 = (uint16)lua_tointeger(L, 5);
+    if (!lua_isnil(L, 6) && lua_isnumber(L, 6))
+        augment0val = (uint8)lua_tointeger(L, 6);
+    if (!lua_isnil(L, 7) && lua_isnumber(L, 7))
+        augment1 = (uint16)lua_tointeger(L, 7);
+    if (!lua_isnil(L, 8) && lua_isnumber(L, 8))
+        augment1val = (uint8)lua_tointeger(L, 8);
+    if (!lua_isnil(L, 9) && lua_isnumber(L, 9))
+        augment2 = (uint8)lua_tointeger(L, 9);
+    if (!lua_isnil(L, 10) && lua_isnumber(L, 10))
+        augment2val = (uint8)lua_tointeger(L, 10);
+
+    uint8 SlotID = ERROR_SLOTID;
+
+    CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
+
+    if (PChar->getStorage(LOC_INVENTORY)->GetFreeSlotsCount() != 0 && quantity != 0)
+    {
+        CItem* PItem = itemutils::GetItem(itemID);
+
+        if (PItem != nullptr)
+        {
+            PItem->setQuantity(quantity);
+
+            if (PItem->isType(ITEM_ARMOR))
+            {
+			    if (type != 0) ((CItemArmor*)PItem)->setMezzotint(0, type, 0);
+			    if (points != 0) ((CItemArmor*)PItem)->setMezzotint(1, points, 0);
+                if (augment0 != 0) ((CItemArmor*)PItem)->setMezzotint(2, augment0, augment0val);
+                if (augment1 != 0) ((CItemArmor*)PItem)->setMezzotint(3, augment1, augment1val);
+                if (augment2 != 0) ((CItemArmor*)PItem)->setMezzotint(4, augment2, augment2val);
+            }
+            SlotID = charutils::AddItem(PChar, LOC_INVENTORY, PItem, silence);
+        }
+        else
+        {
+            ShowWarning(CL_YELLOW"charplugin::AddItem: Item <%i> is not found in a database\n" CL_RESET, itemID);
+        }
+    }
+    lua_pushboolean(L, (SlotID != ERROR_SLOTID));
+    return 1;
+}
+
+/************************************************************************
+*  Function: addWeaponMezzotint() This is for Special Weapons
 *  Purpose : Adds special Mezzotint Weapons from 3rd Augment Table
 *  Example : player:addItem(4102,12) -- a stack of Light Crystals
 *  Notes   : See format and variable options below
@@ -14561,6 +14644,7 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
 
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,hasItem),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,addItem),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,addItemMezzotint),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,addWeaponMezzotint),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,delItem),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,addUsedItem),
