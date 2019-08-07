@@ -100,6 +100,14 @@ INSERT INTO `traits` VALUES (3,'attack bonus',8,91,7,23,84,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (3,'attack bonus',8,91,7,24,84,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (3,'attack bonus',8,99,8,23,96,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (3,'attack bonus',8,99,8,24,96,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (3,'attack bonus',10,15,1,23,10,NULL,0);
+INSERT INTO `traits` VALUES (3,'attack bonus',10,15,1,24,10,NULL,0);
+INSERT INTO `traits` VALUES (3,'attack bonus',10,35,2,23,22,NULL,0);
+INSERT INTO `traits` VALUES (3,'attack bonus',10,35,2,24,22,NULL,0);
+INSERT INTO `traits` VALUES (3,'attack bonus',10,55,3,23,35,NULL,0);
+INSERT INTO `traits` VALUES (3,'attack bonus',10,55,3,24,35,NULL,0);
+INSERT INTO `traits` VALUES (3,'attack bonus',10,75,4,23,48,NULL,0);
+INSERT INTO `traits` VALUES (3,'attack bonus',10,75,4,24,48,NULL,0);
 INSERT INTO `traits` VALUES (3,'attack bonus',14,10,1,23,10,NULL,0);
 INSERT INTO `traits` VALUES (3,'attack bonus',14,10,1,24,10,NULL,0);
 INSERT INTO `traits` VALUES (3,'attack bonus',14,91,2,23,22,'ABYSSEA',0);
@@ -113,6 +121,8 @@ INSERT INTO `traits` VALUES (4,'defense bonus',7,50,3,1,35,NULL,0);
 INSERT INTO `traits` VALUES (4,'defense bonus',7,70,4,1,48,NULL,0);
 INSERT INTO `traits` VALUES (4,'defense bonus',7,76,5,1,60,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (4,'defense bonus',7,91,6,1,72,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (4,'defense bonus',10,15,1,1,10,NULL,0);
+INSERT INTO `traits` VALUES (4,'defense bonus',10,55,2,1,22,NULL,0);
 INSERT INTO `traits` VALUES (5,'magic atk. bonus',4,10,1,28,20,NULL,0);
 INSERT INTO `traits` VALUES (5,'magic atk. bonus',4,30,2,28,24,NULL,0);
 INSERT INTO `traits` VALUES (5,'magic atk. bonus',4,50,3,28,28,NULL,0);
@@ -122,6 +132,9 @@ INSERT INTO `traits` VALUES (5,'magic atk. bonus',4,91,6,28,40,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (5,'magic atk. bonus',5,20,1,28,20,NULL,0);
 INSERT INTO `traits` VALUES (5,'magic atk. bonus',5,40,2,28,24,NULL,0);
 INSERT INTO `traits` VALUES (5,'magic atk. bonus',5,86,3,28,28,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (5,'magic atk. bonus',13,15,1,28,20,null); -- NIN MAB
+INSERT INTO `traits` VALUES (5,'magic atk. bonus',13,45,2,28,24,null); -- NIN MAB
+INSERT INTO `traits` VALUES (5,'magic atk. bonus',13,90,3,28,28,null); -- NIN MAB
 INSERT INTO `traits` VALUES (6,'magic def. bonus',3,10,1,29,10,NULL,0);
 INSERT INTO `traits` VALUES (6,'magic def. bonus',3,30,2,29,12,NULL,0);
 INSERT INTO `traits` VALUES (6,'magic def. bonus',3,50,3,29,14,NULL,0);
@@ -171,9 +184,15 @@ INSERT INTO `traits` VALUES (9,'auto regen',3,25,1,370,1,NULL,0);
 INSERT INTO `traits` VALUES (9,'auto regen',3,76,2,370,2,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (9,'auto regen',22,35,1,370,1,'SOA',0);
 INSERT INTO `traits` VALUES (9,'auto regen',22,65,2,370,2,'SOA',0);
-INSERT INTO `traits` VALUES (10,'auto refresh',7,35,1,369,1,NULL,0);
-INSERT INTO `traits` VALUES (10,'auto refresh',15,25,1,369,1,NULL,0);
-INSERT INTO `traits` VALUES (10,'auto refresh',15,90,2,369,2,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (10,'auto refresh',7,35,1,369,1,null);  -- PLD Auto Ref
+INSERT INTO `traits` VALUES (10,'auto refresh',15,20,1,369,1,null); -- SMN Auto Ref
+INSERT INTO `traits` VALUES (10,'auto refresh',3,30,1,369,1,null); -- WHM Auto Ref
+INSERT INTO `traits` VALUES (10,'auto refresh',4,30,1,369,1,null); -- BLM Auto Ref
+INSERT INTO `traits` VALUES (10,'auto refresh',5,30,1,369,1,null); -- RDM Auto Ref
+INSERT INTO `traits` VALUES (10,'auto refresh',21,35,1,369,1,null); -- GEO Auto Ref
+INSERT INTO `traits` VALUES (10,'auto refresh',22,50,1,369,1,'SOA'); -- RUN Auto Ref
+INSERT INTO `traits` VALUES (10,'auto refresh',8,40,1,369,1,'SOA'); -- DRK Auto Ref
+INSERT INTO `traits` VALUES (10,'auto refresh',15,55,2,369,2,'ABYSSEA');  -- SMN Auto Ref II
 INSERT INTO `traits` VALUES (11,'rapid shot',11,15,1,359,10,NULL,0);
 INSERT INTO `traits` VALUES (11,'rapid shot',17,15,1,359,10,'TOAU',0);
 INSERT INTO `traits` VALUES (12,'fast cast',5,15,1,170,10,NULL,0);
@@ -181,6 +200,10 @@ INSERT INTO `traits` VALUES (12,'fast cast',5,35,2,170,15,NULL,0);
 INSERT INTO `traits` VALUES (12,'fast cast',5,55,3,170,20,NULL,0);
 INSERT INTO `traits` VALUES (12,'fast cast',5,76,4,170,25,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (12,'fast cast',5,89,5,170,30,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (12,'fast cast',13,30,1,170,10,null); -- NIN 'fast cast' I
+INSERT INTO `traits` VALUES (12,'fast cast',13,70,2,170,15,null); -- NIN 'fast cast' II
+INSERT INTO `traits` VALUES (12,'fast cast',7,40,1,170,10,null); -- PLD 'fast cast' I
+INSERT INTO `traits` VALUES (12,'fast cast',7,75,2,170,15,null); -- PLD 'fast cast' II
 INSERT INTO `traits` VALUES (13,'conserve mp',4,20,1,296,25,NULL,0);
 INSERT INTO `traits` VALUES (13,'conserve mp',4,76,2,296,28,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (13,'conserve mp',4,86,3,296,31,'ABYSSEA',0);
@@ -427,7 +450,10 @@ INSERT INTO `traits` VALUES (81,'beast affinity ',9,75,1,0,0,'TOAU',0);
 INSERT INTO `traits` VALUES (82,'beast healer',9,75,1,0,0,'TOAU',0);
 INSERT INTO `traits` VALUES (83,'snapshot',11,75,1,0,0,'TOAU',0);
 INSERT INTO `traits` VALUES (84,'recycle',11,20,1,305,10,'TOAU',0);
+INSERT INTO `traits` VALUES (84,'recycle',11,35,2,305,20,'TOAU',0);
+INSERT INTO `traits` VALUES (84,'recycle',11,50,3,305,30,'TOAU',0);
 INSERT INTO `traits` VALUES (84,'recycle',17,35,1,305,10,'TOAU',0);
+INSERT INTO `traits` VALUES (84,'recycle',17,65,1,305,20,'TOAU',0);
 INSERT INTO `traits` VALUES (85,'ikishoten',12,75,1,0,0,'TOAU',2756);
 INSERT INTO `traits` VALUES (86,'overwhelm',12,75,1,0,0,'TOAU',2758);
 INSERT INTO `traits` VALUES (87,'ninja tool expert.',13,75,1,308,0,'TOAU',2818);
@@ -519,6 +545,19 @@ INSERT INTO `traits` VALUES (107,'fencer',1,84,4,903,450,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (107,'fencer',1,84,4,904,9,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (107,'fencer',1,97,5,903,500,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (107,'fencer',1,97,5,904,10,'ABYSSEA',0);
+
+INSERT INTO `traits` VALUES (107,'fencer',10,10,1,903,200,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (107,'fencer',10,10,1,904,3,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (107,'fencer',10,25,2,903,300,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (107,'fencer',10,25,2,904,5,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (107,'fencer',10,45,3,903,400,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (107,'fencer',10,45,904,7,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (107,'fencer',10,65,4,903,450,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (107,'fencer',10,65,4,904,9,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (107,'fencer',10,85,5,903,500,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (107,'fencer',10,85,5,904,10,'ABYSSEA',0);
+
+
 INSERT INTO `traits` VALUES (109,'occult acumen',4,85,1,902,25,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (109,'occult acumen',4,95,2,902,50,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (109,'occult acumen',8,45,1,902,25,'ABYSSEA',0);
