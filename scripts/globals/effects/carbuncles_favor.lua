@@ -3,6 +3,8 @@
 --
 --
 -----------------------------------
+require("scripts/globals/status")
+-----------------------------------
 
 function onEffectGain(target,effect)
     local power = effect:getPower();
