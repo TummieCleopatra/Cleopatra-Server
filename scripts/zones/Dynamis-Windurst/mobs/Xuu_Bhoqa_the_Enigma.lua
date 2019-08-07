@@ -1,11 +1,12 @@
 -----------------------------------
 -- Area: Dynamis Windurst
---  NPC: Loo Hepe the Eyepiercer
--- Boss Trigger for MEGA BOSS
+-- NPC:  Xuu Bhoqa the Enigma
+-- Boss Trigger for RDM NM
 -----------------------------------
-
-mixins = {require("scripts/mixins/job_special")};
 require("scripts/globals/status");
+-----------------------------------
+-- onMobSpawn Action
+-----------------------------------
 
 function onMobSpawn(mob)
 mob:addMod(dsp.mod.EVA,50);
@@ -23,9 +24,8 @@ local weakener = target:getVar("DynaWeakener");
    mob:setMod(dsp.mod.ATTP,-75);
    mob:addMod(dsp.mod.EVA,-30);
    mob:addMod(dsp.mod.ACC,-30);
-   target:setVar("DynaWeakener",0);
   --  SetDropRate(5004,3415,300);
-if (target:getObjType() == dsp.objType.PC) then
+if (target:getObjType() == dsp.objType.PC) then  
 target:PrintToPlayer("You have significantly weakened the monster!", 0xD);
 end
 elseif (weakener == 2) then
@@ -34,9 +34,8 @@ elseif (weakener == 2) then
    mob:setMod(dsp.mod.ATTP,-20);
    mob:addMod(dsp.mod.EVA,-20);
    mob:addMod(dsp.mod.ACC,-20);
-   target:setVar("DynaWeakener",0);
   --  SetDropRate(5004,3415,500);
-if (target:getObjType() == dsp.objType.PC) then
+if (target:getObjType() == dsp.objType.PC) then  
 target:PrintToPlayer("You have weakened the monster!", 0xD);
 end
 elseif (weakener == 1) then
@@ -45,19 +44,17 @@ elseif (weakener == 1) then
    mob:setMod(dsp.mod.ATTP,-10);
    mob:addMod(dsp.mod.EVA,-10);
    mob:addMod(dsp.mod.ACC,-10);
-   target:setVar("DynaWeakener",0);
     -- SetDropRate(5004,3415,700);
-if (target:getObjType() == dsp.objType.PC) then
+if (target:getObjType() == dsp.objType.PC) then	
 target:PrintToPlayer("You have weakened the monster ever so slightly", 0xD);
 end
 elseif (weakener == 0) then
  -- mob:setMod(dsp.mod.ACC,100);
  -- mob:setMod(dsp.mod.EVA,100);
-   target:setVar("DynaWeakener",0);
-if (target:getObjType() == dsp.objType.PC) then
-target:PrintToPlayer("You have summoned a Monster.", 0xD);
+if (target:getObjType() == dsp.objType.PC) then 
+target:PrintToPlayer("You have summoned a Monster.", 0xD);  
 end
-end
+end   
 end;
 
 
@@ -67,6 +64,6 @@ end;
 
 function onMobDeath(mob,player,isKiller)
 player:setVar("DynaWeakener",0);
-
+	
 
 end;
