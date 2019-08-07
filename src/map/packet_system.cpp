@@ -2250,7 +2250,7 @@ void SmallPacket0x04E(map_session_data_t* session, CCharEntity* PChar, CBasicPac
                 return;
             }
             PItem->setCharPrice(price); // not sure setCharPrice is right
-            PChar->pushPacket(new CAuctionHousePacket(action, PItem, quantity, price));
+            PChar->pushPacket(new CAuctionHousePacket(action, PItem, quantity, price, PChar));
         }
     }
     break;
@@ -2322,11 +2322,29 @@ void SmallPacket0x04E(map_session_data_t* session, CCharEntity* PChar, CBasicPac
                     PChar->pushPacket(new CAuctionHousePacket(action, 197, 0, 0)); // Failed to place up
                     return;
                 }
-                auctionFee = (uint32)(map_config.ah_base_fee_stacks + (price * map_config.ah_tax_rate_stacks / 100));
+                if ((PChar->getZone() == 26) || (PChar->getZone() == 48) || (PChar->getZone() == 50) || ((PChar->getZone() > 229) && (PChar->getZone() < 233)) ||
+				((PChar->getZone() > 233) && (PChar->getZone() < 236)) || ((PChar->getZone() > 237) && (PChar->getZone() < 242)) ||
+				((PChar->getZone() > 242) && (PChar->getZone() < 248)) || PChar->getZone() == 250)
+				{
+                    auctionFee = (uint32)(map_config.ah_base_fee_stacks + (price * map_config.ah_tax_rate_stacks / 100));
+                }
+                else
+                {
+                    auctionFee = (uint32)(map_config.ah_base_fee_stacks + (price * (3 + map_config.ah_tax_rate_stacks / 100)));
+                }
             }
             else
             {
-                auctionFee = (uint32)(map_config.ah_base_fee_single + (price * map_config.ah_tax_rate_single / 100));
+                if ((PChar->getZone() == 26) || (PChar->getZone() == 48) || (PChar->getZone() == 50) || ((PChar->getZone() > 229) && (PChar->getZone() < 233)) ||
+				((PChar->getZone() > 233) && (PChar->getZone() < 236)) || ((PChar->getZone() > 237) && (PChar->getZone() < 242)) ||
+				((PChar->getZone() > 242) && (PChar->getZone() < 248)) || PChar->getZone() == 250)
+				{
+                    auctionFee = (uint32)(map_config.ah_base_fee_single + (price * map_config.ah_tax_rate_single / 100));
+                }
+                else
+                {
+                    auctionFee = (uint32)(map_config.ah_base_fee_single + (price * (3 + map_config.ah_tax_rate_single / 100)));
+                }
             }
 
             auctionFee = std::clamp<uint32>(auctionFee, 0, map_config.ah_max_fee);
@@ -2365,6 +2383,19 @@ void SmallPacket0x04E(map_session_data_t* session, CCharEntity* PChar, CBasicPac
 
             PChar->pushPacket(new CAuctionHousePacket(action, 1, 0, 0)); // Merchandise put up on auction msg
             PChar->pushPacket(new CAuctionHousePacket(0x0C, (uint8)PChar->m_ah_history.size(), PChar)); // Inform history of slot
+
+            //Cleopatra Track AH Fees
+			uint32 allahfees = 0;
+			const char* query = "SELECT value FROM server_variables WHERE name = 'All_AH_Fees';";
+			int ret = Sql_Query(SqlHandle, query);
+            if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) == 1 && Sql_NextRow(SqlHandle) == SQL_SUCCESS)
+            {
+                allahfees = Sql_GetUIntData(SqlHandle, 0);
+            }
+			uint32 totalah = allahfees + auctionFee;
+			ShowWarning(CL_RED"New Auctionhouse is %u \n" CL_RESET, totalah);
+			Sql_Query(SqlHandle, "REPLACE INTO server_variables (name,value) VALUES('All_AH_Fees', %u);",
+            totalah);
         }
     }
     break;

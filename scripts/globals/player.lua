@@ -181,6 +181,54 @@ function onGameIn(player, firstLogin, zoning)
     -- apply mods from gearsets (scripts/globals/gear_sets.lua)
     checkForGearSet(player)
 
+    -- Feretory
+    if (player:getObjType() == TYPE_PC) then
+        local plvl = player:getMainLvl();
+	    local boonpower = player:getVar("FerretoryMageBoonPower");
+	    local plvl = player:getMainLvl();
+	    local plvladj = (math.floor((plvl - 1) / 10));
+	    if (boonpower > (plvladj)) then
+	        boonpower = plvladj;
+	    else
+	        boonpower = boonpower;
+	    end
+
+	    local mabboon = (math.floor(boonpower * 1.43));
+	    local fcboon = (math.floor((boonpower * 0.5) -1));
+	    local maccboon = boonpower;
+	    local curepotboon = (boonpower - 4);
+	    if (curepotboon < 0) then
+		    curepotboon = 0;
+	    end
+
+	    player:addMod(dsp.mod.MATT,mabboon);
+	    player:addMod(dsp.mod.MACC,maccboon);
+	    player:addMod(dsp.mod.CURE_POTENCY,curepotboon);
+
+        -- Melee Boons
+	    local meleeboonpower = player:getVar("FerretoryMeleeBoonPower");
+	    local plvladjmelee = (math.floor((plvl - 1) / 10));
+	    if (meleeboonpower > (plvladmelee)) then
+            meleeboonpower = plvladj1;
+	    else
+	        meleeboonpower = meleeboonpower;
+	    end
+
+	    local attboon = (math.floor(meleeboonpower * 1.5));
+	    local rattboon = (math.floor(meleeboonpower * 1.5));
+	    local accboon = (math.floor(meleeboonpower * 1.5));
+        local storetpboon = (math.floor((meleeboonpower * 0.5) - 1));
+	    if (storetpboon < 0) then
+	        storetpboon = 0;
+	    end
+
+        player:addMod(dsp.mod.ATT,attboon);
+	    player:addMod(dsp.mod.RATT,rattboon);
+	    player:addMod(dsp.mod.MOD_ACC,accboon);
+	    player:addMod(dsp.mod.RACC,accboon);
+        player:addMod(dsp.mod.STORETP,storetpboon);
+    end
+
     -- god mode
     if player:getVar("GodMode") == 1 then
         player:addStatusEffect(dsp.effect.MAX_HP_BOOST,1000,0,0)
