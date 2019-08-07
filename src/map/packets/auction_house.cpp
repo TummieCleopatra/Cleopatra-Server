@@ -50,7 +50,7 @@ CAuctionHousePacket::CAuctionHousePacket(uint8 action)
     }
 }
 
-CAuctionHousePacket::CAuctionHousePacket(uint8 action, CItem* PItem, uint8 quantity, uint32 price)
+CAuctionHousePacket::CAuctionHousePacket(uint8 action, CItem* PItem, uint8 quantity, uint32 price, CCharEntity* PChar)
 {
     this->type = 0x4C;
     this->size = 0x1E;
@@ -58,11 +58,29 @@ CAuctionHousePacket::CAuctionHousePacket(uint8 action, CItem* PItem, uint8 quant
     uint32 auctionFee = 0;
     if (quantity == 0) // This is a stack..Yes, zero for stacks.. Why is this being called quantity?
     {
-        auctionFee = (uint32)(map_config.ah_base_fee_stacks + (price * map_config.ah_tax_rate_stacks / 100));
+		if ((PChar->getZone() == 26) || (PChar->getZone() == 48) || (PChar->getZone() == 50) || ((PChar->getZone() > 229) && (PChar->getZone() < 233)) ||
+	    ((PChar->getZone() > 233) && (PChar->getZone() < 236)) || ((PChar->getZone() > 237) && (PChar->getZone() < 242)) ||
+		((PChar->getZone() > 242) && (PChar->getZone() < 248)) || PChar->getZone() == 250)
+        {
+            auctionFee = (uint32)(map_config.ah_base_fee_stacks + (price * map_config.ah_tax_rate_stacks / 100));
+        }
+        else
+        {
+            auctionFee = (uint32)(map_config.ah_base_fee_stacks + (price * (3 + map_config.ah_tax_rate_stacks / 100))); // +3% higher AH Tax outside cities
+        }
     }
     else // This is a single item.
     {
-        auctionFee = (uint32)(map_config.ah_base_fee_single  + (price * map_config.ah_tax_rate_single / 100));
+		if ((PChar->getZone() == 26) || (PChar->getZone() == 48) || (PChar->getZone() == 50) || ((PChar->getZone() > 229) && (PChar->getZone() < 233)) ||
+	    ((PChar->getZone() > 233) && (PChar->getZone() < 236)) || ((PChar->getZone() > 237) && (PChar->getZone() < 242)) ||
+		((PChar->getZone() > 242) && (PChar->getZone() < 248)) || PChar->getZone() == 250)
+        {
+            auctionFee = (uint32)(map_config.ah_base_fee_single  + (price * map_config.ah_tax_rate_single / 100));
+        }
+        else
+        {
+            auctionFee = (uint32)(map_config.ah_base_fee_single  + (price * (3 + map_config.ah_tax_rate_single / 100)));
+        }
     }
 
     auctionFee = std::clamp<uint32>(auctionFee, 0, map_config.ah_max_fee);
