@@ -253,6 +253,8 @@ public:
     static constexpr float sound_range {8.f};
     static constexpr float sight_range {15.f};
 
+	std::string GetScriptName();
+
 protected:
 
     void DistributeRewards();

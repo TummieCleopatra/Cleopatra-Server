@@ -207,6 +207,23 @@ void CTargetFind::addNearby(CBattleEntity* PTarget, float radius, uint16 flags)
 {
     m_radius = radius;
     m_PRadiusAround = &(m_PBattleEntity->loc.p);
+
+    if (flags & 1) {
+        zoneutils::GetZone(PTarget->getZone())->ForEachCharInstance(PTarget, [&](CCharEntity *PChar) {
+            if (PChar && isWithinArea(&(PChar->loc.p)) && !PChar->isDead()) {
+                m_targets.push_back(PChar);
+            }
+            /*
+            if (flags & 4 && !PChar->PAlly.empty()) {
+                for (CBattleEntity* ally : PChar->PAlly) {
+                    if (isWithinArea(&(ally->loc.p))) {
+                        m_targets.push_back(ally);
+                    }
+                }
+            }*/
+        });
+    }
+
     if (flags & 16) {
         if (PTarget->objtype == TYPE_PET) {
             zoneutils::GetZone(PTarget->getZone())->ForEachMobInstance(PTarget, [&](CMobEntity *PMob) {
@@ -274,6 +291,23 @@ void CTargetFind::addAllInParty(CBattleEntity* PTarget, bool withPet)
     PTarget->ForParty([this, withPet](CBattleEntity* PMember)
     {
         addEntity(PMember, withPet);
+        if (PMember->objtype == TYPE_PC) {
+            CCharEntity* PChar = (CCharEntity*)m_PBattleEntity;
+            if (PChar->objtype == TYPE_TRUST) {
+
+                CCharEntity* PMaster = (CCharEntity*)PChar->PMaster;
+                for (CTrustEntity* trust : PMaster->PTrusts)
+                {
+                    addEntity((CBattleEntity*)trust, withPet);
+                }
+            }
+            else if (PChar->PTrusts.size() != 0) {
+                for (CTrustEntity* trust : PChar->PTrusts)
+                {
+                    addEntity((CBattleEntity*)trust, withPet);
+                }
+            }
+        }
     });
 
 }
