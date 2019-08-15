@@ -139,28 +139,28 @@ void CTrustController::DoRoamTick(time_point tick)
             {
                 if (TrustIsHealing())
                 {
-                    return;
+                    break;
                 }
-                break;
+                //break;
             }
         }
-    }
 
 
-    float currentDistance = distance(POwner->loc.p, POwner->PMaster->loc.p);
+        float currentDistance = distance(POwner->loc.p, POwner->PMaster->loc.p);
 
-    if (currentDistance > RoamDistance)
-    {
-        if (currentDistance < 35.0f && POwner->PAI->PathFind->PathAround(POwner->PMaster->loc.p, 2.0f, PATHFLAG_RUN | PATHFLAG_WALLHACK))
+        if (currentDistance > RoamDistance)
         {
-            POwner->PAI->PathFind->FollowPath();
+            if (currentDistance < 35.0f && POwner->PAI->PathFind->PathAround(POwner->PMaster->loc.p, 2.0f, PATHFLAG_RUN | PATHFLAG_WALLHACK))
+            {
+                POwner->PAI->PathFind->FollowPath();
+            }
+            else if (POwner->GetSpeed() > 0)
+            {
+                POwner->PAI->PathFind->WarpTo(POwner->PMaster->loc.p, RoamDistance);
+            }
         }
-        else if (POwner->GetSpeed() > 0)
-        {
-            POwner->PAI->PathFind->WarpTo(POwner->PMaster->loc.p, RoamDistance);
-        }
+	    POwner->PAI->EventHandler.triggerListener("TRUST_ROAM_TICK", POwner, POwner->PMaster, PTarget);
     }
-	POwner->PAI->EventHandler.triggerListener("TRUST_ROAM_TICK", POwner, POwner->PMaster, PTarget);
 }
 
 bool CTrustController::Cast(uint16 targid, SpellID spellid)
