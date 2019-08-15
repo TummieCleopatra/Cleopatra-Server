@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: The Shrine of Ru'Avitau
--- NPC:  Olla Grande
+-- NPC:  Ullikummi
 -----------------------------------
 require("scripts/globals/mobscaler");
 -----------------------------------
@@ -8,7 +8,8 @@ require("scripts/globals/mobscaler");
 -----------------------------------
 
 function onMobSpawn(mob)
-    mob:setLocalVar("PartySize",4); 
+    mob:setLocalVar("PartySize",5); 
+
 end;
 
 function onMobFight( mob, target )
@@ -20,9 +21,9 @@ end;
 -----------------------------------
 
 function onMobDeath(mob, killer, player)
-	player:setVar("Olla_Win",1);
+	player:setVar("Ulli_Win",1);
 	player:addCurrency('jetton',50);
-	player:PrintToPlayer("Your obtain 50 Jettons.", 0x15);		
+	player:PrintToPlayer("Your obtain 50 Jettons.", 0x15);	
 end;
 
 -----------------------------------
@@ -30,5 +31,5 @@ end;
 -----------------------------------
 
 function onMobDespawn(mob)
-    GetNPCByID(17506692):updateNPCHideTime(FORCE_SPAWN_QM_RESET_TIME);
+    GetNPCByID(17506694):updateNPCHideTime(FORCE_SPAWN_QM_RESET_TIME);
 end;

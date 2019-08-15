@@ -1,11 +1,55 @@
 -----------------------------------
--- Area: Ve'Lugannon Palace
---   NM: Steam Cleaner
+-- Area: VeLugannon Palace
+-- MOB:  Detector
 -----------------------------------
 
-function onMobDeath(mob, player, isKiller)
-end
+-----------------------------------
+-- onMobInitialize Action
+-----------------------------------
 
-function onMobDespawn(mob)
-    mob:setRespawnTime(math.random(7200, 14400)) -- 2 to 4 hours
-end
+function onMobInitialize(mob)
+end;
+
+-----------------------------------
+-- onMobSpawn
+-----------------------------------
+
+function onMobSpawn(mob)
+
+end;
+
+-----------------------------------
+-- onMobFight
+-----------------------------------
+
+function onMobFight(mob,target)
+
+
+end;
+
+-----------------------------------
+-- onMobDisengage
+-----------------------------------
+
+function onMobDisengage(mob)
+
+end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
+
+function onMobDeath(mob, killer, player)
+	player:setVar("Steam_Win",1);
+	player:addCurrency('jetton',50);
+	player:PrintToPlayer("Your obtain 50 Jettons.", 0x15);	
+
+end;
+
+-----------------------------------
+-- OnMobDespawn
+-----------------------------------
+function onMobDespawn( mob )
+
+
+end;
