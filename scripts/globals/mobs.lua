@@ -8,6 +8,7 @@ require("scripts/globals/magic")
 require("scripts/globals/utils")
 require("scripts/globals/zone")
 require("scripts/globals/msg")
+require("scripts/globals/feretory_utils")
 -----------------------------------
 
 dsp = dsp or {}
@@ -37,6 +38,18 @@ function onMobDeathEx(mob, player, isKiller, isWeaponSkillKill)
             player:addVar("testingTime_crea_count", 1)
         end
     end
+
+    feretoryKills(mob, player)
+    trustPoints(mob, player);
+    local restpower = 0;
+    if (player:hasStatusEffect(EFFECT_RESTING_BONUS)) then
+        local resting = player:getStatusEffect(EFFECT_RESTING_BONUS);
+        power = resting:getPower();
+	    player:setVar("RestingBonus",power);
+    end
+
+
+
 end
 
 -------------------------------------------------
