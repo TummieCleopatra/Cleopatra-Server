@@ -102,7 +102,7 @@ void CTrustController::DoCombatTick(time_point tick)
                 }
             }
         }
-		POwner->PAI->EventHandler.triggerListener("TRUST_COMBAT_TICK", POwner, POwner->PMaster, PTarget);
+		POwner->PAI->EventHandler.triggerListener("COMBAT_TICK", POwner, POwner->PMaster, PTarget);
 		luautils::OnMobFight(POwner, PTarget);
     }
 }
@@ -159,7 +159,7 @@ void CTrustController::DoRoamTick(time_point tick)
                 POwner->PAI->PathFind->WarpTo(POwner->PMaster->loc.p, RoamDistance);
             }
         }
-	    POwner->PAI->EventHandler.triggerListener("TRUST_ROAM_TICK", POwner, POwner->PMaster, PTarget);
+	    POwner->PAI->EventHandler.triggerListener("ROAM_TICK", POwner, POwner->PMaster, PTarget);
     }
 }
 
