@@ -1,33 +1,45 @@
 -----------------------------------
 -- Area: Al'Taieu
---   NM: Jailer of Hope
+--  NM:  Jailer of Hope
 -----------------------------------
-mixins = {require("scripts/mixins/job_special")}
-require("scripts/globals/mobs")
+
+require("scripts/globals/status");
+require("scripts/globals/mobscaler");
+
+-----------------------------------
+-- onMobInitialize Action
 -----------------------------------
 
 function onMobInitialize(mob)
-    mob:setMobMod(dsp.mobMod.ADD_EFFECT, 1);
+    mob:setMobMod(dsp.mobMod.ADD_EFFECT,mob:getShortID());
 end;
+
+-----------------------------------
+-- onMobSpawn Action
+-----------------------------------
 
 function onMobSpawn(mob)
+    mob:setLocalVar("PartySize",8); 
     mob:setSpellList(0); -- If it dies with the ability to cast spells, the next spawn would be able to cast from the start.
     mob:setMobMod(dsp.mobMod.MAGIC_COOL, 20); -- This gives around 6 - 15 seconds between casts. Doesn't seem to work anywhere except in this function.
-
-    dsp.mix.jobSpecial.config(mob, {
-        specials =
-        {
-            {id = dsp.jsa.MIGHTY_STRIKES, cooldown = 90, hpp = math.random(85, 95)}, -- "May use Mighty Strikes multiple times."
-        },
-    })
 end;
 
+-----------------------------------
+-- onMobFight Action
+-----------------------------------
+
 function onMobFight(mob, target)
+    local size = target:getPartySize();
+    mobScaler(mob,target);
     if (mob:getLocalVar("SpellTime") < os.time() and mob:getLocalVar("SpellTime") ~= 0) then -- Checks for it being 0 because it gets set to 0 to avoid setting the spell list repeatedly
         mob:setSpellList(0);
         mob:setLocalVar("SpellTime", 0)
     end;
 end;
+
+-----------------------------------
+-- onMobWeaponSkill Action
+-----------------------------------
 
 function onMobWeaponSkill(target, mob, skill)
     if (skill:getID() == 1102) then -- Set spell list for Burst2/Thundaga3 upon using Plasma Charge. Allow for 60 seconds.
@@ -36,9 +48,26 @@ function onMobWeaponSkill(target, mob, skill)
     end;
 end;
 
-function onAdditionalEffect(mob, target, damage)
-    return dsp.mob.onAddEffect(mob, target, damage, dsp.mob.ae.STUN, {chance = 65, duration = math.random(4, 8)})
-end
+-----------------------------------
+-- onAdditionalEffect Action
+-----------------------------------
+function onAdditionalEffect(mob,target,damage)
+    -- Guestimating 2 in 3 chance to stun on melee.
+    if ((math.random(1,100) >= 66) or (target:hasStatusEffect(dsp.effect.STUN) == true)) then
+        return 0,0,0;
+    else
+        local duration = math.random(4,8);
+        target:addStatusEffect(dsp.effect.STUN,5,0,duration);
+        return dsp.subEffect.STUN,0,dsp.effect.STUN;
+    end
+end;
 
-function onMobDeath(mob, player, isKiller)
+-----------------------------------
+-- onMobDeath
+-----------------------------------
+
+function onMobDeath(mob,player,isKiller)	
+    player:setVar("Hope_Win",1);
+	player:addCurrency('zeni_point',500);
+	player:PrintToPlayer("You obtain 500 Zeni Points.", 0x15);		  
 end;

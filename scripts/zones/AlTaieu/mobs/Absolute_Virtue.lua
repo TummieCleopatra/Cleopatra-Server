@@ -2,17 +2,20 @@
 -- Area: Al'Taieu
 --  HNM: Absolute Virtue
 -----------------------------------
-local ID = require("scripts/zones/AlTaieu/IDs");
-require("scripts/globals/status");
+
 require("scripts/globals/titles");
+require("scripts/globals/status");
 require("scripts/globals/magic");
+
+-----------------------------------
+-- onMobSpawn Action
 -----------------------------------
 
 function onMobSpawn(mob)
     -- setMod
     mob:setMod(dsp.mod.REGEN, 500);
 
-    local JoL = GetMobByID(ID.mob.JAILER_OF_LOVE);
+    local JoL = GetMobByID(16912848);
     -- Special check for regen modification by JoL pets killed
     if (JoL:getLocalVar("JoL_Qn_xzomit_Killed") == 9) then
         mob:addMod(dsp.mod.REGEN, -130)
@@ -22,15 +25,37 @@ function onMobSpawn(mob)
     end
 end;
 
+-----------------------------------
+-- onMobFight Action
+-----------------------------------
+
+function onMobFight(mob, target)
+end;
+
+------------------------------------
+-- onSpellPrecast
+------------------------------------
+
 function onSpellPrecast(mob, spell)
     if (spell:getID() == 218) then -- Meteor
-        spell:setAoE(dsp.magic.aoe.RADIAL);
-        spell:setFlag(dsp.magic.spellFlag.HIT_ALL);
+        spell:setAoE(SPELLAOE_RADIAL);
+        spell:setFlag(SPELLFLAG_HIT_ALL);
         spell:setRadius(30);
         spell:setAnimation(280); -- AoE Meteor Animation
         spell:setMPCost(1);
     end
 end;
+
+------------------------------------
+-- onMonsterMagicPrepare
+------------------------------------
+
+function onMonsterMagicPrepare(caster, target)
+end;
+
+-----------------------------------
+-- onMagicHit
+-----------------------------------
 
 function onMagicHit(caster, target, spell)
     local REGEN = target:getMod(dsp.mod.REGEN);
@@ -46,6 +71,17 @@ function onMagicHit(caster, target, spell)
     return 1;
 end;
 
-function onMobDeath(mob, player, isKiller)
+-----------------------------------
+-- onMobDespawn
+-----------------------------------
+
+function onMobDespawn(mob)
+end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
+
+function onMobDeath(mob,player,isKiller)
     player:addTitle(dsp.title.VIRTUOUS_SAINT);
 end;
