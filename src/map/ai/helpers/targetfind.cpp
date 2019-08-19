@@ -525,11 +525,16 @@ bool CTargetFind::canSee(position_t* point)
 
 CBattleEntity* CTargetFind::getValidTarget(uint16 actionTargetID, uint16 validTargetFlags)
 {
-    CBattleEntity* PTarget = (CBattleEntity*)m_PBattleEntity->GetEntity(actionTargetID, TYPE_MOB | TYPE_PC | TYPE_PET);
+    CBattleEntity* PTarget = (CBattleEntity*)m_PBattleEntity->GetEntity(actionTargetID, TYPE_MOB | TYPE_PC | TYPE_PET | TYPE_TRUST);
 
     if (PTarget == nullptr)
     {
         return nullptr;
+    }
+
+    if (TYPE_TRUST)
+    {
+        return PTarget;
     }
 
     if (validTargetFlags & TARGET_PET)
