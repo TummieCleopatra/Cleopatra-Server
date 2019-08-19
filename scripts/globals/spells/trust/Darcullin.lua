@@ -1,16 +1,27 @@
 -----------------------------------------
--- Spell: Shantotto
+-- Spell: Darcullin
 -----------------------------------------
 -- require("scripts/globals/trust");
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
-    return 0
+    -- if (caster:hasHate()) then
+	   -- caster:messageBasic(700,0,0)
+    -- else
+        return 0
+    -- end
 end
 
 function onSpellCast(caster,target,spell)
     -- Todo: put Trusts's spawn in dialog here or in entity script?
     -- Todo: automate entity spawn in core for trust spells?
-    caster:spawnTrust(105) -- see pet_list.sql, this should be 896 but the pet list won't let me do that
+    local darcullinType = caster:getVar("DARCULLIN_TYPE")
+    if (darcullinType == 0) then
+        caster:spawnTrust(99)
+    elseif (darcullinType == 1) then
+        caster:spawnTrust(100)
+    elseif (darcullinType == 1) then
+        caster:spawnTrust(101)
+    end
     return 0
 end
