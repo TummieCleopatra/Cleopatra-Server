@@ -16,7 +16,6 @@ function onMobSpawn(mob)
     local cureCooldown = 25
     local provokeCooldown = 30
     local lvl = mob:getMainLvl()
-    mob:setDamage((lvl * 0.56) + 1)
     mob:setLocalVar("cureTimeCurilla",0)
     mob:setLocalVar("provokeTime",0)
     mob:setLocalVar("flashTime",0)
@@ -69,6 +68,7 @@ function onMobSpawn(mob)
         local flashCooldown = mob:getLocalVar("flashCooldown")
         if (battletime > flashTime + flashCooldown) then
             doCurillaFlash(mob, player, target)
+            mob:setLocalVar("flashTime",battletime)
         end
     end)
 

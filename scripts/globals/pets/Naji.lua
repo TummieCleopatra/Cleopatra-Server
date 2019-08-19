@@ -10,15 +10,17 @@ require("scripts/globals/msg")
 require("scripts/globals/trustpoints")
 
 function onMobSpawn(mob)
+
     doNajiTrustPoints(mob)
     local weaponskill = 0
     local naji = mob:getID()
+    local lvl = mob:getMainLvl()
     mob:setLocalVar("provokeTime",0)
     mob:setLocalVar("provokeCooldown",30)
-    mob:setLocalVar("berserkTime",30)
-    mob:setLocalVar("berserkCooldown",30)
-    mob:setLocalVar("aggresorTime",30)
-    mob:setLocalVar("aggresorCooldown",30)
+    mob:setLocalVar("berserkTime",0)
+    mob:setLocalVar("berserkCooldown",300)
+    mob:setLocalVar("aggresorTime",0)
+    mob:setLocalVar("aggresorCooldown",300)
 
     mob:addListener("COMBAT_TICK", "COMBAT_TICK", function(mob)
         if (mob:getTP() > 1000) then
@@ -42,17 +44,17 @@ function onMobSpawn(mob)
         local battletime = os.time()
         local berserk = mob:getLocalVar("berserkTime")
         local berserkCooldown = mob:getLocalVar("berserkCooldown")
-        if ((battletime > berserk + berserkCooldown) then
+        if ((battletime > berserk + berserkCooldown) and lvl >= 25) then
             mob:useJobAbility(15, target)
             mob:setLocalVar("berserkTime",battletime)
         end
     end)
 
-    mob:addListener("COMBAT_TICK", "NAJI_BERSERK_TICK", function(mob, player, target)
+    mob:addListener("COMBAT_TICK", "NAJI_AGGRESOR_TICK", function(mob, player, target)
         local battletime = os.time()
         local aggresor = mob:getLocalVar("aggresorTime")
         local aggresorCooldown = mob:getLocalVar("aggresorCooldown")
-        if ((battletime > aggresor + aggresorCooldown) then
+        if ((battletime > aggresor + aggresorCooldown) and lvl >= 45) then
             mob:useJobAbility(18, mob)
             mob:setLocalVar("aggresorTime",battletime)
         end

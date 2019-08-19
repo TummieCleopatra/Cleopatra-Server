@@ -49,6 +49,12 @@ function doNajiTrustPoints(mob)
     local att = 0
     local da = 0
     local berserk = 0
+    local lvl = mob:getMainLvl()
+    local sjob = mob:getSubJob()
+
+
+
+    doDualWield(mob)
 
     if (player:getVar("CURILLA_TRIB_FIGHT") == 3) then
         att = player:getVar("TrustAtt_Naji")
@@ -56,10 +62,41 @@ function doNajiTrustPoints(mob)
         da = player:getVar("TrustDA_Naji")
         berserk = player:getVar("TrustBerserk_Naji")
 
-        mob:addMod(dsp.mod.ATT,att)
-        mob:addMod(dsp.mod.ACC,acc)
-        mob:addMod(dsp.mod.DEF,def)
-        mob:addMod(dsp.mod.BERSERK_EFFECT,berserk)
+        if (att ~= 0) then
+            mob:addMod(dsp.mod.ATT,att)
+        end
+        if (acc ~= 0) then
+            mob:addMod(dsp.mod.ACC,acc)
+        end
+        if (da ~= 0) then
+            mob:addMod(dsp.mod.DEF,def)
+        end
+        if (berserk ~= 0) then
+            mob:addMod(dsp.mod.BERSERK_EFFECT,berserk)
+        end
+    end
+
+    -- Setup Dual Wield Delay
+    if (sjob == 13) then
+        if (lvl >= 50) then
+            mob:addMod(dsp.mod.DELAY,-80)
+        elseif (lvl >= 20) then
+           mob:addMod(dsp.mod.DELAY,-70)
+        end
+    end
+
+end
+
+function doDualWield(mob)
+    local level = mob:getMainLvl()
+    local job = mob:getMainJob()
+    if (level >= 20) then
+        if (job == 1) then  -- This is to make the main hand swing twice for normal dual wield and three times for DA on "offhand"
+            mob:setMod(dsp.mod.MYTHIC_OCC_ATT_TWICE,90)
+            mob:setMod(dsp.mod.MYTHIC_OCC_ATT_THRICE,10)
+        else
+            mob:setMod(dsp.mod.MYTHIC_OCC_ATT_TWICE,100)
+        end
     end
 end
 
