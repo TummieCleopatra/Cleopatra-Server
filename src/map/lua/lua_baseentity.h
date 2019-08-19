@@ -711,9 +711,6 @@ public:
     int32 removeAllIndicolure(lua_State*);
     int32 getTargetsWithinArea(lua_State* L);
     int32 hasHate(lua_State*);
-    int32 moveToDistance(lua_State*);
-    int32 moveToDistanceFacing(lua_State*);
-    int32 moveToTarget(lua_State*);
 };
 
 #endif
