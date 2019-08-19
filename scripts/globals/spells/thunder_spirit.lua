@@ -22,7 +22,17 @@ function onMagicCastingCheck(caster,target,spell)
 end
 
 function onSpellCast(caster,target,spell)
-    caster:spawnPet(dsp.pet.id.THUNDER_SPIRIT)
+    if (caster:getObjType() == dsp.objType.PC) then
+        local ixion = caster:getVar("DarkIxionWin")
+        if (caster:hasStatusEffect(dsp.effect.ASTRAL_FLOW) == true and ixion == 1) then
+	        caster:PrintToPlayer("Dark Ixion: You dare summon me...?  I shall honor thy pact",0x0D);
+            caster:spawnPet(77)
+            caster:petAttack(target)
+
+        else
+            caster:spawnPet(dsp.pet.id.THUNDER_SPIRIT)
+        end
+    end
 
     return 0
 end

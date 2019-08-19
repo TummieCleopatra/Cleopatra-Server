@@ -22,7 +22,18 @@ function onMagicCastingCheck(caster,target,spell)
 end
 
 function onSpellCast(caster,target,spell)
-    caster:spawnPet(dsp.pet.id.LIGHT_SPIRIT)
+    if (caster:getObjType() == dsp.objType.PC) then
+        local ixion = caster:getVar("IxionWin")
+        if (caster:hasStatusEffect(dsp.effect.ASTRAL_FLOW) == true and ixion == 1) then
+	        caster:PrintToPlayer("Auroral Alicorn: You dare summon me...?  I shall honor thy pact",0x0D);
+            caster:spawnPet(76)
+            caster:petAttack(target)
+
+        else
+            caster:spawnPet(dsp.pet.id.LIGHT_SPIRIT)
+        end
+    end
+
 
     return 0
 end

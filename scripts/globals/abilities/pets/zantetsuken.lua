@@ -38,4 +38,5 @@ function onPetAbility(target, pet, skill, master)
             return 0
         end
     end
+    pet:setHP(0)
 end
