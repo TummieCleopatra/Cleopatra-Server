@@ -3731,6 +3731,8 @@ namespace luautils
         CLuaZone LuaZone(PZone);
         Lunar<CLuaZone>::push(LuaHandle, &LuaZone);
 
+        lua_pushinteger(LuaHandle, type);
+
         if (lua_pcall(LuaHandle, 2, 0, 0))
         {
             ShowError("luautils::onConquestUpdate: %s\n", lua_tostring(LuaHandle, -1));
