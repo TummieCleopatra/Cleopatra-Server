@@ -3,6 +3,214 @@ require("scripts/globals/keyitems")
 require("scripts/globals/status")
 -----------------------------------
 
+function enmityCalc(mob, player, target)
+
+    local trustID = mob:getID()
+    local trustEnmity = 0
+    local party = player:getParty()
+    local ce = 0
+    local ve = 0
+    local total = 0
+    local highest = 0
+    local highestID = 0
+    local diff = 0
+    local enmityList = {}
+
+    for i, member in ipairs(party) do
+        ce = target:getCE(member)
+        ve = target:getVE(member)
+        total = ve + ce
+        local id = member:getID()
+        if (id == trustID) then
+            -- printf("Trust Enmity ID Triggered")
+            -- printf("CE is %u \n",ce)
+            -- printf("VE is %u \n",ve)
+            -- printf("New Total is %u \n",total)
+            trustEnmity = total
+        end
+
+        table.insert(enmityList, i, {total, id})
+    end
+
+    -- printf("Trust Total Enmity is %u \n",trustEnmity)
+
+    for i, v in pairs(enmityList) do
+        if (v[1] > highest) then
+            highest = v[1]
+            highestID = v[2]
+        end
+    end
+
+    if (trustID ~= highestID) then
+        -- printf("Trust Enmity is: %u \n",trustEnmity)
+        -- printf("Highest Enmity is: %u \n",highest)
+        diff = (highest - trustEnmity)
+        -- printf("HATE LEVEL DIFF IS: %u \n",diff)
+    else
+        diff = 0
+        -- printf("Trust Enmity is: %u \n",trustEnmity)
+        -- printf("Highest Enmity is: %u \n",highest)
+        -- printf("TRUST HAS HATE!! DIFF IS: %u \n",diff)
+    end
+
+    return diff
+end
+
+function getWeakness(mob, player, target)
+
+    local weak = 0
+
+    local fire = target:getMod(dsp.mod.FIRERES)
+    local ice = target:getMod(dsp.mod.ICERES)
+    local wind = target:getMod(dsp.mod.WINDRES)
+    local earth = target:getMod(dsp.mod.EARTHRES)
+    local thunder = target:getMod(dsp.mod.THUNDERRES)
+    local water = target:getMod(dsp.mod.WATERRES)
+    local light = target:getMod(dsp.mod.LIGHTRES)
+    local dark = target:getMod(dsp.mod.DARKRES)
+
+    if (fire > 1000) then
+        weak = 1
+    elseif (ice > 1000) then
+        weak = 5
+    elseif (wind > 1000) then
+        weak = 2
+    elseif (earth > 1000) then
+        weak = 6
+    elseif (thunder > 1000) then
+        weak = 3
+    elseif (water > 1000) then
+        weak = 7
+    elseif (light > 1000) then
+        weak = 4
+    elseif (dark > 1000) then
+        weak = 8
+    end
+
+    return weak
+end
+
+function isLionInParty(mob, player, target)
+    local lion = 0
+    local party = player:getParty()
+
+    for i, member in ipairs(party) do
+        if (member:getName() == "Lion") then
+            lion = 1
+            break
+        end
+    end
+
+    return lion
+end
+
+function isZeidInParty(mob, player, target)
+    local zeid = 0
+    local party = player:getParty()
+
+    for i, member in ipairs(party) do
+        if (member:getName() == "Zeid-S") then
+            zeid = 1
+            break
+        end
+    end
+
+    return zeid
+end
+
+function getZeidTP(mob, player, target)
+    local tp = 0
+    local party = player:getParty()
+
+    for i, member in ipairs(party) do
+        if (member:getName() == "Zeid-S") then
+            tp = member:getTP()
+            break
+        end
+    end
+    return tp
+end
+
+function getLionTP(mob, player, target)
+    local tp = 0
+    local lastWStime = 0
+    local lastWS = 0
+    local party = player:getParty()
+
+
+    for i, member in ipairs(party) do
+        if (member:getName() == "Lion") then
+            tp = member:getTP()
+            lastWStime = member:getLocalVar("lastWSTime")
+            lastWS = member:getLocalVar("lastWS")
+            break
+        end
+    end
+
+    return tp,lastWStime,lastWS
+end
+
+function doRangedAttack(target, mob, numhits, dmg)
+    if (mob:getSubJob() == dsp.job.SAM) then
+        if (dmg > 0) then
+            target:addTP(20 * numhits)
+            mob:addTP(175 * numhits)
+            if (mob:hasStatsEffect(dsp.effect.BARRAGE)) then
+                mob:delStatusEffect(dsp.effect.BARRAGE)
+            end
+        end
+    else
+        if (dmg > 0) then
+            target:addTP(20 * numhits)
+            mob:addTP(150 * numhits)
+            if (mob:hasStatusEffect(dsp.effect.BARRAGE)) then
+                mob:delStatusEffect(dsp.effect.BARRAGE)
+            end
+        end
+    end
+end
+
+function doBarrage(target, mob)
+    local racc = mob:getRACC()
+    local eva = target:getEVA()
+    local lvl = mob:getMainLvl()
+    local barrage = 0
+    local hits = 0
+
+    printf("Ranged Acc is %u",racc)
+
+    if (lvl < 50) then
+        barrage = 4
+    elseif (lvl < 74) then
+        barrage = 5
+    else
+        barrage = 6
+    end
+
+    local hitRate = 75 + math.floor((racc - eva) / 2)
+    if (hitRate >= 95) then
+        hitRate = 95
+    elseif (hitRate <= 20) then
+        hitRate = 20
+    end
+
+    printf("Hit Rate is %u",hitRate)
+    for i = 1, barrage, 1 do
+        local chance = math.random(1,100)
+        printf("Chance is %u",chance)
+
+        if (chance > hitRate) then
+            break
+        else
+            hits = hits + 1
+        end
+    end
+
+    printf("Number of hits is %u",hits)
+    return hits
+
+end
+
 function doKupipiTrustPoints(mob)
     local player = mob:getMaster()
     local acc = 0
