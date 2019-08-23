@@ -32,6 +32,7 @@ This file is part of DarkStar-server source code.
 #include "charutils.h"
 #include "puppetutils.h"
 #include "../grades.h"
+#include "../trait.h"
 #include "../map.h"
 #include "petutils.h"
 #include "zoneutils.h"
@@ -81,6 +82,7 @@ struct Pet_t
     float       MPscale;                             // MP boost percentage
 
     uint16      cmbDelay;
+    uint8       cmbSkill;
     uint8 		speed;
     // stat ranks
     uint8        strRank;
@@ -172,7 +174,7 @@ namespace petutils
                 hasSpellScript, spellList, \
                 Slash, Pierce, H2H, Impact, \
                 Fire, Ice, Wind, Earth, Lightning, Water, Light, Dark, \
-                cmbDelay, name_prefix, mob_pools.skill_list_id \
+                cmbSkill, cmbDelay, name_prefix, mob_pools.skill_list_id \
                 FROM pet_list, mob_pools, mob_family_system \
                 WHERE pet_list.poolid = mob_pools.poolid AND mob_pools.familyid = mob_family_system.familyid";
 
@@ -240,9 +242,10 @@ namespace petutils
                 Pet->lightres = (uint16)((Sql_GetFloatData(SqlHandle, 37) - 1) * -100);
                 Pet->darkres = (uint16)((Sql_GetFloatData(SqlHandle, 38) - 1) * -100);
 
-                Pet->cmbDelay = (uint16)Sql_GetIntData(SqlHandle, 39);
-                Pet->name_prefix = (uint8)Sql_GetUIntData(SqlHandle, 40);
-                Pet->m_MobSkillList = (uint16)Sql_GetUIntData(SqlHandle, 41);
+                Pet->cmbSkill = (uint8)Sql_GetIntData(SqlHandle, 39);
+                Pet->cmbDelay = (uint16)Sql_GetIntData(SqlHandle, 40);
+                Pet->name_prefix = (uint8)Sql_GetUIntData(SqlHandle, 41);
+                Pet->m_MobSkillList = (uint16)Sql_GetUIntData(SqlHandle, 42);
 
                 g_PPetList.push_back(Pet);
             }
@@ -291,6 +294,8 @@ namespace petutils
     uint16 GetTrustWeaponDamage(CTrustEntity* PTrust)
     {
         float MainLevel = PTrust->GetMLevel();
+
+
         return (uint16)(MainLevel * (MainLevel < 40 ? 1.4 - MainLevel / 100 : 1));
     }
 
@@ -826,8 +831,39 @@ namespace petutils
             ref<uint16>(&PTrust->stats, counter) = (uint16)((raceStat + jobStat + sJobStat));
             counter += 2;
         }
-        PTrust->m_Weapons[SLOT_MAIN]->setDamage(GetTrustWeaponDamage(PTrust));
+        // Set DMG based on type
+        float MainLevel = PTrust->GetMLevel();
+        uint16 finalDmg = 0;
+        switch (petStats->cmbSkill)
+        {
+            case 1: finalDmg = (uint16)(MainLevel * 0.2) + 3; break;      // Hand To Hand
+            case 2: finalDmg = (uint16)(MainLevel * 0.36) + 3; break;     // Dagger
+            case 3: finalDmg = (uint16)(MainLevel * 0.45) + 6; break;     // Sword
+            case 4: finalDmg = (uint16)(MainLevel * 0.92) + 14; break;    // Great Sword
+            case 5: finalDmg = (uint16)(MainLevel * 0.5) + 6; break;      // Axe
+            case 6: finalDmg = (uint16)(MainLevel * 0.80) + 12; break;    // Great Axe
+            case 7: finalDmg = (uint16)(MainLevel * 0.95) + 21; break;    // Scythe
+            case 8: finalDmg = (uint16)(MainLevel * 0.96) + 15; break;    // Polearm
+            case 9: finalDmg = (uint16)(MainLevel * 0.36) + 4; break;     // Katana
+            case 10: finalDmg = (uint16)(MainLevel * 0.73) + 21; break;   // Great Katana
+            case 11: finalDmg = (uint16)(MainLevel * 0.48) + 9; break;    // Club
+            case 12: finalDmg = (uint16)(MainLevel * 0.65) + 11; break;   // Staff
+            case 25: finalDmg = (uint16)(MainLevel * 0.36) + 3; break;    // Archery
+            case 26: finalDmg = (uint16)(MainLevel * 1.35) + 15; break;   // Marksmanship
+        }
+
+        PTrust->m_Weapons[SLOT_MAIN]->setDamage(finalDmg);
         PTrust->m_Weapons[SLOT_MAIN]->setDelay((uint16)(floor(1000* (petStats->cmbDelay / 60))));
+
+
+
+        if (PTrust->m_PetID == PETID_CURILLA)
+        {
+            PTrust->m_Weapons[SLOT_SUB]->setShieldSize(3);
+            PTrust->setModifier(Mod::SHIELD, battleutils::GetMaxSkill(SKILL_CLUB, JOB_WHM, PTrust->GetMLevel()));
+            PTrust->setModifier(Mod::SWORD, battleutils::GetMaxSkill(SKILL_SWORD, JOB_PLD, PTrust->GetMLevel()));
+            ShowWarning(CL_YELLOW"Setting Curilal Shield Size to 3\n" CL_RESET);
+        }
     }
 
     void LoadAvatarStats(CPetEntity* PPet)
@@ -886,7 +922,7 @@ namespace petutils
 
         // Расчет бонусных HP
         bonusStat = (mainLevelOver10 + mainLevelOver50andUnder60) * 2;
-        if (PPet->m_PetID == PETID_ODIN || PPet->m_PetID == PETID_ALEXANDER)
+        if (PPet->m_PetID == PETID_ODIN || PPet->m_PetID == PETID_ALEXANDER ||PPet->m_PetID == PETID_IXION || PPet->m_PetID == PETID_AURORAL_ALICORN)
             bonusStat += 6800;
         PPet->health.maxhp = (int16)(raceStat + jobStat + bonusStat + sJobStat);
         PPet->health.hp = PPet->health.maxhp;
@@ -1423,6 +1459,11 @@ namespace petutils
         {
             petType = PETTYPE_AVATAR;
         }
+
+        if (PetID >= PETID_IXION && PetID <= PETID_BAHAMUT)
+        {
+            petType = PETTYPE_AVATAR;
+        }
         //TODO: move this out of modifying the global pet list
         else if (PetID == PETID_WYVERN)
         {
@@ -1759,10 +1800,16 @@ namespace petutils
         // TODO: Proper stats per trust
         PTrust->setModifier(Mod::ATT, battleutils::GetMaxSkill(SKILL_CLUB, JOB_WHM, PTrust->GetMLevel()));
         PTrust->setModifier(Mod::ACC, battleutils::GetMaxSkill(SKILL_CLUB, JOB_WHM, PTrust->GetMLevel()));
+        PTrust->setModifier(Mod::RACC, battleutils::GetMaxSkill(SKILL_CLUB, JOB_WHM, PTrust->GetMLevel()));
         PTrust->setModifier(Mod::EVA, battleutils::GetMaxSkill(SKILL_THROWING, JOB_WHM, PTrust->GetMLevel())); // Throwing??
         PTrust->setModifier(Mod::DEF, battleutils::GetMaxSkill(SKILL_THROWING, JOB_WHM, PTrust->GetMLevel()));
         //set C magic evasion
         PTrust->setModifier(Mod::MEVA, battleutils::GetMaxSkill(SKILL_ELEMENTAL_MAGIC, JOB_RDM, PTrust->GetMLevel()));
+
+        // add traits for sub and main
+        battleutils::AddTraits(PTrust, traits::GetTraits(trust->mJob), PTrust->GetMLevel());
+        battleutils::AddTraits(PTrust, traits::GetTraits(trust->sJob), PTrust->GetSLevel());
+
         // HP/MP STR/DEX/etc..
         LoadTrustStats(PTrust, PPetData);
 

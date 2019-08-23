@@ -58,6 +58,7 @@
 #include "../entities/battleentity.h"
 #include "../entities/mobentity.h"
 #include "../entities/petentity.h"
+#include "../entities/trustentity.h"
 #include "../enmity_container.h"
 #include "../items.h"
 #include "../item_container.h"
@@ -1670,6 +1671,17 @@ namespace battleutils
         else if (PDefender->objtype == TYPE_PET && static_cast<CPetEntity*>(PDefender)->getPetType() == PETTYPE_AUTOMATON && PDefender->GetMJob() == JOB_PLD)
         {
             float skillmodifier = (PDefender->GetSkill(SKILL_AUTOMATON_MELEE) - attackskill) * 0.215f;
+            base = PDefender->getMod(Mod::SHIELDBLOCKRATE);
+            if (base <= 0)
+                return 0;
+            else
+                return base + (int32)skillmodifier;
+        }
+        else if (PDefender->objtype == TYPE_TRUST)
+        {
+            CTrustEntity* PTrust = (CTrustEntity*)PDefender;
+
+            float skillmodifier = (PDefender->getMod(Mod::SWORD) - attackskill) * 0.215f;
             base = PDefender->getMod(Mod::SHIELDBLOCKRATE);
             if (base <= 0)
                 return 0;
