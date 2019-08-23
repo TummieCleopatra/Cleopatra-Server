@@ -8,15 +8,14 @@
 -------------------------------------------------
 require("scripts/globals/status")
 require("scripts/globals/msg")
-require("scripts/globals/trustpoints")
 
 function onMobSpawn(mob)
-    doKupipiTrustPoints(mob)
     local weaponskill = 0
-    local cureCooldown = 12
+    local cureCooldown = 16
     local debuffCooldown = 10
     local buffCooldown = 7
     local ailmentCooldown = 15
+    local hasteCooldown = 220
     local master = mob:getMaster()
     local kupipi = mob:getID()
     mob:setLocalVar("cureTime",0)
@@ -26,6 +25,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("paraTime",0)
     mob:setLocalVar("slowTime",0)
     mob:setLocalVar("flashTime",0)
+    mob:setLocalVar("hasteTime",0)
     mob:addListener("COMBAT_TICK", "KUPIPI_BUFF_TICK", function(mob, player, target)
         local battletime = os.time()
         local buffTime = mob:getLocalVar("buffTime")
@@ -48,6 +48,19 @@ function onMobSpawn(mob)
         end
     end)
 
+    mob:addListener("COMBAT_TICK", "KUPIPI_HASTE_TICK", function(mob, player, target)
+        local battletime = os.time()
+        local hasteTime = mob:getLocalVar("hasteTime")
+
+        if (battletime > hasteTime + hasteCooldown) then
+            local spell = doHasteKupipi(mob)
+            if (spell > 0 ) then
+                mob:castSpell(spell, mob)
+            end
+            mob:setLocalVar("hasteTime",battletime)
+        end
+    end)
+
     mob:addListener("COMBAT_TICK", "KUPIPI_CURE_TICK", function(mob, player, target)
         local battletime = os.time()
         local cureTime = mob:getLocalVar("cureTime")
@@ -63,6 +76,7 @@ function onMobSpawn(mob)
                         break
                     end
                 elseif (member:getHPP() <= 75) then
+                    print("Someone needs cure!!!")
                     local spell = doCureKupipi(mob)
                     if (spell > 0) then
                         mob:castSpell(spell, member)
@@ -119,8 +133,10 @@ function doStatusRemoval(mob, player)
 end
 
 function doKupipiWeaponskill(mob)
-    local wsList = {{43,164}, {1,163}}
-    local maxws = 3
+    local sJob = mob:getSubJob()
+
+    local wsList = {{65,168}, {60,167}, {51,165}, {1,160}}
+    local maxws = 5
 
     local newWsList = {}
     local maxws = 3 -- Maximum number of weaponskills to choose from randomly
@@ -143,21 +159,9 @@ function doKupipiWeaponskill(mob)
 end
 
 function doBuff(mob, player)
-    local proRaList = {}
-    local shellRaList = {}
-    if (player:getVar("TrustPro_Kup") == 1) then
-        proRaList = {{75,84,129},{63,65,128}, {47,46,127}, {27,28,126}, {7,9,125}}
-    else
-        proRaList = {{63,65,128}, {47,46,127}, {27,28,126}, {7,9,125}}
-    end
-
-    if (player:getVar("TrustShell_Kup") == 1) then
-        shellRaList = {{75,93,134},{68,75,133}, {57,56,132}, {37,37,131}, {17,18,130}}
-    else
-        shellRaList = {{68,75,133}, {57,56,132}, {37,37,131}, {17,18,130}}
-    end
-
+    local proRaList = {{63,65,128}, {47,46,127}, {27,28,126}, {7,9,125}}
     local proList = {{63,65,46}, {47,46,45}, {27,28,44}, {7,9,43}}
+    local shellRaList = {{68,75,133}, {57,56,132}, {37,37,131}, {17,18,130}}
     local shellList = {{68,75,51}, {57,56,50}, {37,37,49}, {17,18,48}}
     local battletime = os.time()
     local mp = mob:getMP()
@@ -235,6 +239,32 @@ function doBuff(mob, player)
     end
 end
 
+function doDebuff(mob, target)
+    local paraCooldown = 120
+    local slowCooldown = 180
+    local flashCooldown = 120
+    local battletime = os.time()
+    local paraTime = mob:getLocalVar("paraTime")
+    local slowTime = mob:getLocalVar("slowTime")
+    local flashTime = mob:getLocalVar("flashTime")
+    local mp = mob:getMP()
+    local lvl = mob:getMainLvl()
+    local debuff = 0
+
+    if ((battletime > paraTime + paraCooldown) and not target:hasStatusEffect(dsp.effect.PARALYSIS) and lvl >= 4 and mp >= 6) then
+        mob:setLocalVar("paraTime",battletime)
+        debuff = 58
+    elseif ((battletime > slowTime + slowCooldown) and not target:hasStatusEffect(dsp.effect.SLOW) and lvl >= 13 and mp >= 15) then
+        mob:setLocalVar("slowTime",battletime)
+        debuff = 56
+    elseif ((battletime > flashTime + flashCooldown) and not target:hasStatusEffect(dsp.effect.FLASH) and lvl >= 45 and mp >= 25) then
+        mob:setLocalVar("flashTime",battletime)
+        debuff = 112
+    end
+
+    return debuff
+end
+
 function doCureKupipi(mob)
     local cureList = {{41,88,4}, {21,46,3}, {11,24,2}, {1,8,1}}
     local mp = mob:getMP()
@@ -249,6 +279,22 @@ function doCureKupipi(mob)
     end
 
     return cure
+end
+
+function doHasteKupipi(mob)
+    local hasteList = {{40,40,57}}
+    local mp = mob:getMP()
+    local lvl = mob:getMainLvl()
+    local haste = 0
+
+    for i = 1, #hasteList do
+        if (lvl >= hasteList[i][1] and mp >= hasteList[i][2]) then
+            haste = hasteList[i][3]
+            break
+        end
+    end
+
+    return haste
 end
 
 function doEmergencyCureKupipi(mob)

@@ -4,6 +4,9 @@
 --    -na Spells, Slow, Paralyze, Erase, Flash
 --  JA: None
 --  WS: Starlight, Moonlight
+--  Notes: Main difference between default is the
+--         addition of haste casted on player and
+--         expanded debuffs
 --  Source: http://bg-wiki.com/bg/Category:Trust
 -------------------------------------------------
 require("scripts/globals/status")
@@ -17,6 +20,7 @@ function onMobSpawn(mob)
     local debuffCooldown = 10
     local buffCooldown = 7
     local ailmentCooldown = 15
+    local hasteCooldown = 220
     local master = mob:getMaster()
     local kupipi = mob:getID()
     mob:setLocalVar("cureTime",0)
@@ -26,6 +30,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("paraTime",0)
     mob:setLocalVar("slowTime",0)
     mob:setLocalVar("flashTime",0)
+    mob:setLocalVar("hasteTime",0)
     mob:addListener("COMBAT_TICK", "KUPIPI_BUFF_TICK", function(mob, player, target)
         local battletime = os.time()
         local buffTime = mob:getLocalVar("buffTime")
@@ -45,6 +50,32 @@ function onMobSpawn(mob)
                 mob:castSpell(spell, player)
             end
             mob:setLocalVar("ailmentTime",battletime)
+        end
+    end)
+
+    mob:addListener("COMBAT_TICK", "DEBUFF_TICK", function(mob, player, target)
+        local battletime = os.time()
+        local debuffTime = mob:getLocalVar("debuffTime")
+
+        if (battletime > debuffTime + debuffCooldown) then
+            local spell = doDebuff(mob, target)
+            if (spell > 0 ) then
+                mob:castSpell(spell, target)
+            end
+            mob:setLocalVar("debuffTime",battletime)
+        end
+    end)
+
+    mob:addListener("COMBAT_TICK", "KUPIPI_HASTE_TICK", function(mob, player, target)
+        local battletime = os.time()
+        local hasteTime = mob:getLocalVar("hasteTime")
+
+        if (battletime > hasteTime + hasteCooldown) then
+            local spell = doHasteKupipi(mob)
+            if (spell > 0 ) then
+                mob:castSpell(spell, player)
+            end
+            mob:setLocalVar("hasteTime",battletime)
         end
     end)
 
@@ -233,6 +264,32 @@ function doBuff(mob, player)
             end
         end
     end
+end
+
+function doDebuff(mob, target)
+    local paraCooldown = 120
+    local slowCooldown = 180
+    local flashCooldown = 120
+    local battletime = os.time()
+    local paraTime = mob:getLocalVar("paraTime")
+    local slowTime = mob:getLocalVar("slowTime")
+    local flashTime = mob:getLocalVar("flashTime")
+    local mp = mob:getMP()
+    local lvl = mob:getMainLvl()
+    local debuff = 0
+
+    if ((battletime > paraTime + paraCooldown) and not target:hasStatusEffect(dsp.effect.PARALYSIS) and lvl >= 4 and mp >= 6) then
+        mob:setLocalVar("paraTime",battletime)
+        debuff = 58
+    elseif ((battletime > slowTime + slowCooldown) and not target:hasStatusEffect(dsp.effect.SLOW) and lvl >= 13 and mp >= 15) then
+        mob:setLocalVar("slowTime",battletime)
+        debuff = 56
+    elseif ((battletime > flashTime + flashCooldown) and not target:hasStatusEffect(dsp.effect.FLASH) and lvl >= 45 and mp >= 25) then
+        mob:setLocalVar("flashTime",battletime)
+        debuff = 112
+    end
+
+    return debuff
 end
 
 function doCureKupipi(mob)
