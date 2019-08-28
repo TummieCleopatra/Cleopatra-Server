@@ -1149,6 +1149,15 @@ INSERT INTO `bcnm_battlefield` VALUES (1092,1,17010731,0);
 INSERT INTO `bcnm_battlefield` VALUES (1124,1,17039400,3); -- shield_of_diplomacy
 INSERT INTO `bcnm_battlefield` VALUES (1124,1,17039401,0);
 INSERT INTO `bcnm_battlefield` VALUES (1156,1,17051694,3); -- puppet_in_peril
+
+
+-- WoTG --
+INSERT INTO `bcnm_battlefield` VALUES (1171,1,17125681,3); -- Purple the new black
+INSERT INTO `bcnm_battlefield` VALUES (1171,2,17125682,3);
+INSERT INTO `bcnm_battlefield` VALUES (1171,3,17125683,3);
+
+
+
 INSERT INTO `bcnm_battlefield` VALUES (1280,1,17539350,3); -- dynamis_bastok
 INSERT INTO `bcnm_battlefield` VALUES (1280,1,17539351,3);
 INSERT INTO `bcnm_battlefield` VALUES (1280,1,17539352,3);

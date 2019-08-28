@@ -73,6 +73,7 @@ battlefield_bitmask_map =
     [64] = {1120,1121,1122,1123,1124},
     [67] = {1152,1153,1154,1155,1156},
     [78] = {1184},
+    [85] = {1170,1171},
     [186] = {1280},
     [185] = {1281},
     [187] = {1282},
@@ -370,8 +371,10 @@ function GetBattleBitmask(id, zone, mode)
         for index, battlefield in ipairs(battlefield_bitmask_map[zone]) do
             if id == battlefield then
                 if mode == 1 then
+                    print(index);
                     return math.pow(2, index - 1);
                 else
+                    -- print(index);
                     return index;
                 end
             end
@@ -505,6 +508,9 @@ function checkNonTradeBCNM(player, npc, mode)
                 },
         [67] =  {
                     [1156] = function() return (player:getCurrentMission(TOAU) == dsp.mission.id.toau.PUPPET_IN_PERIL and player:getVar("AhtUrganStatus")==1)  end, -- TOAU-29 Puppet in Peril
+                },
+        [85] =  {
+                    [1171] = function() return (player:getCurrentMission(WOTG) == dsp.mission.id.wotg.PURPLE_THE_NEW_BLACK and player:getVar("WoTGStatus")==1)  end, -- TOAU-29 Puppet in Peril
                 },
         [139] = {
                     [0] = function()

@@ -273,6 +273,7 @@ INSERT INTO `bcnm_info` VALUES (1153,67,'shadows_of_the_mind','nobody',1,18,1800
 INSERT INTO `bcnm_info` VALUES (1154,67,'beast_within','nobody',1,18,600,90,1,0,6,0);
 INSERT INTO `bcnm_info` VALUES (1155,67,'moment_of_truth','nobody',1,18,1800,0,6,0,7,0);
 INSERT INTO `bcnm_info` VALUES (1156,67,'puppet_in_peril','nobody',1,18,1800,99,6,0,5,0);
+INSERT INTO `bcnm_info` VALUES (1171,85,'purple_the_new_black','Tummie',1,360,1800,75,6,0,5,1);
 INSERT INTO `bcnm_info` VALUES (1184,78,'rider_cometh','nobody',1,18,900,0,6,0,5,0);
 INSERT INTO `bcnm_info` VALUES (1280,186,'dynamis_bastok','nobody',1,18,3600,0,64,0,7,0);
 INSERT INTO `bcnm_info` VALUES (1281,185,'dynamis_sandoria','nobody',1,18,3600,0,64,0,7,0);
