@@ -1794,3 +1794,61 @@ INSERT INTO `bcnm_loot` VALUES ('180','17277','163','2');
 INSERT INTO `bcnm_loot` VALUES ('180','17707','167','2');
 INSERT INTO `bcnm_loot` VALUES ('180','18098','153','2');
 INSERT INTO `bcnm_loot` VALUES ('180','4748','271','2');
+
+-- Dark Ixion
+INSERT INTO `bcnm_loot` VALUES ('200','11289','100','1'); -- Ixion Cloak
+INSERT INTO `bcnm_loot` VALUES ('200','19107','130','1'); -- Azoth
+INSERT INTO `bcnm_loot` VALUES ('200','15499','300','1'); -- Thunder Gorget
+INSERT INTO `bcnm_loot` VALUES ('200','15439','300','1'); -- Rairin Obi
+INSERT INTO `bcnm_loot` VALUES ('200','1303','800','1'); -- Thunder bead
+INSERT INTO `bcnm_loot` VALUES ('200','14638','130','2'); -- Ring
+INSERT INTO `bcnm_loot` VALUES ('200','2654','700','2'); -- Horn
+INSERT INTO `bcnm_loot` VALUES ('200','17299','630','2'); -- Asrealagos
+INSERT INTO `bcnm_loot` VALUES ('200','4775','300','3');
+INSERT INTO `bcnm_loot` VALUES ('200','4804','500','3');
+INSERT INTO `bcnm_loot` VALUES ('200','4820','250','3');
+INSERT INTO `bcnm_loot` VALUES ('200','17299','430','3'); -- Asrealagos
+INSERT INTO `bcnm_loot` VALUES ('200','4108','530','4'); -- Lightning Cluster
+INSERT INTO `bcnm_loot` VALUES ('200','4100','630','4'); -- Lightning Crystal
+INSERT INTO `bcnm_loot` VALUES ('200','17299','730','5'); -- Asrealagos
+INSERT INTO `bcnm_loot` VALUES ('200','17299','1000','6'); -- Asrealagos
+
+-- Auroral Alicorn
+INSERT INTO `bcnm_loot` VALUES ('201','16242','100','1'); -- Ixion Cape
+INSERT INTO `bcnm_loot` VALUES ('201','18632','130','1'); -- Iridial Staff
+INSERT INTO `bcnm_loot` VALUES ('201','18633','200','1'); -- Iridial Staff
+INSERT INTO `bcnm_loot` VALUES ('201','1305','800','1'); -- Light bead
+INSERT INTO `bcnm_loot` VALUES ('201','15501','300','1'); -- Light Gorget
+INSERT INTO `bcnm_loot` VALUES ('201','15441','300','1'); -- Korin Obi
+INSERT INTO `bcnm_loot` VALUES ('201','14642','130','2'); -- Ring
+INSERT INTO `bcnm_loot` VALUES ('201','2654','700','2'); -- Horn
+INSERT INTO `bcnm_loot` VALUES ('201','17299','630','2'); -- Asrealagos
+INSERT INTO `bcnm_loot` VALUES ('201','4647','300','3'); -- Banishga II
+INSERT INTO `bcnm_loot` VALUES ('201','4638','500','3'); -- Banish III
+INSERT INTO `bcnm_loot` VALUES ('201','4629','250','3'); -- Holy
+INSERT INTO `bcnm_loot` VALUES ('201','17299','430','3'); -- Asrealagos
+INSERT INTO `bcnm_loot` VALUES ('201','4110','530','4'); -- Light Cluster
+INSERT INTO `bcnm_loot` VALUES ('201','4102','630','4'); -- Light Crystal
+INSERT INTO `bcnm_loot` VALUES ('201','17299','730','5'); -- Asrealagos
+INSERT INTO `bcnm_loot` VALUES ('201','17299','1000','6'); -- Asrealagos
+
+-- Prishe/Ulmia
+INSERT INTO `bcnm_loot` VALUES ('202','18771','180','1'); -- Lyft Santi
+INSERT INTO `bcnm_loot` VALUES ('202','17840','180','1'); -- Angel Lyre remove from AH
+INSERT INTO `bcnm_loot` VALUES ('202','4627','350','1'); -- Holy
+INSERT INTO `bcnm_loot` VALUES ('202','4110','800','1'); -- Light Cluster
+INSERT INTO `bcnm_loot` VALUES ('202','28567','100','2'); -- Nesanica Ring
+INSERT INTO `bcnm_loot` VALUES ('202','16274','300','2'); -- Almah torque
+INSERT INTO `bcnm_loot` VALUES ('202','4612','700','2'); -- Cure IV
+INSERT INTO `bcnm_loot` VALUES ('202','4647','300','3'); -- Banishga II
+INSERT INTO `bcnm_loot` VALUES ('202','4638','500','3'); -- Banish III
+INSERT INTO `bcnm_loot` VALUES ('202','1305','800','3'); -- Light bead
+INSERT INTO `bcnm_loot` VALUES ('202','650','600','4'); -- Brass Ingot
+INSERT INTO `bcnm_loot` VALUES ('202','863','500','4'); -- Courel hide
+INSERT INTO `bcnm_loot` VALUES ('202','857','500','4'); -- Dhalmel Hide
+INSERT INTO `bcnm_loot` VALUES ('202','11285','100','5'); -- Morgans Cotehardie
+INSERT INTO `bcnm_loot` VALUES ('202','2769','200','5'); -- Buggane Horn
+INSERT INTO `bcnm_loot` VALUES ('202','2764','200','5'); -- Dweomer Steal
+INSERT INTO `bcnm_loot` VALUES ('202','2761','200','5'); -- Feyweald
+INSERT INTO `bcnm_loot` VALUES ('202','2766','200','5'); -- Oberon's Gold
+INSERT INTO `bcnm_loot` VALUES ('202','919','200','5'); -- Boyhoda Moss

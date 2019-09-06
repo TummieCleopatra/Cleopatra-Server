@@ -2501,6 +2501,10 @@ INSERT INTO `mob_spell_lists` VALUES ('Lizardtrap',303,152,1,255); -- blizzard_i
 INSERT INTO `mob_spell_lists` VALUES ('Lizardtrap',303,181,1,255); -- blizzaga_iii
 INSERT INTO `mob_spell_lists` VALUES ('Lizardtrap',303,356,1,255); -- paralyga
 
+INSERT INTO `mob_spell_lists` VALUES ('Dark_Ixion', 306, 165, 1, 255); -- Thunder II
+INSERT INTO `mob_spell_lists` VALUES ('Dark_Ixion', 306, 194, 1, 255); -- Thundaga 
+INSERT INTO `mob_spell_lists` VALUES ('Dark_Ixion', 306, 212, 1, 255); -- Burst
+
 /*!40000 ALTER TABLE `mob_spell_lists` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

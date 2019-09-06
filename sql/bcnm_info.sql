@@ -273,7 +273,7 @@ INSERT INTO `bcnm_info` VALUES (1153,67,'shadows_of_the_mind','nobody',1,18,1800
 INSERT INTO `bcnm_info` VALUES (1154,67,'beast_within','nobody',1,18,600,90,1,0,6,0);
 INSERT INTO `bcnm_info` VALUES (1155,67,'moment_of_truth','nobody',1,18,1800,0,6,0,7,0);
 INSERT INTO `bcnm_info` VALUES (1156,67,'puppet_in_peril','nobody',1,18,1800,99,6,0,5,0);
-INSERT INTO `bcnm_info` VALUES (1171,85,'purple_the_new_black','Tummie',1,360,1800,75,6,0,5,1);
+INSERT INTO `bcnm_info` VALUES (1171,85,'purple_the_new_black','Tummie',1,18,1800,75,6,0,5,1);
 INSERT INTO `bcnm_info` VALUES (1184,78,'rider_cometh','nobody',1,18,900,0,6,0,5,0);
 INSERT INTO `bcnm_info` VALUES (1280,186,'dynamis_bastok','nobody',1,18,3600,0,64,0,7,0);
 INSERT INTO `bcnm_info` VALUES (1281,185,'dynamis_sandoria','nobody',1,18,3600,0,64,0,7,0);
@@ -303,6 +303,29 @@ INSERT INTO `bcnm_info` VALUES (1304,37,'central_temenos_2nd_floor','nobody',1,1
 INSERT INTO `bcnm_info` VALUES (1305,37,'central_temenos_3rd_floor','nobody',1,18,2700,0,18,0,7,0);
 INSERT INTO `bcnm_info` VALUES (1306,37,'central_temenos_4th_floor','nobody',1,18,3600,0,18,0,7,0);
 INSERT INTO `bcnm_info` VALUES (1307,37,'central_temenos_4th_floor_ii','nobody',1,18,3600,0,18,0,7,0);
+
+INSERT INTO `bcnm_info` VALUES (1375,202,'the_dark_horse','Cleopatra',1,18,1800,75,6,200,15,0);
+INSERT INTO `bcnm_info` VALUES (1376,202,'the_light_horse','Cleopatra',1,18,1800,75,6,201,15,0);
+
+INSERT INTO `bcnm_info` VALUES (1377,139,'impersonating_curilla','Cleopatra',1,18,1800,75,1,0,7,0);
+INSERT INTO `bcnm_info` VALUES (1378,139,'impersonating_excenmille','Cleopatra',1,18,1800,75,1,0,7,0);
+
+INSERT INTO `bcnm_info` VALUES (1379,144,'impersonating_ayame','Cleopatra',1,18,1800,75,1,0,7,0);
+INSERT INTO `bcnm_info` VALUES (1380,144,'impersonating_naji','Cleopatra',1,18,1800,75,1,0,7,0);
+INSERT INTO `bcnm_info` VALUES (1381,146,'impersonating_kupipi','Cleopatra',1,18,1800,75,1,0,7,0);
+INSERT INTO `bcnm_info` VALUES (1382,146,'impersonating_nanaa','Cleopatra',1,18,1800,75,1,0,7,0);
+INSERT INTO `bcnm_info` VALUES (1383,206,'impersonating_darcullin','Cleopatra',1,18,1800,75,1,0,7,0);
+INSERT INTO `bcnm_info` VALUES (1384,206,'impersonating_adelheid','Cleopatra',1,18,1800,75,1,0,7,0);
+INSERT INTO `bcnm_info` VALUES (1385,206,'impersonating_lion','Cleopatra',1,18,1800,75,1,0,7,0);
+INSERT INTO `bcnm_info` VALUES (1386,206,'impersonating_zeid','Cleopatra',1,18,1800,75,1,0,7,0);
+-- INSERT INTO `bcnm_info` VALUES (1387,183,'test_your_fortitude','Cleopatra',18,1800,75,18,0,7,0); NYI
+INSERT INTO `bcnm_info` VALUES (1388,32,'double_trouble','Cleopatra',1,18,1800,75,6,202,15,0);
+
+INSERT INTO `bcnm_info` VALUES (1389,57,'call_of_the_waterserpent','Cleopatra',1,18,1800,75,6,0,7,0);
+INSERT INTO `bcnm_info` VALUES (1390,64,'call_of_the_flameserpent','Cleopatra',1,18,1800,75,6,0,7,0);
+INSERT INTO `bcnm_info` VALUES (1391,78,'call_of_the_stoneserpent','Cleopatra',1,18,1800,75,6,0,7,0);
+INSERT INTO `bcnm_info` VALUES (1392,67,'call_of_the_galeserpent','Cleopatra',1,18,1800,75,6,0,7,0);
+INSERT INTO `bcnm_info` VALUES (1393,77,'call_of_the_skyserpent','Cleopatra',1,18,1800,75,6,0,7,0);
 /*!40000 ALTER TABLE `bcnm_info` ENABLE KEYS */;
 UNLOCK TABLES;
 commit;

@@ -1439,7 +1439,8 @@ INSERT INTO `mob_skill_lists` VALUES ('Pandemonium',316,2116);
 INSERT INTO `mob_skill_lists` VALUES ('Pandemonium',316,2117);
 INSERT INTO `mob_skill_lists` VALUES ('Pandemonium',316,2118);
 INSERT INTO `mob_skill_lists` VALUES ('Pandemonium',316,2119);
--- 317 to 318: free
+INSERT INTO `mob_skill_lists` VALUES ('Pet-Ixion',317,2334);
+INSERT INTO `mob_skill_lists` VALUES ('Pet-Alicorn',318,2370);
 INSERT INTO `mob_skill_lists` VALUES ('Avatar-Shiva',319,881);
 INSERT INTO `mob_skill_lists` VALUES ('Avatar-Shiva',319,882);
 INSERT INTO `mob_skill_lists` VALUES ('Avatar-Shiva',319,883);
