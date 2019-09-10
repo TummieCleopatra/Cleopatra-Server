@@ -392,9 +392,11 @@ enum SKILLCHAIN_ELEMENT
     SC_DARKNESS = 14, // Lv3 Dark, Earth, Water, Ice
     SC_LIGHT_II = 15, // Lv4 Light
     SC_DARKNESS_II = 16, // Lv4 Darkness
+	SC_RADIANCE = 17,
+	SC_UMBRA = 18,
 };
 
-#define MAX_SKILLCHAIN_LEVEL (4)
+#define MAX_SKILLCHAIN_LEVEL (5)
 #define MAX_SKILLCHAIN_COUNT (5)
 
 enum IMMUNITY : uint16

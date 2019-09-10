@@ -471,6 +471,7 @@ bool CCharEntity::ReloadParty()
 
 void CCharEntity::RemoveTrust(CTrustEntity* PTrust)
 {
+    ;
     if (!PTrust->PAI->IsSpawned())
         return;
 
@@ -716,7 +717,7 @@ void CCharEntity::OnCastFinished(CMagicState& state, action_t& action)
                 static_cast<CBlueSpell*>(PSpell)->getPrimarySkillchain() != 0)
             {
                 auto PBlueSpell = static_cast<CBlueSpell*>(PSpell);
-                SUBEFFECT effect = battleutils::GetSkillChainEffect(PTarget, PBlueSpell->getPrimarySkillchain(), PBlueSpell->getSecondarySkillchain(), 0 );
+                SUBEFFECT effect = battleutils::GetSkillChainEffect(PTarget, PBlueSpell->getPrimarySkillchain(), PBlueSpell->getSecondarySkillchain(), 0, 0, 0, 0 );
                 if (effect != SUBEFFECT_NONE)
                 {
                     uint16 skillChainDamage = battleutils::TakeSkillchainDamage(static_cast<CBattleEntity*>(this), PTarget, actionTarget.param, nullptr);
@@ -873,7 +874,205 @@ void CCharEntity::OnWeaponSkillFinished(CWeaponSkillState& state, action_t& acti
                     {
                         // NOTE: GetSkillChainEffect is INSIDE this if statement because it
                         //  ALTERS the state of the resonance, which misses and non-elemental skills should NOT do.
-                        SUBEFFECT effect = battleutils::GetSkillChainEffect(PBattleTarget, PWeaponSkill->getPrimarySkillchain(), PWeaponSkill->getSecondarySkillchain(), PWeaponSkill->getTertiarySkillchain() );
+
+                        // NOTE: Lets put a unique effect here.  If a player has X effect active, change the primary SC element
+                        // It will allow for changing elements
+
+                        // Transfixtion, Liquefication get bumped to Fusion
+                        if ((PWeaponSkill->getPrimarySkillchain() == 1) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA1))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(11);
+                        	ShowWarning(CL_CYAN"SETTING PRIMARY SKILLCHAIN TO 11\n" CL_RESET);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 3) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA1))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(11);
+                        	ShowWarning(CL_CYAN"SETTING PRIMARY SKILLCHAIN TO 11\n" CL_RESET);
+                        }
+                        // Detonation, Impaction get bumped to Fragmentation
+                        if ((PWeaponSkill->getPrimarySkillchain() == 6) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA1))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(12);
+                        	ShowWarning(CL_CYAN"SETTING PRIMARY SKILLCHAIN TO 11\n" CL_RESET);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 8) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA1))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(12);
+                        	ShowWarning(CL_CYAN"SETTING PRIMARY SKILLCHAIN TO 11\n" CL_RESET);
+                        }
+                        // Compression, Scission get bumped to Gravitation
+                        if ((PWeaponSkill->getPrimarySkillchain() == 2) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA1))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(9);
+                        	ShowWarning(CL_CYAN"SETTING PRIMARY SKILLCHAIN TO 9\n" CL_RESET);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 4) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA1))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(9);
+                        	ShowWarning(CL_CYAN"SETTING PRIMARY SKILLCHAIN TO 9\n" CL_RESET);
+                        }
+                        // Reverberation, Induration get bumped to Distortion
+                        if ((PWeaponSkill->getPrimarySkillchain() == 5) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA1))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(10);
+                        	ShowWarning(CL_CYAN"SETTING PRIMARY SKILLCHAIN TO 10\n" CL_RESET);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 7) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA1))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(10);
+                        	ShowWarning(CL_CYAN"SETTING PRIMARY SKILLCHAIN TO 10\n" CL_RESET);
+                        }
+
+
+                        // Fusion/Frag && Gravitation/Distortion get bumped to Light/Dark
+                        if ((PWeaponSkill->getPrimarySkillchain() == 9) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA2))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(14);
+                        	ShowWarning(CL_CYAN"SETTING PRIMARY SKILLCHAIN TO 14\n" CL_RESET);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 10) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA2))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(14);
+                        	ShowWarning(CL_CYAN"SETTING PRIMARY SKILLCHAIN TO 14\n" CL_RESET);
+                        }
+
+                        if ((PWeaponSkill->getPrimarySkillchain() == 11) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA2))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(13);
+                        	ShowWarning(CL_CYAN"SETTING PRIMARY SKILLCHAIN TO 13\n" CL_RESET);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 12) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA2))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(13);
+                        	ShowWarning(CL_CYAN"SETTING PRIMARY SKILLCHAIN TO 13\n" CL_RESET);
+                        }
+
+
+	                    // Level 1 Element with Level 2 Active get bumped to Fusion
+                        if ((PWeaponSkill->getPrimarySkillchain() == 1) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA1))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(11);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 3) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA1))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(11);
+                        }
+
+	                    // Level 1 Element with Level 2 Active get bumped to Fragmentation
+                        if ((PWeaponSkill->getPrimarySkillchain() == 6) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA1))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(12);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 8) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA1))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(12);
+                        }
+
+
+	                    // Level 1 Element with Level 2 Active get bumped to Gravitation
+                        if ((PWeaponSkill->getPrimarySkillchain() == 2) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA1))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(9);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 4) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA1))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(9);
+                        }
+
+                         // Level 1 Element with Level 2 Active get bumped to Distortion
+                        if ((PWeaponSkill->getPrimarySkillchain() == 5) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA1))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(10);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 7) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA1))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(10);
+                        }
+
+
+	                    // Level 1 Element with Level 3 Active get bumped to Light
+                        if ((PWeaponSkill->getPrimarySkillchain() == 1) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA2))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(13);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 3) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA2))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(13);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 6) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA2))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(13);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 8) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA2))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(13);
+                        }
+	                    // Level 1 Element with Level 3 Active get bumped to Darkness
+                        if ((PWeaponSkill->getPrimarySkillchain() == 2) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA2))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(14);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 4) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA2))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(14);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 5) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA2))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(14);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 7) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA2))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(14);
+                        }
+
+
+	                    // Level 1 Element with Level 4 Active get bumped to Light II
+                        if ((PWeaponSkill->getPrimarySkillchain() == 1) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA3))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(15);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 3) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA3))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(15);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 6) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA3))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(15);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 8) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA3))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(15);
+                        }
+	                    // Level 1 Element with Level 4 Active get bumped to Darkness II
+                        if ((PWeaponSkill->getPrimarySkillchain() == 2) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA3))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(16);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 4) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA3))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(16);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 5) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA3))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(16);
+                        }
+                        if ((PWeaponSkill->getPrimarySkillchain() == 7) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS_HA3))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(16);
+                        }
+
+                        //Level 3 Element with Level 4 active gets bumped to Umbra/Radiance
+                        if ((PWeaponSkill->getPrimarySkillchain() == 13) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(15);
+                        }
+
+                        if ((PWeaponSkill->getPrimarySkillchain() == 14) && StatusEffectContainer->HasStatusEffect(EFFECT_AFTERMATH_PLUS))
+                        {
+                        	PWeaponSkill->setPrimarySkillchain(16);
+                        }
+
+                        SUBEFFECT effect = battleutils::GetSkillChainEffect(PBattleTarget, PWeaponSkill->getPrimarySkillchain(), PWeaponSkill->getSecondarySkillchain(), PWeaponSkill->getTertiarySkillchain(), 0, 0, 0 );
                         if (effect != SUBEFFECT_NONE)
                         {
                             actionTarget.addEffectParam = battleutils::TakeSkillchainDamage(this, PBattleTarget, damage, taChar);
@@ -882,8 +1081,18 @@ void CCharEntity::OnWeaponSkillFinished(CWeaponSkillState& state, action_t& acti
                                 actionTarget.addEffectParam = -actionTarget.addEffectParam;
                                 actionTarget.addEffectMessage = 384 + effect;
                             }
+                            else if (effect == SUBEFFECT_UMBRA)
+	                        {
+                                actionTarget.addEffectMessage = 752 + effect;
+				                actionTarget.additionalEffect = effect;
+                            }
+			                else if (effect == SUBEFFECT_RADIANCE)
+	                        {
+                                actionTarget.addEffectMessage = 752 + effect;
+				                actionTarget.additionalEffect = effect;
+                            }
                             else
-                                actionTarget.addEffectMessage = 287 + effect;
+                               actionTarget.addEffectMessage = 287 + effect;
                             actionTarget.additionalEffect = effect;
 
                             if (effect >= 7)

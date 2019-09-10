@@ -61,6 +61,9 @@ public:
 	void		setPrimarySkillchain(uint8 skillchain);
     void		setSecondarySkillchain(uint8 skillchain);
     void		setTertiarySkillchain(uint8 skillchain);
+    void		setQuaternarySkillchain(uint8 skillchain);
+    void		setQuinarySkillchain(uint8 skillchain);
+    void		setSenarySkillchain(uint8 skillchain);
 	void		setAoe(uint8 aoe);
 	void        setAnimationId(int8 animation);
     void        setAnimationTime(duration time);
@@ -71,6 +74,9 @@ public:
     uint8       getPrimarySkillchain();
     uint8       getSecondarySkillchain();
     uint8       getTertiarySkillchain();
+	uint8       getQuaternarySkillchain();
+	uint8		getQuinarySkillchain();
+	uint8		getSenarySkillchain();
 
 	const int8* getName();
 	void		setName(int8* name);
@@ -87,6 +93,9 @@ private:
     uint8       m_PrimarySkillchain;
     uint8       m_SecondarySkillchain;
     uint8       m_TertiarySkillchain;
+	uint8       m_QuaternarySkillchain;
+	uint8       m_QuinarySkillchain;
+	uint8       m_SenarySkillchain;
 	uint8		m_Range;
 	uint8       m_AOE;
     uint8       m_mainOnly;

@@ -4,7 +4,7 @@
 -- ----------------------------
 DROP TABLE IF EXISTS `skillchain_damage_modifiers`;
 CREATE TABLE `skillchain_damage_modifiers` (
-  `chain_level` enum('1','2','3','4') NOT NULL DEFAULT '1',
+  `chain_level` enum('1','2','3','4','5') NOT NULL DEFAULT '1',
   `chain_count` enum('1','2','3','4','5') NOT NULL DEFAULT '1',
   `initial_modifier` int(3) NOT NULL DEFAULT '1',
   `magic_burst_modifier` int(3) NOT NULL DEFAULT '1',
@@ -34,3 +34,8 @@ INSERT INTO `skillchain_damage_modifiers` VALUES ('4', '2', '1500', '1350');
 INSERT INTO `skillchain_damage_modifiers` VALUES ('4', '3', '1750', '1400');
 INSERT INTO `skillchain_damage_modifiers` VALUES ('4', '4', '2000', '1450');
 INSERT INTO `skillchain_damage_modifiers` VALUES ('4', '5', '2250', '1500');
+INSERT INTO `skillchain_damage_modifiers` VALUES ('5', '1', '2750', '2500');
+INSERT INTO `skillchain_damage_modifiers` VALUES ('5', '2', '3000', '2550');
+INSERT INTO `skillchain_damage_modifiers` VALUES ('5', '3', '3200', '2600');
+INSERT INTO `skillchain_damage_modifiers` VALUES ('5', '4', '3500', '2650');
+INSERT INTO `skillchain_damage_modifiers` VALUES ('5', '5', '4000', '2700');

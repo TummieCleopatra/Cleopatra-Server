@@ -106,6 +106,21 @@ void CWeaponSkill::setTertiarySkillchain(uint8 skillchain)
     m_TertiarySkillchain = skillchain;
 }
 
+void CWeaponSkill::setQuaternarySkillchain(uint8 skillchain)
+{
+    m_QuaternarySkillchain = skillchain;
+}
+
+void CWeaponSkill::setQuinarySkillchain(uint8 skillchain)
+{
+    m_QuinarySkillchain = skillchain;
+}
+
+void CWeaponSkill::setSenarySkillchain(uint8 skillchain)
+{
+    m_SenarySkillchain = skillchain;
+}
+
 void CWeaponSkill::setName(int8* name)
 {
 	m_name.clear();
@@ -200,4 +215,19 @@ uint8 CWeaponSkill::getSecondarySkillchain()
 uint8 CWeaponSkill::getTertiarySkillchain()
 {
     return m_TertiarySkillchain;
+}
+
+uint8 CWeaponSkill::getQuaternarySkillchain()
+{
+    return m_QuaternarySkillchain;
+}
+
+uint8 CWeaponSkill::getQuinarySkillchain()
+{
+    return m_QuinarySkillchain;
+}
+
+uint8 CWeaponSkill::getSenarySkillchain()
+{
+    return m_SenarySkillchain;
 }

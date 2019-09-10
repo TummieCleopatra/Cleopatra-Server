@@ -703,6 +703,14 @@ INSERT INTO `status_effects` VALUES (847,'indi-slow',32,0,0,0,0,0,0,0);
 INSERT INTO `status_effects` VALUES (848,'indi-paralysis',32,0,0,0,0,0,0,0);
 INSERT INTO `status_effects` VALUES (849,'indi-gravity',32,0,0,0,0,0,0,0);
 INSERT INTO `status_effects` VALUES (850,'custom_effect',32,0,0,0,0,0,0,0);
+
+INSERT INTO `status_effects` VALUES (950,'level_two_sc',512,0,0,2,0,0,0,0);
+INSERT INTO `status_effects` VALUES (951,'level_three_sc',512,0,0,2,0,0,0,0);
+INSERT INTO `status_effects` VALUES (952,'level_four_sc',512,0,0,2,0,0,0,0);
+INSERT INTO `status_effects` VALUES (953,'aftermath_plus',512,0,0,2,0,0,0,0);
+INSERT INTO `status_effects` VALUES (954,'aftermath_plus_ha1',512,0,0,4,0,0,0,0);
+INSERT INTO `status_effects` VALUES (955,'aftermath_plus_ha2',512,0,0,4,0,0,0,0);
+INSERT INTO `status_effects` VALUES (956,'aftermath_plus_ha3',512,0,0,4,0,0,0,0);
 /*!40000 ALTER TABLE `status_effects` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

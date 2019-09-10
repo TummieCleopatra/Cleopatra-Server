@@ -14,6 +14,7 @@ dsp.aftermath.type =
     RELIC    = 1,
     MYTHIC   = 2,
     EMPYREAN = 3,
+    HA       = 4,
 } -- TODO: Add Aeonic
 
 -------------------------------------
@@ -103,7 +104,7 @@ dsp.aftermath.effects =
                  { dsp.mod.REM_OCC_DO_DOUBLE_DMG_RANGED, function(tp) return 40 end } },
         duration = { 60, 90, 120 }
     },
-    
+
     -----------------------------------
     -- Tier 2 Mythic
     -----------------------------------
@@ -142,7 +143,7 @@ dsp.aftermath.effects =
                  { dsp.mod.REM_OCC_DO_DOUBLE_DMG_RANGED, function(tp) return 60 end } },
         duration = { 90, 120, 180 }
     },
-    
+
     -----------------------------------
     -- Tier 3 Mythic
     -----------------------------------
@@ -191,7 +192,7 @@ dsp.aftermath.effects =
         power = { 30, 40, 50 },
         duration = { 30, 60, 90 }
     },
-    
+
     -----------------------------------
     -- Tier 2 Empyrean
     -----------------------------------
@@ -200,7 +201,18 @@ dsp.aftermath.effects =
         mod = dsp.mod.REM_OCC_DO_TRIPLE_DMG,
         power = { 30, 40, 50 },
         duration = { 60, 120, 180 }
+    },
+
+    -----------------------------------
+    -- High Artifacts
+    -----------------------------------
+    [46] =
+    {
+        mods = { { dsp.mod.ALL_WSDMG_ALL_HITS, function(tp) return math.floor((tp / 500) + 5) end },
+                 { dsp.mod.REGAIN, 15 } },
+        duration = { 30, 45, 60 }
     }
+
 }
 
 dsp.aftermath.addStatusEffect = function(player, tp, weaponSlot, aftermathType)
@@ -217,15 +229,20 @@ dsp.aftermath.addStatusEffect = function(player, tp, weaponSlot, aftermathType)
         [1] = function(x)
             invalid = id > 28
         end,
-        
+
         -- Mythic
         [2] = function(x)
             invalid = id < 29 or id > 43
         end,
-        
+
         -- Empyrean
         [3] = function(x)
             invalid = id < 44
+        end,
+
+        -- High Artifact
+        [4] = function(x)
+            invalid = id < 45
         end
     }
     if invalid then return end
@@ -235,26 +252,201 @@ dsp.aftermath.addStatusEffect = function(player, tp, weaponSlot, aftermathType)
 
     if not dsp.aftermath.canOverwrite(player, tp, id, aftermathType) then return end
 
+    local validRelicPlus = true
+
+    switch (id) : caseof
+    {
+        [1] = function(x)
+            validRelicPlus = player:getVar("AftermathPlus_H2H") == 1
+        end,
+
+        [2] = function(x)
+            validRelicPlus = player:getVar("AftermathPlus_Dagger") == 1
+        end,
+
+        [3] = function(x)
+            validRelicPlus = player:getVar("AftermathPlus_Sword") == 1
+        end,
+
+        [4] = function(x)
+            validRelicPlus = player:getVar("AftermathPlus_GS") == 1
+        end,
+
+        [5] = function(x)
+            validRelicPlus = player:getVar("AftermathPlus_Axe") == 1
+        end,
+
+        [6] = function(x)
+            validRelicPlus = player:getVar("AftermathPlus_Gaxe") == 1
+        end,
+
+        [7] = function(x)
+            validRelicPlus = player:getVar("AftermathPlus_Scythe") == 1
+        end,
+
+        [8] = function(x)
+            validRelicPlus = player:getVar("AftermathPlus_Pole") == 1
+        end,
+
+        [9] = function(x)
+            validRelicPlus = player:getVar("AftermathPlus_Katana") == 1
+        end,
+
+        [10] = function(x)
+            validRelicPlus = player:getVar("AftermathPlus_Gkatana") == 1
+        end,
+
+        [11] = function(x)
+            validRelicPlus = player:getVar("AftermathPlus_Club") == 1
+        end,
+
+        [12] = function(x)
+            validRelicPlus = player:getVar("AftermathPlus_Staff") == 1
+        end,
+
+        [13] = function(x)
+            validRelicPlus = player:getVar("AftermathPlus_Bow") == 1
+        end,
+
+        [14] = function(x)
+            validRelicPlus = player:getVar("AftermathPlus_Gun") == 1
+        end,
+    }
+
+    local weaponID = player:getEquipID(dsp.slot.MAIN)
+    local validHA = true
+
+    switch (weaponID) : caseof
+    {
+        [18505] = function(x)
+            validHA = player:getVar("WARHAFight") == 5
+        end,
+
+        [18764] = function(x)
+            validHA = player:getVar("MNKHAFight") == 5
+        end,
+
+        [18870] = function(x)
+            validHA = player:getVar("WHMHAFight") == 5
+        end,
+
+        [18859] = function(x)
+            validHA = player:getVar("BLMHAFight") == 5
+        end,
+
+        [17761] = function(x)
+            validHA = player:getVar("RDMHAFight") == 5
+        end,
+
+        [19115] = function(x)
+            validHA = player:getVar("THFHAFight") == 5
+        end,
+
+        [17762] = function(x)
+            validHA = player:getVar("PLDHAFight") == 5
+        end,
+
+        [12407] = function(x)
+            validHA = player:getVar("PLDHAFightShield") == 2
+        end,
+
+        [18955] = function(x)
+            validHA = player:getVar("DRKHAFight") == 5
+        end,
+
+        [17966] = function(x)
+            validHA = player:getVar("BSTHAFight") == 5
+        end,
+
+        [19116] = function(x)
+            validHA = player:getVar("BRDHAFight") == 5
+        end,
+
+        [18736] = function(x)
+            validHA = player:getVar("RNGHAFight") == 5
+        end,
+
+        [18452] = function(x)
+            validHA = player:getVar("SAMHAFight") == 5
+        end,
+
+        [19275] = function(x)
+            validHA = player:getVar("NINHAFight") == 5
+        end,
+
+        [19303] = function(x)
+            validHA = player:getVar("DRGHAFight") == 5
+        end,
+
+        [18601] = function(x)
+            validHA = player:getVar("SMNHAFight") == 5
+        end,
+
+        [17763] = function(x)
+            validHA = player:getVar("BLUHAFight") == 5
+        end,
+
+        [18737] = function(x)
+            validHA = player:getVar("CORHAFight") == 5
+        end,
+
+        [18765] = function(x)
+            validHA = player:getVar("PUPHAFight") == 5
+        end,
+
+        [19117] = function(x)
+            validHA = player:getVar("DNCHAFight") == 5
+        end,
+
+        [18602] = function(x)
+            validHA = player:getVar("SCHHAFight") == 5
+        end,
+
+    }
+
     player:delStatusEffect(dsp.effect.AFTERMATH)
     switch (aftermathType) : caseof
     {
         -- Relic
         [1] = function(x)
-            player:addStatusEffect(dsp.effect.AFTERMATH, id, 0, aftermath.duration(tp), 0, tp, aftermathType)
+            if (validRelicPlus and player:hasStatusEffect(dsp.effect.AFTERMATH_PLUS) == false) then
+                player:addStatusEffectEx(dsp.effect.AFTERMATH_PLUS, dsp.effect.AFTERMATH_LV3, id, 3, aftermath.duration(tp), 0, tp, aftermathType)
+            else
+                player:addStatusEffect(dsp.effect.AFTERMATH, id, 0, aftermath.duration(tp), 0, tp, aftermathType)
+            end
         end,
-        
+
         -- Mythic
         [2] = function(x)
             local tier = math.floor(tp / 1000)
             local icon = dsp.effect["AFTERMATH_LV"..tier]
             player:addStatusEffectEx(dsp.effect.AFTERMATH, icon, id, 0, aftermath.duration[tier], 0, tp, aftermathType)
         end,
-        
+
         -- Empyrean
         [3] = function(x)
             local tier = math.floor(tp / 1000)
             local icon = dsp.effect["AFTERMATH_LV"..tier]
             player:addStatusEffectEx(dsp.effect.AFTERMATH, icon, id, 0, aftermath.duration[tier], 0, tp, aftermathType)
+        end,
+
+        -- High Artifact
+        [4] = function(x)
+            local tier = math.floor(tp / 1000)
+            local icon = dsp.effect["AFTERMATH_LV"..tier]
+            if (validHA) then
+                if (tier == 1 and player:hasStatusEffect(dsp.effect.AFTERMATH_PLUS_HA3) == false and not player:hasStatusEffect(dsp.effect.LEVEL_TWO_SC) and
+                not player:hasStatusEffect(dsp.effect.LEVEL_THREE_SC) and not player:hasStatusEffect(dsp.effect.LEVEL_FOUR_SC)) then
+                    player:addStatusEffectEx(dsp.effect.AFTERMATH_PLUS_HA1, icon, id, 0, aftermath.duration[tier], 0, tp, aftermathType)
+                elseif (tier == 2 and player:hasStatusEffect(dsp.effect.AFTERMATH_PLUS_HA3) == false and not player:hasStatusEffect(dsp.effect.LEVEL_THREE_SC) and
+                not player:hasStatusEffect(dsp.effect.LEVEL_FOUR_SC)) then
+                    player:addStatusEffectEx(dsp.effect.AFTERMATH_PLUS_HA2, icon, id, 0, aftermath.duration[tier], 0, tp, aftermathType)
+                elseif (tier == 3 and player:hasStatusEffect(dsp.effect.AFTERMATH_PLUS_HA3) == false and not player:hasStatusEffect(dsp.effect.LEVEL_FOUR_SC)) then
+                    player:addStatusEffectEx(dsp.effect.AFTERMATH_PLUS_HA3, icon, id, 0, aftermath.duration[tier], 0, tp, aftermathType)
+                end
+            else
+                player:addStatusEffect(dsp.effect.AFTERMATH, id, 0, aftermath.duration(tp), 0, tp, aftermathType)
+            end
         end
     }
 end
@@ -279,7 +471,7 @@ dsp.aftermath.onEffectGain = function(target, effect)
                 end
             end
         end,
-        
+
         -- Mythic
         [2] = function(x)
             local tp = effect:getSubPower()
@@ -292,10 +484,22 @@ dsp.aftermath.onEffectGain = function(target, effect)
                 end
             end
         end,
-        
+
         -- Empyrean
         [3] = function(x)
             target:addMod(aftermath.mod, aftermath.power[math.floor(effect:getSubPower() / 1000)])
+        end,
+
+        -- High Artifact
+        [4] = function(x)
+            local pet = nil
+            if aftermath.includePets then pet = target:getPet() end
+            for i = 1, #aftermath.mods, 2 do
+                target:addMod(aftermath.mods[i], aftermath.mods[i + 1])
+                if pet then
+                    pet:addMod(aftermath.mods[i], aftermath.mods[i + 1])
+                end
+            end
         end
     }
 end
@@ -315,7 +519,7 @@ dsp.aftermath.onEffectLose = function(target, effect)
                 end
             end
         end,
-        
+
         -- Mythic
         [2] = function(x)
             local tp = effect:getSubPower()
@@ -328,10 +532,22 @@ dsp.aftermath.onEffectLose = function(target, effect)
                 end
             end
         end,
-        
+
         -- Empyrean
         [3] = function(x)
             target:delMod(aftermath.mod, aftermath.power[math.floor(effect:getSubPower() / 1000)])
+        end,
+
+        -- High Artifact
+        [1] = function(x)
+            local pet = nil
+            if aftermath.includePets then pet = target:getPet() end
+            for i = 1, #aftermath.mods, 2 do
+                target:delMod(aftermath.mods[i], aftermath.mods[i + 1])
+                if pet then
+                    pet:delMod(aftermath.mods[i], aftermath.mods[i + 1])
+                end
+            end
         end
     }
 end
@@ -369,6 +585,12 @@ dsp.aftermath.canOverwrite = function(player, tp, aftermathId, aftermathType)
             local currentLevel = math.floor(effect:getSubPower() / 1000)
             local newLevel = math.floor(tp / 1000)
             canOverwrite = currentLevel == 1 or currentLevel < newLevel
+        end,
+
+        -- High Artifact
+        [4] = function(x)
+            local newDuration = aftermath.duration(tp) * 1000
+            canOverwrite = newDuration > effect:getTimeRemaining()
         end,
     }
 

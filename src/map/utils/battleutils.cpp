@@ -150,7 +150,7 @@ namespace battleutils
     void LoadWeaponSkillsList()
     {
         const char* fmtQuery = "SELECT weaponskillid, name, jobs, type, skilllevel, element, animation, "
-                            "animationTime, `range`, aoe, primary_sc, secondary_sc, tertiary_sc, main_only, unlock_id "
+                            "animationTime, `range`, aoe, primary_sc, secondary_sc, tertiary_sc, quaternary_sc, quinary_sc, senary_sc, main_only, unlock_id "
                             "FROM weapon_skills "
                             "WHERE weaponskillid < %u "
                             "ORDER BY type, skilllevel ASC";
@@ -175,8 +175,11 @@ namespace battleutils
                 PWeaponSkill->setPrimarySkillchain(Sql_GetIntData(SqlHandle, 10));
                 PWeaponSkill->setSecondarySkillchain(Sql_GetIntData(SqlHandle, 11));
                 PWeaponSkill->setTertiarySkillchain(Sql_GetIntData(SqlHandle, 12));
-                PWeaponSkill->setMainOnly(Sql_GetIntData(SqlHandle, 13));
-                PWeaponSkill->setUnlockId(Sql_GetIntData(SqlHandle, 14));
+                PWeaponSkill->setQuaternarySkillchain(Sql_GetIntData(SqlHandle, 13));
+                PWeaponSkill->setQuinarySkillchain(Sql_GetIntData(SqlHandle, 14));
+                PWeaponSkill->setSenarySkillchain(Sql_GetIntData(SqlHandle, 15));
+                PWeaponSkill->setMainOnly(Sql_GetIntData(SqlHandle, 16));
+                PWeaponSkill->setUnlockId(Sql_GetIntData(SqlHandle, 17));
 
                 g_PWeaponSkillList[PWeaponSkill->getID()] = PWeaponSkill;
                 g_PWeaponSkillsList[PWeaponSkill->getType()].push_back(PWeaponSkill);
@@ -2796,7 +2799,7 @@ namespace battleutils
 
     uint8 GetSkillchainSubeffect(SKILLCHAIN_ELEMENT skillchain)
     {
-        DSP_DEBUG_BREAK_IF(skillchain < SC_NONE || skillchain > SC_DARKNESS_II);
+        DSP_DEBUG_BREAK_IF(skillchain < SC_NONE || skillchain > SC_UMBRA);
 
         static const uint8 effects[] = {
             SUBEFFECT_NONE,          // SC_NONE
@@ -2816,6 +2819,8 @@ namespace battleutils
             SUBEFFECT_DARKNESS,      // SC_DARKNESS
             SUBEFFECT_LIGHT,         // SC_LIGHT_II
             SUBEFFECT_DARKNESS,      // SC_DARKNESS_II
+            SUBEFFECT_RADIANCE,
+            SUBEFFECT_UMBRA,
         };
 
         return effects[skillchain];
@@ -2823,7 +2828,7 @@ namespace battleutils
 
     uint8 GetSkillchainTier(SKILLCHAIN_ELEMENT skillchain)
     {
-        DSP_DEBUG_BREAK_IF(skillchain < SC_NONE || skillchain > SC_DARKNESS_II);
+        DSP_DEBUG_BREAK_IF(skillchain < SC_NONE || skillchain > SC_UMBRA);
 
         static const uint8 tiers[] = {
             0, // SC_NONE
@@ -2843,12 +2848,18 @@ namespace battleutils
             3, // SC_DARKNESS
             4, // SC_LIGHT_II
             4, // SC_DARKNESS_II
+            5, // SC_RADIANCE
+            5, // SC_UMBRA
         };
 
         return tiers[skillchain];
     }
 
     static const std::map<std::pair<SKILLCHAIN_ELEMENT, SKILLCHAIN_ELEMENT>, SKILLCHAIN_ELEMENT> skillchain_map = {
+        // Level 4
+        {{SC_LIGHT_II, SC_LIGHT_II},SC_RADIANCE},
+        {{SC_DARKNESS_II, SC_DARKNESS_II},SC_UMBRA},
+
         // Level 3 Pairs
         {{SC_LIGHT, SC_LIGHT},SC_LIGHT_II},
         {{SC_DARKNESS, SC_DARKNESS}, SC_DARKNESS_II},
@@ -2910,7 +2921,7 @@ namespace battleutils
         return SC_NONE;
     }
 
-    SUBEFFECT GetSkillChainEffect(CBattleEntity* PDefender, uint8 primary, uint8 secondary, uint8 tertiary)
+    SUBEFFECT GetSkillChainEffect(CBattleEntity* PDefender, uint8 primary, uint8 secondary, uint8 tertiary, uint8 quaternary, uint8 quinary, uint8 senary)
     {
         CStatusEffect* PSCEffect = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_SKILLCHAIN, 0);
         CStatusEffect* PCBEffect = PDefender->StatusEffectContainer->GetStatusEffect(EFFECT_CHAINBOUND, 0);
@@ -2926,7 +2937,26 @@ namespace battleutils
         else
         {
             std::list<SKILLCHAIN_ELEMENT> resonanceProperties;
-            std::list<SKILLCHAIN_ELEMENT> skillProperties = {(SKILLCHAIN_ELEMENT)primary, (SKILLCHAIN_ELEMENT)secondary, (SKILLCHAIN_ELEMENT)tertiary};
+            std::list<SKILLCHAIN_ELEMENT> skillProperties = { (SKILLCHAIN_ELEMENT)primary, (SKILLCHAIN_ELEMENT)secondary, (SKILLCHAIN_ELEMENT)tertiary };
+
+            if (primary >= 9 && primary <= 12)
+            {
+                std::list<SKILLCHAIN_ELEMENT> skillProperties = {(SKILLCHAIN_ELEMENT)quaternary, (SKILLCHAIN_ELEMENT)secondary, (SKILLCHAIN_ELEMENT)tertiary};
+            }
+            else if (primary == 13 || primary == 14)
+            {
+                ShowWarning(CL_GREEN"Primary is 13/14! \n" CL_RESET);
+                std::list<SKILLCHAIN_ELEMENT> skillProperties = {(SKILLCHAIN_ELEMENT)quinary, (SKILLCHAIN_ELEMENT)secondary, (SKILLCHAIN_ELEMENT)tertiary};
+            }
+            else if (primary == 15 || primary == 16)
+            {
+                std::list<SKILLCHAIN_ELEMENT> skillProperties = {(SKILLCHAIN_ELEMENT)senary, (SKILLCHAIN_ELEMENT)secondary, (SKILLCHAIN_ELEMENT)tertiary};
+            }
+
+
+
+
+
 
             // Chainbound active on target
             if (PCBEffect)
@@ -2966,9 +2996,31 @@ namespace battleutils
                 if (PSCEffect->GetStartTime() + 3s < server_clock::now())
                 {
                     auto properties = PSCEffect->GetPower();
-                    resonanceProperties.push_back((SKILLCHAIN_ELEMENT)(properties & 0b1111));
-                    resonanceProperties.push_back((SKILLCHAIN_ELEMENT)((properties >> 4) & 0b1111));
-                    resonanceProperties.push_back((SKILLCHAIN_ELEMENT)((properties >> 8) & 0b1111));
+                    if (primary >= 9 && primary <= 12)
+                    {
+                        resonanceProperties.push_back((SKILLCHAIN_ELEMENT)g_PWeaponSkillList[PSCEffect->GetPower()]->getQuaternarySkillchain());
+                        resonanceProperties.push_back((SKILLCHAIN_ELEMENT)(properties & 0b1111));
+                        resonanceProperties.push_back((SKILLCHAIN_ELEMENT)((properties >> 4) & 0b1111));
+                    }
+                    else if (primary == 13 || primary == 14)
+                    {
+                        resonanceProperties.push_back((SKILLCHAIN_ELEMENT)g_PWeaponSkillList[PSCEffect->GetPower()]->getQuinarySkillchain());
+                        resonanceProperties.push_back((SKILLCHAIN_ELEMENT)(properties & 0b1111));
+                        resonanceProperties.push_back((SKILLCHAIN_ELEMENT)((properties >> 4) & 0b1111));
+                        ShowWarning(CL_GREEN"Resonance Trigger! \n" CL_RESET);
+                    }
+                    else if (primary == 15 || primary == 16)
+                    {
+                        resonanceProperties.push_back((SKILLCHAIN_ELEMENT)g_PWeaponSkillList[PSCEffect->GetPower()]->getSenarySkillchain());
+                        resonanceProperties.push_back((SKILLCHAIN_ELEMENT)(properties & 0b1111));
+                        resonanceProperties.push_back((SKILLCHAIN_ELEMENT)((properties >> 4) & 0b1111));
+                    }
+                    else
+                    {
+                        resonanceProperties.push_back((SKILLCHAIN_ELEMENT)(properties & 0b1111));
+                        resonanceProperties.push_back((SKILLCHAIN_ELEMENT)((properties >> 4) & 0b1111));
+                        resonanceProperties.push_back((SKILLCHAIN_ELEMENT)((properties >> 8) & 0b1111));
+                    }
                     skillchain = FormSkillchain(resonanceProperties, skillProperties);
                 }
             }
@@ -3059,6 +3111,8 @@ namespace battleutils
             case SC_LIGHT_II:
             case SC_DARKNESS:
             case SC_DARKNESS_II:
+            case SC_RADIANCE:
+            case SC_UMBRA:
                 if (PDefender->getMod(resistances[element][0]) < PDefender->getMod(resistances[element][1]))
                     defMod = resistances[element][0];
                 else
@@ -3122,7 +3176,7 @@ namespace battleutils
         ELEMENT appliedEle = ELEMENT_NONE;
         int16 resistance = GetSkillchainMinimumResistance(skillchain, PDefender, &appliedEle);
 
-        DSP_DEBUG_BREAK_IF(chainLevel <= 0 || chainLevel > 4 || chainCount <= 0 || chainCount > 5);
+        DSP_DEBUG_BREAK_IF(chainLevel <= 0 || chainLevel > 5 || chainCount <= 0 || chainCount > 5);
 
         // Skill chain damage = (Closing Damage)
         //                      × (Skill chain Level/Number from Table)
