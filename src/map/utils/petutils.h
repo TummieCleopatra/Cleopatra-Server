@@ -61,7 +61,14 @@ enum PETID
 
     // Trusts are 896 and above
     // PETID_SHANTOTTO          = 896
-    PETID_SHANTOTTO          = 75
+    PETID_LUOPAN             = 75,
+    PETID_AURORAL_ALICORN    = 76,
+    PETID_IXION              = 77,
+    PETID_BISMARC            = 78,
+    PETID_SIREN              = 79,
+    PETID_PHEONIX            = 80,
+    PETID_BAHAMUT            = 81,
+    PETID_CURILLA            = 87
     // Todo: change how this works so trusts don't need PetID at all..
 };
 

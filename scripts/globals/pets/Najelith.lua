@@ -14,11 +14,13 @@ function onMobSpawn(mob)
     local lvl = mob:getMainLvl()
     local hpp = mob:getHPP()
     local weaponskill = 0
-	local rangedAttackCooldown = 12
+	local rangedAttackCooldown = 9
 	local sharpShotCooldown = 300
     local barrageCooldown = 300
     local velocityShotCooldown = 300
-
+    local archery = getSkillLevel(dsp.skill.DAGGER)
+    print(archery)
+    mob:addMod(dsp.mod.ARCHERY,archery)
 
 	local master = mob:getMaster()
 	local najelith = mob:getID()
@@ -28,22 +30,22 @@ function onMobSpawn(mob)
 	mob:setLocalVar("veloctiyShotTime",0)
 
 
-	mob:addListener("TRUST_COMBAT_TICK", "NAJELITH_RA_TICK" .. najelith, function(mob, player, target)
+	mob:addListener("COMBAT_TICK", "NAJELITH_RA_TICK", function(mob, player, target)
 	    local battletime = os.time()
-		local rangedAttackTime = mob:getLocalVar("jumpTime")
+		local rangedAttackTime = mob:getLocalVar("rangedAttackTime")
         if (battletime > rangedAttackTime + rangedAttackCooldown) then
 		        mob:useJobAbility(1202, target)
 			    mob:setLocalVar("rangedAttackTime",battletime)
                 if (mob:hasStatusEffect(dsp.effect.VELOCITY_SHOT)) then
                     rangedAttackCooldown = math.floor(rangedAttackCooldown * 0.85)
                 else
-                    rangedAttackCooldown = 12
+                    rangedAttackCooldown = 9
                 end
 		    end
         end
 	end)
 
-	mob:addListener("TRUST_COMBAT_TICK", "NAJELITH_BARRAGE_TICK" .. najelith, function(mob, player, target)
+	mob:addListener("COMBAT_TICK", "NAJELITH_BARRAGE_TICK", function(mob, player, target)
 	    local battletime = os.time()
 		local barrageTime = mob:getLocalVar("barrageTime")
         local enmity = enmityCalc(mob, player, target)
@@ -55,7 +57,7 @@ function onMobSpawn(mob)
         end
 	end)
 
-	mob:addListener("TRUST_COMBAT_TICK", "NAJELITH_SHARPSHOT_TICK" .. najelith, function(mob, player, target)
+	mob:addListener("COMBAT_TICK", "NAJELITH_SHARPSHOT_TICK", function(mob, player, target)
 	    local battletime = os.time()
 		local sharpShotTime = mob:getLocalVar("sharpShotTime")
         local racc = mob:getRACC()
@@ -69,7 +71,7 @@ function onMobSpawn(mob)
         end
 	end)
 
-	mob:addListener("TRUST_COMBAT_TICK", "NAJELITH_VELOCITY_TICK" .. najelith, function(mob, player, target)
+	mob:addListener("COMBAT_TICK", "NAJELITH_VELOCITY_TICK", function(mob, player, target)
 	    local battletime = os.time()
 		local velocityShotTime = mob:getLocalVar("velocityShotTime")
         if (lvl >= 45 and not mob:hasStatusEffect(dsp.effect.VELOCITY_SHOT)) then
@@ -81,8 +83,9 @@ function onMobSpawn(mob)
 	end)
 
 
-	mob:addListener("TRUST_COMBAT_TICK", "NAJELITH_COMBAT_TICK" .. najelith, function(mob, target)
-	    if (mob:getTP() > 1000) then
+	mob:addListener("COMBAT_TICK", "NAJELITH_COMBAT_TICK", function(mob, target)
+        local enmity = enmityCalc(mob, player, target)
+	    if (mob:getTP() > 1000 and enmity >= 300) then
 		    weaponskill = doNajelithWeaponskill(mob)
 			mob:useMobAbility(weaponskill)
 		end

@@ -3,6 +3,30 @@ require("scripts/globals/keyitems")
 require("scripts/globals/status")
 -----------------------------------
 
+function enmityFromCure(caster, final)
+
+    local lvl = caster:getMainLvl()
+    local modCure = 0
+    local ce = 0
+    local ve = 0
+
+    print(final)
+
+    if (lvl <= 10) then
+        modCure = lvl + 10
+    elseif (lvl <= 50) then
+        modCure = 20 + (lvl - 10) / 20
+    else
+        modCure = 40 + (lvl - 50) * 0.6
+    end
+
+    ce = (40 / modCure) * final
+    ve = (240 / modCure) * final
+
+    return ce,ve
+end
+
+
 function enmityCalc(mob, player, target)
 
     local trustID = mob:getID()
@@ -308,6 +332,38 @@ function doDualWield(mob)
     end
 end
 
+function trustSubQuest(mob, player)
+    local sjQuest = player:getVar("TRUST_SJ_QUEST")
+    local sjQuestProgress = player:getVar("TRUST_SJ_QUEST_PROGRESS")
+    local counter = player:getVar("TRUST_SJ_QUEST_COUNTER")
+    local progress = 0
+
+    if (sjQuest == 1) then
+        player:setVar("TRUST_SJ_QUEST_COUNTER",counter + 1)
+        progress = 100 - counter
+        player:PrintToPlayer("Trust Subjob Quest#1 - Objectives Remaining: "..progress.."/100 ", 0x15);
+        if (counter == 101) then
+            player:PrintToPlayer("Trust Objective Complete!  Please see Touneaux to finish the quest", 0x15);
+        end
+    elseif (sjQuest == 2) then
+        player:setVar("TRUST_SJ_QUEST_COUNTER",counter + 1)
+        progress = 100 - counter
+        player:PrintToPlayer("Trust Subjob Quest#2 - Objectives Remaining: "..progress.."/100 ", 0x15);
+        if (counter == 101) then
+            player:PrintToPlayer("Trust Objective Complete!  Please see Touneaux to finish the quest", 0x15);
+        end
+    elseif (sjQuest == 3) then
+        player:setVar("TRUST_SJ_QUEST_COUNTER",counter + 1)
+        progress = 100 - counter
+        player:PrintToPlayer("Trust Subjob Quest#1 - Objectives Remaining: "..progress.."/100 ", 0x15);
+        if (counter == 101) then
+            player:PrintToPlayer("Trust Objective Complete!  Please see Touneaux to finish the quest", 0x15);
+        end
+    end
+
+
+end
+
 
 function trustPoints(mob, player)
 local trustTokens = player:getVar("TrustTokens");
@@ -359,7 +415,7 @@ local zeidTrib = player:getVar("ZEID_TRIB_FIGHT");
 local adelheidTrib = player:getVar("ADEL_TRIB_FIGHT");
 
 local pet;
-local trustpoint = mob:getBaseExp() * 1;
+local trustpoint = 20; -- This needs to be calculated since getBaseExp no longer exists
 
 
 

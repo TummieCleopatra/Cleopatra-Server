@@ -8,13 +8,15 @@
 require("scripts/globals/status")
 require("scripts/globals/msg")
 require("scripts/globals/enmitycalc")
-require("scripts/globals/trustpoints")
+require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
+    mob:addMod(dsp.mod.CURE_POTENCY,38)
     doCurillaTrustPoints(mob)
     local weaponskill = 0
-    local cureCooldown = 25
+    local cureCooldown = 15
     local provokeCooldown = 30
+    local reprisalCooldown = 0
     local lvl = mob:getMainLvl()
     mob:setLocalVar("cureTimeCurilla",0)
     mob:setLocalVar("provokeTime",0)
@@ -26,6 +28,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("bashCooldown",300)
     mob:setLocalVar("chivalryTime",0)
     mob:setLocalVar("chivalryCooldown",600)
+    mob:setLocalVar("reprisalCooldown",180)
 
     mob:addListener("COMBAT_TICK", "DISTANCE_TICK", function(mob, player, target)
         local distanceTime = mob:getLocalVar("distanceTime")
@@ -38,7 +41,7 @@ function onMobSpawn(mob)
     mob:addListener("COMBAT_TICK", "COMBAT_TICK", function(mob)
         if (mob:getTP() > 1000) then
             local targ = mob:getTarget()
-            weaponskill = doWeaponskill(mob)
+            weaponskill = doCurillaWeaponskill(mob)
             mob:useMobAbility(weaponskill)
         end
     end)
@@ -69,6 +72,16 @@ function onMobSpawn(mob)
         if (battletime > flashTime + flashCooldown) then
             doCurillaFlash(mob, player, target)
             mob:setLocalVar("flashTime",battletime)
+        end
+    end)
+
+    mob:addListener("COMBAT_TICK", "CUR_REPRISAL_TICK", function(mob, player, target)
+        local battletime = os.time()
+        local reprisalTime = mob:getLocalVar("reprisalTime")
+        local reprisalCooldown = mob:getLocalVar("reprisalCooldown")
+        if ((battletime > reprisalTime + reprisalCooldown) and mob:getMainLvl() >= 61) then
+            mob:castSpell(97, mob)
+            mob:setLocalVar("reprisalTime",battletime)
         end
     end)
 
@@ -107,7 +120,7 @@ function onMobSpawn(mob)
 
 end
 
-function doWeaponskill(mob)
+function doCurillaWeaponskill(mob)
     local wsList = {{65,41},{60,40}, {17,34}, {1,33}}
     local newWsList = {}
     local lvl = mob:getMainLvl()
@@ -178,7 +191,7 @@ function doCurillaCure(mob, player, target)
                 mob:setLocalVar("cureTimeCurilla",battletime)
                 break
             end
-        elseif (member:getHPP() <= 72) then
+        elseif (member:getHPP() <= 76) then
             for i = 1, #cureList do
                 if (lvl >= cureList[i][1] and mp >= cureList[i][2]) then
                     cure = cureList[i][3]
@@ -212,4 +225,8 @@ function doEmergencyCureCur(mob)
     end
 
     return spell
+end
+
+function onMobDeath(mob, player, isKiller)
+    -- mob:setStatus(dsp.status.DISAPPEAR)
 end

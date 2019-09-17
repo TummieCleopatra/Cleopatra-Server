@@ -844,6 +844,14 @@ dsp.effect =
 	INDI_PARALYSIS           = 848,
 	INDI_GRAVITY             = 849,
     CUSTOM_EFFECT            = 850,
+
+    LEVEL_TWO_SC             = 950,
+    LEVEL_THREE_SC           = 951,
+    LEVEL_FOUR_SC            = 952,
+    AFTERMATH_PLUS           = 953,
+    AFTERMATH_PLUSHA1        = 954,
+    AFTERMATH_PLUSHA2        = 955,
+    AFTERMATH_PLUSHA3        = 956,
     -- PLACEHOLDER              = 802, -- Description
     -- 802-1022
     -- PLACEHOLDER             = 1023 -- The client dat file seems to have only this many "slots", results of exceeding that are untested.
@@ -2135,6 +2143,7 @@ dsp.objType =
     MOB  = 0x04,
     PET  = 0x08,
     SHIP = 0x10,
+    TRUST = 0x20,
 }
 
 ----------------------------------

@@ -61,10 +61,10 @@ function onMobSpawn(mob)
         local utsuNi = mob:getLocalVar("utsuNiTime")
         local effect = target:getStatusEffect(dsp.effect.COPY_IMAGE)
         if ((battletime > utsuNi + utsuNiCooldown) and lvl >= 37 and (effect == nil or effect:getPower() <= 1)) then
-            mob:castSpell(338, mob)
+            mob:castSpell(339, mob)
             mob:setLocalVar("utsuNiTime",battletime)
         elseif ((battletime > utsuIchi + utsuIchiCooldown) and lvl >= 12 and (effect == nil)) then
-            mob:castSpell(339, mob)
+            mob:castSpell(338, mob)
             mob:setLocalVar("utsuIchiTime",battletime)
         end
     end)

@@ -6,6 +6,7 @@ require("scripts/globals/settings")
 require("scripts/globals/status")
 require("scripts/globals/magic")
 require("scripts/globals/msg")
+require("scripts/globals/trust_utils")
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
@@ -86,7 +87,12 @@ function onSpellCast(caster,target,spell)
         end
         target:addHP(final)
         target:wakeUp()
-        caster:updateEnmityFromCure(target,final)
+        if (caster:getObjType() == dsp.objType.TRUST) then
+            local cen,ven = enmityFromCure(caster, final)
+            target:addEnmity(caster, cen, ven)
+        else
+            caster:updateEnmityFromCure(target,final)
+        end
     else
         if (target:isUndead()) then
             spell:setMsg(dsp.msg.basic.MAGIC_DMG)

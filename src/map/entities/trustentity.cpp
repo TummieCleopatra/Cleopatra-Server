@@ -59,26 +59,33 @@ void CTrustEntity::PostTick()
     CBattleEntity::PostTick();
     if (loc.zone && updatemask && status != STATUS_DISAPPEAR)
     {
+
         loc.zone->PushPacket(this, CHAR_INRANGE, new CEntityUpdatePacket(this, ENTITY_UPDATE, updatemask));
-        for (auto PTrust : ((CCharEntity*)PMaster)->PTrusts)
+        if (PMaster != nullptr)
         {
-            if (PTrust == this)
+            for (auto PTrust : ((CCharEntity*)PMaster)->PTrusts)
             {
-                ((CCharEntity*)PMaster)->pushPacket(new CTrustSyncPacket((CCharEntity*)PMaster, this));
+                if (PTrust == this)
+                {
+                    ((CCharEntity*)PMaster)->pushPacket(new CTrustSyncPacket((CCharEntity*)PMaster, this));
+                }
             }
         }
 
         if (updatemask & UPDATE_HP)
         {
-            if (PMaster->PParty != nullptr)
+            if (PMaster != nullptr)
             {
-                PMaster->ForParty([this](auto PMember)
+                if (PMaster->PParty != nullptr)
                 {
-                    if (PMember->objtype == TYPE_PC)
+                    PMaster->ForParty([this](auto PMember)
                     {
-                        static_cast<CCharEntity*>(PMember)->pushPacket(new CCharHealthPacket(this));
-                    }
-                });
+                        if (PMember->objtype == TYPE_PC)
+                        {
+                            static_cast<CCharEntity*>(PMember)->pushPacket(new CCharHealthPacket(this));
+                        }
+                    });
+                }
             }
         }
 
@@ -101,7 +108,9 @@ void CTrustEntity::Die()
     if (PMaster->objtype == TYPE_PC)
     {
         CCharEntity* PChar = (CCharEntity*)PMaster;
+        ShowWarning(CL_YELLOW"Region ID cannot be zero\n" CL_RESET);
         PChar->RemoveTrust(this);
+        //PChar->RemoveTrust((CTrustEntity*)PTrust);
     }
 }
 

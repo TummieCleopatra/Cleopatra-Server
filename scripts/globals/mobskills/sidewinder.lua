@@ -17,32 +17,31 @@ end
 function onMobWeaponSkill(target, mob, skill)
     local numhits = 1
     local accmod = 1
-    local dmgmod = 0
+    local dmgmod = 32
 
-    if (mob:getObjType() == dsp.objType.TRUST) then
-        if (mob:hasStatusEffect(dsp.effect.BARRAGE)) then
-            printf("Mob has Barrage do calculations now!!!")
-            numhits = doBarrage(target, mob)
-        end
-
-        dmgmod = 5.5
-    else
-        dmgmod = 1.5
-    end
-
-
-    local info = MobRangedMove(mob,target,skill,numhits,accmod,dmgmod,TP_NO_EFFECT)
+    local info = MobRangedMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_VARIES,2,3,4)
 
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,dsp.attackType.RANGED,dsp.damageType.PIERCING,info.hitslanded)
 
     if (mob:getObjType() == dsp.objType.TRUST) then
-        doRangedAttack(target, mob, numhits, dmg)
+        if (mob:getSubJob() == dsp.job.SAM) then
+            if (dmg > 0) then
+                target:addTP(20)
+                mob:addTP(175)
+            end
+        else
+            if (dmg > 0) then
+                target:addTP(20)
+                mob:addTP(150)
+            end
+        end
     else
         if (dmg > 0) then
-           target:addTP(20)
-           mob:addTP(80)
+            target:addTP(20)
+            mob:addTP(150)
         end
     end
+
 
     target:takeDamage(dmg, mob, dsp.attackType.RANGED, dsp.damageType.PIERCING)
     return dmg

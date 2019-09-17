@@ -9,6 +9,7 @@ require("scripts/globals/utils")
 require("scripts/globals/zone")
 require("scripts/globals/msg")
 require("scripts/globals/feretory_utils")
+require("scripts/globals/trust_utils");
 -----------------------------------
 
 dsp = dsp or {}

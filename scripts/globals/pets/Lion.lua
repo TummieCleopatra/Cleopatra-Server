@@ -35,13 +35,15 @@ function onMobSpawn(mob)
                     if (weakness <= 4 and weakness ~= 0) then
                         mob:useMobAbility(2894)
                         mob:setLocalVar("lastWSTime",os.time())
-                    elseif (weakness > 4) then
+                        mob:setLocalVar("lastWS",2894)
+                    elseif (weakness > 4 and lvl >= 72) then
                         mob:useMobAbility(2892)
                         mob:setLocalVar("lastWSTime",os.time())
+                        mob:setLocalVar("lastWS",2892)
                     else
-                        weaponskill = doLionWeaponskill(mob)
-                        mob:useMobAbility(weaponskill)
-                        mob:setLocalVar("lastWS",weaponskill)
+                        mob:useMobAbility(2894)
+                        mob:setLocalVar("lastWSTime",os.time())
+                        mob:setLocalVar("lastWS",2894)
                     end
                 end
             else

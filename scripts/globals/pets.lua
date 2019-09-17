@@ -85,6 +85,14 @@ dsp.pet.id =
 
     --  Puppetmaster
     AUTOMATON             = 69,
+    LUOPAN                = 75,
+    DARK_IXION            = 77,
+    SIREN                 = 79,
+    PHEONIX               = 80,
+    BAHAMUT               = 81,
+    KUPIPI                = 82,
+    KUPIPI_WAR            = 83,
+    KUPIPI_RDM            = 84,
 }
 
 -----------------------------------

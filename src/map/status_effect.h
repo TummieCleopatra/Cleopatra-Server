@@ -752,9 +752,9 @@ enum EFFECT
 	EFFECT_LEVEL_THREE_SC            = 951,
 	EFFECT_LEVEL_FOUR_SC             = 952,
 	EFFECT_AFTERMATH_PLUS            = 953,
-	EFFECT_AFTERMATH_PLUSHA1         = 954,
-	EFFECT_AFTERMATH_PLUSHA2         = 955,
-	EFFECT_AFTERMATH_PLUSHA3         = 956,
+	EFFECT_AFTERMATH_PLUS_HA1         = 954,
+	EFFECT_AFTERMATH_PLUS_HA2         = 955,
+	EFFECT_AFTERMATH_PLUS_HA3         = 956,
     // EFFECT_PLACEHOLDER              = 802 // Description
     // 802-1022
     // EFFECT_PLACEHOLDER             = 1023 // The client dat file seems to have only this many "slots", results of exceeding that are untested.
