@@ -1,9 +1,26 @@
 -----------------------------------
 -- Area: Dynamis Bastok
---  MOB: Vanguard_Beasttender
------------------------------------
-mixins = {require("scripts/mixins/job_special")}
+-- NPC:  Vanguard Beasttender + Vanguard's Scorpion
 -----------------------------------
 
-function onMobDeath(mob, player, isKiller)
-end
+-----------------------------------
+-- onMobSpawn Action
+-----------------------------------
+
+function onMobSpawn(mob)
+end;
+
+-----------------------------------
+-- onMobEngaged
+-----------------------------------
+
+function onMobEngaged(mob,target)
+end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
+
+function onMobDeath(mob,killer)
+	DespawnMob(mob:getID() + 1);
+end;

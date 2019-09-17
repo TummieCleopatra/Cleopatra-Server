@@ -4,7 +4,7 @@
 -- Map1 Position: http://images2.wikia.nocookie.net/__cb20090312004752/ffxi/images/8/84/Win1.jpg
 -- Map2 Position: http://images2.wikia.nocookie.net/__cb20090312004839/ffxi/images/6/61/Win2.jpg
 -----------------------------------
-package.loaded["scripts/zones/Dynamis-Windurst/TextIDs"] = nil;
+package.loaded["scripts/zones/Dynamis-Windurst/IDs"] = nil;
 -----------------------------------
 require("scripts/globals/status");
 require("scripts/globals/dynamis");
