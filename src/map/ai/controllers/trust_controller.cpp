@@ -95,11 +95,13 @@ void CTrustController::DoCombatTick(time_point tick)
             std::unique_ptr<CBasicPacket> err;
             if (!POwner->CanAttack(PTarget, err))
             {
+                /* This is controlled by the AI Script to decide distance
                 if (POwner->speed > 0)
                 {
                     POwner->PAI->PathFind->PathAround(PTarget->loc.p, 2.0f, PATHFLAG_WALLHACK | PATHFLAG_RUN);
                     POwner->PAI->PathFind->FollowPath();
                 }
+                */
             }
         }
 		POwner->PAI->EventHandler.triggerListener("COMBAT_TICK", POwner, POwner->PMaster, PTarget);

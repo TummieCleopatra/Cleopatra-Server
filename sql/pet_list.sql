@@ -136,44 +136,43 @@ INSERT INTO `pet_list` VALUES (88, 'Nanaa Mihgo', 7012, 1, 99, 0, 0);
 INSERT INTO `pet_list` VALUES (89, 'Nanaa Mihgo-W', 7013, 1, 99, 0, 0);
 INSERT INTO `pet_list` VALUES (90, 'Nanaa Mihgo-N', 7014, 1, 99, 0, 0);
 INSERT INTO `pet_list` VALUES (91, 'Naji', 7015, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (92, 'Naji-W', 7016, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (93, 'Naji-N', 7017, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (94, 'Excenmille', 7018, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (95, 'Excenmille-W', 7019, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (96, 'Excenmille-S', 7020, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (97, 'Adelheid', 7021, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (98, 'Adelheid-R', 7022, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (99, 'Darcullin', 7023, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (100, 'Darcullin-W', 7024, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (101, 'Darcullin-N', 7025, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (102, 'Lion', 7026, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (103, 'Prishe', 7027, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (104, 'Ulmia', 7028, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (105, 'Shantoto', 7029, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (106, 'Gessho', 7030, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (107, 'Zeid', 7031, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (108, 'Zeid-W', 7032, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (109, 'Zeid-S', 7033, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (92, 'Naji-N', 7016, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (93, 'Excenmille', 7017, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (94, 'Excenmille-W', 7018, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (95, 'Excenmille-S', 7019, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (96, 'Adelheid', 7020, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (97, 'Adelheid-R', 7021, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (98, 'Darcullin', 7022, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (99, 'Darcullin-W', 7023, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (100, 'Darcullin-N', 7024, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (101, 'Lion', 7025, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (102, 'Prishe', 7026, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (103, 'Ulmia', 7027, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (104, 'Shantoto', 7028, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (105, 'Gessho', 7029, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (106, 'Zeid', 7030, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (107, 'Zeid-W', 7031, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (108, 'Zeid-S', 7032, 1, 99, 0, 0);
 
-INSERT INTO `pet_list` VALUES (110, 'Mihli Alipoh', 7034, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (111, 'Mihli Alipoh-W', 7035, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (112, 'Milhi Alipoh-N', 7036, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (109, 'Mihli Alipoh', 7033, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (110, 'Mihli Alipoh-W', 7034, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (111, 'Milhi Alipoh-N', 7035, 1, 99, 0, 0);
 
-INSERT INTO `pet_list` VALUES (113, 'Gadalar', 7037, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (114, 'Gadalar-W', 7038, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (115, 'Gadalar-S', 7039, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (112, 'Gadalar', 7036, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (113, 'Gadalar-W', 7037, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (114, 'Gadalar-S', 7038, 1, 99, 0, 0);
 
-INSERT INTO `pet_list` VALUES (116, 'Najelith', 7040, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (117, 'Najelith-W', 7041, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (118, 'Najelith-N', 7042, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (115, 'Najelith', 7039, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (116, 'Najelith-W', 7040, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (117, 'Najelith-N', 7041, 1, 99, 0, 0);
 
-INSERT INTO `pet_list` VALUES (119, 'Rughadjeen', 7043, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (120, 'Rughadjeen-W', 7044, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (121, 'Rughadjeen-S', 7045, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (118, 'Rughadjeen', 7042, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (119, 'Rughadjeen-W', 7043, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (120, 'Rughadjeen-S', 7044, 1, 99, 0, 0);
 
-INSERT INTO `pet_list` VALUES (122, 'Zazarg', 7046, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (122, 'Zazarg', 7045, 1, 99, 0, 0);
 INSERT INTO `pet_list` VALUES (123, 'Zazarg-W', 7047, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (124, 'Zazarg-N', 7048, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (124, 'Zazarg-N', 7047, 1, 99, 0, 0);
 
 
 -- INSERT INTO `pet_list` VALUES (75, 'Shantotto', 5896, 1, 99, 0, 0);
