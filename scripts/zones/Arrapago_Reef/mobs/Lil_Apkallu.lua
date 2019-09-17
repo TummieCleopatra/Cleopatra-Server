@@ -1,19 +1,37 @@
 -----------------------------------
 -- Area: Arrapago Reef
---  ZNM: Lil Apkallu
+--  NPC: Lil Apkallu(ZNM T1)
+-- @posI-9
 -----------------------------------
-mixins = {require("scripts/mixins/rage")}
-require("scripts/globals/status")
+package.loaded["scripts/zones/Arrapago_Reef/IDs"] = nil;
 -----------------------------------
--- Todo: Apkallu hate, Hundred Fists, Movement and TP pattern
+require("scripts/zones/Arrapago_Reef/IDs");
+require("scripts/globals/status");
+require("scripts/globals/mobscaler");
 
-function onMobInitialize(mob)
-    mob:setMobMod(dsp.mobMod.IDLE_DESPAWN, 300)
-end
+-----------------------------------
+-- onMobSpawn Action
+-----------------------------------
 
 function onMobSpawn(mob)
-    mob:setLocalVar("[rage]timer", 3600) -- 60 minutes
-end
+    znmT1Size(mob)  
+end;
+
+function onMobFight(mob, target)
+    znmScalerT1(mob,target)
+end;
+
+function onCriticalHit(mob)
+
+
+
+end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-end
+    local nm = 8;
+    znmTherionT1(mob, player, nm)	
+end;

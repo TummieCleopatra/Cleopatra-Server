@@ -1,19 +1,37 @@
 -----------------------------------
 -- Area: Alzadaal Undersea Ruins
---  MOB: Ob
+--  NPC: Ob(ZNM T1)
+-- @pos G-7
 -----------------------------------
-mixins = {require("scripts/mixins/rage")}
-require("scripts/globals/status")
+package.loaded["scripts/zones/Alzadaal_Undersea_Ruins/IDs"] = nil;
 -----------------------------------
--- Todo: Pups can make it change frames, Overload causes Rage
+require("scripts/zones/Alzadaal_Undersea_Ruins/IDs");
+require("scripts/globals/status");
+require("scripts/globals/mobscaler");
 
-function onMobInitialize(mob)
-    mob:setMobMod(dsp.mobMod.IDLE_DESPAWN, 300)
-end
+-----------------------------------
+-- onMobSpawn Action
+-----------------------------------
 
 function onMobSpawn(mob)
-    mob:setLocalVar("[rage]timer", 3600) -- 60 minutes
-end
+    znmT1Size(mob)  
+end;
+
+function onMobFight(mob, target)
+    znmScalerT1(mob,target)
+end;
+
+function onCriticalHit(mob)
+
+
+
+end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-end
+    local nm = 6;
+    znmTherionT1(mob, player, nm)	
+end;

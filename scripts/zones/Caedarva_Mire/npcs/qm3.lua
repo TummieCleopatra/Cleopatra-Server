@@ -1,25 +1,67 @@
 -----------------------------------
 -- Area: Caedarva Mire
 --  NPC: ??? (Spawn Mahjlaef the Paintorn(ZNM T3))
--- !pos 695 -7 527 79
+-- @pos 695 -7 527 79
 -----------------------------------
-local ID = require("scripts/zones/Caedarva_Mire/IDs")
-require("scripts/globals/npc_util")
+package.loaded["scripts/zones/Caedarva_Mire/IDs"] = nil;
+-----------------------------------
+require("scripts/zones/Caedarva_Mire/IDs");
+require("scripts/globals/status");
+require("scripts/globals/keyitems");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
-    if npcUtil.tradeHas(trade, 2594) and not GetMobByID(ID.mob.MAHJLAEF_THE_PAINTORN):isSpawned() then -- Exorcism Treatise
-        player:confirmTrade()
-        SpawnMob(ID.mob.MAHJLAEF_THE_PAINTORN):updateClaim(player)
+    local mobID = 17101204;
+    if (trade:hasItemQty(2594,1) and trade:getItemCount() == 1) then -- Trade Exorcism Treatise
+        if (GetMobAction(mobID) == dsp.act.NONE) then
+            player:tradeComplete();
+            SpawnMob(mobID):updateClaim(player);
+        end
+    elseif (trade:hasItemQty(2630,1) and trade:getItemCount() == 1) then -- Trade Mahjlaef's Staff
+        if (GetMobAction(mobID) == dsp.act.NONE) then
+            player:tradeComplete();
+            player:addKeyItem(dsp.ki.FALLOW_COLORED_SEAL);
+			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.FALLOW_COLORED_SEAL);			
+        end		
     end
-end
+end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
-    player:messageSpecial(ID.text.NOTHING_HAPPENS)
-end
+    if (player:hasKeyItem(AMBER_SEAL)) then
+	    if (player:getFreeSlotsCount() == 0) then
+		    player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,2594);
+	    else
+	        player:delKeyItem(AMBER_SEAL);
+			player:messageSpecial(KEYITEM_LOST,AMBER_GREEN);
+		    player:addItem(2594,1);
+			player:messageSpecial(ITEM_OBTAINED,2594);
+		end
+    else
+        player:messageSpecial(ID.text.NOTHING_HAPPENS)
+	end
+end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
-end
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
+end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
-end
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
+end;

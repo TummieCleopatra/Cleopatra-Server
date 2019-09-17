@@ -1,46 +1,37 @@
 -----------------------------------
--- Area: Caedarva Mire (79)
---   NM: Experimental Lamia (Tier III ZNM)
--- !pos -773.369 -11.824 322.298 79
+-- Area: Caedarva mire
+--  NPC: Experimental Lamia(ZNM T3)
+-- @pos F-7
 -----------------------------------
-local ID = require("scripts/zones/Caedarva_Mire/IDs")
-require("scripts/globals/status")
+package.loaded["scripts/zones/Caedarva_Mire/IDs"] = nil;
+-----------------------------------
+require("scripts/zones/Caedarva_Mire/IDs");
+require("scripts/globals/status");
+require("scripts/globals/mobscaler");
+
+-----------------------------------
+-- onMobSpawn Action
 -----------------------------------
 
-local function spawnMinions(mob, target)
-    mob:setLocalVar("spawnedMinions", 1)
-
-    local x = mob:getXPos()
-    local y = mob:getYPos()
-    local z = mob:getZPos()
-
-    for i = ID.mob.EXPERIMENTAL_LAMIA + 1, ID.mob.EXPERIMENTAL_LAMIA + 3 do
-        local minion = GetMobByID(i)
-        minion:setSpawn(x + math.random(-2, 2), y, z + math.random(-2, 2))
-        minion:spawn()
-        minion:updateEnmity(target)
-    end
-end
+function onMobSpawn(mob)
+    znmT3Size(mob) 
+end;
 
 function onMobFight(mob, target)
-    if mob:getHPP() < 75 and mob:getLocalVar("spawnedMinions") == 0 then
-        spawnMinions(mob, target)
-    end
-    
-    -- make sure minions have a target
-    for i = ID.mob.EXPERIMENTAL_LAMIA + 1, ID.mob.EXPERIMENTAL_LAMIA + 3 do
-        local minion = GetMobByID(i)
-        if minion:getCurrentAction() == dsp.act.ROAMING then
-            minion:updateEnmity(target)
-        end
-    end
-end
+    znmScalerT3(mob,target)
+end;
 
-function onMobWeaponSkill(target, mob, skill)
-    if mob:getLocalVar("spawnedMinions") == 0 then
-        spawnMinions(mob, target)
-    end
-end
+function onCriticalHit(mob)
+
+
+
+end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-end
+    local nm = 26;
+    znmTherionT3(mob, player, nm)	
+end;

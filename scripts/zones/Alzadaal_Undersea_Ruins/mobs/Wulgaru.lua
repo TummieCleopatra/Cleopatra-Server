@@ -1,11 +1,11 @@
 -----------------------------------
 -- Area: Alzadaal Undersea Ruins
---  NPC: Velionis(ZNM T1)
+--  NPC: Wulgaru(ZNM T2)
 -- @pos G-11
 -----------------------------------
-package.loaded["scripts/zones/Arrapago_Reef/IDs"] = nil;
+package.loaded["scripts/zones/Alzadaal_Undersea_Ruins/IDs"] = nil;
 -----------------------------------
-require("scripts/zones/Arrapago_Reef/IDs");
+require("scripts/zones/Alzadaal_Undersea_Ruins/IDs");
 require("scripts/globals/status");
 require("scripts/globals/mobscaler");
 
@@ -14,11 +14,11 @@ require("scripts/globals/mobscaler");
 -----------------------------------
 
 function onMobSpawn(mob)
-    znmT1Size(mob)  
+    znmT2Size(mob) 
 end;
 
 function onMobFight(mob, target)
-    znmScalerT1(mob,target)
+    znmScalerT2(mob,target)
 end;
 
 function onCriticalHit(mob)
@@ -32,6 +32,6 @@ end;
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-    local nm = 7;
-    znmTherionT1(mob, player, nm)	
+    local nm = 18;
+    znmTherionT2(mob, player, nm)	
 end;

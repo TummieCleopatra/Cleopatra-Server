@@ -1,18 +1,37 @@
 -----------------------------------
 -- Area: Aydeewa Subterrane
---  ZNM: Chigre
+--  NPC: Chigre(ZNM T1)
+-- @pos G-7
 -----------------------------------
-mixins = {require("scripts/mixins/rage")}
-require("scripts/globals/status")
+package.loaded["scripts/zones/Aydeewa_Subterrane/IDs"] = nil;
 -----------------------------------
--- Todo: add enailments, Drain samba on target if all ailments on, very fast enmity decay, capture speed
-function onMobInitialize(mob)
-    mob:setMobMod(dsp.mobMod.IDLE_DESPAWN, 300)
-end
+require("scripts/zones/Aydeewa_Subterrane/IDs");
+require("scripts/globals/status");
+require("scripts/globals/mobscaler");
+
+-----------------------------------
+-- onMobSpawn Action
+-----------------------------------
 
 function onMobSpawn(mob)
-    mob:setLocalVar("[rage]timer", 3600) -- 60 minutes
-end
+    znmT1Size(mob)   
+end;
+
+function onMobFight(mob, target)
+    znmScalerT1(mob,target)
+end;
+
+function onCriticalHit(mob)
+
+
+
+end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-end
+    local nm = 9;
+    znmTherionT1(mob, player, nm)	
+end;

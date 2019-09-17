@@ -1,23 +1,37 @@
 -----------------------------------
 -- Area: Alzadaal Undersea Ruins
---  MOB: Armed Gears
--- !pos -19 -4 -153
+--  NPC: Armed Gears(ZNM T3)
+-- @pos G-11
 -----------------------------------
--- todo
--- add add random elemental magic absorb to elements its casting
+package.loaded["scripts/zones/Alzadaal_Undersea_Ruins/IDs"] = nil;
+-----------------------------------
+require("scripts/zones/Alzadaal_Undersea_Ruins/IDs");
+require("scripts/globals/status");
+require("scripts/globals/mobscaler");
 
-mixins =
-{
-    require("scripts/mixins/job_special"),
-    require("scripts/mixins/families/gears")
-}
-require("scripts/globals/status")
+-----------------------------------
+-- onMobSpawn Action
+-----------------------------------
 
-function onMobInitialize(mob)
-    mob:addMod(dsp.mod.MDEF, 60)
-    mob:addMod(dsp.mod.DEF, 60)
-    mob:AnimationSub(0)
-end
+function onMobSpawn(mob)
+    znmT3Size(mob)  
+end;
+
+function onMobFight(mob, target)
+    znmScalerT3(mob,target)
+end;
+
+function onCriticalHit(mob)
+
+
+
+end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-end
+    local nm = 19;
+    znmTherionT3(mob, player, nm)	
+end;

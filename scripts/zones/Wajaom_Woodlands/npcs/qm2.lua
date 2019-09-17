@@ -1,25 +1,66 @@
 -----------------------------------
 -- Area: Wajaom Woodlands
 --  NPC: ??? (Spawn Iriz Ima(ZNM T2))
--- !pos 253 -23 116 51
+-- @pos 253 -23 116 51
 -----------------------------------
-local ID = require("scripts/zones/Wajaom_Woodlands/IDs")
-require("scripts/globals/npc_util")
+package.loaded["scripts/zones/Wajaom_Woodlands/IDs"] = nil;
+-----------------------------------
+require("scripts/zones/Wajaom_Woodlands/IDs");
+require("scripts/globals/status");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
-    if npcUtil.tradeHas(trade, 2577) and npcUtil.popFromQM(player, npc, ID.mob.IRIZ_IMA) then
-        player:confirmTrade()
-        player:messageSpecial(ID.text.DRAWS_NEAR)
+    local mobID = 16986429;
+    if (trade:hasItemQty(2577,1) and trade:getItemCount() == 1) then -- Trade Senorita Pamamas
+        if (GetMobAction(mobID) == dsp.act.NONE) then
+            player:tradeComplete();
+            SpawnMob(mobID):updateClaim(player);
+        end
+    elseif (trade:hasItemQty(2613,1) and trade:getItemCount() == 1) then -- Trade Iriz Ima's Hide
+        if (GetMobAction(mobID) == dsp.act.NONE) then
+            player:tradeComplete();
+            player:addKeyItem(dsp.ki.APPLE_GREEN_SEAL);
+			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.APPLE_GREAN_SEAL);
+        end			
     end
-end
+end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
-    player:messageSpecial(ID.text.PAMAMA_PEELS)
-end
+    if (player:hasKeyItem(MAROON_SEAL)) then
+	    if (player:getFreeSlotsCount() == 0) then
+		    player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,2577);
+	    else
+	        player:delKeyItem(MAROON_SEAL);
+			player:messageSpecial(KEYITEM_LOST,MAROON_SEAL);
+		    player:addItem(2577,1);
+			player:messageSpecial(ITEM_OBTAINED,2577);			
+		end
+    else
+        player:messageSpecial(ID.text.NOTHING_HAPPENS)
+	end
+end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
-end
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
+end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
-end
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
+end;

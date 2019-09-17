@@ -1,25 +1,67 @@
 -----------------------------------
 -- Area: Bhaflau Thickets
 --  NPC: ??? (Spawn Dea(ZNM T3))
--- !pos -34 -32 481 52
+-- @pos -34 -32 481 52
 -----------------------------------
-local ID = require("scripts/zones/Bhaflau_Thickets/IDs")
-require("scripts/globals/npc_util")
+package.loaded["scripts/zones/Bhaflau_Thickets/IDs"] = nil;
+-----------------------------------
+require("scripts/zones/Bhaflau_Thickets/IDs");
+require("scripts/globals/status");
+require("scripts/globals/keyitems");
+
+-----------------------------------
+-- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
-    if npcUtil.tradeHas(trade, 2576) and not GetMobByID(ID.mob.DEA):isSpawned() then -- Olzhiryan Cactus
-        player:confirmTrade()
-        SpawnMob(ID.mob.DEA):updateClaim(player)
+    local mobID = 16990474;
+    if (trade:hasItemQty(2576,1) and trade:getItemCount() == 1) then -- Trade Olzhiryan Cactus
+        if (GetMobAction(mobID) == dsp.act.NONE) then
+            player:tradeComplete();
+            SpawnMob(mobID):updateClaim(player);
+        end
+    elseif (trade:hasItemQty(2612,1) and trade:getItemCount() == 1) then -- Trade Dea's Horn
+        if (GetMobAction(mobID) == dsp.act.NONE) then
+            player:tradeComplete();
+            player:addKeyItem(dsp.ki.CHESTNUT_COLORED_SEAL);
+			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.CHESTNUT_COLORED_SEAL);
+        end			
     end
-end
+end;
+-- 2612
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
-    player:messageSpecial(ID.text.NOTHING_HAPPENS)
-end
+    if (player:hasKeyItem(DEEP_PURPLE_SEAL)) then
+	    if (player:getFreeSlotsCount() == 0) then
+		    player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,2576);
+	    else
+	        player:delKeyItem(DEEP_PURPLE_SEAL);
+			player:messageSpecial(KEYITEM_LOST,DEEP_PURPLE_SEAL);
+		    player:addItem(2576,1);
+			player:messageSpecial(ITEM_OBTAINED,2576);
+		end
+    else
+        player:messageSpecial(ID.text.NOTHING_HAPPENS)
+	end
+end;
+
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
 
 function onEventUpdate(player,csid,option)
-end
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
+end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
 
 function onEventFinish(player,csid,option)
-end
+    -- printf("CSID: %u",csid);
+    -- printf("RESULT: %u",option);
+end;

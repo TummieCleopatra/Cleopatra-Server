@@ -1,32 +1,38 @@
 -----------------------------------
 -- Area: Wajaom Woodlands
---  ZNM: Vulpangue
+--  NPC: Vulpangue(ZNM T1)
+-- @pos -697 -7 -123 51
 -----------------------------------
-mixins = {require("scripts/mixins/rage")}
-require("scripts/globals/status")
-require("scripts/globals/weather")
+package.loaded["scripts/zones/Wajaom_Woodlands/IDs"] = nil;
 -----------------------------------
-function onMobInitialize(mob)
-    mob:setMobMod(dsp.mobMod.IDLE_DESPAWN, 300)
-end
+require("scripts/zones/Wajaom_Woodlands/IDs");
+require("scripts/globals/status");
+require("scripts/zones/Davoi/IDs");
+require("scripts/globals/mobscaler");
+
+-----------------------------------
+-- onMobSpawn Action
+-----------------------------------
 
 function onMobSpawn(mob)
-    mob:setLocalVar("[rage]timer", 3600) -- 60 minutes
-    mod:addMod((dsp.mod.FIRE_ABSORB + VanadielDayElement()),100)
-    mob:addMod(dsp.mod.WIND_ABSORB, 100)
-    mob:setLocalVar("HPP", 90)
-end
+   znmT1Size(mob)
+end;
 
 function onMobFight(mob, target)
-    local defUpHPP = mob:getLocalVar("HPP")
-    if mob:getHPP() <= defUpHPP then
-	    if mob:getHPP() > 10 then
-        mob:addMod(dsp.mod.ACC, 10)
-        mob:addMod(dsp.mod.ATT, 10)
-        mob:setLocalVar("HPP", mob:getHPP() - 10)
-		end
-    end
-end
+    znmScalerT1(mob,target)
+end;
 
-function onMobDeath(mob, killer)
-end
+function onCriticalHit(mob)
+
+
+
+end;
+
+-----------------------------------
+-- onMobDeath
+-----------------------------------
+
+function onMobDeath(mob, player, isKiller)
+    local nm = 1;
+    znmTherionT1(mob, player, nm)	
+end;

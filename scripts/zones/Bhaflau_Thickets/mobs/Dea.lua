@@ -1,11 +1,11 @@
 -----------------------------------
--- Area: Alzadaal Undersea Ruins
---  NPC: Velionis(ZNM T1)
--- @pos G-11
+-- Area: Bhaflau Thickets
+--  NPC: Dea(ZNM T3)
+-- @pos F-7
 -----------------------------------
-package.loaded["scripts/zones/Arrapago_Reef/IDs"] = nil;
+package.loaded["scripts/zones/Bhaflau_Thickets/IDs"] = nil;
 -----------------------------------
-require("scripts/zones/Arrapago_Reef/IDs");
+require("scripts/zones/Bhaflau_Thickets/IDs");
 require("scripts/globals/status");
 require("scripts/globals/mobscaler");
 
@@ -14,11 +14,11 @@ require("scripts/globals/mobscaler");
 -----------------------------------
 
 function onMobSpawn(mob)
-    znmT1Size(mob)  
+    znmT3Size(mob) 
 end;
 
 function onMobFight(mob, target)
-    znmScalerT1(mob,target)
+    znmScalerT3(mob,target)
 end;
 
 function onCriticalHit(mob)
@@ -32,6 +32,6 @@ end;
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-    local nm = 7;
-    znmTherionT1(mob, player, nm)	
+    local nm = 21;
+    znmTherionT3(mob, player, nm)	
 end;

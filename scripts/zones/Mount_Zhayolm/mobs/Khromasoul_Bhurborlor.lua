@@ -1,24 +1,24 @@
 -----------------------------------
--- Area: Alzadaal Undersea Ruins
---  NPC: Velionis(ZNM T1)
--- @pos G-11
+-- Area: Mount Zhayolm
+-- NPC: Khromasoul Bhurborlor
+-- @pos H-8
 -----------------------------------
-package.loaded["scripts/zones/Arrapago_Reef/IDs"] = nil;
------------------------------------
-require("scripts/zones/Arrapago_Reef/IDs");
+
+require("scripts/globals/magic");
 require("scripts/globals/status");
 require("scripts/globals/mobscaler");
+
 
 -----------------------------------
 -- onMobSpawn Action
 -----------------------------------
 
 function onMobSpawn(mob)
-    znmT1Size(mob)  
+    znmT3Size(mob)  
 end;
 
 function onMobFight(mob, target)
-    znmScalerT1(mob,target)
+    znmScalerT3(mob,target)
 end;
 
 function onCriticalHit(mob)
@@ -32,6 +32,6 @@ end;
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-    local nm = 7;
-    znmTherionT1(mob, player, nm)	
+    local nm = 23;
+    znmTherionT3(mob, player, nm)	
 end;
