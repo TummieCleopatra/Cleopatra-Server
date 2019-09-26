@@ -454,6 +454,7 @@ dsp.specEffect =
 
 function corsairSetup(caster, ability, action, effect, job)
     local roll = math.random(1,6);
+    printf("math random roll is %u",roll)
     caster:delStatusEffectSilent(dsp.effect.DOUBLE_UP_CHANCE);
     caster:addStatusEffectEx(dsp.effect.DOUBLE_UP_CHANCE,
                              dsp.effect.DOUBLE_UP_CHANCE,
@@ -466,11 +467,41 @@ function corsairSetup(caster, ability, action, effect, job)
                              true);
     caster:setLocalVar("corsairRollTotal", roll);
     action:speceffect(caster:getID(), roll);
-    if (checkForElevenRoll(caster)) then
-        action:recast(action:recast()/2)
+    if (caster:getObjType() == dsp.objType.PC) then
+        if (checkForElevenRoll(caster)) then
+            action:recast(action:recast()/2)
+        end
     end
     checkForJobBonus(caster, job)
-    caster:addRecast(dsp.recast.ABILITY, 194, 8)
+    if (caster:getObjType() == dsp.objType.PC) then
+        caster:addRecast(dsp.recast.ABILITY, 194, 8)
+    end
+end
+
+function trustCorsairSetup(caster, ability, action, effect, job)
+    local roll = caster:getLocalVar("trustRoll");
+    printf("math random roll is %u",roll)
+    caster:delStatusEffectSilent(dsp.effect.DOUBLE_UP_CHANCE);
+    caster:addStatusEffectEx(dsp.effect.DOUBLE_UP_CHANCE,
+                             dsp.effect.DOUBLE_UP_CHANCE,
+                             roll,
+                             0,
+                             45,
+                             ability:getID(),
+                             effect,
+                             job,
+                             true);
+    caster:setLocalVar("corsairRollTotal", roll);
+    action:speceffect(caster:getID(), roll);
+    if (caster:getObjType() == dsp.objType.PC) then
+        if (checkForElevenRoll(caster)) then
+            action:recast(action:recast()/2)
+        end
+    end
+    checkForJobBonus(caster, job)
+    if (caster:getObjType() == dsp.objType.PC) then
+        caster:addRecast(dsp.recast.ABILITY, 194, 8)
+    end
 end
 
 function atMaxCorsairBusts(caster)
