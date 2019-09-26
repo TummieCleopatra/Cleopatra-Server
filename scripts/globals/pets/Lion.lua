@@ -14,18 +14,20 @@ function onMobSpawn(mob)
     -- doNajiTrustPoints(mob)
     local weaponskill = 0
     local lvl = mob:getMainLvl()
+    local angle = getAngle(mob)
+    local wsCooldown = 4
+    mob:setLocalVar("wsTime",0)
 
     mob:addListener("COMBAT_TICK", "DISTANCE_TICK", function(mob, player, target)
-        local distanceTime = mob:getLocalVar("distanceTime")
-        local battletime = os.time()
-        mob:moveToTarget()
-         --    mob:setLocalVar("distanceTime", battletime)
-        -- end
+	    trustMeleeMove(mob, player, target, angle)
     end)
 
     mob:addListener("COMBAT_TICK", "LION_COMBAT_TICK", function(mob, player, target)
-        if (mob:getTP() > 1000) then
+	    local battletime = os.time()
+        local weaponSkillTime = mob:getLocalVar("wsTime")
+        if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown)) then
             local zeid = isZeidInParty(mob, player, target)
+            local prishe = isPrisheInParty(mob, player, target)
             if (zeid == 1 and lvl >= 65) then
                 local zeidTP = getZeidTP(mob, player, target)
                 if (zeidTP <= 500) then -- don't wait
@@ -46,9 +48,18 @@ function onMobSpawn(mob)
                         mob:setLocalVar("lastWS",2894)
                     end
                 end
+                mob:setLocalVar("wsTime",battletime)
+            elseif (prishe == 1 and lvl >= 65) then
+                local battletime = os.time()
+                local prisheTP, wsTime, prisheLastWS = getPrisheTP(mob, player, target)
+                if (prisheTP <= 200 and (battletime > wsTime + 8)) then
+                    mob:useMobAbility(2894)
+                    mob:setLocalVar("wsTime",battletime)
+                end
             else
                 weaponskill = doLionWeaponskill(mob)
                 mob:useMobAbility(weaponskill)
+                mob:setLocalVar("wsTime",battletime)
             end
         end
     end)

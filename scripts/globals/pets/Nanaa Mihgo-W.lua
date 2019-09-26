@@ -20,6 +20,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("distanceTime",0)
     mob:setLocalVar("saTime",0)
     mob:setLocalVar("wsTime",0)
+    mob:setLocalVar("berserkTime",0)
 
 
     mob:addListener("COMBAT_TICK", "NANAA_DISTANCE_TICK", function(mob, player, target)
@@ -28,6 +29,15 @@ function onMobSpawn(mob)
 
     mob:addListener("COMBAT_TICK", "NANAA_SA_TICK", function(mob, player, target)
         doNanaaSa(mob, player, target)
+    end)
+
+    mob:addListener("COMBAT_TICK", "NANAA_BERSERK_TICK", function(mob, player, target)
+        local battletime = os.time()
+        local berserk = mob:getLocalVar("berserkTime")
+        if ((battletime > berserk + berserkCooldown) and lvl >= 50 and mob:getTP() >= 800) then
+            mob:useJobAbility(15, target)
+            mob:setLocalVar("berserkTime",battletime)
+        end
     end)
 
     mob:addListener("COMBAT_TICK", "NANAA_COMBAT_TICK", function(mob, player, target)

@@ -7,15 +7,15 @@
 -------------------------------------------------
 require("scripts/globals/status")
 require("scripts/globals/msg")
-require("scripts/globals/enmitycalc")
 require("scripts/globals/pathfind")
-require("scripts/globals/trustpoints")
+require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
     local master = mob:getMaster()
     master:setVar("SCProp1",0)
     local lvl = mob:getMainLvl()
     local berserkCooldown = 300
+    local angle = getAngle(mob)
     mob:setLocalVar("meditateTime",0)
     mob:setLocalVar("meditateCooldown",180)
     mob:setLocalVar("hassoTime",0)
@@ -28,12 +28,11 @@ function onMobSpawn(mob)
     mob:setLocalVar("sekkaCooldown",300)
     mob:setLocalVar("sekkaType",0) -- 1: self sc, 2: Two Step with player close
     mob:setLocalVar("berserkTime",0)
+    mob:setLocalVar("wsTime",0)
 
 
     mob:addListener("COMBAT_TICK", "AYAME_DISTANCE_TICK", function(mob, player, target)
-        local distanceTime = mob:getLocalVar("distanceTime")
-        local battletime = os.time()
-        mob:moveToTarget()
+        trustMeleeMove(mob, player, target, angle)
     end)
 
     master:addListener("WEAPONSKILL_USE", "AYAME_SC", function(player, target, skillid)
@@ -91,6 +90,8 @@ function onMobSpawn(mob)
         local scTimer = mob:getLocalVar("scTimer")
         local battletime = os.time()
         local tp = mob:getTP()
+        local canWS = weaponSkillEnmityCheck(mob, player, target)
+        local weaponSkillTime = mob:getLocalVar("wsTime")
         if (tp >= 2000 and sekkaType == 1) then
             mob:setLocalVar("sekkaWS",1)
             weaponskill = doAyameSoloSC(mob, player)
@@ -108,12 +109,14 @@ function onMobSpawn(mob)
             weaponskill = doAyameSoloSC(mob, player)
             mob:useMobAbility(weaponskill, target)
             mob:setLocalVar("sekkaWS",0)
-        elseif (tp > 1000 and ((element == 0) or (element == 1) or (element == 10)) and sekkaType == 0)  then
+        elseif (tp > 1000 and ((element == 0) or (element == 1) or (element == 10)) and sekkaType == 0 and canWS ~= 1 and (battletime > weaponSkillTime + wsCooldown))  then
             weaponskill = doAyameWeaponskill(mob, player)
             mob:useMobAbility(weaponskill, target)
-        elseif (tp > 1000 and sekkaType == 0) then
+            mob:setLocalVar("wsTime",battletime)
+        elseif (tp > 1000 and sekkaType == 0 and canWS ~= 1 and (battletime > weaponSkillTime + wsCooldown)) then
             weaponskill = doAyameOpenWeaponskill(mob, player)
             mob:useMobAbility(weaponskill, target)
+            mob:setLocalVar("wsTime",battletime)
         end
     end)
 
@@ -139,7 +142,7 @@ function onMobSpawn(mob)
 
         if (hate == 0 and lvl >= 25) then
             if ((battletime > seiganTime + seiganCooldown) and not mob:hasStatusEffect(dsp.effect.SEIGAN)) then
-                mob:useJobAbility(157, mob)
+                mob:useJobAbility(158, mob)
                 mob:setLocalVar("seiganTime",battletime)
             end
 
@@ -186,7 +189,11 @@ end
 function doAyameOpenWeaponskill(mob, player)
     local element = player:getVar("SCProp1");
     local wsList = {}
-    printf("Element for SC is %u",element)
+
+    if (element == 0) then
+        printf("No Elemental WS performed by player yet...pick random")
+        element = math.random(2,12)
+    end
 
     if (element == 2) then -- Compression
         wsList = {{60,150}, {1,144}}
@@ -234,7 +241,10 @@ function doAyameSoloSC(mob, player)
     local finalWS = 0
     local element = player:getVar("SCProp1");
     local wsList = {}
-    printf("Element for SC is %u",element)
+    if (element == 0) then
+        printf("No Elemental WS performed by player yet...pick random")
+        element = math.random(2,12)
+    end
 
     if (element == 2) then -- Compression - SSC Detonation REsult Grav
         wsList = {{60,150}, {1,144}}

@@ -7,30 +7,32 @@
 -------------------------------------------------
 require("scripts/globals/status")
 require("scripts/globals/msg")
-require("scripts/globals/trustpoints")
+require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
 
     doNajiTrustPoints(mob)
+    doDualWield(mob)
     local weaponskill = 0
     local naji = mob:getID()
     local lvl = mob:getMainLvl()
+    local angle = getAngle(mob)
+    local utsuIchiCooldown = 30
+    local utsuNiCooldown = 45
+    local wsCooldown = 4
+    mob:setLocalVar("wsTime",0)
     mob:setLocalVar("provokeTime",0)
     mob:setLocalVar("provokeCooldown",30)
     mob:setLocalVar("berserkTime",0)
     mob:setLocalVar("berserkCooldown",300)
     mob:setLocalVar("aggresorTime",0)
     mob:setLocalVar("aggresorCooldown",300)
+    mob:setLocalVar("utsuIchiTime",0)
+    mob:setLocalVar("utsuNiTime",0)
 
-    mob:addListener("COMBAT_TICK", "COMBAT_TICK", function(mob)
-        if (mob:getTP() > 1000) then
-            local targ = mob:getTarget()
-            weaponskill = doWeaponskill(mob)
-            mob:useMobAbility(weaponskill)
-        end
-    end)
 
     mob:addListener("COMBAT_TICK", "NAJI_PROVOKE_TICK", function(mob, player, target)
+        trustMeleeMove(mob, player, target, angle)
         local battletime = os.time()
         local provoke = mob:getLocalVar("provokeTime")
         local provokeCooldown = mob:getLocalVar("provokeCooldown")
@@ -58,6 +60,10 @@ function onMobSpawn(mob)
             mob:useJobAbility(18, mob)
             mob:setLocalVar("aggresorTime",battletime)
         end
+    end)
+
+    mob:addListener("COMBAT_TICK", "NAJI_UTSU_TICK", function(mob, player, target)
+        doUtsusemi(mob, player, target)
     end)
 end
 

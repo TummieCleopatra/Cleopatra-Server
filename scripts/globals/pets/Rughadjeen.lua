@@ -15,19 +15,11 @@ function onMobSpawn(mob)
     local weaponskill = 0
 
     local cureCooldown = 15
-    local meditateCooldown = 300
-    local hassoCooldown = 60
-    local seiganCooldown = 60
-    local thirdEyeCooldown = 30
     local angle = getAngle(mob)
     local wsCooldown = 4
 
 	local master = mob:getMaster()
 
-    mob:setLocalVar("meditateTime",0)
-    mob:setLocalVar("hassoTime",0)
-    mob:setLocalVar("seiganTime",0)
-    mob:setLocalVar("thirdEyeTime",0)
     mob:setLocalVar("cureTimeRughadjeen",0)
     mob:setLocalVar("wsTime",0)
 
@@ -42,51 +34,6 @@ function onMobSpawn(mob)
         end
     end)
 
-    mob:addListener("COMBAT_TICK", "RUGHADJEEN_MEDITATE_TICK", function(mob, player, target)
-        local battletime = os.time()
-        local meditate = mob:getLocalVar("meditateTime")
-        if (lvl >= 60) then
-            if ((battletime > meditate + meditateCooldown) and mob:getTP() >= 400) then
-                mob:useJobAbility(47, mob)
-                mob:setLocalVar("meditateTime",battletime)
-            end
-        end
-    end)
-
-    mob:addListener("COMBAT_TICK", "RUGHADJEEN_HASSO_TICK", function(mob, player, target)
-        local battletime = os.time()
-        local hasso = mob:getLocalVar("hassoTime")
-        if (lvl >= 50 and not mob:hasStatusEffect(dsp.effect.HASSO)) then
-            if (battletime > hasso + hassoCooldown) then
-                mob:useJobAbility(157, mob)
-                mob:setLocalVar("hassoTime",battletime)
-            end
-        end
-    end)
-
-    mob:addListener("COMBAT_TICK", "RUGHADJEEN_SEIGAN_TICK", function(mob, player, target)
-        local battletime = os.time()
-        local seigan = mob:getLocalVar("seiganTime")
-        local enmity = enmityCalc(mob, player, target)
-        if (lvl >= 50 and not mob:hasStatusEffect(dsp.effect.SEIGAN) and enmity == 0) then
-            if (battletime > seigan + seiganCooldown) then
-                mob:useJobAbility(158, mob)
-                mob:setLocalVar("seiganTime",battletime)
-            end
-        end
-    end)
-
-    mob:addListener("COMBAT_TICK", "RUGHADJEEN_TE_TICK", function(mob, player, target)
-        local battletime = os.time()
-        local thirdEye = mob:getLocalVar("thirdEyeTime")
-        local enmity = enmityCalc(mob, player, target)
-        if (lvl >= 50 and mob:hasStatusEffect(dsp.effect.SEIGAN) and not mob:hasStatusEffect(dsp.effect.THIRD_EYE) and enmity == 0) then
-            if (battletime > thirdEye + thirdEyeCooldown) then
-                mob:useJobAbility(46, mob)
-                mob:setLocalVar("thirdEyeTime",battletime)
-            end
-        end
-    end)
 
     mob:addListener("COMBAT_TICK", "RUGHADJEEN_CURE_TICK", function(mob, player, target)
         local battletime = os.time()

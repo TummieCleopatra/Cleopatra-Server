@@ -23,6 +23,9 @@ function onMobSpawn(mob)
     local hasteCooldown = 220
     local master = mob:getMaster()
     local kupipi = mob:getID()
+    local angle = 115
+    local wsCooldown = 4
+    mob:setLocalVar("wsTime",0)
     mob:setLocalVar("cureTime",0)
     mob:setLocalVar("debuffTime",0)
     mob:setLocalVar("ailmentTime",0)
@@ -106,19 +109,22 @@ function onMobSpawn(mob)
         end
     end)
 
-    mob:addListener("COMBAT_TICK", "COMBAT_TICK", function(mob, target)
-        local distance = mob:checkDistance(target)
+    mob:addListener("COMBAT_TICK", "COMBAT_TICK", function(mob, player, target)
         local tlvl = target:getMainLvl()
         local lvl = mob:getMainLvl()
         local dlvl = tlvl - lvl
         if (dlvl >= 5) then
-            if (distance ~= 10) then
-                mob:moveToDistance(10,enemy)
-            end
+            trustMageMove(mob, player, target, angle)
+        else
+            trustMeleeMove(mob, player, target, angle)
         end
-        if (mob:getTP() > 1000) then
+
+        local battletime = os.time()
+        local weaponSkillTime = mob:getLocalVar("wsTime")
+        if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown)) then
             weaponskill = doKupipiWeaponskill(mob)
-            mob:useMobAbility(weaponskill, mob)
+            mob:useMobAbility(weaponskill, target)
+            mob:setLocalVar("wsTime",battletime)
         end
     end)
 end

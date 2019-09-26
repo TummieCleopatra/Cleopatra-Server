@@ -9,6 +9,7 @@
 require("scripts/globals/status")
 require("scripts/globals/msg")
 require("scripts/globals/utils")
+require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
     mob:setLocalVar("distanceTime",0)
@@ -22,28 +23,15 @@ function onMobSpawn(mob)
     mob:setLocalVar("elegyRecast",15)
     mob:setLocalVar("finaleRecast",90)
     mob:setLocalVar("requiemRecast",90)
+    local angle = 100
 
     printf("Ulmia Spawn")
     mob:SetAutoAttackEnabled(false)
 
     mob:addListener("COMBAT_TICK", "DISTANCE_TICK", function(mob, target)
-        local distanceTime = mob:getLocalVar("distanceTime")
-        local distanceRecast = mob:getLocalVar("distanceRecast")
-        local battletime = os.time()
-        local distance = mob:checkDistance(target)
         local singMage = mob:getLocalVar("singMage")
-        --[[if (battletime > distanceTime + distanceRecast) then
-            if (distance > 1) then
-                local pos = target:getPos();
-                mob:moveToTarget()
-                mob:setLocalVar("distanceRecast",0)
-            else
-                mob:setLocalVar("distanceRecast",10)
-            end
-            mob:setLocalVar("distanceTime",battletime)
-        end--]]
         if (singMage == 0) then
-            mob:moveToTarget()
+            trustMeleeMove(mob, player, target, angle)
         end
     end)
 
@@ -62,9 +50,9 @@ function onMobSpawn(mob)
                 printf("Do song check")
                 doSongCheck(mob, player, target)
             end--]]
-            mob:moveToDistance(2,target)
+            trustMeleeMove(mob, player, target, angle)
             printf("Ulmia needs to move to front line")
-            if (distance <= 2) then
+            if (distance <= 3) then
                 printf("Doing Song Check")
                 doSongCheck(mob,player,target)
             end
@@ -95,7 +83,7 @@ function onMobSpawn(mob)
         if (singMage == 1) then
             if (battletime > mageSongs + 13) then
 
-                mob:moveToDistance(13,target)
+                trustMageMove(mob, player, target, angle)
                 if (distance >= 13) then
 
                     doMageSongs(mob)

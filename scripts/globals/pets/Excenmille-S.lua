@@ -23,6 +23,9 @@ function onMobSpawn(mob)
 
 	local master = mob:getMaster()
 	local excenmille = mob:getID()
+    local angle = getAngle(mob)
+    local wsCooldown = 4
+    mob:setLocalVar("wsTime",0)
 	mob:setLocalVar("jumpTime",0)
 	mob:setLocalVar("highJumpTime",0)
 	mob:setLocalVar("superJumpTime",0)
@@ -32,7 +35,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("thirdEyeTime",0)
 
 
-	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_JUMP_TICK" .. excenmille, function(mob, player, target)
+	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_JUMP_TICK", function(mob, player, target)
 	    local battletime = os.time()
 		local jumpTime = mob:getLocalVar("jumpTime")
 
@@ -44,7 +47,7 @@ function onMobSpawn(mob)
         end
 	end)
 
-	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_HIGH_JUMP_TICK" .. excenmille, function(mob, player, target)
+	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_HIGH_JUMP_TICK", function(mob, player, target)
 	    local battletime = os.time()
 		local highJumpTime = mob:getLocalVar("highJumpTime")
 
@@ -56,7 +59,7 @@ function onMobSpawn(mob)
         end
 	end)
 
-	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_SUPER_JUMP_TICK" .. excenmille, function(mob, player, target)
+	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_SUPER_JUMP_TICK", function(mob, player, target)
 	    local battletime = os.time()
 		local superJumpTime = mob:getLocalVar("superJumpTime")
 
@@ -115,17 +118,21 @@ function onMobSpawn(mob)
     end)
 
 
-	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_COMBAT_TICK" .. excenmille, function(mob, target)
-	    if (mob:getTP() > 1000) then
+	mob:addListener("COMBAT_TICK", "EXCENMILLE_COMBAT_TICK", function(mob, player, target)
+	    trustMeleeMove(mob, player, target, angle)
+	    local battletime = os.time()
+        local weaponSkillTime = mob:getLocalVar("wsTime")
+        if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown)) then
 		    weaponskill = doExcenmilleWeaponskill(mob)
 			mob:useMobAbility(weaponskill)
+            mob:setLocalVar("wsTime",battletime)
 		end
 	end)
 
 end
 
 function doExcenmilleWeaponskill(mob)
-    local wsList = {{65,119}, {60,118}, {117}, {49,116}, {40,115}, {1,112}}
+    local wsList = {{65,119}, {60,118}, {55,117}, {49,116}, {40,115}, {1,112}}
     local newWsList = {}
 	local maxws = 3 -- Maximum number of weaponskills to choose from randomly
 	local wscount = 0

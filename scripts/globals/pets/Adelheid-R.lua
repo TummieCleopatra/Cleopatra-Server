@@ -21,6 +21,7 @@ function onMobSpawn(mob)
     local subCooldown = 30
     local mbCooldown = 5
     local skill = 0
+    local angle = 85
 
     local lvl = mob:getMainLvl()
     if (lvl < 61) then
@@ -46,21 +47,10 @@ function onMobSpawn(mob)
     local master = mob:getMaster()
     master:setVar("mbTime",0)
 
-    mob:addListener("COMBAT_TICK", "DISTANCE_TICK", function(mob, player, target)
-        local distanceTime = mob:getLocalVar("distanceTime")
-        local battletime = os.time()
-        local enemy = player:getTarget()
-        local distance = mob:checkDistance(target)
-        if (distance ~= 10) then
-        -- if (battletime > distanceTime + 10) then
-
-
-            local pos = target:getPos();
-            -- local radians = (256 - targetPos.rot) * (math.pi / 128);
-            mob:moveToDistance(10,enemy)
-         --    mob:setLocalVar("distanceTime", battletime)
-        end
+    mob:addListener("COMBAT_TICK", "ADEL_DISTANCE_TICK", function(mob, player, target)
+        trustMageMove(mob, player, target, angle)
     end)
+
 
     mob:addListener("COMBAT_TICK", "STORM_TICK", function(mob, target)
         local battletime = os.time()
@@ -76,7 +66,7 @@ function onMobSpawn(mob)
         end
     end)
 
-    mob:addListener("COMBAT_TICK", "REGEN_TICK", function(mob, player, target)
+    mob:addListener("COMBAT_TICK", "ADEL_REGEN_TICK", function(mob, player, target)
         local battletime = os.time()
         local regenTime = mob:getLocalVar("regenTime")
         local distance  = mob:checkDistance(target)
@@ -123,7 +113,7 @@ function onMobSpawn(mob)
         end
     end)
 
-    master:addListener("WEAPONSKILL_USE", "SKILLCHAIN", function(player, target, skillid)
+    master:addListener("WEAPONSKILL_USE", "ADEL_SKILLCHAIN", function(player, target, skillid)
         local battletime = os.time()
         local resonance = target:getStatusEffect(dsp.effect.SKILLCHAIN);
         local element = resonance:getPower()

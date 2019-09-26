@@ -7,7 +7,6 @@
 -------------------------------------------------
 require("scripts/globals/status")
 require("scripts/globals/msg")
-require("scripts/globals/enmitycalc")
 require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
@@ -17,8 +16,12 @@ function onMobSpawn(mob)
     local cureCooldown = 15
     local provokeCooldown = 30
     local reprisalCooldown = 0
+    local wsCooldown = 4
     local lvl = mob:getMainLvl()
+    mob:setLocalVar("protectTime",0)
+    mob:setLocalVar("shellTime",0)
     mob:setLocalVar("cureTimeCurilla",0)
+    mob:setLocalVar("wsTime",0)
     mob:setLocalVar("provokeTime",0)
     mob:setLocalVar("flashTime",0)
     mob:setLocalVar("flashCooldown",45)
@@ -31,18 +34,16 @@ function onMobSpawn(mob)
     mob:setLocalVar("reprisalCooldown",180)
 
     mob:addListener("COMBAT_TICK", "DISTANCE_TICK", function(mob, player, target)
-        local distanceTime = mob:getLocalVar("distanceTime")
-        local battletime = os.time()
-        mob:moveToTarget()
-         --    mob:setLocalVar("distanceTime", battletime)
-        -- end
+        trustTankMove(mob, player, target)
     end)
 
     mob:addListener("COMBAT_TICK", "COMBAT_TICK", function(mob)
-        if (mob:getTP() > 1000) then
-            local targ = mob:getTarget()
+        local battletime = os.time()
+        local weaponSkillTime = mob:getLocalVar("wsTime")
+        if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown)) then
             weaponskill = doCurillaWeaponskill(mob)
             mob:useMobAbility(weaponskill)
+            mob:setLocalVar("wsTime",battletime)
         end
     end)
 
@@ -82,6 +83,24 @@ function onMobSpawn(mob)
         if ((battletime > reprisalTime + reprisalCooldown) and mob:getMainLvl() >= 61) then
             mob:castSpell(97, mob)
             mob:setLocalVar("reprisalTime",battletime)
+        end
+    end)
+
+    mob:addListener("COMBAT_TICK", "CUR_PRO_TICK", function(mob, player, target)
+        local battletime = os.time()
+        local proTime = mob:getLocalVar("protectTime")
+        if (battletime > proTime + 30 and mob:hasStatusEffect(dsp.effect.PROTECT) == false) then
+            doCurillaProtect(mob)
+            mob:setLocalVar("protectTime",battletime)
+        end
+    end)
+
+    mob:addListener("COMBAT_TICK", "CUR_SHELL_TICK", function(mob, player, target)
+        local battletime = os.time()
+        local shellTime = mob:getLocalVar("shellTime")
+        if (battletime > shellTime + 30 and mob:hasStatusEffect(dsp.effect.SHELL) == false) then
+            doCurillaShell(mob)
+            mob:setLocalVar("shellTime",battletime)
         end
     end)
 
@@ -151,6 +170,7 @@ end
 
 function doCurillaFlash(mob, player, target)
     local mp = mob:getMP()
+
     local lvl = mob:getMainLvl()
     local battletime = os.time()
     -- Only use flash if Curilla doesn't have hate?
@@ -225,6 +245,37 @@ function doEmergencyCureCur(mob)
     end
 
     return spell
+end
+
+function doCurillaProtect(mob)
+    local proList = {{70,65,46}, {50,46,45}, {30,28,44}, {10,9,43}}
+    local shellList = {{68,75,51}, {57,56,50}, {37,37,49}, {17,18,48}}
+    local mp = mob:getMP()
+    local lvl = mob:getMainLvl()
+    local pro = 0
+
+    for i = 1, #proList do
+        if (lvl >= proList[i][1] and mp >= proList[i][2]) then
+            pro = proList[i][3]
+            break
+        end
+    end
+    mob:castSpell(pro, mob)
+end
+
+function doCurillaShell(mob)
+    local shellList = {{60,56,50}, {40,37,49}, {20,18,48}}
+    local mp = mob:getMP()
+    local lvl = mob:getMainLvl()
+    local shell = 0
+
+    for i = 1, #shellList do
+        if (lvl >= shellList[i][1] and mp >= shellList[i][2]) then
+            shell = shellList[i][3]
+            break
+        end
+    end
+    mob:castSpell(shell, mob)
 end
 
 function onMobDeath(mob, player, isKiller)

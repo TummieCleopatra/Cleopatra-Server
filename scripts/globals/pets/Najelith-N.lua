@@ -9,7 +9,6 @@
 -------------------------------------------------
 require("scripts/globals/status")
 require("scripts/globals/msg")
-require("scripts/globals/enmitycalc")
 require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
@@ -38,30 +37,25 @@ function onMobSpawn(mob)
     mob:setLocalVar("wsTime",0)
 
     mob:addListener("COMBAT_TICK", "NAJELITH_DISTANCE_TICK", function(mob, player, target)
-        local distanceTime = mob:getLocalVar("distanceTime")
-        local battletime = os.time()
-        local enemy = player:getTarget()
-        local distance = mob:checkDistance(target)
-        local enmity = enmityCalc(mob, player, target)
-
-        if (distance < 10 and enmity ~= 0 and mob:hasStatusEffect(dsp.effect.COPY_IMAGE)) then
-            local pos = target:getPos();
-            -- local radians = (256 - targetPos.rot) * (math.pi / 128);
-            mob:moveToDistance(10,enemy)
-            mob:setLocalVar("distanceTime", battletime)
-        end
+        trustMageMove(mob, player, target)
     end)
 
     mob:addListener("COMBAT_TICK", "NAJELITH_UTSU_TICK", function(mob, player, target)
         local battletime = os.time()
         local utsuIchi = mob:getLocalVar("utsuIchiTime")
         local utsuNi = mob:getLocalVar("utsuNiTime")
-        local effect = mob:getStatusEffect(dsp.effect.COPY_IMAGE)
-        local distance = mob:checkDistance(target)
-        if ((battletime > utsuNi + utsuNiCooldown) and lvl >= 74 and (effect == nil or effect:getPower() <= 1)) then
+        local shadows = mob:getStatusEffect(dsp.effect.COPY_IMAGE)
+        local count = 0
+        if (shadows ~= nil) then
+            count = shadows:getPower()
+        else
+            count = 0
+        end
+
+        if ((battletime > utsuNi + utsuNiCooldown) and lvl >= 74 and (count == nil or count <= 1)) then
             mob:castSpell(339, mob)
             mob:setLocalVar("utsuNiTime",battletime)
-        elseif ((battletime > utsuIchi + utsuIchiCooldown) and lvl >= 24 and (effect == nil)) then
+        elseif ((battletime > utsuIchi + utsuIchiCooldown) and lvl >= 24 and (count == nil)) then
             mob:castSpell(338, mob)
             mob:setLocalVar("utsuIchiTime",battletime)
         end

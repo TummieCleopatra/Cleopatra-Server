@@ -114,18 +114,18 @@ function getWeakness(mob, player, target)
     return weak
 end
 
-function isLionInParty(mob, player, target)
-    local lion = 0
+function isPrisheInParty(mob, player, target)
+    local prishe = 0
     local party = player:getParty()
 
     for i, member in ipairs(party) do
-        if (member:getName() == "Lion") then
+        if (member:getName() == "Prishe") then
             lion = 1
             break
         end
     end
 
-    return lion
+    return prishe
 end
 
 function isZeidInParty(mob, player, target)
@@ -140,6 +140,33 @@ function isZeidInParty(mob, player, target)
     end
 
     return zeid
+end
+
+function isLionInParty(mob, player, target)
+    local lion = 0
+    local party = player:getParty()
+
+    for i, member in ipairs(party) do
+        if (member:getName() == "Lion") then
+            zeid = 1
+            break
+        end
+    end
+
+    return lion
+end
+
+function getLionTPPrishe(mob, player, target)
+    local tp = 0
+    local party = player:getParty()
+
+    for i, member in ipairs(party) do
+        if (member:getName() == "Lion") then
+            tp = member:getTP()
+            break
+        end
+    end
+    return tp
 end
 
 function getZeidTP(mob, player, target)
@@ -164,6 +191,25 @@ function getLionTP(mob, player, target)
 
     for i, member in ipairs(party) do
         if (member:getName() == "Lion") then
+            tp = member:getTP()
+            lastWStime = member:getLocalVar("lastWSTime")
+            lastWS = member:getLocalVar("lastWS")
+            break
+        end
+    end
+
+    return tp,lastWStime,lastWS
+end
+
+function getPrisheTP(mob, player, target)
+    local tp = 0
+    local lastWStime = 0
+    local lastWS = 0
+    local party = player:getParty()
+
+
+    for i, member in ipairs(party) do
+        if (member:getName() == "Prishe") then
             tp = member:getTP()
             lastWStime = member:getLocalVar("lastWSTime")
             lastWS = member:getLocalVar("lastWS")
@@ -235,6 +281,111 @@ function doBarrage(target, mob)
 
 end
 
+function getAngle(mob)
+    local master = mob:getMaster()
+    local angle = math.random(20, 180)
+    local party = master:getParty()
+    local trust = 0
+
+    for i,member in ipairs(party) do
+        if (member:getObjType() == dsp.objType.TRUST) then
+            trust = trust + 1
+        end
+    end
+
+    if (trust == 1) then
+        angle = 85
+    elseif (trust == 2) then
+        angle = 115
+    elseif (trust == 3) then
+        angle = 70
+    elseif (trust == 4) then
+        angle = 130
+    elseif (trust == 5) then
+        angle = 55
+    end
+
+    return angle;
+end
+
+function doUtsusemi(mob, player, target)
+    local lvl = mob:getMainLvl()
+    local battletime = os.time()
+    local utsuIchi = mob:getLocalVar("utsuIchiTime")
+    local utsuNi = mob:getLocalVar("utsuNiTime")
+    local shadows = mob:getStatusEffect(dsp.effect.COPY_IMAGE)
+    local count = 0
+    if (shadows ~= nil) then
+        count = shadows:getPower()
+    else
+        count = 0
+    end
+
+    if ((battletime > utsuNi + 45) and lvl >= 74 and (count == nil or count <= 1)) then
+        mob:castSpell(339, mob)
+        mob:setLocalVar("utsuNiTime",battletime)
+    elseif ((battletime > utsuIchi + 30) and lvl >= 24 and (count == nil)) then
+        mob:castSpell(338, mob)
+        mob:setLocalVar("utsuIchiTime",battletime)
+    end
+end
+
+function trustSneakAttackMove(mob, player, target)
+    local enmity = enmityCalc(mob, player, target)
+    local size = target:getModelSize() -- Take size of model to account
+
+    if (mob:getCurrentAction() ~= dsp.act.MAGIC_CASTING and enmity ~= 0) then
+        mob:moveToDistance(size + 3, 100, target)
+    end
+end
+
+function trustMeleeMove(mob, player, target, angle)
+    local enmity = enmityCalc(mob, player, target)
+    local size = target:getModelSize() -- Take size of model to account
+    -- Todo: Maybe put bard closer to the mob, maybe remove size
+    if (mob:getCurrentAction() ~= dsp.act.MAGIC_CASTING and enmity ~= 0) then
+        mob:moveToDistance(size + 2.5, angle, target)
+    end
+end
+
+function trustMageMove(mob, player, target)
+    local enmity = enmityCalc(mob, player, target)
+    local size = target:getModelSize() -- Take size of model to account
+
+    if (mob:getCurrentAction() ~= dsp.act.MAGIC_CASTING and enmity ~= 0) then
+        mob:moveToDistance(size + 10,target)
+    end
+end
+
+function trustTankMove(mob, player, target)
+    local size = target:getModelSize()
+    mob:moveToDistanceFacing(size + 2, target)
+end
+
+function weaponSkillEnmityCheck(mob, player, target)
+    local party = player:getParty()
+    local enmity = enmityCalc(mob, player, target)
+    local tatt = mob:getStat(dsp.mod.ATT)
+    local mobdef = mob:getStat(dsp.mod.DEF)
+    local pdifs = (tatt / mobdef)
+    local tank = 0;
+    for i,member in ipairs(party) do
+        if (member:getMainJob() == dsp.job.PLD or member:getMainJob() == dsp.job.NIN or member:getMainJob() == dsp.job.RUN) then
+            tank = 1; -- tank in party so ease up on WS
+            break;
+        end
+    end
+
+    if (tank == 1) then
+        if (enmity > 2500 * pdifs) then
+            tank = 0
+        end
+    end
+
+    -- TODO: put in a stipulation for low HP on the mob
+    return tank
+end
+
 function doKupipiTrustPoints(mob)
     local player = mob:getMaster()
     local acc = 0
@@ -281,12 +432,7 @@ function doNajiTrustPoints(mob)
     local att = 0
     local da = 0
     local berserk = 0
-    local lvl = mob:getMainLvl()
-    local sjob = mob:getSubJob()
 
-
-
-    doDualWield(mob)
 
     if (player:getVar("CURILLA_TRIB_FIGHT") == 3) then
         att = player:getVar("TrustAtt_Naji")
@@ -308,24 +454,45 @@ function doNajiTrustPoints(mob)
         end
     end
 
-    -- Setup Dual Wield Delay
-    if (sjob == 13) then
-        if (lvl >= 50) then
-            mob:addMod(dsp.mod.DELAY,-80)
-        elseif (lvl >= 20) then
-           mob:addMod(dsp.mod.DELAY,-70)
-        end
-    end
+end
+
+function doDarrcuilnTrustPoints(mob)
+    local level = mob:getMainLvl()
+
+
+
+
 
 end
 
+function doPrisheTrustPoints(mob)
+    local player = mob:getMaster()
+    mob:addMod(dsp.mod.CURE_POTENCY,40)  -- Prishe has a custom huge cure potency boost
+end
+
 function doDualWield(mob)
-    local level = mob:getMainLvl()
+    local lvl = mob:getMainLvl()
     local job = mob:getMainJob()
-    if (level >= 20) then
+    local sjob = mob:getSubJob()
+
+    -- Setup Dual Wield Delay
+    if (sjob == 13) then
+        if (lvl >= 50) then
+            mob:addMod(dsp.mod.DELAY,-70)
+            mob:addMod(dsp.mod.STORETP,-30)
+        elseif (lvl >= 20) then
+            mob:addMod(dsp.mod.DELAY,-80)
+            mob:addMod(dsp.mod.STORETP,-20)
+        end
+    end
+
+    if (lvl >= 20) then
         if (job == 1) then  -- This is to make the main hand swing twice for normal dual wield and three times for DA on "offhand"
             mob:setMod(dsp.mod.MYTHIC_OCC_ATT_TWICE,90)
             mob:setMod(dsp.mod.MYTHIC_OCC_ATT_THRICE,10)
+        elseif (job == 6 and level > 54) then  -- This is to make the main hand swing twice for normal dual wield and four times for DA on "offhand" Triple Attack
+            mob:setMod(dsp.mod.MYTHIC_OCC_ATT_TWICE,95)
+            mob:setMod(dsp.mod.QUAD_ATTACK,5) -- Triple attack on one swing, regular attack on dual wield offhand
         else
             mob:setMod(dsp.mod.MYTHIC_OCC_ATT_TWICE,100)
         end

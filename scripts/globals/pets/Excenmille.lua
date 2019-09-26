@@ -15,9 +15,12 @@ function onMobSpawn(mob)
 	local jumpCooldown = 60
 	local highJumpCooldown = 120
     local superJumpCooldown = 180
+    local angle = getAngle(mob)
 
 	local master = mob:getMaster()
 	local excenmille = mob:getID()
+    local wsCooldown = 4
+    mob:setLocalVar("wsTime",0)
 	mob:setLocalVar("jumpTime",0)
 	mob:setLocalVar("highJumpTime",0)
 	mob:setLocalVar("superJumpTime",0)
@@ -25,7 +28,7 @@ function onMobSpawn(mob)
 
 
 
-	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_JUMP_TICK" .. excenmille, function(mob, player, target)
+	mob:addListener("COMBAT_TICK", "EXCENMILLE_JUMP_TICK", function(mob, player, target)
 	    local battletime = os.time()
 		local jumpTime = mob:getLocalVar("jumpTime")
 
@@ -37,7 +40,7 @@ function onMobSpawn(mob)
         end
 	end)
 
-	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_HIGH_JUMP_TICK" .. excenmille, function(mob, player, target)
+	mob:addListener("COMBAT_TICK", "EXCENMILLE_HIGH_JUMP_TICK", function(mob, player, target)
 	    local battletime = os.time()
 		local highJumpTime = mob:getLocalVar("highJumpTime")
 
@@ -49,7 +52,7 @@ function onMobSpawn(mob)
         end
 	end)
 
-	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_SUPER_JUMP_TICK" .. excenmille, function(mob, player, target)
+	mob:addListener("COMBAT_TICK", "EXCENMILLE_SUPER_JUMP_TICK", function(mob, player, target)
 	    local battletime = os.time()
 		local superJumpTime = mob:getLocalVar("superJumpTime")
 
@@ -61,13 +64,24 @@ function onMobSpawn(mob)
         end
 	end)
 
-	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_COMBAT_TICK" .. excenmille, function(mob, target)
-	    if (mob:getTP() > 1000) then
+	mob:addListener("COMBAT_TICK", "EXCENMILLE_COMBAT_TICK", function(mob, player, target)
+	    trustMeleeMove(mob, player, target, angle)
+	    local battletime = os.time()
+        local weaponSkillTime = mob:getLocalVar("wsTime")
+        if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown)) then
 		    weaponskill = doExcenmilleWeaponskill(mob)
 			mob:useMobAbility(weaponskill)
+            mob:setLocalVar("wsTime",battletime)
 		end
 	end)
 
+end
+
+function onTrade(player, mob, trade)
+    printf("Trying trade");
+    if (trade:hasItemQty(17701,1)) then
+        printf("Good Trade!!!!")
+    end
 end
 
 function doExcenmilleWeaponskill(mob)

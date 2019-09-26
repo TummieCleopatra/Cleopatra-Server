@@ -15,6 +15,9 @@ function onMobSpawn(mob)
     local weaponskill = 0
     local naji = mob:getID()
     local lvl = mob:getMainLvl()
+    local wsCooldown = 4
+    local angle = getAngle(mob)
+    mob:setLocalVar("wsTime",0)
     mob:setLocalVar("provokeTime",0)
     mob:setLocalVar("provokeCooldown",30)
     mob:setLocalVar("berserkTime",0)
@@ -22,11 +25,16 @@ function onMobSpawn(mob)
     mob:setLocalVar("aggresorTime",0)
     mob:setLocalVar("aggresorCooldown",300)
 
-    mob:addListener("COMBAT_TICK", "COMBAT_TICK", function(mob)
-        if (mob:getTP() > 1000) then
+
+    mob:addListener("COMBAT_TICK", "NAJI_COMBAT_TICK", function(mob)
+	    local battletime = os.time()
+        local weaponSkillTime = mob:getLocalVar("wsTime")
+        trustMeleeMove(mob, player, target, angle)
+        if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown)) then
             local targ = mob:getTarget()
             weaponskill = doWeaponskill(mob)
             mob:useMobAbility(weaponskill)
+            mob:setLocalVar("wsTime",battletime)
         end
     end)
 

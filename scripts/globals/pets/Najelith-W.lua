@@ -10,7 +10,6 @@
 -------------------------------------------------
 require("scripts/globals/status")
 require("scripts/globals/msg")
-require("scripts/globals/enmitycalc")
 require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
@@ -40,18 +39,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("wsTime",0)
 
     mob:addListener("COMBAT_TICK", "NAJELITH_DISTANCE_TICK", function(mob, player, target)
-        local distanceTime = mob:getLocalVar("distanceTime")
-        local battletime = os.time()
-        local enemy = player:getTarget()
-        local distance = mob:checkDistance(target)
-        local enmity = enmityCalc(mob, player, target)
-
-        if (distance < 10 and enmity ~= 0) then
-            local pos = target:getPos();
-            -- local radians = (256 - targetPos.rot) * (math.pi / 128);
-            mob:moveToDistance(10,enemy)
-            mob:setLocalVar("distanceTime", battletime)
-        end
+        trustMageMove(mob, player, target)
     end)
 
     mob:addListener("COMBAT_TICK", "NAJELITH_BERSERK_TICK", function(mob, player, target)

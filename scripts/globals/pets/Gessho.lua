@@ -19,8 +19,10 @@ function onMobSpawn(mob)
     local parryCooldown = 600
     local debuffCooldown = 12
     local utsuIchiCooldown = 30
-    local utsusemiNiCooldown = 45
+    local utsuNiCooldown = 45
     local lvl = mob:getMainLvl()
+    local wsCooldown = 4
+    mob:setLocalVar("wsTime",0)
     mob:setLocalVar("utsuIchiTime",0)
     mob:setLocalVar("utsuNiTime",0)
     mob:setLocalVar("yoninTime",0)
@@ -31,18 +33,17 @@ function onMobSpawn(mob)
 
 
     mob:addListener("COMBAT_TICK", "GESSHO_DISTANCE_TICK", function(mob, player, target)
-        local distanceTime = mob:getLocalVar("distanceTime")
-        local battletime = os.time()
-        mob:moveToTarget()
-         --    mob:setLocalVar("distanceTime", battletime)
-        -- end
+        trustTankMove(mob, player, target)
     end)
 
     mob:addListener("COMBAT_TICK", "GESSHO_COMBAT_TICK", function(mob)
-        if (mob:getTP() > 1000) then
+        local battletime = os.time()
+        local weaponSkillTime = mob:getLocalVar("wsTime")
+        if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown)) then
             local targ = mob:getTarget()
             weaponskill = doWeaponskill(mob)
             mob:useMobAbility(weaponskill)
+            mob:setLocalVar("wsTime",battletime)
         end
     end)
 
@@ -55,15 +56,22 @@ function onMobSpawn(mob)
         end
     end)
 
-    mob:addListener("COMBAT_TICK", "GESSHO_UTSU_TICK", function(mob, player, target)
+    mob:addListener("COMBAT_TICK", "GESHO_UTSU_TICK", function(mob, player, target)
         local battletime = os.time()
         local utsuIchi = mob:getLocalVar("utsuIchiTime")
         local utsuNi = mob:getLocalVar("utsuNiTime")
-        local effect = target:getStatusEffect(dsp.effect.COPY_IMAGE)
-        if ((battletime > utsuNi + utsuNiCooldown) and lvl >= 37 and (effect == nil or effect:getPower() <= 1)) then
+        local shadows = mob:getStatusEffect(dsp.effect.COPY_IMAGE)
+        local count = 0
+        if (shadows ~= nil) then
+            count = shadows:getPower()
+        else
+            count = 0
+        end
+
+        if ((battletime > utsuNi + utsuNiCooldown) and lvl >= 37 and (count == nil or count <= 1)) then
             mob:castSpell(339, mob)
             mob:setLocalVar("utsuNiTime",battletime)
-        elseif ((battletime > utsuIchi + utsuIchiCooldown) and lvl >= 12 and (effect == nil)) then
+        elseif ((battletime > utsuIchi + utsuIchiCooldown) and lvl >= 12 and (count == nil)) then
             mob:castSpell(338, mob)
             mob:setLocalVar("utsuIchiTime",battletime)
         end

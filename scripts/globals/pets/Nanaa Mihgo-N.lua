@@ -11,19 +11,46 @@ require("scripts/globals/msg")
 require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
-    printf("spawned")
+    doDualWield(mob)
+    local lvl = mob:getMainLvl()
     local weaponskill = 0
     local wsCooldown = 4
     local sneakAttackCooldown = 60
+    local utsuIchiCooldown = 30
+    local utsuNiCooldown = 45
+
     mob:setLocalVar("sneakAttackCooldown",60)
 
     mob:setLocalVar("distanceTime",0)
     mob:setLocalVar("saTime",0)
     mob:setLocalVar("wsTime",0)
+    mob:setLocalVar("utsuIchiTime",0)
+    mob:setLocalVar("utsuNiTime",0)
 
 
     mob:addListener("COMBAT_TICK", "NANAA_DISTANCE_TICK", function(mob, player, target)
         trustSneakAttackMove(mob, player, target)
+    end)
+
+    mob:addListener("COMBAT_TICK", "NANAA_UTSU_TICK", function(mob, player, target)
+        local battletime = os.time()
+        local utsuIchi = mob:getLocalVar("utsuIchiTime")
+        local utsuNi = mob:getLocalVar("utsuNiTime")
+        local shadows = mob:getStatusEffect(dsp.effect.COPY_IMAGE)
+        local count = 0
+        if (shadows ~= nil) then
+            count = shadows:getPower()
+        else
+            count = 0
+        end
+
+        if ((battletime > utsuNi + utsuNiCooldown) and lvl >= 74 and (count == nil or count <= 1)) then
+            mob:castSpell(339, mob)
+            mob:setLocalVar("utsuNiTime",battletime)
+        elseif ((battletime > utsuIchi + utsuIchiCooldown) and lvl >= 24 and (count == nil)) then
+            mob:castSpell(338, mob)
+            mob:setLocalVar("utsuIchiTime",battletime)
+        end
     end)
 
     mob:addListener("COMBAT_TICK", "NANAA_SA_TICK", function(mob, player, target)

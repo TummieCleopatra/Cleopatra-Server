@@ -85,6 +85,7 @@ function onMobSpawn(mob)
 
 	mob:addListener("COMBAT_TICK", "NAJELITH_COMBAT_TICK", function(mob, target)
         local enmity = enmityCalc(mob, player, target)
+        trustMageMove(mob, player, target)
 	    if (mob:getTP() > 1000 and enmity >= 300) then
 		    weaponskill = doNajelithWeaponskill(mob)
 			mob:useMobAbility(weaponskill)
