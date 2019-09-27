@@ -9,7 +9,8 @@ require("scripts/globals/pets")
 function onMobSpawn(mob)
     local master = mob:getMaster()
     local petID = master:getPetID()
-    mob:setLocalVar("afCool",4)
+    mob:setLocalVar("afCool",2)
+    mob:setLocalVar("despawn",7)
     mob:setLocalVar("afTime",os.time())
     printf("spawnnned")
 
@@ -31,11 +32,13 @@ function onMobSpawn(mob)
             local battletime = os.time()
             local afCooldown = mob:getLocalVar("afCool")
             local afTime = mob:getLocalVar("afTime")
+            local afDespawn = mob:getLocalVar("despawn")
             print(battletime)
             print(afcool)
             if (battletime > afTime + afCooldown) then
                 mob:useMobAbility(2334)
                 mob:setLocalVar("afTime",battletime)
+                mob:setLocalVar("despawn",battletime + 5)
             end
         end)
     end

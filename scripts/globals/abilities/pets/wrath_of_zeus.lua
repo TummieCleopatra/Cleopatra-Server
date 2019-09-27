@@ -27,10 +27,10 @@ function onPetAbility(target, pet, skill, master)
 
     target:takeDamage(damage, pet, dsp.attackType.MAGICAL, dsp.damageType.LIGHTNING)
     target:updateEnmityFromDamage(pet,damage)
+    pet:setHP(0)
+    -- local aflow = getAbility(14)
+    -- local newRecast = 6000
+    -- aflow:setRecast(newRecast)
 
-    local aflow = getAbility(14)
-    local newRecast = 6000
-    aflow:setRecast(newRecast)
-    master:despawnPet()
     return damage
 end
