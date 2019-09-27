@@ -1651,6 +1651,7 @@ namespace battleutils
     {
         int8 shieldSize = 3;
         int32 base = 0;
+        int32 trustShieldRate = 45;
         float blockRateMod = (100.0f + PDefender->getMod(Mod::SHIELDBLOCKRATE)) / 100.0f;
         uint16 attackskill = PAttacker->GetSkill((SKILLTYPE)(PAttacker->m_Weapons[SLOT_MAIN]->getSkillType()));
         uint16 blockskill = PDefender->GetSkill(SKILL_SHIELD);
@@ -1684,12 +1685,16 @@ namespace battleutils
         {
             CTrustEntity* PTrust = (CTrustEntity*)PDefender;
 
-            float skillmodifier = (PDefender->getMod(Mod::SWORD) - attackskill) * 0.215f;
+            //float skillmodifier = (PDefender->getMod(Mod::SWORD) - attackskill) * 0.215f;
+            int16 blockskill = PDefender->getMod(Mod::SWORD);
+            float skillmodifier = (blockskill - attackskill) * 0.215f;
             base = PDefender->getMod(Mod::SHIELDBLOCKRATE);
+            /*
+            ShowWarning(CL_RED"SKillmod is %f" CL_RESET, skillmodifier);
             if (base <= 0)
                 return 0;
-            else
-                return base + (int32)skillmodifier;
+            else*/
+                return base + (int32)skillmodifier + trustShieldRate;
         }
         else
             return 0;

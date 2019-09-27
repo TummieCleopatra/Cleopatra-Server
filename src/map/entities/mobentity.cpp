@@ -33,6 +33,7 @@
 #include "../ai/states/attack_state.h"
 #include "../ai/states/weaponskill_state.h"
 #include "../ai/states/mobskill_state.h"
+#include "../ai/states/magic_state.h"
 #include "../entities/charentity.h"
 #include "../packets/action.h"
 #include "../packets/entity_update.h"
@@ -52,6 +53,7 @@
 #include "../mobskill.h"
 #include "../treasure_pool.h"
 #include "../conquest_system.h"
+#include "../spell.h"
 
 CMobEntity::CMobEntity()
 {
@@ -484,6 +486,7 @@ float CMobEntity::GetRoamRate()
 
 bool CMobEntity::ValidTarget(CBattleEntity* PInitiator, uint16 targetFlags)
 {
+    ShowWarning(CL_GREEN"Now checking for Valid Targets\n" CL_RESET);
     if (StatusEffectContainer->GetConfrontationEffect() != PInitiator->StatusEffectContainer->GetConfrontationEffect())
     {
         return false;
@@ -1039,6 +1042,44 @@ void CMobEntity::OnCastFinished(CMagicState& state, action_t& action)
     CBattleEntity::OnCastFinished(state, action);
 
     static_cast<CMobController*>(PAI->GetController())->TapDeaggroTime();
+
+    //PRecastContainer->Add(RECAST_MAGIC, static_cast<uint16>(PSpell->getID()), action.recast);
+
+    auto PSpell = state.GetSpell();
+    auto PTarget = static_cast<CBattleEntity*>(state.GetTarget());
+
+    for (auto&& actionList : action.actionLists)
+    {
+        for (auto&& actionTarget : actionList.actionTargets)
+        {
+            if (actionTarget.param > 0 && PSpell->dealsDamage() && PSpell->getSpellGroup() == SPELLGROUP_BLUE &&
+                StatusEffectContainer->HasStatusEffect(EFFECT_CHAIN_AFFINITY) &&
+                static_cast<CBlueSpell*>(PSpell)->getPrimarySkillchain() != 0)
+            {
+                auto PBlueSpell = static_cast<CBlueSpell*>(PSpell);
+                SUBEFFECT effect = battleutils::GetSkillChainEffect(PTarget, PBlueSpell->getPrimarySkillchain(), PBlueSpell->getSecondarySkillchain(), 0, 0, 0, 0 );
+                if (effect != SUBEFFECT_NONE)
+                {
+                    uint16 skillChainDamage = battleutils::TakeSkillchainDamage(static_cast<CBattleEntity*>(this), PTarget, actionTarget.param, nullptr);
+
+                    actionTarget.addEffectParam = skillChainDamage;
+                    actionTarget.addEffectMessage = 287 + effect;
+                    actionTarget.additionalEffect = effect;
+
+                }
+                if (StatusEffectContainer->HasStatusEffect({EFFECT_SEKKANOKI}))
+                {
+                    health.tp = (health.tp > 1000 ? health.tp - 1000 : 0);
+                }
+                else
+                {
+                    health.tp = 0;
+                }
+
+                StatusEffectContainer->DelStatusEffectSilent(EFFECT_CHAIN_AFFINITY);
+            }
+        }
+    }
 }
 
 bool CMobEntity::OnAttack(CAttackState& state, action_t& action)
