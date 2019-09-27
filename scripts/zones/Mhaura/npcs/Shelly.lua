@@ -4,7 +4,7 @@
 -----------------------------------
 
 -----------------------------------
-package.loaded["scripts/zones/Mhaura/IDs"] = nil;
+
 -----------------------------------
 
 require("scripts/zones/Mhaura/IDs");

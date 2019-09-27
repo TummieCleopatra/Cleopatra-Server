@@ -383,6 +383,10 @@ validEntity will check if the given entity can be targeted in the AoE.
 */
 bool CTargetFind::validEntity(CBattleEntity* PTarget)
 {
+    if (PTarget->objtype == TYPE_TRUST)
+    {
+        return true;
+    }
     if (std::find(m_targets.begin(), m_targets.end(), PTarget) != m_targets.end()) {
         return false;
     }
@@ -459,6 +463,7 @@ bool CTargetFind::checkIsPlayer(CBattleEntity* PTarget)
 {
     if (PTarget == nullptr) return false;
     if (PTarget->objtype == TYPE_PC) return true;
+    if (PTarget->objtype == TYPE_TRUST) return true;
 
     // check if i'm owned by a pc
     return PTarget->PMaster != nullptr && PTarget->PMaster->objtype == TYPE_PC;

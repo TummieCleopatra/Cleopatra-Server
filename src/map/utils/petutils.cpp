@@ -862,8 +862,29 @@ namespace petutils
             PTrust->m_Weapons[SLOT_SUB]->setShieldSize(3);
             PTrust->setModifier(Mod::SHIELD, battleutils::GetMaxSkill(SKILL_CLUB, JOB_WHM, PTrust->GetMLevel()));
             PTrust->setModifier(Mod::SWORD, battleutils::GetMaxSkill(SKILL_SWORD, JOB_PLD, PTrust->GetMLevel()));
-            ShowWarning(CL_YELLOW"Setting Curilal Shield Size to 3\n" CL_RESET);
+            //ShowWarning(CL_YELLOW"Setting Curilal Shield Size to 3\n" CL_RESET);
         }
+
+        for (int i = SKILL_DIVINE_MAGIC; i <= SKILL_BLUE_MAGIC; i++)
+        {
+            uint16 maxSkill = battleutils::GetMaxSkill((SKILLTYPE)i, PTrust->GetMJob(), PTrust->GetMLevel());
+            if (maxSkill != 0)
+            {
+                PTrust->WorkingSkills.skill[i] = maxSkill;
+            }
+            else //if the mob is WAR/BLM and can cast spell
+            {
+                // set skill as high as main level, so their spells won't get resisted
+                uint16 maxSubSkill = battleutils::GetMaxSkill((SKILLTYPE)i, PTrust->GetSJob(), PTrust->GetMLevel());
+
+                if (maxSubSkill != 0)
+                {
+                    PTrust->WorkingSkills.skill[i] = maxSubSkill;
+                }
+            }
+        }
+
+
     }
 
     void LoadAvatarStats(CPetEntity* PPet)
