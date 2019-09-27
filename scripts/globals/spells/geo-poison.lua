@@ -31,7 +31,7 @@ function onSpellCast(caster,target,spell)
     -- spawnLuopan(caster, target, spell, geoBuff, dot, buffType);
 	local potency = doGeoPotency(caster, target, spell)
     local pos = target:getPos()
-    caster:spawnPet(75)
+    caster:spawnPet(dsp.pet.id.LUOPAN)
     local pet = caster:getPet()
     local hploss = math.floor((pet:getMaxHP())/70);  -- Sets DoT
     pet:setPos(pos.x,pos.y,pos.z);

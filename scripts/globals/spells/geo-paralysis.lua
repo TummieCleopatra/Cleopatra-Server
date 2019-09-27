@@ -31,13 +31,15 @@ function onSpellCast(caster,target,spell)
     -- spawnLuopan(caster, target, spell, geoBuff, dot, buffType);
 	local potency = doGeoPotency(caster, target, spell)
     local pos = target:getPos()
-    caster:spawnPet(75)
+    caster:spawnPet(dsp.pet.id.LUOPAN)
     local pet = caster:getPet()
     local hploss = math.floor((pet:getMaxHP())/70);  -- Sets DoT
     pet:setPos(pos.x,pos.y,pos.z);
 
 
-    pet:setModelId(2860)
+    pet:setModelId(2859)
+    local size = pet:getModelSize()
+    print(size)
     pet:addStatusEffect(dsp.effect.BIND,1,0,3000)
     pet:addStatusEffectEx(dsp.effect.INDI_PARALYSIS,dsp.effect.COLURE_ACTIVE,potency,3,500)
     pet:addMod(dsp.mod.REGEN_DOWN, hploss);
