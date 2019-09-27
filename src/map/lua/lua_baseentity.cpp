@@ -76,6 +76,7 @@
 
 #include "../entities/automatonentity.h"
 #include "../entities/charentity.h"
+#include "../entities/trustentity.h"
 #include "../entities/mobentity.h"
 #include "../entities/npcentity.h"
 #include "../entities/petentity.h"
@@ -10693,6 +10694,7 @@ inline int32 CLuaBaseEntity::updateEnmityFromCure(lua_State *L)
     return 0;
 }
 
+
 /************************************************************************
 *  Function: resetEnmity()
 *  Purpose : Used to clear all Enmity from the target
@@ -13587,7 +13589,7 @@ inline int32 CLuaBaseEntity::untargetable(lua_State* L)
 inline int32 CLuaBaseEntity::setDelay(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
-    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_MOB);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_MOB );
 
     DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
 
@@ -14465,6 +14467,124 @@ int32 CLuaBaseEntity::hasHate(lua_State* L)
 	return 1;
 }
 
+
+/************************************************************************
+*  Function: moveToDistance()
+*  Purpose : moves an entity to a position at a specified distance not facing enemy
+*  Example : mob:moveToDistance(distance, angle, target);
+************************************************************************/
+
+inline int32 CLuaBaseEntity::moveToDistance(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1));
+
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+
+
+    /*
+
+    auto PBattleTarget{ m_PBaseEntity->GetEntity(static_cast<CBattleEntity*>(m_PBaseEntity)->GetBattleTargetID()) };
+
+    position_t pos = PBattleTarget->loc.p;
+
+    double dist = (double)lua_tonumber(L, 1);
+
+    /*
+    m_PBaseEntity->loc.zone->PushPacket(m_PBaseEntity, CHAR_INRANGE, new CPositionPacket(m_PBaseEntity));
+    m_PBaseEntity->updatemask |= UPDATE_POS;
+
+
+    position_t nearEntity = nearPosition(PBattleTarget->loc.p, (float)dist, (float)M_PI);
+    m_PBaseEntity->PAI->PathFind->PathTo(nearEntity, PATHFLAG_WALLHACK | PATHFLAG_RUN);
+    m_PBaseEntity->PAI->PathFind->FollowPath();
+
+    */
+    uint16 targid = 0;
+
+    if (!lua_isnil(L, 3) && lua_isuserdata(L, 3))
+    {
+        CLuaBaseEntity* PLuaBaseEntity = Lunar<CLuaBaseEntity>::check(L, 3);
+        if (PLuaBaseEntity->m_PBaseEntity)
+        {
+
+
+
+
+            position_t pos = PLuaBaseEntity->m_PBaseEntity->loc.p;
+
+            double dist = (double)lua_tonumber(L, 1);
+            double angle = (double)lua_tonumber(L, 2) / 100;
+
+
+            position_t nearEntity = nearPosition(PLuaBaseEntity->m_PBaseEntity->loc.p, (float)dist, (float)M_PI * (float)angle);
+            m_PBaseEntity->PAI->PathFind->PathTo(nearEntity, PATHFLAG_WALLHACK | PATHFLAG_RUN);
+            m_PBaseEntity->PAI->PathFind->FollowPath();
+        }
+    }
+    return 0;
+}
+
+inline int32 CLuaBaseEntity::moveToDistanceFacing(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1));
+
+    DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
+
+    uint16 targid = 0;
+
+    if (!lua_isnil(L, 2) && lua_isuserdata(L, 2))
+    {
+        CLuaBaseEntity* PLuaBaseEntity = Lunar<CLuaBaseEntity>::check(L, 2);
+        if (PLuaBaseEntity->m_PBaseEntity)
+        {
+
+
+
+
+            position_t pos = PLuaBaseEntity->m_PBaseEntity->loc.p;
+
+            double dist = (double)lua_tonumber(L, 1);
+
+
+            position_t nearEntity = nearPosition(PLuaBaseEntity->m_PBaseEntity->loc.p, (float)dist, (float)(2 * M_PI));
+            m_PBaseEntity->PAI->PathFind->PathTo(nearEntity, PATHFLAG_WALLHACK | PATHFLAG_RUN);
+            m_PBaseEntity->PAI->PathFind->FollowPath();
+        }
+    }
+    return 0;
+}
+
+/************************************************************************
+*  Function:moveToTarget()
+*  Purpose : moves an entity to a position
+*  Example : mob:moveTo(pos, battletarget);
+*  Notes   : scripts/globals/mobskills/tarutaru_warp_ii.lua
+************************************************************************/
+
+inline int32 CLuaBaseEntity::moveToTarget(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    auto PBattleTarget{ m_PBaseEntity->GetEntity(static_cast<CBattleEntity*>(m_PBaseEntity)->GetBattleTargetID()) };
+
+    if (lua_isnumber(L, 1))
+    {
+        double dist = (double)lua_tonumber(L, 1);
+        m_PBaseEntity->PAI->PathFind->PathAround(PBattleTarget->loc.p, (float)dist, PATHFLAG_WALLHACK | PATHFLAG_RUN);
+        m_PBaseEntity->PAI->PathFind->FollowPath();
+    }
+    else
+    {
+        m_PBaseEntity->PAI->PathFind->PathAround(PBattleTarget->loc.p, 2.0f, PATHFLAG_WALLHACK | PATHFLAG_RUN);
+        m_PBaseEntity->PAI->PathFind->FollowPath();
+    }
+
+
+    return 0;
+}
+
 /************************************************************************
 *  Function: getTHlevel()
 *  Purpose : Returns the Monster's current Treasure Hunter Tier
@@ -15233,6 +15353,9 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeAllIndicolure),
 
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,hasHate),
+	LUNAR_DECLARE_METHOD(CLuaBaseEntity,moveToDistance),
+	LUNAR_DECLARE_METHOD(CLuaBaseEntity,moveToDistanceFacing),
+	LUNAR_DECLARE_METHOD(CLuaBaseEntity,moveToTarget),
 
     {nullptr,nullptr}
 };
