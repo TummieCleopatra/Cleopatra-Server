@@ -62,6 +62,238 @@ namespace conquest
 		});
 	}
 
+    /*
+	void UpdateCampaignSystem()
+	{
+		zoneutils::ForEachZone([](CZone* PZone)
+		{
+            //only find chars for zones that have had conquest updated
+            if (PZone->GetRegionID() >= 33 && PZone->GetRegionID() <= 40)
+            {
+                luautils::OnCampaignUpdate(PZone);
+            }
+		});
+	}*/
+
+    void UpdateBesiegeMap()
+    {
+        ShowDebug(CL_GREEN"Besiege Map Update \n" CL_RESET);
+
+        int m_besiegedStatus = 0;
+        int t_besiegedStatus = 0;
+        int u_besiegedStatus = 0;
+        int undeadLvl = 0;
+        int32 besiegeStatus = 0;
+        int32 ret = Sql_Query(SqlHandle, "SELECT value FROM server_variables WHERE name = '[BESIEGED]Undead_Swarm_LVL';");
+
+        if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0)
+        {
+            while (Sql_NextRow(SqlHandle) == SQL_SUCCESS)
+            {
+                undeadLvl = (int8)Sql_GetIntData(SqlHandle, 0);
+            }
+        }
+
+        int32 ureq = Sql_Query(SqlHandle, "SELECT value FROM server_variables WHERE name = '[BESIEGED]Undead_Swarm_Status';");
+
+        if (ureq != SQL_ERROR && Sql_NumRows(SqlHandle) != 0)
+        {
+            while (Sql_NextRow(SqlHandle) == SQL_SUCCESS)
+            {
+                u_besiegedStatus = (int32)Sql_GetIntData(SqlHandle, 0);
+            }
+        }
+
+        const char* Nquery = "SELECT id, mamool_ac, troll_ac, undead_ac, mamool_lvl, troll_lvl, \
+                          undead_lvl, mamool_status, troll_status, undead_status, mamool_base_status, \
+                          mamool_base_forces, mamool_base_mirrors, mamool_base_prisoners, troll_base_status, \
+                          troll_base_forces, troll_base_mirrors, troll_base_prisoners, undead_base_status, \
+                          undead_base_forces, undead_base_mirrors, undead_base_prisoners FROM besiege_system;";
+
+        int32 res = Sql_Query(SqlHandle, Nquery);
+
+        if (res == SQL_ERROR || Sql_NextRow(SqlHandle) != SQL_SUCCESS)
+        {
+            return;
+        }
+
+        int besiege[22] =
+        {
+            Sql_GetIntData(SqlHandle, 0),
+            Sql_GetIntData(SqlHandle, 1),
+            Sql_GetIntData(SqlHandle, 2),
+            Sql_GetIntData(SqlHandle, 3),
+            Sql_GetIntData(SqlHandle, 4),
+            Sql_GetIntData(SqlHandle, 5),
+            Sql_GetIntData(SqlHandle, 6),
+            Sql_GetIntData(SqlHandle, 7),
+            Sql_GetIntData(SqlHandle, 8),
+            Sql_GetIntData(SqlHandle, 9),
+            Sql_GetIntData(SqlHandle, 10),
+            Sql_GetIntData(SqlHandle, 11),
+            Sql_GetIntData(SqlHandle, 12),
+            Sql_GetIntData(SqlHandle, 13),
+            Sql_GetIntData(SqlHandle, 14),
+            Sql_GetIntData(SqlHandle, 15),
+            Sql_GetIntData(SqlHandle, 16),
+            Sql_GetIntData(SqlHandle, 17),
+            Sql_GetIntData(SqlHandle, 18),
+            Sql_GetIntData(SqlHandle, 19),
+            Sql_GetIntData(SqlHandle, 20),
+            Sql_GetIntData(SqlHandle, 21),
+        };
+
+            int id = besiege[0];
+            int mac = besiege[1];
+            int tac = besiege[2];
+            int uac = besiege[3];
+            int8 mlvl = besiege[4];
+            int8 tlvl = besiege[5];
+            int8 ulvl = besiege[6];
+            int8 mstatus = besiege[7];
+            int8 tstatus = besiege[8];
+            int8 ustatus = besiege[9];
+            int8 mbstatus = besiege[10];
+            uint8 mbforces = besiege[11];
+            int8 mbmirrors = besiege[12];
+            int8 mbprisoners = besiege[13];
+            int8 tbstatus = besiege[14];
+            uint8 tbforces = besiege[15];
+            int8 tbmirrors = besiege[16];
+            int8 tbprisoners = besiege[17];
+            int8 ubstatus = besiege[18];
+            uint8 ubforces = besiege[19];
+            int8 ubmirrors = besiege[20];
+            int8 ubprisoners = besiege[21];
+            //ShowDebug(CL_CYAN"Undead STatus is: %u \n" CL_RESET, ustatus);
+        /*
+        if (res != SQL_ERROR && Sql_NumRows(SqlHandle) != 0)
+        {
+            //while (Sql_NextRow(SqlHandle) == SQL_SUCCESS)
+            //{
+                int id = Sql_GetIntData(SqlHandle, 0);
+                int mac = Sql_GetIntData(SqlHandle, 1);
+                int tac = Sql_GetIntData(SqlHandle, 2);
+                int uac = Sql_GetIntData(SqlHandle, 3);
+                int8 mlvl = Sql_GetIntData(SqlHandle, 4);
+                int8 tlvl = Sql_GetIntData(SqlHandle, 5);
+                int8 ulvl = Sql_GetIntData(SqlHandle, 6);
+                int8 mstatus = Sql_GetIntData(SqlHandle, 7);
+                int8 tstatus = Sql_GetIntData(SqlHandle, 8);
+                int8 ustatus = Sql_GetIntData(SqlHandle, 9);
+                int8 mbstatus = Sql_GetIntData(SqlHandle, 10);
+                int8 mbforces = Sql_GetIntData(SqlHandle, 11);
+                int8 mbmirrors = Sql_GetIntData(SqlHandle, 12);
+                int8 mbprisoners = Sql_GetIntData(SqlHandle, 13);
+                int8 tbstatus = Sql_GetIntData(SqlHandle, 14);
+                int8 tbforces = Sql_GetIntData(SqlHandle, 15);
+                int8 tbmirrors = Sql_GetIntData(SqlHandle, 16);
+                int8 tbprisoners = Sql_GetIntData(SqlHandle, 17);
+                int8 ubstatus = Sql_GetIntData(SqlHandle, 18);
+                int8 ubforces = Sql_GetIntData(SqlHandle, 19);
+                int8 ubmirrors = Sql_GetIntData(SqlHandle, 20);
+                int8 ubprisoners = Sql_GetIntData(SqlHandle, 21);
+            */
+                //Increase the forces
+                //dsprand::GetRandomNumber(100) < 33
+
+                ulvl = undeadLvl;
+                //Reset Force after win/loss
+                if (u_besiegedStatus == 11){
+                    ubforces = 0;
+                    ustatus = 0;
+                    ubstatus = 0;
+                    u_besiegedStatus = 10;
+                    ShowDebug(CL_CYAN"Resetting Undead Starus.  Status is now at %u  \n" CL_RESET, ustatus);
+                    ShowDebug(CL_CYAN"Resetting Undead.  Forces are now at %u  \n" CL_RESET, ubforces);
+                    Sql_Query(SqlHandle, "UPDATE server_variables SET value = %d WHERE name = '[BESIEGED]Undead_Swarm_Status';", u_besiegedStatus);
+                    Sql_Query(SqlHandle, "UPDATE besiege_system SET undead_base_status = '%d' WHERE id = '1';", ubstatus, id);
+                }
+
+
+                int mforcerand = dsprand::GetRandomNumber(2,7);
+                int tforcerand = dsprand::GetRandomNumber(2,7);
+                int uforcerand = dsprand::GetRandomNumber(2,7);
+                if (mstatus == 0 || mstatus == 5) {
+                    mbforces = mbforces + mforcerand;
+                    if (mbforces > (100 + (mlvl * 10))){
+                        mbforces = 100 + (mlvl * 10); // cap forces based on level.
+                    }
+                    ShowDebug(CL_CYAN"Updating Mamool Ja Forces.  Forces are now at %u  \n" CL_RESET, mbforces);
+                }
+                if (tstatus == 0 || tstatus == 5) {
+                    tbforces = tbforces + tforcerand;
+                    if (tbforces > (100 + (tlvl * 10))){
+                        tbforces = 100 + (tlvl * 10); // cap forces based on level.
+                    }
+                    ShowDebug(CL_CYAN"Updating Troll Forces.  Forces are now at %u \n" CL_RESET, tbforces);
+                }
+                if (ustatus == 0 || ustatus == 5) {
+                    ubforces = ubforces + uforcerand;
+                    if (ubforces > (100 + (ulvl * 10))){
+                        ubforces = 100 + (ulvl * 10); // cap forces based on level.
+                    }
+                    ShowDebug(CL_CYAN"Updating Undead Forces.  Forces are now at %u  \n" CL_RESET, ubforces);
+                }
+
+                //Set Training ->Perparing
+                if ((mbforces) >= 100 && mstatus < 1) {
+                    ShowDebug(CL_GREEN"Set Mamool from Training to Preparing \n" CL_RESET);
+                    mstatus = 5;
+                }
+                if ((tbforces) >= 100 && tstatus < 1) {
+                    ShowDebug(CL_GREEN"Set Troll from Training to Preparing \n" CL_RESET);
+                    tstatus = 5;
+                }
+                if ((ubforces) >= 100 && ustatus < 1) {
+                    ShowDebug(CL_GREEN"Set Undead from Training to Preparing \n" CL_RESET);
+                    ustatus = 5;
+                }
+
+                //Set Preparing to Advance
+                if ((mbforces) >= 100 + (mlvl * 10) && mstatus == 5){
+                    mstatus = 1;
+                    ShowDebug(CL_GREEN"Set Mamool from Preparing to March \n" CL_RESET);
+                    m_besiegedStatus = 1;
+                }
+                if ((tbforces) >= 100 + (tlvl * 10) && tstatus == 5){
+                    tstatus = 1;
+                    ShowDebug(CL_GREEN"Set Troll from Preparing to March \n" CL_RESET);
+                    t_besiegedStatus = 1;
+                }
+                if ((ubforces) >= (100 + (ulvl * 10)) && ustatus == 5){
+                    ustatus = 1;
+                    ShowDebug(CL_GREEN"Set Undead from Preparing to March \n" CL_RESET);
+                    //Sql_Query(SqlHandle, "REPLACE INTO server_variables (name,value) VALUES('[BESIEGED]Undead_Swarm_Status',%u);",ustatus); //set server var to march status
+                    Sql_Query(SqlHandle, "UPDATE server_variables SET value = %d WHERE name = '[BESIEGED]Undead_Swarm_Status';", ustatus);
+                }
+
+
+
+                //Set Advance to Attack based on ticker
+                if (ustatus == 1) {
+                    ubstatus++;
+                    ShowDebug(CL_GREEN"Undead March Counter is now %u \n" CL_RESET, ubstatus);
+                    if (ubstatus == 2) {
+                        ustatus = 2;
+                        ShowDebug(CL_GREEN"Undead Swarm is now Attacking! \n" CL_RESET);
+                        //Sql_Query(SqlHandle, "REPLACE INTO server_variables (name,value) VALUES('[BESIEGED]Undead_Swarm_Status',%u);",ustatus); //set server var to attack status
+                        Sql_Query(SqlHandle, "UPDATE server_variables SET value = %d WHERE name = '[BESIEGED]Undead_Swarm_Status';", ustatus);
+                    }
+                    Sql_Query(SqlHandle, "UPDATE besiege_system SET undead_base_status = '%d' WHERE id = %d;", ubstatus, id);
+                }
+
+
+
+
+               //Sql_Query(SqlHandle, "UPDATE besiege_system SET undead_base_status = '%d' WHERE id = %d;", ubstatus, id);
+               Sql_Query(SqlHandle, "UPDATE besiege_system SET mamool_lvl = %d, troll_lvl = %d, undead_lvl = %d, mamool_status = %d, troll_status = %d, undead_status = %d, mamool_base_forces = %u, troll_base_forces = %u, undead_base_forces = %u WHERE id = '1';", mlvl, tlvl, ulvl, mstatus, tstatus, ustatus, mbforces, tbforces, ubforces);
+
+                //Sql_Query(SqlHandle, "REPLACE INTO server_variables (name,value) VALUES('[BESIEGED]Undead_Swarm_Status',%u);",u_besiegedStatus);
+            //}
+        //}
+    }
+
     void UpdateInfluencePoints(int points, unsigned int nation, REGIONTYPE region)
     {
         if (region == REGIONTYPE::REGION_UNKNOWN)
