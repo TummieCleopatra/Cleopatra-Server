@@ -167,10 +167,11 @@ function onGameIn(player, firstLogin, zoning)
         -- Check for Besieged if player is logging into the zone
 
         -- Login Message... Logout message handled in Core
-        if (player:getObjType() == TYPE_PC) then
+        if (player:getObjType() == dsp.objType.PC) then
 		    player:PrintToServer(string.format("%s has logged in...", player:getName()), 0x1C);
 		end
 
+        --[[
         if ((player:hasStatusEffect(dsp.effect.RESTING_BONUS) == false) and loginok == 1) then
 			if ((logintime - lastlogin) >= 39600) then  --39600 is 11 hours
 			    bonus = (((logintime - lastlogin) - 39600)) * 0.001388; -- 1 hour is 1.66% exp
@@ -182,7 +183,7 @@ function onGameIn(player, firstLogin, zoning)
 			    player:setVar("RestExp",bonus);
 			    player:addStatusEffectEx(dsp.effect.RESTING_BONUS,dsp.effect.DEDICATION,bonus,0,86400,0,20000);
 			end
-		end
+		end --]]
 
         local undead = GetServerVariable("[BESIEGED]Undead_Swarm_Status");
         if (undead == 3) then
@@ -208,7 +209,7 @@ function onGameIn(player, firstLogin, zoning)
     checkForGearSet(player)
 
     -- Feretory
-    if (player:getObjType() == TYPE_PC) then
+    if (player:getObjType() == dsp.objType.PC) then
         local plvl = player:getMainLvl();
 	    local boonpower = player:getVar("FerretoryMageBoonPower");
 	    local plvl = player:getMainLvl();
