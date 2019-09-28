@@ -376,6 +376,8 @@ public:
 
     int32 updateHealth(lua_State* L);
 
+    int32 getBaseExp(lua_State* L);
+
     // Skills and Abilities
     int32 capSkill(lua_State*);             // Caps the given skill id for the job you're on (GM COMMAND)
     int32 capAllSkills(lua_State*);         // Caps All skills, GM command

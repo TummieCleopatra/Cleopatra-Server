@@ -748,6 +748,8 @@ enum EFFECT
 	EFFECT_INDI_PARALYSIS            = 848,
 	EFFECT_INDI_GRAVITY              = 849,
 
+    EFFECT_RESTING_BONUS             = 851,
+
 	EFFECT_LEVEL_TWO_SC              = 950,
 	EFFECT_LEVEL_THREE_SC            = 951,
 	EFFECT_LEVEL_FOUR_SC             = 952,

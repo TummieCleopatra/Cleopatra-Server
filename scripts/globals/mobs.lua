@@ -41,12 +41,13 @@ function onMobDeathEx(mob, player, isKiller, isWeaponSkillKill)
     end
 
     feretoryKills(mob, player)
-    trustPoints(mob, player);
+    trustPoints(mob, player)
+    trustSJQuest(mob, player)
     local restpower = 0;
-    if (player:hasStatusEffect(EFFECT_RESTING_BONUS)) then
-        local resting = player:getStatusEffect(EFFECT_RESTING_BONUS);
-        power = resting:getPower();
-	    player:setVar("RestingBonus",power);
+    if (player:hasStatusEffect(dsp.effect.RESTING_BONUS)) then
+        local resting = player:getStatusEffect(dsp.effect.RESTING_BONUS)
+        power = resting:getPower()
+	    player:setVar("RestingBonus",power)
     end
 
 

@@ -195,13 +195,13 @@ bool CTrustController::TrustIsHealing()
 	if (isTrustHealing)
 	{
 	    return true;
-        ShowWarning(CL_CYAN"TRUST IS ALREADY HEALING\n" CL_RESET);
+        //ShowWarning(CL_CYAN"TRUST IS ALREADY HEALING\n" CL_RESET);
 	}
 	else
 	{
         POwner->StatusEffectContainer->AddStatusEffect(new CStatusEffect(EFFECT_HEALING, 0, 0, map_config.healing_tick_delay, 0));
         POwner->updatemask |= UPDATE_HP;
-        ShowWarning(CL_GREEN"TRUST UPDATE TO ADD HEALING\n" CL_RESET);
+        //ShowWarning(CL_GREEN"TRUST UPDATE TO ADD HEALING\n" CL_RESET);
 	    return false;
 	}
     return isTrustHealing;

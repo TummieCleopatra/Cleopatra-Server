@@ -143,6 +143,13 @@ end
 
 -- called by core after a player logs into the server or zones
 function onGameIn(player, firstLogin, zoning)
+    player:setVar("restingLogin", os.time());
+    local playsession = player:getVar("RestPlaySession");
+    local logintime = player:getVar("restingLogin");
+    local lastlogin = player:getVar("logoutRestStart");
+    local loginok = player:getVar("logoutOK");
+    local bonus = 0;
+
     if not zoning then
         -- things checked ONLY during logon go here
         if firstLogin then
@@ -158,6 +165,25 @@ function onGameIn(player, firstLogin, zoning)
             player:addStatusEffect(dsp.effect.CUSTOM_EFFECT,0,3,12)
         end --]]
         -- Check for Besieged if player is logging into the zone
+
+        -- Login Message... Logout message handled in Core
+        if (player:getObjType() == TYPE_PC) then
+		    player:PrintToServer(string.format("%s has logged in...", player:getName()), 0x1C);
+		end
+
+        if ((player:hasStatusEffect(dsp.effect.RESTING_BONUS) == false) and loginok == 1) then
+			if ((logintime - lastlogin) >= 39600) then  --39600 is 11 hours
+			    bonus = (((logintime - lastlogin) - 39600)) * 0.001388; -- 1 hour is 1.66% exp
+			    math.floor(bonus);
+				if (bonus >= 120) then
+				    bonus = 120; -- cap bonus at 120%
+				end
+
+			    player:setVar("RestExp",bonus);
+			    player:addStatusEffectEx(dsp.effect.RESTING_BONUS,dsp.effect.DEDICATION,bonus,0,86400,0,20000);
+			end
+		end
+
         local undead = GetServerVariable("[BESIEGED]Undead_Swarm_Status");
         if (undead == 3) then
             -- apply besieged effect

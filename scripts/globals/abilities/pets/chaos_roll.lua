@@ -15,7 +15,6 @@ end
 function onUseAbility(caster,target,ability,action)
     trustCorsairSetup(caster, ability, action, dsp.effect.CHAOS_ROLL, dsp.job.DRK)
     local total = caster:getLocalVar("corsairRollTotal")
-    printf("The Total on first roll is %u",total)
     return applyRoll(caster,target,ability,action,total)
 end
 

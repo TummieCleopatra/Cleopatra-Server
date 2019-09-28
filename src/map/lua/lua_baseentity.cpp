@@ -1922,6 +1922,19 @@ inline int32 CLuaBaseEntity::checkDistance(lua_State *L)
     return 1;
 }
 
+inline int32 CLuaBaseEntity::getBaseExp(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_MOB);
+
+    CMobEntity* PMob = (CMobEntity*)m_PBaseEntity;
+
+    uint32 baseexp = charutils::GetRealExp(PMob->m_HiPCLvl, PMob->GetMLevel());
+
+    lua_pushinteger(L, baseexp);
+    return 1;
+}
+
 /************************************************************************
 *  Function: wait()
 *  Purpose : Makes a non-PC inactive for a set amount of time
@@ -15009,6 +15022,8 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,delTP),
 
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,updateHealth),
+
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getBaseExp),
 
     // Skills and Abilities
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,capSkill),

@@ -844,6 +844,7 @@ dsp.effect =
 	INDI_PARALYSIS           = 848,
 	INDI_GRAVITY             = 849,
     CUSTOM_EFFECT            = 850,
+    RESTING_BONUS            = 851,
 
     LEVEL_TWO_SC             = 950,
     LEVEL_THREE_SC           = 951,

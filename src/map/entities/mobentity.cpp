@@ -486,7 +486,7 @@ float CMobEntity::GetRoamRate()
 
 bool CMobEntity::ValidTarget(CBattleEntity* PInitiator, uint16 targetFlags)
 {
-    ShowWarning(CL_GREEN"Now checking for Valid Targets\n" CL_RESET);
+    //ShowWarning(CL_GREEN"Now checking for Valid Targets\n" CL_RESET);
     if (StatusEffectContainer->GetConfrontationEffect() != PInitiator->StatusEffectContainer->GetConfrontationEffect())
     {
         return false;

@@ -582,20 +582,125 @@ local zeidTrib = player:getVar("ZEID_TRIB_FIGHT");
 local adelheidTrib = player:getVar("ADEL_TRIB_FIGHT");
 
 local pet;
-local trustpoint = 20; -- This needs to be calculated since getBaseExp no longer exists
+local trustpoint = mob:getBaseExp()
+
+-- Lets see who is in the party
+
+local kupipi = 0
+local ayame = 0
+local curilla = 0
+local nanaa = 0
+local naji = 0
+local excenmille = 0
+local adelheid = 0
+local darrcuiln = 0
+local lion = 0
+local prishe = 0
+local ulmia = 0
+local shantotto = 0
+local gessho = 0
+local zeid = 0
+local mihli = 0
+local gadalar = 0
+local najelith = 0
+local rughadjeen = 0
+local zazarg = 0
+local luzaf = 0
+
+    -- Lets clean this up later with an lua function in the core
+    local party = player:getParty()
+    if (party ~= nil) then
+        for i, member in ipairs(party) do
+            if (member:getObjType() == dsp.objType.TRUST and (member:getName() == "Kupipi" or member:getName() == "Kupipi-W" or member:getName() == "Kupipi-R")) then
+                kupipi = 1
+            end
+            if (member:getObjType() == dsp.objType.TRUST and (member:getName() == "Ayame" or member:getName() == "Ayame-W")) then
+                ayame = 1
+            end
+
+            if (member:getObjType() == dsp.objType.TRUST and (member:getName() == "Curilla")) then
+                curilla = 1
+            end
+
+            if (member:getObjType() == dsp.objType.TRUST and (member:getName() == "Nanaa Mihgo" or member:getName() == "Nanaa Mihgo-W" or member:getName() == "Nanaa Mihgo-N")) then
+                nanaa = 1
+            end
+
+            if (member:getObjType() == dsp.objType.TRUST and (member:getName() == "Naji" or member:getName() == "Naji-W" or member:getName() == "Naji-N")) then
+                naji = 1
+            end
+
+            if (member:getObjType() == dsp.objType.TRUST and (member:getName() == "Excenmille" or member:getName() == "Excenmille-W" or member:getName() == "Excenmille-S")) then
+                excenmille = 1
+            end
+
+            if (member:getObjType() == dsp.objType.TRUST and (member:getName() == "Adelheid" or member:getName() == "Adelheid-R")) then
+                adelheid = 1
+            end
+
+            if (member:getObjType() == dsp.objType.TRUST and (member:getName() == "Darrcuiln" or member:getName() == "Darrcuiln-W" or member:getName() == "Darrcuiln-N")) then
+                darrcuiln = 1
+            end
+
+            if (member:getObjType() == dsp.objType.TRUST and (member:getName() == "Lion-R")) then
+                lion = 1
+            end
+
+            if (member:getObjType() == dsp.objType.TRUST and (member:getName() == "Prishe")) then
+                prishe = 1
+            end
+
+            if (member:getObjType() == dsp.objType.TRUST and (member:getName() == "Ulmia")) then
+                ulmia = 1
+            end
+
+            if (member:getObjType() == dsp.objType.TRUST and (member:getName() == "Shantotto")) then
+                shantotto = 1
+            end
+
+            if (member:getObjType() == dsp.objType.TRUST and (member:getName() == "Gessho")) then
+                gessho = 1
+            end
+
+            if (member:getObjType() == dsp.objType.TRUST and (member:getName() == "Zeid" or member:getName() == "Zeid-W" or member:getName() == "Zeid-S")) then
+                zeid = 1
+            end
+
+            if (member:getObjType() == dsp.objType.TRUST and (member:getName() == "Mihli Alipoh" or member:getName() == "Mihli Alipoh-W" or member:getName() == "Mihli Alipoh-N")) then
+                mihli = 1
+            end
+
+            if (member:getObjType() == dsp.objType.TRUST and (member:getName() == "Gadalar" or member:getName() == "Gadalar-W" or member:getName() == "Gadalar-S")) then
+                gadalar = 1
+            end
+
+            if (member:getObjType() == dsp.objType.TRUST and (member:getName() == "Najelith" or member:getName() == "Najelith-W" or member:getName() == "Najelith-N")) then
+                najelith = 1
+            end
+
+            if (member:getObjType() == dsp.objType.TRUST and (member:getName() == "Rughadjeen" or member:getName() == "Rughadjeen-W" or member:getName() == "Rughadjeen-S")) then
+                rughadjeen = 1
+            end
+
+            if (member:getObjType() == dsp.objType.TRUST and (member:getName() == "Zazarg" or member:getName() == "Zazarg-W" or member:getName() == "Zazarg-N")) then
+                zazarg = 1
+            end
+
+            if (member:getObjType() == dsp.objType.TRUST and (member:getName() == "Luzaf")) then
+                luzaf = 1
+            end
+        end
+    end
 
 
-
-
-
-	if ((((not player:isUniqueAlly(75)) and (najiTrib == 3)) or ((not player:isUniqueAlly(76)) and (kupipiTrib == 3)) or
-		    ((not player:isUniqueAlly(77)) and (ayameTrib == 3)) or ((not player:isUniqueAlly(78)) and (nanaaTrib == 3)) or
-			((not player:isUniqueAlly(79)) and (curillaTrib == 3)) or ((not player:isUniqueAlly(80)) and (excenmilleTrib == 3)) or
-			((not player:isUniqueAlly(81)) and (darcullinTrib == 3)) or ((not player:isUniqueAlly(82)) and (adelheidTrib == 3)) or
-			((not player:isUniqueAlly(86)) and (lionTrib == 3)) or ((not player:isUniqueAlly(91)) and (zeidTrib == 3))) and player:getMainLvl() >= 75) then-- Means that they are in the party.  Need to list all because it displays trust points
+	if (((kupipi == 1 and kupipiTrib == 3) or (ayame == 1 and ayameTrib == 3) or
+         (curilla == 1 and curillaTrib == 3) or (nanaa == 1 and nanaaTrib == 3) or
+         (naji == 1 and najiTrib == 3) or (excenmille == 1 and excenmilleTrib == 3) or
+         (adelheid == 1 and adelheidTrib == 3) or (darrcuiln == 1 and darcullinTrib == 3) or
+         (lion == 1 and lionTrib == 3)) and player:getMainLvl() >= 75) then-- Means that they are in the party.  Need to list all because it displays trust points
 	        player:PrintToPlayer("You receive "..trustpoint.." Trust Points!!!", 0x15);
             -- Naji
-	        if ((not player:isUniqueAlly(75)) and (najiTrib == 3)) then
+	        if ((naji == 1) and (najiTrib == 3)) then
 		        player:setVar("CurrentPoints_Naji", NajiPoints + trustpoint);
 			    NajiPoints = player:getVar("CurrentPoints_Naji");
 			    if (NajiPoints > 10000) then
@@ -609,7 +714,7 @@ local trustpoint = 20; -- This needs to be calculated since getBaseExp no longer
 	            end
 	        end
             -- Kupipi
-	        if ((not player:isUniqueAlly(76)) and (kupipiTrib == 3)) then
+	        if ((kupipi == 1) and (kupipiTrib == 3)) then
 		        player:setVar("CurrentPoints_Kupipi", KupipiPoints + trustpoint);
 			    KupipiPoints = player:getVar("CurrentPoints_Kupipi");
 			    if (KupipiPoints > 10000) then
@@ -623,7 +728,7 @@ local trustpoint = 20; -- This needs to be calculated since getBaseExp no longer
 				end
 			end
 			-- Ayame
-			if ((not player:isUniqueAlly(77)) and (ayameTrib == 3)) then
+			if ((ayame == 1) and (ayameTrib == 3)) then
 				player:setVar("CurrentPoints_Ayame", AyamePoints + trustpoint);
 				AyamePoints = player:getVar("CurrentPoints_Ayame");
 				if (AyamePoints > 10000) then
@@ -637,7 +742,7 @@ local trustpoint = 20; -- This needs to be calculated since getBaseExp no longer
 				end
 			end
 			-- Nanaa
-			if ((not player:isUniqueAlly(78)) and (nanaaTrib == 3)) then
+			if ((nanaa == 1) and (nanaaTrib == 3)) then
 				player:setVar("CurrentPoints_Nanaa", NanaaPoints + trustpoint);
 				NanaaPoints = player:getVar("CurrentPoints_Nanaa");
 				if (NanaaPoints > 10000) then
@@ -651,7 +756,7 @@ local trustpoint = 20; -- This needs to be calculated since getBaseExp no longer
 				end
 			end
 			-- Curilla
-			if ((not player:isUniqueAlly(79)) and (curillaTrib == 3)) then
+			if ((curilla == 1) and (curillaTrib == 3)) then
 				player:setVar("CurrentPoints_Curilla", CurillaPoints + trustpoint);
 				CurillaPoints = player:getVar("CurrentPoints_Curilla");
 				if (CurillaPoints > 10000) then
@@ -665,7 +770,7 @@ local trustpoint = 20; -- This needs to be calculated since getBaseExp no longer
 				end
 			end
 			-- Excenmille
-			if ((not player:isUniqueAlly(80)) and (excenmilleTrib == 3)) then
+			if ((excenmille == 1) and (excenmilleTrib == 3)) then
 				player:setVar("CurrentPoints_Excenmille", ExcenmillePoints + trustpoint);
 				ExcenmillePoints = player:getVar("CurrentPoints_Excenmille");
 				if (ExcenmillePoints > 10000) then
@@ -679,7 +784,7 @@ local trustpoint = 20; -- This needs to be calculated since getBaseExp no longer
 				end
 			end
 			-- Darcullin
-			if ((not player:isUniqueAlly(81)) and (darcullinTrib == 3)) then
+			if ((darrcuiln == 1) and (darcullinTrib == 3)) then
 				player:setVar("CurrentPoints_Darcullin", DarcullinPoints + trustpoint);
 				DarcullinPoints = player:getVar("CurrentPoints_Darcullin");
 				if (DarcullinPoints > 10000) then
@@ -693,7 +798,7 @@ local trustpoint = 20; -- This needs to be calculated since getBaseExp no longer
 				end
 			end
 			-- Adelheid
-			if ((not player:isUniqueAlly(82)) and (adelheidTrib == 3)) then
+			if ((adelheid == 1) and (adelheidTrib == 3)) then
 				player:setVar("CurrentPoints_Adelheid", AdelheidPoints + trustpoint);
 				AdelheidPoints = player:getVar("CurrentPoints_Adelheid");
 				if (AdelheidPoints > 10000) then
@@ -707,7 +812,7 @@ local trustpoint = 20; -- This needs to be calculated since getBaseExp no longer
 				end
 			end
 			-- Lion
-			if ((not player:isUniqueAlly(86)) and (lionTrib == 3)) then
+			if ((lion == 1) and (lionTrib == 3)) then
 				player:setVar("CurrentPoints_Lion", LionPoints + trustpoint);
 				LionPoints = player:getVar("CurrentPoints_Lion");
 				if (LionPoints > 10000) then
@@ -722,7 +827,7 @@ local trustpoint = 20; -- This needs to be calculated since getBaseExp no longer
 			end
 
 			-- Zeid
-			if ((not player:isUniqueAlly(91)) and (zeidTrib == 3)) then
+			if ((zeid == 1) and (zeidTrib == 3)) then
 				player:setVar("CurrentPoints_Zeid", ZeidPoints + trustpoint);
 				ZeidPoints = player:getVar("CurrentPoints_Zeid");
 				if (ZeidPoints > 10000) then
@@ -738,3 +843,40 @@ local trustpoint = 20; -- This needs to be calculated since getBaseExp no longer
 
 		end
 end;
+
+function trustSJQuest(player, mob)
+    local war = 11988
+    local rdm = 11992
+    local sam = 11999
+    local nin = 12000
+    local counter =  player:getVar("TRUST_SJ_QUEST_COUNTER")
+    local quest = player:getVar("TRUST_SJ_QUEST")
+    local baseExp = mob:getBaseExp()
+
+    local neck = player:getEquipID(dsp.slot.NECK)
+
+    if ((neck == war) and quest < 1 and baseExp > 0) then
+        player:setVar("TRUST_SJ_QUEST_COUNTER",counter + 1)
+        if ((counter + 1) == 101) then
+            player:PrintToPlayer("You have finished collecting enough energy for your Torque.  Please erturn to Touneaux for your reward.", 0x15)
+        end
+    elseif ((neck == rdm) and quest == 1 and baseExp > 0) then
+        player:setVar("TRUST_SJ_QUEST_COUNTER",counter + 1)
+        if ((counter + 1) == 101) then
+            player:PrintToPlayer("You have finished collecting enough energy for your Torque.  Please erturn to Touneaux for your reward.", 0x15)
+        end
+    elseif ((neck == sam) and quest == 2 and baseExp > 0) then
+        player:setVar("TRUST_SJ_QUEST_COUNTER",counter + 1)
+        if ((counter + 1) == 101) then
+            player:PrintToPlayer("You have finished collecting enough energy for your Torque.  Please erturn to Touneaux for your reward.", 0x15)
+        end
+    elseif ((neck == nin) and quest == 3 and baseExp > 0) then
+        player:setVar("TRUST_SJ_QUEST_COUNTER",counter + 1)
+        if ((counter + 1) == 101) then
+            player:PrintToPlayer("You have finished collecting enough energy for your Torque.  Please erturn to Touneaux for your reward.", 0x15)
+        end
+    end
+
+
+
+end
