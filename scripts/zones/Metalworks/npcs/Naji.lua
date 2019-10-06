@@ -24,6 +24,16 @@ function onTrade(player,npc,trade)
         end
     end
 
+    local sjQuest = player:getVar("TRUST_SJ_QUEST")
+    local war = 11988;
+    local rdm = 11992;
+    local sam = 11999;
+    local nin = 12000;
+    if (trade:hasItemQty(nin, 1) and sjQuest == 4) then
+        player:setVar("NAJI_TYPE", 1)
+        player:PrintToPlayer("Naji: Ok, my subjob is now Ninja", 0x15);
+    end
+
     if ((player:getVar("NAJI_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Naji") == 0) and (trade:hasItemQty(65535, 1000))) then
 	      player:PrintToPlayer("Naji : Thank you for your Tribute.",0x0D);
           player:PrintToPlayer("Naji's Attack is raised by 5 points! (Total: 5)", 0x15);

@@ -16,12 +16,12 @@ function onTrade(player,npc,trade)
     local currentTokens = player:getVar("CurrentTokens_Kup");
     local war = 11988;
     local rdm = 11992;
-    local kupipiSJ = player:getVar("KUPIPI_SJ_QUEST")
+    local kupipiSJ = player:getVar("TRUST_SJ_QUEST")
 
-    if (trade:hasItemQty(war,1) and kupipiSJ == 1) then
+    if (trade:hasItemQty(war,1) and kupipiSJ >= 1) then
         player:setVar("KUPIPI_TYPE",1)
         player:PrintToPlayer("Kupipi : Ok! My Subjob is now Warrior.",0x0D);
-    elseif (trade:hasItemQty(rdm,1) and kupipiSJ == 1) then
+    elseif (trade:hasItemQty(rdm,1) and kupipiSJ >= 2) then
         player:setVar("KUPIPI_TYPE",2)
         player:PrintToPlayer("Kupipi : Ok! My Subjob is now Red Mage.",0x0D);
     end
