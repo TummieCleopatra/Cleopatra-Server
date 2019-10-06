@@ -34,6 +34,6 @@ end
 
 
 function onItemUse(target)
-    player:delStatusEffectsByFlag(dsp.effectFlag.INFLUENCE, true)
+    target:delStatusEffectsByFlag(dsp.effectFlag.INFLUENCE, true)
     target:addStatusEffect(dsp.effect.SIGNET,0,0,18000)
 end
