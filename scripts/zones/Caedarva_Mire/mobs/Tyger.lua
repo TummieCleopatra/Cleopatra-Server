@@ -13,10 +13,10 @@ require("scripts/globals/mobscaler");
 -----------------------------------
 
 function onMobSpawn(mob)
-    mob:addMod(MOD_SLEEPRES,30);
-    mob:addMod(MOD_BINDRES,30);
-    mob:addMod(MOD_GRAVITYRES,30);
-    mob:addMod(MOD_ATT, 200);
+    mob:addMod(dsp.mod.SLEEPRES,30);
+    mob:addMod(dsp.mod.BINDRES,30);
+    mob:addMod(dsp.mod.GRAVITYRES,30);
+    mob:addMod(dsp.mod.ATT, 200);
 	znmT4Size(mob)
 end;
 

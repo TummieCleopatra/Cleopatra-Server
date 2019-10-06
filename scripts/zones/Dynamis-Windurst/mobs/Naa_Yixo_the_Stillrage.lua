@@ -23,7 +23,7 @@ local weakener = target:getVar("DynaWeakener");
    mob:setMod(dsp.mod.DEFP,-75);
    mob:setMod(dsp.mod.ATTP,-75);
    mob:addMod(dsp.mod.EVA,-30);
-   mob:addMod(MOD_ACC,-30);
+   mob:addMod(dsp.mod.ACC,-30);
   --  SetDropRate(5004,3415,300);
 if (target:getObjType() == dsp.objType.PC) then
 target:PrintToPlayer("You have significantly weakened the monster!", 0xD);
@@ -33,7 +33,7 @@ elseif (weakener == 2) then
    mob:setMod(dsp.mod.DEFP,-20);
    mob:setMod(dsp.mod.ATTP,-20);
    mob:addMod(dsp.mod.EVA,-20);
-   mob:addMod(MOD_ACC,-20);
+   mob:addMod(dsp.mod.ACC,-20);
   --  SetDropRate(5004,3415,500);
 if (target:getObjType() == dsp.objType.PC) then
 target:PrintToPlayer("You have weakened the monster!", 0xD);
@@ -43,7 +43,7 @@ elseif (weakener == 1) then
    mob:setMod(dsp.mod.DEFP,-10);
    mob:setMod(dsp.mod.ATTP,-10);
    mob:addMod(dsp.mod.EVA,-10);
-   mob:addMod(MOD_ACC,-10);
+   mob:addMod(dsp.mod.ACC,-10);
     -- SetDropRate(5004,3415,700);
 if (target:getObjType() == dsp.objType.PC) then
 target:PrintToPlayer("You have weakened the monster ever so slightly", 0xD);

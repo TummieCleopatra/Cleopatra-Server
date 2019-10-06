@@ -16,10 +16,10 @@ require("scripts/globals/mobscaler");
 -----------------------------------
 
 function onMobInitialize(mob)    
-    mob:setMobMod(MOBMOD_MAIN_2HOUR, 1);
-    mob:setMobMod(MOBMOD_GIL_MIN, 12000);
-    mob:setMobMod(MOBMOD_GIL_MAX, 30000);
-    mob:setMobMod(MOBMOD_MUG_GIL, 8000);
+    mob:setMobMod(dsp.mobMod.MAIN_2HOUR, 1);
+    mob:setMobMod(dsp.mobMod.GIL_MIN, 12000);
+    mob:setMobMod(dsp.mobMod.GIL_MAX, 30000);
+    mob:setMobMod(dsp.mobMod.MUG_GIL, 8000);
     
 end;
 
@@ -30,8 +30,8 @@ end;
 function onMobSpawn(mob)
     mob:setHP(mob:getMaxHP()/2);
     mob:setUnkillable(true);
-    mob:setMod(MOD_REGAIN, 50);
-    mob:setMod(MOD_REGEN, 90);
+    mob:setMod(dsp.mod.REGAIN, 50);
+    mob:setMod(dsp.mod.REGEN, 90);
     mob:AnimationSub(2);
     
     -- Regen Head every 1.5-4 minutes 90-240
@@ -57,7 +57,7 @@ function onMobRoam(mob)
         -- First time it regens second head, 25%. Reduced afterwards.
         if (mob:getLocalVar("secondHead") == 0) then
             mob:addHP(mob:getMaxHP() * .25);
-            mob:setMod(MOD_REGEN, 60);
+            mob:setMod(dsp.mod.REGEN, 60);
             mob:setLocalVar("secondHead", 1);
         else
             mob:addHP(mob:getMaxHP() * .05);
@@ -70,7 +70,7 @@ function onMobRoam(mob)
         -- First time it regens third head, 25%. Reduced afterwards.
         if (mob:getLocalVar("thirdHead") == 0) then
             mob:addHP(mob:getMaxHP() * .25);
-            mob:setMod(MOD_REGEN, 30);
+            mob:setMod(dsp.mod.REGEN, 30);
             mob:setLocalVar("thirdHead", 1);
             mob:setUnkillable(false); -- It can be killed now that has all his heads
         else
@@ -88,7 +88,7 @@ function onMobFight(mob, target)
     local headTimer = mob:getLocalVar("headTimer");
     if (mob:AnimationSub() == 2 and os.time() > headTimer) then
         mob:AnimationSub(1);
-        mob:setMod(MOD_REGEN, 60);
+        mob:setMod(dsp.mod.REGEN, 60);
         mob:setLocalVar("headTimer", os.time() + math.random(60,190));
         
         -- First time it regens second head, 25%. Reduced afterwards.
@@ -103,7 +103,7 @@ function onMobFight(mob, target)
         
     elseif (mob:AnimationSub() == 1 and os.time() > headTimer) then
         mob:AnimationSub(0);
-        mob:setMod(MOD_REGEN, 30);
+        mob:setMod(dsp.mod.REGEN, 30);
         mob:setLocalVar("headTimer", os.time() + math.random(60,190));
         
         -- First time it regens third head, 25%. Reduced afterwards.
@@ -130,11 +130,11 @@ function onCriticalHit(mob)
     if ((critNum+1) > mob:getLocalVar("CritToTheFace")) then  -- Lose a head
         if (mob:AnimationSub() == 0) then
             mob:AnimationSub(1);
-            mob:setMod(MOD_REGEN, 60);
+            mob:setMod(dsp.mod.REGEN, 60);
             mob:setLocalVar("headTimer", os.time() + math.random(60,190));
         elseif (mob:AnimationSub() == 1) then
             mob:AnimationSub(2);
-            mob:setMod(MOD_REGEN, 90);
+            mob:setMod(dsp.mod.REGEN, 90);
             mob:setLocalVar("headTimer", os.time() + math.random(60,190));
         else
             -- Meh

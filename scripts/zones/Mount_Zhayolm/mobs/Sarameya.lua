@@ -16,8 +16,8 @@ require("scripts/globals/mobscaler");
 -----------------------------------
 
 function onMobInitialize(mob)
-    mob:setMobMod(MOBMOD_GA_CHANCE, 50);
-    mob:setMobMod(MOBMOD_ADD_EFFECT, mob:getShortID());
+    mob:setMobMod(dsp.mobMod.GA_CHANCE, 50);
+    mob:setMobMod(dsp.mobMod.ADD_EFFECT, mob:getShortID());
     znmT4Size(mob)
 end;
 
@@ -26,12 +26,12 @@ end;
 -----------------------------------
 
 function onMobSpawn(mob)
-    mob:addMod(MOD_MEVA, 95);
-    mob:addMod(MOD_MDEF, 30);
-    mob:addMod(MOD_SILENCERES, 20);
-    mob:addMod(MOD_GRAVITYRES, 20);
-    mob:addMod(MOD_LULLABYRES, 30);
-    mob:setMobMod(MOBMOD_RAGE, 3600); -- 60 minute rage timer
+    mob:addMod(dsp.mod.MEVA, 95);
+    mob:addMod(dsp.mod.MDEF, 30);
+    mob:addMod(dsp.mod.SILENCERES, 20);
+    mob:addMod(dsp.mod.GRAVITYRES, 20);
+    mob:addMod(dsp.mod.LULLABYRES, 30);
+    mob:setMobMod(dsp.mobMod.RAGE, 3600); -- 60 minute rage timer
 end;
 
 -----------------------------------
@@ -68,7 +68,7 @@ function onMobFight(mob, target)
         
     if (useChainspell == true) then  
         mob:useMobAbility(436); -- Chainspell
-        mob:setMobMod(MOBMOD_GA_CHANCE, 100);
+        mob:setMobMod(dsp.mobMod.GA_CHANCE, 100);
 
     end
     
@@ -76,17 +76,17 @@ function onMobFight(mob, target)
     if (mob:hasStatusEffect(EFFECT_CHAINSPELL) == true) then
         mob:setTP(200);
     else
-        if (mob:getMobMod(MOBMOD_GA_CHANCE) == 100) then
-            mob:setMobMod(MOBMOD_GA_CHANCE, 50);
+        if (mob:getMobMod(dsp.mobMod.GA_CHANCE) == 100) then
+            mob:setMobMod(dsp.mobMod.GA_CHANCE, 50);
         end
     end;
 
     -- Regens 1% of his HP a tick with Blaze Spikes on
     if (mob:hasStatusEffect(EFFECT_BLAZE_SPIKES) == true) then
-        mob:setMod(MOD_REGEN, math.floor(mob:getMaxHP()/100));
+        mob:setMod(dsp.mod.REGEN, math.floor(mob:getMaxHP()/100));
     else
-        if (mob:getMod(MOD_REGEN) > 0) then
-            mob:setMod(MOD_REGEN, 0);
+        if (mob:getMod(dsp.mod.REGEN) > 0) then
+            mob:setMod(dsp.mod.REGEN, 0);
         end
     end
 end;
