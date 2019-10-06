@@ -17,11 +17,11 @@ function onSpellCast(caster,target,spell)
     -- Todo: automate entity spawn in core for trust spells?
     local zazargType = caster:getVar("ZAZARG_TYPE")
     if (zazargType == 1) then
-        caster:spawnTrust(123)
-    elseif (zazargType == 2) then
-        caster:spawnTrust(124)
-    else
         caster:spawnTrust(122)
+    elseif (zazargType == 2) then
+        caster:spawnTrust(123)
+    else
+        caster:spawnTrust(121)
     end
     return 0
 end
