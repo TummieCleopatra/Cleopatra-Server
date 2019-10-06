@@ -32,7 +32,7 @@ local aura = player:getVar("FerretoryAura");
             4244,   5000,   -- HQ Light Crystal
             4245,   5000    -- HQ Dark Crystal
         };
-        showShop(player, STATIC, stock_1);
+        dsp.shop.general(player, stock_1);
         player:PrintToPlayer( "Merchant Moogle : Welcome to Crystal Depot Kupo!", 0x1F);
     elseif (page == 2) then -- Pharmacy
         local stock_2 =
@@ -49,7 +49,7 @@ local aura = player:getVar("FerretoryAura");
             -- 4202,   25000   -- Daedalus Wing
 
         };
-        showShop(player, STATIC, stock_2);
+        dsp.shop.general(player, stock_2);
         player:PrintToPlayer( "Merchant Moogle : Medicines for you, Kupo!", 0x1F);
     elseif (page == 3) then -- MogDonalds
         local stock_3 =
@@ -63,7 +63,7 @@ local aura = player:getVar("FerretoryAura");
 			4421,	1200,   -- Melon Pie
 			5932,   1200   -- Kitron Juice
         };
-        showShop(player, STATIC, stock_3);
+        dsp.shop.general(player, stock_3);
         player:PrintToPlayer( "Merchant Moogle : Fresh food for your adventures, Kupo!", 0x1F);
     elseif (page == 4) then
         local stock_4 =
@@ -78,7 +78,7 @@ local aura = player:getVar("FerretoryAura");
 		   19229,   510       -- Tin Bullet
 		    -- 5363,   3200,     -- Bullet Pouch
         };
-        showShop(player, STATIC, stock_4);
+        dsp.shop.general(player, stock_4);
         player:PrintToPlayer( "Merchant Moogle : Tools and ammo just for you, Kupo!", 0x1F);
 		elseif (page == 5) and (aura >= 4) then
 	    local stock_5 =
@@ -108,7 +108,7 @@ local aura = player:getVar("FerretoryAura");
 
 
         };
-        showShop(player, STATIC, stock_5);
+        dsp.shop.general(player, stock_5);
         player:PrintToPlayer("Merchant Moogle : Miscellaneous items Kupo", 0x1F);
 		elseif (page == 5) and (aura < 4) and (aura > 1) then
 	    local stock_5 =
@@ -123,7 +123,7 @@ local aura = player:getVar("FerretoryAura");
 
 
         };
-        showShop(player, STATIC, stock_5);
+        dsp.shop.general(player, stock_5);
         player:PrintToPlayer("Merchant Moogle : Miscellaneous items Kupo.  Unlock more items with Feretory Aura!", 0x1F);
 		elseif (page == 5) and (aura < 2) then
 	    local stock_5 =
@@ -135,7 +135,7 @@ local aura = player:getVar("FerretoryAura");
 
 
         };
-        showShop(player, STATIC, stock_5);
+        dsp.shop.general(player, stock_5);
         player:PrintToPlayer("Merchant Moogle : Miscellaneous items Kupo.  Unlock more items with Feretory Aura!", 0x1F);
 
 		elseif (page == 6) then
@@ -173,9 +173,9 @@ local aura = player:getVar("FerretoryAura");
 
 
         };
-        showShop(player, STATIC, stock_6);
+        dsp.shop.general(player, stock_6);
         player:PrintToPlayer("Merchant Moogle : Attachments Kupo", 0x1F);
-		elseif (page == 7 and aura >= 6 and player:hasKeyItem(CHOCOBO_LICENSE)) then
+		elseif (page == 7 and aura >= 6 and player:hasKeyItem(dsp.ki.CHOCOBO_LICENSE)) then
 	    local stock_7 =
         {
             10049,     25000,    -- Raptor
@@ -185,22 +185,22 @@ local aura = player:getVar("FerretoryAura");
 			10056,     75000,    -- Crawler
 			10058,     75000,    -- Beetle
         };
-        showShop(player, STATIC, stock_7);
+        dsp.shop.general(player, stock_7);
         player:PrintToPlayer("Merchant Moogle : Mounts Kupo!", 0x1F);
-		elseif (page == 7 and aura >= 4 and aura < 6 and player:hasKeyItem(CHOCOBO_LICENSE)) then
+		elseif (page == 7 and aura >= 4 and aura < 6 and player:hasKeyItem(dsp.ki.CHOCOBO_LICENSE)) then
 	    local stock_7 =
         {
             10049,     25000,    -- Raptor
 			10051,     50000     -- Crab
         };
-        showShop(player, STATIC, stock_7);
+        dsp.shop.general(player, stock_7);
         player:PrintToPlayer("Merchant Moogle : Mounts! Unlock more mount options with more Aura!", 0x1F);
-		elseif (page == 7 and aura >= 2 and aura < 4 and player:hasKeyItem(CHOCOBO_LICENSE)) then
+		elseif (page == 7 and aura >= 2 and aura < 4 and player:hasKeyItem(dsp.ki.CHOCOBO_LICENSE)) then
 	    local stock_7 =
         {
             10049,     25000    -- Raptor
         };
-        showShop(player, STATIC, stock_7);
+        dsp.shop.general(player, stock_7);
         player:PrintToPlayer("Merchant Moogle : Mounts! Unlock more mount options with more Aura!", 0x1F);
 		elseif (page == 7 and aura < 2) then
         player:PrintToPlayer("Merchant Moogle : Gain more Feretory Aura and have a Choco License to access this shop Kupo!", 0x1F);
@@ -215,7 +215,7 @@ local aura = player:getVar("FerretoryAura");
 				10555,  5000,     -- Euxine Kecks
 				10621,  5000,     -- Euxine Nails
             };
-            showShop(player, STATIC, stock_8);
+            dsp.shop.general(player, stock_8);
             player:PrintToPlayer( "Beyond Infinity: Welcome, Kupo!");
             else
                 player:PrintToPlayer("Merchant Moogle : That store is not accessible yet Kupo", 0x1F);
