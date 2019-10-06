@@ -348,12 +348,21 @@ function trustMeleeMove(mob, player, target, angle)
     end
 end
 
-function trustMageMove(mob, player, target)
+function trustMageMove(mob, player, target, angle)
     local enmity = enmityCalc(mob, player, target)
     local size = target:getModelSize() -- Take size of model to account
 
     if (mob:getCurrentAction() ~= dsp.act.MAGIC_CASTING and enmity ~= 0) then
-        mob:moveToDistance(size + 10,target)
+        mob:moveToDistance(size + 10, angle, target)
+    end
+end
+
+function trustBardMove(mob, player, target, angle)
+    local enmity = enmityCalc(mob, player, target)
+    local size = target:getModelSize() -- Take size of model to account
+
+    if (mob:getCurrentAction() ~= dsp.act.MAGIC_CASTING and enmity ~= 0) then
+        mob:moveToDistance(size + 16, angle, target)
     end
 end
 
@@ -844,7 +853,7 @@ local luzaf = 0
 		end
 end;
 
-function trustSJQuest(player, mob)
+function trustSJQuest(mob, player)
     local war = 11988
     local rdm = 11992
     local sam = 11999
