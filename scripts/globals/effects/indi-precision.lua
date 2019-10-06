@@ -25,16 +25,23 @@ function onEffectTick(target,effect)
     potencyBoost(target,effect)
     if (target:getObjType() == dsp.objType.PC) then
         target:forMembersInRange(10, function(member)
-            if not member:hasStatusEffect(dsp.effect.ACCURACY_BOOST_II) then
-                member:addStatusEffect(dsp.effect.ACCURACY_BOOST_II, effect:getPower(), 0, 3)
+            if (member:hasStatusEffect(dsp.effect.INDI_PRECISION) == false) then
+                member:addStatusEffect(dsp.effect.ACCURACY_BOOST_II, effect:getPower(), 0, 6)
             end
         end)
     else
 
-        local nearbyChars = target:getTargetsWithinArea(7, 1)
+        local nearbyChars = target:getTargetsWithinArea(12, 1)
         for i,members in pairs(nearbyChars) do
             if (members:getObjType() == dsp.objType.PC) then
                 members:addStatusEffect(dsp.effect.ACCURACY_BOOST_II, effect:getPower(), 0, 3)
+            end
+
+            local party = members:getParty()
+            for i, trust in ipairs(party) do
+                if (trust:getObjType() == dsp.objType.TRUST) then
+                    trust:addStatusEffect(dsp.effect.ACCURACY_BOOST_II, effect:getPower(), 0, 3)
+                end
             end
         end
     end

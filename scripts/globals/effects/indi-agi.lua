@@ -29,7 +29,7 @@ function onEffectTick(target,effect)
         end)
     else
 
-        local nearbyChars = target:getTargetsWithinArea(7, 1)
+        local nearbyChars = target:getTargetsWithinArea(12, 1)
         for i,members in pairs(nearbyChars) do
             if (members:getObjType() == dsp.objType.PC and members:getAllegiance() == target:getAllegiance()) then
                 members:addStatusEffect(dsp.effect.AGI_BOOST_III, effect:getPower(), 0, 6)

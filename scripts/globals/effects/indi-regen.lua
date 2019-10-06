@@ -31,10 +31,17 @@ function onEffectTick(target,effect)
         end)
     else
 
-        local nearbyChars = target:getTargetsWithinArea(7, 1)
+        local nearbyChars = target:getTargetsWithinArea(12, 1)
         for i,members in pairs(nearbyChars) do
             if (members:getObjType() == dsp.objType.PC) then
                 members:addStatusEffect(dsp.effect.REGEN_II, effect:getPower(), 0, 4)
+            end
+
+            local party = members:getParty()
+            for i, trust in ipairs(party) do
+                if (trust:getObjType() == dsp.objType.TRUST) then
+                    trust:addStatusEffect(dsp.effect.REGEN_II, effect:getPower(), 0, 4)
+                end
             end
         end
     end
