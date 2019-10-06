@@ -214,8 +214,9 @@ void CTargetFind::addNearby(CBattleEntity* PTarget, float radius, uint16 flags)
                 m_targets.push_back(PChar);
             }
             /*
-            if (flags & 4 && !PChar->PAlly.empty()) {
-                for (CBattleEntity* ally : PChar->PAlly) {
+            if (PChar->PTrusts.size() != 0) {
+                CTrustEntity* PTrust = new CTrustEntity(PChar);
+                for (CTrustEntity* trust : PChar->PTrust) {
                     if (isWithinArea(&(ally->loc.p))) {
                         m_targets.push_back(ally);
                     }
@@ -224,8 +225,10 @@ void CTargetFind::addNearby(CBattleEntity* PTarget, float radius, uint16 flags)
         });
     }
 
+
+
     if (flags & 16) {
-        if (PTarget->objtype == TYPE_PET) {
+        if (PTarget->objtype == TYPE_PET || PTarget->objtype == TYPE_TRUST) {
             zoneutils::GetZone(PTarget->getZone())->ForEachMobInstance(PTarget, [&](CMobEntity *PMob) {
                 if (PMob && isWithinArea(&(PMob->loc.p)) && PMob->PEnmityContainer->HasID(PTarget->PMaster->id)) {
                     m_targets.push_back(PMob);
@@ -537,7 +540,7 @@ CBattleEntity* CTargetFind::getValidTarget(uint16 actionTargetID, uint16 validTa
         return nullptr;
     }
 
-    if (TYPE_TRUST)
+    if (PTarget->objtype == TYPE_TRUST && validTargetFlags & TARGET_PLAYER_PARTY)
     {
         return PTarget;
     }
