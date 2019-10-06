@@ -21,13 +21,24 @@ function onTrigger(player, npc)
         local positions =
         {
             [1] = {524,  25, 511}, -- K-5 N
-            [2] = {361,  25, 436}, -- K-5 SE
-            [3] = {94,  24, 341}, -- K-5
-            [4] = {-1,  25, 319}
+            [2] = {158,  24, 194}, -- I-7
+            [3] = {160,  24, -227}, -- I-10
+            [4] = {-404,  24, -336}
         }
         local newPosition = npcUtil.pickNewPosition(npc:getID(), positions)
         npc:hideNPC(20)
         npc:setPos(newPosition.x, newPosition.y, newPosition.z)
+        if (newPosition.x == 524) then
+            SetServerVariable("Rune_Petal_Clue",1)
+        elseif (newPosition.x == 158) then
+            SetServerVariable("Rune_Petal_Clue",2)
+        elseif (newPosition.x == 160) then
+            SetServerVariable("Rune_Petal_Clue",3)
+        elseif (newPosition.x == -404) then
+            SetServerVariable("Rune_Petal_Clue",4)
+        end
+
+
     else
         player:messageSpecial(ID.text.NOTHING_OUT_OF_ORDINARY)
 

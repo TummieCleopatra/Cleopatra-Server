@@ -11,6 +11,7 @@ require("scripts/globals/status")
 
 function onInitialize(zone)
     dsp.chocobo.initZone(zone)
+    SetServerVariable("Rune_Petal_Clue",1)
 end
 
 function onZoneIn(player, prevZone)
