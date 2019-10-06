@@ -4369,6 +4369,44 @@ namespace charutils
 
         }
 
+		if (PChar->StatusEffectContainer->GetStatusEffect(EFFECT_RESTING_BONUS))
+        {
+            CStatusEffect* dedication = PChar->StatusEffectContainer->GetStatusEffect(EFFECT_RESTING_BONUS);
+            int16 percentage = dedication->GetPower();
+            int16 cap = dedication->GetSubPower();
+			int16 reduction = 0;
+			if (dedication->GetPower() > 100)
+			{
+              reduction = (int16)(exp / exp) * 5;
+			}
+			else if (dedication->GetPower() > 80)
+			{
+              reduction = (int16)(exp / exp) * 4;
+			}
+			else if (dedication->GetPower() > 35)
+			{
+              reduction = (int16)(exp / exp) * 3;
+			}
+			else if (dedication->GetPower() > 15)
+			{
+              reduction = (int16)(exp / exp) * 2;
+			}
+			else
+			{
+              reduction = (int16)(exp / exp);
+			}
+
+            bonus += std::clamp<int32>((int32)((exp * percentage) / 100), 0, cap);
+            dedication->SetSubPower(cap -= bonus);
+			dedication->SetPower(percentage -= reduction);
+
+            if (cap <= 0 || percentage <= 0)
+            {
+                PChar->StatusEffectContainer->DelStatusEffect(EFFECT_RESTING_BONUS);
+            }
+
+        }
+
         bonus += (int32)(exp * (PChar->getMod(Mod::EXP_BONUS) / 100.0f));
 
         if (bonus + (int32)exp < 0)

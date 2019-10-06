@@ -171,19 +171,26 @@ function onGameIn(player, firstLogin, zoning)
 		    player:PrintToServer(string.format("%s has logged in...", player:getName()), 0x1C);
 		end
 
-        --[[
+
         if ((player:hasStatusEffect(dsp.effect.RESTING_BONUS) == false) and loginok == 1) then
 			if ((logintime - lastlogin) >= 39600) then  --39600 is 11 hours
-			    bonus = (((logintime - lastlogin) - 39600)) * 0.001388; -- 1 hour is 1.66% exp
-			    math.floor(bonus);
-				if (bonus >= 120) then
-				    bonus = 120; -- cap bonus at 120%
+                bonus = math.floor((logintime - lastlogin) / 3600)
+                if (bonus <= 24 and bonus >= 2) then
+                   bonus =  bonus + 1
+
+                elseif (bonus >= 25) then
+                   bonus =  math.floor(bonus * 2.6)
+                end
+
+				if (bonus >= 150) then
+				    bonus = 150; -- cap bonus at 120%
 				end
 
-			    player:setVar("RestExp",bonus);
-			    player:addStatusEffectEx(dsp.effect.RESTING_BONUS,dsp.effect.DEDICATION,bonus,0,86400,0,20000);
+			    player:setVar("RestExp",bonus)
+			    player:addStatusEffectEx(dsp.effect.RESTING_BONUS,dsp.effect.DEDICATION,bonus,0,86400,0,20000)
+                player:setVar("logoutOK",0)
 			end
-		end --]]
+		end
 
         local undead = GetServerVariable("[BESIEGED]Undead_Swarm_Status");
         if (undead == 3) then
@@ -234,8 +241,8 @@ function onGameIn(player, firstLogin, zoning)
 
         -- Melee Boons
 	    local meleeboonpower = player:getVar("FerretoryMeleeBoonPower");
-	    local plvladjmelee = (math.floor((plvl - 1) / 10));
-	    if (meleeboonpower > (plvladmelee)) then
+	    local plvladj1 = (math.floor((plvl - 1) / 10));
+	    if (meleeboonpower > (plvladj1)) then
             meleeboonpower = plvladj1;
 	    else
 	        meleeboonpower = meleeboonpower;
@@ -251,7 +258,7 @@ function onGameIn(player, firstLogin, zoning)
 
         player:addMod(dsp.mod.ATT,attboon);
 	    player:addMod(dsp.mod.RATT,rattboon);
-	    player:addMod(dsp.mod.MOD_ACC,accboon);
+	    player:addMod(dsp.mod.ACC,accboon);
 	    player:addMod(dsp.mod.RACC,accboon);
         player:addMod(dsp.mod.STORETP,storetpboon);
     end
