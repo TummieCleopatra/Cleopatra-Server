@@ -25,6 +25,95 @@ function onTrade(player,npc,trade)
             player:startEvent(494, GIL_RATE*200)
         end
     end
+
+    local currentTokens = player:getVar("CurrentTokens_Nanaa");
+
+    local sjQuest = player:getVar("TRUST_SJ_QUEST")
+    local war = 11988;
+    local rdm = 11992;
+    local sam = 11999;
+    local nin = 12000;
+    if (trade:hasItemQty(war, 1) and sjQuest >= 1) then
+        player:setVar("NANAA_TYPE", 1)
+        player:PrintToPlayer("Nanaa Mihgo: Ok my subjob is now Warrior", 0x15);
+    elseif (trade:hasItemQty(nin, 1) and sjQuest == 4) then
+        player:setVar("NANAA_TYPE", 2)
+        player:PrintToPlayer("Nanaa Mihgo: Subjob is now Ninja!", 0x15);
+    end
+
+    if ((player:getVar("NANAA_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Nanaa") == 0) and (trade:hasItemQty(65535, 1000)) and (currentTokens >= 1)) then
+      player:PrintToPlayer("Nanaa Mihgo : Thank you for your Tribute.",0x0D);
+      player:PrintToPlayer("Nanaa Mihgo's Attack is raised by 5 points! (Total: 5)", 0x15);
+	  player:setVar("TrustAtt_Nanaa",5);
+	  player:setVar("TributeRank_Nanaa",1);
+	  currentTokens = currentTokens - 1;
+	  player:setVar("CurrentTokens_Nanaa",currentTokens);
+    elseif ((player:getVar("NANAA_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Nanaa") == 1) and (trade:hasItemQty(65535, 2000)) and (currentTokens >= 2)) then
+	  player:PrintToPlayer("Nanaa Mihgo : Thank you for your Tribute.",0x0D);
+      player:PrintToPlayer("Nanaa Mihgo's Accuracy is raised by 5 points! (Total: 5)", 0x15);
+	  player:setVar("TrustAcc_Nanaa",5);
+	  player:setVar("TributeRank_Nanaa",2);
+	  currentTokens = currentTokens - 2;
+	  player:setVar("CurrentTokens_Nanaa",currentTokens);
+    elseif ((player:getVar("NANAA_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Nanaa") == 2) and (trade:hasItemQty(65535, 3000)) and (currentTokens >= 3)) then
+      player:PrintToPlayer("Nanaa Mihgo : Thank you for your Tribute.",0x0D);
+      player:PrintToPlayer("Nanaa Mihgo's DEX has been raised by 5! (Total: 5)", 0x15);
+	  player:setVar("TrustDEX_Nanaa",5);
+	  player:setVar("TributeRank_Nanaa",3);
+	  currentTokens = currentTokens - 3;
+	  player:setVar("CurrentTokens_Nanaa",currentTokens);
+    elseif ((player:getVar("NANAA_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Nanaa") == 3) and (trade:hasItemQty(65535, 4000)) and (currentTokens >= 4)) then
+      player:PrintToPlayer("Nanaa Mihgo : Thank you for your Tribute.",0x0D);
+      player:PrintToPlayer("Nanaa Mihgo's Attack is raised by 5 points! (Total: 10)", 0x15);
+	  player:setVar("TrustAtt_Nanaa",10);
+	  player:setVar("TributeRank_Nanaa",4);
+	  currentTokens = currentTokens - 4;
+	  player:setVar("CurrentTokens_Nanaa",currentTokens);
+    elseif ((player:getVar("NANAA_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Nanaa") == 4) and (trade:hasItemQty(65535, 5000)) and (currentTokens >= 5)) then
+      player:PrintToPlayer("Nanaa Mihgo : Thank you for your Tribute.",0x0D);
+      player:PrintToPlayer("Nanaa Mihgo's Accuracy is raised by 5 points! (Total: 10)", 0x15);
+	  player:setVar("TrustAcc_Nanaa",10);
+	  player:setVar("TributeRank_Nanaa",5);
+	  currentTokens = currentTokens - 5;
+	  player:setVar("CurrentTokens_Nanaa",currentTokens);
+    elseif ((player:getVar("NANAA_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Nanaa") == 5) and (trade:hasItemQty(65535, 10000)) and (currentTokens >= 10)) then
+      player:PrintToPlayer("Nanaa Mihgo : Thank you for your Tribute.",0x0D);
+      player:PrintToPlayer("Nanaa Mihgo's DEX has been raised by 5! (Total: 10)", 0x15);
+	  player:setVar("TrustDEX_Nanaa",10);
+	  player:setVar("TributeRank_Nanaa",6);
+	  currentTokens = currentTokens - 10;
+	  player:setVar("CurrentTokens_Nanaa",currentTokens);
+    elseif ((player:getVar("NANAA_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Nanaa") == 6) and (trade:hasItemQty(65535, 15000)) and (currentTokens >= 15)) then
+      player:PrintToPlayer("Nanaa Mihgo : Thank you for your Tribute.",0x0D);
+      player:PrintToPlayer("Nanaa Mihgo's Attack is raised by 5 points! (Total: 15)", 0x15);
+	  player:setVar("TrustAtt_Nanaa",15);
+	  player:setVar("TributeRank_Nanaa",7);
+	  currentTokens = currentTokens - 15;
+	  player:setVar("CurrentTokens_Nanaa",currentTokens);
+    elseif ((player:getVar("NANAA_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Nanaa") == 7) and (trade:hasItemQty(65535, 30000)) and (currentTokens >= 20)) then
+      player:PrintToPlayer("Nanaa Mihgo : Thank you for your Tribute.",0x0D);
+      player:PrintToPlayer("Nanaa Mihgo's Accuracy is raised by 5 points! (Total: 15)", 0x15);
+	  player:setVar("TrustAcc_Nanaa",15);
+	  player:setVar("TributeRank_Nanaa",8);
+	  currentTokens = currentTokens - 20;
+	  player:setVar("CurrentTokens_Nanaa",currentTokens);
+    elseif ((player:getVar("NANAA_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Nanaa") == 8) and (trade:hasItemQty(65535, 75000)) and (currentTokens >= 30)) then
+      player:PrintToPlayer("Nanaa Mihgo : Thank you for your Tribute.",0x0D);
+      player:PrintToPlayer("Nanaa Mihgo's Triple Attack has been increased by 3 (Total: 3)", 0x15);
+	  player:setVar("TrustTA_Nanaa",3);
+	  player:setVar("TributeRank_Nanaa",9);
+	  currentTokens = currentTokens - 30;
+	  player:setVar("CurrentTokens_Nanaa",currentTokens);
+    elseif ((player:getVar("NANAA_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Nanaa") == 9) and (trade:hasItemQty(65535, 150000)) and (currentTokens >= 35)) then
+      player:PrintToPlayer("Nanaa Mihgo : Thank you for your Tribute.",0x0D);
+      player:PrintToPlayer("Nanaa Mihgo's obtains the trait 'Treasure Hunter II'!", 0x15);
+	  player:setVar("TrustTH_Nanaa",1);
+	  player:setVar("TributeRank_Nanaa",10);
+	  currentTokens = currentTokens - 35;
+	  player:setVar("CurrentTokens_Nanaa",currentTokens);
+    else
+      player:PrintToPlayer("Nanaa Mihgo : Please trade the correct amount of Tokens and Gil.",0x0D);
+	end
 end
 
 function onTrigger(player,npc)
