@@ -23,7 +23,8 @@ function onMagicCastingCheck(caster,target,spell)
 end;
 
 function onSpellCast(caster,target,spell)
-    caster:removeAllIndicolure()
+    -- caster:removeAllIndicolure()
+    removeIndi(caster)
     local potency = doGeoPotency(caster, target, spell)
 	local duration = 180 + caster:getMod(dsp.mod.INDI_DURATION);
     caster:addStatusEffectEx(dsp.effect.INDI_POISON,dsp.effect.COLURE_ACTIVE,potency,3,duration)
