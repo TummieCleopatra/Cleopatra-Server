@@ -64,6 +64,7 @@ This file is part of DarkStar-server source code.
 #include "packets/basic.h"
 #include "packets/char_update.h"
 #include "message.h"
+#include "packets/chat_message.h"
 
 
 const char* MAP_CONF_FILENAME = nullptr;
@@ -846,6 +847,24 @@ int32 map_cleanup(time_point tick, CTaskMgr::CTask* PTask)
 
                         PChar->status = STATUS_SHUTDOWN;
                         PacketParser[0x00D](map_session_data, PChar, 0);
+
+						int8 packetData[4]{};
+                        ref<uint32>(packetData, 0) = PChar->id;
+                        std::string bStr = ("* ");
+
+                        bStr += (const char*)PChar->GetName();
+                        bStr += " has logged out.";
+
+                        message::send(MSG_CHAT_SERVMES, 0, 0, new CChatMessagePacket(PChar, MESSAGE_NS_LINKSHELL2, (const char*)bStr.c_str()));
+                        std::string qStr = ("INSERT into audit_chat (speaker,type,message,datetime) VALUES('");
+                        qStr += "Cleopatra";
+                        qStr += "','SAY','* ";
+                        qStr += (const char*)PChar->GetName();
+                        qStr += " has disconnected from the server.";
+                        qStr += "',current_timestamp());";
+                        const char * cC = qStr.c_str();
+                        Sql_QueryStr(SqlHandle, cC);
+
                     }
                     else
                     {
@@ -1006,6 +1025,9 @@ int32 map_config_default()
     map_config.msg_server_ip = "127.0.0.1";
     map_config.healing_tick_delay = 10;
     map_config.skillup_bloodpact = true;
+    map_config.troll_mercenaries_growth = 1.0;
+    map_config.undead_swarm_growth = 1.0;
+    map_config.mamool_savages_growth = 1.0;
     return 0;
 }
 
@@ -1338,6 +1360,18 @@ int32 map_config_read(const int8* cfgName)
         else if (strcmp(w1, "skillup_bloodpact") == 0)
         {
             map_config.skillup_bloodpact = atoi(w2);
+        }
+        else if (strcmp(w1, "troll_mercenaries_growth") == 0)
+        {
+            map_config.troll_mercenaries_growth = (float)atoi(w2);
+        }
+        else if (strcmp(w1, "undead_swarm_growth") == 0)
+        {
+            map_config.troll_mercenaries_growth = (float)atoi(w2);
+        }
+        else if (strcmp(w1, "mamool_savages_growth") == 0)
+        {
+            map_config.troll_mercenaries_growth = (float)atoi(w2);
         }
         else
         {

@@ -1313,6 +1313,18 @@ namespace luautils
         Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaBaseEntity);
 
         lua_pushboolean(LuaHandle, PChar->GetPlayTime(false) == 0); // first login
+		if (!zoning)
+        {
+            std::string qStr = ("INSERT into audit_chat (speaker,type,message,datetime) VALUES('");
+            qStr += "Cleopatra";
+            qStr += "','SAY','* ";
+            qStr += (const char*)PChar->GetName();
+            qStr += " has logged on.";
+            qStr += "',current_timestamp());";
+            const char * cC = qStr.c_str();
+            Sql_QueryStr(SqlHandle, cC);
+        }
+
         lua_pushboolean(LuaHandle, zoning);
 
         if (lua_pcall(LuaHandle, 3, 0, 0))

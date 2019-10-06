@@ -136,6 +136,10 @@ struct map_config_t
     uint16 msg_server_port;           // central message server port
     std::string msg_server_ip;        // central message server IP
     bool   skillup_bloodpact;         // Enable/disable skillups for bloodpacts
+
+    float troll_mercenaries_growth;
+    float undead_swarm_growth;
+    float mamool_savages_growth;
 };
 
 /************************************************************************

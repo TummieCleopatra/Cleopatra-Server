@@ -219,17 +219,18 @@ namespace conquest
                     if (mbforces > (100 + (mlvl * 10))){
                         mbforces = 100 + (mlvl * 10); // cap forces based on level.
                     }
-                    ShowDebug(CL_CYAN"Updating Mamool Ja Forces.  Forces are now at %u  \n" CL_RESET, mbforces);
+                    //ShowDebug(CL_CYAN"Updating Mamool Ja Forces.  Forces are now at %u  \n" CL_RESET, mbforces);
                 }
                 if (tstatus == 0 || tstatus == 5) {
                     tbforces = tbforces + tforcerand;
                     if (tbforces > (100 + (tlvl * 10))){
                         tbforces = 100 + (tlvl * 10); // cap forces based on level.
                     }
-                    ShowDebug(CL_CYAN"Updating Troll Forces.  Forces are now at %u \n" CL_RESET, tbforces);
+                    //ShowDebug(CL_CYAN"Updating Troll Forces.  Forces are now at %u \n" CL_RESET, tbforces);
                 }
+                float growth = map_config.undead_swarm_growth;
                 if (ustatus == 0 || ustatus == 5) {
-                    ubforces = ubforces + uforcerand;
+                    ubforces = ubforces + (uforcerand * (uint8)growth);
                     if (ubforces > (100 + (ulvl * 10))){
                         ubforces = 100 + (ulvl * 10); // cap forces based on level.
                     }
@@ -238,11 +239,11 @@ namespace conquest
 
                 //Set Training ->Perparing
                 if ((mbforces) >= 100 && mstatus < 1) {
-                    ShowDebug(CL_GREEN"Set Mamool from Training to Preparing \n" CL_RESET);
+                    //ShowDebug(CL_GREEN"Set Mamool from Training to Preparing \n" CL_RESET);
                     mstatus = 5;
                 }
                 if ((tbforces) >= 100 && tstatus < 1) {
-                    ShowDebug(CL_GREEN"Set Troll from Training to Preparing \n" CL_RESET);
+                    //ShowDebug(CL_GREEN"Set Troll from Training to Preparing \n" CL_RESET);
                     tstatus = 5;
                 }
                 if ((ubforces) >= 100 && ustatus < 1) {
@@ -253,12 +254,12 @@ namespace conquest
                 //Set Preparing to Advance
                 if ((mbforces) >= 100 + (mlvl * 10) && mstatus == 5){
                     mstatus = 1;
-                    ShowDebug(CL_GREEN"Set Mamool from Preparing to March \n" CL_RESET);
+                    //ShowDebug(CL_GREEN"Set Mamool from Preparing to March \n" CL_RESET);
                     m_besiegedStatus = 1;
                 }
                 if ((tbforces) >= 100 + (tlvl * 10) && tstatus == 5){
                     tstatus = 1;
-                    ShowDebug(CL_GREEN"Set Troll from Preparing to March \n" CL_RESET);
+                    //ShowDebug(CL_GREEN"Set Troll from Preparing to March \n" CL_RESET);
                     t_besiegedStatus = 1;
                 }
                 if ((ubforces) >= (100 + (ulvl * 10)) && ustatus == 5){
@@ -476,7 +477,7 @@ namespace conquest
         const char* Query = "SELECT sandoria_influence, bastok_influence, windurst_influence, beastmen_influence \
                              FROM conquest_system WHERE region_id = %d;";
 
-        int32 ret = Sql_Query(SqlHandle, Query, regionid);
+        int32 ret = Sql_Query(SqlHandle, Query, static_cast<uint8>(regionid));
 
         if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0 && Sql_NextRow(SqlHandle) == SQL_SUCCESS)
         {
@@ -787,7 +788,7 @@ namespace conquest
     {
         const char* Query = "SELECT region_control FROM conquest_system WHERE region_id = %d";
 
-        int32 ret = Sql_Query(SqlHandle, Query, RegionID);
+        int32 ret = Sql_Query(SqlHandle, Query, static_cast<uint8>(RegionID));
 
         if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0 && Sql_NextRow(SqlHandle) == SQL_SUCCESS)
         {

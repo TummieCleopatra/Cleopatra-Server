@@ -51,6 +51,8 @@ public:
     int32 messageText(lua_State* L);
     int32 PrintToPlayer(lua_State* L);      // for sending debugging messages/command confirmations to the player's client
     int32 PrintToArea(lua_State* L);        // for sending area messages to multiple players at once
+    int32 PrintToServer(lua_State* L);
+    int32 PrintToParty(lua_State* L);
     int32 messageBasic(lua_State*);         // Sends Basic Message
     int32 messageName(lua_State* L);        // Sends a Message with a Name
     int32 messagePublic(lua_State*);        // Sends a public Basic Message
@@ -377,6 +379,7 @@ public:
     int32 updateHealth(lua_State* L);
 
     int32 getBaseExp(lua_State* L);
+    int32 checkBaseExp(lua_State*);
 
     // Skills and Abilities
     int32 capSkill(lua_State*);             // Caps the given skill id for the job you're on (GM COMMAND)

@@ -338,6 +338,26 @@ inline int32 CLuaBaseEntity::PrintToArea(lua_State* L)
     return 0;
 }
 
+inline int32 CLuaBaseEntity::PrintToServer(lua_State* L)
+{
+   DSP_DEBUG_BREAK_IF(m_PBaseEntity == NULL);
+   //DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+   DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isstring(L, 1));
+   CHAT_MESSAGE_TYPE messageType = (!lua_isnil(L, 2) && lua_isnumber(L, 2) ? (CHAT_MESSAGE_TYPE)lua_tointeger(L, 2) : MESSAGE_SYSTEM_1);
+   message::send(MSG_CHAT_SERVMES, 0, 0, new CChatMessagePacket((CCharEntity*)m_PBaseEntity, messageType, (char*)lua_tostring(L, 1)));
+   return 0;
+}
+
+inline int32 CLuaBaseEntity::PrintToParty(lua_State* L)
+{
+   DSP_DEBUG_BREAK_IF(m_PBaseEntity == NULL);
+   DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+   DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isstring(L, 1));
+   CHAT_MESSAGE_TYPE messageType = (!lua_isnil(L, 2) && lua_isnumber(L, 2) ? (CHAT_MESSAGE_TYPE)lua_tointeger(L, 2) : MESSAGE_SYSTEM_1);
+   message::send(MSG_CHAT_PARTY, 0, 0, new CChatMessagePacket((CCharEntity*)m_PBaseEntity, messageType, (char*)lua_tostring(L, 1)));
+   return 0;
+}
+
 /************************************************************************
 *  Function: messageBasic()
 *  Purpose : Send a basic message packet to the PC
@@ -1932,6 +1952,21 @@ inline int32 CLuaBaseEntity::getBaseExp(lua_State *L)
     uint32 baseexp = charutils::GetRealExp(PMob->m_HiPCLvl, PMob->GetMLevel());
 
     lua_pushinteger(L, baseexp);
+    return 1;
+}
+
+inline int32 CLuaBaseEntity::checkBaseExp(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_MOB);
+
+    CMobEntity* PMob = (CMobEntity*)m_PBaseEntity;
+
+    bool isbaseexp = false;
+    uint32 baseexp = charutils::GetRealExp(PMob->m_HiPCLvl, PMob->GetMLevel());
+    if (baseexp != 0) isbaseexp = true;
+
+    lua_pushboolean(L, isbaseexp);
     return 1;
 }
 
@@ -8684,6 +8719,20 @@ inline int32 CLuaBaseEntity::forMembersInRange(lua_State* L)
             luautils::pushArg<CBattleEntity*>(member);
             luautils::callFunc(1);
         }
+
+        CCharEntity* PChar = (CCharEntity*)target;
+        if (PChar->PTrusts.size() != 0)
+        {
+            for (CTrustEntity* trust : PChar->PTrusts)
+            {
+                if (distanceSquared(PChar->loc.p, trust->loc.p) < range * range)
+                {
+                    luautils::pushFunc(function);
+                    luautils::pushArg<CBattleEntity*>(trust);
+                    luautils::callFunc(1);
+                }
+            }
+        }
     });
 
     luautils::unregister_fp(function);
@@ -12133,7 +12182,7 @@ int32 CLuaBaseEntity::removeAmmo(lua_State* L)
 inline int32 CLuaBaseEntity::getWeaponSkillLevel(lua_State *L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
-    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC && m_PBaseEntity->objtype != TYPE_PET && m_PBaseEntity->objtype != TYPE_MOB);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC && m_PBaseEntity->objtype != TYPE_PET && m_PBaseEntity->objtype != TYPE_MOB && m_PBaseEntity->objtype != TYPE_TRUST);
 
     DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
 
@@ -14699,6 +14748,8 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,messageText),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,PrintToPlayer),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,PrintToArea),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,PrintToServer),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,PrintToParty),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,messageBasic),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,messageName),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,messagePublic),
@@ -15024,7 +15075,7 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,updateHealth),
 
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getBaseExp),
-
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,checkBaseExp),
     // Skills and Abilities
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,capSkill),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,capAllSkills),
