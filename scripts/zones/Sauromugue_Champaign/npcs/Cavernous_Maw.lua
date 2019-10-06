@@ -20,6 +20,9 @@ end
 function onTrigger(player, npc)
     if ENABLE_WOTG == 1 and not player:hasKeyItem(dsp.ki.PURE_WHITE_FEATHER) then
         player:startEvent(500, 2)
+    elseif ENABLE_WOTG == 1 and not hasMawActivated(player, 2) and player:hasKeyItem(dsp.ki.PURE_WHITE_FEATHER) then
+        player:delKeyItem(dsp.ki.PURE_WHITE_FEATHER)
+        player:startEvent(500, 2)
     elseif ENABLE_WOTG == 1 and hasMawActivated(player, 2) then
         if
             player:getCurrentMission(WOTG) == dsp.mission.id.wotg.BACK_TO_THE_BEGINNING and

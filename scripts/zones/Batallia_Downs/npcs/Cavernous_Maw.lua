@@ -19,6 +19,9 @@ end;
 function onTrigger(player,npc)
     if (ENABLE_WOTG == 1 and player:hasKeyItem(dsp.ki.PURE_WHITE_FEATHER) == false) then
         player:startEvent(500,0);
+    elseif ENABLE_WOTG == 1 and not hasMawActivated(player, 0) and player:hasKeyItem(dsp.ki.PURE_WHITE_FEATHER) then
+        player:delKeyItem(dsp.ki.PURE_WHITE_FEATHER)
+        player:startEvent(500, 0)
     elseif (ENABLE_WOTG == 1 and hasMawActivated(player,0)) then
         if (player:getCurrentMission(WOTG) == dsp.mission.id.wotg.BACK_TO_THE_BEGINNING and
         (player:getQuestStatus(CRYSTAL_WAR, dsp.quest.id.crystalWar.CLAWS_OF_THE_GRIFFON) == QUEST_COMPLETED or
