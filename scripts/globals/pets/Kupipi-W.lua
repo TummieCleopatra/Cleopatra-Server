@@ -12,7 +12,7 @@ require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
     local weaponskill = 0
-    local cureCooldown = 16
+    local cureCooldown = 22
     local debuffCooldown = 10
     local buffCooldown = 7
     local ailmentCooldown = 15
@@ -83,16 +83,16 @@ function onMobSpawn(mob)
                         break
                     end
                 elseif (member:getHPP() <= 75) then
-                    print("Someone needs cure!!!")
                     local spell = doCureKupipi(mob)
                     if (spell > 0) then
                         mob:castSpell(spell, member)
                         mob:setLocalVar("cureTime",battletime)
                         break
                     end
+                else
+                    mob:setLocalVar("cureTime",battletime - 4)  -- If no member has low HP change global check to 8 seconds
                 end
             end
-            mob:setLocalVar("cureTime",battletime - 4)  -- If no member has low HP change global check to 8 seconds
         end
     end)
 

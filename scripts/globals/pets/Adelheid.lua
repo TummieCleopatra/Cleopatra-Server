@@ -8,9 +8,8 @@
 -------------------------------------------------
 require("scripts/globals/status")
 require("scripts/globals/msg")
-require("scripts/globals/enmitycalc")
 require("scripts/globals/pathfind")
-require("scripts/globals/trustpoints")
+require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
     local cureCooldown = 22
@@ -573,30 +572,30 @@ end
 function doNukeCheck(mob, player, target, spell, splvl)
     -- This function is to determine enmity check based on spell being cast.
     -- TODO: Also will check for the right HP level to cast
-    player:PrintToPlayer("Adelheid Enmity Check")
+    -- player:PrintToPlayer("Adelheid Enmity Check")
     -- local hp = target:getHPP()
     local enmity = enmityCalc(mob, player, target)
     -- printf("splvl is %u \n",splvl)
     if (splvl >= 70 and enmity < 2000) then
         spell = 0
         -- printf("ADELHEID HAS TOO MUCH ENMITY TO CAST TIER IV!")
-        player:PrintToPlayer("Adelheid has too much hate to cast right now! Hate is %u", enmity)
+        -- player:PrintToPlayer("Adelheid has too much hate to cast right now! Hate is %u", enmity)
     elseif (splvl >= 54 and enmity < 1600) then
         spell = 0
         -- printf("ADELHEID HAS TOO MUCH ENMITY TO CAST TIER III!")
-        player:PrintToPlayer("Adelheid has too much hate to cast right now! Hate is %u", enmity)
+        -- player:PrintToPlayer("Adelheid has too much hate to cast right now! Hate is %u", enmity)
     elseif (splvl >= 30 and enmity < 1500) then
         spell = 0
         -- printf("ADELHEID HAS TOO MUCH ENMITY TO CAST TIER II!")
-        player:PrintToPlayer("Adelheid has too much hate to cast right now! Hate is %u", enmity)
+        -- player:PrintToPlayer("Adelheid has too much hate to cast right now! Hate is %u", enmity)
     elseif (splvl >= 4 and enmity < 1200) then
         spell = 0
         -- printf("ADELHEID HAS TOO MUCH ENMITY TO CAST TIER I!")
-        player:PrintToPlayer("Adelheid has too much hate to cast right now! Hate is %u", enmity)
+        -- player:PrintToPlayer("Adelheid has too much hate to cast right now! Hate is %u", enmity)
     elseif (enmity == 0) then
         spell = 0
         -- printf("ADELHEID HAS TOO MUCH ENMITY TO CAST ANYTHING!")
-        player:PrintToPlayer("Adelheid has too much hate to cast right now! Hate is %u", enmity)
+        -- player:PrintToPlayer("Adelheid has too much hate to cast right now! Hate is %u", enmity)
     end
 
     if (spell ~= 0) then

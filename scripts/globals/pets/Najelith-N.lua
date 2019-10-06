@@ -22,7 +22,7 @@ function onMobSpawn(mob)
     local utsuIchiCooldown = 30
     local utsuNiCooldown = 45
     local wsCooldown = 4
-
+    local angle = getAngle(mob)
 	local master = mob:getMaster()
 	local najelith = mob:getID()
 
@@ -37,7 +37,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("wsTime",0)
 
     mob:addListener("COMBAT_TICK", "NAJELITH_DISTANCE_TICK", function(mob, player, target)
-        trustMageMove(mob, player, target)
+        trustMageMove(mob, player, target, angle)
     end)
 
     mob:addListener("COMBAT_TICK", "NAJELITH_UTSU_TICK", function(mob, player, target)

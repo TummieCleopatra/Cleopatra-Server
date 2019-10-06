@@ -13,11 +13,18 @@ function onMobSpawn(mob)
     mob:addMod(dsp.mod.CURE_POTENCY,38)
     doCurillaTrustPoints(mob)
     local weaponskill = 0
-    local cureCooldown = 15
+    local cureCooldown = 23
     local provokeCooldown = 30
     local reprisalCooldown = 0
     local wsCooldown = 4
     local lvl = mob:getMainLvl()
+    local enmity = math.floor(lvl / 5)
+    local MaxHP = mob:getHP()
+    local bonus = math.floor((lvl * 4) + (lvl / 2))
+    mob:addMod(dsp.mod.HP,bonus)
+
+    mob:addMod(dsp.mod.DEF, lvl * 3)
+    mob:addMod(dsp.mod.ENMITY, enmity)
     mob:setLocalVar("protectTime",0)
     mob:setLocalVar("shellTime",0)
     mob:setLocalVar("cureTimeCurilla",0)
@@ -33,8 +40,18 @@ function onMobSpawn(mob)
     mob:setLocalVar("chivalryCooldown",600)
     mob:setLocalVar("reprisalCooldown",180)
 
+
     mob:addListener("COMBAT_TICK", "DISTANCE_TICK", function(mob, player, target)
         trustTankMove(mob, player, target)
+    end)
+
+    mob:addListener("COMBAT_TICK", "PROVOKE_TICK", function(mob, player, target)
+        local battletime = os.time()
+        local provoke = mob:getLocalVar("provokeTime")
+        if (battletime > provoke + provokeCooldown) then
+            mob:useJobAbility(19, target)
+            mob:setLocalVar("provokeTime",battletime)
+        end
     end)
 
     mob:addListener("COMBAT_TICK", "COMBAT_TICK", function(mob)
@@ -47,6 +64,9 @@ function onMobSpawn(mob)
         end
     end)
 
+
+
+    --[[
     mob:addListener("COMBAT_TICK", "SHIELD_BASH_TICK", function(mob, player, target)
         local battletime = os.time()
         local bashTime = mob:getLocalVar("bashTime")
@@ -55,22 +75,14 @@ function onMobSpawn(mob)
             mob:useJobAbility(30, target)
             mob:setLocalVar("bashTime",battletime)
         end
-    end)
-
-    mob:addListener("COMBAT_TICK", "PROVOKE_TICK", function(mob, player, target)
-        local battletime = os.time()
-        local provoke = mob:getLocalVar("provokeTime")
-        if (battletime > provoke + provokeCooldown) then
-            mob:useJobAbility(19, target)
-            mob:setLocalVar("provokeTime",battletime)
-        end
-    end)
+    end)]]--
 
     mob:addListener("COMBAT_TICK", "CUR_FLASH_TICK", function(mob, player, target)
+        local enmity = enmityCalc(mob, player, target)
         local battletime = os.time()
         local flashTime = mob:getLocalVar("flashTime")
         local flashCooldown = mob:getLocalVar("flashCooldown")
-        if (battletime > flashTime + flashCooldown) then
+        if (enmity > 0 and (battletime > flashTime + flashCooldown)) then
             doCurillaFlash(mob, player, target)
             mob:setLocalVar("flashTime",battletime)
         end
@@ -204,14 +216,14 @@ function doCurillaCure(mob, player, target)
     local party = player:getParty()
     local battletime = os.time()
     for _,member in ipairs(party) do
-        if (member:getHPP() <= 35) then
+        if (member:getHPP() <= 25) then
             cure = doEmergencyCureCur(mob)
             if (cure > 0) then
                 mob:castSpell(cure, member)
                 mob:setLocalVar("cureTimeCurilla",battletime)
                 break
             end
-        elseif (member:getHPP() <= 76) then
+        elseif (member:getHPP() <= 66) then
             for i = 1, #cureList do
                 if (lvl >= cureList[i][1] and mp >= cureList[i][2]) then
                     cure = cureList[i][3]

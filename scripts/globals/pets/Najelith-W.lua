@@ -22,7 +22,7 @@ function onMobSpawn(mob)
     local velocityShotCooldown = 300
     local berserkCooldown = 300
     local wsCooldown = 4
-
+    local angle = getAngle(mob)
     local barrageEmnity = 0
     local weaponskillEnmity = 0
 
@@ -39,7 +39,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("wsTime",0)
 
     mob:addListener("COMBAT_TICK", "NAJELITH_DISTANCE_TICK", function(mob, player, target)
-        trustMageMove(mob, player, target)
+        trustMageMove(mob, player, target, angle)
     end)
 
     mob:addListener("COMBAT_TICK", "NAJELITH_BERSERK_TICK", function(mob, player, target)

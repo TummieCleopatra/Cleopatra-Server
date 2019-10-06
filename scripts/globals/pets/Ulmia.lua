@@ -25,10 +25,10 @@ function onMobSpawn(mob)
     mob:setLocalVar("requiemRecast",90)
     local angle = 100
 
-    printf("Ulmia Spawn")
+    printf("Ulmia Spawn!!!!")
     mob:SetAutoAttackEnabled(false)
 
-    mob:addListener("COMBAT_TICK", "DISTANCE_TICK", function(mob, target)
+    mob:addListener("COMBAT_TICK", "DISTANCE_TICK", function(mob, player, target)
         local singMage = mob:getLocalVar("singMage")
         if (singMage == 0) then
             trustMeleeMove(mob, player, target, angle)
@@ -38,18 +38,11 @@ function onMobSpawn(mob)
     mob:addListener("COMBAT_TICK", "SONG_CHECK", function(mob, player, target)
         local songTime = mob:getLocalVar("songTime")
         local songCheck = mob:getLocalVar("songCheck")
+        local singMage = mob:getLocalVar("singMage")
         local distance = mob:checkDistance(target)
         local battletime = os.time()
 
-        if (battletime > songTime + songCheck) then
-        -- printf("Distance is %u \n",distance)
-            --[[if (distance >= 1.1) then
-                mob:moveToTarget()
-                printf("Ulmia needs to move to front line")
-            else
-                printf("Do song check")
-                doSongCheck(mob, player, target)
-            end--]]
+        if (battletime > songTime + songCheck and singMage ~= 1) then
             trustMeleeMove(mob, player, target, angle)
             printf("Ulmia needs to move to front line")
             if (distance <= 3) then
@@ -66,7 +59,6 @@ function onMobSpawn(mob)
         local distance = mob:checkDistance(target)
         local battletime = os.time()
 
-        -- printf("Distance is %u \n",distance)
         if (songCombo > 0 and (battletime > singTime + singCheck)) then
             printf("Cast the correct song combo")
             doSong(mob, player, target)
@@ -79,12 +71,10 @@ function onMobSpawn(mob)
         local distance = mob:checkDistance(target)
         local battletime = os.time()
 
-        -- printf("Distance is %u \n",distance)
         if (singMage == 1) then
-            if (battletime > mageSongs + 13) then
-
-                trustMageMove(mob, player, target, angle)
-                if (distance >= 13) then
+            if (battletime > mageSongs) then
+                trustBardMove(mob, player, target, angle)
+                if (distance >= 16) then
 
                     doMageSongs(mob)
                 end

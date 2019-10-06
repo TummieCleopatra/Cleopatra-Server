@@ -16,14 +16,14 @@ require("scripts/globals/trustpoints")
 function onMobSpawn(mob)
     doKupipiTrustPoints(mob)
     local weaponskill = 0
-    local cureCooldown = 12
+    local cureCooldown = 14
     local debuffCooldown = 10
     local buffCooldown = 7
     local ailmentCooldown = 15
     local hasteCooldown = 220
     local master = mob:getMaster()
     local kupipi = mob:getID()
-    local angle = 115
+    local angle = getAngle(mob)
     local wsCooldown = 4
     mob:setLocalVar("wsTime",0)
     mob:setLocalVar("cureTime",0)
@@ -103,9 +103,10 @@ function onMobSpawn(mob)
                         mob:setLocalVar("cureTime",battletime)
                         break
                     end
+                else
+                    mob:setLocalVar("cureTime",battletime - 4)  -- If no member has low HP change global check to 8 seconds
                 end
             end
-            mob:setLocalVar("cureTime",battletime - 4)  -- If no member has low HP change global check to 8 seconds
         end
     end)
 

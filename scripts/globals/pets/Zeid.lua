@@ -82,7 +82,7 @@ function onMobSpawn(mob)
                         mob:useMobAbility(56)
                     end
                 end
-            elseif (battletime > weaponSkillTime + wsCooldown)
+            elseif (battletime > weaponSkillTime + wsCooldown) then
 		        weaponskill = doZeidWeaponskill(mob)
 			    mob:useMobAbility(weaponskill)
                 mob:setLocalVar("wsTime",battletime)

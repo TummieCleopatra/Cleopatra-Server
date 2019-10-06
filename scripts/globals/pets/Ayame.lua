@@ -15,6 +15,7 @@ function onMobSpawn(mob)
     master:setVar("SCProp1",0)
     local lvl = mob:getMainLvl()
     local angle = getAngle(mob)
+    local wsCooldown = 4
     mob:setLocalVar("meditateTime",0)
     mob:setLocalVar("meditateCooldown",180)
     mob:setLocalVar("hassoTime",0)
