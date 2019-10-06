@@ -68,7 +68,8 @@ enum PETID
     PETID_SIREN              = 79,
     PETID_PHEONIX            = 80,
     PETID_BAHAMUT            = 81,
-    PETID_CURILLA            = 87
+    PETID_CURILLA            = 87,
+    PETID_ULMIA              = 103
     // Todo: change how this works so trusts don't need PetID at all..
 };
 

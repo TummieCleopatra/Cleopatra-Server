@@ -865,6 +865,11 @@ namespace petutils
             //ShowWarning(CL_YELLOW"Setting Curilal Shield Size to 3\n" CL_RESET);
         }
 
+        if (PTrust->m_PetID == PETID_ULMIA)
+        {
+            PTrust->m_Weapons[SLOT_RANGED]->setSkillType(SKILL_STRING_INSTRUMENT);
+        }
+
         for (int i = SKILL_DIVINE_MAGIC; i <= SKILL_BLUE_MAGIC; i++)
         {
             uint16 maxSkill = battleutils::GetMaxSkill((SKILLTYPE)i, PTrust->GetMJob(), PTrust->GetMLevel());
@@ -1036,7 +1041,7 @@ namespace petutils
 
     void SpawnPet(CBattleEntity* PMaster, uint32 PetID, bool spawningFromZone)
     {
-        DSP_DEBUG_BREAK_IF(PMaster->PPet != nullptr);
+        //DSP_DEBUG_BREAK_IF(PMaster->PPet != nullptr); Luopans need their own spawn mechanistm
         if (PMaster->objtype == TYPE_PC && (PetID == PETID_HARLEQUINFRAME || PetID == PETID_VALOREDGEFRAME || PetID == PETID_SHARPSHOTFRAME || PetID == PETID_STORMWAKERFRAME))
         {
             puppetutils::LoadAutomaton(static_cast<CCharEntity*>(PMaster));
@@ -1096,7 +1101,27 @@ namespace petutils
         // TODO: You can only spawn trusts in battle areas, similar to pets. See MSGBASIC_TRUST_NOT_HERE
 
         // TODO: There is an expandable limit of trusts you can summon, based on key items.
-        size_t maxTrusts = 5;
+		CCharEntity* PChar = (CCharEntity*)PMaster;
+		int32 trustsize = charutils::GetVar(PChar, "Trustsize");
+
+		size_t maxTrusts = 3;
+
+		if (trustsize == 0)
+		{
+            maxTrusts = 3;
+        }
+		else if (trustsize == 1)
+		{
+		    maxTrusts = 4;
+		}
+		else if (trustsize == 2)
+		{
+		    maxTrusts = 5;
+		}
+        else
+        {
+			maxTrusts = 3;
+		}
 
         // TODO: These checks should be done at before spellcast time!!
         // If you're in a party, you can only spawn trusts if:
@@ -1123,7 +1148,7 @@ namespace petutils
             }
 
             // Reduce the max number of summonable trusts
-            maxTrusts = 6 - PMaster->PParty->members.size();
+            maxTrusts = (maxTrusts + 1) - PMaster->PParty->members.size();
         }
 
         if (PMaster->PTrusts.size() >= maxTrusts)
@@ -1783,7 +1808,17 @@ namespace petutils
 
         FinalizePetStatistics(PMaster, PPet);
         PPet->status = STATUS_NORMAL;
-        PPet->m_ModelSize = g_PPetList.at(PetID)->size;
+        if (PetID == PETID_LUOPAN)
+        {
+            PPet->m_ModelSize = g_PPetList.at(PetID)->size;
+            PPet->m_flags = 150;
+        }
+        else
+        {
+            PPet->m_ModelSize = g_PPetList.at(PetID)->size;
+        }
+
+
         PPet->m_EcoSystem = g_PPetList.at(PetID)->EcoSystem;
 
         PMaster->PPet = PPet;
