@@ -93,7 +93,12 @@ function onSpellCast(caster,target,spell)
         target:addHP(final)
 
         target:wakeUp()
-        caster:updateEnmityFromCure(target,final)
+        if (caster:getObjType() == dsp.objType.TRUST) then
+            local cen,ven = enmityFromCure(caster, final)
+            target:addEnmity(caster, cen, ven)
+        else
+            caster:updateEnmityFromCure(target,final)
+        end
     else
         -- no effect if player casted on mob
 
