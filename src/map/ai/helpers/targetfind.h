@@ -38,7 +38,8 @@ class CBattleEntity;
 #define MAX_AOE_TARGETS 12
 
 // allow pets to recieve buffs from protectra, curaga etc
-#define PETS_CAN_AOE_BUFF false
+#define PETS_CAN_AOE_BUFF true
+#define TRUSTS_CAN_AOE_BUFF true
 
 enum AOERADIUS
 {
@@ -119,6 +120,8 @@ public:
 
     std::vector<CBattleEntity*> m_targets; // contains all found entities
 
+    uint16 m_userID;
+
 protected:
 
     bool isPlayer; // is this from a player?
@@ -140,6 +143,8 @@ protected:
     position_t* m_APoint;
     position_t m_BPoint;
     position_t m_CPoint;
+
+    uint16 m_originalTarget;
 };
 
 #endif

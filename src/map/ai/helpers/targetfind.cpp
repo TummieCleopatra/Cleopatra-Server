@@ -39,7 +39,7 @@ This file is part of DarkStar-server source code.
 CTargetFind::CTargetFind(CBattleEntity* PBattleEntity)
 {
     m_PBattleEntity = PBattleEntity;
-
+    m_originalTarget = 0;
     reset();
 }
 
@@ -74,6 +74,8 @@ void CTargetFind::findWithinArea(CBattleEntity* PTarget, AOERADIUS radiusType, f
     m_radius = radius;
     m_zone = m_PBattleEntity->getZone();
 
+
+
     if (radiusType == AOERADIUS_ATTACKER){
         m_PRadiusAround = &m_PBattleEntity->loc.p;
     }
@@ -91,6 +93,8 @@ void CTargetFind::findWithinArea(CBattleEntity* PTarget, AOERADIUS radiusType, f
 
     // always add original target first
     addEntity(PTarget, false); // pet will be added later
+
+    m_originalTarget = PTarget->id;
 
     m_PTarget = PTarget;
     isPlayer = checkIsPlayer(m_PBattleEntity);
@@ -301,7 +305,15 @@ void CTargetFind::addAllInParty(CBattleEntity* PTarget, bool withPet)
                 CCharEntity* PMaster = (CCharEntity*)PChar->PMaster;
                 for (CTrustEntity* trust : PMaster->PTrusts)
                 {
-                    addEntity((CBattleEntity*)trust, withPet);
+
+                    CBattleEntity* PTrustID = (CBattleEntity*)trust;
+                    uint16 memberID = PTrustID->id;
+                    if (memberID != m_originalTarget)
+                    {
+                        addEntity((CBattleEntity*)trust, withPet);
+                    }
+
+
                 }
             }
             else if (PChar->PTrusts.size() != 0) {
