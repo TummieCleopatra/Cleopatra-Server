@@ -158,7 +158,6 @@ void CTrustEntity::OnAbility(CAbilityState& state, action_t& action)
 
         if (PAbility->isAoE())
         {
-            ShowWarning(CL_GREEN"ABILITY IS AOE!\n" CL_RESET);
             PAI->TargetFind->reset();
 
             float distance = PAbility->getRange();
@@ -195,7 +194,6 @@ void CTrustEntity::OnAbility(CAbilityState& state, action_t& action)
         }
         else
         {
-            ShowWarning(CL_GREEN"ABILITY NOT AOE\n" CL_RESET);
             actionList_t& actionList = action.getNewActionList();
             actionList.ActionTargetID = PTarget->id;
             actionTarget_t& actionTarget = actionList.getNewActionTarget();
