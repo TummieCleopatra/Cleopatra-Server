@@ -111,6 +111,11 @@ void CTrustController::DoCombatTick(time_point tick)
 
 void CTrustController::DoRoamTick(time_point tick)
 {
+    if ((POwner->PMaster == nullptr || POwner->PMaster->isDead()) && POwner->isAlive()) {
+        POwner->Die();
+        return;
+    }
+
     if (POwner->PMaster->PAI->IsEngaged())
     {
         CCharEntity* PChar = (CCharEntity*)POwner->PMaster;
@@ -133,19 +138,21 @@ void CTrustController::DoRoamTick(time_point tick)
         CCharEntity* PChar = (CCharEntity*)POwner->PMaster;
 
         // Owner is not engaged, check to see if they have hate to apply healing
+
         for (SpawnIDList_t::iterator it = PChar->SpawnMOBList.begin(); it != PChar->SpawnMOBList.end(); ++it)
         {
             CMobEntity* PMob = (CMobEntity*)it->second;
 
             if (!PMob->PEnmityContainer->HasID(POwner->PMaster->id))
             {
-                if (TrustIsHealing())
+                if (TrustIsHealing())  // TODO -  handle healing with its own mob listener here
                 {
                     break;
                 }
                 //break;
             }
         }
+
 
 
         float currentDistance = distance(POwner->loc.p, POwner->PMaster->loc.p);
