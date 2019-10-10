@@ -1057,7 +1057,7 @@ function onTrade(player,npc,trade)
     -- Complete the trade..
     player:tradeComplete();
     player:PrintToPlayer("Oboro : Thank you for the requested items. Come see me again when you are stronger.", 0xD);
-    player:addItem(17478, 1, 9, 14); -- MP+15
+    player:addItem(21460, 1, 9, 14); -- MP+15
     player:setVar("GEOAFweapon", 1);
     player:messageSpecial(ID.text.ITEM_OBTAINED, 21460);
 
@@ -1066,7 +1066,7 @@ function onTrade(player,npc,trade)
     -- Complete the trade..
     player:tradeComplete();
     player:PrintToPlayer("Oboro : Thank you for the requested items. Come see me again when you are stronger.", 0xD);
-    player:addItem(17478, 1, 9, 19, 1250, 9); -- MP+20, Indi Duration + 10
+    player:addItem(21460, 1, 9, 19, 1250, 9); -- MP+20, Indi Duration + 10
     player:setVar("GEOAFweapon", 2);
     player:messageSpecial(ID.text.ITEM_OBTAINED, 21460);
 
@@ -1075,7 +1075,7 @@ function onTrade(player,npc,trade)
     -- Complete the trade..
     player:tradeComplete();
     player:PrintToPlayer("Oboro : Thank you for the requested items. Come see me again when you are stronger.", 0xD);
-    player:addItem(17478, 1, 9, 24, 1250, 14, 301, 4); -- MP+25, Indi Duration + 15, Bell Skill + 5
+    player:addItem(21460, 1, 9, 24, 1250, 14, 301, 4); -- MP+25, Indi Duration + 15, Bell Skill + 5
     player:setVar("GEOAFweapon", 3);
     player:messageSpecial(ID.text.ITEM_OBTAINED, 21460);
 
@@ -1090,7 +1090,7 @@ function onTrade(player,npc,trade)
     -- Complete the trade..
     player:tradeComplete();
     player:PrintToPlayer("Oboro : Thank you for the requested items. Come see me again when you are stronger.", 0xD);
-    player:addItem(20781, 1, 9, 11); -- MP+10
+    player:addItem(20781, 1, 76, 19); -- Dmg+52
     player:setVar("RUNAFweapon", 1);
     player:messageSpecial(ID.text.ITEM_OBTAINED, 20781);
 
@@ -1099,7 +1099,7 @@ function onTrade(player,npc,trade)
     -- Complete the trade..
     player:tradeComplete();
     player:PrintToPlayer("Oboro : Thank you for the requested items. Come see me again when you are stronger.", 0xD);
-    player:addItem(20781, 1, 9, 11, 796, 1); -- MP+10 Resist all Elements +2
+    player:addItem(20781, 1, 76, 25, 796, 4); -- MP+10 Resist all Elements +2
     player:setVar("RUNAFweapon", 2);
     player:messageSpecial(ID.text.ITEM_OBTAINED, 20781);
 
@@ -1108,7 +1108,7 @@ function onTrade(player,npc,trade)
     -- Complete the trade..
     player:tradeComplete();
     player:PrintToPlayer("Oboro : Thank you for the requested items. Come see me again when you are stronger.", 0xD);
-    player:addItem(20781, 1, 9, 11, 796, 1, 1156,0); -- MP+10 Resist all Elements +2 Magic DMG taken -2
+    player:addItem(20781, 1, 76, 31, 796, 4, 1156,1); -- MP+10 Resist all Elements +2 Magic DMG taken -2
     player:setVar("RUNAFweapon", 3);
     player:messageSpecial(ID.text.ITEM_OBTAINED, 20781);
 
