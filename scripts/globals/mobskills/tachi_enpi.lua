@@ -20,8 +20,15 @@ function onMobWeaponSkill(target, mob, skill)
     local numhits = 2
     local accmod = 1
     local dmgmod = 2
+
+    if (mob:getName() == "Ayame") then
+        dmgmod = 3
+    elseif (mob:getName() == "Ayame-W") then
+        dmgmod = 3
+    end
     local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_VARIES,1.0,1.5,2.0)
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,dsp.attackType.PHYSICAL,dsp.damageType.SLASHING,info.hitslanded)
+
 
 
     target:takeDamage(dmg, mob, dsp.attackType.PHYSICAL, dsp.damageType.SLASHING)

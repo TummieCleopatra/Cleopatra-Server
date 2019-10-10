@@ -20,10 +20,18 @@ function onMobWeaponSkill(target, mob, skill)
     local numhits = 1
     local accmod = 1
     local dmgmod = 2.5
+
+    if (mob:getName() == "Ayame") then
+        dmgmod = 6
+        printf("Gekko")
+    elseif (mob:getName() == "Ayame-W") then
+        dmgmod = 6
+    end
     local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_VARIES,1.56,1.88,2.50)
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,dsp.attackType.PHYSICAL,dsp.damageType.SLASHING,info.hitslanded)
 
     MobStatusEffectMove(mob, target, dsp.effect.SILENCE, 1, 0, 60)
+
 
     -- About 300-400 to a DD.
     target:takeDamage(dmg, mob, dsp.attackType.PHYSICAL, dsp.damageType.SLASHING)

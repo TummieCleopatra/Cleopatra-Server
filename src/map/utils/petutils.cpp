@@ -856,10 +856,13 @@ namespace petutils
         PTrust->m_Weapons[SLOT_MAIN]->setDelay((uint16)(floor(1000* (petStats->cmbDelay / 60))));
 
 
+        float shielddef = (floor(10 + (MainLevel / 8)));
 
         if (PTrust->m_PetID == PETID_CURILLA)
         {
+
             PTrust->m_Weapons[SLOT_SUB]->setShieldSize(3);
+            PTrust->m_Weapons[SLOT_SUB]->addModifier(CModifier(Mod::DEF, (int16)shielddef));
             PTrust->setModifier(Mod::SHIELD, battleutils::GetMaxSkill(SKILL_CLUB, JOB_WHM, PTrust->GetMLevel()));
             PTrust->setModifier(Mod::SWORD, battleutils::GetMaxSkill(SKILL_SWORD, JOB_PLD, PTrust->GetMLevel()));
             //ShowWarning(CL_YELLOW"Setting Curilal Shield Size to 3\n" CL_RESET);

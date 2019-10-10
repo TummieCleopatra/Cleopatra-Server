@@ -41,8 +41,8 @@ end
 
 function trustGodMode(mob)
 
-    mob:addMod(dsp.mod.REGAIN, 500)
-    mob:addMod(dsp.mod.REGEN, 200)
+    -- mob:addMod(dsp.mod.REGAIN, 500)
+    mob:addMod(dsp.mod.REGEN, 400)
 
 
 
