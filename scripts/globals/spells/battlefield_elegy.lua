@@ -11,7 +11,7 @@ function onMagicCastingCheck(caster, target, spell)
 end
 
 function onSpellCast(caster, target, spell)
-    local duration = 120
+    local duration = 180
     local power = 2500
 
     local pCHR = caster:getStat(dsp.mod.CHR)
