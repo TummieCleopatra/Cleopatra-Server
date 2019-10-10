@@ -23,9 +23,9 @@ end;
 function onEffectTick(target,effect)
     if (target:getObjType() == dsp.objType.PC) then
         target:forMembersInRange(10, function(member)
-            --if not member:hasStatusEffect(dsp.effect.REFRESH_II) then
+            if (member:hasStatusEffect(dsp.effect.INDI_REFRESH) == false) then
                 member:addStatusEffect(dsp.effect.REFRESH_II, effect:getPower(), 0, 6)
-           -- end
+            end
         end)
     else
         local nearbyChars = target:getTargetsWithinArea(12, 1)

@@ -23,9 +23,9 @@ end;
 function onEffectTick(target,effect)
     if (target:getObjType() == dsp.objType.PC) then
         target:forMembersInRange(10, function(member)
-            -- if not member:hasStatusEffect(dsp.effect.MAGIC_EVASION_BOOST) then
+            if (member:hasStatusEffect(dsp.effect.INDI_ATTUNEMENT) == false) then
                 member:addStatusEffect(dsp.effect.MAGIC_EVASION_BOOST, effect:getPower(), 0, 6)
-            -- end
+            end
         end)
     else
 

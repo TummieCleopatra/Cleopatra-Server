@@ -25,9 +25,9 @@ function onEffectTick(target,effect)
     potencyBoost(target,effect)
     if (target:getObjType() == dsp.objType.PC) then
         target:forMembersInRange(10, function(member)
-            -- if not member:hasStatusEffect(dsp.effect.REGEN_II) then
+            if (member:hasStatusEffect(dsp.effect.INDI_REGEN) == false) then
                 member:addStatusEffect(dsp.effect.REGEN_II, effect:getPower(), 0, 4)
-            -- end
+            end
         end)
     else
 

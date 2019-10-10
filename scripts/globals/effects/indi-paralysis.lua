@@ -23,8 +23,6 @@ function onEffectTick(target,effect)
     local hp = target:getHP()
 	local nearbyTargets = target:getTargetsWithinArea(12, 8);
     for i,member in ipairs(nearbyTargets) do
-
-
 	    if (member:getObjType() == dsp.objType.MOB) then
              local enmitylist = member:getEnmityList()
             for _,enmity in ipairs(enmitylist) do

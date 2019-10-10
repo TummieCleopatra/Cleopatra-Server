@@ -23,9 +23,9 @@ end;
 function onEffectTick(target,effect)
     if (target:getObjType() == dsp.objType.PC) then
         target:forMembersInRange(10, function(member)
-            -- if not member:hasStatusEffect(dsp.effect.DEFENSE_BOOST_II) then
+            if (member:hasStatusEffect(dsp.effect.INDI_ACUMEN) == false) then
                 member:addStatusEffect(dsp.effect.MAGIC_ATK_BOOST_II, effect:getPower(), 0, 6)
-            -- end
+            end
         end)
     else
 
@@ -34,7 +34,6 @@ function onEffectTick(target,effect)
             if (members:getObjType() == dsp.objType.PC and members:getAllegiance() == target:getAllegiance()) then
                 members:addStatusEffect(dsp.effect.MAGIC_ATK_BOOST_II, effect:getPower(), 0, 6)
             end
-
             local party = members:getParty()
             for i, trust in ipairs(party) do
                 if (trust:getObjType() == dsp.objType.TRUST) then

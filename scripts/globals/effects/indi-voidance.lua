@@ -23,7 +23,7 @@ end;
 function onEffectTick(target,effect)
     if (target:getObjType() == dsp.objType.PC) then
         target:forMembersInRange(10, function(member)
-            if not member:hasStatusEffect(dsp.effect.EVASION_BOOST_II) then
+            if (member:hasStatusEffect(dsp.effect.INDI_VOIDANCE) == false) then
                 member:addStatusEffect(dsp.effect.EVASION_BOOST_II, effect:getPower(), 0, 3)
             end
         end)

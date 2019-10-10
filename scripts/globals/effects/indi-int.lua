@@ -23,9 +23,9 @@ end;
 function onEffectTick(target,effect)
     if (target:getObjType() == dsp.objType.PC) then
         target:forMembersInRange(10, function(member)
-           -- if not member:hasStatusEffect(dsp.effect.INT_BOOST_III) then
+            if (member:hasStatusEffect(dsp.effect.INDI_INT) == false) then
                 member:addStatusEffect(dsp.effect.INT_BOOST_III, effect:getPower(), 0, 6)
-          --  end
+            end
         end)
     else
 
