@@ -10,7 +10,8 @@ function enmityFromCure(caster, final)
     local ce = 0
     local ve = 0
 
-    print(final)
+    local modifier = caster:getMod(dsp.mod.ENMITY)
+    modifier = (1 + (modifier / 100))
 
     if (lvl <= 10) then
         modCure = lvl + 10
@@ -20,10 +21,60 @@ function enmityFromCure(caster, final)
         modCure = 40 + (lvl - 50) * 0.6
     end
 
-    ce = (40 / modCure) * final
-    ve = (240 / modCure) * final
+    ce = ((40 / modCure) * final) * modifier
+    ve = ((240 / modCure) * final) * modifier
+    local total = ce + ve
+    local nearbyTargets = caster:getTargetsWithinArea(12, 8);
+    for i,member in ipairs(nearbyTargets) do
+	    if (member:getObjType() == dsp.objType.MOB) then
+            local enmitylist = member:getEnmityList()
+            for _,enmity in ipairs(enmitylist) do
+                if (enmity.active and enmity.entity:getID() == caster:getID()) then
+		            local mob = member:getID();
+                    GetMobByID(mob):addEnmity(caster, ce, ve)
+                    printf("Total Cure Enmity is %u", total)
+                end
+            end
+        end
+    end
+end
 
-    return ce,ve
+function trustGodMode(mob)
+
+    mob:addMod(dsp.mod.REGAIN, 500)
+    mob:addMod(dsp.mod.REGEN, 200)
+
+
+
+
+end
+
+function debugEnmity(mob, player, target)
+
+    local trustID = mob:getID()
+    local playerID = player:getID()
+    local party = player:getParty()
+    local ce = 0
+    local ve = 0
+    local total = 0
+
+    local cur = 0
+    local me = 0
+
+
+    for i, member in ipairs(party) do
+        ce = target:getCE(member)
+        ve = target:getVE(member)
+        total = ve + ce
+        local id = member:getID()
+        if (id == trustID) then
+            cur = total
+        elseif (id == player:getID()) then
+            me = total
+        end
+    end
+
+    -- printf("Trust: %u ------------------- Me: %u",cur,me)
 end
 
 

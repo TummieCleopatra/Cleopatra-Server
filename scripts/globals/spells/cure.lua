@@ -94,8 +94,7 @@ function onSpellCast(caster,target,spell)
 
         target:wakeUp()
         if (caster:getObjType() == dsp.objType.TRUST) then
-            local cen,ven = enmityFromCure(caster, final)
-            target:addEnmity(caster, cen, ven)
+            enmityFromCure(caster, final)
         else
             caster:updateEnmityFromCure(target,final)
         end
