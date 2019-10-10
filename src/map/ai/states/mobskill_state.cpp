@@ -86,8 +86,61 @@ void CMobSkillState::SpendCost()
 {
     if (m_PSkill->isTpSkill())
     {
-        m_spentTP = m_PEntity->health.tp;
-        m_PEntity->health.tp = 0;
+        if (m_PEntity->objtype == TYPE_TRUST)
+        {
+            if (m_PEntity->StatusEffectContainer->HasStatusEffect(EFFECT_SEKKANOKI))
+            {
+                m_PEntity->addTP(-1000);
+                m_PEntity->StatusEffectContainer->DelStatusEffect(EFFECT_SEKKANOKI);
+            }
+            else
+            {
+
+                int16 delay = m_PEntity->GetWeaponDelay(false) / 10;
+                delay = delay - 160;
+                int16 baseTP = 0;
+                int16 x = 1;
+                //ShowWarning("Base Delay is %u \n",delay);
+                if (delay <= 180) {
+                    x = (int16)(61 + ((delay - 180) * 63.f) / 360);
+                    ShowWarning("This is tp 180 %u \n",x);
+                }
+                    else if (delay <= 540) {
+                    x = (int16)(61 + ((delay - 180) * 88.f) / 360);
+                    //ShowWarning("This is tp 540 %u \n",x);
+                }
+                else if (delay <= 630) {
+                    x = (int16)(149 + ((delay - 540) * 20.f) / 360);
+                    //ShowWarning("This is tp 630 %u \n",x);
+                }
+                else if (delay <= 720) {
+                    x = (int16)(154 + ((delay - 630) * 28.f) / 360);
+                    //ShowWarning("This is tp 720 %u \n",x);
+                }
+                else if (delay <= 900) {
+                    x = (int16)(161 + ((delay - 720) * 24.f) / 360);
+                    //ShowWarning("This is tp 900 %u \n",x);
+                }
+                else {
+                    x = (int16)(173 + ((delay - 900) * 28.f) / 360);
+                    //ShowWarning("This is tp other %u \n",x);
+                }
+
+                float ratio = 1.0f;
+                //TODO add MNK calc
+                //baseTP = x * ((int16)(delay * 60.0f / 1000.0f / ratio));
+                m_spentTP = m_PEntity->health.tp;
+
+
+                m_PEntity->health.tp = x;
+                m_PEntity->UpdateHealth();
+            }
+        }
+        else
+        {
+            m_spentTP = m_PEntity->health.tp;
+            m_PEntity->health.tp = 0;
+        }
     }
 }
 
