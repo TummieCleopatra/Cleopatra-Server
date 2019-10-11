@@ -44,7 +44,7 @@ class CTrustEntity;
 
 struct jobs_t
 {
-    uint32 unlocked;				// a bit field of the jobs unlocked. The bit indices are stored inside of of the JOBTYPE enumeration 
+    uint32 unlocked;				// a bit field of the jobs unlocked. The bit indices are stored inside of of the JOBTYPE enumeration
     uint8  job[MAX_JOBTYPE];		// the current levels of each of the jobs from above
     uint16 exp[MAX_JOBTYPE];		// the experience points for each of the jobs above
     uint8  genkai;					// the maximum genkai level achieved
@@ -190,7 +190,7 @@ public:
     uint8					m_Abilities[62];				// список текущих способностей
     uint8					m_LearnedAbilities[47];			// learnable abilities (corsair rolls)
     std::bitset<49>         m_LearnedWeaponskills;          // learnable weaponskills
-    uint8					m_TraitList[16];				// список постянно активных способностей в виде битовой маски
+    uint8					m_TraitList[17];				// список постянно активных способностей в виде битовой маски
     uint8					m_PetCommands[32];				// список доступных команд питомцу
     uint8					m_WeaponSkills[32];
     questlog_t				m_questLog[MAX_QUESTAREA];		// список всех квестов

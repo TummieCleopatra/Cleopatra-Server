@@ -153,11 +153,13 @@ INSERT INTO `traits` VALUES (7,'max hp boost',1,50,2,2,60,'SOA',0);
 INSERT INTO `traits` VALUES (7,'max hp boost',1,70,3,2,120,'SOA',0);
 INSERT INTO `traits` VALUES (7,'max hp boost',1,90,4,2,180,'SOA',0);
 INSERT INTO `traits` VALUES (7,'max hp boost',2,15,1,2,30,NULL,0);
-INSERT INTO `traits` VALUES (7,'max hp boost',2,35,2,2,60,NULL,0);
-INSERT INTO `traits` VALUES (7,'max hp boost',2,55,3,2,120,NULL,0);
-INSERT INTO `traits` VALUES (7,'max hp boost',2,70,4,2,180,NULL,0);
-INSERT INTO `traits` VALUES (7,'max hp boost',2,86,5,2,240,'ABYSSEA',0);
-INSERT INTO `traits` VALUES (7,'max hp boost',2,96,6,2,300,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (7,'max hp boost',2,25,2,2,60,NULL,0);
+INSERT INTO `traits` VALUES (7,'max hp boost',2,35,3,2,120,NULL,0);
+INSERT INTO `traits` VALUES (7,'max hp boost',2,45,4,2,180,NULL,0);
+INSERT INTO `traits` VALUES (7,'max hp boost',2,55,5,2,240,NULL,0);
+INSERT INTO `traits` VALUES (7,'max hp boost',2,65,6,2,300,NULL,0);
+
+
 INSERT INTO `traits` VALUES (7,'max hp boost',7,45,1,2,30,'SOA',0);
 INSERT INTO `traits` VALUES (7,'max hp boost',7,85,2,2,60,'SOA',0);
 INSERT INTO `traits` VALUES (7,'max hp boost',13,20,1,2,30,'SOA',0);
@@ -668,6 +670,30 @@ INSERT INTO `traits` VALUES (108,'conserve tp',14,71,3,944,21,'ABYSSEA',0); -- C
 INSERT INTO `traits` VALUES (108,'conserve tp',19,97,3,944,21,'ABYSSEA',0); -- Conserve TP III, DNC97, 21%
 INSERT INTO `traits` VALUES (108,'conserve tp',14,84,4,944,24,'ABYSSEA',0); -- Conserve TP IV, DRG84, 24%
 INSERT INTO `traits` VALUES (108,'conserve tp',14,97,4,944,26,'ABYSSEA',0); -- Conserve TP V, DRG97, 26%
+
+
+INSERT INTO `traits` VALUES (132,'con_anima',10,1,1,161,-1,'SOA',0); -- MDT
+INSERT INTO `traits` VALUES (132,'con_anima',10,15,2,161,-2,'SOA',0); -- MDT
+INSERT INTO `traits` VALUES (132,'con_anima',10,30,3,161,-3,'SOA',0); -- MDT
+INSERT INTO `traits` VALUES (132,'con_anima',10,45,4,161,-5,'SOA',0); -- MDT
+INSERT INTO `traits` VALUES (132,'con_anima',10,60,5,161,-7,'SOA',0); -- MDT
+INSERT INTO `traits` VALUES (132,'con_anima',10,75,6,161,-10,'SOA',0); -- MDT
+
+
+INSERT INTO `traits` VALUES (133,'con_brio',10,1,1,163,-1,'SOA',0); -- MDT
+INSERT INTO `traits` VALUES (133,'con_brio',10,15,2,163,-2,'SOA',0); -- MDT
+INSERT INTO `traits` VALUES (133,'con_brio',10,30,3,163,-3,'SOA',0); -- MDT
+INSERT INTO `traits` VALUES (133,'con_brio',10,45,4,163,-5,'SOA',0); -- MDT
+INSERT INTO `traits` VALUES (133,'con_brio',10,60,5,163,-7,'SOA',0); -- MDT
+INSERT INTO `traits` VALUES (133,'con_brio',10,75,6,163,-10,'SOA',0); -- MDT
+
+INSERT INTO `traits` VALUES (134,'ws_damage_boost',10,45,1,840,7,'SOA',0); -- MDT
+INSERT INTO `traits` VALUES (134,'ws_damage_boost',10,55,2,840,10,'SOA',0); -- MDT
+INSERT INTO `traits` VALUES (134,'ws_damage_boost',10,65,3,840,13,'SOA',0); -- MDT
+INSERT INTO `traits` VALUES (134,'ws_damage_boost',10,75,4,840,16,'SOA',0); -- MDT
+
+INSERT INTO `traits` VALUES (135,'max_hp_boost_ii',2,75,1,2,150,'SOA',0); -- Max HP Boost II
+
 /*!40000 ALTER TABLE `traits` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

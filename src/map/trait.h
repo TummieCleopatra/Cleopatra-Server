@@ -144,10 +144,14 @@ enum TRAITTYPE
     TRAIT_SUPERIOR            = 124,
     TRAIT_MAGIC_ACC_BONUS     = 125,
     TRAIT_MAGIC_EVA_BONUS     = 126,
-    TRAIT_SMITE               = 127
+    TRAIT_SMITE               = 127,
+    TRAIT_CON_ANIMA           = 132,
+    TRAIT_CON_BRIO            = 133,
+    TRAIT_WS_DAMAGE_BOOST     = 134,
+    TRAIT_MAX_HP_BOOST_II     = 135
   };
 
-#define MAX_TRAIT_ID    128
+#define MAX_TRAIT_ID    136
 
 /************************************************************************
 *                                                                       *
