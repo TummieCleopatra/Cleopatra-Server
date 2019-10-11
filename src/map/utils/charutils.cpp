@@ -3292,15 +3292,79 @@ namespace charutils
                     if (PMember->expChain.chainTime > gettick() || PMember->expChain.chainTime == 0)
                     {
                         chainactive = true;
-                        switch (PMember->expChain.chainNumber)
+                        if (PMember->GetMLevel() <= 10)
                         {
-                            case 0: exp *= 1.0f; break;
-                            case 1: exp *= 1.2f; break;
-                            case 2: exp *= 1.25f; break;
-                            case 3: exp *= 1.3f; break;
-                            case 4: exp *= 1.4f; break;
-                            case 5: exp *= 1.5f; break;
-                            default: exp *= 1.55f; break;
+                            switch (PMember->expChain.chainNumber)
+                            {
+                                case 0: exp *= 1.0f; break;
+                                case 1: exp *= 1.2f; break;
+                                case 2: exp *= 1.3f; break;
+                                case 3: exp *= 1.3f; break;
+                                case 4: exp *= 1.4f; break;
+                                default: exp *= 1.45f; break;
+                            }
+                        }
+                        else if (PMember->GetMLevel() <= 30)
+                        {
+                            switch (PMember->expChain.chainNumber)
+                            {
+                                case 0: exp *= 1.0f; break;
+                                case 1: exp *= 1.3f; break;
+                                case 2: exp *= 1.35f; break;
+                                case 3: exp *= 1.3f; break;
+                                case 4: exp *= 1.4f; break;
+                                case 5: exp *= 1.455f; break;
+                                default: exp *= 1.5f; break;
+                            }
+                        }
+                        else if (PMember->GetMLevel() <= 50)
+                        {
+                            switch (PMember->expChain.chainNumber)
+                            {
+                                case 0: exp *= 1.0f; break;
+                                case 1: exp *= 1.3f; break;
+                                case 2: exp *= 1.35f; break;
+                                case 3: exp *= 1.4f; break;
+                                case 4: exp *= 1.45f; break;
+                                case 5: exp *= 1.5f; break;
+                                default: exp *= 1.55f; break;
+                            }
+                        }
+                        else if (PMember->GetMLevel() <= 70)
+                        {
+                            switch (PMember->expChain.chainNumber)
+                            {
+                                case 0: exp *= 1.0f; break;
+                                case 1: exp *= 1.3f; break;
+                                case 2: exp *= 1.4f; break;
+                                case 3: exp *= 1.45f; break;
+                                case 4: exp *= 1.5f; break;
+                                case 5: exp *= 1.6f; break;
+                                default: exp *= 1.6f; break;
+                            }
+                        }
+                        else if (PMember->GetMLevel() <= 75)
+                        {
+                            switch (PMember->expChain.chainNumber)
+                            {
+                                case 0: exp *= 1.0f; break;
+                                case 1: exp *= 1.3f; break;
+                                case 2: exp *= 1.5f; break;
+                                case 3: exp *= 1.6f; break;
+                                case 4: exp *= 1.7f; break;
+                                case 5: exp *= 1.85f; break;
+                                case 6: exp *= 1.85f; break;
+                                case 7: exp *= 1.85f; break;
+                                case 8: exp *= 1.85f; break;
+                                case 9: exp *= 1.85f; break;
+                                case 10: exp *= 2.25f; break;
+                                case 11: exp *= 2.25f; break;
+                                case 12: exp *= 2.25f; break;
+                                case 13: exp *= 2.25f; break;
+                                case 14: exp *= 2.25f; break;
+                                case 15: exp *= 3.0f; break;
+                                default: exp *= 3.0f; break;
+                            }
                         }
                     }
                     else
