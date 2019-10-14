@@ -3,6 +3,135 @@ require("scripts/globals/keyitems")
 require("scripts/globals/status")
 -----------------------------------
 
+
+function curillaTrustPoints(mob)
+    local player = mob:getMaster()
+    local att = player:getVar("TrustAtt_Cur")
+	local acc = player:getVar("TrustAcc_Cur")
+	local def = player:getVar("TrustDEF_Cur")
+	local enm = player:getVar("TrustEnm_Cur")
+
+    mob:addMod(dsp.mod.ATT, att)
+    mob:addMod(dsp.mod.ACC, acc)
+    mob:addMod(dsp.mod.DEF, def)
+    mob:addMod(dsp.mod.ENMITY, enm)
+
+end
+
+function ayameTrustPoints(mob)
+    local player = mob:getMaster()
+    local att = player:getVar("TrustAtt_Ayame");
+	local att = player:getVar("TrustAcc_Ayame");
+	local att = player:getVar("TrustSTP_Ayame");
+	local att = player:getVar("TrustZan_Ayame");
+	    -- int32 trait1Aya = charutils::GetVar(PChar, "TrustJA_Ayame");     // Script Meditate + 20
+
+    mob:addMod(dsp.mod.ATT, att)
+    mob:addMod(dsp.mod.ACC, acc)
+    mob:addMod(dsp.mod.STORETP, stp)
+    mob:addMod(dsp.mod.ZANSHIN,zan)
+end
+
+function nanaaTrustPoints(mob)
+    local player = mob:getMaster()
+	local att = player:getVar("TrustAtt_Nanaa");
+	local acc = player:getVar("TrustAcc_Nanaa");
+	local dex = player:getVar("TrustDEX_Nanaa");
+	local ta = player:getVar("TrustTA_Nanaa");	-- Triple Attack
+	local th = player:getVar("TrustTH_Nanaa");	-- Treasure Hunter
+
+    mob:addMod(dsp.mod.ATT, att)
+    mob:addMod(dsp.mod.ACC, acc)
+    mob:addMod(dsp.mod.DEX, dex)
+    mob:addMod(dsp.mod.TRIPLE_ATTACK,ta)
+end
+
+function kupipipTrustPoints(mob)
+    local player = mob:getMaster()
+	local att = player:getVar("TrustAtt_Kup");
+	local acc = player:getVar("TrustAcc_Kup");
+	local curepot = player:getVar("TrustCure_Kup");  -- Cure Potency
+	local cct = player:getVar("TrustCast_Kup"); -- Cure Spellcasting Time
+	    -- int32 proKup = charutils::GetVar(PChar, "TrustPro_Kup");       // Core Pro V
+	    -- int32 shellKup = charutils::GetVar(PChar, "TrustShell_Kup");   // Core Shell V
+
+    mob:addMod(dsp.mod.ATT, att)
+    mob:addMod(dsp.mod.ACC, acc)
+    mob:addMod(dsp.mod.CURE_POTENCY, curepot)
+    mob:addMod(dsp.mod.CURE_CAST_TIME,cct)
+end
+
+function zeidTrustPoints(mob)
+    local player = mob:getMaster()
+	local att = player:getVar("TrustAtt_Zeid");
+	local acc = player:getVar("TrustAcc_Zeid");
+	local oa = player:getVar("TrustOA_Zeid");
+	local db = player:getVar("TrustDB_Zeid");
+
+    mob:addMod(dsp.mod.ATT, att)
+    mob:addMod(dsp.mod.ACC, acc)
+    mob:addMod(dsp.mod.OCCULT_ACUMEN, oa)
+    mob:addMod(dsp.mod.DESPERATE_BLOWS,db)
+
+end
+
+function lionTrustPoints(mob)
+    local player = mob:getMaster()
+	local att = player:getVar("TrustAtt_Lion");
+	local acc = player:getVar("TrustAcc_Lion");
+	local agi = player:getVar("TrustAGI_Lion");
+	local ta = player:getVar("TrustTA_Lion");       -- Triple Attack
+	local th = player:getVar("TrustTH_Lion");       -- Treasure Hunter II
+
+    mob:addMod(dsp.mod.ATT, att)
+    mob:addMod(dsp.mod.ACC, acc)
+    mob:addMod(dsp.mod.AGI, agi)
+    mob:addMod(dsp.mod.TRIPLE_ATTACK,ta)
+    mob:addMOd(dsp.mod.TREASURE_HUNTER, th)
+
+end
+
+function adelheidTrustPoints(mob)
+    local player = mob:getMaster()
+	local matt = player:getVar("TrustMatt_Adel");
+	local macc = player:getVar("TrustMacc_Adel");
+	local mp = player:getVar("TrustMP_Adel");
+	-- local sub = player:getVar("TrustSub_Adel");     // Script Sublimation Adel
+
+    mob:addMod(dsp.mod.MATT, matt)
+    mob:addMod(dsp.mod.MACC, macc)
+    mob:addMod(dsp.mod.MP, MP)
+   -- mob:addMod(dsp.mod.ZANSHIN,zan)
+
+end
+
+function darcTrustPoints(mob)
+    local player = mob:getMaster()
+	local att = player:getVar("TrustAtt_Darc");
+	local acc = player:getVar("TrustAcc_Darc");
+	local mp = player:getVar("TrustMP_Darc");
+	local macc = player:getVar("TrustMA_Darc");
+    -- local att = player:getVar("TrustCA_Darc");       // Script Chain Affinity
+    mob:addMod(dsp.mod.ATT, att)
+    mob:addMod(dsp.mod.ACC, acc)
+    mob:addMod(dsp.mod.MP, mp)
+    mob:addMod(dsp.mod.MACC,macc)
+
+end
+
+function najiTrustPoints(mob)
+    local player = mob:getMaster()
+	local att = player:getVar("TrustAtt_Naji");
+	local acc = player:getVar("TrustAcc_Naji");
+	local da = player:getVar("TrustDA_Naji");
+	    -- int32 berserkNaji = charutils::GetVar(PChar, "TrustBerserk_Naji");	// Script Berserk
+
+    mob:addMod(dsp.mod.ATT, att)
+    mob:addMod(dsp.mod.ACC, acc)
+    mob:addMod(dsp.mod.DOUBLE_ATTACK, da)
+
+end
+
 function enmityFromCure(caster, final)
 
     local lvl = caster:getMainLvl()

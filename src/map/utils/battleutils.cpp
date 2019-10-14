@@ -1903,6 +1903,20 @@ namespace battleutils
                             PDefender->addTP(PDefender->getMod(Mod::SHIELD_MASTERY_TP));
                         }
                     }
+                    else if (PDefender->objtype == TYPE_TRUST)
+                    {
+                        absorb = std::clamp(100 - PDefender->m_Weapons[SLOT_SUB]->getShieldAbsorption(), 0, 100);
+                        absorb -= PDefender->getMod(Mod::SHIELD_DEF_BONUS); // Include Shield Defense Bonus in absorb amount
+
+                        // Shield Mastery
+                        if ((std::max(damage - (PDefender->getMod(Mod::PHALANX) + PDefender->getMod(Mod::STONESKIN)), 0) > 0)
+                            && (PDefender->getMod(Mod::SHIELD_MASTERY_TP)))
+                        {
+                            // If the trustblocked with a shield and has shield mastery, add shield mastery TP bonus
+                            // unblocked damage (before block but as if affected by stoneskin/phalanx) must be greater than zero
+                            PDefender->addTP(PDefender->getMod(Mod::SHIELD_MASTERY_TP));
+                        }
+                    }
                     else if (PDefender->objtype == TYPE_PET)
                     {
                         absorb = 50;
@@ -1992,7 +2006,13 @@ namespace battleutils
             switch (PDefender->objtype)
             {
                 case TYPE_MOB:
-                    if (taChar == nullptr)
+                    if (PAttacker->objtype == TYPE_TRUST)
+                    {
+
+                        ((CMobEntity*)PDefender)->PEnmityContainer->UpdateEnmityFromDamage(PAttacker, damage);
+                        //ShowWarning(CL_GREEN"Trust is attacking. - Damage is %u: \n" CL_RESET, damage);
+                    }
+                    else if (taChar == nullptr)
                         ((CMobEntity*)PDefender)->PEnmityContainer->UpdateEnmityFromDamage(PAttacker, damage);
                     else
                         ((CMobEntity*)PDefender)->PEnmityContainer->UpdateEnmityFromDamage(taChar, damage);
@@ -2073,7 +2093,7 @@ namespace battleutils
                 float sBlowMult = ((100.0f - std::clamp((float)PAttacker->getMod(Mod::SUBTLE_BLOW), 0.0f, 50.0f)) / 100.0f);
 
                 //mobs hit get basetp+30 whereas pcs hit get basetp/3
-                if (PDefender->objtype == TYPE_PC)
+                if (PDefender->objtype == TYPE_PC || PDefender->objtype == TYPE_TRUST)
                 {
                     PDefender->addTP((int16)(tpMultiplier * ((baseTp / 3) * sBlowMult * (1.0f + 0.01f * (float)((PDefender->getMod(Mod::STORETP) + getStoreTPbonusFromMerit(PAttacker))))))); //yup store tp counts on hits taken too!
                 }
@@ -4298,7 +4318,15 @@ namespace battleutils
         resist = std::max(resist, 0.f);
         damage = (int32)(damage * resist);
 
-        resist = 1.f + PDefender->getMod(Mod::DMGPHYS) / 100.f + PDefender->getMod(Mod::DMG) / 100.f;
+        if (PDefender->objtype == TYPE_PC && PDefender->StatusEffectContainer->HasStatusEffectByFlag(EFFECTFLAG_SONG)) // Set Con Anima on bard song up
+        {
+            resist = 1.f + PDefender->getMod(Mod::DMGPHYS) / 100.f + PDefender->getMod(Mod::DMG) / 100.f + PDefender->getMod(Mod::CON_ANIMA) / 100.f;
+        }
+        else
+        {
+            resist = 1.f + PDefender->getMod(Mod::DMGPHYS) / 100.f + PDefender->getMod(Mod::DMG) / 100.f;
+        }
+
         resist = std::max(resist, 0.5f); // PDT caps at -50%
         resist += PDefender->getMod(Mod::DMGPHYS_II) / 100.f; // Add Burtgang reduction after 50% cap. Extends cap to -68%
         damage = (int32)(damage * resist);
