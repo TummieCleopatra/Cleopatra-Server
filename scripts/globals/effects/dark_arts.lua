@@ -5,7 +5,9 @@
 -----------------------------------
 
 function onEffectGain(target,effect)
-    target:recalculateAbilitiesTable()
+    if (target:getObjType() == dsp.objType.PC) then
+        target:recalculateAbilitiesTable()
+    end
     local bonus = effect:getPower()
     local helix = effect:getSubPower()
 
@@ -23,14 +25,18 @@ function onEffectGain(target,effect)
         target:addMod(dsp.mod.HELIX_EFFECT, helix)
         target:addMod(dsp.mod.HELIX_DURATION, 72)
     end
-    target:recalculateSkillsTable()
+    if (target:getObjType() == dsp.objType.PC) then
+        target:recalculateSkillsTable()
+    end
 end
 
 function onEffectTick(target,effect)
 end
 
 function onEffectLose(target,effect)
-    target:recalculateAbilitiesTable()
+    if (target:getObjType() == dsp.objType.PC) then
+        target:recalculateAbilitiesTable()
+    end
     local bonus = effect:getPower()
     local helix = effect:getSubPower()
 
@@ -48,5 +54,8 @@ function onEffectLose(target,effect)
         target:delMod(dsp.mod.HELIX_EFFECT, helix)
         target:delMod(dsp.mod.HELIX_DURATION, 72)
     end
-    target:recalculateSkillsTable()
+
+    if (target:getObjType() == dsp.objType.PC) then
+        target:recalculateSkillsTable()
+    end
 end
