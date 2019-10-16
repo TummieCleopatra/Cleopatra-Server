@@ -130,12 +130,12 @@ function onTrigger(player,npc)
         player:PrintToPlayer(string.format("Kupipi : Hello %s.  My current Subjob is Red Mage.", player:getName()),0x0D);
     end
 
-    if (player:getNation() == 0) and (player:hasKeyItem(dsp.ki.RED_INSTITUTE_CARD)) and (player:hasSpell(898) == false) and (player:hasCompletedMission(SANDORIA,SAVE_THE_CHILDREN) == true) then  -- Sandy Nation and mission 2-3 completed
+    if (player:getNation() == 0) and (player:hasKeyItem(dsp.ki.RED_INSTITUTE_CARD)) and (player:hasSpell(898) == false) and (player:hasCompletedMission(SANDORIA,dsp.mission.id.sandoria.SAVE_THE_CHILDREN) == true) then  -- Sandy Nation and mission 2-3 completed
 	    player:PrintToPlayer("Your Red Institute Card flashes brilliantly!", 0x1C);
         player:PrintToPlayer("Kupipi : Ah a Red Institute Card.  From now on, you can summon me to help you with your battles", 0xD);
         player:addSpell(898);
 	    player:PrintToPlayer("You are now able to summon the trust Kupipi!", 0x15);
-    elseif (player:getNation() == 1) and (player:hasKeyItem(dsp.ki.BLUE_INSTITUTE_CARD)) and (player:hasSpell(898) == false) and (player:hasCompletedMission(BASTOK,FETICHISM) == true) then  -- Bastok Nation and mission 2-3 completed
+    elseif (player:getNation() == 1) and (player:hasKeyItem(dsp.ki.BLUE_INSTITUTE_CARD)) and (player:hasSpell(898) == false) and (player:hasCompletedMission(BASTOK,dsp.mission.id.bastok.FETICHISM) == true) then  -- Bastok Nation and mission 2-3 completed
 	    player:PrintToPlayer("Your Blue Institute Card flashes brilliantly!", 0x1C);
         player:PrintToPlayer("Kupipi : Ah a Red Institute Card.  From now on, you can summon me to help you with your battles", 0xD);
         player:addSpell(898);
