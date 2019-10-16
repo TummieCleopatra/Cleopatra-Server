@@ -69,6 +69,9 @@ enum PETID
     PETID_PHEONIX            = 80,
     PETID_BAHAMUT            = 81,
     PETID_CURILLA            = 87,
+    PETID_DARC               = 98,
+    PETID_DARC_W             = 99,
+    PETID_DARC_N             = 100,
     PETID_ULMIA              = 103
     // Todo: change how this works so trusts don't need PetID at all..
 };
