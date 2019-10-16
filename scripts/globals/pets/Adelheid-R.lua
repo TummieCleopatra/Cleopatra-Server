@@ -1,7 +1,7 @@
 -------------------------------------------------
 --  Trust: Adelheid
 --  Magic: Cure I-VI, Protect/ra I-IV Shell/ra I-IV
---    -na Spells, Slow, Paralyze, Erase, Flash
+--
 --  JA: None
 --  WS: Starlight, Moonlight
 --  Source: http://bg-wiki.com/bg/Category:Trust
@@ -22,7 +22,7 @@ function onMobSpawn(mob)
     local mbCooldown = 5
     local skill = 0
     local angle = 85
-
+    adelheidTrustPoints(mob)
     local lvl = mob:getMainLvl()
     if (lvl < 61) then
         skill = (lvl * 0.75) + (lvl * 2)
@@ -108,7 +108,10 @@ function onMobSpawn(mob)
         local battletime = os.time()
         local subTime = mob:getLocalVar("subTime")
         local lvl = mob:getMainLvl()
-        if (battletime > subTime + subCooldown and lvl >= 25) then
+        local mpp = (mob:getMP() / mob:getMaxMP()) * 100
+        if (battletime > subTime + subCooldown and lvl >= 25 and mob:hasStatusEffect(dsp.effect.SUBLIMATION_COMPLETE) and mpp < 20) then
+            doSublimation(mob)
+        elseif (battletime > subTime + subCooldown and lvl >= 25 and mob:hasStatusEffect(dsp.effect.SUBLIMATION_ACTIVATED) == false and mob:hasStatusEffect(dsp.effect.SUBLIMATION_COMPLETE) == false) then
             doSublimation(mob)
         end
     end)
@@ -128,7 +131,7 @@ function onMobSpawn(mob)
 
 --[[
     mob:addListener("COMBAT_TICK", "COMBAT_TICK", function(mob, target)
-        if (mob:getTP() > 1000) then
+        if (mob:getTP() >= 1000) then
             weaponskill = doKupipiWeaponskill(mob)
             mob:useMobAbility(weaponskill, mob)
         end
@@ -270,6 +273,12 @@ function doNuke(mob,player,target)
         if not mob:hasStatusEffect(dsp.effect.DARK_ARTS) then
             mob:useJobAbility(196, mob)
         end
+
+        -- Addendum: Black
+        if (spell == 147 or spell == 152 or spell == 157 or spell == 162 or spell == 167 or spell == 172) then
+            mob:useJobAbility(219, mob)
+        end
+
         mob:castSpell(spell)
         -- TODO: Add Bind so she won't move for spellcast
         if (spell == 0) then
