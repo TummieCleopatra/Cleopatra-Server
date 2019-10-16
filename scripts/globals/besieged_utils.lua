@@ -54,16 +54,17 @@ function besiegedCheck(zone)
 
     -- Start Besieged
     -- Mamool Check
-    if (mamool == 2) then  -- Mamool always goes first if there is a tie
+    -- if (mamool == 2) then  -- Mamool always goes first if there is a tie
 
 
 
-    elseif (troll == 2 and mamool >= 10 and undead >= 10) then
+    -- elseif (troll == 2 and mamool >= 10 and undead >= 10) then
 
 
 
 
-    elseif (undead == 2 and troll >= 10 and mamool >= 10) then
+    -- elseif (undead == 2 and troll >= 10 and mamool >= 10) then
+    if (undead == 2) then
         -- SetServerVariable("[BESIEGED]Undead_Swarm_Start",0);
         SetServerVariable("[BESIEGED]Undead_Swarm_End",os.time() + 1800 + (60 * (3 * undeadLvl)));
         SetServerVariable("[BESIEGED]Undead_Swarm_Status",3);

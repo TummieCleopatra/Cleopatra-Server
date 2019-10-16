@@ -33,7 +33,7 @@ function onMobWeaponSkill(target, mob, skill)
     local dmgmod = 1.25
 
     if (mob:getName() == "Curilla") then
-        dmgmod = 7
+        dmgmod = 3
     end
     local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_CRIT_VARIES,1.1,1.2,1.3)
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,dsp.attackType.PHYSICAL,dsp.damageType.SLASHING,info.hitslanded)

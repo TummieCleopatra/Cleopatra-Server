@@ -22,7 +22,7 @@ function onMobWeaponSkill(target, mob, skill)
     local dmgmod = 2
 
     if (mob:getName() == "Curilla") then
-        dmgmod = 7
+        dmgmod = 3
     end
 
     local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_ACC_VARIES,1,2,3)

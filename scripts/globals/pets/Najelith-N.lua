@@ -15,7 +15,7 @@ function onMobSpawn(mob)
     local lvl = mob:getMainLvl()
     local hpp = mob:getHPP()
     local weaponskill = 0
-	local rangedAttackCooldown = 7
+	local rangedAttackCooldown = 11
 	local sharpShotCooldown = 300
     local barrageCooldown = 300
     local velocityShotCooldown = 300
