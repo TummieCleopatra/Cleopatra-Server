@@ -15,7 +15,7 @@ local ID = require("scripts/zones/Bibiki_Bay/IDs");
 function onTrade(player,npc,trade)
 
     local balance = 0;
-    local payment = 400000;
+    local payment = 60000;
     local pinfamy = player:getCurrency("infamy");
 
     if (player:getVar("WARHAWeapon") == 2 and trade:hasItemQty(18505,1)) then
@@ -290,7 +290,7 @@ function onTrigger(player,npc)
        (player:getVar("RNGHAFight") == 2) or (player:getVar("SAMHAFight") == 2) or (player:getVar("NINHAFight") == 2) or (player:getVar("DRGHAFight") == 2) or (player:getVar("SMNHAFight") == 2) or
        (player:getVar("BLUHAFight") == 2) or (player:getVar("CORHAFight") == 2) or (player:getVar("PUPHAFight") == 2) or (player:getVar("DNCHAFight") == 2) or (player:getVar("SCHHAFight") == 2) or
        (player:getVar("PLDHAFightShield") == 2)) then
-       player:PrintToPlayer("??? : Bring more power to me!!!  Four seals of the Gods and 400,000 Infamy!!", 0xD);
+       player:PrintToPlayer("??? : Bring more power to me!!!  Four seals of the Gods and 60,000 Infamy!!", 0xD);
     end
 
 end;

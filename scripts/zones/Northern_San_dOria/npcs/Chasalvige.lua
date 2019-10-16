@@ -12,7 +12,7 @@ require("scripts/globals/missions");
 
 function onTrade(player,npc,trade)
     local balance = 0;
-    local amount = 200000;
+    local amount = 30000;
     local job = player:getMainJob();
     local pinfamy = player:getCurrency("infamy");
     local mainlvl = player:getMainLvl();
@@ -32,7 +32,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
       end
     elseif ((job == 1) and (player:getVar("WARAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(18214,1))) then
-      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingots and 200,000 infamy donation to purify that Artifact Weapon.", 0xD);
+      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingots and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
 
     -- MNK Trade
@@ -49,7 +49,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
       end
     elseif ((job == 2) and (player:getVar("MNKAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(17478,1))) then
-      player:PrintToPlayer("Chasalvige : I will need 3x Oberon's Gold Ingots and 200,000 infamy donation to purify that Artifact Weapon.", 0xD);
+      player:PrintToPlayer("Chasalvige : I will need 3x Oberon's Gold Ingots and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
 
     -- WHM Trade
@@ -66,7 +66,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
       end
     elseif ((job == 3) and (player:getVar("WHMAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(17422,1))) then
-      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingots and 200,000 infamy donation to purify that Artifact Weapon.", 0xD);
+      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingots and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
 
     -- BLM Trade
@@ -83,7 +83,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
       end
     elseif ((job == 4) and (player:getVar("BLMAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(17572,1))) then
-      player:PrintToPlayer("Chasalvige : I will need 3x Feyweald Lumber and 200,000 infamy donation to purify that Artifact Weapon.", 0xD);
+      player:PrintToPlayer("Chasalvige : I will need 3x Feyweald Lumber and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
 
     -- RDM Trade
@@ -100,7 +100,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
       end
     elseif ((job == 5) and (player:getVar("RDMAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(16829,1))) then
-      player:PrintToPlayer("Chasalvige : I will need 3x Oberon's Gold Ingots and 200,000 infamy donation to purify that Artifact Weapon.", 0xD);
+      player:PrintToPlayer("Chasalvige : I will need 3x Oberon's Gold Ingots and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
 
     -- THF Trade
@@ -117,7 +117,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
       end
     elseif ((job == 6) and (player:getVar("THFAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(16764,1))) then
-      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingots and 200,000 infamy donation to purify that Artifact Weapon.", 0xD);
+      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingots and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
 
     -- PLD Trade
@@ -134,7 +134,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
       end
     elseif ((job == 7) and (player:getVar("PLDAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(17643,1))) then
-      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingots and 200,000 infamy donation to purify that Artifact Weapon.", 0xD);
+      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingots and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
 
     -- PLD Shield Trade
@@ -151,7 +151,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
       end
     elseif ((job == 7) and (player:getVar("PLDAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(17643,1))) then
-      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingots and 200,000 infamy donation to purify that Artifact Weapon.", 0xD);
+      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingots and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
 
 
@@ -170,7 +170,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
       end
     elseif ((job == 8) and (player:getVar("DRKAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(16798,1))) then
-      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingots and 200,000 infamy donation to purify that Artifact Weapon.", 0xD);
+      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingots and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
 
     -- BST Trade
@@ -187,7 +187,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
       end
     elseif ((job == 9) and (player:getVar("BSTAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(16680,1))) then
-      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingots and 200,000 infamy donation to purify that Artifact Weapon.", 0xD);
+      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingots and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
 
     -- BRD Trade
@@ -204,7 +204,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
       end
     elseif ((job == 10) and (player:getVar("BRDAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(16766,1))) then
-      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingots and 200,000 infamy donation to purify that Artifact Weapon.", 0xD);
+      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingots and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
 
     -- RNG Trade
@@ -221,7 +221,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
       end
     elseif ((job == 11) and (player:getVar("RNGAFweaponbow") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(17188,1))) then
-      player:PrintToPlayer("Chasalvige : I will need 3x Feyweald Lumber and 200,000 infamy donation to purify that Artifact Weapon.", 0xD);
+      player:PrintToPlayer("Chasalvige : I will need 3x Feyweald Lumber and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
 
     -- SAM Trade
@@ -238,7 +238,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
       end
     elseif ((job == 12) and (player:getVar("SAMAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(17812,1))) then
-      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingots and 200,000 infamy donation to purify that Artifact Weapon.", 0xD);
+      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingots and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
 
     -- NIN Trade
@@ -255,7 +255,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
       end
     elseif ((job == 13) and (player:getVar("NINAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(17771,1))) then
-      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingots and 200,000 infamy donation to purify that Artifact Weapon.", 0xD);
+      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingots and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
 
     -- DRG Trade
@@ -272,7 +272,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
       end
     elseif ((job == 14) and (player:getVar("DRGAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(16887,1))) then
-      player:PrintToPlayer("Chasalvige : I will need 3x Feyweald Lumber and 200,000 infamy donation to purify that Artifact Weapon.", 0xD);
+      player:PrintToPlayer("Chasalvige : I will need 3x Feyweald Lumber and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
 
     -- SMN Trade
@@ -289,7 +289,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
       end
     elseif ((job == 15) and (player:getVar("SMNAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(17597,1))) then
-      player:PrintToPlayer("Chasalvige : I will need 3x Feyweald Lumber and 200,000 infamy donation to purify that Artifact Weapon.", 0xD);
+      player:PrintToPlayer("Chasalvige : I will need 3x Feyweald Lumber and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
 
     -- BLU Trade
@@ -306,7 +306,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
       end
     elseif ((job == 16) and (player:getVar("BLUAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(17717,1))) then
-      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingot and 200,000 infamy donation to purify that Artifact Weapon.", 0xD);
+      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingot and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
 
     -- COR Trade
@@ -323,7 +323,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
       end
     elseif ((job == 17) and (player:getVar("CORAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(18702,1))) then
-      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingot and 200,000 infamy donation to purify that Artifact Weapon.", 0xD);
+      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel Ingot and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
 
 
@@ -341,7 +341,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
       end
     elseif ((job == 18) and (player:getVar("PUPAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(18353,1))) then
-      player:PrintToPlayer("Chasalvige : I will need 3x Oberon's Gold Ingot and 200,000 infamy donation to purify that Artifact Weapon.", 0xD);
+      player:PrintToPlayer("Chasalvige : I will need 3x Oberon's Gold Ingot and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
 
 
@@ -359,7 +359,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
       end
     elseif ((job == 19) and (player:getVar("DNCAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(17098,1))) then
-      player:PrintToPlayer("Chasalvige : I will need 3x Buggane Horns and 200,000 infamy donation to purify that Artifact Weapon.", 0xD);
+      player:PrintToPlayer("Chasalvige : I will need 3x Buggane Horns and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
 
     -- SCH Trade
@@ -376,7 +376,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
       end
     elseif ((job == 20) and (player:getVar("SCHAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(17098,1))) then
-      player:PrintToPlayer("Chasalvige : I will need 3x Feyewald Lumber and 200,000 infamy donation to purify that Artifact Weapon.", 0xD);
+      player:PrintToPlayer("Chasalvige : I will need 3x Feyewald Lumber and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
 end;
 

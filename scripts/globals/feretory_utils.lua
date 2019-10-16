@@ -16,7 +16,7 @@ function feretoryKills(mob, player)
 	local moblvl = mob:getMainLvl();
 	local infamycap = player:getVar("infamycap");
 	local infamymult = player:getVar("infamymult");
-	local newinfamymult = (infamymult / 10) + 1;
+	local newinfamymult = (infamymult / 100) + 1;
 
 
 	-------------------- Ferretory Quest #1 (Plantoid) -----------------------
@@ -236,6 +236,7 @@ function feretoryKills(mob, player)
 
 
     local infamypoints = math.floor(((lvldif + 25) * multiplier) * newinfamymult);
+    infamypoints = math.floor(infamypoints / 2)
     player:addCurrency("infamy",infamypoints);
     if (player:getCurrency("infamy") > infamycap) then
         player:setCurrency("infamy",infamycap);

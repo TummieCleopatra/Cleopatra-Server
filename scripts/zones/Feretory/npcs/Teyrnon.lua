@@ -3,17 +3,17 @@
 -- NPC: Aengus
 -- Checks for Feretory Perks
 -----------------------------------
-package.loaded["scripts/zones/Feretory/TextIDs"] = nil;
+
 -----------------------------------
 
-require("scripts/zones/Feretory/TextIDs");
+local ID = require("scripts/zones/Feretory/IDs");
 
 -----------------------------------
 -- onTrade Action
 -----------------------------------
 
 function onTrade(player,npc,trade)
-end; 
+end;
 
 -----------------------------------
 -- onTrigger Action
@@ -29,7 +29,7 @@ local meleeboonpower = player:getVar("FerretoryMeleeBoonPower");
 	if (curepotboon < 0) then
 		curepotboon = 0;
 	end
-	
+
 	local attboon = (meleeboonpower * 2) + 1;
 	local rattboon = (meleeboonpower * 2) + 1;
 	local accboon = (math.floor(meleeboonpower * 1.5));
@@ -42,7 +42,7 @@ local meleeboonpower = player:getVar("FerretoryMeleeBoonPower");
 player:PrintToPlayer("Teyrnon : The following Perks are active:",0xD);
 player:PrintToPlayer("Teyrnon : Magic Atk+"..mabboon.." Magic Acc.+"..maccboon.." Cure Potency+"..curepotboon.."% ", 0xD);
 player:PrintToPlayer("Teyrnon : Atk/R.Atk+"..attboon.." Acc/R.Acc+"..accboon.." Store TP+"..storetpboon..".", 0xD);
-	
+
 end;
 -----------------------------------
 -- onEventUpdate
