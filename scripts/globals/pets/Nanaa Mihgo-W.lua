@@ -16,7 +16,7 @@ function onMobSpawn(mob)
     local wsCooldown = 4
     local sneakAttackCooldown = 60
     mob:setLocalVar("sneakAttackCooldown",60)
-
+    nanaaTrustPoints(mob)
     mob:setLocalVar("distanceTime",0)
     mob:setLocalVar("saTime",0)
     mob:setLocalVar("wsTime",0)
@@ -47,7 +47,7 @@ function onMobSpawn(mob)
         local weaponSkillTime = mob:getLocalVar("wsTime")
         local enmity = enmityCalc(mob, player, target)
         if (lvl > 29) then
-            if ((mob:getTP() > 1000) and enmity ~= 0 and (battletime > saTime + sneakAttackCooldown) and (battletime > weaponSkillTime + wsCooldown)) then
+            if ((mob:getTP() >= 1000) and enmity ~= 0 and (battletime > saTime + sneakAttackCooldown) and (battletime > weaponSkillTime + wsCooldown)) then
                 printf("try weaponskill")
                 weaponskill = doNanaaWeaponskill(mob)
                 mob:useJobAbility(28)
@@ -56,7 +56,7 @@ function onMobSpawn(mob)
                 mob:setLocalVar("saTime",battletime)
             end
         else
-            if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown)) then
+            if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown)) then
                 local targ = mob:getTarget()
                 weaponskill = doNanaaWeaponskill(mob)
                 mob:useMobAbility(weaponskill)

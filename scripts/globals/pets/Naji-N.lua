@@ -11,7 +11,7 @@ require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
 
-    doNajiTrustPoints(mob)
+    najiTrustPoints(mob)
     doDualWield(mob)
     local weaponskill = 0
     local naji = mob:getID()

@@ -29,8 +29,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("sekkaType",0) -- 1: self sc, 2: Two Step with player close
     mob:setLocalVar("wsTime",0)
 
-
-
+    ayameTrustPoints(mob)
     mob:addListener("COMBAT_TICK", "AYAME_DISTANCE_TICK", function(mob, player, target)
         trustMeleeMove(mob, player, target, angle)
     end)
@@ -91,6 +90,7 @@ function onMobSpawn(mob)
         local battletime = os.time()
         local tp = mob:getTP()
         local canWS = weaponSkillEnmityCheck(mob, player, target)
+
         local weaponSkillTime = mob:getLocalVar("wsTime")
         if (tp >= 2000 and sekkaType == 1) then
             mob:setLocalVar("sekkaWS",1)
@@ -232,10 +232,12 @@ function doAyameSoloSC(mob, player)
     local finalWS = 0
     local element = player:getVar("SCProp1");
     local wsList = {}
-    if (element == 0) then
-        printf("No Elemental WS performed by player yet...pick random")
-        element = math.random(2,12)
+
+    print(element)
+    if (element == nil) then
+        element = 1
     end
+
 
     if (element == 2) then -- Compression - SSC Detonation REsult Grav
         wsList = {{60,150}, {1,144}}
@@ -248,15 +250,18 @@ function doAyameSoloSC(mob, player)
     elseif (element == 6) then -- Detonation - SSC IMpation result Detonation
         wsList = {{55,149}, {1,144}}
     elseif (element == 7) then -- Induration - SSC Reverb result Induration
-        wsList = {{55,149}, {1,144}} -- Default to Enpi if level isn't high enough
+        wsList = {{65,114,151},{55,144,149}} -- Default to Enpi if level isn't high enough
     elseif (element == 8) then -- Impaction - SSC Liquefication result Fusion
-        wsList = {{33,147}, {23,146}}
+        wsList = {{33,144,147}}
     elseif (element == 9) then -- Gravitation - SSC Fusion result Grav
-        wsList = {{70,152}, {65,151}}
+        wsList = {{70,151,152},{33,147,146}}
     elseif (element == 11) then -- Fusion - SSC Frag result Light*
         wsList = {{65,150,151},{60,150,149},{55,145,149}} -- Y:G, Y:Kok,Hob:Kok
     elseif (element == 12) then -- Fragmentation - SSC Fusion result Light
-        wsList = {{70,152}}
+        wsList = {{70,151,152},{33,147,146}}
+    else
+        wsList = {{65,150,151},{60,150,149},{55,145,149},{1,144,144}}
+        printf("No Elemental WS performed by player yet...Y:H Y:Kok, Hob:kok, Enpi:enpi")
     end
 
     if (sekkaType == 1) then
@@ -267,15 +272,18 @@ function doAyameSoloSC(mob, player)
                     mob:setLocalVar("sekkaWS",2)
                     mob:setLocalVar("scTimer",os.time())
                     printf("DEBUG: Ayame First WS Now!")
+                    break
                 end
             elseif (sekkaWS == 2) then
                 if (lvl >= scCombo[i][1]) then
                     finalWS = scCombo[i][3]
                     printf("DEBUG: Ayame Second WS Now!")
+                    break
                 end
             end
         end
     elseif (sekkaType == 2) then
+        printf("Group Skillchain with Player")
         for i = 1, #wsList do
             if (sekkaWS == 1) then
                 if (lvl >= wsList[i][1]) then
@@ -283,12 +291,14 @@ function doAyameSoloSC(mob, player)
                     mob:setLocalVar("sekkaWS",2)
                     mob:setLocalVar("scTimer",os.time())
                     printf("DEBUG: Ayame First WS Now: %u! \n", finalWS)
+                    break
                 end
             elseif (sekkaWS == 2) then
                 if (lvl >= wsList[i][1]) then
                     finalWS = wsList[i][3]
                     printf("DEBUG: Ayame Second WS Now: %u! \n", finalWS)
-                    end
+                    break
+                end
             end
         end
     end

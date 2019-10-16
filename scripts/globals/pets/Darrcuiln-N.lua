@@ -11,7 +11,7 @@ require("scripts/globals/pathfind")
 require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
-    doDarrcuilnTrustPoints(mob)
+    darcTrustPoints(mob)
     doDualWield(mob)
     mob:setLocalVar("caTime",0)
     mob:setLocalVar("wsTime",0)
@@ -24,7 +24,7 @@ function onMobSpawn(mob)
     local angle = getAngle(mob)
     local wsCooldown = 4
     local caCooldown = 120
-    local bluCastCooldown = 25
+    local bluCastCooldown = 35
     local bluBuffCooldown = 30
     local bluCureCooldown = 18
     local stunCooldown = 10

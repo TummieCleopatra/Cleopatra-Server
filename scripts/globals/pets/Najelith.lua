@@ -13,7 +13,7 @@ function onMobSpawn(mob)
     local lvl = mob:getMainLvl()
     local hpp = mob:getHPP()
     local weaponskill = 0
-	local rangedAttackCooldown = 9
+	local rangedAttackCooldown = 12
 	local sharpShotCooldown = 300
     local barrageCooldown = 300
     local velocityShotCooldown = 300
@@ -87,9 +87,9 @@ function onMobSpawn(mob)
 
 	mob:addListener("COMBAT_TICK", "NAJELITH_COMBAT_TICK", function(mob, player, target)
         local enmity = enmityCalc(mob, player, target)
+		local battletime = os.time()
         local weaponSkillTime = mob:getLocalVar("wsTime")
-        local battletime = os.time()
-	    if (mob:getTP() > 1000 and enmity >= 300 and (battletime > weaponSkillTime + wsCooldown)) then
+	    if (mob:getTP() >= 1000 and enmity >= 300 and (battletime > weaponSkillTime + wsCooldown)) then
 		    weaponskill = doNajelithWeaponskill(mob)
 			mob:useMobAbility(weaponskill)
 			mob:setLocalVar("wsTime",battletime)

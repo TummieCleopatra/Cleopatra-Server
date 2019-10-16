@@ -11,7 +11,7 @@ require("scripts/globals/pathfind")
 require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
-    doDarrcuilnTrustPoints(mob)
+    darcTrustPoints(mob)
     mob:setLocalVar("caTime",0)
     mob:setLocalVar("wsTime",0)
     mob:setLocalVar("caActive",0)
@@ -21,7 +21,7 @@ function onMobSpawn(mob)
     local angle = getAngle(mob)
     local wsCooldown = 4
     local caCooldown = 120
-    local bluCastCooldown = 25
+    local bluCastCooldown = 35
     local bluBuffCooldown = 30
     local bluCureCooldown = 18
     local berserkCooldown = 300
@@ -72,8 +72,13 @@ function onMobSpawn(mob)
         local caTime = mob:getLocalVar("caTime")
         local caActive = mob:getLocalVar("caActive")
         local caSpell = mob:getLocalVar("caSpell")
+        local darcLvl = mob:getMainLvl()
+        local targLvl = target:getMainLvl()
+        local hpp = target:getHPP()
+        local lvlDiff = targLvl - darcLvl
 
-        if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown) and caActive ~= 1) then
+
+        if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown) and caActive ~= 1 and lvlDiff <= 7 and hpp >= 25) then
             if (lvl >= 40 and (battletime > caTime + caCooldown)) then
                 mob:useJobAbility(78, mob)
                 weaponskill = doDarcullinCAWeaponskill(mob)

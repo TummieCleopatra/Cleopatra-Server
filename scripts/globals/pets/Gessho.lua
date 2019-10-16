@@ -39,7 +39,7 @@ function onMobSpawn(mob)
     mob:addListener("COMBAT_TICK", "GESSHO_COMBAT_TICK", function(mob)
         local battletime = os.time()
         local weaponSkillTime = mob:getLocalVar("wsTime")
-        if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown)) then
+        if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown)) then
             local targ = mob:getTarget()
             weaponskill = doWeaponskill(mob)
             mob:useMobAbility(weaponskill)

@@ -26,7 +26,7 @@ function onMobSpawn(mob)
 	mob:setLocalVar("superJumpTime",0)
 
 
-
+    excenmilleTrustPoints(mob)
 
 	mob:addListener("COMBAT_TICK", "EXCENMILLE_JUMP_TICK", function(mob, player, target)
 	    local battletime = os.time()
@@ -72,6 +72,7 @@ function onMobSpawn(mob)
 		    weaponskill = doExcenmilleWeaponskill(mob)
 			mob:useMobAbility(weaponskill)
             mob:setLocalVar("wsTime",battletime)
+            mob:updateHealth()
 		end
 	end)
 

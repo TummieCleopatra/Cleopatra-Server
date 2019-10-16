@@ -27,9 +27,9 @@ function onMobSpawn(mob)
 	mob:setLocalVar("superJumpTime",0)
     mob:setLocalVar("berserkTime",0)
 
+    excenmilleTrustPoints(mob)
 
-
-	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_JUMP_TICK" .. excenmille, function(mob, player, target)
+	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_JUMP_TICK", function(mob, player, target)
 	    local battletime = os.time()
 		local jumpTime = mob:getLocalVar("jumpTime")
 
@@ -41,7 +41,7 @@ function onMobSpawn(mob)
         end
 	end)
 
-	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_HIGH_JUMP_TICK" .. excenmille, function(mob, player, target)
+	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_HIGH_JUMP_TICK", function(mob, player, target)
 	    local battletime = os.time()
 		local highJumpTime = mob:getLocalVar("highJumpTime")
 
@@ -53,7 +53,7 @@ function onMobSpawn(mob)
         end
 	end)
 
-	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_SUPER_JUMP_TICK" .. excenmille, function(mob, player, target)
+	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_SUPER_JUMP_TICK", function(mob, player, target)
 	    local battletime = os.time()
 		local superJumpTime = mob:getLocalVar("superJumpTime")
 
@@ -82,13 +82,14 @@ function onMobSpawn(mob)
 		    weaponskill = doExcenmilleWeaponskill(mob)
 			mob:useMobAbility(weaponskill)
             mob:setLocalVar("wsTime",battletime)
+            mob:updateHealth()
 		end
 	end)
 
 end
 
 function doExcenmilleWeaponskill(mob)
-    local wsList = {{65,119}, {60,118}, {117}, {49,116}, {40,115}, {1,112}}
+    local wsList = {{65,119}, {60,118}, {49,116}, {40,115}, {1,112}}
     local newWsList = {}
 	local maxws = 3 -- Maximum number of weaponskills to choose from randomly
 	local wscount = 0

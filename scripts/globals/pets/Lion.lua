@@ -11,7 +11,7 @@ require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
 
-    -- doNajiTrustPoints(mob)
+    lionTrustPoints(mob)
     local weaponskill = 0
     local lvl = mob:getMainLvl()
     local angle = getAngle(mob)
@@ -25,7 +25,7 @@ function onMobSpawn(mob)
     mob:addListener("COMBAT_TICK", "LION_COMBAT_TICK", function(mob, player, target)
 	    local battletime = os.time()
         local weaponSkillTime = mob:getLocalVar("wsTime")
-        if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown)) then
+        if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown)) then
             local zeid = isZeidInParty(mob, player, target)
             local prishe = isPrisheInParty(mob, player, target)
             if (zeid == 1 and lvl >= 65) then

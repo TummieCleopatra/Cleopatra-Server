@@ -91,7 +91,7 @@ function onMobSpawn(mob)
 
         local battletime = os.time()
         local weaponSkillTime = mob:getLocalVar("wsTime")
-        if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown)) then
+        if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown)) then
             weaponskill = doMihliWeaponskill(mob)
             mob:useMobAbility(weaponskill, target)
             mob:setLocalVar("wsTime",battletime)

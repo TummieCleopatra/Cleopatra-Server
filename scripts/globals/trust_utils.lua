@@ -18,12 +18,27 @@ function curillaTrustPoints(mob)
 
 end
 
+function excenmilleTrustPoints(mob)
+    local player = mob:getMaster()
+	local att = player:getVar("TrustAtt_Excen");
+	local acc = player:getVar("TrustAcc_Excen");
+	    -- int32 jumpExcen = charutils::GetVar(PChar, "TrustJump_Excen");
+	local enm = player:getVar("TrustEnm_Excen");
+	    -- int32 trait1Excen = charutils::GetVar(PChar, "TrustJA_Excen");
+
+    mob:addMod(dsp.mod.ATT, att)
+    mob:addMod(dsp.mod.ACC, acc)
+
+    mob:addMod(dsp.mod.ENMITY, -enm)
+
+end
+
 function ayameTrustPoints(mob)
     local player = mob:getMaster()
     local att = player:getVar("TrustAtt_Ayame");
-	local att = player:getVar("TrustAcc_Ayame");
-	local att = player:getVar("TrustSTP_Ayame");
-	local att = player:getVar("TrustZan_Ayame");
+	local acc = player:getVar("TrustAcc_Ayame");
+	local stp = player:getVar("TrustSTP_Ayame");
+	local zan = player:getVar("TrustZan_Ayame");
 	    -- int32 trait1Aya = charutils::GetVar(PChar, "TrustJA_Ayame");     // Script Meditate + 20
 
     mob:addMod(dsp.mod.ATT, att)
@@ -87,7 +102,7 @@ function lionTrustPoints(mob)
     mob:addMod(dsp.mod.ACC, acc)
     mob:addMod(dsp.mod.AGI, agi)
     mob:addMod(dsp.mod.TRIPLE_ATTACK,ta)
-    mob:addMOd(dsp.mod.TREASURE_HUNTER, th)
+    mob:addMod(dsp.mod.TREASURE_HUNTER, th)
 
 end
 
@@ -100,7 +115,7 @@ function adelheidTrustPoints(mob)
 
     mob:addMod(dsp.mod.MATT, matt)
     mob:addMod(dsp.mod.MACC, macc)
-    mob:addMod(dsp.mod.MP, MP)
+    mob:addMod(dsp.mod.MP, mp)
    -- mob:addMod(dsp.mod.ZANSHIN,zan)
 
 end
@@ -404,7 +419,7 @@ function doRangedAttack(target, mob, numhits, dmg)
     if (mob:getSubJob() == dsp.job.SAM) then
         if (dmg > 0) then
             target:addTP(20 * numhits)
-            mob:addTP(175 * numhits)
+            mob:addTP(245 * numhits)
             if (mob:hasStatsEffect(dsp.effect.BARRAGE)) then
                 mob:delStatusEffect(dsp.effect.BARRAGE)
             end
@@ -412,7 +427,7 @@ function doRangedAttack(target, mob, numhits, dmg)
     else
         if (dmg > 0) then
             target:addTP(20 * numhits)
-            mob:addTP(150 * numhits)
+            mob:addTP(200 * numhits)
             if (mob:hasStatusEffect(dsp.effect.BARRAGE)) then
                 mob:delStatusEffect(dsp.effect.BARRAGE)
             end
@@ -679,7 +694,7 @@ function doDualWield(mob)
         if (job == 1) then  -- This is to make the main hand swing twice for normal dual wield and three times for DA on "offhand"
             mob:setMod(dsp.mod.MYTHIC_OCC_ATT_TWICE,90)
             mob:setMod(dsp.mod.MYTHIC_OCC_ATT_THRICE,10)
-        elseif (job == 6 and level > 54) then  -- This is to make the main hand swing twice for normal dual wield and four times for DA on "offhand" Triple Attack
+        elseif (job == 6 and lvl > 54) then  -- This is to make the main hand swing twice for normal dual wield and four times for DA on "offhand" Triple Attack
             mob:setMod(dsp.mod.MYTHIC_OCC_ATT_TWICE,95)
             mob:setMod(dsp.mod.QUAD_ATTACK,5) -- Triple attack on one swing, regular attack on dual wield offhand
         else

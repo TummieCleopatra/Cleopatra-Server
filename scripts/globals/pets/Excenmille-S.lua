@@ -20,7 +20,7 @@ function onMobSpawn(mob)
     local hassoCooldown = 60
     local seiganCooldown = 60
     local thirdEyeCooldown = 30
-
+    excenmilleTrustPoints(mob)
 	local master = mob:getMaster()
 	local excenmille = mob:getID()
     local angle = getAngle(mob)
@@ -122,7 +122,7 @@ function onMobSpawn(mob)
 	    trustMeleeMove(mob, player, target, angle)
 	    local battletime = os.time()
         local weaponSkillTime = mob:getLocalVar("wsTime")
-        if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown)) then
+        if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown)) then
 		    weaponskill = doExcenmilleWeaponskill(mob)
 			mob:useMobAbility(weaponskill)
             mob:setLocalVar("wsTime",battletime)

@@ -7,11 +7,11 @@
 -------------------------------------------------
 require("scripts/globals/status")
 require("scripts/globals/msg")
-require("scripts/globals/trustpoints")
+require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
 
-    doNajiTrustPoints(mob)
+    najiTrustPoints(mob)
     local weaponskill = 0
     local naji = mob:getID()
     local lvl = mob:getMainLvl()
@@ -30,7 +30,7 @@ function onMobSpawn(mob)
 	    local battletime = os.time()
         local weaponSkillTime = mob:getLocalVar("wsTime")
         trustMeleeMove(mob, player, target, angle)
-        if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown)) then
+        if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown)) then
             local targ = mob:getTarget()
             weaponskill = doWeaponskill(mob)
             mob:useMobAbility(weaponskill)

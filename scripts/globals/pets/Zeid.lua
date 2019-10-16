@@ -22,7 +22,7 @@ function onMobSpawn(mob)
     local thirdEyeCooldown = 30
     local drainCooldown = 60
     local angle = getAngle(mob)
-
+    zeidTrustPoints(mob)
 	local master = mob:getMaster()
 	local ZEID = mob:getID()
     local wsCooldown = 4
@@ -70,7 +70,7 @@ function onMobSpawn(mob)
 	mob:addListener("COMBAT_TICK", "ZEID_COMBAT_TICK", function(mob, player, target)
         local battletime = os.time()
         local weaponSkillTime = mob:getLocalVar("wsTime")
-	    if (mob:getTP() > 1000) then
+	    if (mob:getTP() >= 1000) then
             local lion = isLionInParty(mob, player, target)
             if (lion == 1 and lvl >= 65) then
                 local battletime = os.time()

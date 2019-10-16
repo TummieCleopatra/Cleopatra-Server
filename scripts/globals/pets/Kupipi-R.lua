@@ -11,10 +11,10 @@
 -------------------------------------------------
 require("scripts/globals/status")
 require("scripts/globals/msg")
-require("scripts/globals/trustpoints")
+require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
-    doKupipiTrustPoints(mob)
+    kupipiTrustPoints(mob)
     local weaponskill = 0
     local cureCooldown = 14
     local debuffCooldown = 10
@@ -122,7 +122,7 @@ function onMobSpawn(mob)
 
         local battletime = os.time()
         local weaponSkillTime = mob:getLocalVar("wsTime")
-        if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown)) then
+        if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown)) then
             weaponskill = doKupipiWeaponskill(mob)
             mob:useMobAbility(weaponskill, target)
             mob:setLocalVar("wsTime",battletime)
@@ -329,4 +329,11 @@ function doEmergencyCureKupipi(mob)
     end
 
     return cure
+end
+
+function doHasteKupipi(mob)
+
+
+    return 0
+
 end

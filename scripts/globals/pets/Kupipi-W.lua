@@ -11,6 +11,7 @@ require("scripts/globals/msg")
 require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
+    kupipiTrustPoints(mob)
     local weaponskill = 0
     local cureCooldown = 22
     local debuffCooldown = 10
@@ -19,7 +20,7 @@ function onMobSpawn(mob)
     local hasteCooldown = 220
     local master = mob:getMaster()
     local kupipi = mob:getID()
-    local angle = 115
+    local angle = getAngle(mob)
     local wsCooldown = 4
     local berserkCooldown = 300
     mob:setLocalVar("wsTime",0)
@@ -104,7 +105,7 @@ function onMobSpawn(mob)
         trustMeleeMove(mob, player, target, angle)
         local battletime = os.time()
         local weaponSkillTime = mob:getLocalVar("wsTime")
-        if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown)) then
+        if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown)) then
             weaponskill = doKupipiWeaponskill(mob)
             mob:useMobAbility(weaponskill, target)
             mob:setLocalVar("wsTime",battletime)

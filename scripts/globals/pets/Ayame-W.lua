@@ -29,7 +29,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("sekkaType",0) -- 1: self sc, 2: Two Step with player close
     mob:setLocalVar("berserkTime",0)
     mob:setLocalVar("wsTime",0)
-
+    ayameTrustPoints(mob)
 
     mob:addListener("COMBAT_TICK", "AYAME_DISTANCE_TICK", function(mob, player, target)
         trustMeleeMove(mob, player, target, angle)
@@ -47,14 +47,14 @@ function onMobSpawn(mob)
         local meditateTime = mob:getLocalVar("meditateTime")
         local meditateCooldown = mob:getLocalVar("meditateCooldown")
         if (lvl >= 40) then
-            if ((battletime > sekkaTime + sekkaCooldown) and (mob:getTP() > 800 and player:getTP() >= 900) and (target:getHPP() > 50 and target:getHPP() <= 100) and (battletime > meditateTime + meditateCooldown)) then
+            if ((battletime > sekkaTime + sekkaCooldown) and (mob:getTP() >= 800 and player:getTP() >= 900) and (target:getHPP() > 50 and target:getHPP() <= 100) and (battletime > meditateTime + meditateCooldown)) then
                 printf("Do Sekka Type 2 GROUP PARTICIPATION!!")
                 mob:useJobAbility(214, mob)
                 mob:useJobAbility(47, mob)
                 mob:setLocalVar("sekkaTime",battletime)
                 mob:setLocalVar("meditateTime",battletime)
                 mob:setLocalVar("sekkaType",2)
-            elseif ((battletime > sekkaTime + sekkaCooldown) and (mob:getTP() > 800 and player:getTP() < 300) and (target:getHPP() > 40 and target:getHPP() <= 100) and (battletime > meditateTime + meditateCooldown)) then
+            elseif ((battletime > sekkaTime + sekkaCooldown) and (mob:getTP() >= 800 and player:getTP() < 300) and (target:getHPP() > 40 and target:getHPP() <= 100) and (battletime > meditateTime + meditateCooldown)) then
                 printf("Do Sekka TYpe 1 SOLO ROUND!!")
                 mob:useJobAbility(214, mob)
                 mob:useJobAbility(47, mob)

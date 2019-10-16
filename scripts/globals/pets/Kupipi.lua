@@ -11,7 +11,7 @@ require("scripts/globals/msg")
 require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
-    doKupipiTrustPoints(mob)
+    kupipiTrustPoints(mob)
     mob:addMod(dsp.mod.ATTP, - 30)
     local weaponskill = 0
     local cureCooldown = 16
@@ -95,7 +95,7 @@ function onMobSpawn(mob)
         local weaponSkillTime = mob:getLocalVar("wsTime")
         if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown)) then
             weaponskill = doKupipiWeaponskill(mob)
-            mob:useMobAbility(weaponskill, target)
+            mob:useMobAbility(weaponskill, mob)
             mob:setLocalVar("wsTime",battletime)
         end
     end)

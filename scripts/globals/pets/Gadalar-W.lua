@@ -26,7 +26,7 @@ function onMobSpawn(mob)
         trustMeleeMove(mob, player, target, angle)
 	    local battletime = os.time()
         local weaponSkillTime = mob:getLocalVar("wsTime")
-        if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown)) then
+        if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown)) then
 		    weaponskill = doGadalarWeaponskill(mob)
 			mob:useMobAbility(weaponskill)
             mob:setLocalVar("wsTime",battletime)

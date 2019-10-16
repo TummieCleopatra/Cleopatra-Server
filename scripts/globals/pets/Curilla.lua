@@ -11,7 +11,7 @@ require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
     mob:addMod(dsp.mod.CURE_POTENCY,38)
-    doCurillaTrustPoints(mob)
+    curillaTrustPoints(mob)
     local weaponskill = 0
     local cureCooldown = 23
     local provokeCooldown = 30
@@ -22,6 +22,7 @@ function onMobSpawn(mob)
     local MaxHP = mob:getHP()
     local bonus = math.floor((lvl * 4) + (lvl / 2))
     mob:addMod(dsp.mod.HP,bonus)
+
 
     mob:addMod(dsp.mod.DEF, lvl * 3)
     mob:addMod(dsp.mod.ENMITY, enmity)
@@ -40,9 +41,22 @@ function onMobSpawn(mob)
     mob:setLocalVar("chivalryCooldown",600)
     mob:setLocalVar("reprisalCooldown",180)
 
+    --[[
+    mob:addListener("ROAM_TICK", "CUR_ROAM_TICK", function(mob)
+        if (mob:hasStatusEffect(dsp.effect.HEALING) == false) then
+            local level = mob:getMainLvl()
+            local tick = 10 - math.ceil(math.max(0, level / 20))
+            mob:addStatusEffectEx(dsp.effect.HEALING, 0, 0, tick, 0)
+        end
+    end)]]-- TODO: Make core changes to allow this to happen
 
     mob:addListener("COMBAT_TICK", "DISTANCE_TICK", function(mob, player, target)
+        -- if (mob:hasStatusEffect(dsp.effect.HEALING)) then
+        --    mob:delStatusEffect(dsp.effect.HEALING)
+        -- end
+
         trustTankMove(mob, player, target)
+        debugEnmity(mob, player, target)
     end)
 
     mob:addListener("COMBAT_TICK", "PROVOKE_TICK", function(mob, player, target)
@@ -61,6 +75,7 @@ function onMobSpawn(mob)
             weaponskill = doCurillaWeaponskill(mob)
             mob:useMobAbility(weaponskill)
             mob:setLocalVar("wsTime",battletime)
+            mob:updateHealth() -- used to prevent TP from holding?
         end
     end)
 
