@@ -101,7 +101,6 @@ void CTargetFind::findWithinArea(CBattleEntity* PTarget, AOERADIUS radiusType, f
 
     if (isPlayer){
         // handle this as a player
-
         if (m_PMasterTarget->objtype == TYPE_PC)
         {
 
@@ -114,11 +113,13 @@ void CTargetFind::findWithinArea(CBattleEntity* PTarget, AOERADIUS radiusType, f
                 if ((m_findFlags & FINDFLAGS_ALLIANCE) && m_PMasterTarget->PParty->m_PAlliance != nullptr)
                 {
                     addAllInAlliance(m_PMasterTarget, withPet);
+                    //ShowWarning(CL_RED"Add All in Alliance \n" CL_RESET);
                 }
                 else
                 {
                     // add party members
                     addAllInParty(m_PMasterTarget, withPet);
+                    //ShowWarning(CL_RED"Add party to AoE mob casting \n" CL_RESET);
                 }
             }
             else {
@@ -139,9 +140,14 @@ void CTargetFind::findWithinArea(CBattleEntity* PTarget, AOERADIUS radiusType, f
 
         if (m_PMasterTarget->objtype == TYPE_PC || m_PBattleEntity->allegiance == ALLEGIANCE_PLAYER){
             m_findType = FIND_MONSTER_PLAYER;
+
+
+            //addAllInParty(m_PMasterTarget, withPet);
         }
         else {
             m_findType = FIND_MONSTER_MONSTER;
+
+
         }
 
         // do not include pets in monster AoE buffs
@@ -165,7 +171,8 @@ void CTargetFind::findWithinArea(CBattleEntity* PTarget, AOERADIUS radiusType, f
                 if (m_PBattleEntity->allegiance == ALLEGIANCE_PLAYER)
                     addAllInZone(m_PMasterTarget, withPet);
                 else
-                    addAllInEnmityList();
+                    addAllInZone(m_PMasterTarget, withPet);
+                   // addAllInEnmityList();
             }
         }
     }
@@ -294,6 +301,7 @@ void CTargetFind::addAllInAlliance(CBattleEntity* PTarget, bool withPet)
 
 void CTargetFind::addAllInParty(CBattleEntity* PTarget, bool withPet)
 {
+    ShowWarning(CL_RED"TRY TO ADD TO PARTY FOR %s!!! \n" CL_RESET, PTarget->GetName());
 
     PTarget->ForParty([this, withPet](CBattleEntity* PMember)
     {
@@ -305,20 +313,19 @@ void CTargetFind::addAllInParty(CBattleEntity* PTarget, bool withPet)
                 CCharEntity* PMaster = (CCharEntity*)PChar->PMaster;
                 for (CTrustEntity* trust : PMaster->PTrusts)
                 {
-
                     CBattleEntity* PTrustID = (CBattleEntity*)trust;
                     uint16 memberID = PTrustID->id;
                     if (memberID != m_originalTarget)
                     {
                         addEntity((CBattleEntity*)trust, withPet);
                     }
-
-
                 }
             }
             else if (PChar->PTrusts.size() != 0) {
+                    ShowWarning(CL_YELLOW"Player Target size is not 0" CL_RESET);
                 for (CTrustEntity* trust : PChar->PTrusts)
                 {
+                    ShowWarning(CL_CYAN"TRYING TO ADD MEMBER!!!!!!!!!!!" CL_RESET);
                     addEntity((CBattleEntity*)trust, withPet);
                 }
             }
