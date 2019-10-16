@@ -25,7 +25,7 @@ function onMobWeaponSkill(target, mob, skill)
             numhits = doBarrage(target, mob)
         end
 
-        dmgmod = 1.0
+        dmgmod = 2.5
     else
         dmgmod = 1.5
     end
