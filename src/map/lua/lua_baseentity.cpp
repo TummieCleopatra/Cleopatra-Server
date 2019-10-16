@@ -8576,9 +8576,38 @@ inline int32 CLuaBaseEntity::getPartySize(lua_State* L)
     if (((CBattleEntity*)m_PBaseEntity)->PParty != nullptr)
     {
         if (allianceparty == 0)
-            partysize = (uint8)((CBattleEntity*)m_PBaseEntity)->PParty->members.size();
+        {
+
+            CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
+            if (PChar->PTrusts.size() > 0)
+            {
+                //uint8 trustSize = (uint8)PChar->PTrusts.size();
+                //ShowWarning(CL_GREEN"Trust size is %u" CL_RESET, trustSize);
+                partysize = (uint8)((CBattleEntity*)m_PBaseEntity)->PParty->members.size() + (uint8)PChar->PTrusts.size();
+            }
+            else
+            {
+                partysize = (uint8)((CBattleEntity*)m_PBaseEntity)->PParty->members.size();
+            }
+        }
         else if (((CBattleEntity*)m_PBaseEntity)->PParty->m_PAlliance != nullptr)
-            partysize = (uint8)((CBattleEntity*)m_PBaseEntity)->PParty->m_PAlliance->partyList.at(allianceparty)->members.size();
+        {
+            CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
+            if (PChar->PTrusts.size() > 0)
+            {
+                uint8 trustSize = (uint8)PChar->PTrusts.size();
+                //ShowWarning(CL_GREEN"Trust size is %u" CL_RESET, trustSize);
+
+                partysize = (uint8)((CBattleEntity*)m_PBaseEntity)->PParty->m_PAlliance->partyList.at(allianceparty)->members.size();
+                //ShowWarning(CL_CYAN"Party size is %u" CL_RESET, partysize);
+                partysize += trustSize;
+                //ShowWarning(CL_RED"New size is %u" CL_RESET, partysize);
+            }
+            else
+            {
+                partysize = (uint8)((CBattleEntity*)m_PBaseEntity)->PParty->m_PAlliance->partyList.at(allianceparty)->members.size();
+            }
+        }
     }
 
     lua_pushnumber(L, partysize);
