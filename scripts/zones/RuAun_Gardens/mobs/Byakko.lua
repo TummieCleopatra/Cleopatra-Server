@@ -1,6 +1,6 @@
 -----------------------------------
 -- Area: Ru'Aun Gardens
---  NPC: Byakko 
+--  NPC: Byakko
 -----------------------------------
 
 local ID = require("scripts/zones/RuAun_Gardens/IDs");
@@ -30,14 +30,14 @@ end;
 
 function onAdditionalEffect(mob, target, damage)
     local size = mob:getLocalVar("PartySize");
-	
+
 	local dmg = math.random(size*5,size*9);
-	
+
 		-- local dmg = math.random(35,50);
     local params = {};
     params.bonusmab = 0;
     params.includemab = false;
-    
+
     dmg = addBonusesAbility(mob, dsp.magic.ele.LIGHT, target, dmg, params);
     dmg = dmg * applyResistanceAddEffect(mob,target,dsp.magic.ele.LIGHT,0);
     dmg = adjustForTarget(target,dmg,dsp.magic.ele.LIGHT);
@@ -48,10 +48,10 @@ end;
 
 
 function onMobFight(mob,target)
-    local size = target:getPartySize();
-    -- printf("Total Size: %s",size);	
-    mobScaler(mob,target);
-	
+    local size = target:getPartySize(0);
+    -- printf("Total Size: %s",size);
+    mobScaler(mob,target)
+
 	local att = mob:getStat(dsp.mod.ATT);
 	local def = mob:getStat(dsp.mod.DEF);
 	local eva = mob:getStat(dsp.mod.EVA);
@@ -71,7 +71,7 @@ function onMobDeath(mob, player, isKiller)
     player:showText(mob,ID.text.SKY_GOD_OFFSET + 12);
     player:setVar("Byakko_Win",1);
 	player:addCurrency('jetton',225);
-	player:PrintToPlayer("You obtain 225 Jettons.", 0x15);		
+	player:PrintToPlayer("You obtain 225 Jettons.", 0x15);
 end;
 
 -----------------------------------
