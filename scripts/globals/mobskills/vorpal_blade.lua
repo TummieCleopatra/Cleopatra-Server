@@ -20,6 +20,9 @@ function onMobSkillCheck(target,mob,skill)
         mob:messageBasic(dsp.msg.basic.READIES_WS, 0, 40)
     end
 
+    local gettp = mob:getTP()
+        printf("Get TP is %u", gettp)
+
     return 0
 end
 
@@ -28,17 +31,37 @@ function onMobWeaponSkill(target, mob, skill)
         target:showText(mob,zones[dsp.zone.THRONE_ROOM].text.BLADE_ANSWER)
     end
 
-    local numhits = 4
-    local accmod = 1
-    local dmgmod = 1.25
 
-    if (mob:getName() == "Curilla") then
-        dmgmod = 3
+
+    if (mob:getName() == "Curilla" or mob:getName() == "Naji" or mob:getName() == "Naji-N") then
+        local basemod = 1
+        local numhits = 4
+        local attmod = 1
+        local accmod = 1
+        local str_wsc = 0.60
+        local dex_wsc = 0
+        local agi_wsc = 0
+        local vit_wsc = 0
+        local mnd_wsc = 0
+
+
+
+    	local info = TrustPhysicalMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,TP_CRIT_VARIES,1.375,1.375,1.375);
+
+        local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,dsp.attackType.PHYSICAL,dsp.damageType.SLASHING,info.hitslanded)
+
+
+        target:delHP(dmg);
+        return dmg;
+    else
+        local numhits = 4
+        local accmod = 1
+        local dmgmod = 1.25
+        local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_CRIT_VARIES,1.1,1.2,1.3)
+        local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,dsp.attackType.PHYSICAL,dsp.damageType.SLASHING,info.hitslanded)
+
+        -- AA EV: Approx 900 damage to 75 DRG/35 THF.  400 to a NIN/WAR in Arhat, but took shadows.
+        target:takeDamage(dmg, mob, dsp.attackType.PHYSICAL, dsp.damageType.SLASHING)
+        return dmg
     end
-    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_CRIT_VARIES,1.1,1.2,1.3)
-    local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,dsp.attackType.PHYSICAL,dsp.damageType.SLASHING,info.hitslanded)
-
-    -- AA EV: Approx 900 damage to 75 DRG/35 THF.  400 to a NIN/WAR in Arhat, but took shadows.
-    target:takeDamage(dmg, mob, dsp.attackType.PHYSICAL, dsp.damageType.SLASHING)
-    return dmg
 end

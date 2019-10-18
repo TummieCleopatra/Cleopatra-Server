@@ -17,12 +17,28 @@ end
 
 function onMobWeaponSkill(target, mob, skill)
 
+    local basemod = 1
     local numhits = 1
+	local attmod = 1
     local accmod = 1
-    local dmgmod = 3
-    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_VARIES,2,2,2)
+	local str_wsc = 0
+	local dex_wsc = 0
+	local agi_wsc = 0
+	local vit_wsc = 0
+	local mnd_wsc = 1
+
+
+	local info = TrustPhysicalMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,TP_DMG_VARIES,1.0,1.0,1.0)
+
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,dsp.attackType.PHYSICAL,dsp.damageType.PIERCING,info.hitslanded)
 
-    target:takeDamage(dmg, mob, dsp.attackType.PHYSICAL, dsp.damageType.PIERCING)
+    target:delHP(dmg)
+
+    local tp =  mob:getLocalVar("WS_TP")
+    local duration = math.floor(tp / 65)
+
+    target:addStatusEffect(dsp.effect.BIND,0,0,duration)
+
+
     return dmg
 end

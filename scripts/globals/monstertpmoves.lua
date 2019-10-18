@@ -764,3 +764,244 @@ function fTP(tp,ftp1,ftp2,ftp3)
     end
     return 1; -- no ftp mod
 end;
+
+
+function TrustPhysicalMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,tpeffect,mtp100,mtp200,mtp300,offcratiomod)
+    local returninfo = {}
+
+    --get dstr (bias to monsters, so no fSTR)
+    local dstr = mob:getStat(dsp.mod.STR) - target:getStat(dsp.mod.VIT)
+	local sadmg = mob:getStat(dsp.mod.DEX)
+
+    local weaponbase = mob:getWeaponDmg()
+
+	if (mob:hasStatusEffect(dsp.effect.SNEAK_ATTACK)) then
+	    weaponbase = weaponbase + sadmg
+	end
+
+
+    if (dstr >= 12) then
+		fstr1 = ((dstr+4)/4)
+	elseif (dstr >= 6) then
+		fstr1 = ((dstr+6)/4)
+	elseif (dstr >= 1) then
+		fstr1 = ((dstr+7)/4)
+	elseif (dstr >= -2) then
+		fstr1 = ((dstr+8)/4)
+	elseif (dstr >= -7) then
+		fstr1 = ((dstr+9)/4)
+	elseif (dstr >= -15) then
+		fstr1 = ((dstr+10)/4)
+	elseif (dstr >= -21) then
+		fstr1 = ((dstr+12)/4)
+	else
+		fstr1 = ((dstr+13)/4)
+	end
+
+	-- Apply the fstr1 caps
+	if (fstr1<((weaponbase/9)*(-1))) then
+		fstr1 = (weaponbase/9)*(-1)
+	elseif (fstr1>((weaponbase/9)+8)) then
+		fstr1 = (weaponbase/9)+8;
+	end
+
+
+    local lvluser = mob:getMainLvl()
+    local lvltarget = target:getMainLvl()
+    local acc = mob:getACC()
+    local eva = target:getEVA()
+
+
+	-- Calculate WSC
+	local wsc = (mob:getStat(dsp.mod.STR) * str_wsc) + (mob:getStat(dsp.mod.DEX) * dex_wsc) +
+		 (mob:getStat(dsp.mod.VIT) * vit_wsc) + (mob:getStat(dsp.mod.AGI) * agi_wsc) +
+		 (mob:getStat(dsp.mod.MND) * mnd_wsc)
+
+
+    --apply WSC
+
+
+    local base = (mob:getWeaponDmg() * basemod) + fstr1 + wsc;
+    if (base < 1) then
+        base = 1;
+    end
+
+	-- print("Calculated WSC")
+	-- print(wsc)
+	-- print("Final FSTR2")
+	-- print(fstr2)
+	-- print("Weapon Base Damage")
+	-- print(weaponbase)
+	-- print("Final Base Damage")
+	-- print(base)
+
+    --work out and cap ratio
+    if (offcratiomod == nil) then -- default to attack. Pretty much every physical mobskill will use this, Cannonball being the exception.
+        offcratiomod = (mob:getStat(dsp.mod.ATT) * attmod)
+        -- print ("Nothing passed, defaulting to attack")
+    end;
+    local ratio = offcratiomod/target:getStat(dsp.mod.DEF)
+    ratio = utils.clamp(ratio, 0, 3.15)
+    -- print("Pdif Before Correction")
+	-- print(ratio)
+
+    local lvldiff = lvluser - lvltarget;
+    if (lvldiff >= 0) then
+        lvldiff = 0;
+    end;
+
+    ratio = ratio + lvldiff * 0.05;
+	if (mob:hasStatusEffect(dsp.effect.SNEAK_ATTACK)) then
+	    ratio = ratio + 1;
+	end
+    ratio = utils.clamp(ratio, 0, 3.15)
+	-- print("pDIF Corrected")
+	-- print(ratio)
+
+	local tp =  mob:getLocalVar("WS_TP")
+    local critvaries = 0
+
+    --work out hit rate ignore level difference for now
+	local hitrate = acc + accmod;
+
+	if (tpeffect==TP_ACC_VARIES) then
+		hitrate = hitrate + AutoAccBonus(tp, mtp100, mtp200, mtp300)
+	end
+
+    if (tpeffect==TP_CRIT_VARIES) then
+        critvaries = tp / 50
+        printf("Crit Varies rate is %u", critvaries)
+    end
+
+    hitrate = ((hitrate - eva) / 2 ) + 75;
+
+
+    -- printf("acc: %f, eva: %f, hitrate: %f", acc, eva, hitrate)
+    if (hitrate > 95) then
+        hitrate = 95;
+    elseif (hitrate < 20) then
+        hitrate = 20;
+    end
+
+
+    --work out the base damage for a single hit
+    local hitdamage = base;
+    if (hitdamage < 1) then
+        hitdamage = 1;
+    end
+    -- change to get stats
+
+
+
+    --apply ftp (assumes 1~3 scalar linear mod)
+    if (tpeffect==TP_DMG_VARIES) then
+        hitdamage = hitdamage * fTP(tp, mtp100, mtp200, mtp300)
+    elseif (tpeffect==TP_DMG_BONUS) then
+        hitdamage = hitdamage * fTP(tp, mtp100, mtp200, mtp300)
+    elseif (tpeffect==TP_ATK_VARIES) then
+        hitdamage = hitdamage * AutoIgnoredDef(skill:getTP(), mtp100, mtp200, mtp300)
+    elseif (tpeffect==TP_NO_EFFECT) then
+        hitdamage = hitdamage * 1;
+    end
+
+
+    --work out min and max cRatio
+    local maxRatio = 1;
+    local minRatio = 0;
+
+    if (ratio < 0.5) then
+        maxRatio = ratio + 1;
+    elseif ((0.5 <= ratio) and (ratio <= 0.7)) then
+        maxRatio = 1;
+    elseif ((0.7 < ratio) and (ratio <= 1.2)) then
+        maxRatio = ratio + 0.3;
+    elseif ((1.2 < ratio) and (ratio <= 1.5)) then
+        maxRatio = (ratio * 0.25) + ratio;
+    elseif ((1.5 < ratio) and (ratio <= 2.625)) then
+        maxRatio = ratio + 0.375;
+    elseif ((2.625 < ratio) and (ratio <= 3.25)) then
+        maxRatio = 3;
+    else
+        maxRatio = ratio;
+    end
+
+
+    if (ratio < 0.38) then
+        minRatio =  0;
+    elseif ((0.38 <= ratio) and (ratio <= 1.25)) then
+        minRatio = ratio * (1176 / 1024) - (448 / 1024)
+    elseif ((1.25 < ratio) and (ratio <= 1.51)) then
+        minRatio = 1;
+    elseif ((1.51 < ratio) and (ratio <= 2.44)) then
+        minRatio = ratio * (1176 / 1024) - (775 / 1024)
+    else
+        minRatio = ratio - 0.375;
+    end
+
+
+    --Applying pDIF
+    local pdif = 0;
+
+    -- start the hits
+    local hitchance = math.random()
+    local finaldmg = 0;
+    local hitsdone = 1;
+    local hitslanded = 0;
+
+    local chance = math.random()
+
+    -- first hit has a higher chance to land
+    local firstHitChance = hitrate * 1.5;
+
+    if (tpeffect==TP_RANGED) then
+        firstHitChance = hitrate * 1.2;
+    end
+
+    firstHitChance = utils.clamp(firstHitChance, 60, 95)
+
+    if ((chance*100) <= firstHitChance) then
+        pdif = math.random((minRatio*1000),(maxRatio*1000)) --generate random PDIF
+        pdif = pdif/1000; --multiplier set.
+        finaldmg = finaldmg + hitdamage * pdif;
+        hitslanded = hitslanded + 1;
+    end
+    while (hitsdone < numhits) do
+        chance = math.random()
+        local criticalChance = math.random()
+        if ((chance*100)<=hitrate) then --it hit
+            pdif = math.random((minRatio*1000),(maxRatio*1000)) --generate random PDIF
+            pdif = pdif/1000; --multiplier set.
+
+            if ((criticalChance*100) <= critvaries and tpeffect==TP_CRIT_VARIES) then
+                finaldmg = finaldmg + hitdamage * (pdif + 1)
+            else
+                finaldmg = finaldmg + hitdamage * pdif
+            end
+            hitslanded = hitslanded + 1;
+        end
+        hitsdone = hitsdone + 1;
+    end
+
+    -- printf("final: %f, hits: %f, acc: %f", finaldmg, hitslanded, hitrate)
+
+    -- if an attack landed it must do at least 1 damage
+    if (hitslanded >= 1 and finaldmg < 1) then
+        finaldmg = 1;
+    end
+
+    -- all hits missed
+    if (hitslanded == 0 or finaldmg == 0) then
+        finaldmg = 0;
+        hitslanded = 0;
+        skill:setMsg(dsp.msg.basic.SKILL_MISS)
+    end
+
+    returninfo.dmg = finaldmg;
+    returninfo.hitslanded = hitslanded;
+
+	automatonhitslanded = hitslanded;
+
+    return returninfo;
+
+end
+

@@ -1,10 +1,9 @@
 ---------------------------------------------
---  Tachi: Enpi
+-- Shibaraku
 --
 --
---  Type: Physical
---  Shadow per hit
---  Range: Melee
+-- Type: Physical
+-- Range: Melee
 ---------------------------------------------
 require("scripts/globals/monstertpmoves")
 require("scripts/globals/settings")
@@ -12,26 +11,18 @@ require("scripts/globals/status")
 require("scripts/globals/msg")
 
 function onMobSkillCheck(target,mob,skill)
-    mob:messageBasic(dsp.msg.basic.READIES_WS, 0, 691+256)
+    mob:messageBasic(dsp.msg.basic.READIES_WS, 0, 55)
     return 0
 end
 
 function onMobWeaponSkill(target, mob, skill)
-    local basemod = 1
+
     local numhits = 1
-	local attmod = 1
     local accmod = 1
-	local str_wsc = 0.60
-	local dex_wsc = 0
-	local agi_wsc = 0
-	local vit_wsc = 0
-	local mnd_wsc = 0
-
-
-	local info = TrustPhysicalMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,TP_DMG_BONUS,0.5,0.75,1)
-
+    local dmgmod = 6
+    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_VARIES,3.5,4.0,4.5)
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,dsp.attackType.PHYSICAL,dsp.damageType.SLASHING,info.hitslanded)
 
-    target:delHP(dmg);
-    return dmg;
+    target:takeDamage(dmg, mob, dsp.attackType.PHYSICAL, dsp.damageType.SLASHING)
+    return dmg
 end

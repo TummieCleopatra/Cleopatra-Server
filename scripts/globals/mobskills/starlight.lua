@@ -17,21 +17,14 @@ function onMobSkillCheck(target,mob,skill)
 end
 
 function onMobWeaponSkill(target, mob, skill)
-    local basemod = 1;
-    local numhits = 2;
-	local attmod = 1;
-    local accmod = 1;
-	local str_wsc = 0.60;
-	local dex_wsc = 0;
-	local agi_wsc = 0;
-	local vit_wsc = 0;
-	local mnd_wsc = 0;
 
+    local tp = mob:getLocalVar("WS_TP")
 
-	local info = TrustPhysicalMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,TP_DMG_BONUS,1.5,1.5,2)
+    local damage = (mob:getMainLvl() / 9) - 1
+    local damagemod = damage * ((50+(tp*0.5))/100)
 
-    local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,dsp.attackType.PHYSICAL,dsp.damageType.SLASHING,info.hitslanded)
+    mob:addMP(damagemod)
 
-    target:delHP(dmg);
-    return dmg;
+    skill:setMsg(dsp.msg.basic.SKILL_RECOVERS_MP)
+    return damagemod
 end

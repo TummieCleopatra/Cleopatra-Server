@@ -17,20 +17,20 @@ function onMobSkillCheck(target,mob,skill)
 end
 
 function onMobWeaponSkill(target, mob, skill)
+    local basemod = 1
     local numhits = 1
+	local attmod = 1
     local accmod = 1
-    local dmgmod = 1.5
+	local str_wsc = 0.75
+	local dex_wsc = 0
+	local agi_wsc = 0
+	local vit_wsc = 0
+	local mnd_wsc = 0
 
-    if (mob:getName() == "Ayame") then
-        dmgmod = 5
-        printf("Gekko")
-    elseif (mob:getName() == "Ayame-W") then
-        dmgmod = 5
-    end
-    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_VARIES,1.0,1.2,1.4)
+	local info = TrustPhysicalMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,TP_DMG_BONUS,0.5,1.5,2.5)
+
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,dsp.attackType.PHYSICAL,dsp.damageType.SLASHING,info.hitslanded)
 
-
-    target:takeDamage(dmg, mob, dsp.attackType.PHYSICAL, dsp.damageType.SLASHING)
+    target:delHP(dmg)
     return dmg
 end

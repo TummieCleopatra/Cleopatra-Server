@@ -17,12 +17,22 @@ function onMobSkillCheck(target,mob,skill)
 end
 
 function onMobWeaponSkill(target, mob, skill)
-    local numhits = 2
+    local basemod = 1
+    local numhits = 1
+	local attmod = 1
     local accmod = 1
-    local dmgmod = 1.0
-    local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_CRIT_VARIES,1.1,1.2,1.3)
+	local str_wsc = 0.5
+	local dex_wsc = 0
+	local agi_wsc = 0
+	local vit_wsc = 0
+	local mnd_wsc = 0.5
+
+
+	local info = TrustPhysicalMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,TP_DMG_VARIES,3.5,8.75,12)
+
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,dsp.attackType.PHYSICAL,dsp.damageType.BLUNT,info.hitslanded)
 
-    target:takeDamage(dmg, mob, dsp.attackType.PHYSICAL, dsp.damageType.BLUNT)
+    target:delHP(dmg)
+
     return dmg
 end
