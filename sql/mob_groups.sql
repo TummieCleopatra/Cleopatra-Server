@@ -172,6 +172,7 @@ INSERT INTO `mob_groups` VALUES (47,895,4,'Dalham',0,128,0,9300,0,72,72,0);
 INSERT INTO `mob_groups` VALUES (48,3591,4,'Shen',0,128,4388,50000,0,84,86,0);
 INSERT INTO `mob_groups` VALUES (49,3592,4,'Shen_s_Filtrate',0,128,0,0,0,74,76,0);
 INSERT INTO `mob_groups` VALUES (50,4669,4,'Bismarck',0,128,0,0,9999,95,98,0);
+INSERT INTO `mob_groups` VALUES (51,6990,4,'HAnm',0,128,0,30000,0,84,84,0);
 INSERT INTO `mob_groups` VALUES (1,4204,5,'Variable_Hare',300,0,3986,0,0,58,61,0);
 INSERT INTO `mob_groups` VALUES (2,4079,5,'Uleguerand_Tiger',330,0,3647,0,0,60,63,0);
 INSERT INTO `mob_groups` VALUES (3,875,5,'Cwn_Annwn',330,1,620,0,0,59,64,0);

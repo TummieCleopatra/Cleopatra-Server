@@ -390,3 +390,9 @@ INSERT INTO `npc_list` VALUES (17772826,'Touneaux','Touneaux',175,-6,3,-10,16,50
 -- Windurst Waters [S]
 INSERT INTO `npc_list` VALUES (17163030,'GeoNPC','Sevi Luhgo',246,-79,-3,56,0,50,50,0,0,0,0,0,0x01000207001034213431a0403451596200700080,32,NULL,1);
 
+-- MOB LIST
+-- Bibiki Bay
+INSERT INTO `mob_spawn_points` VALUES (16793977,'HAnm','HAnm',51,-602,-3,-686,0);
+
+
+
