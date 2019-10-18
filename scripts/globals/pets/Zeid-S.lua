@@ -123,13 +123,16 @@ function onMobSpawn(mob)
                 local lionTP, wsTime, lionLastWS = getLionTP(mob, player, target)
                 if (lionTP <= 200 and (battletime > wsTime + 8)) then
                     if (lionLastWS == 2894) then
+                        mob:setLocalVar("WS_TP",mob:getTP())
                         mob:useMobAbility(55)
                     elseif (lionLastWS == 2892) then
+                        mob:setLocalVar("WS_TP",mob:getTP())
                         mob:useMobAbility(56)
                     end
                 end
             elseif (battletime > weaponSkillTime + wsCooldown) then
 		        weaponskill = doZeidWeaponskill(mob)
+                mob:setLocalVar("WS_TP",mob:getTP())
 			    mob:useMobAbility(weaponskill)
                 mob:setLocalVar("wsTime",battletime)
             end

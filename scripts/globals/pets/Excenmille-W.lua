@@ -80,6 +80,7 @@ function onMobSpawn(mob)
         local weaponSkillTime = mob:getLocalVar("wsTime")
         if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown)) then
 		    weaponskill = doExcenmilleWeaponskill(mob)
+            mob:setLocalVar("WS_TP",mob:getTP())
 			mob:useMobAbility(weaponskill)
             mob:setLocalVar("wsTime",battletime)
             mob:updateHealth()

@@ -35,14 +35,17 @@ function onMobSpawn(mob)
                 elseif (zeidTP >= 1000) then
                     local weakness = getWeakness(mob, player, target)
                     if (weakness <= 4 and weakness ~= 0) then
+                        mob:setLocalVar("WS_TP",mob:getTP())
                         mob:useMobAbility(2894)
                         mob:setLocalVar("lastWSTime",os.time())
                         mob:setLocalVar("lastWS",2894)
                     elseif (weakness > 4 and lvl >= 72) then
+                        mob:setLocalVar("WS_TP",mob:getTP())
                         mob:useMobAbility(2892)
                         mob:setLocalVar("lastWSTime",os.time())
                         mob:setLocalVar("lastWS",2892)
                     else
+                        mob:setLocalVar("WS_TP",mob:getTP())
                         mob:useMobAbility(2894)
                         mob:setLocalVar("lastWSTime",os.time())
                         mob:setLocalVar("lastWS",2894)
@@ -53,11 +56,13 @@ function onMobSpawn(mob)
                 local battletime = os.time()
                 local prisheTP, wsTime, prisheLastWS = getPrisheTP(mob, player, target)
                 if (prisheTP <= 200 and (battletime > wsTime + 8)) then
+                    mob:setLocalVar("WS_TP",mob:getTP())
                     mob:useMobAbility(2894)
                     mob:setLocalVar("wsTime",battletime)
                 end
             else
                 weaponskill = doLionWeaponskill(mob)
+                mob:setLocalVar("WS_TP",mob:getTP())
                 mob:useMobAbility(weaponskill)
                 mob:setLocalVar("wsTime",battletime)
             end

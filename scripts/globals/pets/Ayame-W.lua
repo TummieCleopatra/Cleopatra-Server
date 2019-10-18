@@ -95,26 +95,32 @@ function onMobSpawn(mob)
         if (tp >= 2000 and sekkaType == 1) then
             mob:setLocalVar("sekkaWS",1)
             weaponskill = doAyameSoloSC(mob, player)
+            mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill, target)
         elseif (tp >= 1000 and sekkaType == 1 and (battletime > scTimer + 5)) then
             weaponskill = doAyameSoloSC(mob, player)
+            mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill, target)
             mob:setLocalVar("sekkaWS",0)
         elseif (tp >= 2000 and sekkaType == 2) then
             printf("Ayame Start Two Step!!!")
             mob:setLocalVar("sekkaWS",1)
             weaponskill = doAyameSoloSC(mob, player)
+            mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill, target)
         elseif (tp >= 1000 and sekkaType == 2 and (battletime > scTimer + 5)) then
             weaponskill = doAyameSoloSC(mob, player)
+            mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill, target)
             mob:setLocalVar("sekkaWS",0)
         elseif (tp > 1000 and ((element == 0) or (element == 1) or (element == 10)) and sekkaType == 0 and canWS ~= 1 and (battletime > weaponSkillTime + wsCooldown))  then
             weaponskill = doAyameWeaponskill(mob, player)
+            mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill, target)
             mob:setLocalVar("wsTime",battletime)
         elseif (tp > 1000 and sekkaType == 0 and canWS ~= 1 and (battletime > weaponSkillTime + wsCooldown)) then
             weaponskill = doAyameOpenWeaponskill(mob, player)
+            mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill, target)
             mob:setLocalVar("wsTime",battletime)
         end

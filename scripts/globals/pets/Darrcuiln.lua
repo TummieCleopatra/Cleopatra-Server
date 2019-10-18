@@ -82,11 +82,13 @@ function onMobSpawn(mob)
             if (lvl >= 40 and (battletime > caTime + caCooldown)) then
                 mob:useJobAbility(78, mob)
                 weaponskill = doDarcullinCAWeaponskill(mob)
+                mob:setLocalVar("WS_TP",mob:getTP())
                 mob:useMobAbility(weaponskill, target)
                 mob:setLocalVar("wsTime",battletime)
                 mob:setLocalVar("caActive",1)  -- Turn on Chain Affinity
             else
                 weaponskill = doDarcullinWeaponskill(mob)
+                mob:setLocalVar("WS_TP",mob:getTP())
                 mob:useMobAbility(weaponskill, target)
                 mob:setLocalVar("wsTime",battletime)
             end

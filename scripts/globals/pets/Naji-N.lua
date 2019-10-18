@@ -11,7 +11,7 @@ require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
 
-    najiTrustPoints(mob)
+
     doDualWield(mob)
     local weaponskill = 0
     local naji = mob:getID()
@@ -30,6 +30,20 @@ function onMobSpawn(mob)
     mob:setLocalVar("utsuIchiTime",0)
     mob:setLocalVar("utsuNiTime",0)
 
+    najiTrustPoints(mob)
+
+    mob:addListener("COMBAT_TICK", "NAJI_COMBAT_TICK", function(mob)
+	    local battletime = os.time()
+        local weaponSkillTime = mob:getLocalVar("wsTime")
+        trustMeleeMove(mob, player, target, angle)
+        if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown)) then
+            local targ = mob:getTarget()
+            weaponskill = doWeaponskill(mob)
+            mob:setLocalVar("WS_TP",mob:getTP())
+            mob:useMobAbility(weaponskill)
+            mob:setLocalVar("wsTime",battletime)
+        end
+    end)
 
     mob:addListener("COMBAT_TICK", "NAJI_PROVOKE_TICK", function(mob, player, target)
         trustMeleeMove(mob, player, target, angle)

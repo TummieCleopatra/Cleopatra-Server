@@ -31,14 +31,17 @@ function onMobSpawn(mob)
                 local lionTP = getLionTPPrishe(mob, player, target)
                 if (lionTP <= 500) then -- don't wait
                     weaponskill = doPrisheWeaponskill(mob)
+                    mob:setLocalVar("WS_TP",mob:getTP())
 			        mob:useMobAbility(weaponskill)
                     mob:setLocalVar("wsTime",battletime)
                 elseif (lionTP >= 1000) then
+                    mob:setLocalVar("WS_TP",mob:getTP())
                     mob:useMobAbility(3236)
                     mob:setLocalVar("wsTime",battletime)
                 end
             else
 		        weaponskill = doPrisheWeaponskill(mob)
+                mob:setLocalVar("WS_TP",mob:getTP())
 			    mob:useMobAbility(weaponskill)
                 mob:setLocalVar("wsTime",battletime)
             end

@@ -11,7 +11,7 @@ require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
 
-    najiTrustPoints(mob)
+
     local weaponskill = 0
     local naji = mob:getID()
     local lvl = mob:getMainLvl()
@@ -25,7 +25,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("aggresorTime",0)
     mob:setLocalVar("aggresorCooldown",300)
 
-
+    najiTrustPoints(mob)
     mob:addListener("COMBAT_TICK", "NAJI_COMBAT_TICK", function(mob)
 	    local battletime = os.time()
         local weaponSkillTime = mob:getLocalVar("wsTime")
@@ -33,6 +33,7 @@ function onMobSpawn(mob)
         if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown)) then
             local targ = mob:getTarget()
             weaponskill = doWeaponskill(mob)
+            mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill)
             mob:setLocalVar("wsTime",battletime)
         end

@@ -67,7 +67,8 @@ function onMobSpawn(mob)
             if ((mob:getTP() >= 1000) and enmity ~= 0 and (battletime > saTime + sneakAttackCooldown) and (battletime > weaponSkillTime + wsCooldown)) then
                 printf("try weaponskill")
                 weaponskill = doNanaaWeaponskill(mob)
-                mob:useJobAbility(28)
+                mob:useJobAbility(28, mob)
+                mob:setLocalVar("WS_TP",mob:getTP())
                 mob:useMobAbility(weaponskill)
                 mob:setLocalVar("wsTime",battletime)
                 mob:setLocalVar("saTime",battletime)
@@ -76,6 +77,7 @@ function onMobSpawn(mob)
             if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown)) then
                 local targ = mob:getTarget()
                 weaponskill = doNanaaWeaponskill(mob)
+                mob:setLocalVar("WS_TP",mob:getTP())
                 mob:useMobAbility(weaponskill)
                 mob:setLocalVar("wsTime",battletime)
             end
@@ -89,15 +91,17 @@ function doNanaaSa(mob, player, target)
     local saTime = mob:getLocalVar("saTime")
     local sneakAttackCooldown = 60
     local battletime = os.time()
+
     local trot = target:getRotPos()
     local mrot = mob:getRotPos()
     local drot = trot - mrot
     local tp = mob:getTP()
     local enmity = enmityCalc(mob, player, target)
-    if (((drot > 118 and drot < 135) or (drot > 250) or (drot < 5)) and enmity ~= 0) then
-        if (tp < 40) then
+    print(drot)
+    if ((drot > -5 and drot < 5) and enmity ~= 0) then
+        if (tp < 400) then
             if (battletime > saTime + sneakAttackCooldown) then
-                mob:useJobAbility(28)
+                mob:useJobAbility(28, mob)
                 printf("Sneak Attack")
                 mob:setLocalVar("saTime",os.time())
             end

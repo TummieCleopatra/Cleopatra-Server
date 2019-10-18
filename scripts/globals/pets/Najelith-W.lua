@@ -117,6 +117,7 @@ function onMobSpawn(mob)
         local targHP = target:getHPP()
 	    if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown) and enmity > 2000) then
 		    weaponskill = doNajelithWeaponskill(mob)
+            mob:setLocalVar("WS_TP",mob:getTP())
 			mob:useMobAbility(weaponskill)
             mob:setLocalVar("wsTime",battletime)
 		end

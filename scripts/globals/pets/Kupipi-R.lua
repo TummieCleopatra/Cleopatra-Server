@@ -14,7 +14,6 @@ require("scripts/globals/msg")
 require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
-    kupipiTrustPoints(mob)
     local weaponskill = 0
     local cureCooldown = 14
     local debuffCooldown = 10
@@ -34,6 +33,39 @@ function onMobSpawn(mob)
     mob:setLocalVar("slowTime",0)
     mob:setLocalVar("flashTime",0)
     mob:setLocalVar("hasteTime",0)
+    local enmmity = math.floor(mob:getMainLvl() / 3 )
+    mob:addMod(dsp.mod.ENMITY, -enmity)
+
+    kupipiTrustPoints(mob)
+
+    mob:addListener("COMBAT_TICK", "KUPIPI_CURE_TICK", function(mob, player, target)
+        local battletime = os.time()
+        local cureTime = mob:getLocalVar("cureTime")
+
+        if (battletime > cureTime + cureCooldown) then
+            local party = player:getParty()
+            for _,member in ipairs(party) do
+                if (member:getHPP() <= 30) then
+                    local spell = doEmergencyCureKupipi(mob)
+                    if (spell > 0) then
+                        mob:castSpell(spell, member)
+                        mob:setLocalVar("cureTime",battletime)
+                        break
+                    end
+                elseif (member:getHPP() <= 75) then
+                    local spell = doCureKupipi(mob)
+                    if (spell > 0) then
+                        mob:castSpell(spell, member)
+                        mob:setLocalVar("cureTime",battletime)
+                        break
+                    end
+                else
+                    mob:setLocalVar("cureTime",battletime - 4)  -- If no member has low HP change global check to 8 seconds
+                end
+            end
+        end
+    end)
+
     mob:addListener("COMBAT_TICK", "KUPIPI_BUFF_TICK", function(mob, player, target)
         local battletime = os.time()
         local buffTime = mob:getLocalVar("buffTime")
@@ -82,34 +114,6 @@ function onMobSpawn(mob)
         end
     end)
 
-    mob:addListener("COMBAT_TICK", "KUPIPI_CURE_TICK", function(mob, player, target)
-        local battletime = os.time()
-        local cureTime = mob:getLocalVar("cureTime")
-
-        if (battletime > cureTime + cureCooldown) then
-            local party = player:getParty()
-            for _,member in ipairs(party) do
-                if (member:getHPP() <= 30) then
-                    local spell = doEmergencyCureKupipi(mob)
-                    if (spell > 0) then
-                        mob:castSpell(spell, member)
-                        mob:setLocalVar("cureTime",battletime)
-                        break
-                    end
-                elseif (member:getHPP() <= 75) then
-                    local spell = doCureKupipi(mob)
-                    if (spell > 0) then
-                        mob:castSpell(spell, member)
-                        mob:setLocalVar("cureTime",battletime)
-                        break
-                    end
-                else
-                    mob:setLocalVar("cureTime",battletime - 4)  -- If no member has low HP change global check to 8 seconds
-                end
-            end
-        end
-    end)
-
     mob:addListener("COMBAT_TICK", "COMBAT_TICK", function(mob, player, target)
         local tlvl = target:getMainLvl()
         local lvl = mob:getMainLvl()
@@ -124,6 +128,7 @@ function onMobSpawn(mob)
         local weaponSkillTime = mob:getLocalVar("wsTime")
         if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown)) then
             weaponskill = doKupipiWeaponskill(mob)
+            mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill, target)
             mob:setLocalVar("wsTime",battletime)
         end
@@ -291,9 +296,9 @@ function doDebuff(mob, target)
     elseif ((battletime > slowTime + slowCooldown) and not target:hasStatusEffect(dsp.effect.SLOW) and lvl >= 13 and mp >= 15) then
         mob:setLocalVar("slowTime",battletime)
         debuff = 56
-    elseif ((battletime > flashTime + flashCooldown) and not target:hasStatusEffect(dsp.effect.FLASH) and lvl >= 45 and mp >= 25) then
-        mob:setLocalVar("flashTime",battletime)
-        debuff = 112
+    -- elseif ((battletime > flashTime + flashCooldown) and not target:hasStatusEffect(dsp.effect.FLASH) and lvl >= 45 and mp >= 25) then
+       -- mob:setLocalVar("flashTime",battletime)
+        -- debuff = 112
     end
 
     return debuff

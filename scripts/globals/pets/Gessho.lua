@@ -7,8 +7,7 @@
 -------------------------------------------------
 require("scripts/globals/status")
 require("scripts/globals/msg")
-require("scripts/globals/enmitycalc")
-require("scripts/globals/trustpoints")
+require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
     -- doGesshoTrustPoints(mob)
@@ -42,6 +41,7 @@ function onMobSpawn(mob)
         if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown)) then
             local targ = mob:getTarget()
             weaponskill = doWeaponskill(mob)
+            mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill)
             mob:setLocalVar("wsTime",battletime)
         end
@@ -60,18 +60,14 @@ function onMobSpawn(mob)
         local battletime = os.time()
         local utsuIchi = mob:getLocalVar("utsuIchiTime")
         local utsuNi = mob:getLocalVar("utsuNiTime")
-        local shadows = mob:getStatusEffect(dsp.effect.COPY_IMAGE)
-        local count = 0
-        if (shadows ~= nil) then
-            count = shadows:getPower()
-        else
-            count = 0
-        end
+        local count = mob:getMod(dsp.mod.UTSUSEMI)
+        printf("Current Shadows %u",count)
+
 
         if ((battletime > utsuNi + utsuNiCooldown) and lvl >= 37 and (count == nil or count <= 1)) then
             mob:castSpell(339, mob)
             mob:setLocalVar("utsuNiTime",battletime)
-        elseif ((battletime > utsuIchi + utsuIchiCooldown) and lvl >= 12 and (count == nil)) then
+        elseif ((battletime > utsuIchi + utsuIchiCooldown) and lvl >= 12 and (count == nil or count == 0)) then
             mob:castSpell(338, mob)
             mob:setLocalVar("utsuIchiTime",battletime)
         end

@@ -19,12 +19,6 @@ function onMobSpawn(mob)
     local wsCooldown = 4
     local lvl = mob:getMainLvl()
     local enmity = math.floor(lvl / 5)
-    local MaxHP = mob:getHP()
-    local bonus = math.floor((lvl * 4) + (lvl / 2))
-    mob:addMod(dsp.mod.HP,bonus)
-
-
-    mob:addMod(dsp.mod.DEF, lvl * 3)
     mob:addMod(dsp.mod.ENMITY, enmity)
     mob:setLocalVar("protectTime",0)
     mob:setLocalVar("shellTime",0)
@@ -40,6 +34,8 @@ function onMobSpawn(mob)
     mob:setLocalVar("chivalryTime",0)
     mob:setLocalVar("chivalryCooldown",600)
     mob:setLocalVar("reprisalCooldown",180)
+
+
 
     --[[
     mob:addListener("ROAM_TICK", "CUR_ROAM_TICK", function(mob)
@@ -73,6 +69,7 @@ function onMobSpawn(mob)
         local weaponSkillTime = mob:getLocalVar("wsTime")
         if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown)) then
             weaponskill = doCurillaWeaponskill(mob)
+            mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill)
             mob:setLocalVar("wsTime",battletime)
             mob:updateHealth() -- used to prevent TP from holding?

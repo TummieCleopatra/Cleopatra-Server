@@ -11,7 +11,7 @@ require("scripts/globals/msg")
 require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
-    kupipiTrustPoints(mob)
+
     mob:addMod(dsp.mod.ATTP, - 30)
     local weaponskill = 0
     local cureCooldown = 16
@@ -22,6 +22,8 @@ function onMobSpawn(mob)
     local kupipi = mob:getID()
     local angle = getAngle(mob)
     local wsCooldown = 4
+    local enmmity = math.floor(mob:getMainLvl() / 3 )
+    mob:addMod(dsp.mod.ENMITY, -enmity)
     mob:setLocalVar("wsTime",0)
     mob:setLocalVar("cureTime",0)
     mob:setLocalVar("debuffTime",0)
@@ -30,28 +32,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("paraTime",0)
     mob:setLocalVar("slowTime",0)
     mob:setLocalVar("flashTime",0)
-
-    mob:addListener("COMBAT_TICK", "KUPIPI_BUFF_TICK", function(mob, player, target)
-        local battletime = os.time()
-        local buffTime = mob:getLocalVar("buffTime")
-
-        if (battletime > buffTime + buffCooldown) then
-            doBuff(mob, player)
-        end
-    end)
-
-    mob:addListener("COMBAT_TICK", "AILMENT_TICK", function(mob, player, target)
-        local battletime = os.time()
-        local ailmentTime = mob:getLocalVar("ailmentTime")
-
-        if (battletime > ailmentTime + ailmentCooldown) then
-            local spell = doStatusRemoval(mob, player)
-            if (spell > 0 ) then
-                mob:castSpell(spell, player)
-            end
-            mob:setLocalVar("ailmentTime",battletime)
-        end
-    end)
+    kupipipTrustPoints(mob)
 
     mob:addListener("COMBAT_TICK", "KUPIPI_CURE_TICK", function(mob, player, target)
         local battletime = os.time()
@@ -81,11 +62,35 @@ function onMobSpawn(mob)
         end
     end)
 
+    mob:addListener("COMBAT_TICK", "KUPIPI_BUFF_TICK", function(mob, player, target)
+        local battletime = os.time()
+        local buffTime = mob:getLocalVar("buffTime")
+
+        if (battletime > buffTime + buffCooldown) then
+            doBuff(mob, player)
+        end
+    end)
+
+    mob:addListener("COMBAT_TICK", "AILMENT_TICK", function(mob, player, target)
+        local battletime = os.time()
+        local ailmentTime = mob:getLocalVar("ailmentTime")
+
+        if (battletime > ailmentTime + ailmentCooldown) then
+            local spell = doStatusRemoval(mob, player)
+            if (spell > 0 ) then
+                mob:castSpell(spell, player)
+            end
+            mob:setLocalVar("ailmentTime",battletime)
+        end
+    end)
+
+
+
     mob:addListener("COMBAT_TICK", "COMBAT_TICK", function(mob, player, target)
         local tlvl = target:getMainLvl()
         local lvl = mob:getMainLvl()
         local dlvl = tlvl - lvl
-        if (dlvl >= 5) then
+        if (dlvl >= 3) then
             trustMageMove(mob, player, target, angle)
         else
             trustMeleeMove(mob, player, target, angle)
@@ -95,6 +100,7 @@ function onMobSpawn(mob)
         local weaponSkillTime = mob:getLocalVar("wsTime")
         if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown)) then
             weaponskill = doKupipiWeaponskill(mob)
+            mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill, mob)
             mob:setLocalVar("wsTime",battletime)
         end
@@ -128,11 +134,11 @@ function doStatusRemoval(mob, player)
 end
 
 function doKupipiWeaponskill(mob)
-    local wsList = {{43,164}, {1,163}}
-    local maxws = 3
+    local wsList = {{1,163}}
+    local maxws = 1
 
     local newWsList = {}
-    local maxws = 3 -- Maximum number of weaponskills to choose from randomly
+    local maxws = 1 -- Maximum number of weaponskills to choose from randomly
     local wscount = 0
     local lvl = mob:getMainLvl()
     local finalWS = 0
