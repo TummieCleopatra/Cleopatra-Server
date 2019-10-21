@@ -61,7 +61,8 @@ function nanaaTrustPoints(mob)
     mob:addMod(dsp.mod.TRIPLE_ATTACK,ta)
 end
 
-function kupipipTrustPoints(mob)
+function kupipiTrustPoints(mob)
+    printf("Kupipi Trust Points Triggered")
     local player = mob:getMaster()
 	local att = player:getVar("TrustAtt_Kup");
 	local acc = player:getVar("TrustAcc_Kup");
@@ -185,7 +186,7 @@ end
 
 function trustGodMode(mob)
 
-    -- mob:addMod(dsp.mod.REGAIN, 500)
+    mob:addMod(dsp.mod.REGAIN, 500)
     mob:addMod(dsp.mod.REGEN, 400)
 
 
@@ -530,7 +531,7 @@ function trustSneakAttackMove(mob, player, target)
     local size = target:getModelSize() -- Take size of model to account
 
     if (mob:getCurrentAction() ~= dsp.act.MAGIC_CASTING and enmity ~= 0) then
-        mob:moveToDistance(size + 3, 100, target)
+        mob:moveToDistance(size + 2, 100, target)
     end
 end
 
@@ -543,12 +544,20 @@ function trustMeleeMove(mob, player, target, angle)
     end
 end
 
+function trustRangedMove(mob, player, target, angle)
+    local enmity = enmityCalc(mob, player, target)
+
+    if (mob:getCurrentAction() ~= dsp.act.MAGIC_CASTING and enmity ~= 0) then
+        mob:moveToDistance(14, angle, target)
+    end
+end
+
 function trustMageMove(mob, player, target, angle)
     local enmity = enmityCalc(mob, player, target)
     local size = target:getModelSize() -- Take size of model to account
 
     if (mob:getCurrentAction() ~= dsp.act.MAGIC_CASTING and enmity ~= 0) then
-        mob:moveToDistance(size + 10, angle, target)
+        mob:moveToDistance(size + 15, angle, target)
     end
 end
 
@@ -1062,22 +1071,22 @@ function trustSJQuest(mob, player)
     if ((neck == war) and quest < 1 and baseExp > 0) then
         player:setVar("TRUST_SJ_QUEST_COUNTER",counter + 1)
         if ((counter + 1) == 101) then
-            player:PrintToPlayer("You have finished collecting enough energy for your Torque.  Please erturn to Touneaux for your reward.", 0x15)
+            player:PrintToPlayer("You have finished collecting enough energy for your Torque.  Please return to Touneaux for your reward.", 0x15)
         end
     elseif ((neck == rdm) and quest == 1 and baseExp > 0) then
         player:setVar("TRUST_SJ_QUEST_COUNTER",counter + 1)
         if ((counter + 1) == 101) then
-            player:PrintToPlayer("You have finished collecting enough energy for your Torque.  Please erturn to Touneaux for your reward.", 0x15)
+            player:PrintToPlayer("You have finished collecting enough energy for your Torque.  Please return to Touneaux for your reward.", 0x15)
         end
     elseif ((neck == sam) and quest == 2 and baseExp > 0) then
         player:setVar("TRUST_SJ_QUEST_COUNTER",counter + 1)
         if ((counter + 1) == 101) then
-            player:PrintToPlayer("You have finished collecting enough energy for your Torque.  Please erturn to Touneaux for your reward.", 0x15)
+            player:PrintToPlayer("You have finished collecting enough energy for your Torque.  Please return to Touneaux for your reward.", 0x15)
         end
     elseif ((neck == nin) and quest == 3 and baseExp > 0) then
         player:setVar("TRUST_SJ_QUEST_COUNTER",counter + 1)
         if ((counter + 1) == 101) then
-            player:PrintToPlayer("You have finished collecting enough energy for your Torque.  Please erturn to Touneaux for your reward.", 0x15)
+            player:PrintToPlayer("You have finished collecting enough energy for your Torque.  Please return to Touneaux for your reward.", 0x15)
         end
     end
 
