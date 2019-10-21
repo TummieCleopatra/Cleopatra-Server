@@ -19,5 +19,7 @@ function onUseAbility(pet, target, skill, action)
     local pdif = pet:getStat(dsp.mod.ATT) / target:getStat(dsp.mod.DEF)
     local dmg = (lvl * (1 + (vit / 224))) * pdif
 
+    pet:addTP(114)
+
     return dmg
 end

@@ -15,34 +15,25 @@ function onMobSkillCheck(target,mob,skill)
 end
 
 function onMobWeaponSkill(target, mob, skill)
-    local numhits = 1
-    local accmod = 1
-    local dmgmod = 32
+        local basemod = 1
+        local numhits = 1
+        local attmod = 1
+        local accmod = 1
+        local str_wsc = 0.20
+        local dex_wsc = 0
+        local agi_wsc = 0.50
+        local vit_wsc = 0
+        local mnd_wsc = 0
 
-    local info = MobRangedMove(mob,target,skill,numhits,accmod,dmgmod,TP_DMG_VARIES,2,3,4)
 
-    local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,dsp.attackType.RANGED,dsp.damageType.PIERCING,info.hitslanded)
 
-    if (mob:getObjType() == dsp.objType.TRUST) then
-        if (mob:getSubJob() == dsp.job.SAM) then
-            if (dmg > 0) then
-                target:addTP(20)
-                mob:addTP(175)
-            end
-        else
-            if (dmg > 0) then
-                target:addTP(20)
-                mob:addTP(150)
-            end
-        end
-    else
+    	local info = TrustPhysicalRangedMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,TP_DMG_VARIES,5.0,5.0,5.0);
+
+        local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,dsp.attackType.PHYSICAL,dsp.damageType.PIERCING,info.hitslanded)
+
+        target:delHP(dmg);
         if (dmg > 0) then
-            target:addTP(20)
-            mob:addTP(150)
+            mob:addTP(146)
         end
-    end
-
-
-    target:takeDamage(dmg, mob, dsp.attackType.RANGED, dsp.damageType.PIERCING)
-    return dmg
+        return dmg;
 end
