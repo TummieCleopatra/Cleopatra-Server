@@ -19,7 +19,8 @@ end;
 function onMobSpawn(mob)
    mob:setLocalVar("Trigger",1);
    local blank = GetNPCByID(16793928);
-   blank:setStatus(dsp.status.STATUS_DISAPPEAR);
+   blank:setStatus(dsp.status.DISAPPEAR);
+   mob:setMobMod(dsp.mobMod.IDLE_DESPAWN, 180);
 end;
 
 
@@ -117,104 +118,104 @@ end;
 -- onMobDeath
 -----------------------------------
 
-function onMobDeath(mob, killer, ally)
-printf("done");
+function onMobDeath(mob, player, isKiller)
 
 
 
 
 
 
-    if (killer:getVar("WARHAFight") == 1) then
-	    killer:setVar("WARHAFight",2);
+
+    if (player:getVar("WARHAFight") == 1) then
+	    player:setVar("WARHAFight",2);
 	end
 
-    if (killer:getVar("MNKHAFight") == 1) then
-	    killer:setVar("MNKHAFight",2);
+    if (player:getVar("MNKHAFight") == 1) then
+	    player:setVar("MNKHAFight",2);
 	end
 
-    if (killer:getVar("WHMHAFight") == 1) then
-	    killer:setVar("WHMHAFight",2);
+    if (player:getVar("WHMHAFight") == 1) then
+	    player:setVar("WHMHAFight",2);
 	end
 
-    if (killer:getVar("BLMHAFight") == 1) then
-	    killer:setVar("BLMHAFight",2);
+    if (player:getVar("BLMHAFight") == 1) then
+	    player:setVar("BLMHAFight",2);
 	end
 
-    if (killer:getVar("RDMHAFight") == 1) then
-	    killer:setVar("RDMHAFight",2);
+    if (player:getVar("RDMHAFight") == 1) then
+	    player:setVar("RDMHAFight",2);
 	end
 
-    if (killer:getVar("THFHAFight") == 1) then
-	    killer:setVar("THFHAFight",2);
+    if (player:getVar("THFHAFight") == 1) then
+	    player:setVar("THFHAFight",2);
 	end
 
-    if (killer:getVar("PLDHAFight") == 1) then
-	    killer:setVar("PLDHAFight",2);
+    if (player:getVar("PLDHAFight") == 1) then
+	    player:setVar("PLDHAFight",2);
 	end
 
-    if (killer:getVar("PLDHAFightShield") == 1) then
-	    killer:setVar("PLDHAFightShield",2);
+    if (player:getVar("PLDHAFightShield") == 1) then
+	    player:setVar("PLDHAFightShield",2);
 	end
 
-    if (killer:getVar("DRKHAFight") == 1) then
-	    killer:setVar("DRKHAFight",2);
+    if (player:getVar("DRKHAFight") == 1) then
+	    player:setVar("DRKHAFight",2);
 	end
 
-    if (killer:getVar("BSTHAFight") == 1) then
-	    killer:setVar("BSTHAFight",2);
+    if (player:getVar("BSTHAFight") == 1) then
+	    player:setVar("BSTHAFight",2);
 	end
 
-    if (killer:getVar("BRDHAFight") == 1) then
-	    killer:setVar("BRDHAFight",2);
+    if (player:getVar("BRDHAFight") == 1) then
+	    player:setVar("BRDHAFight",2);
 	end
 
-    if (killer:getVar("RNGHAFight") == 1) then
-	    killer:setVar("RNGHAFight",2);
+    if (player:getVar("RNGHAFight") == 1) then
+	    player:setVar("RNGHAFight",2);
 	end
 
-    if (killer:getVar("SAMHAFight") == 1) then
-	    killer:setVar("SAMHAFight",2);
+    if (player:getVar("SAMHAFight") == 1) then
+	    player:setVar("SAMHAFight",2);
 	end
 
-    if (killer:getVar("NINHAFight") == 1) then
-	    killer:setVar("NINHAFight",2);
+    if (player:getVar("NINHAFight") == 1) then
+	    player:setVar("NINHAFight",2);
 	end
 
-    if (killer:getVar("DRGHAFight") == 1) then
-	    killer:setVar("DRGHAFight",2);
+    if (player:getVar("DRGHAFight") == 1) then
+	    player:setVar("DRGHAFight",2);
 	end
 
-    if (killer:getVar("SMNHAFight") == 1) then
-	    killer:setVar("SMNHAFight",2);
+    if (player:getVar("SMNHAFight") == 1) then
+	    player:setVar("SMNHAFight",2);
 	end
 
-    if (killer:getVar("BLUHAFight") == 1) then
-	    killer:setVar("BLUHAFight",2);
+    if (player:getVar("BLUHAFight") == 1) then
+	    player:setVar("BLUHAFight",2);
 	end
 
-    if (killer:getVar("CORHAFight") == 1) then
-	    killer:setVar("CORHAFight",2);
+    if (player:getVar("CORHAFight") == 1) then
+	    player:setVar("CORHAFight",2);
 	end
 
-    if (killer:getVar("PUPHAFight") == 1) then
-	    killer:setVar("PUPHAFight",2);
+    if (player:getVar("PUPHAFight") == 1) then
+	    player:setVar("PUPHAFight",2);
 	end
 
-    if (killer:getVar("DNCHAFight") == 1) then
-	    killer:setVar("DNCHAFight",2);
+    if (player:getVar("DNCHAFight") == 1) then
+	    player:setVar("DNCHAFight",2);
 	end
 
-    if (killer:getVar("SCHHAFight") == 1) then
-	    killer:setVar("SCHHAFight",2);
+    if (player:getVar("SCHHAFight") == 1) then
+	    player:setVar("SCHHAFight",2);
 	end
-	killer:PrintToPlayer("There is something sparkling in the sand!", 0xD);
+	player:PrintToPlayer("There is something sparkling in the sand!", 0xD);
 
 end;
 
 
 function onMobDespawn(mob)
    local blank = GetNPCByID(16793928);
-   blank:setStatus(dsp.status.STATUS_NORMAL);
+   blank:setStatus(dsp.status.NORMAL);
 end;
 

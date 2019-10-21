@@ -282,6 +282,7 @@ function onTrigger(player,npc)
        (player:getVar("BLUHAFight") == 1) or (player:getVar("CORHAFight") == 1) or (player:getVar("PUPHAFight") == 1) or (player:getVar("DNCHAFight") == 1) or (player:getVar("SCHHAFight") == 1) or
        (player:getVar("PLDHAFightShield") == 1)) then
        SpawnMob(16793977):updateEnmity(player);
+       player:PrintToPlayer("You feel an ominous presence nearby...", 0xD);
     end
 
 
@@ -311,3 +312,4 @@ end;
 function onEventFinish(player,csid,option)
 --printf("CSID: %u",csid);
 --printf("RESULT: %u",option);
+end
