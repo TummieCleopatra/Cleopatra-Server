@@ -2964,7 +2964,7 @@ namespace battleutils
             std::list<SKILLCHAIN_ELEMENT> resonanceProperties;
             std::list<SKILLCHAIN_ELEMENT> skillProperties = { (SKILLCHAIN_ELEMENT)primary, (SKILLCHAIN_ELEMENT)secondary, (SKILLCHAIN_ELEMENT)tertiary };
 
-            if (primary >= 9 && primary <= 12)
+            if (primary == 9 || primary == 10 || primary == 11 || primary == 12)
             {
                 std::list<SKILLCHAIN_ELEMENT> skillProperties = {(SKILLCHAIN_ELEMENT)quaternary, (SKILLCHAIN_ELEMENT)secondary, (SKILLCHAIN_ELEMENT)tertiary};
             }
@@ -3021,7 +3021,8 @@ namespace battleutils
                 if (PSCEffect->GetStartTime() + 3s < server_clock::now())
                 {
                     auto properties = PSCEffect->GetPower();
-                    if (primary >= 9 && primary <= 12)
+                    /*
+                    if (primary == 9 || primary == 10 || primary == 11 || primary == 12)
                     {
                         resonanceProperties.push_back((SKILLCHAIN_ELEMENT)g_PWeaponSkillList[PSCEffect->GetPower()]->getQuaternarySkillchain());
                         resonanceProperties.push_back((SKILLCHAIN_ELEMENT)(properties & 0b1111));
@@ -3032,7 +3033,7 @@ namespace battleutils
                         resonanceProperties.push_back((SKILLCHAIN_ELEMENT)g_PWeaponSkillList[PSCEffect->GetPower()]->getQuinarySkillchain());
                         resonanceProperties.push_back((SKILLCHAIN_ELEMENT)(properties & 0b1111));
                         resonanceProperties.push_back((SKILLCHAIN_ELEMENT)((properties >> 4) & 0b1111));
-                        ShowWarning(CL_GREEN"Resonance Trigger! \n" CL_RESET);
+                        ShowWarning(CL_GREEN"Resonance Trigger on 13 and 14 Quinary! \n" CL_RESET);
                     }
                     else if (primary == 15 || primary == 16)
                     {
@@ -3045,7 +3046,10 @@ namespace battleutils
                         resonanceProperties.push_back((SKILLCHAIN_ELEMENT)(properties & 0b1111));
                         resonanceProperties.push_back((SKILLCHAIN_ELEMENT)((properties >> 4) & 0b1111));
                         resonanceProperties.push_back((SKILLCHAIN_ELEMENT)((properties >> 8) & 0b1111));
-                    }
+                    }*/
+                    resonanceProperties.push_back((SKILLCHAIN_ELEMENT)(properties & 0b1111));
+                    resonanceProperties.push_back((SKILLCHAIN_ELEMENT)((properties >> 4) & 0b1111));
+                    resonanceProperties.push_back((SKILLCHAIN_ELEMENT)((properties >> 8) & 0b1111));
                     skillchain = FormSkillchain(resonanceProperties, skillProperties);
                 }
             }
