@@ -37,7 +37,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("wsTime",0)
 
     mob:addListener("COMBAT_TICK", "NAJELITH_DISTANCE_TICK", function(mob, player, target)
-        trustMageMove(mob, player, target, angle)
+        trustRangedMove(mob, player, target, angle)
     end)
 
     mob:addListener("COMBAT_TICK", "NAJELITH_UTSU_TICK", function(mob, player, target)

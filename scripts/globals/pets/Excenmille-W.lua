@@ -7,7 +7,7 @@
 -------------------------------------------------
 require("scripts/globals/status")
 require("scripts/globals/msg")
-require("scripts/globals/trustpoints")
+require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
     local lvl = mob:getMainLvl()
@@ -29,11 +29,12 @@ function onMobSpawn(mob)
 
     excenmilleTrustPoints(mob)
 
-	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_JUMP_TICK", function(mob, player, target)
+
+	mob:addListener("COMBAT_TICK", "EXCENMILLE_JUMP_TICK", function(mob, player, target)
 	    local battletime = os.time()
 		local jumpTime = mob:getLocalVar("jumpTime")
-
         if (lvl >= 10 and mob:getTP() >= 300) then
+            printf("jump check")
 		    if (battletime > jumpTime + jumpCooldown) then
 		        mob:useJobAbility(50, target)
 			    mob:setLocalVar("jumpTime",battletime)
@@ -41,7 +42,7 @@ function onMobSpawn(mob)
         end
 	end)
 
-	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_HIGH_JUMP_TICK", function(mob, player, target)
+	mob:addListener("COMBAT_TICK", "EXCENMILLE_HIGH_JUMP_TICK", function(mob, player, target)
 	    local battletime = os.time()
 		local highJumpTime = mob:getLocalVar("highJumpTime")
 
@@ -53,7 +54,7 @@ function onMobSpawn(mob)
         end
 	end)
 
-	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_SUPER_JUMP_TICK", function(mob, player, target)
+	mob:addListener("COMBAT_TICK", "EXCENMILLE_SUPER_JUMP_TICK", function(mob, player, target)
 	    local battletime = os.time()
 		local superJumpTime = mob:getLocalVar("superJumpTime")
 
@@ -69,7 +70,7 @@ function onMobSpawn(mob)
         local battletime = os.time()
         local berserk = mob:getLocalVar("berserkTime")
         if ((battletime > berserk + berserkCooldown) and lvl >= 50 and mob:getTP() >= 800) then
-            mob:useJobAbility(15, target)
+            mob:useJobAbility(15, mob)
             mob:setLocalVar("berserkTime",battletime)
         end
     end)

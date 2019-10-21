@@ -72,7 +72,7 @@ function onMobSpawn(mob)
         local battletime = os.time()
         local berserk = mob:getLocalVar("berserkTime")
         if ((battletime > berserk + berserkCooldown) and lvl >= 50 and mob:getTP() >= 800) then
-            mob:useJobAbility(15, target)
+            mob:useJobAbility(15, mob)
             mob:setLocalVar("berserkTime",battletime)
         end
     end)

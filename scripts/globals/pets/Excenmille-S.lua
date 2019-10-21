@@ -35,7 +35,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("thirdEyeTime",0)
 
 
-	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_JUMP_TICK", function(mob, player, target)
+	mob:addListener("COMBAT_TICK", "EXCENMILLE_JUMP_TICK", function(mob, player, target)
 	    local battletime = os.time()
 		local jumpTime = mob:getLocalVar("jumpTime")
 
@@ -47,7 +47,7 @@ function onMobSpawn(mob)
         end
 	end)
 
-	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_HIGH_JUMP_TICK", function(mob, player, target)
+	mob:addListener("COMBAT_TICK", "EXCENMILLE_HIGH_JUMP_TICK", function(mob, player, target)
 	    local battletime = os.time()
 		local highJumpTime = mob:getLocalVar("highJumpTime")
 
@@ -59,7 +59,7 @@ function onMobSpawn(mob)
         end
 	end)
 
-	mob:addListener("TRUST_COMBAT_TICK", "EXCENMILLE_SUPER_JUMP_TICK", function(mob, player, target)
+	mob:addListener("COMBAT_TICK", "EXCENMILLE_SUPER_JUMP_TICK", function(mob, player, target)
 	    local battletime = os.time()
 		local superJumpTime = mob:getLocalVar("superJumpTime")
 

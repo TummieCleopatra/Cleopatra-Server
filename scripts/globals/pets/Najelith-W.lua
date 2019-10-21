@@ -39,7 +39,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("wsTime",0)
 
     mob:addListener("COMBAT_TICK", "NAJELITH_DISTANCE_TICK", function(mob, player, target)
-        trustMageMove(mob, player, target, angle)
+        trustRangedMove(mob, player, target, angle)
     end)
 
     mob:addListener("COMBAT_TICK", "NAJELITH_BERSERK_TICK", function(mob, player, target)
@@ -73,11 +73,9 @@ function onMobSpawn(mob)
         local mobdef = mob:getStat(dsp.mod.DEF)
         local pdifs = (tatt / mobdef)
         local enmity = enmityCalc(mob, player, target)
-        printf("Najelith enmity is: %u",enmity)
-        printf("----------- Pdif is: %f -------------",pdifs)
         if (lvl >= 30 and mob:getTP() >= 100 and enmity > (3500 * pdifs)) then
             if (battletime > barrageTime + barrageCooldown) then
-		        mob:useJobAbility(44, target)
+		        mob:useJobAbility(44, mob)
 			    mob:setLocalVar("barrageTime",battletime)
 		    end
         end
@@ -91,7 +89,7 @@ function onMobSpawn(mob)
         local dif = math.floor(eva - racc)
         if (dif > 10) then
             if (battletime > sharpShotTime + sharpShotCooldown) then
-		        mob:useJobAbility(43, target)
+		        mob:useJobAbility(43, mob)
 			    mob:setLocalVar("sharpShotTime",battletime)
 		    end
         end

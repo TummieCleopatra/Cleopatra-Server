@@ -23,7 +23,7 @@ function onMobSpawn(mob)
     local wsCooldown = 4
     local berserkCooldown = 300
 
-    local enmmity = math.floor(mob:getMainLvl() / 3 )
+    local enmity = math.floor(mob:getMainLvl() / 3 )
     mob:addMod(dsp.mod.ENMITY, -enmity)
     mob:setLocalVar("wsTime",0)
     mob:setLocalVar("cureTime",0)

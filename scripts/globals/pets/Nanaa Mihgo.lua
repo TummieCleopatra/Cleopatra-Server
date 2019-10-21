@@ -73,7 +73,6 @@ function doNanaaSa(mob, player, target)
         if (tp < 40) then
             if (battletime > saTime + sneakAttackCooldown) then
                 mob:useJobAbility(28)
-                printf("Sneak Attack")
                 mob:setLocalVar("saTime",os.time())
             end
         end
@@ -106,6 +105,5 @@ function doNanaaWeaponskill(mob)
     end
 
     finalWS = newWsList[math.random(1,#newWsList)]
-    print(finalWS)
     return finalWS
 end

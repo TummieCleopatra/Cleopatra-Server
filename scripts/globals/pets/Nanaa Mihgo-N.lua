@@ -97,7 +97,6 @@ function doNanaaSa(mob, player, target)
     local drot = trot - mrot
     local tp = mob:getTP()
     local enmity = enmityCalc(mob, player, target)
-    print(drot)
     if ((drot > -5 and drot < 5) and enmity ~= 0) then
         if (tp < 400) then
             if (battletime > saTime + sneakAttackCooldown) then
@@ -135,6 +134,5 @@ function doNanaaWeaponskill(mob)
     end
 
     finalWS = newWsList[math.random(1,#newWsList)]
-    print(finalWS)
     return finalWS
 end

@@ -33,7 +33,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("slowTime",0)
     mob:setLocalVar("flashTime",0)
     mob:setLocalVar("hasteTime",0)
-    local enmmity = math.floor(mob:getMainLvl() / 3 )
+    local enmity = math.floor(mob:getMainLvl() / 3 )
     mob:addMod(dsp.mod.ENMITY, -enmity)
 
     kupipiTrustPoints(mob)

@@ -16,6 +16,7 @@ function onMobSpawn(mob)
     local lvl = mob:getMainLvl()
     local berserkCooldown = 300
     local angle = getAngle(mob)
+    local wsCooldown = 4
     mob:setLocalVar("meditateTime",0)
     mob:setLocalVar("meditateCooldown",180)
     mob:setLocalVar("hassoTime",0)
@@ -163,7 +164,7 @@ function onMobSpawn(mob)
         local battletime = os.time()
         local berserk = mob:getLocalVar("berserkTime")
         if ((battletime > berserk + berserkCooldown) and lvl >= 50 and mob:getTP() >= 800) then
-            mob:useJobAbility(15, target)
+            mob:useJobAbility(15, mob)
             mob:setLocalVar("berserkTime",battletime)
         end
     end)
