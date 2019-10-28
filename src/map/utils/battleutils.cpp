@@ -429,9 +429,20 @@ namespace battleutils
         {
             //Tier 2 enspells calculate the damage on each hit and increment the potency in Mod::ENSPELL_DMG per hit
             uint16 skill = PAttacker->GetSkill(SKILL_ENHANCING_MAGIC);
-            uint16 cap = 3 + ((6 * skill) / 100);
+            uint16 cap = (3 + ((6 * skill) / 100));
+            if (PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_COMPOSURE))
+            {
+                cap = (2 + ((10 * skill) / 100));
+            }
             if (skill > 200) {
-                cap = 5 + ((5 * skill) / 100);
+                if (PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_COMPOSURE))
+                {
+                    cap = (6 + ((8 * skill) / 100));
+                }
+                else
+                {
+                    cap = 5 + ((5 * skill) / 100);
+                }
             }
             cap *= 2;
 
@@ -1439,6 +1450,8 @@ namespace battleutils
     {
         //get ranged attack value
         uint16 rAttack = 1;
+        float ratioCap = 3.25f;
+        float dmgLimit = (float)(PAttacker->getMod(Mod::DAMAGE_LIMIT) / 100);
 
         if (PAttacker->objtype == TYPE_PC)
         {
@@ -1447,11 +1460,21 @@ namespace battleutils
 
             if (PItem != nullptr && PItem->isType(ITEM_WEAPON))
             {
+                if (PItem->getSkillType() == SKILL_ARCHERY) {
+                    ratioCap = 3.25f + (float)dmgLimit;
+                    ShowWarning("This is a Ranged Attack, total is %f \n", ratioCap);
+                }
+                else if (PItem->getSkillType() == SKILL_MARKSMANSHIP) {
+                    ratioCap = 3.50f + (float)dmgLimit;
+                }
                 rAttack = PChar->RATT(PItem->getSkillType(), PItem->getILvlSkill());
             }
             else
             {
                 PItem = (CItemWeapon*)PChar->getEquip(SLOT_AMMO);
+                if (PItem->getSkillType() == SKILL_THROWING) {
+                    ratioCap = 3.50f + (float)dmgLimit;
+                }
 
                 if (PItem == nullptr || !PItem->isType(ITEM_WEAPON) || (PItem->getSkillType() != SKILL_THROWING)) {
                     ShowDebug("battleutils::GetRangedPDIF Cannot find a valid ranged weapon to calculate PDIF for. \n");
@@ -1475,7 +1498,8 @@ namespace battleutils
         //get ratio (not capped for RAs)
         float ratio = (float)rAttack / (float)PDefender->DEF();
 
-        ratio = std::clamp<float>(ratio, 0, 3);
+        ratio = std::clamp<float>(ratio, 0, ratioCap);
+
 
         //level correct (0.025 not 0.05 like for melee)
         if (PDefender->GetMLevel() > PAttacker->GetMLevel()) {
@@ -1498,12 +1522,12 @@ namespace battleutils
         }
         else
         {
-            minPdif = (-3.0f / 19.0f) + ((20.0f / 19.0f) * ratio);
+            minPdif = ((20.0f / 19.0f) - (3.0f / 19.0f)) * ratio;
             maxPdif = ratio;
         }
 
-        minPdif = std::clamp<float>(minPdif, 0, 3);
-        maxPdif = std::clamp<float>(maxPdif, 0, 3);
+        //minPdif = std::clamp<float>(minPdif, 0, ratioCap);
+        //maxPdif = std::clamp<float>(maxPdif, 0, ratioCap);
 
         //return random number between the two
         float pdif = dsprand::GetRandomNumber(minPdif, maxPdif);
@@ -2275,6 +2299,10 @@ namespace battleutils
         else
         {
             //ShowDebug("Accuracy mod before direction checks: %d\n", offsetAccuracy);
+
+            //RDM Merit Accuracy
+            offsetAccuracy += ((CCharEntity*)PAttacker)->PMeritPoints->GetMeritValue(MERIT_ACCURACY, (CCharEntity*)PAttacker);
+
             //Check For Ambush Merit - Melee
             if (PAttacker->objtype == TYPE_PC && (charutils::hasTrait((CCharEntity*)PAttacker, TRAIT_AMBUSH)) && ((abs(PDefender->loc.p.rotation - PAttacker->loc.p.rotation) < 23)))
             {
@@ -2414,13 +2442,44 @@ namespace battleutils
         float cRatioMax = 0;
         float cRatioMin = 0;
         float ratioCap = 2.0f;
+        float dmgLimit = (float)(PAttacker->getMod(Mod::DAMAGE_LIMIT) / 100);
 
         if (PAttacker->objtype == TYPE_PC)
         {
-            ratioCap = 2.25f;
+            CItemWeapon* PItem = (CItemWeapon*)PAttacker->m_Weapons[SLOT_MAIN];
+
+            if (auto weapon = dynamic_cast<CItemWeapon*>(PAttacker->m_Weapons[SLOT_MAIN]))
+            {
+                switch(weapon->getSkillType())
+                {
+                    case SKILL_HAND_TO_HAND:
+                    case SKILL_GREAT_KATANA:
+                    {
+                       ratioCap = 3.50f + (float)dmgLimit;
+                       ShowWarning("The ratioCap is 3.50, total is %f \n", ratioCap);
+                    }
+                    break;
+                    case SKILL_GREAT_SWORD:
+                    case SKILL_GREAT_AXE:
+                    case SKILL_SCYTHE:
+                    case SKILL_POLEARM:
+                    {
+                        ratioCap = 3.75f + dmgLimit;
+                        //ShowWarning("The ratioCap is %f",ratioCap);
+                    }
+                    break;
+                    default:
+                    {
+                        ratioCap = 3.25f + dmgLimit;
+                        //ShowWarning("The ratioCap is %f",ratioCap);
+                    }
+                    break;
+                }
+            }
         }
         if (PAttacker->objtype == TYPE_MOB)
         {
+
             ratioCap = 4.f;
         }
 
@@ -2443,7 +2502,25 @@ namespace battleutils
 
         if (isCritical)
         {
-            cRatio += 1;
+            if (auto weapon = dynamic_cast<CItemWeapon*>(PAttacker->m_Weapons[SLOT_RANGED]))
+            {
+                switch(weapon->getSkillType())
+                {
+                    case SKILL_MARKSMANSHIP:
+                    case SKILL_THROWING:
+                    case SKILL_ARCHERY:
+                    {
+                        cRatio += 1.25;
+                        ShowWarning("marksmanship or throwing... crit +1.25 \n");
+                    }
+                    break;
+                }
+            }
+            else if (auto weapon = dynamic_cast<CItemWeapon*>(PAttacker->m_Weapons[SLOT_MAIN]))
+            {
+                cRatio += 1;
+                ShowWarning("Regular weapon... crit +1 \n");
+            }
         }
 
         cRatio = std::clamp<float>(cRatio, 0, ratioCap);
@@ -4445,7 +4522,10 @@ namespace battleutils
     {
         if (PDefender->StatusEffectContainer->HasStatusEffect(EFFECT_AFFLATUS_MISERY) && damage > 0)
         {
-            PDefender->setModifier(Mod::AFFLATUS_MISERY, damage);
+            int32 animusMisery = ((CCharEntity*)PDefender)->PMeritPoints->GetMeritValue(MERIT_ANIMUS_MISERY, (CCharEntity*)PDefender);
+            int32 miseryMod = PDefender->getMod(Mod::ANIMUS_MISERY);
+            int16 miseryMult = 1 + ((animusMisery + miseryMod) / 100);
+            PDefender->setModifier(Mod::AFFLATUS_MISERY, damage * (miseryMult));
             // ShowDebug("Misery power: %d\n", damage);
         }
     }

@@ -560,6 +560,10 @@ public:
     int32 addBurden(lua_State* L);
     int32 setStatDebilitation(lua_State* L);
 
+    int32 getActiveBoosts(lua_State*);
+	int32 removeOldestBoost(lua_State*);
+    int32 removeAllBoosts(lua_State*);
+
     // Damage Calculation
     int32 getStat(lua_State*);                  // STR,DEX,VIT,AGI,INT,MND,CHR,ATT,DEF
     int32 getACC(lua_State*);                   // Get total ACC

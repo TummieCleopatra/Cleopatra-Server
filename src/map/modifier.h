@@ -773,8 +773,12 @@ enum class Mod
     CAMPAIGN_BONUS            = 935, // Increases the evaluation for allied forces by percentage
 
     PARRY_BONUS               = 948, // Inquartata Parry Bonus
-    CON_ANIMA                 = 949,
-    CON_BRIO                  = 950,
+
+    DAMAGE_LIMIT              = 950,
+    ANIMUS_SOLACE             = 951,
+    ANIMUS_MISERY             = 952,
+    CON_ANIMA                 = 953,
+    CON_BRIO                  = 954,
 
     // The spares take care of finding the next ID to use so long as we don't forget to list IDs that have been freed up by refactoring.
     // 570 through 825 used by WS DMG mods these are not spares.

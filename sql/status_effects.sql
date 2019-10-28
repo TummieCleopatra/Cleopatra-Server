@@ -84,7 +84,7 @@ INSERT INTO `status_effects` VALUES (41,'shell',33,0,0,0,0,0,7,0);
 INSERT INTO `status_effects` VALUES (42,'regen',33,0,0,0,0,0,7,0);
 INSERT INTO `status_effects` VALUES (43,'refresh',33,0,0,0,0,0,7,0);
 INSERT INTO `status_effects` VALUES (44,'mighty_strikes',32,0,0,0,0,0,1,0);
-INSERT INTO `status_effects` VALUES (45,'boost',37,0,0,0,0,0,1,0);
+INSERT INTO `status_effects` VALUES (45,'boost',33,0,0,4,0,0,0,0);
 INSERT INTO `status_effects` VALUES (46,'hundred_fists',32,0,0,0,0,0,6,0);
 INSERT INTO `status_effects` VALUES (47,'manafont',32,0,0,0,0,0,3,0);
 INSERT INTO `status_effects` VALUES (48,'chainspell',32,0,0,0,0,0,6,0);

@@ -362,8 +362,8 @@ enum MERIT_TYPE
     //WHM 2
     MERIT_MARTYR                    = MCATEGORY_WHM_2 + 0x00,
     MERIT_DEVOTION                  = MCATEGORY_WHM_2 + 0x02,
-    MERIT_PROTECTRA_V               = MCATEGORY_WHM_2 + 0x04,
-    MERIT_SHELLRA_V                 = MCATEGORY_WHM_2 + 0x06,
+    MERIT_ANIMUS_SOLACE             = MCATEGORY_WHM_2 + 0x04,
+    MERIT_ANIMUS_MISERY             = MCATEGORY_WHM_2 + 0x06,
 
     //BLM 2
     MERIT_FLARE_II                  = MCATEGORY_BLM_2 + 0x00,
@@ -374,12 +374,12 @@ enum MERIT_TYPE
     MERIT_FLOOD_II                  = MCATEGORY_BLM_2 + 0x0A,
 
     //RDM 2
-    MERIT_DIA_III                   = MCATEGORY_RDM_2 + 0x00,
-    MERIT_SLOW_II                   = MCATEGORY_RDM_2 + 0x02,
-    MERIT_PARALYZE_II               = MCATEGORY_RDM_2 + 0x04,
-    MERIT_PHALANX_II                = MCATEGORY_RDM_2 + 0x06,
-    MERIT_BIO_III                   = MCATEGORY_RDM_2 + 0x08,
-    MERIT_BLIND_II                  = MCATEGORY_RDM_2 + 0x0A,
+    MERIT_ENFEEBLING_MAGIC_DURATION = MCATEGORY_RDM_2 + 0x00,
+    MERIT_MAGIC_ACCURACY            = MCATEGORY_RDM_2 + 0x02,
+    MERIT_ENHANCING_MAGIC_DURATION  = MCATEGORY_RDM_2 + 0x04,
+    MERIT_IMMUNOBREAK_CHANCE        = MCATEGORY_RDM_2 + 0x06,
+    MERIT_ENSPELL_DAMAGE            = MCATEGORY_RDM_2 + 0x08,
+    MERIT_ACCURACY                  = MCATEGORY_RDM_2 + 0x0A,
 
     //THF 2
     MERIT_ASSASSINS_CHARGE          = MCATEGORY_THF_2 + 0x00,
@@ -408,8 +408,8 @@ enum MERIT_TYPE
     //BRD 2
     MERIT_NIGHTINGALE               = MCATEGORY_BRD_2 + 0x00,
     MERIT_TROUBADOUR                = MCATEGORY_BRD_2 + 0x02,
-    MERIT_FOE_SIRVENTE              = MCATEGORY_BRD_2 + 0x04,
-    MERIT_ADVENTURERS_DIRGE         = MCATEGORY_BRD_2 + 0x06,
+    MERIT_CON_ANIMA                 = MCATEGORY_BRD_2 + 0x04,
+    MERIT_CON_BRIO                  = MCATEGORY_BRD_2 + 0x06,
 
     //RNG 2
     MERIT_STEALTH_SHOT              = MCATEGORY_RNG_2 + 0x00,

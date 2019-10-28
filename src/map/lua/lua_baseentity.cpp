@@ -13112,6 +13112,41 @@ inline int32 CLuaBaseEntity::updateAttachments(lua_State* L)
     return 0;
 }
 
+
+inline int32 CLuaBaseEntity::getActiveBoosts(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+    lua_pushinteger(L, PEntity->StatusEffectContainer->GetActiveBoosts());
+
+    return 1;
+}
+
+inline int32 CLuaBaseEntity::removeOldestBoost(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+    PEntity->StatusEffectContainer->RemoveOldestBoost();
+
+    return 0;
+}
+
+inline int32 CLuaBaseEntity::removeAllBoosts(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+
+    CBattleEntity* PEntity = (CBattleEntity*)m_PBaseEntity;
+
+    PEntity->StatusEffectContainer->RemoveAllBoosts();
+
+    return 0;
+}
+
+
 /************************************************************************
 *  Function: setMobLevel()
 *  Purpose : Updates the monsters level and recalculates stats
@@ -15358,6 +15393,10 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeOldestManeuver),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeAllManeuvers),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,updateAttachments),
+
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,getActiveBoosts),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeOldestBoost),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,removeAllBoosts),
 
     LUNAR_DECLARE_METHOD(CLuaBaseEntity, spawnTrust),
 

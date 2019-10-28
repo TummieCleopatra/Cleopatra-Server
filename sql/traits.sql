@@ -556,14 +556,14 @@ INSERT INTO `traits` VALUES (107,'fencer',1,84,4,904,9,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (107,'fencer',1,97,5,903,500,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (107,'fencer',1,97,5,904,10,'ABYSSEA',0);
 
-INSERT INTO `traits` VALUES (107,'fencer',10,10,1,903,200,'ABYSSEA',0);
-INSERT INTO `traits` VALUES (107,'fencer',10,10,1,904,3,'ABYSSEA',0);
-INSERT INTO `traits` VALUES (107,'fencer',10,25,2,903,300,'ABYSSEA',0);
-INSERT INTO `traits` VALUES (107,'fencer',10,25,2,904,5,'ABYSSEA',0);
-INSERT INTO `traits` VALUES (107,'fencer',10,45,3,903,400,'ABYSSEA',0);
-INSERT INTO `traits` VALUES (107,'fencer',10,45,3,904,7,'ABYSSEA',0);
-INSERT INTO `traits` VALUES (107,'fencer',10,65,4,903,450,'ABYSSEA',0);
-INSERT INTO `traits` VALUES (107,'fencer',10,65,4,904,9,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (107,'fencer',10,30,1,903,200,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (107,'fencer',10,30,1,904,3,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (107,'fencer',10,45,2,903,300,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (107,'fencer',10,45,2,904,5,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (107,'fencer',10,60,3,903,400,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (107,'fencer',10,60,3,904,7,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (107,'fencer',10,75,4,903,450,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (107,'fencer',10,75,4,904,9,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (107,'fencer',10,85,5,903,500,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (107,'fencer',10,85,5,904,10,'ABYSSEA',0);
 
@@ -587,10 +587,15 @@ INSERT INTO `traits` VALUES (110,'mag. burst bonus',20,79,1,487,5,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (110,'mag. burst bonus',20,89,2,487,7,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (110,'mag. burst bonus',20,99,3,487,9,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (111,'divine benison',3,50,1,910,10,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (111,'divine benison',3,50,1,860,1,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (111,'divine benison',3,60,2,910,20,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (111,'divine benison',3,60,2,860,2,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (111,'divine benison',3,70,3,910,30,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (111,'divine benison',3,70,3,860,3,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (111,'divine benison',3,80,4,910,40,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (111,'divine benison',3,80,4,860,4,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (111,'divine benison',3,90,5,910,50,'ABYSSEA',0);
+INSERT INTO `traits` VALUES (111,'divine benison',3,90,5,860,5,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (112,'elemental celerity',4,50,1,901,10,'SOA',0);
 INSERT INTO `traits` VALUES (112,'elemental celerity',4,60,2,901,15,'SOA',0);
 INSERT INTO `traits` VALUES (112,'elemental celerity',4,70,3,901,20,'SOA',0);
@@ -647,6 +652,15 @@ INSERT INTO `traits` VALUES (123,'daken',13,40,2,911,25,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (123,'daken',13,55,3,911,30,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (123,'daken',13,70,4,911,35,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (123,'daken',13,95,5,911,40,'ABYSSEA',0);
+
+INSERT INTO `traits` VALUES (125,'magic_accuracy_bonus',5,30,1,30,5,'SOA',0);
+INSERT INTO `traits` VALUES (125,'magic_accuracy_bonus',5,50,2,30,7,'SOA',0);
+INSERT INTO `traits` VALUES (125,'magic_accuracy_bonus',5,70,3,30,10,'SOA',0);
+
+INSERT INTO `traits` VALUES (126,'magic_evasion_bonus',22,50,1,31,10,'SOA',0);
+INSERT INTO `traits` VALUES (126,'magic_evasion_bonus',22,75,2,31,12,'SOA',0);
+
+
 INSERT INTO `traits` VALUES (127,'smite',1,35,1,898,25,'SOA',0);
 INSERT INTO `traits` VALUES (127,'smite',1,65,2,898,38,'SOA',0);
 INSERT INTO `traits` VALUES (127,'smite',1,95,3,898,51,'SOA',0);
@@ -660,6 +674,40 @@ INSERT INTO `traits` VALUES (127,'smite',8,95,5,898,76,'SOA',0);
 INSERT INTO `traits` VALUES (127,'smite',14,40,1,898,25,'SOA',0);
 INSERT INTO `traits` VALUES (127,'smite',14,80,2,898,38,'SOA',0);
 INSERT INTO `traits` VALUES (127,'smite',18,60,1,898,25,'SOA',0);
+
+INSERT INTO `traits` VALUES (129,'damage_limit',1,40,1,900,10,'SOA',0); -- War 
+
+INSERT INTO `traits` VALUES (129,'damage_limit',2,30,1,900,10,'SOA',0); -- MNK
+INSERT INTO `traits` VALUES (129,'damage_limit',2,60,2,900,20,'SOA',0); -- MNK
+
+INSERT INTO `traits` VALUES (129,'damage_limit',5,60,1,900,10,'SOA',0); -- RDM 
+
+INSERT INTO `traits` VALUES (129,'damage_limit',6,50,1,900,10,'SOA',0); -- THF 
+
+INSERT INTO `traits` VALUES (129,'damage_limit',8,20,1,900,10,'SOA',0); -- DRK
+INSERT INTO `traits` VALUES (129,'damage_limit',8,40,2,900,20,'SOA',0); -- DRK
+INSERT INTO `traits` VALUES (129,'damage_limit',8,55,3,900,30,'SOA',0); -- DRK
+INSERT INTO `traits` VALUES (129,'damage_limit',8,70,4,900,40,'SOA',0); -- DRK
+
+INSERT INTO `traits` VALUES (129,'damage_limit',9,45,1,900,10,'SOA',0); -- BST 
+
+INSERT INTO `traits` VALUES (129,'damage_limit',11,30,1,900,10,'SOA',0); -- RNG
+INSERT INTO `traits` VALUES (129,'damage_limit',11,60,2,900,20,'SOA',0); -- RNG
+
+INSERT INTO `traits` VALUES (129,'damage_limit',12,40,1,900,10,'SOA',0); -- SAM
+
+INSERT INTO `traits` VALUES (129,'damage_limit',13,50,1,900,10,'SOA',0); -- BST 
+
+INSERT INTO `traits` VALUES (129,'damage_limit',14,30,1,900,10,'SOA',0); -- RNG
+INSERT INTO `traits` VALUES (129,'damage_limit',14,60,2,900,20,'SOA',0); -- RNG
+
+INSERT INTO `traits` VALUES (129,'damage_limit',18,45,1,900,10,'SOA',0); -- PUP
+
+INSERT INTO `traits` VALUES (129,'damage_limit',19,45,1,900,10,'SOA',0); -- DNC
+
+
+
+
 INSERT INTO `traits` VALUES (108,'conserve tp',14,45,1,944,15,'ABYSSEA',0); -- Conserve TP I, DRG45, 15%
 INSERT INTO `traits` VALUES (108,'conserve tp',19,77,1,944,15,'ABYSSEA',0); -- Conserve TP I, DNC77, 15%
 INSERT INTO `traits` VALUES (108,'conserve tp',11,80,1,944,15,'ABYSSEA',0); -- Conserve TP I, RNG80, 15%
@@ -672,25 +720,45 @@ INSERT INTO `traits` VALUES (108,'conserve tp',14,84,4,944,24,'ABYSSEA',0); -- C
 INSERT INTO `traits` VALUES (108,'conserve tp',14,97,4,944,26,'ABYSSEA',0); -- Conserve TP V, DRG97, 26%
 
 
-INSERT INTO `traits` VALUES (132,'con_anima',10,1,1,161,-1,'SOA',0); -- MDT
-INSERT INTO `traits` VALUES (132,'con_anima',10,15,2,161,-2,'SOA',0); -- MDT
-INSERT INTO `traits` VALUES (132,'con_anima',10,30,3,161,-3,'SOA',0); -- MDT
-INSERT INTO `traits` VALUES (132,'con_anima',10,45,4,161,-5,'SOA',0); -- MDT
-INSERT INTO `traits` VALUES (132,'con_anima',10,60,5,161,-7,'SOA',0); -- MDT
-INSERT INTO `traits` VALUES (132,'con_anima',10,75,6,161,-10,'SOA',0); -- MDT
+INSERT INTO `traits` VALUES (130,'animus_solace',3,50,1,951,1,'SOA',0); -- WHM
+INSERT INTO `traits` VALUES (130,'animus_solace',3,60,2,951,3,'SOA',0); -- WHM
+INSERT INTO `traits` VALUES (130,'animus_solace',3,70,3,951,5,'SOA',0); -- WHM
+
+INSERT INTO `traits` VALUES (131,'animus_misery',3,50,1,952,1,'SOA',0); -- WHM
+INSERT INTO `traits` VALUES (131,'animus_misery',3,60,2,952,3,'SOA',0); -- WHM
+INSERT INTO `traits` VALUES (131,'animus_misery',3,70,3,952,5,'SOA',0); -- WHM
 
 
-INSERT INTO `traits` VALUES (133,'con_brio',10,1,1,163,-1,'SOA',0); -- MDT
-INSERT INTO `traits` VALUES (133,'con_brio',10,15,2,163,-2,'SOA',0); -- MDT
-INSERT INTO `traits` VALUES (133,'con_brio',10,30,3,163,-3,'SOA',0); -- MDT
-INSERT INTO `traits` VALUES (133,'con_brio',10,45,4,163,-5,'SOA',0); -- MDT
-INSERT INTO `traits` VALUES (133,'con_brio',10,60,5,163,-7,'SOA',0); -- MDT
-INSERT INTO `traits` VALUES (133,'con_brio',10,75,6,163,-10,'SOA',0); -- MDT
+INSERT INTO `traits` VALUES (132,'con_anima',10,50,1,953,-1,'SOA',0); -- MDT
+INSERT INTO `traits` VALUES (132,'con_anima',10,60,2,953,-3,'SOA',0); -- MDT
+INSERT INTO `traits` VALUES (132,'con_anima',10,70,3,953,-5,'SOA',0); -- MDT
 
-INSERT INTO `traits` VALUES (134,'ws_damage_boost',10,45,1,840,7,'SOA',0); -- MDT
-INSERT INTO `traits` VALUES (134,'ws_damage_boost',10,55,2,840,10,'SOA',0); -- MDT
-INSERT INTO `traits` VALUES (134,'ws_damage_boost',10,65,3,840,13,'SOA',0); -- MDT
-INSERT INTO `traits` VALUES (134,'ws_damage_boost',10,75,4,840,16,'SOA',0); -- MDT
+
+
+
+INSERT INTO `traits` VALUES (133,'con_brio',10,50,1,954,-1,'SOA',0); -- MDT
+INSERT INTO `traits` VALUES (133,'con_brio',10,60,2,954,-3,'SOA',0); -- MDT
+INSERT INTO `traits` VALUES (133,'con_brio',10,70,3,954,-5,'SOA',0); -- MDT
+
+
+
+INSERT INTO `traits` VALUES (134,'ws_damage_boost',7,65,1,840,7,'SOA',0); -- WS Damage Boost PLD
+
+
+INSERT INTO `traits` VALUES (134,'ws_damage_boost',10,50,1,840,7,'SOA',0); -- WS Damage Boost BRD
+INSERT INTO `traits` VALUES (134,'ws_damage_boost',10,65,2,840,10,'SOA',0); -- WS Damage Boost BRD
+
+INSERT INTO `traits` VALUES (134,'ws_damage_boost',14,45,1,840,7,'SOA',0); -- WS Damage Boost RUN
+INSERT INTO `traits` VALUES (134,'ws_damage_boost',14,55,2,840,10,'SOA',0); -- WS Damage Boost RUN
+INSERT INTO `traits` VALUES (134,'ws_damage_boost',14,65,3,840,13,'SOA',0); -- WS Damage Boost RUN
+INSERT INTO `traits` VALUES (134,'ws_damage_boost',14,75,4,840,16,'SOA',0); -- WS Damage Boost RUN
+
+INSERT INTO `traits` VALUES (134,'ws_damage_boost',22,55,1,840,7,'SOA',0); -- WS Damage Boost RUN
+INSERT INTO `traits` VALUES (134,'ws_damage_boost',22,70,2,840,10,'SOA',0); -- WS Damage Boost RUN
+
+
+
+
 
 INSERT INTO `traits` VALUES (135,'max_hp_boost_ii',2,75,1,2,150,'SOA',0); -- Max HP Boost II
 

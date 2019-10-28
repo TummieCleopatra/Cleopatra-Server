@@ -192,10 +192,21 @@ function doEnspell(caster, target, spell, effect)
 
     --calculate potency
     local magicskill = target:getSkillLevel(dsp.skill.ENHANCING_MAGIC)
+    local meritBonus = 0
+    if (caster:getMainJob() = dsp.job.RDM) then
+        meritBonus = caster:getMerit(dsp.merit.ENSPELL_DAMAGE)
+    end
 
-    local potency = 3 + math.floor(6 * magicskill / 100)
+    local potency = (3 + math.floor(6 * magicskill / 100)) + meritBonus
+    if (caster:hasStatus(dsp.effect.COMPOSURE)) then
+        potency = potency * 1.5
+    end
     if magicskill > 200 then
-        potency = 5 + math.floor(5 * magicskill / 100)
+        if (caster:hasStatusEffect(dsp.effect.COMPOSURE)) then
+            potency = (5 + math.floor(5 * magicskill / 100) * 1.5)
+        else
+            potency = 5 + math.floor(5 * magicskill / 100)
+        end
     end
 
     if target:addStatusEffect(effect, potency, 0, duration) then
@@ -426,6 +437,10 @@ function getMagicHitRate(caster, target, skillType, element, percentBonus, bonus
     end
 
     local magicacc = caster:getMod(dsp.mod.MACC) + caster:getILvlMacc();
+
+    if (caster:getMainJob() == dsp.job.RDM) then
+        magicacc = magicacc + caster:getMerit(dsp.merit.MAGIC_ACCURACY)
+    end
 
     -- Get the base acc (just skill + skill mod (79 + skillID = ModID) + magic acc mod)
     if (skillType ~= 0) then
@@ -1316,8 +1331,12 @@ end
 
 function calculateDuration(duration, magicSkill, spellGroup, caster, target, useComposure)
     if magicSkill == dsp.skill.ENHANCING_MAGIC then -- Enhancing Magic
+        local enhanceMeritDuration = 0
+        if (caster:getMainJob() == dsp.job.RDM) then
+            enhanceMeritDuration = caster:getMerit(dsp.merit.ENHANCING_MAGIC_DURATION)
+        end
         -- Gear mods
-        duration = duration + duration * caster:getMod(dsp.mod.ENH_MAGIC_DURATION) / 100
+        duration = (duration + enhanceMeritDuration) + duration * caster:getMod(dsp.mod.ENH_MAGIC_DURATION) / 100
 
         -- Default is true
         useComposure = useComposure or (useComposure == nill and true)
@@ -1332,8 +1351,14 @@ function calculateDuration(duration, magicSkill, spellGroup, caster, target, use
             duration  = duration * 2
         end
     elseif magicSkill == dsp.skill.ENFEEBLING_MAGIC then -- Enfeebling Magic
+        local meritDuration = 0
+        if (caster:getMainJob() == dsp.job.RDM) then
+            caster:getMerit(dsp.merit.ENFEEBLING_MAGIC_DURATION)
+        end
         if caster:hasStatusEffect(dsp.effect.SABOTEUR) then
-            duration = duration * 2
+            duration = (duration + meritDuration) * 2
+        else
+            duration = duration + meritDuration
         end
     end
 

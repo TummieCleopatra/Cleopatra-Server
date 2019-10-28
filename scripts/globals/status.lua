@@ -813,6 +813,8 @@ dsp.effect =
     SKILLCHAIN               = 799,
     DYNAMIS                  = 800,
     MEDITATE                 = 801, -- Dummy effect for SAM Meditate JA
+    RESTING_BONUS            = 802,
+    DYNA_RESTRICTION         = 811,
 
     INDI_REGEN               = 821,
 	INDI_POISON              = 822,
@@ -1561,6 +1563,7 @@ dsp.mod =
     SAVETP                          = 880, -- SAVETP Effect for Miser's Roll / ATMA / Hagakure.
     SMITE                           = 898, -- Att increase with H2H or 2H weapons
     TACTICAL_GUARD                  = 899, -- Tp gain increase when guarding
+
     FENCER_TP_BONUS                 = 903, -- TP Bonus to weapon skills from Fencer Trait
     FENCER_CRITHITRATE              = 904, -- Increased Crit chance from Fencer Trait
     SHIELD_DEF_BONUS                = 905, -- Shield Defense Bonus
@@ -1569,6 +1572,11 @@ dsp.mod =
 
     PARRY_BONUS                     = 948, -- Inquartata Parry Bonus
     INDI_DURATION                   = 949,
+    DAMAGE_LIMIT                    = 950, -- Damage Limit Trait raise max pDIF by 0.x
+    ANIMUS_SOLACE                   = 951,
+    ANIMUS_MISERY                   = 952,
+    CON_ANIMA                       = 953,
+    CON_BRIO                        = 954,
 
     -- The spares take care of finding the next ID to use so long as we don't forget to list IDs that have been freed up by refactoring.
     -- 570 - 825 used by WS DMG mods these are not spares.
@@ -1956,8 +1964,8 @@ dsp.merit =
     -- WHM 2
     MARTYR                      = MCATEGORY_WHM_2 + 0x00,
     DEVOTION                    = MCATEGORY_WHM_2 + 0x02,
-    PROTECTRA_V                 = MCATEGORY_WHM_2 + 0x04,
-    SHELLRA_V                   = MCATEGORY_WHM_2 + 0x06,
+    ANIMUS_SOLACE               = MCATEGORY_WHM_2 + 0x04,
+    ANIMUS_MISERY               = MCATEGORY_WHM_2 + 0x06,
 
     -- BLM 2
     FLARE_II                    = MCATEGORY_BLM_2 + 0x00,
@@ -1968,12 +1976,12 @@ dsp.merit =
     FLOOD_II                    = MCATEGORY_BLM_2 + 0x0A,
 
     -- RDM 2
-    DIA_III                     = MCATEGORY_RDM_2 + 0x00,
-    SLOW_II                     = MCATEGORY_RDM_2 + 0x02,
-    PARALYZE_II                 = MCATEGORY_RDM_2 + 0x04,
-    PHALANX_II                  = MCATEGORY_RDM_2 + 0x06,
-    BIO_III                     = MCATEGORY_RDM_2 + 0x08,
-    BLIND_II                    = MCATEGORY_RDM_2 + 0x0A,
+    ENFEEBLING_MAGIC_DURATION   = MCATEGORY_RDM_2 + 0x00,
+    MAGIC_ACCURACY              = MCATEGORY_RDM_2 + 0x02,
+    ENHANCING_MAGIC_DURATION    = MCATEGORY_RDM_2 + 0x04,
+    IMMUNOBREAK_CHANCE          = MCATEGORY_RDM_2 + 0x06,
+    ENSPELL_DAMAGE              = MCATEGORY_RDM_2 + 0x08,
+    ACCURACY                    = MCATEGORY_RDM_2 + 0x0A,
 
     -- THF 2
     ASSASSINS_CHARGE            = MCATEGORY_THF_2 + 0x00,
@@ -2002,8 +2010,8 @@ dsp.merit =
     -- BRD 2
     NIGHTINGALE                 = MCATEGORY_BRD_2 + 0x00,
     TROUBADOUR                  = MCATEGORY_BRD_2 + 0x02,
-    FOE_SIRVENTE                = MCATEGORY_BRD_2 + 0x04,
-    ADVENTURERS_DIRGE           = MCATEGORY_BRD_2 + 0x06,
+    CON_ANIMA                   = MCATEGORY_BRD_2 + 0x04,
+    CON_BRIO                    = MCATEGORY_BRD_2 + 0x06,
 
     -- RNG 2
     STEALTH_SHOT                = MCATEGORY_RNG_2 + 0x00,

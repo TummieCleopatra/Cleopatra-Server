@@ -13,13 +13,20 @@ function onAbilityCheck(player,target,ability)
 end
 
 function onUseAbility(player,target,ability)
-    local power = 12.5 + (0.10 * player:getMod(dsp.mod.BOOST_EFFECT))
+    local power = 3.5 + (0.10 * player:getMod(dsp.mod.BOOST_EFFECT))
+    local level = player:getMainLvl();
+    local boosts = target:getActiveBoosts()
 
-    if (player:hasStatusEffect(dsp.effect.BOOST) == true) then
-        local effect = player:getStatusEffect(dsp.effect.BOOST)
-        effect:setPower(effect:getPower() + power)
-        player:addMod(dsp.mod.ATTP,power)
-    else
-        player:addStatusEffect(dsp.effect.BOOST,power,1,180)
+    if ((level < 40) and (target:getActiveBoosts() == 1) and (player:getMainJob() == 2)) then
+	    target:removeOldestBoost();
+	elseif ((level < 70) and (target:getActiveBoosts() == 2) and (player:getMainJob() == 2)) then
+	    target:removeOldestBoost();
+    elseif ((level <= 75) and (target:getActiveBoosts() == 3) and (player:getMainJob() == 2)) then
+	    target:removeOldestBoost();
+    elseif (player:getSubJob() == 2) then
+        target:removeOldestBoost();
     end
+
+    player:addStatusEffect(dsp.effect.BOOST,power,3,180)
+
 end

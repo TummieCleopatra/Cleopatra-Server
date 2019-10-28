@@ -68,13 +68,15 @@ function onSpellCast(caster,target,spell)
         final = getCureFinal(caster,spell,basecure,minCure,false)
         if (caster:hasStatusEffect(dsp.effect.AFFLATUS_SOLACE) and target:hasStatusEffect(dsp.effect.STONESKIN) == false) then
             local solaceStoneskin = 0
+            local meritBonus = (caster:getMerit(dsp.merit.ANIMUS_SOLACE) / 100)
+            local traitBonus = (caster:getMod(dsp.mod.ANIMUS_SOLACE) / 100)
             local equippedBody = caster:getEquipID(dsp.slot.BODY)
             if (equippedBody == 11186) then
-                solaceStoneskin = math.floor(final * 0.30)
+                solaceStoneskin = math.floor(final * 0.30 + meritBonus + traitBonus)
             elseif (equippedBody == 11086) then
-                solaceStoneskin = math.floor(final * 0.35)
+                solaceStoneskin = math.floor(final * 0.35 + meritBonus + traitBonus)
             else
-                solaceStoneskin = math.floor(final * 0.25)
+                solaceStoneskin = math.floor(final * 0.25 + meritBonus + traitBonus)
             end
             target:addStatusEffect(dsp.effect.STONESKIN,solaceStoneskin,0,25,0,0,1)
         end
