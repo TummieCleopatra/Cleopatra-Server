@@ -25,7 +25,7 @@ function onTrade(player,npc,trade)
             player:tradeComplete();
             player:addKeyItem(dsp.ki.DEEP_PURPLE_SEAL);
 			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.DEEP_PURPLE_SEAL);
-        end			
+        end
     end
 end;
 
@@ -34,14 +34,14 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-    if (player:hasKeyItem(CHARCOAL_GREY_SEAL)) then
+    if (player:hasKeyItem(dsp.ki.CHARCOAL_GREY_SEAL)) then
 	    if (player:getFreeSlotsCount() == 0) then
-		    player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,2575);
+		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2575);
 	    else
-	        player:delKeyItem(CHARCOAL_GREY_SEAL);
-			player:messageSpecial(KEYITEM_LOST,CHARCOAL_GREY_SEAL);			
+	        player:delKeyItem(dsp.ki.CHARCOAL_GREY_SEAL);
+			player:messageSpecial(ID.text.KEYITEM_LOST,CHARCOAL_GREY_SEAL);
 		    player:addItem(2575,1);
-			player:messageSpecial(ITEM_OBTAINED,2575);			
+			player:messageSpecial(ID.text.ITEM_OBTAINED,2575);
 		end
     else
         player:messageSpecial(ID.text.NOTHING_HAPPENS)

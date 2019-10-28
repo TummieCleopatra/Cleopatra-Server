@@ -24,7 +24,7 @@ function onTrade(player,npc,trade)
             player:tradeComplete();
             player:addKeyItem(dsp.ki.APPLE_GREEN_SEAL);
 			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.APPLE_GREAN_SEAL);
-        end			
+        end
     end
 end;
 
@@ -35,12 +35,12 @@ end;
 function onTrigger(player,npc)
     if (player:hasKeyItem(MAROON_SEAL)) then
 	    if (player:getFreeSlotsCount() == 0) then
-		    player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,2577);
+		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2577);
 	    else
-	        player:delKeyItem(MAROON_SEAL);
-			player:messageSpecial(KEYITEM_LOST,MAROON_SEAL);
+	        player:delKeyItem(dsp.ki.MAROON_SEAL);
+			player:messageSpecial(ID.text.KEYITEM_LOST,MAROON_SEAL);
 		    player:addItem(2577,1);
-			player:messageSpecial(ITEM_OBTAINED,2577);			
+			player:messageSpecial(ID.text.ITEM_OBTAINED,2577);
 		end
     else
         player:messageSpecial(ID.text.NOTHING_HAPPENS)

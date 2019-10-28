@@ -10,17 +10,16 @@
 require("scripts/globals/magic");
 require("scripts/globals/status");
 require("scripts/globals/mobscaler");
-    
+
 -----------------------------------
 -- onMobInitialize Action
 -----------------------------------
 
-function onMobInitialize(mob)    
-    mob:setMobMod(dsp.mobMod.MAIN_2HOUR, 1);
+function onMobInitialize(mob)
     mob:setMobMod(dsp.mobMod.GIL_MIN, 12000);
     mob:setMobMod(dsp.mobMod.GIL_MAX, 30000);
     mob:setMobMod(dsp.mobMod.MUG_GIL, 8000);
-    
+
 end;
 
 -----------------------------------
@@ -33,10 +32,10 @@ function onMobSpawn(mob)
     mob:setMod(dsp.mod.REGAIN, 50);
     mob:setMod(dsp.mod.REGEN, 90);
     mob:AnimationSub(2);
-    
+
     -- Regen Head every 1.5-4 minutes 90-240
     mob:setLocalVar("headTimer", os.time() + math.random(60,190));
-    
+
     -- Number of crits to lose a head
     mob:setLocalVar("CritToTheFace", math.random(10,30));
     mob:setLocalVar("crits", 0);
@@ -53,7 +52,7 @@ function onMobRoam(mob)
     if (mob:AnimationSub() == 2 and os.time() > headTimer) then
         mob:AnimationSub(1);
         mob:setLocalVar("headTimer", os.time() + math.random(60,190));
-        
+
         -- First time it regens second head, 25%. Reduced afterwards.
         if (mob:getLocalVar("secondHead") == 0) then
             mob:addHP(mob:getMaxHP() * .25);
@@ -62,11 +61,11 @@ function onMobRoam(mob)
         else
             mob:addHP(mob:getMaxHP() * .05);
         end
-        
+
     elseif (mob:AnimationSub() == 1 and os.time() > headTimer) then
         mob:AnimationSub(0);
         mob:setLocalVar("headTimer", os.time() + math.random(60,190));
-        
+
         -- First time it regens third head, 25%. Reduced afterwards.
         if (mob:getLocalVar("thirdHead") == 0) then
             mob:addHP(mob:getMaxHP() * .25);
@@ -90,22 +89,22 @@ function onMobFight(mob, target)
         mob:AnimationSub(1);
         mob:setMod(dsp.mod.REGEN, 60);
         mob:setLocalVar("headTimer", os.time() + math.random(60,190));
-        
+
         -- First time it regens second head, 25%. Reduced afterwards.
         if (mob:getLocalVar("secondHead") == 0) then
             mob:addHP(mob:getMaxHP() * .25);
             mob:setLocalVar("secondHead", 1);
         else
             mob:addHP(mob:getMaxHP() * .05);
-        end        
+        end
         mob:useMobAbility(1576); -- Barofield
         mob:useMobAbility(1572); -- Pyric Blast
-        
+
     elseif (mob:AnimationSub() == 1 and os.time() > headTimer) then
         mob:AnimationSub(0);
         mob:setMod(dsp.mod.REGEN, 30);
         mob:setLocalVar("headTimer", os.time() + math.random(60,190));
-        
+
         -- First time it regens third head, 25%. Reduced afterwards.
         if (mob:getLocalVar("thirdHead") == 0) then
             mob:addHP(mob:getMaxHP() * .25);
@@ -116,7 +115,7 @@ function onMobFight(mob, target)
         end
         mob:useMobAbility(1576); -- Barofield
         mob:useMobAbility(1574); -- Polar Blast
-        
+
     end
 end;
 
@@ -126,7 +125,7 @@ end;
 
 function onCriticalHit(mob)
     local critNum = mob:getLocalVar("crits");
-    
+
     if ((critNum+1) > mob:getLocalVar("CritToTheFace")) then  -- Lose a head
         if (mob:AnimationSub() == 0) then
             mob:AnimationSub(1);
@@ -139,10 +138,10 @@ function onCriticalHit(mob)
         else
             -- Meh
         end
-        
+
         -- Number of crits to lose a head, re-randoming
         mob:setLocalVar("CritToTheFace", math.random(10,30));
-        
+
         critNum = 0; -- reset the crits on the NM
     else
         critNum = critNum + 1;
@@ -163,5 +162,5 @@ end;
 
 function onMobDeath(mob, player, isKiller)
     local nm = 28;
-    znmTherionT4(mob, player, nm)	
+    znmTherionT4(mob, player, nm)
 end;

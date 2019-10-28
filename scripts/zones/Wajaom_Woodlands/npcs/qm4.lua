@@ -28,13 +28,13 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-    if (player:hasKeyItem(CHESTNUT_COLOR_SEAL)) then
+    if (player:hasKeyItem(dsp.ki.CHESTNUT_COLOR_SEAL)) then
 	    if (player:getFreeSlotsCount() == 0) then
-		    player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,2573);
+		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2573);
 	    else
-	        player:delKeyItem(CHESTNUT_COLOR_SEAL);
+	        player:delKeyItem(dsp.ki.CHESTNUT_COLOR_SEAL);
 		    player:addItem(2573,1);
-			player:messageSpecial(ITEM_OBTAINED,2573);
+			player:messageSpecial(ID.text.ITEM_OBTAINED,2573);
 		end
     else
         player:messageSpecial(ID.text.NOTHING_HAPPENS)
