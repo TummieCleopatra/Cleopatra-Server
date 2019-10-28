@@ -44,7 +44,7 @@ function onMobFight(mob,target)
     local change = mob:getLocalVar("Changed");
     local inv = mob:getLocalVar("Invinc");
     local hp = mob:getHPP();
-    local twohr = math.random(75,50);
+    local twohr = math.random(50,75);
 	local tpmove = math.random(1,30);
 	local taunt = mob:getLocalVar("Taunt");
 	local isweak = mob:getLocalVar("WeakenedTrigger");
@@ -67,7 +67,7 @@ function onMobFight(mob,target)
 		    local master = target:getMaster(); 
 			master:PrintToPlayer(string.format("(Excenmille) %s, I have a feeling there is something sinister about this clone...", target:getName()),0xF);  
 			mob:setLocalVar("TrustTalk",1);
-	    elseif (target:getObjType() == TYPE_PC) then
+	    elseif (target:getObjType() == dsp.objType.PC) then
 	        target:PrintToPlayer(string.format("(Excenmille) %s, I have a feeling there is something sinister about this clone...", target:getName()),0xF);  
 		    mob:setLocalVar("TrustTalk",1);			
 		end
@@ -93,7 +93,7 @@ function onCriticalHit(mob)
         if (wsweakness < 99) and (isweak ~= 1) then
 		    mob:setUnkillable(false);
 		    mob:weaknessTrigger(2);
-            mob:addStatusEffect(EFFECT_TERROR,1,0,3);
+            mob:addStatusEffect(dsp.effect.TERROR,1,0,3);
             mob:setLocalVar("WeakenedTrigger",1);
 			mob:injectActionPacket(5, 350);
 			mob:setHP(0);
@@ -114,5 +114,5 @@ local mammett = 17347106;
 	
 	
 	SpawnMob(mammett):setPos(killx,killy,killz);
-    GetMobByID(17347106):updateClaim(killer);	
+    GetMobByID(17347106):updateClaim(player);	
 end;

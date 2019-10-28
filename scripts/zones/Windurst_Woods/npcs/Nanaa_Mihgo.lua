@@ -135,6 +135,38 @@ function onTrigger(player,npc)
     local job = player:getMainJob()
     local lvl = player:getMainLvl()
 
+    local srank = player:getRank();
+	local wrank = player:getRank();
+	local brank = player:getRank();
+
+    local tribfight = player:getVar("NANAA_TRIB_FIGHT");
+	local mainlvl = player:getMainLvl();
+
+
+	if (srank >= 4) and (player:hasKeyItem(dsp.ki.RED_INSTITUTE_CARD)) and (player:hasSpell(901) == false) then  -- Sandy Rnak 4 or higher
+        player:PrintToPlayer("Your Red Institute Card flashes brilliantly!", 0x1C);
+        player:PrintToPlayer("Nanaa Mihgo : Ah a Red Institute Card.  From now on, you can summon me to help you with your battles", 0xD);
+        player:addSpell(901);
+	elseif (wrank >= 4) and (player:hasKeyItem(dsp.ki.GREEN_INSTITUTE_CARD)) and (player:hasSpell(901) == false) then  -- Sandy Rnak 4 or higher
+        player:PrintToPlayer("Your Green Institute Card flashes brilliantly!", 0x1C);
+        player:PrintToPlayer("Nanaa Mihgo : Ah a Green Institute Card.  From now on, you can summon me to help you with your battles", 0xD);
+        player:addSpell(901);
+	elseif (brank >= 4) and (player:hasKeyItem(dsp.ki.BLUE_INSTITUTE_CARD)) and (player:hasSpell(901) == false) then  -- Sandy Rnak 4 or higher
+        player:PrintToPlayer("Your Green Institute Card flashes brilliantly!", 0x1C);
+        player:PrintToPlayer("Nanaa Mihgo : Ah a Blue Institute Card.  From now on, you can summon me to help you with your battles", 0xD);
+        player:addSpell(901);
+	elseif ((mainlvl >= 71 and tribfight == 0 and (player:hasSpell(901)) and (player:getVar("FerretoryAura") >= 7) and (player:getVar("TRIB_FIGHT") ~= 1))) then
+        player:PrintToPlayer("Nanaa Mihgo : There is someone running around claming to be me at Balgas Dias.  Please head there and I'll join you.", 0xD);
+        player:PrintToPlayer("Nanaa Mihgo : When you are ready, examine the Burning Circle in Balgas Dias and call me to your side.", 0xD);
+        player:setVar("NANAA_TRIB_FIGHT",1);
+        player:setVar("TRIB_FIGHT",1);
+	elseif (mainlvl >= 75 and tribfight == 2 and (player:hasSpell(901))) then
+        player:PrintToPlayer("Nanaa Mihgo : You have done well to help with the imposter investigation.  I am in your debt.", 0xD);
+        player:PrintToPlayer("You are now able to collect Trust Tokens for Nanaa Mihgo!", 0x15);
+        player:setVar("NANAA_TRIB_FIGHT",3);
+        player:setVar("TRIB_FIGHT",0);
+    end
+
     -- WINDURST 2-1: LOST FOR WORDS
     if player:getCurrentMission(WINDURST) == dsp.mission.id.windurst.LOST_FOR_WORDS and missionStatus > 0 and missionStatus < 5 then
         if missionStatus == 1 then
