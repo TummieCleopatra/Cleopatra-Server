@@ -33,10 +33,12 @@ function onMobSpawn(mob)
     mob:setLocalVar("slowTime",0)
     mob:setLocalVar("flashTime",0)
     mob:setLocalVar("hasteTime",0)
-    local enmity = math.floor(mob:getMainLvl() / 3 )
+    local enmity = math.floor(mob:getMainLvl() / 6 )
     mob:addMod(dsp.mod.ENMITY, -enmity)
 
-    kupipiTrustPoints(mob)
+    -- kupipiTrustPoints(mob)
+    mageArmor(mob)
+    set1HStats(mob)
 
     mob:addListener("COMBAT_TICK", "KUPIPI_CURE_TICK", function(mob, player, target)
         local battletime = os.time()
@@ -52,7 +54,7 @@ function onMobSpawn(mob)
                         mob:setLocalVar("cureTime",battletime)
                         break
                     end
-                elseif (member:getHPP() <= 75) then
+                elseif (member:getHPP() <= 67) then
                     local spell = doCureKupipi(mob)
                     if (spell > 0) then
                         mob:castSpell(spell, member)
@@ -60,7 +62,7 @@ function onMobSpawn(mob)
                         break
                     end
                 else
-                    mob:setLocalVar("cureTime",battletime - 4)  -- If no member has low HP change global check to 8 seconds
+                    mob:setLocalVar("cureTime",battletime - 10)  -- If no member has low HP change global check to 8 seconds
                 end
             end
         end
@@ -118,7 +120,7 @@ function onMobSpawn(mob)
         local tlvl = target:getMainLvl()
         local lvl = mob:getMainLvl()
         local dlvl = tlvl - lvl
-        if (dlvl >= 5) then
+        if (dlvl >= 3) then
             trustMageMove(mob, player, target, angle)
         else
             trustMeleeMove(mob, player, target, angle)
@@ -212,8 +214,9 @@ function doBuff(mob, player)
     local shellcount = 0
 
     for i,member in pairs(party) do
-        if (not member:hasStatusEffect(dsp.effect.PROTECT)) then
+        if (member:hasStatusEffect(dsp.effect.PROTECT) == false) then
             procount = procount + 1
+            printf("Protect Count is %u",procount)
             if (procount >= 2) then -- do protectra instead
                 for i = 1, #proRaList do
                     if (lvl >= proRaList[i][1] and mp >= proRaList[i][2]) then

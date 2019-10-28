@@ -24,7 +24,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("berserkCooldown",300)
     mob:setLocalVar("aggresorTime",0)
     mob:setLocalVar("aggresorCooldown",300)
-
+    set1HStats(mob)
     najiTrustPoints(mob)
     mob:addListener("COMBAT_TICK", "NAJI_COMBAT_TICK", function(mob)
 	    local battletime = os.time()

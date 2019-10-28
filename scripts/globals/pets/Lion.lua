@@ -17,7 +17,7 @@ function onMobSpawn(mob)
     local angle = getAngle(mob)
     local wsCooldown = 4
     mob:setLocalVar("wsTime",0)
-
+    set1HStats(mob)
     mob:addListener("COMBAT_TICK", "DISTANCE_TICK", function(mob, player, target)
 	    trustMeleeMove(mob, player, target, angle)
     end)

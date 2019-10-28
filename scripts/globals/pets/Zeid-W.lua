@@ -24,6 +24,7 @@ function onMobSpawn(mob)
     local angle = getAngle(mob)
     local berserkCooldown = 300
     zeidTrustPoints(mob)
+    set2HStats(mob)
 	local master = mob:getMaster()
 	local ZEID = mob:getID()
     local wsCooldown = 4

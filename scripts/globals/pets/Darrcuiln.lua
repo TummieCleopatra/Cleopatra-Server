@@ -27,7 +27,7 @@ function onMobSpawn(mob)
     local berserkCooldown = 300
     local lvl = mob:getMainLvl()
 
-
+    set1HStats(mob)
 
     mob:addListener("COMBAT_TICK", "DARCULLIN_DISTANCE_TICK", function(mob, player, target)
         trustMeleeMove(mob, player, target, angle)

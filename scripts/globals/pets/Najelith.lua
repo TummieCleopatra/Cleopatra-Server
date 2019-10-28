@@ -17,7 +17,8 @@ function onMobSpawn(mob)
 	local sharpShotCooldown = 300
     local barrageCooldown = 300
     local velocityShotCooldown = 300
-
+    local distanceCooldown = 6
+    set1HStats(mob)
     local angle = getAngle(mob)
     local wsCooldown = 4
     local angle = getAngle(mob)
@@ -27,9 +28,16 @@ function onMobSpawn(mob)
 	mob:setLocalVar("sharpShotTime",0)
 	mob:setLocalVar("barrageTime",0)
 	mob:setLocalVar("veloctiyShotTime",0)
+    mob:setLocalVar("distanceTime",0)
 
     mob:addListener("COMBAT_TICK", "NAJELITH_DISTANCE_TICK", function(mob, player, target)
-        trustRangedMove(mob, player, target, angle)
+        local battletime = os.time()
+        local distanceTime = mob:getLocalVar("distanceTime")
+        local enmity = enmityCalc(mob, player, target)
+        if ((battletime > distanceTime + distanceCooldown) and enmity ~= 0) then
+            trustRangedMove(mob, player, target, angle)
+            mob:setLocalVar("disatnceTime",os.time())
+        end
     end)
 
 	mob:addListener("COMBAT_TICK", "NAJELITH_RA_TICK", function(mob, player, target)
@@ -52,8 +60,7 @@ function onMobSpawn(mob)
 		local barrageTime = mob:getLocalVar("barrageTime")
         local enmity = enmityCalc(mob, player, target)
 
-        if (lvl >= 30 and enmity >= 500 and mob:getTP() >= 400) then
-                    printf("barrage check")
+        if (lvl >= 30 and enmity >= 2000 and mob:getTP() >= 400) then
             if (battletime > barrageTime + barrageCooldown) then
 		        mob:useJobAbility(44, mob)
 			    mob:setLocalVar("barrageTime",battletime)
@@ -99,6 +106,11 @@ function onMobSpawn(mob)
 		end
 	end)
 
+end
+
+function onMobEngaged(mob,target)
+    mob:setLocalVar("BattleStart",os.time() + 10)
+    printf("mob Engage")
 end
 
 function doNajelithWeaponskill(mob)

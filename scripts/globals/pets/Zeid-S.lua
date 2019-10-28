@@ -23,6 +23,7 @@ function onMobSpawn(mob)
     local drainCooldown = 60
     local angle = getAngle(mob)
     zeidTrustPoints(mob)
+    set2HStats(mob)
 	local master = mob:getMaster()
 	local ZEID = mob:getID()
     local wsCooldown = 4

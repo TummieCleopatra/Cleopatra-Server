@@ -12,7 +12,7 @@ require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
     local weaponskill = 0
-    local cureCooldown = 22
+    local cureCooldown = 18
     local debuffCooldown = 10
     local buffCooldown = 7
     local ailmentCooldown = 15
@@ -23,7 +23,7 @@ function onMobSpawn(mob)
     local wsCooldown = 4
     local berserkCooldown = 300
 
-    local enmity = math.floor(mob:getMainLvl() / 3 )
+    local enmity = math.floor(mob:getMainLvl() / 6 )
     mob:addMod(dsp.mod.ENMITY, -enmity)
     mob:setLocalVar("wsTime",0)
     mob:setLocalVar("cureTime",0)
@@ -36,7 +36,9 @@ function onMobSpawn(mob)
     mob:setLocalVar("hasteTime",0)
     mob:setLocalVar("berserkTime",0)
 
-    kupipiTrustPoints(mob)
+    -- kupipiTrustPoints(mob)
+    mageArmor(mob)
+    set1HStats(mob)
 
     mob:addListener("COMBAT_TICK", "KUPIPI_CURE_TICK", function(mob, player, target)
         local battletime = os.time()
@@ -52,7 +54,7 @@ function onMobSpawn(mob)
                         mob:setLocalVar("cureTime",battletime)
                         break
                     end
-                elseif (member:getHPP() <= 75) then
+                elseif (member:getHPP() <= 60) then
                     local spell = doCureKupipi(mob)
                     if (spell > 0) then
                         mob:castSpell(spell, member)
@@ -60,7 +62,7 @@ function onMobSpawn(mob)
                         break
                     end
                 else
-                    mob:setLocalVar("cureTime",battletime - 4)  -- If no member has low HP change global check to 8 seconds
+                    mob:setLocalVar("cureTime",battletime - 11)  -- If no member has low HP change global check to 8 seconds
                 end
             end
         end

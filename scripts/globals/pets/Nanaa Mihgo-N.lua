@@ -27,7 +27,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("utsuIchiTime",0)
     mob:setLocalVar("utsuNiTime",0)
 
-
+    set1HStats(mob)
     mob:addListener("COMBAT_TICK", "NANAA_DISTANCE_TICK", function(mob, player, target)
         trustSneakAttackMove(mob, player, target)
     end)

@@ -13,13 +13,15 @@ function onMobSpawn(mob)
     mob:addMod(dsp.mod.CURE_POTENCY,38)
     curillaTrustPoints(mob)
     local weaponskill = 0
-    local cureCooldown = 23
+    local cureCooldown = 17
     local provokeCooldown = 30
     local reprisalCooldown = 0
     local wsCooldown = 4
     local lvl = mob:getMainLvl()
-    local enmity = math.floor(lvl / 5)
+    local enmity = math.floor(lvl / 3.9)
     mob:addMod(dsp.mod.ENMITY, enmity)
+    plateArmor(mob)
+    set1HStats(mob)
     mob:setLocalVar("protectTime",0)
     mob:setLocalVar("shellTime",0)
     mob:setLocalVar("cureTimeCurilla",0)
@@ -34,6 +36,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("chivalryTime",0)
     mob:setLocalVar("chivalryCooldown",600)
     mob:setLocalVar("reprisalCooldown",180)
+    mob:setLocalVar("castingSpell",0)
 
 
 
@@ -46,13 +49,9 @@ function onMobSpawn(mob)
         end
     end)]]-- TODO: Make core changes to allow this to happen
 
-    mob:addListener("COMBAT_TICK", "DISTANCE_TICK", function(mob, player, target)
-        -- if (mob:hasStatusEffect(dsp.effect.HEALING)) then
-        --    mob:delStatusEffect(dsp.effect.HEALING)
-        -- end
 
+    mob:addListener("COMBAT_TICK", "DISTANCE_TICK", function(mob, player, target)
         trustTankMove(mob, player, target)
-        debugEnmity(mob, player, target)
     end)
 
     mob:addListener("COMBAT_TICK", "PROVOKE_TICK", function(mob, player, target)
@@ -107,13 +106,15 @@ function onMobSpawn(mob)
         if ((battletime > reprisalTime + reprisalCooldown) and mob:getMainLvl() >= 61) then
             mob:castSpell(97, mob)
             mob:setLocalVar("reprisalTime",battletime)
+            mob:setLocalVar("castingSpell",97)
         end
     end)
 
     mob:addListener("COMBAT_TICK", "CUR_PRO_TICK", function(mob, player, target)
         local battletime = os.time()
         local proTime = mob:getLocalVar("protectTime")
-        if (battletime > proTime + 30 and mob:hasStatusEffect(dsp.effect.PROTECT) == false) then
+        local kupipi = isKupipiInParty(mob, player, target)
+        if (battletime > proTime + 30 and mob:hasStatusEffect(dsp.effect.PROTECT) == false and kupipi == 0) then
             doCurillaProtect(mob)
             mob:setLocalVar("protectTime",battletime)
         end
@@ -122,7 +123,8 @@ function onMobSpawn(mob)
     mob:addListener("COMBAT_TICK", "CUR_SHELL_TICK", function(mob, player, target)
         local battletime = os.time()
         local shellTime = mob:getLocalVar("shellTime")
-        if (battletime > shellTime + 30 and mob:hasStatusEffect(dsp.effect.SHELL) == false) then
+        local kupipi = isKupipiInParty(mob, player, target)
+        if (battletime > shellTime + 30 and mob:hasStatusEffect(dsp.effect.SHELL) == false and kupipi == 0) then
             doCurillaShell(mob)
             mob:setLocalVar("shellTime",battletime)
         end
@@ -136,6 +138,7 @@ function onMobSpawn(mob)
             doCurillaSentinel(mob, target)
         end
     end)
+
 
     mob:addListener("COMBAT_TICK", "CUR_CURE_TICK", function(mob, player, target)
         local battletime = os.time()
@@ -162,6 +165,8 @@ function onMobSpawn(mob)
     end)
 
 end
+
+
 
 function doCurillaWeaponskill(mob)
     local wsList = {{65,41},{60,40}, {17,34}, {1,33}}
@@ -206,6 +211,8 @@ function doCurillaFlash(mob, player, target)
             mob:setLocalVar("flashTime",battletime)
         end
     end
+
+    mob:setLocalVar("castingSpell",112)
 end
 
 function doCurillaSentinel(mob, target)
@@ -222,20 +229,47 @@ end
 
 function doCurillaCure(mob, player, target)
     local cureList = {{55,46,3}, {30,24,2}, {17,8,1}, {5,8,1}}
+    local cureListSmall = {{30,24,2}, {17,8,1}, {5,8,1}}
     local mp = mob:getMP()
+    local maxmp = mob:getMaxMP()
+    local mpp = (mp / maxmp) * 100
     local lvl = mob:getMainLvl()
     local cure = 0
     local party = player:getParty()
     local battletime = os.time()
     for _,member in ipairs(party) do
-        if (member:getHPP() <= 25) then
+        if (member:getHPP() <= 30) then
             cure = doEmergencyCureCur(mob)
             if (cure > 0) then
                 mob:castSpell(cure, member)
                 mob:setLocalVar("cureTimeCurilla",battletime)
                 break
             end
-        elseif (member:getHPP() <= 66) then
+        elseif (member:getName() == "Curilla" and mpp >= 80 and member:getHPP() <= 87) then
+            printf("Curilla Cures herself with lower Tier")
+            for i = 1, #cureListSmall do
+                if (lvl >= cureListSmall[i][1] and mp >= cureListSmall[i][2]) then
+                    cure = cureListSmall[i][3]
+                    if (cure > 0) then
+                        mob:castSpell(cure, member)
+                        mob:setLocalVar("cureTimeCurilla",battletime)
+                        break
+                    end
+                end
+            end
+        elseif (member:getName() == "Curilla" and mpp >= 50 and member:getHPP() <= 75) then
+            printf("Curilla Cures herself with lower Tier")
+            for i = 1, #cureList do
+                if (lvl >= cureList[i][1] and mp >= cureList[i][2]) then
+                    cure = cureList[i][3]
+                    if (cure > 0) then
+                        mob:castSpell(cure, member)
+                        mob:setLocalVar("cureTimeCurilla",battletime)
+                        break
+                    end
+                end
+            end
+        elseif (member:getHPP() <= 50) then
             for i = 1, #cureList do
                 if (lvl >= cureList[i][1] and mp >= cureList[i][2]) then
                     cure = cureList[i][3]
@@ -249,8 +283,10 @@ function doCurillaCure(mob, player, target)
         end
     end
 
+    mob:setLocalVar("castingSpell",cure)
+
     if (cure == 0) then
-        mob:setLocalVar("cureTimeCurilla",battletime - 4)
+        mob:setLocalVar("cureTimeCurilla",battletime - 12)
     end
 
 end

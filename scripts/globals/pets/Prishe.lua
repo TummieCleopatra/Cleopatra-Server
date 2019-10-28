@@ -17,7 +17,7 @@ function onMobSpawn(mob)
     doPrisheTrustPoints(mob)
     local angle = getAngle(mob)
     local wsCooldown = 4
-
+    set1HStats(mob)
     mob:setLocalVar("wsTime",0)
     mob:setLocalVar("cureTime",0)
 

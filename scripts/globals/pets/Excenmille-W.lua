@@ -28,7 +28,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("berserkTime",0)
 
     excenmilleTrustPoints(mob)
-
+    set2HStats(mob)
 
 	mob:addListener("COMBAT_TICK", "EXCENMILLE_JUMP_TICK", function(mob, player, target)
 	    local battletime = os.time()

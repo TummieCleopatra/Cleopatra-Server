@@ -25,7 +25,7 @@ function onMobSpawn(mob)
     local angle = getAngle(mob)
     local barrageEmnity = 0
     local weaponskillEnmity = 0
-
+    set1HStats(mob)
 	local master = mob:getMaster()
 	local najelith = mob:getID()
 

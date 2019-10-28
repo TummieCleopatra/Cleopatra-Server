@@ -28,7 +28,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("sekkaCooldown",300)
     mob:setLocalVar("sekkaType",0) -- 1: self sc, 2: Two Step with player close
     mob:setLocalVar("wsTime",0)
-
+    set2HStats(mob)
     ayameTrustPoints(mob)
     mob:addListener("COMBAT_TICK", "AYAME_DISTANCE_TICK", function(mob, player, target)
         trustMeleeMove(mob, player, target, angle)

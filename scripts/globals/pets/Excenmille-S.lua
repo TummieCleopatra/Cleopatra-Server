@@ -33,7 +33,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("hassoTime",0)
     mob:setLocalVar("seiganTime",0)
     mob:setLocalVar("thirdEyeTime",0)
-
+    set2HStats(mob)
 
 	mob:addListener("COMBAT_TICK", "EXCENMILLE_JUMP_TICK", function(mob, player, target)
 	    local battletime = os.time()

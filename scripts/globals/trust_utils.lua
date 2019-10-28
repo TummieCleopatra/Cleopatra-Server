@@ -3,6 +3,54 @@ require("scripts/globals/keyitems")
 require("scripts/globals/status")
 -----------------------------------
 
+-- ATT and ACC Fix
+
+function set2HStats(mob)
+    local str = mob:getStat(dsp.mod.STR)
+    local dex = mob:getStat(dsp.mod.DEX)
+
+    str = math.floor(str * 0.65)
+    dex = math.floor(dex * 0.65)
+    mob:addMod(dsp.mod.ATT, str)
+    mob:addMod(dsp.mod.ACC, dex)
+end
+
+function set1HStats(mob)
+    local str = mob:getStat(dsp.mod.STR)
+    local dex = mob:getStat(dsp.mod.DEX)
+
+    str = math.floor(str * 0.4)
+    dex = math.floor(dex * 0.4)
+    mob:addMod(dsp.mod.ATT, str)
+    mob:addMod(dsp.mod.ACC, dex)
+end
+
+-- Armor Types --
+
+function mageArmor(mob)
+    local lvl = mob:getMainLvl()
+    local def = math.floor(lvl * 1.7)
+    mob:addMod(dsp.mod.DEF, def)
+end
+
+function hybridArmor(mob)
+
+
+end
+
+
+function chainArmor(mob)
+
+end
+
+
+function plateArmor(mob)
+    local lvl = mob:getMainLvl()
+    local def = math.floor(lvl * 2.2)
+    mob:addMod(dsp.mod.DEF, def)
+end
+
+
 
 function curillaTrustPoints(mob)
     local player = mob:getMaster()
@@ -310,6 +358,20 @@ function getWeakness(mob, player, target)
     return weak
 end
 
+function isKupipiInParty(mob, player, target)
+    local kupipi = 0
+    local party = player:getParty()
+
+    for i, member in ipairs(party) do
+        if (member:getName() == "Kupipi" or member:getName() == "Kupipi-W" or member:getName() == "Kupipi-R") then
+            kupipi = 1
+            break
+        end
+    end
+
+    return kupipi
+end
+
 function isPrisheInParty(mob, player, target)
     local prishe = 0
     local party = player:getParty()
@@ -572,7 +634,9 @@ end
 
 function trustTankMove(mob, player, target)
     local size = target:getModelSize()
-    mob:moveToDistanceFacing(size + 2, target)
+    if (mob:getCurrentAction() ~= dsp.act.MAGIC_CASTING) then
+        mob:moveToDistanceFacing(size + 2, target)
+    end
 end
 
 function weaponSkillEnmityCheck(mob, player, target)

@@ -22,7 +22,7 @@ function onMobSpawn(mob)
     local kupipi = mob:getID()
     local angle = getAngle(mob)
     local wsCooldown = 4
-    local enmity = math.floor(mob:getMainLvl() / 3 )
+    local enmity = math.floor(mob:getMainLvl() / 6 )
     mob:addMod(dsp.mod.ENMITY, -enmity)
     mob:setLocalVar("wsTime",0)
     mob:setLocalVar("cureTime",0)
@@ -32,7 +32,9 @@ function onMobSpawn(mob)
     mob:setLocalVar("paraTime",0)
     mob:setLocalVar("slowTime",0)
     mob:setLocalVar("flashTime",0)
-    kupipiTrustPoints(mob)
+    -- kupipiTrustPoints(mob)
+    mageArmor(mob)
+    set1HStats(mob)
 
     mob:addListener("COMBAT_TICK", "KUPIPI_CURE_TICK", function(mob, player, target)
         local battletime = os.time()
@@ -48,7 +50,7 @@ function onMobSpawn(mob)
                         mob:setLocalVar("cureTime",battletime)
                         break
                     end
-                elseif (member:getHPP() <= 75) then
+                elseif (member:getHPP() <= 65) then
                     local spell = doCureKupipi(mob)
                     if (spell > 0) then
                         mob:castSpell(spell, member)
@@ -56,7 +58,7 @@ function onMobSpawn(mob)
                         break
                     end
                 else
-                    mob:setLocalVar("cureTime",battletime - 4)  -- If no member has low HP change global check to 8 seconds
+                    mob:setLocalVar("cureTime",battletime - 10)  -- If no member has low HP change global check to 8 seconds
                 end
             end
         end

@@ -29,7 +29,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("aggresorCooldown",300)
     mob:setLocalVar("utsuIchiTime",0)
     mob:setLocalVar("utsuNiTime",0)
-
+    set1HStats(mob)
     najiTrustPoints(mob)
 
     mob:addListener("COMBAT_TICK", "NAJI_COMBAT_TICK", function(mob)

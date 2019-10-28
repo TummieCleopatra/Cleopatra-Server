@@ -32,6 +32,8 @@ function onMobSpawn(mob)
     local utsuNiCooldown = 45
     local lvl = mob:getMainLvl()
 
+    set1HStats(mob)
+
     mob:addListener("COMBAT_TICK", "DARCULLIN_DISTANCE_TICK", function(mob, player, target)
         trustMeleeMove(mob, player, target, angle)
         -- Change spell cooldown to a higher number if Darrcuilin has hate to preserve MP for self cures

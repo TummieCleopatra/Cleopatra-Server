@@ -25,7 +25,7 @@ function onMobSpawn(mob)
 	mob:setLocalVar("highJumpTime",0)
 	mob:setLocalVar("superJumpTime",0)
 
-
+    set2HStats(mob)
     excenmilleTrustPoints(mob)
 
 	mob:addListener("COMBAT_TICK", "EXCENMILLE_JUMP_TICK", function(mob, player, target)

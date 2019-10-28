@@ -30,7 +30,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("warcryTime",os.time() + 13)
     mob:setLocalVar("parryTime",os.time() + 6)
 
-
+    set1HStats(mob)
     mob:addListener("COMBAT_TICK", "GESSHO_DISTANCE_TICK", function(mob, player, target)
         trustTankMove(mob, player, target)
     end)

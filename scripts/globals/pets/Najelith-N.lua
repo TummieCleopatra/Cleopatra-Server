@@ -25,8 +25,9 @@ function onMobSpawn(mob)
     local angle = getAngle(mob)
 	local master = mob:getMaster()
 	local najelith = mob:getID()
-
+    set1HStats(mob)
     local racc = mob:getRACC()
+    local distanceCooldown = 6
 
 	mob:setLocalVar("rangedAttackTime",0)
 	mob:setLocalVar("sharpShotTime",0)
@@ -35,9 +36,16 @@ function onMobSpawn(mob)
     mob:setLocalVar("utsuIchiTime",0)
     mob:setLocalVar("utsuNiTime",0)
     mob:setLocalVar("wsTime",0)
+    mob:setLocalVar("distanceTime",0)
 
     mob:addListener("COMBAT_TICK", "NAJELITH_DISTANCE_TICK", function(mob, player, target)
-        trustRangedMove(mob, player, target, angle)
+        local battletime = os.time()
+        local distanceTime = mob:getLocalVar("distanceTime")
+        local enmity = enmityCalc(mob, player, target)
+        if ((battletime > distanceTime + distanceCooldown) and enmity ~= 0) then
+            trustRangedMove(mob, player, target, angle)
+            mob:setLocalVar("disatnceTime",os.time())
+        end
     end)
 
     mob:addListener("COMBAT_TICK", "NAJELITH_UTSU_TICK", function(mob, player, target)
