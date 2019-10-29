@@ -193,7 +193,7 @@ function doEnspell(caster, target, spell, effect)
     --calculate potency
     local magicskill = target:getSkillLevel(dsp.skill.ENHANCING_MAGIC)
     local meritBonus = 0
-    if (caster:getMainJob() = dsp.job.RDM) then
+    if (caster:getMainJob() == dsp.job.RDM) then
         meritBonus = caster:getMerit(dsp.merit.ENSPELL_DAMAGE)
     end
 
@@ -801,7 +801,7 @@ function calculateMagicBurst(caster, spell, target, params)
         dmgBonus = 1 + (caster:getMerit(dsp.merit.ANCIENT_MDB) / 100)
     end
 
-    burst * dmgBonus
+    burst = burst * dmgBonus
 
     return burst;
 end;
@@ -1255,7 +1255,7 @@ function doElementalNuke(caster, spell, target, spellParams)
         dmgBonus = 1 + (caster:getMerit(dsp.merit.ANCIENT_MAB) / 100)
     end
 
-    DMG * dmgBonus
+    DMG = DMG * dmgBonus
 
     return DMG;
 end

@@ -2301,8 +2301,10 @@ namespace battleutils
             //ShowDebug("Accuracy mod before direction checks: %d\n", offsetAccuracy);
 
             //RDM Merit Accuracy
-            offsetAccuracy += ((CCharEntity*)PAttacker)->PMeritPoints->GetMeritValue(MERIT_ACCURACY, (CCharEntity*)PAttacker);
-
+            if (PAttacker->objtype == TYPE_PC)
+            {
+                offsetAccuracy += ((CCharEntity*)PAttacker)->PMeritPoints->GetMeritValue(MERIT_ACCURACY, (CCharEntity*)PAttacker);
+            }
             //Check For Ambush Merit - Melee
             if (PAttacker->objtype == TYPE_PC && (charutils::hasTrait((CCharEntity*)PAttacker, TRAIT_AMBUSH)) && ((abs(PDefender->loc.p.rotation - PAttacker->loc.p.rotation) < 23)))
             {
@@ -3605,6 +3607,8 @@ namespace battleutils
                 for (uint8 i = 0; i < taUser->PParty->members.size(); ++i)
                 {
                     CBattleEntity* member = taUser->PParty->members.at(i);
+                    CCharEntity* PChar = (CCharEntity*)taUser->PParty->members.at(i);
+                    CCharEntity* TAChar = (CCharEntity*)taUser;
                     if (member->id != taUser->id && distance(member->loc.p, PMob->loc.p) <= distance(taUser->loc.p, PMob->loc.p))
                     {
                         float memberXdif = member->loc.p.x - mobX;
@@ -3624,6 +3628,70 @@ namespace battleutils
                             {
                                 //finally found a TA partner
                                 return member;
+                            }
+                        }
+                    }
+                    // Handle Trust bound to TA user
+                    if (TAChar->PTrusts.size() > 0)
+                    {
+                        ShowWarning(CL_GREEN"Trust Size of TA User is greater than 0 \n" CL_RESET);
+                        for (CTrustEntity* trust : TAChar->PTrusts)
+                        {
+                            CBattleEntity* PTrustID = (CBattleEntity*)trust;
+                            if (PTrustID->id != taUser->id && distance(PTrustID->loc.p, PMob->loc.p) <= distance(taUser->loc.p, PMob->loc.p))
+                            {
+                                float PTrustIDXdif = PTrustID->loc.p.x - mobX;
+                                float PTrustIDZdif = PTrustID->loc.p.z - mobZ;
+                                if (zDependent)
+                                {
+                                    if ((PTrustIDZdif <= PTrustIDXdif * maxSlope) &&
+                                        (PTrustIDZdif >= PTrustIDXdif * minSlope))
+                                    {
+                                        //finally found a TA partner
+                                        ShowWarning(CL_GREEN"TA User Partner Found \n" CL_RESET);
+                                        return PTrustID;
+                                    }
+                                }
+                                else {
+                                    if ((PTrustIDXdif <= PTrustIDZdif * maxSlope) &&
+                                        (PTrustIDXdif >= PTrustIDZdif * minSlope))
+                                    {
+                                        ShowWarning(CL_GREEN"TA User Partner Found \n" CL_RESET);
+                                        //finally found a TA partner
+                                        return PTrustID;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // Handle Other Players Trust
+                    if (PChar->PTrusts.size() > 0)
+                    {
+                        ShowWarning(CL_GREEN"Trust Size of Person is greater than 0 \n" CL_RESET);
+                        for (CTrustEntity* trust : PChar->PTrusts)
+                        {
+                            CBattleEntity* PTrustID = (CBattleEntity*)trust;
+                            if (PTrustID->id != taUser->id && distance(PTrustID->loc.p, PMob->loc.p) <= distance(taUser->loc.p, PMob->loc.p))
+                            {
+                                float PTrustIDXdif = PTrustID->loc.p.x - mobX;
+                                float PTrustIDZdif = PTrustID->loc.p.z - mobZ;
+                                if (zDependent)
+                                {
+                                    if ((PTrustIDZdif <= PTrustIDXdif * maxSlope) &&
+                                        (PTrustIDZdif >= PTrustIDXdif * minSlope))
+                                    {
+                                        //finally found a TA partner
+                                        return PTrustID;
+                                    }
+                                }
+                                else {
+                                    if ((PTrustIDXdif <= PTrustIDZdif * maxSlope) &&
+                                        (PTrustIDXdif >= PTrustIDZdif * minSlope))
+                                    {
+                                        //finally found a TA partner
+                                        return PTrustID;
+                                    }
+                                }
                             }
                         }
                     }
@@ -4364,11 +4432,12 @@ namespace battleutils
         float resist = 1.f + PDefender->getMod(Mod::UDMGMAGIC) / 100.f;
         resist = std::max(resist, 0.f);
         damage = (int32)(damage * resist);
-        uint16 conbrioMerit = ((CCharEntity*)PDefender)->PMeritPoints->GetMeritValue(MERIT_CON_BRIO, (CCharEntity*)PDefender);
+        uint16 conbrioMerit = 0;
+        //((CCharEntity*)PDefender)->PMeritPoints->GetMeritValue(MERIT_CON_BRIO, (CCharEntity*)PDefender);
 
         if (PDefender->objtype == TYPE_PC && PDefender->StatusEffectContainer->HasStatusEffectByFlag(EFFECTFLAG_SONG)) // Set Con Anima on bard song up
         {
-            resist = 1.f + PDefender->getMod(Mod::DMGMAGIC) / 100.f + PDefender->getMod(Mod::DMG) / 100.f + PDefender->getMod(Mod::CON_BIO) / 100.f + conbrioMerit / 100.f;
+            resist = 1.f + PDefender->getMod(Mod::DMGMAGIC) / 100.f + PDefender->getMod(Mod::DMG) / 100.f + PDefender->getMod(Mod::CON_BRIO) / 100.f + conbrioMerit / 100.f;
         }
         else
         {
@@ -4407,10 +4476,11 @@ namespace battleutils
         float resist = 1.f + PDefender->getMod(Mod::UDMGPHYS) / 100.f;
         resist = std::max(resist, 0.f);
         damage = (int32)(damage * resist);
-        uint16 conanimaMerit = ((CCharEntity*)PDefender)->PMeritPoints->GetMeritValue(MERIT_CON_ANIMA, (CCharEntity*)PDefender);
+        uint16 conanimaMerit = 0;
 
         if (PDefender->objtype == TYPE_PC && PDefender->StatusEffectContainer->HasStatusEffectByFlag(EFFECTFLAG_SONG)) // Set Con Anima on bard song up
         {
+            conanimaMerit = ((CCharEntity*)PDefender)->PMeritPoints->GetMeritValue(MERIT_CON_ANIMA, (CCharEntity*)PDefender);
             resist = 1.f + PDefender->getMod(Mod::DMGPHYS) / 100.f + PDefender->getMod(Mod::DMG) / 100.f + PDefender->getMod(Mod::CON_ANIMA) / 100.f + conanimaMerit / 100.f;
         }
         else

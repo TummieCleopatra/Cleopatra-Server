@@ -25,6 +25,7 @@ function onMobSpawn(mob)
     local angle = getAngle(mob)
     local barrageEmnity = 0
     local weaponskillEnmity = 0
+    local distanceCooldown = 6    
     set1HStats(mob)
 	local master = mob:getMaster()
 	local najelith = mob:getID()
@@ -37,9 +38,16 @@ function onMobSpawn(mob)
 	mob:setLocalVar("veloctiyShotTime",0)
     mob:setLocalVar("berserkTime",0)
     mob:setLocalVar("wsTime",0)
+    mob:setLocalVar("distanceTime",0)    
 
     mob:addListener("COMBAT_TICK", "NAJELITH_DISTANCE_TICK", function(mob, player, target)
-        trustRangedMove(mob, player, target, angle)
+        local battletime = os.time()
+        local distanceTime = mob:getLocalVar("distanceTime")
+        local enmity = enmityCalc(mob, player, target)
+        if ((battletime > distanceTime + distanceCooldown) and enmity ~= 0) then
+            trustRangedMove(mob, player, target, angle)
+            mob:setLocalVar("disatnceTime",os.time())
+        end
     end)
 
     mob:addListener("COMBAT_TICK", "NAJELITH_BERSERK_TICK", function(mob, player, target)

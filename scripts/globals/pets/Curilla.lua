@@ -51,7 +51,14 @@ function onMobSpawn(mob)
 
 
     mob:addListener("COMBAT_TICK", "DISTANCE_TICK", function(mob, player, target)
-        trustTankMove(mob, player, target)
+        local battletime = mob:getBattleTime()
+        local distance = mob:checkDistance(target)
+        local size = target:getModelSize()
+        local enmity = enmityCalc(mob, player, target)
+        if (battletime < 10 or distance > size + 2) then
+            trustTankMove(mob, player, target)
+        end
+        printf("Enmity is %u",enmity)
     end)
 
     mob:addListener("COMBAT_TICK", "PROVOKE_TICK", function(mob, player, target)
