@@ -36,6 +36,14 @@ function onSpellCast(caster,target,spell)
 
     dmg = dmg * DARK_POWER
 
+    local meritBonus = 1
+
+    if (caster:getMainJob() == dsp.job.BLM) then
+        meritBonus = meritBonus + (caster:getMerit(dsp.merit.ASPIR_ABSORB_AMOUNT) / 100)
+    end
+
+    dmg = dmg * meritBonus
+
     if (target:isUndead()) then
         spell:setMsg(dsp.msg.basic.MAGIC_NO_EFFECT) -- No effect
         return dmg

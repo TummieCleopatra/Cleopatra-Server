@@ -1968,12 +1968,12 @@ dsp.merit =
     ANIMUS_MISERY               = MCATEGORY_WHM_2 + 0x06,
 
     -- BLM 2
-    FLARE_II                    = MCATEGORY_BLM_2 + 0x00,
-    FREEZE_II                   = MCATEGORY_BLM_2 + 0x02,
-    TORNADO_II                  = MCATEGORY_BLM_2 + 0x04,
-    QUAKE_II                    = MCATEGORY_BLM_2 + 0x06,
-    BURST_II                    = MCATEGORY_BLM_2 + 0x08,
-    FLOOD_II                    = MCATEGORY_BLM_2 + 0x0A,
+    ANCIENT_MAB                 = MCATEGORY_BLM_2 + 0x00,
+    ANCIENT_MBD                 = MCATEGORY_BLM_2 + 0x02,
+    ELEMENTAL_ACC               = MCATEGORY_BLM_2 + 0x04,
+    ELEMENTAL_DEBUFF_DURATION   = MCATEGORY_BLM_2 + 0x06,
+    ELEMENTAL_DEBUFF_EFFECT     = MCATEGORY_BLM_2 + 0x08,
+    ASPIR_ABSORB_AMOUNT         = MCATEGORY_BLM_2 + 0x0A,
 
     -- RDM 2
     ENFEEBLING_MAGIC_DURATION   = MCATEGORY_RDM_2 + 0x00,

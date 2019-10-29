@@ -442,6 +442,10 @@ function getMagicHitRate(caster, target, skillType, element, percentBonus, bonus
         magicacc = magicacc + caster:getMerit(dsp.merit.MAGIC_ACCURACY)
     end
 
+    if (caster:getMainJob() == dsp.job.BLM and skillType == dsp.skill.ELEMENTAL_MAGIC) then
+       magicacc = magicacc + caster:getMerit(dsp.merit.ELEMENTAL_ACC)
+    end
+
     -- Get the base acc (just skill + skill mod (79 + skillID = ModID) + magic acc mod)
     if (skillType ~= 0) then
         magicacc = magicacc + caster:getSkillLevel(skillType);
@@ -790,6 +794,14 @@ function calculateMagicBurst(caster, spell, target, params)
     if (skillchainburst > 1) then
         burst = burst * modburst * skillchainburst;
     end
+
+    local dmgBonus = 1
+
+    if (spell:getID() >= 204 and spell:getID() <= 215) then
+        dmgBonus = 1 + (caster:getMerit(dsp.merit.ANCIENT_MDB) / 100)
+    end
+
+    burst * dmgBonus
 
     return burst;
 end;
@@ -1236,6 +1248,14 @@ function doElementalNuke(caster, spell, target, spellParams)
 	if (caster:getObjType() == dsp.objType.PC and caster:hasStatusEffect(dsp.effect.BESIEGED)) then
         nukePoints(caster,DMG)
     end
+
+    local dmgBonus = 1
+
+    if (spell:getID() >= 204 and spell:getID() <= 215) then
+        dmgBonus = 1 + (caster:getMerit(dsp.merit.ANCIENT_MAB) / 100)
+    end
+
+    DMG * dmgBonus
 
     return DMG;
 end

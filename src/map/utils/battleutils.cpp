@@ -4364,8 +4364,17 @@ namespace battleutils
         float resist = 1.f + PDefender->getMod(Mod::UDMGMAGIC) / 100.f;
         resist = std::max(resist, 0.f);
         damage = (int32)(damage * resist);
+        uint16 conbrioMerit = ((CCharEntity*)PDefender)->PMeritPoints->GetMeritValue(MERIT_CON_BRIO, (CCharEntity*)PDefender);
 
-        resist = 1.f + PDefender->getMod(Mod::DMGMAGIC) / 100.f + PDefender->getMod(Mod::DMG) / 100.f;
+        if (PDefender->objtype == TYPE_PC && PDefender->StatusEffectContainer->HasStatusEffectByFlag(EFFECTFLAG_SONG)) // Set Con Anima on bard song up
+        {
+            resist = 1.f + PDefender->getMod(Mod::DMGMAGIC) / 100.f + PDefender->getMod(Mod::DMG) / 100.f + PDefender->getMod(Mod::CON_BIO) / 100.f + conbrioMerit / 100.f;
+        }
+        else
+        {
+            resist = 1.f + PDefender->getMod(Mod::DMGMAGIC) / 100.f + PDefender->getMod(Mod::DMG) / 100.f;
+        }
+
         resist = std::max(resist, 0.5f);
         resist += PDefender->getMod(Mod::DMGMAGIC_II) / 100.f;
         resist = std::max(resist, 0.125f); // Total cap with MDT-% II included is 87.5%
@@ -4398,10 +4407,11 @@ namespace battleutils
         float resist = 1.f + PDefender->getMod(Mod::UDMGPHYS) / 100.f;
         resist = std::max(resist, 0.f);
         damage = (int32)(damage * resist);
+        uint16 conanimaMerit = ((CCharEntity*)PDefender)->PMeritPoints->GetMeritValue(MERIT_CON_ANIMA, (CCharEntity*)PDefender);
 
         if (PDefender->objtype == TYPE_PC && PDefender->StatusEffectContainer->HasStatusEffectByFlag(EFFECTFLAG_SONG)) // Set Con Anima on bard song up
         {
-            resist = 1.f + PDefender->getMod(Mod::DMGPHYS) / 100.f + PDefender->getMod(Mod::DMG) / 100.f + PDefender->getMod(Mod::CON_ANIMA) / 100.f;
+            resist = 1.f + PDefender->getMod(Mod::DMGPHYS) / 100.f + PDefender->getMod(Mod::DMG) / 100.f + PDefender->getMod(Mod::CON_ANIMA) / 100.f + conanimaMerit / 100.f;
         }
         else
         {
