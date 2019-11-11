@@ -605,12 +605,23 @@ void CMobEntity::OnMobSkillFinished(CMobSkillState& state, action_t& action)
     }
 
     action.id = id;
-    if (objtype == TYPE_PET && static_cast<CPetEntity*>(this)->getPetType() == PETTYPE_AVATAR)
+    //if (objtype == TYPE_PET && static_cast<CPetEntity*>(this)->getPetType() == PETTYPE_AVATAR)
+    if (objtype == TYPE_PET && static_cast<CPetEntity*>(this)->m_PetID <= PETID_CAIT_SITH)
+    {
         action.actiontype = ACTION_PET_MOBABILITY_FINISH;
+        //ShowWarning(CL_GREEN"PET ABILITY FINISH" CL_RESET);
+    }
     else if (PSkill->getID() < 256)
+    {
         action.actiontype = ACTION_WEAPONSKILL_FINISH;
+        //ShowWarning(CL_GREEN"WeaponSKill ABILITY FINISH" CL_RESET);
+    }
     else
+    {
+        //ShowWarning(CL_GREEN"MOB ABILITY FINISH" CL_RESET);
         action.actiontype = ACTION_MOBABILITY_FINISH;
+    }
+
     action.actionid = PSkill->getID();
 
     if (PTarget && PAI->TargetFind->isWithinRange(&PTarget->loc.p, distance))
