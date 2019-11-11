@@ -122,7 +122,7 @@ function onMobSpawn(mob)
 	    trustMeleeMove(mob, player, target, angle)
 	    local battletime = os.time()
         local weaponSkillTime = mob:getLocalVar("wsTime")
-        if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown)) then
+        if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown) and mob:getBattleTime() > player:getVar("TrustWSTime") + 30) then
 		    weaponskill = doExcenmilleWeaponskill(mob)
             mob:setLocalVar("WS_TP",mob:getTP())
 			mob:useMobAbility(weaponskill)

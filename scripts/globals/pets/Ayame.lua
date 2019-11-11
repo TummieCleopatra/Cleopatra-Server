@@ -46,14 +46,14 @@ function onMobSpawn(mob)
         local meditateTime = mob:getLocalVar("meditateTime")
         local meditateCooldown = mob:getLocalVar("meditateCooldown")
         if (lvl >= 40) then
-            if ((battletime > sekkaTime + sekkaCooldown) and (mob:getTP() > 800 and player:getTP() >= 900) and (target:getHPP() > 50 and target:getHPP() <= 100) and (battletime > meditateTime + meditateCooldown)) then
+            if ((battletime > sekkaTime + sekkaCooldown) and (mob:getTP() > 800 and player:getTP() >= 900) and (target:getHPP() > 50 and target:getHPP() <= 100) and (battletime > meditateTime + meditateCooldown) and mob:getBattleTime() > player:getVar("TrustWSTime") + 30) then
                 printf("Do Sekka Type 2 GROUP PARTICIPATION!!")
                 mob:useJobAbility(214, mob)
                 mob:useJobAbility(47, mob)
                 mob:setLocalVar("sekkaTime",battletime)
                 mob:setLocalVar("meditateTime",battletime)
                 mob:setLocalVar("sekkaType",2)
-            elseif ((battletime > sekkaTime + sekkaCooldown) and (mob:getTP() > 800 and player:getTP() < 300) and (target:getHPP() > 40 and target:getHPP() <= 100) and (battletime > meditateTime + meditateCooldown)) then
+            elseif ((battletime > sekkaTime + sekkaCooldown) and (mob:getTP() > 800 and player:getTP() < 300) and (target:getHPP() > 40 and target:getHPP() <= 100) and (battletime > meditateTime + meditateCooldown) and mob:getBattleTime() > player:getVar("TrustWSTime") + 30) then
                 printf("Do Sekka TYpe 1 SOLO ROUND!!")
                 mob:useJobAbility(214, mob)
                 mob:useJobAbility(47, mob)

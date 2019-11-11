@@ -16,6 +16,7 @@ function onMobSpawn(mob)
     local cureCooldown = 17
     local provokeCooldown = 30
     local reprisalCooldown = 0
+    local sleepCooldown = 10
     local wsCooldown = 4
     local lvl = mob:getMainLvl()
     local enmity = math.floor(lvl / 3.9)
@@ -37,6 +38,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("chivalryCooldown",600)
     mob:setLocalVar("reprisalCooldown",180)
     mob:setLocalVar("castingSpell",0)
+    mob:setLocalVar("sleepTime",0)
 
 
 
@@ -54,11 +56,9 @@ function onMobSpawn(mob)
         local battletime = mob:getBattleTime()
         local distance = mob:checkDistance(target)
         local size = target:getModelSize()
-        local enmity = enmityCalc(mob, player, target)
         if (battletime < 10 or distance > size + 2) then
             trustTankMove(mob, player, target)
         end
-        printf("Enmity is %u",enmity)
     end)
 
     mob:addListener("COMBAT_TICK", "PROVOKE_TICK", function(mob, player, target)
@@ -167,6 +167,24 @@ function onMobSpawn(mob)
             if ((battletime > chivalryTime + chivalryCooldown) and dif < 20) then
                 mob:useJobAbility(142, mob)
                 mob:setLocalVar("chivalryTime",battletime)
+            end
+        end
+    end)
+
+    mob:addListener("COMBAT_TICK", "CUR_SLEEP_TICK", function(mob, player, target)
+        local battletime = os.time()
+        local mp = mob:getMP()
+        local sleepTime = mob:getLocalVar("sleepTime")
+        local party = player:getParty()
+        if (battletime > sleepTime + sleepCooldown) then
+            for i, member in ipairs(party) do
+                if ((member:hasStatusEffect(dsp.effect.SLEEP_I)) and mp >= 8) then -- Check to see if there is a member in the party who is slept and is a WHM
+                    if (member:getName() == "Kupipi" or member:getName() == "Kupipi-W" or member:getName() == "Kupipi-R" or member:getMainJob() == dsp.job.RDM or member:getMainJob() == dsp.job.WHM) then
+                        mob:castSpell(1, member)
+                        mob:setLocalVar("sleepTime",battletime)
+                        break
+                    end
+                end
             end
         end
     end)

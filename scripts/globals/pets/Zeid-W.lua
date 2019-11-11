@@ -82,7 +82,7 @@ function onMobSpawn(mob)
 	mob:addListener("COMBAT_TICK", "ZEID_COMBAT_TICK", function(mob, player, target)
         local battletime = os.time()
         local weaponSkillTime = mob:getLocalVar("wsTime")
-	    if (mob:getTP() >= 1000) then
+	    if (mob:getTP() >= 1000  and mob:getBattleTime() > player:getVar("TrustWSTime") + 30) then
             local lion = isLionInParty(mob, player, target)
             if (lion == 1 and lvl >= 65) then
                 local battletime = os.time()

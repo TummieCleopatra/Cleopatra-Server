@@ -78,7 +78,7 @@ function onMobSpawn(mob)
         local lvlDiff = targLvl - darcLvl
 
 
-        if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown) and caActive ~= 1 and lvlDiff <= 7 and hpp >= 25) then
+        if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown) and caActive ~= 1 and lvlDiff <= 7 and hpp >= 25 and mob:getBattleTime() > player:getVar("TrustWSTime") + 30) then
             if (lvl >= 40 and (battletime > caTime + caCooldown)) then
                 mob:useJobAbility(78, mob)
                 weaponskill = doDarcullinCAWeaponskill(mob)

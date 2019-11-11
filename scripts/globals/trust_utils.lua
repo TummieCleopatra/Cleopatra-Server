@@ -358,6 +358,7 @@ function getWeakness(mob, player, target)
     return weak
 end
 
+
 function isKupipiInParty(mob, player, target)
     local kupipi = 0
     local party = player:getParty()

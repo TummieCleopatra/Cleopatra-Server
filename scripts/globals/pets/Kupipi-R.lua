@@ -24,6 +24,7 @@ function onMobSpawn(mob)
     local kupipi = mob:getID()
     local angle = getAngle(mob)
     local wsCooldown = 4
+    local sleepCooldown = 10
     mob:setLocalVar("wsTime",0)
     mob:setLocalVar("cureTime",0)
     mob:setLocalVar("debuffTime",0)
@@ -33,6 +34,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("slowTime",0)
     mob:setLocalVar("flashTime",0)
     mob:setLocalVar("hasteTime",0)
+    mob:setLocalVar("sleepTime",0)
     local enmity = math.floor(mob:getMainLvl() / 6 )
     mob:addMod(dsp.mod.ENMITY, -enmity)
 
@@ -135,6 +137,47 @@ function onMobSpawn(mob)
             mob:setLocalVar("wsTime",battletime)
         end
     end)
+
+
+    mob:addListener("COMBAT_TICK", "KUPIPI_SLEEP_TICK", function(mob, player, target)
+        local cureList = {{40,30,93}, {16,60,7}}
+        local battletime = os.time()
+        local mp = mob:getMP()
+        local lvl = mob:getMainLvl()
+        local cure = 0
+        local sleepTime = mob:getLocalVar("sleepTime")
+        local party = player:getParty()
+        local memberCount = 0
+        if (battletime > sleepTime + sleepCooldown) then
+            for i, member in ipairs(party) do
+                if (member:hasStatusEffect(dsp.effect.SLEEP_I) == true or member:hasStatusEffect(dsp.effect.SLEEP_II) == true)  then -- Check to see if there is a member in the party who is slept and is a WHM
+                    memberCount = memberCount + 1
+                    if (memberCount >= 2) then
+                        for i = 1, #cureList do
+                            if (lvl >= cureList[i][1] and mp >= cureList[i][2]) then
+                                cure = cureList[i][3]
+                                break
+                            end
+                        end
+
+                        if (cure == 7) then
+                            mob:castSpell(cure, member)
+                        elseif (cure == 93) then
+                            mob:castSpell(cure, mob)
+                        end
+                    else
+                        if (mp >= 8) then
+                            mob:castSpell(1, member)
+                        end
+                    end
+                end
+            end
+            mob:setLocalVar("sleepTime",battletime)
+        end
+    end)
+
+
+
 end
 
 function doStatusRemoval(mob, player)

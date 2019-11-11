@@ -49,14 +49,14 @@ function onMobSpawn(mob)
         local meditateTime = mob:getLocalVar("meditateTime")
         local meditateCooldown = mob:getLocalVar("meditateCooldown")
         if (lvl >= 40) then
-            if ((battletime > sekkaTime + sekkaCooldown) and (mob:getTP() >= 800 and player:getTP() >= 900) and (target:getHPP() > 50 and target:getHPP() <= 100) and (battletime > meditateTime + meditateCooldown)) then
+            if ((battletime > sekkaTime + sekkaCooldown) and (mob:getTP() >= 800 and player:getTP() >= 900) and (target:getHPP() > 50 and target:getHPP() <= 100) and (battletime > meditateTime + meditateCooldown) and mob:getBattleTime() > player:getVar("TrustWSTime") + 30) then
                 printf("Do Sekka Type 2 GROUP PARTICIPATION!!")
                 mob:useJobAbility(214, mob)
                 mob:useJobAbility(47, mob)
                 mob:setLocalVar("sekkaTime",battletime)
                 mob:setLocalVar("meditateTime",battletime)
                 mob:setLocalVar("sekkaType",2)
-            elseif ((battletime > sekkaTime + sekkaCooldown) and (mob:getTP() >= 800 and player:getTP() < 300) and (target:getHPP() > 40 and target:getHPP() <= 100) and (battletime > meditateTime + meditateCooldown)) then
+            elseif ((battletime > sekkaTime + sekkaCooldown) and (mob:getTP() >= 800 and player:getTP() < 300) and (target:getHPP() > 40 and target:getHPP() <= 100) and (battletime > meditateTime + meditateCooldown) and mob:getBattleTime() > player:getVar("TrustWSTime") + 30) then
                 printf("Do Sekka TYpe 1 SOLO ROUND!!")
                 mob:useJobAbility(214, mob)
                 mob:useJobAbility(47, mob)
@@ -173,6 +173,9 @@ function onMobSpawn(mob)
 end
 
 function doAyameWeaponskill(mob)
+    local tp = mob:getTP()
+    printf("Ayame TP is being recorded as %u",tp)
+    printf("Ayame is going to solo WS")
     local wsList = {{70,152}, {65,151}, {60,150}, {55,149}, {49,148}, {33,147}, {23,146}, {9,145}, {1,144}}
     local newWsList = {}
     local maxws = 3 -- Maximum number of weaponskills to choose from randomly
@@ -199,9 +202,14 @@ function doAyameOpenWeaponskill(mob, player)
     local wsList = {}
 
     if (element == 0) then
-        printf("No Elemental WS performed by player yet...pick random")
+        printf("No Elemental WS performed by player yet...pick random open")
         element = math.random(2,12)
+
     end
+
+        printf("Ayame is going toOpen for player!@!!!!")
+
+        print(element)
 
     if (element == 2) then -- Compression
         wsList = {{60,150}, {1,144}}
@@ -223,6 +231,8 @@ function doAyameOpenWeaponskill(mob, player)
         wsList = {{65,151}}
     elseif (element == 12) then -- Fragmentation
         wsList = {{70,152}}
+    elseif (element == 14) then -- Fusion
+        wsList = {{65,151}}
     end
 
 
@@ -252,6 +262,7 @@ function doAyameSoloSC(mob, player)
     if (element == 0) then
         printf("No Elemental WS performed by player yet...pick random")
         element = math.random(2,12)
+        printf("Elemtn chosen is %i",element)
     end
 
     if (element == 2) then -- Compression - SSC Detonation REsult Grav
@@ -289,6 +300,7 @@ function doAyameSoloSC(mob, player)
                 if (lvl >= scCombo[i][1]) then
                     finalWS = scCombo[i][3]
                     printf("DEBUG: Ayame Second WS Now!")
+                    mob:setLocalVar("sekkaType",0)
                 end
             end
         end
@@ -305,6 +317,7 @@ function doAyameSoloSC(mob, player)
                 if (lvl >= wsList[i][1]) then
                     finalWS = wsList[i][3]
                     printf("DEBUG: Ayame Second WS Now: %u! \n", finalWS)
+                    mob:setLocalVar("sekkaType",0)
                     end
             end
         end

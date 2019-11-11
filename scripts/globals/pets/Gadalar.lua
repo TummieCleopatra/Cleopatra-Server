@@ -3,7 +3,7 @@
 --  Subjob: BLM
 --  JA: None
 --  WS: Slice, Shadown of Death, Vorpal Scythe
---      Guillotine, 
+--      Guillotine,
 --  Source: http://bg-wiki.com/bg/Category:Trust
 -------------------------------------------------
 require("scripts/globals/status")
@@ -24,14 +24,14 @@ function onMobSpawn(mob)
         trustMeleeMove(mob, player, target, angle)
 	    local battletime = os.time()
         local weaponSkillTime = mob:getLocalVar("wsTime")
-        if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown)) then
+        if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown) and mob:getBattleTime() > player:getVar("TrustWSTime") + 30) then
 		    weaponskill = doGadalarWeaponskill(mob)
 			mob:useMobAbility(weaponskill)
             mob:setLocalVar("wsTime",battletime)
 		end
     end)
-	
-	
+
+
 	mob:addListener("COMBAT_TICK", "GADALAR_DISTANCE_TICK", function(mob, player, target)
 	    local battletime = os.time()
 		local castTime = mob:getLocalVar("castTime")
@@ -41,7 +41,7 @@ function onMobSpawn(mob)
 			else
                 local spell = doGadalarSpells(mob)
 	        end
-			
+
             if (spell > 0) then
                 mob:castSpell(spell, target)
                 mob:setLocalVar("castTime",battletime)
