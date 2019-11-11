@@ -26,6 +26,14 @@ function onSpellCast(caster, target, spell)
     spellParams.M200 = 2
     spellParams.I = 577
 
+    if (caster:getMerit(dsp.merit.ANCIENT_MBD) ~= 0) then
+        spellParams.AMIIburstBonus = (caster:getMerit(dsp.merit.ANCIENT_MBD) - 1) * 0.03
+    end
+
+    if (caster:getMerit(dsp.merit.ANCIENT_MAB) ~= 0) then
+        spellParams.AMIImabBonus = (caster:getMerit(dsp.merit.ANCIENT_MAB) - 1) * 0.03
+    end
+
     -- no point in making a separate function for this if the only thing they won't have in common is the name
     handleNinjutsuDebuff(caster,target,spell,30,10,dsp.mod.ICERES)
 

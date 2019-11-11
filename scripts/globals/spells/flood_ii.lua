@@ -25,9 +25,13 @@ function onSpellCast(caster, target, spell)
     spellParams.M100 = 2
     spellParams.M200 = 2
     spellParams.I = 780
-    if (caster:getMerit(dsp.merit.FLOOD_II) ~= 0) then
-        spellParams.AMIIburstBonus = (caster:getMerit(dsp.merit.FLOOD_II) - 1) * 0.03
-        spellParams.AMIIaccBonus = (caster:getMerit(dsp.merit.FLOOD_II) - 1) * 5
+
+    if (caster:getMerit(dsp.merit.ANCIENT_MBD) ~= 0) then
+        spellParams.AMIIburstBonus = (caster:getMerit(dsp.merit.ANCIENT_MBD) - 1) * 0.03
+    end
+
+    if (caster:getMerit(dsp.merit.ANCIENT_MAB) ~= 0) then
+        spellParams.AMIImabBonus = (caster:getMerit(dsp.merit.ANCIENT_MAB) - 1) * 0.03
     end
 
     -- no point in making a separate function for this if the only thing they won't have in common is the name
