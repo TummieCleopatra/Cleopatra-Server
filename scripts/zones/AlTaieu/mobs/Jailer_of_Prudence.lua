@@ -16,7 +16,7 @@ require("scripts/globals/mobscaler");
 
 function onMobInitialize(mob)
     mob:setMobMod(dsp.mobMod.MAIN_2HOUR, 1);
-    mob:setMobMod(dsp.mobMod.2HOUR_MULTI, 1);
+    -- mob:setMobMod(dsp.mobMod.2HOUR_MULTI, 1);
     mob:setMobMod(dsp.mobMod.NO_DROPS, 1);
 end;
 
@@ -25,7 +25,7 @@ end;
 -----------------------------------
 
 function onMobSpawn(mob)
-    mob:setLocalVar("PartySize",8);  
+    mob:setLocalVar("PartySize",8);
     mob:AnimationSub(0); -- Mouth closed
     mob:addStatusEffectEx(dsp.effect.FLEE,0,100,0,60);
     mob:setMod(dsp.mod.TRIPLE_ATTACK, 20);
@@ -63,11 +63,11 @@ end;
 
     -- if (ability:getID() == 437) then -- Perfect Dodge
         -- mob:addStatusEffectEx(dsp.effect.FLEE,0,100,0,30);
-    -- else        
+    -- else
         -- if (mob:getID() == PrudenceOne and GetMobAction(PrudenceTwo) > 0 and GetMobAction(PrudenceTwo) ~= ACTION_SLEEP and GetMobAction(PrudenceTwo) ~= ACTION_STUN) then
             -- if (GetMobByID(PrudenceTwo):checkDistance(mob) <= 10) then
                 -- GetMobByID(PrudenceTwo):useMobAbility(ability:getID());
-            -- end            
+            -- end
         -- elseif (mob:getID() == PrudenceTwo and GetMobAction(PrudenceOne) > 0 and GetMobAction(PrudenceOne) ~= ACTION_SLEEP and GetMobAction(PrudenceOne) ~= ACTION_STUN) then
             -- if (GetMobByID(PrudenceOne):checkDistance(mob) <= 10) then
                 -- GetMobByID(PrudenceOne):useMobAbility(ability:getID());
@@ -94,10 +94,10 @@ function onMobDeath(mob, killer)
         firstPrudence:addMod(dsp.mod.ATTP, 100);
         firstPrudence:delMod(dsp.mod.DEFP, -50);
     end;
-	
+
         player:setVar("Prude_Win",1);
 	    player:addCurrency('zeni_point',700);
-	    player:PrintToPlayer("You obtain 700 Zeni Points.", 0x15);		
+	    player:PrintToPlayer("You obtain 700 Zeni Points.", 0x15);
 
 
 end;
