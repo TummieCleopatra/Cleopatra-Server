@@ -1902,7 +1902,7 @@ INSERT INTO `item_armor` VALUES (12133,'furia_tam',71,0,33296,259,0,0,16,0);
 INSERT INTO `item_armor` VALUES (12134,'ebur_tam',71,0,33296,260,0,0,16,0);
 INSERT INTO `item_armor` VALUES (12135,'ebon_hat',71,0,1572872,261,0,0,16,0);
 INSERT INTO `item_armor` VALUES (12136,'furia_hat',71,0,1572872,262,0,0,16,0);
-INSERT INTO `item_armor` VALUES (12137,'ebur_hat',71,0,1572872,263,0,0,16,0);
+INSERT INTO `item_armor` VALUES (12137,'ebur_hat',71,0,1048576,308,0,0,16,0);  -- GEO AF Hat
 INSERT INTO `item_armor` VALUES (12138,'ebon_caubeen',71,0,16388,264,0,0,16,0);
 INSERT INTO `item_armor` VALUES (12139,'furia_caubeen',71,0,16388,265,0,0,16,0);
 INSERT INTO `item_armor` VALUES (12140,'ebur_caubeen',71,0,16388,266,0,0,16,0);
@@ -1938,7 +1938,7 @@ INSERT INTO `item_armor` VALUES (12169,'furia_talar',71,0,33296,259,0,0,32,0);
 INSERT INTO `item_armor` VALUES (12170,'ebur_talar',71,0,33296,260,0,0,32,0);
 INSERT INTO `item_armor` VALUES (12171,'ebon_coat',71,0,1572872,261,0,0,32,0);
 INSERT INTO `item_armor` VALUES (12172,'furia_coat',71,0,1572872,262,0,0,32,0);
-INSERT INTO `item_armor` VALUES (12173,'ebur_coat',71,0,1572872,263,0,0,32,0);
+INSERT INTO `item_armor` VALUES (12173,'ebur_coat',71,0,1048576,308,0,0,32,0);  -- GEO AF Body
 INSERT INTO `item_armor` VALUES (12174,'ebon_bliaut',71,0,16388,264,0,0,32,0);
 INSERT INTO `item_armor` VALUES (12175,'furia_bliaut',71,0,16388,265,0,0,32,0);
 INSERT INTO `item_armor` VALUES (12176,'ebur_bliaut',71,0,16388,266,0,0,32,0);
@@ -1966,15 +1966,15 @@ INSERT INTO `item_armor` VALUES (12197,'ebur_bracers',71,0,66560,251,0,0,64,0);
 INSERT INTO `item_armor` VALUES (12198,'shikkoku_kote',71,0,133122,252,0,0,64,0);
 INSERT INTO `item_armor` VALUES (12199,'shinku_kote',71,0,133122,253,0,0,64,0);
 INSERT INTO `item_armor` VALUES (12200,'ginhaku_kote',71,0,133122,254,0,0,64,0);
-INSERT INTO `item_armor` VALUES (12201,'ebon_wristbands',71,0,2097152,338,0,0,64,0);
+INSERT INTO `item_armor` VALUES (12201,'ebon_wristbands',71,0,2097152,338,0,0,64,0);  -- RUN Hands
 INSERT INTO `item_armor` VALUES (12202,'furia_wristbands',71,0,2363424,256,0,0,64,0);
-INSERT INTO `item_armor` VALUES (12203,'ebur_wristbands',71,0,2363424,257,0,0,64,0);
+INSERT INTO `item_armor` VALUES (12203,'ebur_wristbands',71,0,2363424,257,0,0,64,0); 
 INSERT INTO `item_armor` VALUES (12204,'ebon_gants',71,0,33296,258,0,0,64,0);
 INSERT INTO `item_armor` VALUES (12205,'furia_gants',71,0,33296,259,0,0,64,0);
 INSERT INTO `item_armor` VALUES (12206,'ebur_gants',71,0,33296,260,0,0,64,0);
-INSERT INTO `item_armor` VALUES (12207,'ebon_cuffs',71,0,1572872,261,0,0,64,0);
-INSERT INTO `item_armor` VALUES (12208,'furia_cuffs',71,0,1572872,262,0,0,64,0);
-INSERT INTO `item_armor` VALUES (12209,'ebur_cuffs',71,0,1572872,263,0,0,64,0);
+INSERT INTO `item_armor` VALUES (12207,'ebon_cuffs',71,0,1048576,308,0,0,64,0);  -- Change this back
+INSERT INTO `item_armor` VALUES (12208,'furia_cuffs',71,0,1572872,262,0,0,64,0);  
+INSERT INTO `item_armor` VALUES (12209,'ebur_cuffs',71,0,1048576,308,0,0,64,0);  -- GEO AF Hands
 INSERT INTO `item_armor` VALUES (12210,'ebon_gages',71,0,16388,264,0,0,64,0);
 INSERT INTO `item_armor` VALUES (12211,'furia_gages',71,0,16388,265,0,0,64,0);
 INSERT INTO `item_armor` VALUES (12212,'ebur_gages',71,0,16388,266,0,0,64,0);
@@ -2010,7 +2010,7 @@ INSERT INTO `item_armor` VALUES (12241,'furia_slacks',71,0,33296,259,0,0,128,0);
 INSERT INTO `item_armor` VALUES (12242,'ebur_slacks',71,0,33296,260,0,0,128,0);
 INSERT INTO `item_armor` VALUES (12243,'ebon_pants',71,0,1572872,261,0,0,128,0);
 INSERT INTO `item_armor` VALUES (12244,'furia_pants',71,0,1572872,262,0,0,128,0);
-INSERT INTO `item_armor` VALUES (12245,'ebur_pants',71,0,1572872,263,0,0,128,0);
+INSERT INTO `item_armor` VALUES (12245,'ebur_pants',71,0,1048576,308,0,0,128,0);  -- GEO AF Legs
 INSERT INTO `item_armor` VALUES (12246,'ebon_spats',71,0,16388,264,0,0,128,0);
 INSERT INTO `item_armor` VALUES (12247,'furia_spats',71,0,16388,265,0,0,128,0);
 INSERT INTO `item_armor` VALUES (12248,'ebur_spats',71,0,16388,266,0,0,128,0);
@@ -2043,10 +2043,10 @@ INSERT INTO `item_armor` VALUES (12274,'furia_gaiters',71,0,2363424,256,0,0,256,
 INSERT INTO `item_armor` VALUES (12275,'ebur_gaiters',71,0,2363424,257,0,0,256,0);
 INSERT INTO `item_armor` VALUES (12276,'ebon_brogues',71,0,33296,258,0,0,256,0);
 INSERT INTO `item_armor` VALUES (12277,'furia_brogues',71,0,33296,259,0,0,256,0);
-INSERT INTO `item_armor` VALUES (12278,'ebur_brogues',71,0,33296,260,0,0,256,0);
+INSERT INTO `item_armor` VALUES (12278,'ebur_brogues',71,0,33296,260,0,0,256,0);  
 INSERT INTO `item_armor` VALUES (12279,'ebon_sabots',71,0,1572872,261,0,0,256,0);
 INSERT INTO `item_armor` VALUES (12280,'furia_sabots',71,0,1572872,262,0,0,256,0);
-INSERT INTO `item_armor` VALUES (12281,'ebur_sabots',71,0,1572872,263,0,0,256,0);
+INSERT INTO `item_armor` VALUES (12281,'ebur_sabots',71,0,1048576,308,0,0,256,0);  -- GEO AF Feet
 INSERT INTO `item_armor` VALUES (12282,'ebon_galoshes',71,0,16388,264,0,0,256,0);
 INSERT INTO `item_armor` VALUES (12283,'furia_galoshes',71,0,16388,265,0,0,256,0);
 INSERT INTO `item_armor` VALUES (12284,'ebur_galoshes',71,0,16388,266,0,0,256,0);
@@ -9906,8 +9906,8 @@ INSERT INTO `item_armor` VALUES (20779,'senbaak_nagan',99,117,2097344,73,0,0,1,0
 INSERT INTO `item_armor` VALUES (20780,'senbaak_nagan_+1',99,118,2097344,73,0,0,1,0);
 INSERT INTO `item_armor` VALUES (20781,'sowilo_claymore',1,0,2097152,68,0,0,1,0);
 INSERT INTO `item_armor` VALUES (20782,'coalition_sword',99,100,2097344,608,0,0,1,0);
-INSERT INTO `item_armor` VALUES (20783,'uruz_blade',75,0,2097152,705,0,0,1,0); -- RUN Weapon
-INSERT INTO `item_armor` VALUES (20784,'uruz_blade_+1',75,0,2097152,72,0,0,1,0);
+INSERT INTO `item_armor` VALUES (20783,'uruz_blade',75,0,2097152,705,0,0,1,0); -- RUN HA Weapon
+INSERT INTO `item_armor` VALUES (20784,'uruz_blade_+1',75,0,2097152,72,0,0,1,0);  -- RUN Ergon
 INSERT INTO `item_armor` VALUES (20785,'thurisaz_blade',99,100,2097152,67,0,0,1,0);
 INSERT INTO `item_armor` VALUES (20786,'thurisaz_blade_+1',99,101,2097152,67,0,0,1,0);
 INSERT INTO `item_armor` VALUES (20787,'crobaci',99,105,2097344,432,0,0,1,0);

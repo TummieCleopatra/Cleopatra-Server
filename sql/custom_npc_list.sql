@@ -375,7 +375,10 @@ INSERT INTO `npc_list` VALUES (17744217,'GreeterMoogleC','Greeter Moogle',66,69,
 
 -- Sandy [S]
 -- INSERT INTO `npc_list` VALUES (17105395,'Touttaures','Touttaures',157,94.361,3.999,50.343,14,40,40,0,1,0,0,25,0x0100100300100B200B300B400050006000700000,32,'WOTG',1); change look to this
-INSERT INTO `npc_list` VALUES (17105707,'RuneNPC','Fivinne',44,46,2,-1,20,40,40,0,0,0,0,25,0x0100030438100C200C300C400C500E611B700000,32,'WOTG',1);
+INSERT INTO `npc_list` VALUES (17105707,'RuneNPC','Fivinne',105,32,0,34,20,40,40,0,0,0,0,25,0x0100020400105221523163405251c26200700080,32,'WOTG',1);
+
+-- Castle Oztroja
+INSERT INTO `npc_list` VALUES (17396267,'Geomantic_Reservoir','Geomantic Reservoir',0,-207,-16,89,1,50,50,0,0,112,0,3,0x0000160900000000000000000000000000000000,0,'SOA',1);
 
 
 
@@ -393,6 +396,36 @@ INSERT INTO `npc_list` VALUES (17163030,'GeoNPC','Sevi Luhgo',246,-79,-3,56,0,50
 -- MOB LIST
 -- Bibiki Bay
 INSERT INTO `mob_spawn_points` VALUES (16793977,'HAnm','HAnm',51,-602,-3,-686,0);
+
+-- Castle Oztroja
+INSERT INTO `mob_spawn_points` VALUES (17396160,'Geo_AF_Boots','Geo_AF_Boots',70,-207,-16,89,0); -- GEO Belfry
+
+-- Davoi
+INSERT INTO `mob_spawn_points` VALUES (17388056,'Geo_AF_Hands','Geo_AF_Hands',70,173,3,-386,0); -- Baelfyr Hands
+
+-- Beadeaux
+INSERT INTO `mob_spawn_points` VALUES (17379873,'Geo_AF_Pants','Geo_AF_Pants',70,162,-3,38,0); -- GeFryst Pants
+
+-- Beaucedine Glacier
+INSERT INTO `mob_spawn_points` VALUES (17232319,'Geo_AF_Body','Geo_AF_Body',70,8.527,-59.729,-104.909,0); -- GeFryst Body
+
+-- Xarcabard
+INSERT INTO `mob_spawn_points` VALUES (17236370,'Geo_AF_Head','Geo_AF_Head',70,-141.138,-34.642,127.197,0); -- Byrgen Head
+
+-- Vunkerl Inlet [S]
+INSERT INTO `mob_spawn_points` VALUES (17118050,'Run_AF_Feet','Run_AF_Feet',200,-115,-40,-201,0); -- RUN AF Feet 
+
+-- Fort K
+INSERT INTO `mob_spawn_points` VALUES (17171292,'Run_AF_Hands','Run_AF_Hands',70,-121,-80,9,0); -- RUN AF Feet
+
+-- Batallia Downs
+INSERT INTO `mob_spawn_points` VALUES (17122294,'Run_AF_Legs','Run_AF_Legs',70,210,8,17,0); -- RUN AF Feet
+
+-- Grauberg [S]
+INSERT INTO `mob_spawn_points` VALUES (17142639,'Run_AF_Body','Run_AF_Body',70,439,-40,79,0); -- RUN AF Body
+
+-- La Vaule [S]
+INSERT INTO `mob_spawn_points` VALUES (17126198,'Run_AF_Head','Run_AF_Head',70,-100,-1,-215,0); -- RUN AF Body
 
 
 
