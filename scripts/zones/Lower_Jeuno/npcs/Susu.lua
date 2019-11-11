@@ -44,7 +44,7 @@ function onTrigger(player,npc)
         4812,  71250,    -- Scroll of Flare
         4814,  52500,    -- Scroll of Freeze
         4820,  63750,    -- Scroll of Burst
-        4819,  129180,   -- Scroll of Quake
+        4819,  129180,   -- Scroll of Quake II
         4823,  129180,   -- Scroll of Flood II
         4817,  129180,   -- Scroll of Tornado II
         4813,  129180,   -- Scroll of Flare II

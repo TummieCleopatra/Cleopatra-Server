@@ -67,9 +67,15 @@ function onTrigger(player,npc)
         5098,  94461,    -- Scroll of Boost-INT
         5095,  99613,    -- Scroll of Boost-DEX
         5106,  73500,    -- Scroll of Inundation
-        4849, 130378,    -- Scroll of Addle
+        4849,  130378,   -- Scroll of Addle
         4629,  35000,    -- Scroll of Holy
         4647,  20000,    -- Scroll of Banishga II
+        4737,  119240,   -- Scroll of Protectra V
+        4742,  124540,   -- Scroll of Shellra V
+        4633,  139125,   -- Scroll of Dia III
+        6569,  139125,   -- Scroll of Slow II
+        6570,  139125,   -- Scroll of Paralyze II
+        6571,  139125,   -- Scroll of Phalanx II
     }
 
     player:showText(npc,ID.text.HASIM_SHOP_DIALOG)

@@ -1577,6 +1577,7 @@ dsp.mod =
     ANIMUS_MISERY                   = 952,
     CON_ANIMA                       = 953,
     CON_BRIO                        = 954,
+    GEOMANCY                        = 955,
 
     -- The spares take care of finding the next ID to use so long as we don't forget to list IDs that have been freed up by refactoring.
     -- 570 - 825 used by WS DMG mods these are not spares.
@@ -2028,12 +2029,10 @@ dsp.merit =
     -- NIN 2
     SANGE                       = MCATEGORY_NIN_2 + 0x00,
     NINJA_TOOL_EXPERTISE        = MCATEGORY_NIN_2 + 0x02,
-    KATON_SAN                   = MCATEGORY_NIN_2 + 0x04,
-    HYOTON_SAN                  = MCATEGORY_NIN_2 + 0x06,
-    HUTON_SAN                   = MCATEGORY_NIN_2 + 0x08,
-    DOTON_SAN                   = MCATEGORY_NIN_2 + 0x0A,
-    RAITON_SAN                  = MCATEGORY_NIN_2 + 0x0C,
-    SUITON_SAN                  = MCATEGORY_NIN_2 + 0x0E,
+    YONIN_EFFECT                = MCATEGORY_NIN_2 + 0x04,
+    INNIN_EFFECT                = MCATEGORY_NIN_2 + 0x06,
+    NINJITSU_MACC               = MCATEGORY_NIN_2 + 0x08,
+    NINJITSU_MAB                = MCATEGORY_NIN_2 + 0x0A,
 
     -- DRG 2
     DEEP_BREATHING              = MCATEGORY_DRG_2 + 0x00,

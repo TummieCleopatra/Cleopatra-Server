@@ -13,16 +13,16 @@ end
 
 function onSpellCast(caster, target, spell)
     local dMND = caster:getStat(dsp.mod.MND) - target:getStat(dsp.mod.MND)
-    local merits = caster:getMerit(dsp.merit.SLOW_II)
+    -- local merits = caster:getMerit(dsp.merit.SLOW_II)
 
     -- Lowest ~12.5%
     -- Highest ~35.1%
     local power = utils.clamp(math.floor(dMND * 226 / 15) + 2380, 1250, 3510)
     power = calculatePotency(power, spell:getSkillType(), caster, target)
 
-    if merits > 1 then
-        power = power + merits - 1
-    end
+
+    power = power + 5 - 1
+
 
     --Duration, including resistance.
     local duration = calculateDuration(180, spell:getSkillType(), spell:getSpellGroup(), caster, target)
@@ -30,7 +30,7 @@ function onSpellCast(caster, target, spell)
     local params = {}
     params.diff = dMND
     params.skillType = dsp.skill.ENFEEBLING_MAGIC
-    params.bonus = merits * 2
+    params.bonus = 10
     params.effect = dsp.effect.SLOW
     local resist = applyResistanceEffect(caster, target, spell, params)
 

@@ -44,7 +44,7 @@ function onSpellCast(caster, target, spell)
     local final = finalMagicAdjustments(caster, target, spell, dmg)
 
     -- Calculate duration and bonus
-    local duration = calculateDuration(caster:getMerit(dsp.merit.DIA_III), spell:getSkillType(), spell:getSpellGroup(), caster, target)
+    local duration = calculateDuration(150, spell:getSkillType(), spell:getSpellGroup(), caster, target)
     local dotBonus = caster:getMod(dsp.mod.DIA_DOT) -- Dia Wand
     -- If caster has the spell but no merits in it, they are either a mob or we assume they are GM or otherwise gifted with max duration
     if duration == 0 then

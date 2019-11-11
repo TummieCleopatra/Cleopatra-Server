@@ -24,10 +24,10 @@ function onSpellCast(caster, target, spell)
     -- Max cap: 90 at 120 dINT
     local basePotency = utils.clamp(math.floor(dINT / 3 * 8 + 45), 15, 90)
 
-    if (merits > 1) then
-        basePotency = basePotency + merits - 1
-    end
-    
+
+    basePotency = basePotency + 5 - 1
+
+
     local potency = calculatePotency(basePotency, spell:getSkillType(), caster, target)
 
     -- Duration, including resistance.  Unconfirmed.
@@ -36,7 +36,7 @@ function onSpellCast(caster, target, spell)
     local params = {}
     params.diff = dINT
     params.skillType = dsp.skill.ENFEEBLING_MAGIC
-    params.bonus = merits * 2
+    params.bonus = 10
     params.effect = dsp.effect.BLINDNESS
     local resist = applyResistanceEffect(caster, target, spell, params)
 
