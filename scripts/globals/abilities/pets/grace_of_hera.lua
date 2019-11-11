@@ -31,10 +31,6 @@ function onPetAbility(target, pet, skill, master)
 	master:delStatusEffect(dep.effect.ASTRAL_FLOW);
 
 
-    local aflow = getAbility(14)
-    local newRecast = 6000
-    aflow:setRecast(newRecast)
-    master:despawnPet()
     return base;
 
 end

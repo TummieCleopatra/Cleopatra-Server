@@ -1,5 +1,5 @@
 -----------------------------------
--- Ability: Accession
+-- Ability: Astral Flow
 -- Allows avatars to use their full strength and allows summmoning of Odin and Alexander.
 -- Obtained: Summoner Level 1
 -- Recast Time: 1:00:00
@@ -10,6 +10,9 @@ require("scripts/globals/status")
 -----------------------------------
 
 function onAbilityCheck(player,target,ability)
+    local timer = player:getVar("1HR_Recast")
+    timer = timer * 90
+    ability:setRecast(ability:getRecast() - timer)
     return 0,0
 end
 

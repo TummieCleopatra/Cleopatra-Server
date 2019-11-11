@@ -1,5 +1,5 @@
 ---------------------------------------------
--- Zantetsuken
+-- Wrath of Zeus
 ---------------------------------------------
 require("scripts/globals/monstertpmoves")
 require("scripts/globals/settings")
@@ -26,11 +26,12 @@ function onPetAbility(target, pet, skill, master)
     master:setMP(0)
 
     target:takeDamage(damage, pet, dsp.attackType.MAGICAL, dsp.damageType.LIGHTNING)
+    target:addStatusEffect(dsp.effect.SILENCE,0,0,45)
     target:updateEnmityFromDamage(pet,damage)
-    pet:setHP(0)
+
     -- local aflow = getAbility(14)
     -- local newRecast = 6000
     -- aflow:setRecast(newRecast)
-
+    master:addStatusEffect(dsp.effect.WEAKNESS,1,0,180)
     return damage
 end
