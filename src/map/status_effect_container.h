@@ -98,6 +98,10 @@ public:
     void RemoveAllIndicolure();
     EFFECT GetNewestRune();
 
+	uint8 GetActiveBoosts();
+	void RemoveOldestBoost();
+	void RemoveAllBoosts();
+
     void WakeUp(); // remove sleep effects
     bool IsAsleep();
     bool HasPreventActionEffect(); // checks if owner has an effect that prevents actions, like stun, petrify, sleep etc

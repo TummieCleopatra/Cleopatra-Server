@@ -215,11 +215,6 @@ uint16 CMobSkill::getPetAnimationID() const
         return m_AnimID - 493;
     }
 
-    if (m_AnimID == 1640)
-    {
-        return m_AnimID + 256;
-    }
-
     ShowWarning(CL_GREEN"Current Correct ID is: %u" CL_RESET, m_AnimID);
 
   return m_AnimID;

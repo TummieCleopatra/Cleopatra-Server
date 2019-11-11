@@ -2398,6 +2398,7 @@ namespace luautils
 
         int8 File[255];
         PMob->objtype == TYPE_PET ? snprintf((char*)File, sizeof(File), "scripts/globals/pets/%s.lua", static_cast<CPetEntity*>(PMob)->GetScriptName().c_str()) :
+        PMob->objtype == TYPE_TRUST ? snprintf((char*)File, sizeof(File), "scripts/globals/pets/%s.lua", static_cast<CMobEntity*>(PMob)->GetScriptName().c_str()) :
             snprintf((char*)File, sizeof(File), "scripts/zones/%s/mobs/%s.lua", PMob->loc.zone->GetName(), PMob->GetName());
 
         if (PTarget->objtype == TYPE_PC)
