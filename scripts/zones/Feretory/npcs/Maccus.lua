@@ -70,10 +70,10 @@ local trustdyna = player:getVar("TrustDynamis");
 	end
 
 
-    if (player:getNation() == 0) and (trustdyna ~= 1) and (player:hasCompletedMission(SANDORIA,dsp.mission.id.windurst.THE_SHADOW_LORD) == true) then
+    if (player:getNation() == 0) and (trustdyna ~= 1) and (player:hasCompletedMission(SANDORIA,dsp.mission.id.sandoria.THE_SHADOW_LORD) == true) then
     player:PrintToPlayer("You may now summon Trusts inside Dynamis!", 0xD);
 	player:setVar("TrustDynamis",1);
-    elseif (player:getNation() == 1) and (trustdyna ~= 1) and (player:hasCompletedMission(BASTOK,dsp.mission.id.windurst.XARCABARD_LAND_OF_TRUTHS) == true) then
+    elseif (player:getNation() == 1) and (trustdyna ~= 1) and (player:hasCompletedMission(BASTOK,dsp.mission.id.bastok.XARCABARD_LAND_OF_TRUTHS) == true) then
     player:PrintToPlayer("You may now summon Trusts inside Dynamis!", 0xD);
 	player:setVar("TrustDynamis",1);
     elseif (player:getNation() == 2) and (trustdyna ~= 1) and (player:hasCompletedMission(WINDURST,dsp.mission.id.windurst.THE_SHADOW_AWAITS) == true) then
