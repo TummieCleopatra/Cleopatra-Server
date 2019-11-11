@@ -2330,7 +2330,7 @@ INSERT INTO `augments` VALUES (2026, 0, 0, 0, 0, 0);
 INSERT INTO `augments` VALUES (2027, 0, 0, 0, 0, 0);
 INSERT INTO `augments` VALUES (2028, 0, 0, 0, 0, 0);
 INSERT INTO `augments` VALUES (2029, 0, 0, 0, 0, 0);
-INSERT INTO `augments` VALUES (2030, 0, 0, 0, 0, 0);
+INSERT INTO `augments` VALUES (2030, 0, 955, 1, 0, 0);  -- Geomancy+ Hidden on some Items unless it says in Help Text
 INSERT INTO `augments` VALUES (2031, 0, 0, 0, 0, 0);
 INSERT INTO `augments` VALUES (2032, 0, 0, 0, 0, 0);
 INSERT INTO `augments` VALUES (2033, 0, 0, 0, 0, 0);
