@@ -31,30 +31,34 @@ end;
 
 function onBcnmLeave(player,instance,leavecode)
     -- print("leave code "..leavecode);
-   
+
     if (leavecode == 2) then -- play end CS. Need time and battle id for record keeping + storage
         if (player:hasCompletedMission(TOAU,dsp.mission.id.toau.SHIELD_OF_DIPLOMACY)) then
             player:startEvent(32001,1,1,1,instance:getTimeInside(),1,4,1);
+            player:PrintToPlayer("You can now summon Shantotto as a Trust!", 0x1C);
+            player:addSpell(896);
         else
             player:startEvent(32001,1,1,1,instance:getTimeInside(),1,4,0);
+            player:PrintToPlayer("You can now summon Shantotto as a Trust!", 0x1C);
+            player:addSpell(896);
         end
     elseif (leavecode == 4) then
         player:startEvent(32002);
     end
-    
+
 end;
 
 function onEventUpdate(player,csid,option)
     -- print("bc update csid "..csid.." and option "..option);
 end;
-    
+
 function onEventFinish(player,csid,option)
     -- print("bc finish csid "..csid.." and option "..option);
-    
+
     if csid == 32001 and player:getCurrentMission(TOAU) == dsp.mission.id.toau.SHIELD_OF_DIPLOMACY then
         player:completeMission(TOAU,dsp.mission.id.toau.SHIELD_OF_DIPLOMACY);
         player:setVar("AhtUrganStatus",0);
         player:addMission(TOAU,dsp.mission.id.toau.SOCIAL_GRACES);
     end
-    
+
 end;
