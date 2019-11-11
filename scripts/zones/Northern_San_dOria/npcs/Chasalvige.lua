@@ -378,6 +378,45 @@ function onTrade(player,npc,trade)
     elseif ((job == 20) and (player:getVar("SCHAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(17098,1))) then
       player:PrintToPlayer("Chasalvige : I will need 3x Feyewald Lumber and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
     end
+
+    -- GEO Trade
+     if ((job == 21) and (player:getVar("GEOAFweapon") == 3) and (trade:hasItemQty(21460,1)) and (trade:hasItemQty(2766,3))) then
+      if (pinfamy >= amount) then
+        player:delCurrency("infamy", amount);
+        player:tradeComplete();
+        player:PrintToPlayer("Chasalvige : I will roughly one day to finish the ritual.  Please come back then.", 0xD);
+        player:setVar("GEOHAweapon",1);
+        player:setVar("GEOAFweapon",0);
+        player:setVar("HA_Weapon_Wait", os.time());
+      else
+        balance = amount - pinfamy;
+        player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
+      end
+    elseif ((job == 21) and (player:getVar("GEOAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(21460,1))) then
+      player:PrintToPlayer("Chasalvige : I will need 3x Oberon's Gold and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
+    end
+
+    -- RUN Trade
+     if ((job == 22) and (player:getVar("RUNAFweapon") == 3) and (trade:hasItemQty(20781,1)) and (trade:hasItemQty(2764,3))) then
+      if (pinfamy >= amount) then
+        player:delCurrency("infamy", amount);
+        player:tradeComplete();
+        player:PrintToPlayer("Chasalvige : I will roughly one day to finish the ritual.  Please come back then.", 0xD);
+        player:setVar("RUNHAweapon",1);
+        player:setVar("RUNAFweapon",0);
+        player:setVar("HA_Weapon_Wait", os.time());
+      else
+        balance = amount - pinfamy;
+        player:PrintToPlayer("Chasalvige : I am sorry.  You need "..balance.." more infamy for the donation.", 0xD);
+      end
+    elseif ((job == 22) and (player:getVar("RUNAFweapon") == 3) and (mainlvl >= 75) and (player:getVar("HA_Weapon_Start") == 1) and (trade:hasItemQty(20781,1))) then
+      player:PrintToPlayer("Chasalvige : I will need 3x Dweomer Steel and 30,000 infamy donation to purify that Artifact Weapon.", 0xD);
+    end
+
+
+
+
+
 end;
 
 function onTrigger(player,npc)
@@ -540,12 +579,25 @@ function onTrigger(player,npc)
       player:setVar("HA_Weapon_Wait", 0);
       player:setVar("SCHHAWeapon", 2);
       player:messageSpecial(ID.text.ITEM_OBTAINED, 18602);
+      -- GEO
+    elseif ((player:getVar("GEOHAWeapon") == 1) and (daywait < os.time())) then
+      player:PrintToPlayer("Chasalvige : Now your bell is mostly ready.", 0xD);
+      player:addItem(21460, 1, 2047, 0, 2047, 0 , 2047, 0);
+      player:setVar("HA_Weapon_Wait", 0);
+      player:setVar("GEOHAWeapon", 2);
+      player:messageSpecial(ID.text.ITEM_OBTAINED, 21460);
+    elseif ((player:getVar("RUNHAWeapon") == 1) and (daywait < os.time())) then
+      player:PrintToPlayer("Chasalvige : Now your weapon is mostly ready.", 0xD);
+      player:addItem(20781, 1, 2047, 0, 2047, 0 , 2047, 0);
+      player:setVar("HA_Weapon_Wait", 0);
+      player:setVar("RUNHAWeapon", 2);
+      player:messageSpecial(ID.text.ITEM_OBTAINED, 20781);
     elseif ((player:getVar("WARHAweapon") == 2) or (player:getVar("MNKHAweapon") == 2) or (player:getVar("WHMHAweapon") == 2) or (player:getVar("BLMHAweapon") == 2)
       or (player:getVar("RDMHAweapon") == 2) or (player:getVar("THFHAweapon") == 2) or (player:getVar("PLDHAweapon") == 2) or (player:getVar("DRKHAweapon") == 2)
       or (player:getVar("BSTHAweapon") == 2) or (player:getVar("BRDHAweapon") == 2) or (player:getVar("RNGHAweapon") == 2) or (player:getVar("SAMHAweapon") == 2)
       or (player:getVar("NINHAweapon") == 2) or (player:getVar("DRGHAweapon") == 2) or (player:getVar("SMNHAweapon") == 2) or (player:getVar("BLUHAweapon") == 2)
       or (player:getVar("CORHAweapon") == 2) or (player:getVar("PUPHAweapon") == 2) or (player:getVar("SCHHAweapon") == 2) or (player:getVar("DNCHAweapon") == 2)
-      or (player:getVar("DNCHAshield") == 2)) then
+      or (player:getVar("DNCHAshield") == 2) or (player:getVar("GEOHAweapon") == 2) or (player:getVar("RUNHAweapon") == 2)) then
         player:PrintToPlayer("Chasalvige : To finish the Ceremony, bury your weapon near the beach in Purgonorgo Isle to absorb the Malice there.  It should draw ", 0xD);
         player:PrintToPlayer("Chasalvige : out the negative energy your Artifact Weapon once had and allow it to manifest itself.", 0xD);
     elseif ((player:getVar("WARAFweapon") == 3) or (player:getVar("MNKAFweapon") == 3) or (player:getVar("WHMAFweapon") == 3) or (player:getVar("BLMAFweapon") == 3) or
@@ -553,9 +605,12 @@ function onTrigger(player,npc)
         (player:getVar("BSTAFweapon") == 3) or (player:getVar("BRDAFweapon") == 3) or (player:getVar("RNGAFweaponbow") == 3) or (player:getVar("SAMAFweapon") == 3) or
         (player:getVar("NINAFweapon") == 3) or (player:getVar("DRGAFweapon") == 3) or (player:getVar("SMNAFweapon") == 3) or (player:getVar("BLUAFweapon") == 3) or
         (player:getVar("CORAFweapon") == 3) or (player:getVar("PUPAFweapon") == 3) or (player:getVar("SCHAFweapon") == 3) or (player:getVar("DNCAFweapon") == 3) or
-        (player:getVar("PLDAFshield") == 3)) then
+        (player:getVar("PLDAFshield") == 3) or (player:getVar("RUNAFweapon") == 3)) then
           player:PrintToPlayer("Chasalvige : Looks like Oboro is at it again...If you want a real weapon, trade me your Artifact so I can examine it.", 0xD);
           player:setVar("HA_Weapon_Start",1);
+    elseif (player:getVar("GEOAFweapon") == 3) then
+        player:PrintToPlayer("Chasalvige : Oboro is still crafting subpar items I see...trade your Bell to me so I can examine it", 0xD);
+        player:setVar("HA_Weapon_Start",1);
     else
         player:startEvent(6);
     end

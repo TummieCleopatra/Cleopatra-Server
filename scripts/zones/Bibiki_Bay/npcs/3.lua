@@ -123,6 +123,16 @@ function onTrade(player,npc,trade)
         player:setVar("SCHHAWeapon",0);
         player:setVar("SCHHAFight",1);
         player:PrintToPlayer("Your weapon begins to react violently!", 0xD);
+    elseif (player:getVar("GEOHAWeapon") == 2 and trade:hasItemQty(21460,1)) then
+        player:tradeComplete();
+        player:setVar("GEOHAWeapon",0);
+        player:setVar("GEOHAFight",1);
+        player:PrintToPlayer("Your Matre Bell begins to react violently!", 0xD);
+    elseif (player:getVar("RUNHAWeapon") == 2 and trade:hasItemQty(20781,1)) then
+        player:tradeComplete();
+        player:setVar("RUNHAWeapon",0);
+        player:setVar("RUNHAFight",1);
+        player:PrintToPlayer("Your weapon begins to react violently!", 0xD);
     end
 
     if (pinfamy >= payment) then
@@ -257,6 +267,18 @@ function onTrade(player,npc,trade)
             player:addItem(18602,1,1249,14,59,0)
             player:messageSpecial(ID.text.ITEM_OBTAINED,18602);
             player:setVar("SCHHAFight",4);
+            player:delCurrency("infamy", payment);
+            player:tradeComplete();
+        elseif (player:getVar("GEOHAFight") == 3) then  -- GEO
+            player:addItem(21460,1,11,4,140,4,1250,29,2030,1) -- MP + 70, Fast Cast + 5, Indi Duration + 30, Hidden Geomancy +2
+            player:messageSpecial(ID.text.ITEM_OBTAINED,21460);
+            player:setVar("GEOHAFight",4);
+            player:delCurrency("infamy", payment);
+            player:tradeComplete();
+        elseif (player:getVar("RUNHAFight") == 3) then  -- RUN
+            player:addItem(20783,1,133,9,54,4,39,6,59,0) -- MAB+10, Phys DMG Taken -4, Enmity +7
+            player:messageSpecial(ID.text.ITEM_OBTAINED,20783);
+            player:setVar("RUNHAFight",4);
             player:delCurrency("infamy", payment);
             player:tradeComplete();
         end
