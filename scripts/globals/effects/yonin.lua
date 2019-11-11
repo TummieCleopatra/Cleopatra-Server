@@ -10,6 +10,7 @@ function onEffectGain(target,effect) --power=30 initially, subpower=20 for enmit
     target:addMod(dsp.mod.ACC,-effect:getPower())
     target:addMod(dsp.mod.NINJA_TOOL,effect:getPower())
     target:addMod(dsp.mod.ENMITY,effect:getSubPower())
+    target:addMod(dsp.mod.HP, target:getMerit(dsp.merit.YONIN_EFFECT))
 end
 
 function onEffectTick(target,effect)
@@ -28,4 +29,5 @@ function onEffectLose(target,effect)
     target:delMod(dsp.mod.ACC,-effect:getPower())
     target:delMod(dsp.mod.NINJA_TOOL,effect:getPower())
     target:delMod(dsp.mod.ENMITY,effect:getSubPower())
+    target:delMod(dsp.mod.HP, target:getMerit(dsp.merit.YONIN_EFFECT))
 end
