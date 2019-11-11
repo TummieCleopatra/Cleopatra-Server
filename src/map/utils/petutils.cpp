@@ -865,14 +865,20 @@ namespace petutils
             PTrust->m_Weapons[SLOT_SUB]->addModifier(CModifier(Mod::DEF, (int16)shielddef));
             PTrust->setModifier(Mod::SHIELD, battleutils::GetMaxSkill(SKILL_CLUB, JOB_WHM, PTrust->GetMLevel()));
             PTrust->setModifier(Mod::SWORD, battleutils::GetMaxSkill(SKILL_SWORD, JOB_PLD, PTrust->GetMLevel()));
-            PTrust->setModifier(Mod::HP, MainLevel * 2);
-            PTrust->setModifier(Mod::DEF, MainLevel + (MainLevel / 2));
+            PTrust->setModifier(Mod::HP, (uint8)(MainLevel * 3.24));
+            //PTrust->setModifier(Mod::DEF, (uint8)(MainLevel * 2.2));
             //ShowWarning(CL_YELLOW"Setting Curilal Shield Size to 3\n" CL_RESET);
+        }
+
+        if (PTrust->m_PetID == PETID_KUPIPI || PTrust->m_PetID == PETID_KUPIPI_W || PTrust->m_PetID == PETID_KUPIPI_R)
+        {
+            PTrust->setModifier(Mod::MP, (uint8)(MainLevel * 2.23));
+            PTrust->setModifier(Mod::HP, (uint8)(MainLevel / 2));
         }
 
         if (PTrust->m_PetID == PETID_DARC || PTrust->m_PetID == PETID_DARC_W || PTrust->m_PetID == PETID_DARC_N)
         {
-            PTrust->setModifier(Mod::MP, MainLevel * 2);
+            PTrust->setModifier(Mod::MP, (uint16)(MainLevel * 2));
         }
 
         if (PTrust->m_PetID == PETID_ULMIA)
