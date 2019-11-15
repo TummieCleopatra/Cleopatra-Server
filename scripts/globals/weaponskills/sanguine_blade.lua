@@ -17,6 +17,7 @@ require("scripts/globals/magic")
 require("scripts/globals/status")
 require("scripts/globals/settings")
 require("scripts/globals/weaponskills")
+require("scripts/globals/aftermath")
 -----------------------------------
 
 function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
@@ -51,6 +52,11 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
 
     if (target:isUndead() == false) then
         player:addHP((damage/100) * drain)
+    end
+
+    -- Apply aftermath
+    if damage > 0 then
+        dsp.aftermath.addStatusEffect(player, tp, dsp.slot.MAIN, dsp.aftermath.type.HA)
     end
 
     return tpHits, extraHits, criticalHit, damage

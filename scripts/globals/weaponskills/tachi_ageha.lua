@@ -16,6 +16,7 @@
 require("scripts/globals/status")
 require("scripts/globals/settings")
 require("scripts/globals/weaponskills")
+require("scripts/globals/aftermath")
 -----------------------------------
 
 function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
@@ -40,6 +41,12 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
         local duration = (tp/1000 * 60) * applyResistanceAddEffect(player,target,dsp.magic.ele.WIND,0)
         target:addStatusEffect(dsp.effect.DEFENSE_DOWN, 25, 0, duration)
     end
+
+    -- Apply aftermath
+    if damage > 0 then
+        dsp.aftermath.addStatusEffect(player, tp, dsp.slot.MAIN, dsp.aftermath.type.HA)
+    end
+
     return tpHits, extraHits, criticalHit, damage
 
 end

@@ -402,6 +402,10 @@ dsp.aftermath.addStatusEffect = function(player, tp, weaponSlot, aftermathType)
             validHA = player:getVar("SCHHAFight") == 5
         end,
 
+        [20783] = function(x)
+            validHA = player:getVar("RUNHAFight") == 5
+        end,
+
     }
 
     player:delStatusEffect(dsp.effect.AFTERMATH)
