@@ -24,7 +24,7 @@ function onEffectTick(target,effect)
                 healHP = 10+(3*math.floor(target:getMainLvl()/10))+(healtime-2)*(1+math.floor(target:getMaxHP()/300))+(target:getMod(dsp.mod.HPHEAL))
             else
                 if (target:getObjType() == dsp.objType.TRUST) then
-                    healHP = (((healtime+4)/100)*target:getMaxHP())
+                    healHP = (((healtime+4)/50)*target:getMaxHP())
                 else
                     target:addTP(HEALING_TP_CHANGE)
                     healHP = 10+(healtime-2)+(target:getMod(dsp.mod.HPHEAL))
@@ -38,7 +38,7 @@ function onEffectTick(target,effect)
          -- Each tic of healing should be +1mp more than the last
          -- Clear Mind III increases this to +2, and Clear Mind V to +3 (via dsp.mod.CLEAR_MIND)
             if (target:getObjType() == dsp.objType.TRUST) then
-                target:addMP(((healtime+3)/100)*target:getMaxHP())
+                target:addMP(((healtime+3)/50)*target:getMaxHP())
             else
                 target:addMP(12+((healtime-2) * (1+target:getMod(dsp.mod.CLEAR_MIND)))+(target:getMod(dsp.mod.MPHEAL)))
             end

@@ -67,7 +67,7 @@ int32 time_server(time_point tick,CTaskMgr::CTask* PTask)
     CVanaTime::getInstance()->getSysMinute() == 39 || CVanaTime::getInstance()->getSysMinute() == 45 || CVanaTime::getInstance()->getSysMinute() == 51 ||
     CVanaTime::getInstance()->getSysMinute() == 57)
     {*/
-    else if (CVanaTime::getInstance()->getSysMinute() == 3 || CVanaTime::getInstance()->getSysMinute() == 6 || CVanaTime::getInstance()->getSysMinute() == 9 ||
+    else if (CVanaTime::getInstance()->getSysMinute() == 6 || CVanaTime::getInstance()->getSysMinute() == 6 || CVanaTime::getInstance()->getSysMinute() == 9 ||
     CVanaTime::getInstance()->getSysMinute() == 12 || CVanaTime::getInstance()->getSysMinute() == 15 || CVanaTime::getInstance()->getSysMinute() == 18 ||
     CVanaTime::getInstance()->getSysMinute() == 21 || CVanaTime::getInstance()->getSysMinute() == 24 || CVanaTime::getInstance()->getSysMinute() == 27 ||
     CVanaTime::getInstance()->getSysMinute() == 30 || CVanaTime::getInstance()->getSysMinute() == 33 || CVanaTime::getInstance()->getSysMinute() == 36 ||

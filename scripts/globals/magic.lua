@@ -193,19 +193,19 @@ function doEnspell(caster, target, spell, effect)
     --calculate potency
     local magicskill = target:getSkillLevel(dsp.skill.ENHANCING_MAGIC)
     local meritBonus = 0
-    if (caster:getMainJob() == dsp.job.RDM) then
+    if (caster:getMainJob() == dsp.job.RDM and caster:getObjType() == dsp.objType.PC) then
         meritBonus = caster:getMerit(dsp.merit.ENSPELL_DAMAGE)
     end
 
     local potency = (3 + math.floor(6 * magicskill / 100)) + meritBonus
-    if (caster:hasStatus(dsp.effect.COMPOSURE)) then
-        potency = potency * 1.5
+    if (caster:hasStatusEffect(dsp.effect.COMPOSURE)) then
+        potency = (potency + meritBonus) * 1.5
     end
     if magicskill > 200 then
         if (caster:hasStatusEffect(dsp.effect.COMPOSURE)) then
-            potency = (5 + math.floor(5 * magicskill / 100) * 1.5)
+            potency = (6 + math.floor(8 * magicskill / 100)) + meritBonus
         else
-            potency = 5 + math.floor(5 * magicskill / 100)
+            potency = 5 + math.floor(5 * magicskill / 100) + meritBonus
         end
     end
 
@@ -438,11 +438,11 @@ function getMagicHitRate(caster, target, skillType, element, percentBonus, bonus
 
     local magicacc = caster:getMod(dsp.mod.MACC) + caster:getILvlMacc();
 
-    if (caster:getMainJob() == dsp.job.RDM) then
+    if (caster:getMainJob() == dsp.job.RDM and caster:getObjType() == dsp.objType.PC) then
         magicacc = magicacc + caster:getMerit(dsp.merit.MAGIC_ACCURACY)
     end
 
-    if (caster:getMainJob() == dsp.job.BLM and skillType == dsp.skill.ELEMENTAL_MAGIC) then
+    if (caster:getMainJob() == dsp.job.BLM and skillType == dsp.skill.ELEMENTAL_MAGIC and caster:getObjType() == dsp.objType.PC) then
        magicacc = magicacc + caster:getMerit(dsp.merit.ELEMENTAL_ACC)
     end
 
@@ -577,8 +577,6 @@ function getSpellBonusAcc(caster, target, spell, params)
     local spellGroup = spell:getSpellGroup();
     local element = spell:getElement();
 
-    params.AMIIaccBonus = params.AMIIaccBonus or 0
-
     if caster:hasStatusEffect(dsp.effect.ALTRUISM) and spellGroup == dsp.magic.spellGroup.WHITE then
         magicAccBonus = magicAccBonus + caster:getStatusEffect(dsp.effect.ALTRUISM):getPower();
     end
@@ -589,8 +587,10 @@ function getSpellBonusAcc(caster, target, spell, params)
 
     local skillchainTier, skillchainCount = FormMagicBurst(element, target);
 
-    --add acc for BLM AMII spells
-    magicAccBonus = magicAccBonus + params.AMIIaccBonus;
+    -- add acc for elemental spells based on T2 Merits
+    if (skill == dsp.skill.ELEMENTAL_MAGIC and caster:getMainJob() == dsp.job.BLM and caster:getMerit(dsp.merit.ELEMENTAL_ACC) ~= 0) then
+        magicAccBonus = magicAccBonus + caster:getMerit(dsp.merit.ELEMENTAL_ACC) * 5;
+    end
 
     --add acc for skillchains
     if (skillchainTier > 0) then
@@ -797,7 +797,7 @@ function calculateMagicBurst(caster, spell, target, params)
 
     local dmgBonus = 1
 
-    if (spell:getID() >= 204 and spell:getID() <= 215) then
+    if (spell:getID() >= 204 and spell:getID() <= 215 and caster:getObjType() == dsp.objType.PC) then
         dmgBonus = 1 + (caster:getMerit(dsp.merit.ANCIENT_MDB) / 100)
     end
 
@@ -815,7 +815,7 @@ function addBonuses(caster, spell, target, dmg, params)
     dmg = math.floor(dmg * affinityBonus);
 
     params.bonusmab = params.bonusmab or 0
-    params.AMIIaccBonus = params.AMIIaccBonus or 0
+    params.AMIImabBonus = params.AMIImabBonus or 0
     params.AMIIburstBonus = params.AMIIburstBonus or 0
 
     local magicDefense = getElementalDamageReduction(target, ele);
@@ -883,7 +883,11 @@ function addBonuses(caster, spell, target, dmg, params)
         mabbonus = 1 + caster:getMod(dsp.mod.ENH_DRAIN_ASPIR)/100;
         -- print(mabbonus);
     else
-        local mab = caster:getMod(dsp.mod.MATT) + params.bonusmab;
+        local mab = caster:getMod(dsp.mod.MATT) + params.bonusmab + params.AMIImabBonus;
+
+        if (spell:getID() >= 320 and spell:getID() <= 337 and caster:getObjType() == dsp.objType.PC) then -- Ninjitsu Nukes
+            mab = mab + caster:getMerit(dsp.merit.NINJITSU_MAB)
+        end
 
         local mab_crit = caster:getMod(dsp.mod.MAGIC_CRITHITRATE);
         if ( math.random(1,100) < mab_crit ) then
@@ -1188,7 +1192,6 @@ function doElementalNuke(caster, spell, target, spellParams)
     else
         local hasMultipleTargetReduction = spellParams.hasMultipleTargetReduction; --still unused!!!
         local resistBonus = spellParams.resistBonus;
-        local AMIIaccBonus = spellParams.AMIIaccBonus;
         local mDMG = caster:getMod(dsp.mod.MAGIC_DAMAGE);
 
         --[[
@@ -1229,7 +1232,6 @@ function doElementalNuke(caster, spell, target, spellParams)
     params.attribute = dsp.mod.INT;
     params.skillType = dsp.skill.ELEMENTAL_MAGIC;
     params.resistBonus = resistBonus;
-    params.AMIIaccBonus = AMIIaccBonus;
 
     local resist = applyResistance(caster, target, spell, params);
 
@@ -1245,13 +1247,25 @@ function doElementalNuke(caster, spell, target, spellParams)
 
     --add in final adjustments
     DMG = finalMagicAdjustments(caster, target, spell, DMG);
+
+    -- Calculate Cascade
+    local currentTP = caster:getTP()
+    local cascadeBonus = 1
+    if (caster:hasStatusEffect(dsp.effect.CASCADE)) then
+        cascadeBonus = ((currentTP * .02) / 100) + 1
+        caster:setTP(0)
+        caster:delStatusEffect(dsp.effect.CASCADE)
+    end
+
+    DMG = DMG * cascadeBonus
+
 	if (caster:getObjType() == dsp.objType.PC and caster:hasStatusEffect(dsp.effect.BESIEGED)) then
         nukePoints(caster,DMG)
     end
 
     local dmgBonus = 1
 
-    if (spell:getID() >= 204 and spell:getID() <= 215) then
+    if (spell:getID() >= 204 and spell:getID() <= 215 and caster:getObjType() == dsp.objType.PC) then
         dmgBonus = 1 + (caster:getMerit(dsp.merit.ANCIENT_MAB) / 100)
     end
 
@@ -1352,7 +1366,7 @@ end
 function calculateDuration(duration, magicSkill, spellGroup, caster, target, useComposure)
     if magicSkill == dsp.skill.ENHANCING_MAGIC then -- Enhancing Magic
         local enhanceMeritDuration = 0
-        if (caster:getMainJob() == dsp.job.RDM) then
+        if (caster:getMainJob() == dsp.job.RDM and caster:getObjType() == dsp.objType.PC) then
             enhanceMeritDuration = caster:getMerit(dsp.merit.ENHANCING_MAGIC_DURATION)
         end
         -- Gear mods
@@ -1372,7 +1386,7 @@ function calculateDuration(duration, magicSkill, spellGroup, caster, target, use
         end
     elseif magicSkill == dsp.skill.ENFEEBLING_MAGIC then -- Enfeebling Magic
         local meritDuration = 0
-        if (caster:getMainJob() == dsp.job.RDM) then
+        if (caster:getMainJob() == dsp.job.RDM and caster:getObjType() == dsp.objType.PC) then
             caster:getMerit(dsp.merit.ENFEEBLING_MAGIC_DURATION)
         end
         if caster:hasStatusEffect(dsp.effect.SABOTEUR) then

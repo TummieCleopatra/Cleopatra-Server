@@ -22,7 +22,7 @@ itemid_bcnmid_map =
     23,  {0, 0}, -- Spire of Vahzl
     29,  {0, 0}, -- Riverne Site #B01
     31,  {0, 0}, -- Monarch Linn
-    32,  {0, 0}, -- Sealion's Den
+    32,  {0, 0, 3557, 1388}, -- Sealion's Den
     35,  {0, 0}, -- The Garden of RuHmet
     36,  {0, 0}, -- Empyreal Paradox
     57,  {0, 0}, -- Talacca Cove
@@ -34,11 +34,11 @@ itemid_bcnmid_map =
     146, {1552, 104, 1551, 105, 1553, 107}, -- Balgas Dias
     163, {1130, 129, 1130, 130}, -- Sacrificial Chamber
     168, {0, 0}, -- Chamber of Oracles
-    170, {0, 0}, -- Full Moon Fountain
+    170, {0, 0, 2525, 1376}, -- Full Moon Fountain
     180, {1550, 293}, -- LaLoff Amphitheater
     181, {0, 0}, -- The Celestial Nexus
     201, {1174, 417, 1546, 418}, -- Cloister of Gales
-    202, {1172, 449, 1548, 450, 19210, 1375, 2525, 1376}, -- Cloister of Storms
+    202, {1172, 449, 1548, 450, 19210, 1375}, -- Cloister of Storms
     203, {1171, 481, 1545, 482}, -- Cloister of Frost
     206, {0, 0}, -- Qu'Bia Arena
     207, {1544, 545}, -- Cloister of Flames
@@ -60,7 +60,7 @@ battlefield_bitmask_map =
     [29] = {896,897},
     [30] = {928},
     [31] = {960,961,962,963,964,965,966,967},
-    [32] = {992,993},
+    [32] = {992,993,1388},
     [35] = {1024},
     [36] = {1056,1057},
     [37] = {1298,1299,1300,1301,1302,1303,1304,1305,1306,1307},
@@ -88,13 +88,13 @@ battlefield_bitmask_map =
     [163] = {128,129,130,131,132},
     [165] = {160,161,162,163,164},
     [168] = {192,193,194,195,196,197,198,199,200,201},
-    [170] = {224,225,226,227},
+    [170] = {224,225,226,227,1376},
     [179] = {256,257,258,259,260,261,262},
     [180] = {288,289,290,291,292,293},
     [181] = {320},
     [182] = {385},
     [201] = {416,417,418,419,420},
-    [202] = {448,449,450,451,452,1375,1376},
+    [202] = {448,449,450,451,452,1375},
     [203] = {480,481,482,483,484},
     [206] = {512,513,514,515,516,517,518,519,520,521,522,523,524,525,526,527,528,529,530,531,532,533,1383,1384,1385,1386},
     [207] = {544,545,546,547},
@@ -429,6 +429,10 @@ function ItemToBCNMID(player, zone, trade)
                         questTimelineOK = 1
                     elseif (item == 19210) then
                         questTimelineOK = 1
+                    elseif (item == 2525) then
+                        questTimelineOK = 1
+                    elseif (item == 3557) then
+                        questTimelineOK = 1
                     end
 
                     if (questTimelineOK == 1) then
@@ -495,6 +499,7 @@ function checkNonTradeBCNM(player, npc, mode)
         [32] = {
                     [992] = function() return (player:getCurrentMission(COP) == dsp.mission.id.cop.ONE_TO_BE_FEARED and player:getVar("PromathiaStatus")==2)  end, -- one_to_be_feared
                     [993] = function() return (player:getCurrentMission(COP) == dsp.mission.id.cop.THE_WARRIOR_S_PATH)  end, -- warriors_path
+                    [1388] = function() return (player:hasCompletedMission(COP,dsp.mission.id.cop.THE_WARRIOR_S_PATH))  end, -- warriors_path
                },
         [35] = {
                     [1024] = function() return (player:getCurrentMission(COP) == dsp.mission.id.cop.WHEN_ANGELS_FALL and player:getVar("PromathiaStatus")==4)  end, -- when_angels_fall

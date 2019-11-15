@@ -931,6 +931,9 @@ INSERT INTO `mob_groups` VALUES (4,3875,32,'Tenzen',0,128,0,15000,0,75,75,0);
 INSERT INTO `mob_groups` VALUES (5,2492,32,'Makki-Chebukki',0,128,0,50000,0,75,75,0);
 INSERT INTO `mob_groups` VALUES (6,2293,32,'Kukki-Chebukki',0,128,0,50000,0,75,75,0);
 INSERT INTO `mob_groups` VALUES (7,710,32,'Cherukiki',0,128,0,50000,0,75,75,0);
+INSERT INTO `mob_groups` VALUES (20,7026,32,'Prishe',0,128,0,13500,0,80,80,0); -- Prishe
+INSERT INTO `mob_groups` VALUES (21,7027,32,'Ulmia',0,128,0,9000,0,75,75,0); -- Ulmia
+
 INSERT INTO `mob_groups` VALUES (1,5347,33,'Ul_aern_war',960,0,3650,0,0,70,73,0);
 INSERT INTO `mob_groups` VALUES (2,5339,33,'Ul_aern_sam',960,0,3650,0,0,70,73,0);
 INSERT INTO `mob_groups` VALUES (3,5348,33,'Ul_aern_blm',960,0,3650,0,5000,70,73,0);
@@ -9744,6 +9747,7 @@ INSERT INTO `mob_groups` VALUES (11,1473,170,'Garuda_Prime',0,128,0,0,0,80,85,0)
 INSERT INTO `mob_groups` VALUES (12,3931,170,'Titan_Prime',0,128,0,0,0,80,85,0);
 INSERT INTO `mob_groups` VALUES (13,3317,170,'Ramuh_Prime',0,128,0,0,0,80,85,0);
 INSERT INTO `mob_groups` VALUES (14,2402,170,'Leviathan_Prime',0,128,0,0,0,80,85,0);
+INSERT INTO `mob_groups` VALUES (20,291,170,'Auroral_Alicorn',0,128,0,0,12000,77,77,0);  -- Auroral Alicorn Prime
 INSERT INTO `mob_groups` VALUES (8847,75,170,'Ajido-Marujido',0,0,0,0,0,0,0,0);
 INSERT INTO `mob_groups` VALUES (8852,2258,170,'King_of_Batons',0,0,0,0,0,0,0,0);
 INSERT INTO `mob_groups` VALUES (8853,2260,170,'King_of_Cups',0,0,0,0,0,0,0,0);
@@ -11117,7 +11121,6 @@ INSERT INTO `mob_groups` VALUES (3,3914,202,'Thunder_Gremlin',0,128,0,2525,0,62,
 INSERT INTO `mob_groups` VALUES (4,3317,202,'Ramuh_Prime',0,128,0,700,0,20,23,0);
 INSERT INTO `mob_groups` VALUES (5,3912,202,'Thunder_Elemental',0,128,0,0,0,75,75,0);
 INSERT INTO `mob_groups` VALUES (6,915,202,'Dark_Ixion',0,128,0,0,12000,77,77,0);
-INSERT INTO `mob_groups` VALUES (7,291,202,'Auroral_Alicorn',0,128,0,0,12000,77,77,0);
 
 INSERT INTO `mob_groups` VALUES (1,4642,203,'Shiva_Prime',0,128,0,9500,0,63,68,0);
 INSERT INTO `mob_groups` VALUES (2,1126,203,'Dryad',0,128,0,1960,0,50,50,0);

@@ -13,13 +13,8 @@ end
 function onSpellCast(caster,target,spell)
     --doNinjutsuNuke(V,M,caster,spell,target,hasMultipleTargetReduction,resistBonus)
     local duration = 15 + caster:getMerit(dsp.merit.RAITON_EFFECT) -- T1 bonus debuff duration
-    local bonusAcc = 0
-    local bonusMab = caster:getMerit(dsp.merit.RAITON_EFFECT) -- T1 mag atk
-
-    if(caster:getMerit(dsp.merit.RAITON_SAN) ~= 0) then -- T2 mag atk/mag acc, don't want to give a penalty to entities that can cast this without merits
-        bonusMab = bonusMab + caster:getMerit(dsp.merit.RAITON_SAN) - 5 -- merit gives 5 power but no bonus with one invest, thus subtract 5
-        bonusAcc = bonusAcc + caster:getMerit(dsp.merit.RAITON_SAN) - 5
-    end
+    local bonusAcc = 5
+    local bonusMab = 5 -- T1 mag atk
 
     local params = {}
 

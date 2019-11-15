@@ -21679,6 +21679,7 @@ INSERT INTO `item_mods` VALUES (17964,229,7);     -- Enhances Plantoid Killer ef
 INSERT INTO `item_mods` VALUES (17965,55,5);
 INSERT INTO `item_mods` VALUES (17965,56,5);
 INSERT INTO `item_mods` VALUES (17966,366,4);
+INSERT INTO `item_mods` VALUES (17966,355,75);  -- HA BST
 INSERT INTO `item_mods` VALUES (17967,26,4);
 INSERT INTO `item_mods` VALUES (17968,24,3);
 INSERT INTO `item_mods` VALUES (17971,24,3);
@@ -22348,6 +22349,7 @@ INSERT INTO `item_mods` VALUES (18448,25,4);
 INSERT INTO `item_mods` VALUES (18449,27,5);
 INSERT INTO `item_mods` VALUES (18450,289,2);
 INSERT INTO `item_mods` VALUES (18451,431,1);
+INSERT INTO `item_mods` VALUES (18452,355,155);  -- HA SAM
 INSERT INTO `item_mods` VALUES (18454,10,10);     -- Ishikirimaru: VIT+10
 INSERT INTO `item_mods` VALUES (18454,18,10);     -- Earth+10
 INSERT INTO `item_mods` VALUES (18456,23,7);      -- Yoshihiro: Attack+7
@@ -22565,6 +22567,8 @@ INSERT INTO `item_mods` VALUES (18597,487,5);     -- Catalyst: Bonus damage adde
 INSERT INTO `item_mods` VALUES (18599,5,10);
 INSERT INTO `item_mods` VALUES (18599,431,1);
 INSERT INTO `item_mods` VALUES (18600,57,2);
+INSERT INTO `item_mods` VALUES (18601,355,189);  -- HA Staff
+INSERT INTO `item_mods` VALUES (18602,355,189);   -- HA Staff
 INSERT INTO `item_mods` VALUES (18604,12,2);
 INSERT INTO `item_mods` VALUES (18604,30,3);
 INSERT INTO `item_mods` VALUES (18605,12,-2);
@@ -23023,6 +23027,8 @@ INSERT INTO `item_mods` VALUES (18728,26,5);
 INSERT INTO `item_mods` VALUES (18728,243,2);
 INSERT INTO `item_mods` VALUES (18734,30,2);
 INSERT INTO `item_mods` VALUES (18735,491,1);     -- Sonia's Plectrum: Waltz potency +1%
+INSERT INTO `item_mods` VALUES (18736,355,201);  -- HA RNG
+INSERT INTO `item_mods` VALUES (18737,355,219);  -- HA COR
 INSERT INTO `item_mods` VALUES (18738,24,20);
 INSERT INTO `item_mods` VALUES (18738,26,10);
 INSERT INTO `item_mods` VALUES (18739,24,20);
@@ -23700,6 +23706,9 @@ INSERT INTO `item_mods` VALUES (19113,68,8);
 INSERT INTO `item_mods` VALUES (19113,227,2);
 INSERT INTO `item_mods` VALUES (19114,2,8);
 INSERT INTO `item_mods` VALUES (19114,10,2);
+INSERT INTO `item_mods` VALUES (19115,355,30);  -- HA Dagger
+INSERT INTO `item_mods` VALUES (19116,355,30);  -- HA Dagger
+INSERT INTO `item_mods` VALUES (19117,355,30);  -- HA Dagger
 INSERT INTO `item_mods` VALUES (19119,26,6);
 INSERT INTO `item_mods` VALUES (19120,14,2);
 INSERT INTO `item_mods` VALUES (19121,23,3);
@@ -23916,6 +23925,7 @@ INSERT INTO `item_mods` VALUES (19271,1,10);
 INSERT INTO `item_mods` VALUES (19272,522,10);
 INSERT INTO `item_mods` VALUES (19273,68,5);
 INSERT INTO `item_mods` VALUES (19273,230,2);
+INSERT INTO `item_mods` VALUES (19275,355,139);  -- HA Katana
 INSERT INTO `item_mods` VALUES (19276,68,1);
 INSERT INTO `item_mods` VALUES (19277,25,1);
 INSERT INTO `item_mods` VALUES (19278,27,-5);
@@ -23952,6 +23962,7 @@ INSERT INTO `item_mods` VALUES (19302,23,5);
 INSERT INTO `item_mods` VALUES (19302,25,5);
 INSERT INTO `item_mods` VALUES (19302,68,5);
 INSERT INTO `item_mods` VALUES (19302,259,3);
+INSERT INTO `item_mods` VALUES (19303,355,123);  -- HA DRG
 INSERT INTO `item_mods` VALUES (19310,9,3);
 INSERT INTO `item_mods` VALUES (19310,11,3);
 INSERT INTO `item_mods` VALUES (19315,25,12);
@@ -25289,6 +25300,7 @@ INSERT INTO `item_mods` VALUES (20781,2,5);
 INSERT INTO `item_mods` VALUES (20782,25,10);
 INSERT INTO `item_mods` VALUES (20783,23,8);
 INSERT INTO `item_mods` VALUES (20783,29,4);
+INSERT INTO `item_mods` VALUES (20783,355,58); -- HA GSWORD
 INSERT INTO `item_mods` VALUES (20784,23,9);
 INSERT INTO `item_mods` VALUES (20784,29,5);
 INSERT INTO `item_mods` VALUES (20790,23,40); -- Guttler iLvL 119 - ATT +40

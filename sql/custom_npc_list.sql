@@ -310,8 +310,8 @@ INSERT INTO `npc_list` VALUES (17129766,'Fence','',25,-340,12,17,1,40,40,9,0,0,0
 INSERT INTO `npc_list` VALUES (17129718,'Armoury_Crate','Armoury Crate',0,57,10,21,7,40,40,0,4,0,6,1155,0x0000C10300000000000000000000000000000000,0,null,0);
 
 -- Pashow [s}
-INSERT INTO `npc_list` VALUES (17146663,'Waypoint','Waypoint',50,618,25,429,'32769','40','40','0','0','2','0','3',0x0000E50A00000000000000000000000000000000,32,null,0);
-INSERT INTO `npc_list` VALUES (17146664,'Ixion_Npc','Ixion_Npc',50,615,25,429,'1','40','40','0','0','0','0','27',0x01000A015611562140315641EF50006000700000,32,null,0);
+-- INSERT INTO `npc_list` VALUES (17146663,'Waypoint','Waypoint',50,618,25,429,'32769','40','40','0','0','2','0','3',0x0000E50A00000000000000000000000000000000,32,null,0);
+-- INSERT INTO `npc_list` VALUES (17146664,'Ixion_Npc','Ixion_Npc',50,615,25,429,'1','40','40','0','0','0','0','27',0x01000A015611562140315641EF50006000700000,32,null,0);
 INSERT INTO `npc_list` VALUES (17146660,'Petal','Petal',102,524,25,511.104,32769,40,40,0,0,0,0,3,0x0000340000000000000000000000000000000000,0,'WOTG',1);
 
 -- Sarau Champaign [S]
@@ -380,8 +380,6 @@ INSERT INTO `npc_list` VALUES (17105707,'RuneNPC','Fivinne',105,32,0,34,20,40,40
 -- Castle Oztroja
 INSERT INTO `npc_list` VALUES (17396267,'Geomantic_Reservoir','Geomantic Reservoir',0,-207,-16,89,1,50,50,0,0,112,0,3,0x0000160900000000000000000000000000000000,0,'SOA',1);
 
-
-
 -- Upper Jeuno
 INSERT INTO `npc_list` VALUES (17776895,'Mapitoto','Mapitoto',176,-52,8,85,0,40,40,0,0,0,0,3,0x0000D10700000000000000000000000000000000,32,NULL,1);
  --
@@ -394,6 +392,13 @@ INSERT INTO `npc_list` VALUES (17772826,'Touneaux','Touneaux',175,-6,3,-10,16,50
 INSERT INTO `npc_list` VALUES (17163030,'GeoNPC','Sevi Luhgo',246,-79,-3,56,0,50,50,0,0,0,0,0,0x01000207001034213431a0403451596200700080,32,NULL,1);
 
 -- MOB LIST
+
+-- Full Moon Fountain
+
+INSERT INTO `mob_spawn_points` VALUES (17473781,'Auroral_Alicorn','Auroral Alicorn',20,340,47,-337,65);
+INSERT INTO `mob_spawn_points` VALUES (17473782,'Auroral_Alicorn','Auroral Alicorn',20,-60.097,9,62.967,65);
+INSERT INTO `mob_spawn_points` VALUES (17473783,'Auroral_Alicorn','Auroral Alicorn',20,-379.943,-53,422.974,65);
+
 -- Bibiki Bay
 INSERT INTO `mob_spawn_points` VALUES (16793977,'HAnm','HAnm',51,-602,-3,-686,0);
 
@@ -426,6 +431,10 @@ INSERT INTO `mob_spawn_points` VALUES (17142639,'Run_AF_Body','Run_AF_Body',70,4
 
 -- La Vaule [S]
 INSERT INTO `mob_spawn_points` VALUES (17126198,'Run_AF_Head','Run_AF_Head',70,-100,-1,-215,0); -- RUN AF Body
+
+-- Sea Lions Den
+INSERT INTO `mob_spawn_points` VALUES (16908475,'Prishe','Prishe',20,-639,-231,512,187);
+INSERT INTO `mob_spawn_points` VALUES (16908476,'Ulmia','Ulmia',21,-640,-234,508,187);
 
 
 

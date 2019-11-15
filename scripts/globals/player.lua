@@ -189,7 +189,10 @@ function onGameIn(player, firstLogin, zoning)
 			    player:setVar("RestExp",bonus)
 			    player:addStatusEffectEx(dsp.effect.RESTING_BONUS,dsp.effect.DEDICATION,bonus,0,86400,0,20000)
                 player:setVar("logoutOK",0)
-			end
+			else
+                local minutes = (logintime - lastlogin) / 60
+                printf("No login bonu.  Logout time: %u minutes",minutes)
+            end
 		end
 
         local undead = GetServerVariable("[BESIEGED]Undead_Swarm_Status");

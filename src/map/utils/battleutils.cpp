@@ -429,19 +429,19 @@ namespace battleutils
         {
             //Tier 2 enspells calculate the damage on each hit and increment the potency in Mod::ENSPELL_DMG per hit
             uint16 skill = PAttacker->GetSkill(SKILL_ENHANCING_MAGIC);
-            uint16 cap = (3 + ((6 * skill) / 100));
+            uint16 cap = (3 + ((6 * skill) / 100)) + ((CCharEntity*)PAttacker)->PMeritPoints->GetMeritValue(MERIT_ENSPELL_DAMAGE, (CCharEntity*)PAttacker);
             if (PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_COMPOSURE))
             {
-                cap = (2 + ((10 * skill) / 100));
+                cap = (2 + ((10 * skill) / 100)) + ((CCharEntity*)PAttacker)->PMeritPoints->GetMeritValue(MERIT_ENSPELL_DAMAGE, (CCharEntity*)PAttacker);
             }
             if (skill > 200) {
                 if (PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_COMPOSURE))
                 {
-                    cap = (6 + ((8 * skill) / 100));
+                    cap = (6 + ((8 * skill) / 100)) + ((CCharEntity*)PAttacker)->PMeritPoints->GetMeritValue(MERIT_ENSPELL_DAMAGE, (CCharEntity*)PAttacker);
                 }
                 else
                 {
-                    cap = 5 + ((5 * skill) / 100);
+                    cap = 5 + ((5 * skill) / 100) + ((CCharEntity*)PAttacker)->PMeritPoints->GetMeritValue(MERIT_ENSPELL_DAMAGE, (CCharEntity*)PAttacker);
                 }
             }
             cap *= 2;
