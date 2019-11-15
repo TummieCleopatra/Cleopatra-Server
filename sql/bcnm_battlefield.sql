@@ -3126,9 +3126,9 @@ INSERT INTO `bcnm_battlefield` VALUES (1301,4,16929087,1);-- Temenos Aern
 INSERT INTO `bcnm_battlefield` VALUES (1375,1,17604643,3);-- Dark Ixion
 INSERT INTO `bcnm_battlefield` VALUES (1375,2,17604644,3);-- Dark Ixion
 INSERT INTO `bcnm_battlefield` VALUES (1375,3,17604645,3);-- Dark Ixion
-INSERT INTO `bcnm_battlefield` VALUES (1376,1,17604646,3);-- Ixion
-INSERT INTO `bcnm_battlefield` VALUES (1376,2,17604647,3);-- Ixion
-INSERT INTO `bcnm_battlefield` VALUES (1376,3,17604648,3);-- Ixion
+INSERT INTO `bcnm_battlefield` VALUES (1376,1,17473781,3);-- Ixion
+INSERT INTO `bcnm_battlefield` VALUES (1376,2,17473782,3);-- Ixion
+INSERT INTO `bcnm_battlefield` VALUES (1376,3,17473783,3);-- Ixion
 
 -- -------------------------------
 -- Trust Token Fights

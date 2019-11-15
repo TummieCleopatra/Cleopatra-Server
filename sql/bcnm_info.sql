@@ -305,7 +305,7 @@ INSERT INTO `bcnm_info` VALUES (1306,37,'central_temenos_4th_floor','nobody',1,1
 INSERT INTO `bcnm_info` VALUES (1307,37,'central_temenos_4th_floor_ii','nobody',1,18,3600,0,18,0,7,0);
 
 INSERT INTO `bcnm_info` VALUES (1375,202,'the_dark_horse','Cleopatra',1,18,1800,75,6,200,15,0);
-INSERT INTO `bcnm_info` VALUES (1376,202,'the_light_horse','Cleopatra',1,18,1800,75,6,201,15,0);
+INSERT INTO `bcnm_info` VALUES (1376,170,'the_light_horse','Cleopatra',1,18,1800,75,6,201,15,0);
 
 INSERT INTO `bcnm_info` VALUES (1377,139,'impersonating_curilla','Cleopatra',1,18,1800,75,1,0,7,0);
 INSERT INTO `bcnm_info` VALUES (1378,139,'impersonating_excenmille','Cleopatra',1,18,1800,75,1,0,7,0);

@@ -115,6 +115,7 @@ INSERT INTO `bcnm_treasure_chests` VALUES ('643', '1', '16801802');
 INSERT INTO `bcnm_treasure_chests` VALUES ('1375', '1', '17604690');
 INSERT INTO `bcnm_treasure_chests` VALUES ('1375', '2', '17604691');
 INSERT INTO `bcnm_treasure_chests` VALUES ('1375', '3', '17604692');
+INSERT INTO `bcnm_treasure_chests` VALUES ('1388', '1', '16908479');
 -- Cloister of Frost
 
 -- Qu'Bia Arena
