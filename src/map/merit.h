@@ -76,8 +76,8 @@ enum MERIT_CATEGORY
     MCATEGORY_WAR_2      = 0x0800,
     MCATEGORY_MNK_2      = 0x0840,
     MCATEGORY_WHM_2      = 0x0880,
-    MCATEGORY_BLM_2      = 0x08C0,
-    MCATEGORY_RDM_2      = 0x0900,
+    MCATEGORY_BLM_2      = 0x08CC,
+    MCATEGORY_RDM_2      = 0x090C,
     MCATEGORY_THF_2      = 0x0940,
     MCATEGORY_PLD_2      = 0x0980,
     MCATEGORY_DRK_2      = 0x09C0,
@@ -362,8 +362,8 @@ enum MERIT_TYPE
     //WHM 2
     MERIT_MARTYR                    = MCATEGORY_WHM_2 + 0x00,
     MERIT_DEVOTION                  = MCATEGORY_WHM_2 + 0x02,
-    MERIT_ANIMUS_SOLACE             = MCATEGORY_WHM_2 + 0x04,
-    MERIT_ANIMUS_MISERY             = MCATEGORY_WHM_2 + 0x06,
+    MERIT_ANIMUS_SOLACE             = MCATEGORY_WHM_2 + 0x0C,
+    MERIT_ANIMUS_MISERY             = MCATEGORY_WHM_2 + 0x0E,
 
     //BLM 2
     MERIT_ANCIENT_MAB               = MCATEGORY_BLM_2 + 0x00,
@@ -408,8 +408,8 @@ enum MERIT_TYPE
     //BRD 2
     MERIT_NIGHTINGALE               = MCATEGORY_BRD_2 + 0x00,
     MERIT_TROUBADOUR                = MCATEGORY_BRD_2 + 0x02,
-    MERIT_CON_ANIMA                 = MCATEGORY_BRD_2 + 0x04,
-    MERIT_CON_BRIO                  = MCATEGORY_BRD_2 + 0x06,
+    MERIT_CON_ANIMA                 = MCATEGORY_BRD_2 + 0x08,
+    MERIT_CON_BRIO                  = MCATEGORY_BRD_2 + 0x0A,
 
     //RNG 2
     MERIT_STEALTH_SHOT              = MCATEGORY_RNG_2 + 0x00,
@@ -426,12 +426,10 @@ enum MERIT_TYPE
     //NIN 2
     MERIT_SANGE                     = MCATEGORY_NIN_2 + 0x00,
     MERIT_NINJA_TOOL_EXPERTISE      = MCATEGORY_NIN_2 + 0x02,
-    MERIT_KATON_SAN                 = MCATEGORY_NIN_2 + 0x04,
-    MERIT_HYOTON_SAN                = MCATEGORY_NIN_2 + 0x06,
-    MERIT_HUTON_SAN                 = MCATEGORY_NIN_2 + 0x08,
-    MERIT_DOTON_SAN                 = MCATEGORY_NIN_2 + 0x0A,
-    MERIT_RAITON_SAN                = MCATEGORY_NIN_2 + 0x0C,
-    MERIT_SUITON_SAN                = MCATEGORY_NIN_2 + 0x0E,
+    YONIN_EFFECT                    = MCATEGORY_NIN_2 + 0x10,
+    INNIN_EFFECT                    = MCATEGORY_NIN_2 + 0x12,
+    NINJITSU_MACC                   = MCATEGORY_NIN_2 + 0x14,
+    NINJITSU_MAB                    = MCATEGORY_NIN_2 + 0x16,
 
     //DRG 2
     MERIT_DEEP_BREATHING            = MCATEGORY_DRG_2 + 0x00,

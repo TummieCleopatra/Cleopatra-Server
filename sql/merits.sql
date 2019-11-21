@@ -244,7 +244,7 @@ INSERT INTO `merits` VALUES (2564,'beast_affinity',5,2,256,7,39);
 INSERT INTO `merits` VALUES (2566,'beast_healer',5,1,256,7,39);
 INSERT INTO `merits` VALUES (2624,'nightingale',5,25,512,7,40);
 INSERT INTO `merits` VALUES (2626,'troubadour',5,25,512,7,40);
-INSERT INTO `merits` VALUES (2622,'con_anima',5,1,512,7,40);
+INSERT INTO `merits` VALUES (2632,'con_anima',5,1,512,7,40);
 INSERT INTO `merits` VALUES (2634,'con_brio',5,1,512,7,40);
 INSERT INTO `merits` VALUES (2688,'stealth_shot',5,10,1024,7,41);
 INSERT INTO `merits` VALUES (2690,'flashy_shot',5,1,1024,7,41);

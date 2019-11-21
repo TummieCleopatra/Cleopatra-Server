@@ -1689,8 +1689,8 @@ local MCATEGORY_UNK_4 = 0x07C0
 local MCATEGORY_WAR_2 = 0x0800
 local MCATEGORY_MNK_2 = 0x0840
 local MCATEGORY_WHM_2 = 0x0880
-local MCATEGORY_BLM_2 = 0x08C0
-local MCATEGORY_RDM_2 = 0x0900
+local MCATEGORY_BLM_2 = 0x08CC
+local MCATEGORY_RDM_2 = 0x090C
 local MCATEGORY_THF_2 = 0x0940
 local MCATEGORY_PLD_2 = 0x0980
 local MCATEGORY_DRK_2 = 0x09C0
@@ -1965,8 +1965,8 @@ dsp.merit =
     -- WHM 2
     MARTYR                      = MCATEGORY_WHM_2 + 0x00,
     DEVOTION                    = MCATEGORY_WHM_2 + 0x02,
-    ANIMUS_SOLACE               = MCATEGORY_WHM_2 + 0x04,
-    ANIMUS_MISERY               = MCATEGORY_WHM_2 + 0x06,
+    ANIMUS_SOLACE               = MCATEGORY_WHM_2 + 0x0C,
+    ANIMUS_MISERY               = MCATEGORY_WHM_2 + 0x0E,
 
     -- BLM 2
     ANCIENT_MAB                 = MCATEGORY_BLM_2 + 0x00,
@@ -2011,8 +2011,8 @@ dsp.merit =
     -- BRD 2
     NIGHTINGALE                 = MCATEGORY_BRD_2 + 0x00,
     TROUBADOUR                  = MCATEGORY_BRD_2 + 0x02,
-    CON_ANIMA                   = MCATEGORY_BRD_2 + 0x04,
-    CON_BRIO                    = MCATEGORY_BRD_2 + 0x06,
+    CON_ANIMA                   = MCATEGORY_BRD_2 + 0x08,
+    CON_BRIO                    = MCATEGORY_BRD_2 + 0x0A,
 
     -- RNG 2
     STEALTH_SHOT                = MCATEGORY_RNG_2 + 0x00,
@@ -2029,10 +2029,10 @@ dsp.merit =
     -- NIN 2
     SANGE                       = MCATEGORY_NIN_2 + 0x00,
     NINJA_TOOL_EXPERTISE        = MCATEGORY_NIN_2 + 0x02,
-    YONIN_EFFECT                = MCATEGORY_NIN_2 + 0x04,
-    INNIN_EFFECT                = MCATEGORY_NIN_2 + 0x06,
-    NINJITSU_MACC               = MCATEGORY_NIN_2 + 0x08,
-    NINJITSU_MAB                = MCATEGORY_NIN_2 + 0x0A,
+    YONIN_EFFECT                = MCATEGORY_NIN_2 + 0x10,
+    INNIN_EFFECT                = MCATEGORY_NIN_2 + 0x12,
+    NINJITSU_MACC               = MCATEGORY_NIN_2 + 0x14,
+    NINJITSU_MAB                = MCATEGORY_NIN_2 + 0x16,
 
     -- DRG 2
     DEEP_BREATHING              = MCATEGORY_DRG_2 + 0x00,
