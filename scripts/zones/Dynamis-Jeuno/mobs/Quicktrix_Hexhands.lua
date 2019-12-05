@@ -12,8 +12,8 @@
 -----------------------------------
 
 function onMobInitialize(mob)
-	mob:setMobMod(MOBdsp.mod.IDLE_DESPAWN, 300);
-end;	
+	mob:setMobMod(dsp.mobMod.IDLE_DESPAWN, 300);
+end;
 -----------------------------------
 -- onMobSpawn Action
 -----------------------------------
@@ -29,7 +29,7 @@ end;
 
 function onMobEngaged(mob,target)
 	local randcs = 0;
-	local randmij = 0; 
+	local randmij = 0;
 local weakener = target:getVar("DynaWeakener");
    if (weakener == 3) then
    mob:setMod(dsp.mod.HPP,-75);
@@ -40,7 +40,7 @@ local weakener = target:getVar("DynaWeakener");
    mob:addMod(dsp.mod.MATT,-30);
    randcs = math.random(120, 180);
    randmij = math.random(180, 220);
-if (target:getObjType() == TYPE_PC) then  
+if (target:getObjType() == dsp.objType.PC) then
 target:PrintToPlayer("You have significantly weakened the monster!", 0xD);
 end
 elseif (weakener == 2) then
@@ -49,10 +49,10 @@ elseif (weakener == 2) then
    mob:setMod(dsp.mod.ATTP,-20);
    mob:addMod(dsp.mod.EVA,-20);
    mob:addMod(dsp.mod.ACC,-20);
-   mob:addMod(dsp.mod.MATT,-20);   
+   mob:addMod(dsp.mod.MATT,-20);
    randcs = math.random(100, 160);
-   randmij = math.random(160, 200);   
-if (target:getObjType() == TYPE_PC) then  
+   randmij = math.random(160, 200);
+if (target:getObjType() == dsp.objType.PC) then
 target:PrintToPlayer("You have weakened the monster!", 0xD);
 end
 elseif (weakener == 1) then
@@ -61,22 +61,22 @@ elseif (weakener == 1) then
    mob:setMod(dsp.mod.ATTP,-10);
    mob:addMod(dsp.mod.EVA,-10);
    mob:addMod(dsp.mod.ACC,-10);
-   mob:addMod(dsp.mod.MATT,-10);   
+   mob:addMod(dsp.mod.MATT,-10);
    randcs = math.random(100, 130);
-   randmij = math.random(150, 180);   
-if (target:getObjType() == TYPE_PC) then	
+   randmij = math.random(150, 180);
+if (target:getObjType() == dsp.objType.PC) then
 target:PrintToPlayer("You have weakened the monster ever so slightly", 0xD);
 end
 elseif (weakener == 0) then
  -- mob:setMod(dsp.mod.ACC,100);
  -- mob:setMod(dsp.mod.EVA,100);
    randcs = math.random(100, 110);
-   randmij = math.random(140, 150); 
-if (target:getObjType() == TYPE_PC) then 
-target:PrintToPlayer("You have summoned a Monster.", 0xD); 
-end 
-end 
-mob:setLocalVar("rand_cs",randcs); 
+   randmij = math.random(140, 150);
+if (target:getObjType() == dsp.objType.PC) then
+target:PrintToPlayer("You have summoned a Monster.", 0xD);
+end
+end
+mob:setLocalVar("rand_cs",randcs);
 mob:setLocalVar("rand_mij",randmij);
 end;
 
@@ -108,9 +108,9 @@ end;
 -- onMobDeath
 -----------------------------------
 
-function onMobDeath(mob,killer)
+function onMobDeath(mob,player)
 local qm1 = GetNPCByID(17547510);
-killer:setVar("DynaWeakener",0);
+player:setVar("DynaWeakener",0);
 qm1:setStatus(STATUS_NORMAL);
 
 end;

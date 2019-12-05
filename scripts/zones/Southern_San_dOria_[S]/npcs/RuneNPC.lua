@@ -45,7 +45,7 @@ function onTrigger(player,npc)
             player:addItem(12165,1,1472,4,133,9,49,1,138,1)  -- Parry + 5,MAB+10, Haste+2%, Refresh + 1
             player:messageSpecial(ID.text.ITEM_OBTAINED,12165)
             player:setVar("RUN_AF_BODY",0)
-            player:setVar("RUN_AF",3)
+            player:setVar("RUN_AF",4)
         elseif (FreeSlots > 0 and player:getVar("RUN_AF_HEAD") == 1) then
             player:PrintToPlayer("Fivinne : You've done well.  Take this head armor, just remember you can only wear them as a Rune Fencer", 0x15);
             player:addItem(12129,1,512,2,49,4,140,6,137,1)  -- MDB+3, Haste +5, Fast Cast +7, Regen+2

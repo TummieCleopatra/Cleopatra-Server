@@ -52,8 +52,8 @@ end;
 -- onMobDeath
 -----------------------------------
 
-function onMobDeath(mob,killer)
-killer:setVar("DynaWeakener",0);
+function onMobDeath(mob,player)
+player:setVar("DynaWeakener",0);
 	
 
 end;

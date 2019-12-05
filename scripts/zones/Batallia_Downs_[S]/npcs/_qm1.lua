@@ -1,7 +1,7 @@
 -----------------------------------
 -- Area: Batallia Downs [S]
 -- NPC:  ??? [17122054]
--- !pos 210,8,17
+-- !pos 210,8,17 (J-7)
 -- Spawns NM for RUN AF LEGS (3/5)
 -----------------------------------
 require("scripts/globals/status");

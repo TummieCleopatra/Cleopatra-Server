@@ -85,15 +85,15 @@ end;
 -- onMobDeath
 -----------------------------------
 
-function onMobDeath(mob,killer)
+function onMobDeath(mob,player)
 
-killer:setVar("DynaWeakener",0);
+player:setVar("DynaWeakener",0);
 
-	if ((killer:hasKeyItem(dsp.ki.HYDRA_CORPS_TACTICAL_MAP) == false) and killer:getObjType() == TYPE_PC) then
-		killer:setVar("DynaJeuno_Win",1);
-		killer:addKeyItem(dsp.ki.HYDRA_CORPS_TACTICAL_MAP);
-		killer:messageSpecial(ID.text.KEYITEM_OBTAINED,HYDRA_CORPS_TACTICAL_MAP);
-	    killer:addTitle(DYNAMISJEUNO_INTERLOPER); -- Add title
+	if ((player:hasKeyItem(dsp.ki.HYDRA_CORPS_TACTICAL_MAP) == false) and player:getObjType() == dsp.objType.PC) then
+		player:setVar("DynaJeuno_Win",1);
+		player:addKeyItem(dsp.ki.HYDRA_CORPS_TACTICAL_MAP);
+		player:messageSpecial(ID.text.KEYITEM_OBTAINED,HYDRA_CORPS_TACTICAL_MAP);
+	    player:addTitle(DYNAMISJEUNO_INTERLOPER); -- Add title
 	end
 
 

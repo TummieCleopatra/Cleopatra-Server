@@ -1095,7 +1095,7 @@ function onTrade(player,npc,trade)
     player:messageSpecial(ID.text.ITEM_OBTAINED, 20781);
 
   end
-  if (job == 22) and (trade:hasItemQty(20781, 1)) and trade:hasItemQty( 1126, 30 ) and level >= 61 and (player:getVar("GEOAFweapon") == 1) then
+  if (job == 22) and (trade:hasItemQty(20781, 1)) and trade:hasItemQty( 1126, 30 ) and level >= 61 and (player:getVar("RUNAFweapon") == 1) then
     -- Complete the trade..
     player:tradeComplete();
     player:PrintToPlayer("Oboro : Thank you for the requested items. Come see me again when you are stronger.", 0xD);
@@ -1104,7 +1104,7 @@ function onTrade(player,npc,trade)
     player:messageSpecial(ID.text.ITEM_OBTAINED, 20781);
 
   end
-  if (job == 22) and (trade:hasItemQty(20781, 1)) and trade:hasItemQty( 1127, 15 ) and level >= 71 and (player:getVar("GEOAFweapon") == 2) then
+  if (job == 22) and (trade:hasItemQty(20781, 1)) and trade:hasItemQty( 1127, 15 ) and level >= 71 and (player:getVar("RUNAFweapon") == 2) then
     -- Complete the trade..
     player:tradeComplete();
     player:PrintToPlayer("Oboro : Thank you for the requested items. Come see me again when you are stronger.", 0xD);

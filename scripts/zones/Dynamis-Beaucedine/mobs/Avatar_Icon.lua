@@ -15,7 +15,7 @@ require("scripts/zones/Dynamis-Beaucedine/IDs");
 -----------------------------------
 
 function onMobSpawn(mob)
-	mob:setMobMod(MOBdsp.mod.SUPERLINK, mob:getShortID());
+	mob:setMobMod(dsp.mobMod.SUPERLINK, mob:getShortID());
 end;
 
 -----------------------------------

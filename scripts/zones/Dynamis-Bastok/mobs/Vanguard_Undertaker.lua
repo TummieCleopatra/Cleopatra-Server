@@ -21,6 +21,6 @@ end;
 -- onMobDeath
 -----------------------------------
 
-function onMobDeath(mob,killer)
+function onMobDeath(mob,player)
 	DespawnMob(mob:getID() + 1);
 end;

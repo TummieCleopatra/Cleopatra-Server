@@ -27,7 +27,7 @@ local weakener = target:getVar("DynaWeakener");
    mob:addMod(dsp.mod.EVA,-30);
    mob:addMOd(dsp.mod.ACC,-30);
    SetDropRate(5046,3423,300);
-if (target:getObjType() == TYPE_PC) then  
+if (target:getObjType() == dsp.objType.PC) then  
 target:PrintToPlayer("You have significantly weakened the monster!", 0xD);
 end
 elseif (weakener == 2) then
@@ -37,7 +37,7 @@ elseif (weakener == 2) then
    mob:addMod(dsp.mod.EVA,-20);
    mob:addMOd(dsp.mod.ACC,-20);
    SetDropRate(5046,3423,500);
-if (target:getObjType() == TYPE_PC) then  
+if (target:getObjType() == dsp.objType.PC) then  
 target:PrintToPlayer("You have weakened the monster!", 0xD);
 end
 elseif (weakener == 1) then
@@ -47,13 +47,13 @@ elseif (weakener == 1) then
    mob:addMod(dsp.mod.EVA,-10);
    mob:addMOd(dsp.mod.ACC,-10);
    SetDropRate(5046,3423,700);
-if (target:getObjType() == TYPE_PC) then	
+if (target:getObjType() == dsp.objType.PC) then	
 target:PrintToPlayer("You have weakened the monster ever so slightly", 0xD);
 end
 elseif (weakener == 0) then
  -- mob:setMod(dsp.mod.ACC,100);
  -- mob:setMod(dsp.mod.EVA,100);
-if (target:getObjType() == TYPE_PC) then 
+if (target:getObjType() == dsp.objType.PC) then 
 target:PrintToPlayer("You have summoned a Monster.", 0xD); 
 end 
 end   
@@ -82,9 +82,9 @@ end;
 -- onMobDeath
 -----------------------------------
 
-function onMobDeath(mob,killer)
+function onMobDeath(mob,player)
 local qm4 = GetNPCByID(17547513);
-killer:setVar("DynaWeakener",0);
+player:setVar("DynaWeakener",0);
 qm4:setStatus(STATUS_NORMAL);
 	
 

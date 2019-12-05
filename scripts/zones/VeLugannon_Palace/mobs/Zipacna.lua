@@ -104,14 +104,14 @@ function onMobFight( mob, target )
 end;
 
 function onPath(mob)
-	pathfind.patrol(mob, path, PATHFLAG_RUN);
+	pathfind.patrol(mob, path, dsp.path.flag.RUN);
 end;
 
 function onMobRoam(mob)
-	-- move to start position if not moving
-	if (mob:isFollowingPath() == false) then
-		mob:pathThrough(pathfind.first(path), PATHFLAG_RUN);
-	end
+    -- move to start position if not moving
+    if (mob:isFollowingPath() == false) then
+        mob:pathThrough(dsp.path.first(path), dsp.path.flag.RUN);
+    end
 end;
 
 -----------------------------------

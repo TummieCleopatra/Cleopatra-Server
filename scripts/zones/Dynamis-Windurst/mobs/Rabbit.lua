@@ -57,7 +57,7 @@ if (attacker:getObjType() == dsp.objType.PC) then
 	-- attacker:PrintToPlayer(wsweakness);
 	if (wsweakness > 180) and (wsweakness < 401) and (isweak ~= 1) then
 		mob:weaknessTrigger(0); -- Yellow Stagger Increase Scyld 55% of Triggers
-		mob:addStatusEffect(EFFECT_TERROR,1,0,10);
+		mob:addStatusEffect(dsp.effect.TERROR,1,0,10);
 		local randomscyld = math.random(10,20);
 		local oldscyld = attacker:getVar("ScyldMultiplier");
 		local newscyld = (randomscyld + oldscyld);
@@ -66,12 +66,12 @@ if (attacker:getObjType() == dsp.objType.PC) then
 		attacker:PrintToPlayer("You have been granted a "..randomscyld.."% scyld bonus.  Total Bonus: "..newscyld.."%.", 0x15);
 	elseif (wsweakness > 80) and (wsweakness < 181) and (isweak ~= 1) then
 		mob:weaknessTrigger(1); -- Blue Stagger drops Memoirs which grants 4-8 currency  15%
-		mob:addStatusEffect(EFFECT_TERROR,1,0,10);
+		mob:addStatusEffect(dsp.effect.TERROR,1,0,10);
 		GetMobByID(rabbit):setDropID(6018); -- Miratetes Memoirs
 		mob:setLocalVar("WeakenedTrigger",1);
 	elseif (wsweakness > 20) and (wsweakness < 81) and (isweak ~= 1) then
 		mob:weaknessTrigger(2); -- Red Stagger drops Pop Items 10%
-		mob:addStatusEffect(EFFECT_TERROR,1,0,10);
+		mob:addStatusEffect(dsp.effect.TERROR,1,0,10);
 		local itemdrop = math.random(1,4);
 		if (itemdrop == 1) then
 			GetMobByID(rabbit):setDropID(6020); -- Fiendish Tome 12
@@ -85,7 +85,7 @@ if (attacker:getObjType() == dsp.objType.PC) then
 		mob:setLocalVar("WeakenedTrigger",1);
 	elseif (wsweakness < 21) and (isweak ~= 1) then
 		mob:weaknessTrigger(3); -- White Stagger drops 100's
-		mob:addStatusEffect(EFFECT_TERROR,1,0,10);
+		mob:addStatusEffect(dsp.effect.TERROR,1,0,10);
 		GetMobByID(rabbit):setDropID(6019); -- L Jadeshell
 		mob:setLocalVar("WeakenedTrigger",1);
 	end
@@ -109,11 +109,11 @@ end;
 -- Randomly change Resistance based on Time
 -----------------------------------
 function onMobFight(mob,target)
-if (mob:hasStatusEffect(EFFECT_TERROR)) then
+if (mob:hasStatusEffect(dsp.effect.TERROR)) then
 mob:setMod(dsp.mod.SLASHRES,1500);
 mob:setMod(dsp.mod.PIERCERES,1500);
 mob:setMod(dsp.mod.HTHRES,1500);
-elseif (not mob:hasStatusEffect(EFFECT_TERROR)) then
+elseif (not mob:hasStatusEffect(dsp.effect.TERROR)) then
 mob:setMod(dsp.mod.SLASHRES,1000);
 mob:setMod(dsp.mod.PIERCERES,1000);
 mob:setMod(dsp.mod.HTHRES,1000);
@@ -160,7 +160,7 @@ end;
 -- onMobDeath
 -----------------------------------
 
-function onMobDeath(mob,isKiller)
+function onMobDeath(mob,player,isKiller)
     local scyldmult = player:getVar("ScyldMultiplier");
     local duration = 45;
 	local defBoost = 15;

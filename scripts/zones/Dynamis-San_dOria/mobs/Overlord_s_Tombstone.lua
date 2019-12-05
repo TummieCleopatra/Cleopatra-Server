@@ -83,14 +83,14 @@ end;
 -- onMobDeath
 -----------------------------------
 
-function onMobDeath(mob,killer)
-killer:setVar("DynaWeakener",0);
+function onMobDeath(mob,player)
+player:setVar("DynaWeakener",0);
 
-	if (killer:hasKeyItem(dsp.ki.HYDRA_CORPS_COMMAND_SCEPTER) == false) then
-		killer:setVar("DynaSandy_Win",1);
-		killer:addKeyItem(dsp.ki.HYDRA_CORPS_COMMAND_SCEPTER);
-		killer:messageSpecial(ID.text.KEYITEM_OBTAINED,HYDRA_CORPS_COMMAND_SCEPTER);
-		killer:addTitle(DYNAMISSAN_DORIA_INTERLOPER); -- Add title
+	if (player:hasKeyItem(dsp.ki.HYDRA_CORPS_COMMAND_SCEPTER) == false) then
+		player:setVar("DynaSandy_Win",1);
+		player:addKeyItem(dsp.ki.HYDRA_CORPS_COMMAND_SCEPTER);
+		player:messageSpecial(ID.text.KEYITEM_OBTAINED,HYDRA_CORPS_COMMAND_SCEPTER);
+		player:addTitle(DYNAMISSAN_DORIA_INTERLOPER); -- Add title
 	end
 
 	

@@ -16,7 +16,7 @@ require("scripts/globals/mobscaler");
 function onMobSpawn(mob)
     mob:setLocalVar("PartySize",9); 
 	-- Give it two hour
-	mob:setMod(dsp.mobMod.MAIN_2HOUR, 1);
+	-- mob:setMod(dsp.mobMod.MAIN_2HOUR, 1);
 	-- Change animation to pot
 	mob:AnimationSub(0);
 	-- Set the damage resists

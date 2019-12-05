@@ -103,6 +103,7 @@ end;
 -----------------------------------
 
 function onMobDeath(mob,player,isKiller)
+local new_target = mob:getEntity(targetid)
 local killx = mob:getXPos();
 local killy = mob:getYPos();
 local killz = mob:getZPos();
@@ -110,5 +111,5 @@ local mammett = 17367331;
 
 
 	SpawnMob(mammett):setPos(killx,killy,killz);
-    GetMobByID(mammett):updateClaim(player);
+    GetMobByID(mammett):updateClaim(new_target);
 end;

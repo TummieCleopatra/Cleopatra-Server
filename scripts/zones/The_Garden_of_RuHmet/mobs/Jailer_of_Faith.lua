@@ -15,7 +15,7 @@ local ID = require("scripts/zones/The_Garden_of_RuHmet/IDs")
 function onMobSpawn(mob)
     mob:setLocalVar("PartySize",8); 
     -- Give it two hour
-    mob:setMod(dsp.mobMod.MAIN_2HOUR, 1);
+    -- mob:setMod(dsp.mobMod.MAIN_2HOUR, 1);
     -- Change animation to open
     mob:AnimationSub(2);
 end;

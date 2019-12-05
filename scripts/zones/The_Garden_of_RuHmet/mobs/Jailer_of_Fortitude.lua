@@ -15,8 +15,8 @@ local ID = require("scripts/zones/The_Garden_of_RuHmet/IDs");
 function onMobSpawn(mob)
     mob:setLocalVar("PartySize",8); 
     -- Give it two hour
-    mob:setMobMod(dsp.modMod.MAIN_2HOUR, 1);
-    mob:setMobMod(dsp.modMod.2HOUR_MULTI, 1);
+    -- mob:setMobMod(dsp.modMod.MAIN_2HOUR, 1);
+    -- mob:setMobMod(dsp.modMod.2HOUR_MULTI, 1);
     -- Change animation to humanoid w/ prismatic core
     mob:AnimationSub(1);
     mob:setModelId(1169);

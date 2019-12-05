@@ -7,7 +7,7 @@
 -----------------------------------
 
 require("scripts/globals/status");
-require("scripts/zones/AlTaieu/mobIDs");
+require("scripts/zones/AlTaieu/IDs");
 require("scripts/globals/mobscaler");
 
 -----------------------------------
@@ -15,7 +15,7 @@ require("scripts/globals/mobscaler");
 -----------------------------------
 
 function onMobInitialize(mob)
-    mob:setMobMod(dsp.mobMod.MAIN_2HOUR, 1);
+    -- mob:setMobMod(dsp.mobMod.MAIN_2HOUR, 1);
     -- mob:setMobMod(dsp.mobMod.2HOUR_MULTI, 1);
     mob:setMobMod(dsp.mobMod.NO_DROPS, 1);
 end;

@@ -88,14 +88,14 @@ end;
 -- onMobDeath
 -----------------------------------
 
-function onMobDeath(mob,killer)
-killer:setVar("DynaWeakener",0);
+function onMobDeath(mob,player)
+player:setVar("DynaWeakener",0);
 
-	if (killer:hasKeyItem(dsp.ki.HYDRA_CORPS_EYEGLASS) == false) then
-		killer:setVar("DynaBastok_Win",1);
-		killer:addKeyItem(dsp.ki.HYDRA_CORPS_EYEGLASS);
-		killer:messageSpecial(ID.text.KEYITEM_OBTAINED,HYDRA_CORPS_EYEGLASS);
-		killer:addTitle(DYNAMISBASTOK_INTERLOPER); -- Add title
+	if (player:hasKeyItem(dsp.ki.HYDRA_CORPS_EYEGLASS) == false) then
+		player:setVar("DynaBastok_Win",1);
+		player:addKeyItem(dsp.ki.HYDRA_CORPS_EYEGLASS);
+		player:messageSpecial(ID.text.KEYITEM_OBTAINED,HYDRA_CORPS_EYEGLASS);
+		player:addTitle(DYNAMISBASTOK_INTERLOPER); -- Add title
 	end
 
 

@@ -155,7 +155,7 @@ end;
 -- onMobDeath
 -----------------------------------
 
-function onMobDeath(mob,player,isplayer)
+function onMobDeath(mob,player,isKiller)
 	local scyldmult = player:getVar("ScyldMultiplier");
     local duration = 45;
 	local attBoost = 15;

@@ -2,11 +2,11 @@
 -- Area: The Shrine of Ru'Avitau
 -- NPC:  Mother Globe
 -----------------------------------
-package.loaded["scripts/zones/The_Shrine_of_RuAvitau/TextIDs"] = nil;
+package.loaded["scripts/zones/The_Shrine_of_RuAvitau/IDs"] = nil;
 -----------------------------------
 
 require("scripts/globals/status");
-require( "scripts/zones/The_Shrine_of_RuAvitau/TextIDs" );
+require( "scripts/zones/The_Shrine_of_RuAvitau/IDs" );
 require("scripts/globals/mobscaler");
 
 -- TODO: Looked like pets had an additional effect: stun with an unknown proc rate

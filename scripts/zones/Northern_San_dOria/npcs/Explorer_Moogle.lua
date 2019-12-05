@@ -17,6 +17,7 @@ function onTrade(player,npc,trade)
 end
 
 function onTrigger(player,npc)
+
     dsp.teleport.explorerMoogleOnTrigger(player, eventId)
 end
 

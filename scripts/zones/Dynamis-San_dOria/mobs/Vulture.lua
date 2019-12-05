@@ -55,7 +55,7 @@ end;
 -----------------------------------
 function onWeaponskillHit(mob, attacker, weaponskill)
 -- Staggering Function
-if (attacker:getObjType() == TYPE_PC) then
+if (attacker:getObjType() == dsp.objType.PC) then
 	local isweak = mob:getLocalVar("WeakenedTrigger");
 	local vulture = mob:getID()
 	
@@ -134,7 +134,7 @@ if (mob:getBattleTime() - changeTime > randomTime) then
 local changeres = math.random(1,3);
 
 if (changeres == 1) then
-if (target:getObjType() == TYPE_PC) then
+if (target:getObjType() == dsp.objType.PC) then
 target:PrintToPlayer("There is a change in the Monsters behavior.", 0x1C);
 end
 mob:setMod(dsp.mod.SLASHRES,300);
@@ -142,7 +142,7 @@ mob:setMod(dsp.mod.PIERCERES,1000);
 mob:setMod(dsp.mod.HTHRES,2000);
 mob:setLocalVar("changeTime", mob:getBattleTime());
 elseif (changeres == 2) then
-if (target:getObjType() == TYPE_PC) then
+if (target:getObjType() == dsp.objType.PC) then
 target:PrintToPlayer("There is a change in the Monsters behavior.", 0x1C);
 end
 mob:setMod(dsp.mod.SLASHRES,1000);
@@ -150,7 +150,7 @@ mob:setMod(dsp.mod.PIERCERES,2000);
 mob:setMod(dsp.mod.HTHRES,300);
 mob:setLocalVar("changeTime", mob:getBattleTime());
 else
-if (target:getObjType() == TYPE_PC) then
+if (target:getObjType() == dsp.objType.PC) then
 target:PrintToPlayer("There is a change in the Monsters behavior.", 0x1C);
 end
 mob:setMod(dsp.mod.SLASHRES,3000);
@@ -178,11 +178,11 @@ end;
 -- onMobDeath
 -----------------------------------
 
-function onMobDeath(mob,killer)
-    local scyldmult = killer:getVar("ScyldMultiplier");
+function onMobDeath(mob,player)
+    local scyldmult = player:getVar("ScyldMultiplier");
     local duration = 45;
 	local accBoost = 10;
-	local level = killer:getMainLvl();
+	local level = player:getMainLvl();
 	local scyld = math.floor((level - 65) * (1 + (scyldmult/100)));
 	local stagger = mob:getLocalVar("MonsterStagger");
 
@@ -191,21 +191,21 @@ function onMobDeath(mob,killer)
 	
 	
 	
-	if (killer:getObjType() == TYPE_PC) then
+	if (player:getObjType() == dsp.objType.PC) then
 	
 	local randombuff = math.random(1,100)
 	if (randombuff >= 50) then
-	killer:addStatusEffect(dsp.effect.ACCURACY_BOOST,accBoost,0,duration);
-    killer:PrintToPlayer("The monster has endowed you with a temporary Accuracy Bonus", 0xD);
+	player:addStatusEffect(dsp.effect.ACCURACY_BOOST,accBoost,0,duration);
+    player:PrintToPlayer("The monster has endowed you with a temporary Accuracy Bonus", 0xD);
 	elseif (randombuff < 20) then
-	local heal = killer:getMaxHP();
-	local healmp = killer:getMaxMP();
-	killer:addHP(heal);
-	killer:addMP(healmp);
-    killer:PrintToPlayer(string.format("%s recovers HP and MP", killer:getName()), 0x15);
+	local heal = player:getMaxHP();
+	local healmp = player:getMaxMP();
+	player:addHP(heal);
+	player:addMP(healmp);
+    player:PrintToPlayer(string.format("%s recovers HP and MP", player:getName()), 0x15);
 	end
-	killer:addCurrency("scyld", scyld);
-	killer:PrintToPlayer(string.format("%s gains "..scyld.." scyld.", killer:getName()), 0x15);
+	player:addCurrency("scyld", scyld);
+	player:PrintToPlayer(string.format("%s gains "..scyld.." scyld.", player:getName()), 0x15);
 	end
 
 	

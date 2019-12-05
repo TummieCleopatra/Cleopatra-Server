@@ -14,7 +14,7 @@ function onTrigger(player,npc)
     local FreeSlots = player:getFreeSlotsCount()
 
     if (player:getVar("GEO_AF_FIGHT") == 1) then
-        SpawnMob(17396271):updateEnmity(player) -- Spawns Malevolent Ungeweder
+        SpawnMob(17396160):updateEnmity(player) -- Spawns Malevolent Ungeweder
 
     end
 

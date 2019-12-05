@@ -17,7 +17,7 @@ function onMobDespawn(mob)
         SetServerVariable("[DynaBastok]Boss_Trigger",bossTrigger + 2);
     end
 
-    -- If 3 boss trigger is killer -> pop the boss
+    -- If 3 boss trigger is player -> pop the boss
     if (GetServerVariable("[DynaBastok]Boss_Trigger") == 7) then
         SpawnMob(17539073);
         SetServerVariable("[DynaBastok]Boss_Trigger",0);
