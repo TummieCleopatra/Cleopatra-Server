@@ -1475,8 +1475,10 @@ dsp.treasure.onTrade = function(player, npc, trade, chestType)
         local gil = gilAmount/#players
         for i = 1, #players, 1 do
             if player:getZoneID() == players[i]:getZoneID() then
-                players[i]:addGil(gil)
-                players[i]:messageSpecial(ID.text.GIL_OBTAINED, gil)
+                if players[i]:getObjType() == dsp.objType.PC then
+                    players[i]:addGil(gil)
+                    players[i]:messageSpecial(ID.text.GIL_OBTAINED, gil)
+                end
             end
         end
 
