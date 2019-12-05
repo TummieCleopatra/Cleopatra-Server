@@ -77,8 +77,8 @@ namespace conquest
 
     void UpdateBesiegeMap()
     {
-        ShowDebug(CL_GREEN"Besiege Map Update \n" CL_RESET);
-
+        //ShowDebug(CL_GREEN"Besiege Map Update \n" CL_RESET);
+        CZone* PZone = zoneutils::GetZone(48);
         int m_besiegedStatus = 0;
         int t_besiegedStatus = 0;
         int u_besiegedStatus = 0;
@@ -204,8 +204,14 @@ namespace conquest
                     ustatus = 0;
                     ubstatus = 0;
                     u_besiegedStatus = 10;
-                    ShowDebug(CL_CYAN"Resetting Undead Starus.  Status is now at %u  \n" CL_RESET, ustatus);
-                    ShowDebug(CL_CYAN"Resetting Undead.  Forces are now at %u  \n" CL_RESET, ubforces);
+
+                    //only write debug message to the zone that has besieged
+                    if (PZone)
+                    {
+                        ShowDebug(CL_CYAN"Resetting Undead Status.  Status is now at %u  \n" CL_RESET, ustatus);
+                        ShowDebug(CL_CYAN"Resetting Undead.  Forces are now at %u  \n" CL_RESET, ubforces);
+                    }
+
                     Sql_Query(SqlHandle, "UPDATE server_variables SET value = %d WHERE name = '[BESIEGED]Undead_Swarm_Status';", u_besiegedStatus);
                     Sql_Query(SqlHandle, "UPDATE besiege_system SET undead_base_status = '%d' WHERE id = '1';", ubstatus, id);
                 }
@@ -234,7 +240,14 @@ namespace conquest
                     if (ubforces > (100 + (ulvl * 10))){
                         ubforces = 100 + (ulvl * 10); // cap forces based on level.
                     }
-                    ShowDebug(CL_CYAN"Updating Undead Forces.  Forces are now at %u  \n" CL_RESET, ubforces);
+
+                    //only write debug message to the zone that has besieged
+                    if (PZone)
+                    {
+                        ShowDebug(CL_CYAN"Updating Undead Forces.  Forces are now at %u  \n" CL_RESET, ubforces);
+                    }
+
+
                 }
 
                 //Set Training ->Perparing

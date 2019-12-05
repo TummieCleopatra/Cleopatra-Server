@@ -440,7 +440,6 @@ void SmallPacket0x00D(map_session_data_t* session, CCharEntity* PChar, CBasicPac
 
     charutils::SaveCharStats(PChar);
     charutils::SaveCharExp(PChar, PChar->GetMJob());
-    charutils::SaveCharUnlocks(PChar);
 
     PChar->status = STATUS_DISAPPEAR;
     return;
@@ -1554,8 +1553,8 @@ void SmallPacket0x04B(map_session_data_t* session, CCharEntity* PChar, CBasicPac
     {
         if ((bool)Sql_GetUIntData(SqlHandle, 0))
             PChar->pushPacket(new CChatMessagePacket(PChar, CHAT_MESSAGE_TYPE::MESSAGE_SYSTEM_1, "Server does not support this client version. Please refrain from posting issues on DSP bugtracker."));
-        else
-            PChar->pushPacket(new CChatMessagePacket(PChar, CHAT_MESSAGE_TYPE::MESSAGE_SYSTEM_1, "Report bugs at DSP bugtracker if server admin confirms the bug occurs on stock DSP."));
+       // else
+            // PChar->pushPacket(new CChatMessagePacket(PChar, CHAT_MESSAGE_TYPE::MESSAGE_SYSTEM_1, "Report bugs at DSP bugtracker if server admin confirms the bug occurs on stock DSP."));
     }
     return;
 }
@@ -4264,6 +4263,7 @@ void SmallPacket0x0BE(map_session_data_t* session, CCharEntity* PChar, CBasicPac
 
             if (PChar->PMeritPoints->IsMeritExist(merit))
             {
+				//ShowWarning(CL_YELLOW"The Merit is %u \n" CL_RESET, merit);
                 switch (operation)
                 {
                 case 0: PChar->PMeritPoints->LowerMerit(merit); break;
@@ -4293,6 +4293,9 @@ void SmallPacket0x0BE(map_session_data_t* session, CCharEntity* PChar, CBasicPac
                 PChar->pushPacket(new CCharJobExtraPacket(PChar, true));
                 PChar->pushPacket(new CCharSyncPacket(PChar));
             }
+			else {
+				ShowWarning(CL_YELLOW"Merit doesn't exist... \n" CL_RESET);
+			}
         }
     }
     break;

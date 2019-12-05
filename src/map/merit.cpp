@@ -142,7 +142,7 @@ static const MeritCategoryInfo_t meritCatInfo[] =
     {4,10,7},  //MCATEGORY_BRD_2
     {4,10,7},  //MCATEGORY_RNG_2
     {4,10,7},  //MCATEGORY_SAM_2
-    {8,10,7},  //MCATEGORY_NIN_2
+    {6,10,7},  //MCATEGORY_NIN_2
     {4,10,7},  //MCATEGORY_DRG_2
     {6,10,7},  //MCATEGORY_SMN_2
     {4,10,7},  //MCATEGORY_BLU_2
@@ -345,11 +345,36 @@ void CMeritPoints::SetMeritPoints(uint16 points)
 
 bool CMeritPoints::IsMeritExist(MERIT_TYPE merit)
 {
+	//ShowWarning(CL_YELLOW"The Merit is %u \n" CL_RESET, GetMeritID(merit));
     if ((int16)merit <  MCATEGORY_START) return false;
-    if ((int16)merit >= MCATEGORY_COUNT) return false;
+    if ((int16)merit >= MCATEGORY_COUNT) return false;	
 
-    if ((GetMeritID(merit)) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
-
+	if ((int16)merit >= 2184 && ((int16)merit <= 2186))
+    {	
+		if ((GetMeritID(merit) - 2) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
+	}	
+	else if ((int16)merit >= 2252 && ((int16)merit <= 2262))
+    {	
+		if ((GetMeritID(merit) - 6) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
+	}
+	else if ((int16)merit >= 2316 && ((int16)merit <= 2326))
+    {	
+		if ((GetMeritID(merit) - 6) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
+	}
+	else if ((int16)merit >= 2632 && ((int16)merit <= 2634))
+    {	
+		if ((GetMeritID(merit) - 2) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
+	}
+	else if ((int16)merit >= 2832 && ((int16)merit <= 2838))
+    {	
+		if ((GetMeritID(merit) - 6) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
+	}
+	else 
+	{
+		if ((GetMeritID(merit)) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
+	}
+    //if ((GetMeritID(merit)) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
+    
     return true;
 }
 
@@ -387,7 +412,26 @@ Merit_t* CMeritPoints::GetMeritPointer(MERIT_TYPE merit)
 {
     if (IsMeritExist(merit))
     {
-        return &Categories[GetMeritCategory(merit)][GetMeritID(merit)];
+		if (merit >= 2184 && merit <= 2186){
+			return &Categories[GetMeritCategory(merit)][GetMeritID(merit) - 2]; // WHM T2 Merits
+		}		
+		else if (merit >= 2252 && merit <= 2262){
+			return &Categories[GetMeritCategory(merit)][GetMeritID(merit) - 6]; // BLM T2 Merits
+		}
+		else if (merit >= 2316 && merit <= 2326){
+			return &Categories[GetMeritCategory(merit)][GetMeritID(merit) - 6]; // RDM T2 Merits
+		}
+		else if (merit >= 2632 && merit <= 2634){
+			return &Categories[GetMeritCategory(merit)][GetMeritID(merit) - 2]; // BRD T2 Merits
+		}
+		else if (merit >= 2832 && merit <= 2838){
+			return &Categories[GetMeritCategory(merit)][GetMeritID(merit) - 6]; // NIN T2 Merits
+		}		
+		else
+		{
+			return &Categories[GetMeritCategory(merit)][GetMeritID(merit)];
+		}
+        
     }
     return nullptr;
 }

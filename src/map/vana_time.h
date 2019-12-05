@@ -94,6 +94,8 @@ public:
     time_point   lastVDailyUpdate;
     time_point   lastConquestTally;
     time_point   lastMidnight;
+	time_point   lastPlayerAnalytics;
+	time_point   lastGilAnalytics;
 
 private:
 

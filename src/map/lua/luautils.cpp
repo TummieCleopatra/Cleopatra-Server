@@ -3329,7 +3329,6 @@ namespace luautils
                 charutils::SaveCharPosition(PChar);
                 charutils::SaveCharStats(PChar);
                 charutils::SaveCharExp(PChar, PChar->GetMJob());
-                charutils::SaveCharUnlocks(PChar);
             });
         });
         exit(1);

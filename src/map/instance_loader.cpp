@@ -117,7 +117,8 @@ CInstance* CInstanceLoader::LoadInstance(CInstance* instance)
 		INNER JOIN mob_groups ON mob_groups.groupid = mob_spawn_points.groupid \
 		INNER JOIN mob_pools ON mob_groups.poolid = mob_pools.poolid \
 		INNER JOIN mob_family_system ON mob_pools.familyid = mob_family_system.familyid \
-		WHERE instanceid = %u AND NOT (pos_x = 0 AND pos_y = 0 AND pos_z = 0);";
+		WHERE instanceid = %u AND mob_groups.zoneid = ((mobid >> 12) & 0xFFF) \
+		AND NOT (pos_x = 0 AND pos_y = 0 AND pos_z = 0);";
 
     int32 ret = Sql_Query(SqlInstanceHandle, Query, instance->GetID());
 
