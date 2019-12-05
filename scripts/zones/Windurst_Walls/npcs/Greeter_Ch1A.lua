@@ -1,6 +1,6 @@
 -----------------------------------
 --	Area: Windurst Walls
---	NPC:  Greeter Moogle
+--	NPC:  Greeter Moogle A
 --	Working 100%
 -----------------------------------
 
