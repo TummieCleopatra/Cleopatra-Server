@@ -4526,11 +4526,17 @@ INSERT INTO `item_basic` VALUES (4807,199,'scroll_of_waterga','waterga',1,1676,2
 INSERT INTO `item_basic` VALUES (4808,200,'scroll_of_waterga_ii','waterga_ii',1,34444,29,0,1450);
 INSERT INTO `item_basic` VALUES (4809,201,'scroll_of_waterga_iii','waterga_iii',1,34444,29,0,5875);
 INSERT INTO `item_basic` VALUES (4812,204,'scroll_of_flare','flare',1,34444,29,0,2593);
+INSERT INTO `item_basic` VALUES (4813,205,'scroll_of_flare_ii','flare',1,34444,29,0,2593);
 INSERT INTO `item_basic` VALUES (4814,206,'scroll_of_freeze','freeze',1,34444,29,0,1750);
+INSERT INTO `item_basic` VALUES (4815,207,'scroll_of_freeze_ii','freeze',1,34444,29,0,1750);
 INSERT INTO `item_basic` VALUES (4816,208,'scroll_of_tornado','tornado',1,34444,29,0,1917);
+INSERT INTO `item_basic` VALUES (4817,209,'scroll_of_tornado_ii','tornado',1,34444,29,0,1917);
 INSERT INTO `item_basic` VALUES (4818,210,'scroll_of_quake','quake',1,34444,29,0,2000);
+INSERT INTO `item_basic` VALUES (4819,211,'scroll_of_quake_ii','quake',1,34444,29,0,2000);
 INSERT INTO `item_basic` VALUES (4820,212,'scroll_of_burst','burst',1,34444,29,0,2000);
+INSERT INTO `item_basic` VALUES (4821,213,'scroll_of_burst','burst_ii',1,34444,29,0,2000);
 INSERT INTO `item_basic` VALUES (4822,214,'scroll_of_flood','flood',1,34444,29,0,2250);
+INSERT INTO `item_basic` VALUES (4823,215,'scroll_of_flood_ii','flood',1,34444,29,0,2250);
 INSERT INTO `item_basic` VALUES (4824,216,'scroll_of_gravity','gravity',1,1676,29,0,308);
 INSERT INTO `item_basic` VALUES (4825,217,'scroll_of_gravity_ii','gravity_ii',1,34444,29,0,0);
 INSERT INTO `item_basic` VALUES (4827,219,'scroll_of_comet','comet',1,34444,29,0,0);
