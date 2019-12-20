@@ -134,7 +134,7 @@ bool CTrustEntity::ValidTarget(CBattleEntity* PInitiator, uint16 targetFlags)
 
 void CTrustEntity::OnAbility(CAbilityState& state, action_t& action)
 {
-    ShowWarning(CL_GREEN"An Ability has been Fired off!!!\n" CL_RESET);
+    //ShowWarning(CL_GREEN"An Ability has been Fired off!!!\n" CL_RESET);
     auto PAbility = state.GetAbility();
     auto PTarget = static_cast<CBattleEntity*>(state.GetTarget());
 

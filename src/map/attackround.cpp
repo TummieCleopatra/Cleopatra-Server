@@ -66,7 +66,7 @@ CAttackRound::CAttackRound(CBattleEntity* attacker, CBattleEntity* defender)
         (attacker->objtype == TYPE_MOB && static_cast<CMobEntity*>(attacker)->getMobMod(MOBMOD_DUAL_WIELD)) ||
         (attacker->objtype == TYPE_TRUST && static_cast<CMobEntity*>(attacker)->getMobMod(MOBMOD_DUAL_WIELD)))
     {
-        ShowWarning(CL_YELLOW"Create dual wield attack\n" CL_RESET);
+        //ShowWarning(CL_YELLOW"Create dual wield attack\n" CL_RESET);
         CreateAttacks(attacker->m_Weapons[SLOT_SUB], LEFTATTACK);
     }
 
