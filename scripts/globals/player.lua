@@ -2,6 +2,7 @@ require("scripts/globals/gear_sets")
 require("scripts/globals/keyitems")
 require("scripts/globals/settings")
 require("scripts/globals/status")
+require("scripts/globals/teleports")
 require("scripts/globals/titles")
 require("scripts/globals/zone")
 -----------------------------------
@@ -107,17 +108,6 @@ local function CharCreate(player)
         player:changeContainerSize(dsp.inv.MOGSATCHEL, START_INVENTORY - 30)
     end
 
-    if UNLOCK_OUTPOST_WARPS >= 1 then
-        player:addNationTeleport(dsp.nation.SANDORIA, 2097120)
-        player:addNationTeleport(dsp.nation.BASTOK,   2097120)
-        player:addNationTeleport(dsp.nation.WINDURST, 2097120)
-
-        if UNLOCK_OUTPOST_WARPS == 2 then -- Tu'Lia and Tavnazia
-            player:addNationTeleport(dsp.nation.SANDORIA, 10485760)
-            player:addNationTeleport(dsp.nation.BASTOK,   10485760)
-            player:addNationTeleport(dsp.nation.WINDURST, 10485760)
-        end
-    end
 
     --[[
         For some intermittent reason m_ZoneList ends up empty on characters, which is
@@ -165,6 +155,10 @@ function onGameIn(player, firstLogin, zoning)
             player:addStatusEffect(dsp.effect.CUSTOM_EFFECT,0,3,12)
         end --]]
         -- Check for Besieged if player is logging into the zone
+		
+		if (player:getObjType() == dsp.objType.PC) then
+        	player:addMod(dsp.mod.RERAISE_III,1);
+	    end
 
         -- Login Message... Logout message handled in Core
         if (player:getObjType() == dsp.objType.PC) then
@@ -176,14 +170,16 @@ function onGameIn(player, firstLogin, zoning)
 			if ((logintime - lastlogin) >= 39600) then  --39600 is 11 hours
                 bonus = math.floor((logintime - lastlogin) / 3600)
                 if (bonus <= 24 and bonus >= 2) then
-                   bonus =  bonus + 1
+                   -- bonus =  bonus + 1
+				   bonus = math.floor(bonus * 4.2)
 
                 elseif (bonus >= 25) then
-                   bonus =  math.floor(bonus * 2.6)
+                   -- bonus =  math.floor(bonus * 2.6)
+				   bonus = math.floor(bonus * 5.2)
                 end
 
-				if (bonus >= 150) then
-				    bonus = 150; -- cap bonus at 120%
+				if (bonus >= 250) then
+				    bonus = 250; -- cap bonus at 150%
 				end
 
 			    player:setVar("RestExp",bonus)
@@ -196,10 +192,15 @@ function onGameIn(player, firstLogin, zoning)
 		end
 
         local undead = GetServerVariable("[BESIEGED]Undead_Swarm_Status");
-        if (undead == 3) then
+        if (undead == 3 and player:getZone() == 48) then
             -- apply besieged effect
             player:addStatusEffect(dsp.effect.BESIEGED,0,3,3600);
         end
+
+        if (player:hasStatusEffect(dsp.effect.BESIEGED) and player:getZone() ~= 48) then
+            player:delStatusEffect(dsp.effect.BESIEGED)
+        end
+
 
 
 
@@ -208,10 +209,6 @@ function onGameIn(player, firstLogin, zoning)
         local prevZone = player:getPreviousZone()
         if (prevZone == 48) then
             player:delStatusEffect(dsp.effect.BESIEGED)
-        end
-
-        if (player:getZone() == 48) then
-            player:addStatusEffect(dsp.effect.BESIEGED,0,3,3600)
         end
     end
 

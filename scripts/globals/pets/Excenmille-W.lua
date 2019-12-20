@@ -34,7 +34,6 @@ function onMobSpawn(mob)
 	    local battletime = os.time()
 		local jumpTime = mob:getLocalVar("jumpTime")
         if (lvl >= 10 and mob:getTP() >= 300) then
-            printf("jump check")
 		    if (battletime > jumpTime + jumpCooldown) then
 		        mob:useJobAbility(50, target)
 			    mob:setLocalVar("jumpTime",battletime)

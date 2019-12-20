@@ -21,7 +21,7 @@ function onMobSkillCheck(target,mob,skill)
     end
 
     local gettp = mob:getTP()
-        printf("Get TP is %u", gettp)
+        -- printf("Get TP is %u", gettp)
 
     return 0
 end

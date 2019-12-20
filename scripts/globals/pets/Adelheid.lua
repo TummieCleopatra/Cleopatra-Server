@@ -98,7 +98,7 @@ function onMobSpawn(mob)
         local battletime = os.time()
         local nukeTime = mob:getLocalVar("nukeTime")
         if (battletime > nukeTime + nukeCooldown) then
-            doNuke(mob,player,target)
+            doNukeAdelheid(mob,player,target)
         end
     end)
 
@@ -216,7 +216,7 @@ function doHelix(mob, target)
     end
 end
 
-function doNuke(mob,player,target)
+function doNukeAdelheid(mob,player,target)
     -- Table below {Level, MP Cost, SpellID, Day Element}
     local nukeList = {}
     local thp = target:getHPP()

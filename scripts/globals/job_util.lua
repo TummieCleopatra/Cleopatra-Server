@@ -665,15 +665,3 @@ function potencyBoost(target,effect)
     end
 end
 
-function removeIndi(caster)
-
-
-
-    caster:delStatusEffect(dsp.effect.INDI_PRECISION)
-    caster:delStatusEffect(dsp.effect.COLURE_ACTIVE)
-    caster:delStatusEffect(dsp.effect.INDI_POISON)
-
-
-
-end
-

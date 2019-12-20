@@ -22,7 +22,7 @@ ENABLE_WOTG    = 1;
 ENABLE_ACP     = 1;
 ENABLE_AMK     = 1;
 ENABLE_ASA     = 1;
-ENABLE_ABYSSEA = 0;
+ENABLE_ABYSSEA = 1;
 ENABLE_SOA     = 1;
 ENABLE_ROV     = 0;
 
@@ -67,7 +67,7 @@ DARK_POWER      = 1.000; -- Multiplies amount drained by Dark Magic.
 ITEM_POWER      = 1.000; -- Multiplies the effect of items such as Potions and Ethers.
 WEAPON_SKILL_POWER  = 1.000; -- Multiplies damage dealt by Weapon Skills.
 WEAPON_SKILL_POINTS = 1.000; -- Multiplies points earned during weapon unlocking.
-USE_ADOULIN_WEAPON_SKILL_CHANGES = true; -- true/false. Change to toggle new Adoulin weapon skill damage calculations
+USE_ADOULIN_WEAPON_SKILL_CHANGES = false; -- true/false. Change to toggle new Adoulin weapon skill damage calculations
 
 HARVESTING_BREAK_CHANCE = 33; -- % chance for the sickle to break during harvesting.  Set between 0 and 100.
 EXCAVATION_BREAK_CHANCE = 33; -- % chance for the pickaxe to break during excavation.  Set between 0 and 100.
@@ -79,7 +79,7 @@ LOGGING_RATE            = 50; -- % chance to recieve an item from logging.  Set 
 MINING_RATE             = 50; -- % chance to recieve an item from mining.  Set between 0 and 100.
 DIGGING_RATE            = 85; -- % chance to receive an item from chocbo digging during favorable weather.  Set between 0 and 100.
 
-HEALING_TP_CHANGE       = -100; -- Change in TP for each healing tick. Default is -100
+HEALING_TP_CHANGE       = 0; -- Change in TP for each healing tick. Default is -100
 
 -- SE implemented coffer/chest illusion time in order to prevent coffer farming. No-one in the same area can open a chest or coffer for loot (gil, gems & items)
 -- till a random time between MIN_ILLSION_TIME and MAX_ILLUSION_TIME. During this time players can loot keyitem and item related to quests (AF, maps... etc.)
@@ -131,7 +131,7 @@ USE_OLD_MAGIC_DAMAGE = false; -- true/false. if true, uses older magic damage fo
 
 -- CELEBRATIONS
 EXPLORER_MOOGLE = 1; -- Enables Explorer Moogle teleports
-EXPLORER_MOOGLE_LEVELCAP = 10;
+EXPLORER_MOOGLE_LV = 10;
 HALLOWEEN_2005 = 0; -- Set to 1 to Enable the 2005 version of Harvest Festival, will start on Oct. 20 and end Nov. 1.
 HALLOWEEN_YEAR_ROUND = 0; -- Set to 1 to have Harvest Festival initialize outside of normal times.
 
@@ -143,14 +143,14 @@ ENABLE_COP_ZONE_CAP = 1; -- enable or disable lvl cap
 TIMEZONE_OFFSET = 9.0; -- Offset from UTC used to determine when "JP Midnight" is for the server.  Default is JST (+9.0).
 ALLOW_MULTIPLE_EXP_RINGS = 0; -- Set to 1 to remove ownership restrictions on the Chariot/Empress/Emperor Band trio.
 BYPASS_EXP_RING_ONE_PER_WEEK = 0; -- -- Set to 1 to bypass the limit of one ring per Conquest Tally Week.
-NUMBER_OF_DM_EARRINGS = 2; -- Number of earrings players can simultaneously own from Divine Might before scripts start blocking them (Default: 1)
+NUMBER_OF_DM_EARRINGS = 1; -- Number of earrings players can simultaneously own from Divine Might before scripts start blocking them (Default: 1)
 HOMEPOINT_TELEPORT = 1; -- Enables the homepoint teleport system
 DIG_ABUNDANCE_BONUS = 0; -- Increase chance of digging up an item (450  = item digup chance +45)
 DIG_FATIGUE = 1; -- Set to 0 to disable Dig Fatigue
 DIG_GRANT_BURROW = 0; -- Set to 1 to grant burrow ability
 DIG_GRANT_BORE = 0; -- Set to 1 to grant bore ability
 ENM_COOLDOWN = 120;  -- Number of hours before a player can obtain same KI for ENMs (default: 5 days)
-FORCE_SPAWN_QM_RESET_TIME = 180; -- Number of seconds the ??? remains hidden for after the despawning of the mob it force spawns.
+FORCE_SPAWN_QM_RESET_TIME = 300; -- Number of seconds the ??? remains hidden for after the despawning of the mob it force spawns.
 
 -- LIMBUS
 BETWEEN_2COSMOCLEANSE_WAIT_TIME = 20; -- Hours before player can re-enter Limbus. Default is 20 hrs.
@@ -158,3 +158,10 @@ DIMENSIONAL_PORTAL_UNLOCK = false; -- Set true to bypass requirements for using 
 
 -- ABYSSEA
 VISITANT_BONUS = 1.00; -- Default: 1.00 - (retail) - Multiplies the base time value of each Traverser Stone.
+
+-- BESIEGED
+HORDE_CAP = 5; -- Maximum Level the hordes can go up to.  Maximum is 8
+EVALUATIOIN_RATE = 180; -- Time in seconds for mini evaluations during besieged.
+TEMP_ITEMS = 0; -- Set to 1 to enable temp items given to players when besieged starts
+WIN_BUFFS = 0; -- Set to 1 to enable specific buffs given to players based on consecutive wins
+UNDEAD_RATE = 2; -- Multiplier for how quickly the forces build
