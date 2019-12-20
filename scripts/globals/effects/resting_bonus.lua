@@ -11,8 +11,8 @@ require("scripts/globals/status");
 -----------------------------------
 
 function onEffectGain(target,effect)
-    local bonus = player:getVar("RestExp")
-    target:PrintToServer("You are now receiving a resting bonus of "..bonus.."%", 0x1C);
+    local bonus = target:getVar("RestExp")
+    target:PrintToPlayer("You are now receiving a resting bonus of "..bonus.."%", 0x1C);
 end;
 
 -----------------------------------

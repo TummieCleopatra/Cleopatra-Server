@@ -26,7 +26,7 @@ function onEffectGain(target,effect)
         target:setVar("SignetBoost",10)
         modboost = 10
     else
-        target:serVar("SignetBoost",15)
+        target:setVar("SignetBoost",15)
         modboost = 15
     end
 
