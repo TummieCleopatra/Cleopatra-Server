@@ -17,5 +17,8 @@ function onItemCheck(target)
 end
 
 function onItemUse(target)
-    target:addExp(EXP_RATE * math.random(750,1500))
-end
+	local currencyrand = math.random(4,8);
+	
+	target:addItem(1449,currencyrand);
+	target:PrintToPlayer("You obtain "..currencyrand.." Tukuku Whiteshells.", 0x15);
+end;

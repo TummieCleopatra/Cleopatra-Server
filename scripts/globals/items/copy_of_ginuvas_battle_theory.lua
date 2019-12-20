@@ -17,5 +17,7 @@ function onItemCheck(target)
 end
 
 function onItemUse(target)
-    target:addExp(EXP_RATE * math.random(50,200))
-end
+	local currencyrand = math.random(4,8);
+	target:addItem(1452,currencyrand);
+    target:PrintToPlayer("You obtain "..currencyrand.." Ordelle Bronze Pieces.", 0x15);
+end;

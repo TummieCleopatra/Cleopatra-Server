@@ -20,7 +20,7 @@ end;
 function onEffectTick(target,effect)
  local duration = target:getStatusEffect(dsp.effect.DYNA_RESTRICTION):getTimeRemaining();
  local zone = target:getZoneID();
- target:PrintToPlayer(duration);
+ -- target:PrintToPlayer(duration);
  -- print(duration)
 
 
