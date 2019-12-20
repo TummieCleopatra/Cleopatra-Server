@@ -21498,8 +21498,12 @@ INSERT INTO `item_mods` VALUES (17759,9,4);
 INSERT INTO `item_mods` VALUES (17759,224,2);
 INSERT INTO `item_mods` VALUES (17760,11,2);
 INSERT INTO `item_mods` VALUES (17760,68,2);
+INSERT INTO `item_mods` VALUES (17761,366,6);
+INSERT INTO `item_mods` VALUES (17761,355,47);  -- RDM HA: Sanguine Blade
 INSERT INTO `item_mods` VALUES (17762,366,4);
+INSERT INTO `item_mods` VALUES (17762,355,47);  -- PLD HA: Sanguine Blade
 INSERT INTO `item_mods` VALUES (17763,366,6);
+INSERT INTO `item_mods` VALUES (17763,355,47);  -- BLU HA: Sanguine Blade
 INSERT INTO `item_mods` VALUES (17768,431,1);
 INSERT INTO `item_mods` VALUES (17770,431,1);
 INSERT INTO `item_mods` VALUES (17771,8,-1);
@@ -22429,6 +22433,7 @@ INSERT INTO `item_mods` VALUES (18500,384,100);
 INSERT INTO `item_mods` VALUES (18503,431,1);
 INSERT INTO `item_mods` VALUES (18504,11,4);
 INSERT INTO `item_mods` VALUES (18504,229,2);
+INSERT INTO `item_mods` VALUES (18505,355,91);  -- WAR HA: Fell Cleave
 INSERT INTO `item_mods` VALUES (18506,288,1);
 INSERT INTO `item_mods` VALUES (18509,288,1);
 INSERT INTO `item_mods` VALUES (18510,8,8);       -- Vermeil Bhuj: STR+8
@@ -22549,6 +22554,7 @@ INSERT INTO `item_mods` VALUES (18585,71,2);
 INSERT INTO `item_mods` VALUES (18585,72,2);
 INSERT INTO `item_mods` VALUES (18587,5,50);
 INSERT INTO `item_mods` VALUES (18587,374,10);
+INSERT INTO `item_mods` VALUES (18589,355,189);  -- BLM HA: Cataclysim
 INSERT INTO `item_mods` VALUES (18591,23,4);
 INSERT INTO `item_mods` VALUES (18593,2,-10);
 INSERT INTO `item_mods` VALUES (18593,12,10);
@@ -23071,6 +23077,8 @@ INSERT INTO `item_mods` VALUES (18759,289,3);
 INSERT INTO `item_mods` VALUES (18760,292,3);
 INSERT INTO `item_mods` VALUES (18761,73,1);      -- Acantha Shavers: "Store TP"+1
 INSERT INTO `item_mods` VALUES (18762,431,1);
+INSERT INTO `item_mods` VALUES (18764,355,13);  -- MNK HA: Tornado Kick
+INSERT INTO `item_mods` VALUES (18765,355,13);  -- PUP HA: Tornado Kick
 INSERT INTO `item_mods` VALUES (18769,8,1);
 INSERT INTO `item_mods` VALUES (18769,9,1);
 INSERT INTO `item_mods` VALUES (18770,25,4);
@@ -23242,6 +23250,7 @@ INSERT INTO `item_mods` VALUES (18866,10,-1);
 INSERT INTO `item_mods` VALUES (18867,5,15);
 INSERT INTO `item_mods` VALUES (18867,25,4);
 INSERT INTO `item_mods` VALUES (18870,366,3);
+INSERT INTO `item_mods` VALUES (18870,355,172);  -- WHM HA: Flash nova
 INSERT INTO `item_mods` VALUES (18873,2,36);
 INSERT INTO `item_mods` VALUES (18873,8,3);
 INSERT INTO `item_mods` VALUES (18873,10,3);
@@ -23364,6 +23373,7 @@ INSERT INTO `item_mods` VALUES (18952,161,-5);
 INSERT INTO `item_mods` VALUES (18953,2,12);
 INSERT INTO `item_mods` VALUES (18953,5,12);
 INSERT INTO `item_mods` VALUES (18953,431,1);
+INSERT INTO `item_mods` VALUES (18955,355,107);
 INSERT INTO `item_mods` VALUES (18957,392,8);     -- Smiting Scythe: "Weapon Bash"+8
 INSERT INTO `item_mods` VALUES (18960,392,10);    -- Smiting Scythe +1: "Weapon Bash"+10
 INSERT INTO `item_mods` VALUES (18964,9,3);
@@ -23707,8 +23717,11 @@ INSERT INTO `item_mods` VALUES (19113,227,2);
 INSERT INTO `item_mods` VALUES (19114,2,8);
 INSERT INTO `item_mods` VALUES (19114,10,2);
 INSERT INTO `item_mods` VALUES (19115,355,30);  -- HA Dagger
+INSERT INTO `item_mods` VALUES (19115,366,5);
 INSERT INTO `item_mods` VALUES (19116,355,30);  -- HA Dagger
+INSERT INTO `item_mods` VALUES (19116,366,3); 
 INSERT INTO `item_mods` VALUES (19117,355,30);  -- HA Dagger
+INSERT INTO `item_mods` VALUES (19117,366,6);  
 INSERT INTO `item_mods` VALUES (19119,26,6);
 INSERT INTO `item_mods` VALUES (19120,14,2);
 INSERT INTO `item_mods` VALUES (19121,23,3);
