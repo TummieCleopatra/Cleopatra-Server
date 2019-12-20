@@ -377,7 +377,7 @@ function onTrade(player,npc,trade)
     player:PrintToPlayer("Oboro : Thank you for the requested items. Come see me again when you are stronger.", 0xD);
     player:addItem(16680, 1, 45, 3);
     player:setVar("BSTAFweapon", 1);
-    player:messageSpecial(ID.text.ITEM_OBTAINED, 16880);
+    player:messageSpecial(ID.text.ITEM_OBTAINED, 16680);
 
   end
   if (job == 9) and (trade:hasItemQty(16680, 1)) and trade:hasItemQty( 1126, 30 ) and level >= 61 and (player:getVar("BSTAFweapon") == 1)  then
@@ -386,7 +386,7 @@ function onTrade(player,npc,trade)
     player:PrintToPlayer("Oboro : Thank you for the requested items. Come see me again when you are stronger.", 0xD);
     player:addItem(16680, 1, 45, 7, 43, 2);
     player:setVar("BSTAFweapon", 2);
-    player:messageSpecial(ID.text.ITEM_OBTAINED, 16880);
+    player:messageSpecial(ID.text.ITEM_OBTAINED, 16680);
 
   end
   if (job == 9) and (trade:hasItemQty(16680, 1)) and trade:hasItemQty( 1127, 15 ) and level >= 71 and (player:getVar("BSTAFweapon") == 2) then
@@ -395,7 +395,7 @@ function onTrade(player,npc,trade)
     player:PrintToPlayer("Oboro : Thank you for the requested items. Come see me again when you are stronger.", 0xD);
     player:addItem(16680, 1, 45, 11, 43, 4);
     player:setVar("BSTAFweapon", 3);
-    player:messageSpecial(ID.text.ITEM_OBTAINED, 16880);
+    player:messageSpecial(ID.text.ITEM_OBTAINED, 16680);
 
   end
 
