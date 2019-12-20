@@ -1462,7 +1462,7 @@ namespace battleutils
             {
                 if (PItem->getSkillType() == SKILL_ARCHERY) {
                     ratioCap = 3.25f + (float)dmgLimit;
-                    ShowWarning("This is a Ranged Attack, total is %f \n", ratioCap);
+                    //ShowWarning("This is a Ranged Attack, total is %f \n", ratioCap);
                 }
                 else if (PItem->getSkillType() == SKILL_MARKSMANSHIP) {
                     ratioCap = 3.50f + (float)dmgLimit;
@@ -2458,7 +2458,7 @@ namespace battleutils
                     case SKILL_GREAT_KATANA:
                     {
                        ratioCap = 3.50f + (float)dmgLimit;
-                       ShowWarning("The ratioCap is 3.50, total is %f \n", ratioCap);
+                       //ShowWarning("The ratioCap is 3.50, total is %f \n", ratioCap);
                     }
                     break;
                     case SKILL_GREAT_SWORD:
@@ -2513,7 +2513,7 @@ namespace battleutils
                     case SKILL_ARCHERY:
                     {
                         cRatio += 1.25;
-                        ShowWarning("marksmanship or throwing... crit +1.25 \n");
+                        //ShowWarning("marksmanship or throwing... crit +1.25 \n");
                     }
                     break;
                 }
@@ -2521,7 +2521,7 @@ namespace battleutils
             else if (auto weapon = dynamic_cast<CItemWeapon*>(PAttacker->m_Weapons[SLOT_MAIN]))
             {
                 cRatio += 1;
-                ShowWarning("Regular weapon... crit +1 \n");
+                //ShowWarning("Regular weapon... crit +1 \n");
             }
         }
 
