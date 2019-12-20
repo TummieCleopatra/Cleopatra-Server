@@ -1889,9 +1889,9 @@ INSERT INTO `mob_groups` VALUES (103,1492,48,'General_Gadalar',1,128,0,75000,100
 INSERT INTO `mob_groups` VALUES (104,1494,48,'General_Najelith',1,128,0,75000,0,83,83,1);
 INSERT INTO `mob_groups` VALUES (105,1496,48,'General_Zazarg',1,128,0,75000,0,83,83,1);
 INSERT INTO `mob_groups` VALUES (106,1493,48,'General_Mihli',1,128,0,75000,10000,83,83,1);
-INSERT INTO `mob_groups` VALUES (107,4251,48,'Volunteer',1,128,15000,0,0,76,76,1);
+INSERT INTO `mob_groups` VALUES (107,4251,48,'Volunteer',1,128,0,14000,0,76,76,1);
 INSERT INTO `mob_groups` VALUES (108,2068,48,'Imperial_Trooper',1,128,0,17000,0,78,78,1);
-INSERT INTO `mob_groups` VALUES (109,2064,48,'Immortal_Guard',1,128,0,17000,0,78,78,1);
+INSERT INTO `mob_groups` VALUES (109,2064,48,'Immortal_Guard',1,128,0,17000,17000,78,78,1);
 INSERT INTO `mob_groups` VALUES (110,3253,48,'Qiqirn_Freelance',1,128,0,13000,0,75,75,1);
 INSERT INTO `mob_groups` VALUES (111,3258,48,'Qiqirn_Mine',1,128,0,0,0,1,1,0);
 INSERT INTO `mob_groups` VALUES (112,1681,48,'Goblin_Lansquenet',0,128,0,0,0,75,80,0);

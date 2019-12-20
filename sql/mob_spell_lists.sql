@@ -2505,6 +2505,15 @@ INSERT INTO `mob_spell_lists` VALUES ('Dark_Ixion', 306, 165, 1, 255); -- Thunde
 INSERT INTO `mob_spell_lists` VALUES ('Dark_Ixion', 306, 194, 1, 255); -- Thundaga 
 INSERT INTO `mob_spell_lists` VALUES ('Dark_Ixion', 306, 212, 1, 255); -- Burst
 
+INSERT INTO `mob_spell_lists` VALUES ('Besieged_BLU',307,529,18,255); -- Bludgeon
+INSERT INTO `mob_spell_lists` VALUES ('Besieged_BLU',307,530,48,255); -- Refueling
+INSERT INTO `mob_spell_lists` VALUES ('Besieged_BLU',307,554,60,255); -- Death Scissors
+INSERT INTO `mob_spell_lists` VALUES ('Besieged_BLU',307,560,63,255); -- Frenetoc Rip
+INSERT INTO `mob_spell_lists` VALUES ('Besieged_BLU',307,589,60,255); -- Dimensional Death
+INSERT INTO `mob_spell_lists` VALUES ('Besieged_BLU',307,611,72,255); -- disseverment
+INSERT INTO `mob_spell_lists` VALUES ('Besieged_BLU',307,617,75,255); -- Vertical Cleave
+INSERT INTO `mob_spell_lists` VALUES ('Besieged_BLU',307,641,69,255); -- Hysteric Barrage
+
 /*!40000 ALTER TABLE `mob_spell_lists` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

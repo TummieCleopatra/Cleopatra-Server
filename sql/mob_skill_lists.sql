@@ -3399,3 +3399,9 @@ INSERT INTO `mob_skill_lists` VALUES ('Nargun',1005,677); -- Thunder Break
 INSERT INTO `mob_skill_lists` VALUES ('Ignamoth',1006,1952);
 INSERT INTO `mob_skill_lists` VALUES ('Ignamoth',1006,1956);
 INSERT INTO `mob_skill_lists` VALUES ('Ankabut',1007,704);
+
+INSERT INTO `mob_skill_lists` VALUES ('Besieged_BLU',1015,167);
+INSERT INTO `mob_skill_lists` VALUES ('Besieged_BLU',1015,169);
+INSERT INTO `mob_skill_lists` VALUES ('Besieged_Trooper',1016,40);
+INSERT INTO `mob_skill_lists` VALUES ('Besieged_Volunteer',1017,69);
+INSERT INTO `mob_skill_lists` VALUES ('Besieged_Volunteer',1017,72);

@@ -83,6 +83,10 @@ namespace conquest
         int t_besiegedStatus = 0;
         int u_besiegedStatus = 0;
         int undeadLvl = 0;
+		
+		//Hore Rate Multiplier
+		int u_rateMult = 1;
+		
         int32 besiegeStatus = 0;
         int32 ret = Sql_Query(SqlHandle, "SELECT value FROM server_variables WHERE name = '[BESIEGED]Undead_Swarm_LVL';");
 
@@ -103,6 +107,16 @@ namespace conquest
                 u_besiegedStatus = (int32)Sql_GetIntData(SqlHandle, 0);
             }
         }
+		
+        int32 urmult = Sql_Query(SqlHandle, "SELECT value FROM server_variables WHERE name = '[BESIEGED]Undead_Multiplier';");
+
+        if (urmult != SQL_ERROR && Sql_NumRows(SqlHandle) != 0)
+        {
+            while (Sql_NextRow(SqlHandle) == SQL_SUCCESS)
+            {
+                u_rateMult = (int8)Sql_GetIntData(SqlHandle, 0);
+            }
+        }		
 
         const char* Nquery = "SELECT id, mamool_ac, troll_ac, undead_ac, mamool_lvl, troll_lvl, \
                           undead_lvl, mamool_status, troll_status, undead_status, mamool_base_status, \
@@ -203,7 +217,7 @@ namespace conquest
                     ubforces = 0;
                     ustatus = 0;
                     ubstatus = 0;
-                    u_besiegedStatus = 10;
+                    u_besiegedStatus = 0;
 
                     //only write debug message to the zone that has besieged
                     if (PZone)
@@ -217,9 +231,17 @@ namespace conquest
                 }
 
 
-                int mforcerand = dsprand::GetRandomNumber(2,7);
-                int tforcerand = dsprand::GetRandomNumber(2,7);
-                int uforcerand = dsprand::GetRandomNumber(2,7);
+                int mforcerand = 0;
+                int tforcerand = 0;
+                int uforcerand = 0;
+				
+				if (PZone)
+				{
+	                mforcerand = dsprand::GetRandomNumber(2,7);
+                    tforcerand = dsprand::GetRandomNumber(2,7);
+                    uforcerand = dsprand::GetRandomNumber(6,17) * u_rateMult;				
+				}
+									
                 if (mstatus == 0 || mstatus == 5) {
                     mbforces = mbforces + mforcerand;
                     if (mbforces > (100 + (mlvl * 10))){
@@ -234,9 +256,9 @@ namespace conquest
                     }
                     //ShowDebug(CL_CYAN"Updating Troll Forces.  Forces are now at %u \n" CL_RESET, tbforces);
                 }
-                float growth = map_config.undead_swarm_growth;
-                if (ustatus == 0 || ustatus == 5) {
-                    ubforces = ubforces + (uforcerand * (uint8)growth);
+                //float growth = map_config.undead_swarm_growth;
+                if (ustatus == 0 || ustatus == 5) {				
+                    ubforces = ubforces + uforcerand;
                     if (ubforces > (100 + (ulvl * 10))){
                         ubforces = 100 + (ulvl * 10); // cap forces based on level.
                     }
@@ -250,20 +272,26 @@ namespace conquest
 
                 }
 
-                //Set Training ->Perparing
-                if ((mbforces) >= 100 && mstatus < 1) {
-                    //ShowDebug(CL_GREEN"Set Mamool from Training to Preparing \n" CL_RESET);
-                    mstatus = 5;
-                }
-                if ((tbforces) >= 100 && tstatus < 1) {
-                    //ShowDebug(CL_GREEN"Set Troll from Training to Preparing \n" CL_RESET);
-                    tstatus = 5;
-                }
-                if ((ubforces) >= 100 && ustatus < 1) {
-                    ShowDebug(CL_GREEN"Set Undead from Training to Preparing \n" CL_RESET);
-                    ustatus = 5;
-                }
-
+				
+                //Set Advance to Attack based on ticker
+                if (ustatus == 1) {
+                    ubstatus++;
+					if (PZone)
+					{
+                        ShowDebug(CL_GREEN"Undead March Counter is now %u \n" CL_RESET, ubstatus);
+					}
+                    if (ubstatus == 2) {
+                        ustatus = 2;
+						if (PZone)
+						{
+                            ShowDebug(CL_GREEN"Undead Swarm is now Attacking! \n" CL_RESET);
+						}
+                        //Sql_Query(SqlHandle, "REPLACE INTO server_variables (name,value) VALUES('[BESIEGED]Undead_Swarm_Status',%u);",ustatus); //set server var to attack status
+                        Sql_Query(SqlHandle, "UPDATE server_variables SET value = %d WHERE name = '[BESIEGED]Undead_Swarm_Status';", ustatus);
+                    }
+                    Sql_Query(SqlHandle, "UPDATE besiege_system SET undead_base_status = '%d' WHERE id = %d;", ubstatus, id);
+                }				
+								
                 //Set Preparing to Advance
                 if ((mbforces) >= 100 + (mlvl * 10) && mstatus == 5){
                     mstatus = 1;
@@ -275,30 +303,32 @@ namespace conquest
                     //ShowDebug(CL_GREEN"Set Troll from Preparing to March \n" CL_RESET);
                     t_besiegedStatus = 1;
                 }
-                if ((ubforces) >= (100 + (ulvl * 10)) && ustatus == 5){
+                if ((ubforces) >= (100 + (ulvl * 10)) && ustatus == 0){
                     ustatus = 1;
-                    ShowDebug(CL_GREEN"Set Undead from Preparing to March \n" CL_RESET);
-                    //Sql_Query(SqlHandle, "REPLACE INTO server_variables (name,value) VALUES('[BESIEGED]Undead_Swarm_Status',%u);",ustatus); //set server var to march status
-                    Sql_Query(SqlHandle, "UPDATE server_variables SET value = %d WHERE name = '[BESIEGED]Undead_Swarm_Status';", ustatus);
-                }
-
-
-
-                //Set Advance to Attack based on ticker
-                if (ustatus == 1) {
-                    ubstatus++;
-                    ShowDebug(CL_GREEN"Undead March Counter is now %u \n" CL_RESET, ubstatus);
-                    if (ubstatus == 2) {
-                        ustatus = 2;
-                        ShowDebug(CL_GREEN"Undead Swarm is now Attacking! \n" CL_RESET);
-                        //Sql_Query(SqlHandle, "REPLACE INTO server_variables (name,value) VALUES('[BESIEGED]Undead_Swarm_Status',%u);",ustatus); //set server var to attack status
-                        Sql_Query(SqlHandle, "UPDATE server_variables SET value = %d WHERE name = '[BESIEGED]Undead_Swarm_Status';", ustatus);
+					if (PZone)
+					{
+                        ShowDebug(CL_GREEN"Set Undead from Preparing to March \n" CL_RESET);
                     }
-                    Sql_Query(SqlHandle, "UPDATE besiege_system SET undead_base_status = '%d' WHERE id = %d;", ubstatus, id);
+					//Sql_Query(SqlHandle, "REPLACE INTO server_variables (name,value) VALUES('[BESIEGED]Undead_Swarm_Status',%u);",ustatus); //set server var to march status
+                    Sql_Query(SqlHandle, "UPDATE server_variables SET value = %d WHERE name = '[BESIEGED]Undead_Swarm_Status';", ustatus);
+                }				
+				
+                //Set Training ->Perparing
+                if ((mbforces) >= 100 && mstatus < 1) {
+                    //ShowDebug(CL_GREEN"Set Mamool from Training to Preparing \n" CL_RESET);
+                    mstatus = 5;
                 }
-
-
-
+                if ((tbforces) >= 100 && tstatus < 1) {
+                    //ShowDebug(CL_GREEN"Set Troll from Training to Preparing \n" CL_RESET);
+                    tstatus = 5;
+                }
+                if ((ubforces) >= 100 && ustatus < 1) {
+					if (PZone)
+					{
+                        ShowDebug(CL_GREEN"Undead is Preparing \n" CL_RESET);
+					}
+                    ustatus = 0;
+                }
 
                //Sql_Query(SqlHandle, "UPDATE besiege_system SET undead_base_status = '%d' WHERE id = %d;", ubstatus, id);
                Sql_Query(SqlHandle, "UPDATE besiege_system SET mamool_lvl = %d, troll_lvl = %d, undead_lvl = %d, mamool_status = %d, troll_status = %d, undead_status = %d, mamool_base_forces = %u, troll_base_forces = %u, undead_base_forces = %u WHERE id = '1';", mlvl, tlvl, ulvl, mstatus, tstatus, ustatus, mbforces, tbforces, ubforces);
@@ -317,7 +347,7 @@ namespace conquest
 
         std::string Query = "SELECT sandoria_influence, bastok_influence, windurst_influence, beastmen_influence FROM conquest_system WHERE region_id = %d;";
 
-        int ret = Sql_Query(SqlHandle, Query.c_str(), region);
+        int ret = Sql_Query(SqlHandle, Query.c_str(), static_cast<uint8>(region));
 
         if (ret == SQL_ERROR || Sql_NextRow(SqlHandle) != SQL_SUCCESS)
         {

@@ -21,4 +21,7 @@ end
 
 function onMobDeath(mob, player, isKiller)
     npcDeathCount(mob)
+	local count = GetServerVariable("[BESIEGED]General_Dead")
+	count = count + 1
+	SetServerVariable("[BESIEGED]General_Dead",count)	
 end

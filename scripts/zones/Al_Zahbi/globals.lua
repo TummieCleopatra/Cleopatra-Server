@@ -170,7 +170,6 @@ AL_ZAHBI = {
 }
 
 function mobStop(mob,randPath)
-    --[[
     if (randPath == 1) then
         mob:setSpawn(59, 0, 119,180)
     elseif (randPath == 2) then
@@ -187,8 +186,10 @@ function mobStop(mob,randPath)
         mob:setSpawn(74, 0, 46,180)
     elseif (randPath == 8) then
         mob:setSpawn(86,0,37,180)
-    end]]--
-    mob:setSpawn(-79, 2, 84)
+    end
+    local mobid = mob:getID()
+    printf("<%u> Has spawned with a path of %u",mobid,randPath)
+    -- mob:setSpawn(-79, 2, 84)
     mob:setRespawnTime(0)
 end
 

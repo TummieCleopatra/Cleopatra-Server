@@ -798,7 +798,7 @@ function calculateMagicBurst(caster, spell, target, params)
     local dmgBonus = 1
 
     if (spell:getID() >= 204 and spell:getID() <= 215 and caster:getObjType() == dsp.objType.PC) then
-        dmgBonus = 1 + (caster:getMerit(dsp.merit.ANCIENT_MDB) / 100)
+        dmgBonus = 1 + (caster:getMerit(dsp.merit.ANCIENT_MBD) / 100)
     end
 
     burst = burst * dmgBonus

@@ -123,9 +123,10 @@ zones[dsp.zone.AL_ZAHBI] =
             },
             [2] =
             {
-                npc_start = 16974342,
-                  npc_end = 16974377,
+                npc_start = 16974357,
+                 npc_end = 16974377,
             },
+
         },
     },
 }

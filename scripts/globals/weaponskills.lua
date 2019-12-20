@@ -14,6 +14,7 @@ require("scripts/globals/status")
 require("scripts/globals/magic")
 require("scripts/globals/utils")
 require("scripts/globals/msg")
+require("scripts/globals/besieged_points");
 
 -- params contains: ftp100, ftp200, ftp300, str_wsc, dex_wsc, vit_wsc, int_wsc, mnd_wsc, canCrit, crit100, crit200, crit300, acc100, acc200, acc300, ignoresDef, ignore100, ignore200, ignore300, atk100, atk200, atk300, kick
 function doPhysicalWeaponskill(attacker, target, wsID, tp, primary, action, taChar, params)
@@ -264,6 +265,11 @@ function doPhysicalWeaponskill(attacker, target, wsID, tp, primary, action, taCh
 
     attacker:delStatusEffectSilent(dsp.effect.BUILDING_FLOURISH)
     finaldmg = finaldmg * WEAPON_SKILL_POWER
+	
+	if (attacker:getObjType() == dsp.objType.PC and attacker:hasStatusEffect(dsp.effect.BESIEGED)) then
+        wsPoints(attacker,finaldmg)
+    end
+	
     finaldmg = takeWeaponskillDamage(target, attacker, params, primary, finaldmg, dsp.attackType.PHYSICAL, damageType, dsp.slot.MAIN, tpHitsLanded, extraHitsLanded, shadowsAbsorbed, bonusTP, action, taChar)
     return finaldmg, criticalHit, tpHitsLanded, extraHitsLanded
 end
@@ -319,6 +325,13 @@ function doMagicWeaponskill(attacker, target, wsID, tp, primary, action, params)
     else
         shadowsAbsorbed = shadowsAbsorbed + 1
     end
+	
+	local finaldmg = dmg
+	
+	if (attacker:getObjType() == dsp.objType.PC and attacker:hasStatusEffect(dsp.effect.BESIEGED)) then
+        wsPoints(attacker,finaldmg)
+    end	
+	
     damageType = dsp.damageType.ELEMENTAL + params.ele
     dmg = takeWeaponskillDamage(target, attacker, params, primary, dmg, dsp.attackType.MAGICAL, damageType, dsp.slot.MAIN, 1, 0, shadowsAbsorbed, bonusTP, action, nil)
     return dmg, false, 1, 0
@@ -885,6 +898,11 @@ end
     finaldmg = finaldmg * target:getMod(dsp.mod.PIERCERES) / 1000
 
     finaldmg = finaldmg * WEAPON_SKILL_POWER
+	
+	if (attacker:getObjType() == dsp.objType.PC and attacker:hasStatusEffect(dsp.effect.BESIEGED)) then
+        wsPoints(attacker,finaldmg)
+    end	
+	
     finaldmg = takeWeaponskillDamage(target, attacker, params, primary, finaldmg, dsp.attackType.RANGED, attacker:getWeaponDamageType(dsp.slot.RANGED), dsp.slot.RANGED, tpHitsLanded, extraHitsLanded, shadowsAbsorbed, bonusTP, action, nil)
     return finaldmg, crit, tpHitsLanded, extraHitsLanded, shadowsAbsorbed
 end

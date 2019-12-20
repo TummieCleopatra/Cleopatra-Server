@@ -21,6 +21,7 @@ function onMobSpawn(mob)
     mob:setMobMod(dsp.mobMod.ROAM_DISTANCE,999)
 end
 function onMobRoam(mob)
+    -- printf("Try roaming??")
     mobAggroNpc(mob)
     enemyRoam(mob)
 end
@@ -31,6 +32,7 @@ function onMobDisengage(mob)
 end
 
 function onPath(mob)
+    -- printf("Enemy Path??")
     enemyPath(mob)
 end;
 
