@@ -4,6 +4,7 @@
 -- Geo-Torpor
 -----------------------------------
 require("scripts/globals/status");
+local ID = require("scripts/zones/Xarcabard/IDs");
 -----------------------------------
 
 function onTrigger(player,npc)
@@ -26,3 +27,11 @@ function onTrigger(player,npc)
         player:addSpell(spellID + 30)
     end
 end;
+
+function onTrade(player,npc,trade)
+    if (trade:hasItemQty(2810,1) and player:getVar("GEO_AF") == 4 and player:getVar("GEO_AF_ACCEPTED") == 1) then
+        player:PrintToPlayer("You sense a strong feeling of malice nearby...you should probably check the Resevoir", 0x1F);
+        player:setVar("GEO_AF_FIGHT_HEAD",1)
+        player:tradeComplete()
+    end
+end

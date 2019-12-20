@@ -4,11 +4,14 @@
 -- Geo-Fury
 -----------------------------------
 require("scripts/globals/status");
+local ID = require("scripts/zones/Beaucedine_Glacier/IDs");
 -----------------------------------
 
 function onTrigger(player,npc)
     local lvl = 38
     local spellID = 779
+	
+    local FreeSlots = player:getFreeSlotsCount()
 
     if (player:getVar("GEO_AF_FIGHT_BODY") == 1) then
         SpawnMob(17232319):updateEnmity(player) -- Spawns Malevolent Gefryst

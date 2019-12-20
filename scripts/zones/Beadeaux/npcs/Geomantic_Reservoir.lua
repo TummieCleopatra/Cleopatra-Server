@@ -5,11 +5,14 @@
 -- !pos 162,-3,38
 -----------------------------------
 require("scripts/globals/status");
+local ID = require("scripts/zones/Beadeaux/IDs");
 -----------------------------------
 
 function onTrigger(player,npc)
     local lvl = 52
     local spellID = 795
+	
+	local FreeSlots = player:getFreeSlotsCount()
     if (player:getVar("GEO_AF_FIGHT_LEGS") == 1) then
         SpawnMob(17379873):updateEnmity(player) -- Spawns Malevolent Gefryst
 
