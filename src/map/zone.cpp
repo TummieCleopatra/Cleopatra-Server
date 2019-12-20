@@ -585,7 +585,7 @@ void CZone::DecreaseZoneCounter(CCharEntity* PChar)
 {
     m_zoneEntities->DecreaseZoneCounter(PChar);
 
-    if (ZoneTimer && m_zoneEntities->CharListEmpty())
+    if (ZoneTimer && m_zoneEntities->CharListEmpty() &&  m_zoneID != 48)
     {
         ZoneTimer->m_type = CTaskMgr::TASK_REMOVE;
         ZoneTimer = nullptr;
