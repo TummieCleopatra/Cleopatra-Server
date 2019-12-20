@@ -683,6 +683,11 @@ void SetupJob(CMobEntity* PMob)
             {
                 PMob->defaultMobMod(MOBMOD_SPECIAL_SKILL, 1388);
             }
+			else if (PMob->m_Pool == 1494)
+			{
+			    PMob->defaultMobMod(MOBMOD_SPECIAL_COOL, 12);
+			    PMob->defaultMobMod(MOBMOD_SPECIAL_SKILL, 1202);
+			}			
             else
             {
                 // All other rangers
