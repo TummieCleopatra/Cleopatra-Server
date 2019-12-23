@@ -22,19 +22,19 @@ local qm3 = GetNPCByID(17547512);
 if (GetMobAction(17547486) == 0 and trade:hasItemQty(3356,1) and trade:hasItemQty(3853,3)) then
 	player:setVar("DynaWeakener",3);
 	SpawnMob(17547486):updateClaim(player);
-    qm3:setStatus(STATUS_DISAPPEAR);
+    qm3:setStatus(dsp.status.DISAPPEAR);
 elseif (GetMobAction(17547486) == 0 and trade:hasItemQty(3356,1) and trade:hasItemQty(3853,2)) then
 	player:setVar("DynaWeakener",2);
 	SpawnMob(17547486):updateClaim(player);
-	qm3:setStatus(STATUS_DISAPPEAR);
+	qm3:setStatus(dsp.status.DISAPPEAR);
 elseif (GetMobAction(17547486) == 0 and trade:hasItemQty(3356,1) and trade:hasItemQty(3853,1)) then
 	player:setVar("DynaWeakener",1);
 	SpawnMob(17547486):updateClaim(player);
-	qm3:setStatus(STATUS_DISAPPEAR);
+	qm3:setStatus(dsp.status.DISAPPEAR);
 elseif (GetMobAction(17547486) == 0 and trade:hasItemQty(3356,1)) then
 player:setVar("DynaWeakener",0);
 	SpawnMob(17547486):updateClaim(player);
-	qm3:setStatus(STATUS_DISAPPEAR);
+	qm3:setStatus(dsp.status.DISAPPEAR);
 end	
 
 -- Scaleskin
@@ -42,19 +42,19 @@ end
 if (GetMobAction(17547496) == 0 and trade:hasItemQty(3422,1) and trade:hasItemQty(3853,3)) then
 	player:setVar("DynaWeakener",3);
 	SpawnMob(17547496):updateClaim(player);
-	qm3:setStatus(STATUS_DISAPPEAR);
+	qm3:setStatus(dsp.status.DISAPPEAR);
 elseif (GetMobAction(17547496) == 0 and trade:hasItemQty(3422,1) and trade:hasItemQty(3853,2)) then
 	player:setVar("DynaWeakener",2);
 	SpawnMob(17547496):updateClaim(player);
-	qm3:setStatus(STATUS_DISAPPEAR);
+	qm3:setStatus(dsp.status.DISAPPEAR);
 elseif (GetMobAction(17547496) == 0 and trade:hasItemQty(3422,1) and trade:hasItemQty(3853,1)) then
 	player:setVar("DynaWeakener",1);
 	SpawnMob(17547496):updateClaim(player);
-	qm3:setStatus(STATUS_DISAPPEAR);
+	qm3:setStatus(dsp.status.DISAPPEAR);
 elseif (GetMobAction(17547496) == 0 and trade:hasItemQty(3422,1)) then
 player:setVar("DynaWeakener",0);
 	SpawnMob(17547496):updateClaim(player);
-	qm3:setStatus(STATUS_DISAPPEAR);
+	qm3:setStatus(dsp.status.DISAPPEAR);
 end
 end;
 

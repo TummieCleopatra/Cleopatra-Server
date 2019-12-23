@@ -20,19 +20,19 @@ local qm2 = GetNPCByID(17547511);
 if (GetMobAction(17547291) == 0 and trade:hasItemQty(3356,1) and trade:hasItemQty(3853,3)) then
 	player:setVar("DynaWeakener",3);
 	SpawnMob(17547291):updateClaim(player);
-    qm2:setStatus(STATUS_DISAPPEAR);
+    qm2:setStatus(dsp.status.DISAPPEAR);
 elseif (GetMobAction(17547291) == 0 and trade:hasItemQty(3356,1) and trade:hasItemQty(3853,2)) then
 	player:setVar("DynaWeakener",2);
 	SpawnMob(17547291):updateClaim(player);
-	qm2:setStatus(STATUS_DISAPPEAR);
+	qm2:setStatus(dsp.status.DISAPPEAR);
 elseif (GetMobAction(17547291) == 0 and trade:hasItemQty(3356,1) and trade:hasItemQty(3853,1)) then
 	player:setVar("DynaWeakener",1);
 	SpawnMob(17547291):updateClaim(player);
-	qm2:setStatus(STATUS_DISAPPEAR);
+	qm2:setStatus(dsp.status.DISAPPEAR);
 elseif (GetMobAction(17547291) == 0 and trade:hasItemQty(3356,1)) then
 player:setVar("DynaWeakener",0);
 	SpawnMob(17547291):updateClaim(player);
-	qm2:setStatus(STATUS_DISAPPEAR);
+	qm2:setStatus(dsp.status.DISAPPEAR);
 end	
 
 -- Honey lips
@@ -40,19 +40,19 @@ end
 if (GetMobAction(17547494) == 0 and trade:hasItemQty(3421,1) and trade:hasItemQty(3853,3)) then
 	player:setVar("DynaWeakener",3);
 	SpawnMob(17547494):updateClaim(player);
-	qm2:setStatus(STATUS_DISAPPEAR);
+	qm2:setStatus(dsp.status.DISAPPEAR);
 elseif (GetMobAction(17547494) == 0 and trade:hasItemQty(3421,1) and trade:hasItemQty(3853,2)) then
 	player:setVar("DynaWeakener",2);
 	SpawnMob(17547494):updateClaim(player);
-	qm2:setStatus(STATUS_DISAPPEAR);
+	qm2:setStatus(dsp.status.DISAPPEAR);
 elseif (GetMobAction(17547494) == 0 and trade:hasItemQty(3421,1) and trade:hasItemQty(3853,1)) then
 	player:setVar("DynaWeakener",1);
 	SpawnMob(17547494):updateClaim(player);
-	qm2:setStatus(STATUS_DISAPPEAR);
+	qm2:setStatus(dsp.status.DISAPPEAR);
 elseif (GetMobAction(17547494) == 0 and trade:hasItemQty(3421,1)) then
 player:setVar("DynaWeakener",0);
 	SpawnMob(17547494):updateClaim(player);
-	qm2:setStatus(STATUS_DISAPPEAR);
+	qm2:setStatus(dsp.status.DISAPPEAR);
 end
 end;
 

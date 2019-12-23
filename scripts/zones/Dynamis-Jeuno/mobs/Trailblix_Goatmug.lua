@@ -89,7 +89,7 @@ end;
 function onMobDeath(mob,player)
 player:setVar("DynaWeakener",0);
 local qm1 = GetNPCByID(17547510);
-qm1:setStatus(STATUS_NORMAL);
+qm1:setStatus(dsp.status.NORMAL);
 	
 
 end;
@@ -98,6 +98,6 @@ end;
 function onMobDespawn( mob )
 local qm1 = GetNPCByID(17547510);
 
-qm1:setStatus(STATUS_NORMAL);
+qm1:setStatus(dsp.status.NORMAL);
 
 end

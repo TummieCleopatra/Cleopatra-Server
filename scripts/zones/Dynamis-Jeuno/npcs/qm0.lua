@@ -42,32 +42,32 @@ end
 if (GetMobAction(17547265) == 0 and trade:hasItemQty(3420,1)) and trade:hasItemQty(3421,1) and trade:hasItemQty(3422,1) and trade:hasItemQty(3423,1) and player:hasKeyItem(dsp.ki.ALABASTER_GRANULES_OF_TIME) then
 	player:setVar("DynaWeakener",4);
 	SpawnMob(17547265):updateClaim(player);
-	qm0:setStatus(STATUS_DISAPPEAR);
+	qm0:setStatus(dsp.status.DISAPPEAR);
 	player:delKeyItem(dsp.ki.ALABASTER_GRANULES_OF_TIME);
 	player:tradeComplete();
 elseif (GetMobAction(17547265) == 0 and trade:hasItemQty(3420,1)) and trade:hasItemQty(3421,1) and trade:hasItemQty(3422,1) and trade:hasItemQty(3423,1) and player:hasKeyItem(dsp.ki.AMBER_GRANULES_OF_TIME) then
 	player:setVar("DynaWeakener",2);
 	SpawnMob(17547265):updateClaim(player);
-	qm0:setStatus(STATUS_DISAPPEAR);	
+	qm0:setStatus(dsp.status.DISAPPEAR);	
     player:delKeyItem(dsp.ki.AMBER_GRANULES_OF_TIME);
 	player:tradeComplete();
 elseif (GetMobAction(17547265) == 0 and trade:hasItemQty(3420,1)) and trade:hasItemQty(3421,1) and trade:hasItemQty(3422,1) and trade:hasItemQty(3423,1) and player:hasKeyItem(dsp.ki.AZURE_GRANULES_OF_TIME) then
 	player:setVar("DynaWeakener",2);
 	SpawnMob(17547265):updateClaim(player);
-	qm0:setStatus(STATUS_DISAPPEAR);	
+	qm0:setStatus(dsp.status.DISAPPEAR);	
 	player:delKeyItem(dsp.ki.AZURE_GRANULES_OF_TIME);
 	player:tradeComplete();
 elseif (GetMobAction(17547265) == 0 and trade:hasItemQty(3420,1)) and trade:hasItemQty(3421,1) and trade:hasItemQty(3422,1) and trade:hasItemQty(3423,1) and player:hasKeyItem(dsp.ki.CRIMSON_GRANULES_OF_TIME) then
     player:setVar("DynaWeakener",1);
 	SpawnMob(17547265):updateClaim(player);
-	qm0:setStatus(STATUS_DISAPPEAR);	
+	qm0:setStatus(dsp.status.DISAPPEAR);	
 	player:delKeyItem(dsp.ki.CRIMSON_GRANULES_OF_TIME);
     player:tradeComplete();	
 elseif (GetMobAction(17547265) == 0 and trade:hasItemQty(3420,1)) and trade:hasItemQty(3421,1) and trade:hasItemQty(3422,1) and trade:hasItemQty(3423,1) then
     player:setVar("DynaWeakener",0);
     player:tradeComplete();
 	SpawnMob(17547265):updateClaim(player);	
-	qm0:setStatus(STATUS_DISAPPEAR);	
+	qm0:setStatus(dsp.status.DISAPPEAR);	
 end	
 
 end;
