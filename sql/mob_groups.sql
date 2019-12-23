@@ -10434,26 +10434,26 @@ INSERT INTO `mob_groups` VALUES (39,3076,185,'MegaBoss',0,128,5038,25400,0,80,80
 
 -- Bastok
 INSERT INTO `mob_groups` VALUES (1,1855,186,'Gu_Dha_Effigy',0,128,4472,12500,12500,85,85,0);
-INSERT INTO `mob_groups` VALUES (2,4197,186,'Vanguard_Vindicator',0,128,3975,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (3,4163,186,'Vanguard_Militant',0,128,3835,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (4,4139,186,'Vanguard_Beasttender',0,128,3721,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (5,4188,186,'Vanguard_s_Scorpion',0,128,0,2400,0,72,74,0);
-INSERT INTO `mob_groups` VALUES (6,4191,186,'Vanguard_Thaumaturge',0,128,3945,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (7,4177,186,'Vanguard_Protector',0,128,3905,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (8,4178,186,'Vanguard_Purloiner',0,128,3910,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (9,4196,186,'Vanguard_Vigilante',0,128,3970,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (10,4143,186,'Vanguard_Defender',0,128,3741,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (11,4142,186,'Vanguard_Constable',0,128,3736,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (12,4153,186,'Vanguard_Hatamoto',0,128,3785,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (13,4158,186,'Vanguard_Kusa',0,128,3810,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (14,4146,186,'Vanguard_Drakekeeper',0,128,3752,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (15,4190,186,'Vanguard_s_Wyvern',0,128,0,2400,0,72,74,0);
-INSERT INTO `mob_groups` VALUES (16,4164,186,'Vanguard_Minstrel',0,128,3840,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (17,4161,186,'Vanguard_Mason',0,128,3825,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (18,4194,186,'Vanguard_Undertaker',0,128,3960,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (19,4185,186,'Vanguard_s_Avatar',0,128,0,2400,0,72,74,0);
-INSERT INTO `mob_groups` VALUES (20,43,186,'Adamantking_Effigy',0,128,23,1000,1000,77,79,0);
-INSERT INTO `mob_groups` VALUES (21,43,186,'Adamantking_Effigy',0,128,23,1000,1000,77,79,0);
+INSERT INTO `mob_groups` VALUES (2,4197,186,'Vanguard_Vindicator',330,0,4995,4000,0,72,74,0);
+INSERT INTO `mob_groups` VALUES (3,4163,186,'Vanguard_Militant',330,0,4995,4000,0,72,74,0);
+INSERT INTO `mob_groups` VALUES (4,4139,186,'Vanguard_Beasttender',330,0,4995,4000,0,72,74,0);
+INSERT INTO `mob_groups` VALUES (5,4188,186,'Vanguard_s_Scorpion',330,0,0,2400,0,72,74,0);
+INSERT INTO `mob_groups` VALUES (6,4191,186,'Vanguard_Thaumaturge',330,0,4995,4000,0,72,74,0);
+INSERT INTO `mob_groups` VALUES (7,4177,186,'Vanguard_Protector',330,0,4995,4000,0,72,74,0);
+INSERT INTO `mob_groups` VALUES (8,4178,186,'Vanguard_Purloiner',330,0,4995,4000,0,72,74,0);
+INSERT INTO `mob_groups` VALUES (9,4196,186,'Vanguard_Vigilante',330,0,4995,4000,0,72,74,0);
+INSERT INTO `mob_groups` VALUES (10,4143,186,'Vanguard_Defender',330,0,4995,4000,0,72,74,0);
+INSERT INTO `mob_groups` VALUES (11,4142,186,'Vanguard_Constable',330,0,4995,4000,0,72,74,0);
+INSERT INTO `mob_groups` VALUES (12,4153,186,'Vanguard_Hatamoto',330,0,4995,4000,0,72,74,0);
+INSERT INTO `mob_groups` VALUES (13,4158,186,'Vanguard_Kusa',330,0,4995,4000,0,72,74,0);
+INSERT INTO `mob_groups` VALUES (14,4146,186,'Vanguard_Drakekeeper',330,0,4995,4000,0,72,74,0);
+INSERT INTO `mob_groups` VALUES (15,4190,186,'Vanguard_s_Wyvern',330,0,0,2400,0,72,74,0);
+INSERT INTO `mob_groups` VALUES (16,4164,186,'Vanguard_Minstrel',330,0,4995,4000,0,72,74,0);
+INSERT INTO `mob_groups` VALUES (17,4161,186,'Vanguard_Mason',330,0,4995,4000,0,72,74,0);
+INSERT INTO `mob_groups` VALUES (18,4194,186,'Vanguard_Undertaker',330,0,4995,4000,0,72,74,0);
+INSERT INTO `mob_groups` VALUES (19,4185,186,'Vanguard_s_Avatar',330,0,0,2400,0,72,74,0);
+INSERT INTO `mob_groups` VALUES (20,43,186,'Adamantking_Effigy',0,128,23,1000,1000,72,74,0);
+INSERT INTO `mob_groups` VALUES (21,43,186,'Adamantking_Effigy',0,128,23,1000,1000,72,74,0);
 INSERT INTO `mob_groups` VALUES (22,1859,186,'Gu_Nhi_Noondozer',0,128,4473,8000,0,78,80,0);
 INSERT INTO `mob_groups` VALUES (23,4499,186,'Ze_Vho_Fallsplitter',0,128,4473,8000,0,78,80,0);
 INSERT INTO `mob_groups` VALUES (24,1614,186,'Gi_Pha_Manameister',0,128,4473,8000,0,78,80,0);
@@ -10482,39 +10482,13 @@ INSERT INTO `mob_groups` VALUES (42,1855,186,'MegaBoss',0,128,5025,25400,0,80,80
 
 
 
+
+-- Dynamis Windurst
 INSERT INTO `mob_groups` VALUES (9404,400,186,'Be_Ebo_Tortoisedriver',0,128,4473,8000,0,78,80,0);
 INSERT INTO `mob_groups` VALUES (9405,1179,186,'Effigy_Shield',0,128,843,5500,0,80,80,0);
 INSERT INTO `mob_groups` VALUES (1,4070,187,'Tzee_Xicu_Idol',0,128,3644,12500,12500,85,85,0);
 INSERT INTO `mob_groups` VALUES (2,2464,187,'Maa_Febi_the_Steadfast',0,128,2107,8000,0,78,80,0);
 INSERT INTO `mob_groups` VALUES (3,2777,187,'Muu_Febi_the_Steadfast',0,128,2398,8000,0,78,80,0);
-INSERT INTO `mob_groups` VALUES (4,4183,187,'Vanguard_Skirmisher',0,128,3935,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (5,4176,187,'Vanguard_Priest',0,128,3900,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (6,4175,187,'Vanguard_Prelate',0,128,3895,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (7,4141,187,'Vanguard_Chanter',0,128,3731,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (8,4181,187,'Vanguard_Sentinel',0,128,3925,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (9,4198,187,'Vanguard_Visionary',0,128,3980,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (10,4159,187,'Vanguard_Liberator',0,128,3815,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (11,4157,187,'Vanguard_Inciter',0,128,3805,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (12,4148,187,'Vanguard_Exemplar',0,128,3762,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (13,4180,187,'Vanguard_Salvager',0,128,3920,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (14,4167,187,'Vanguard_Ogresoother',0,128,3855,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (15,4186,187,'Vanguard_s_Crow',0,128,0,2400,0,72,74,0);
-INSERT INTO `mob_groups` VALUES (16,4171,187,'Vanguard_Persecutor',0,128,3875,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (17,4137,187,'Vanguard_Assassin',0,128,3711,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (18,4169,187,'Vanguard_Partisan',0,128,3865,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (19,4190,187,'Vanguard_s_Wyvern',0,128,0,2400,0,72,74,0);
-INSERT INTO `mob_groups` VALUES (20,4168,187,'Vanguard_Oracle',0,128,3860,4000,0,77,79,0);
-INSERT INTO `mob_groups` VALUES (21,4185,187,'Vanguard_s_Avatar',0,128,0,2400,0,72,74,0);
-INSERT INTO `mob_groups` VALUES (22,295,187,'Avatar_Idol',0,128,211,1000,1000,78,80,0);
-INSERT INTO `mob_groups` VALUES (23,294,187,'Avatar_Icon',0,128,210,1000,1000,77,79,0);
-INSERT INTO `mob_groups` VALUES (24,1864,187,'Haa_Pevi_the_Stentorian',0,128,1617,8000,0,78,80,0);
-INSERT INTO `mob_groups` VALUES (25,2437,187,'Loo_Hepe_the_Eyepiercer',0,128,2077,8000,0,78,80,0);
-INSERT INTO `mob_groups` VALUES (26,4384,187,'Wuu_Qoho_the_Razorclaw',0,128,4195,8000,0,78,80,0);
-INSERT INTO `mob_groups` VALUES (27,4399,187,'Xoo_Kaza_the_Solemn',0,128,4206,8000,0,78,80,0);
-INSERT INTO `mob_groups` VALUES (9434,2550,187,'Avatar_Icon',0,128,2193,1000,1000,77,79,0);
-
--- Dynamis Windurst
-
 INSERT INTO `mob_groups` VALUES (4,4183,187,'Vanguard Skirmisher',330,0,4996,4000,0,72,74,0);
 INSERT INTO `mob_groups` VALUES (5,4176,187,'Vanguard Priest',330,0,4996,4000,2000,72,74,0);
 INSERT INTO `mob_groups` VALUES (6,4175,187,'Vanguard Prelate',330,0,4996,4000,2000,72,74,0);
@@ -10535,6 +10509,10 @@ INSERT INTO `mob_groups` VALUES (20,4168,187,'Vanguard Oracle',330,0,4996,4000,2
 INSERT INTO `mob_groups` VALUES (21,4185,187,'Vanguard\'s Avatar',330,0,4996,2400,0,68,70,0);
 INSERT INTO `mob_groups` VALUES (22,295,187,'Avatar Idol',330,0,4996,4000,0,72,74,0);
 INSERT INTO `mob_groups` VALUES (23,294,187,'Avatar Icon',330,0,4996,4000,0,72,74,0);
+INSERT INTO `mob_groups` VALUES (24,1864,187,'Haa_Pevi_the_Stentorian',0,128,1617,8000,0,78,80,0);
+INSERT INTO `mob_groups` VALUES (25,2437,187,'Loo_Hepe_the_Eyepiercer',0,128,2077,8000,0,78,80,0);
+INSERT INTO `mob_groups` VALUES (26,4384,187,'Wuu_Qoho_the_Razorclaw',0,128,4195,8000,0,78,80,0);
+INSERT INTO `mob_groups` VALUES (27,4399,187,'Xoo_Kaza_the_Solemn',0,128,4206,8000,0,78,80,0);
 INSERT INTO `mob_groups` VALUES (30,8000,187,'Mandragora',330,0,5000,2900,0,62,64,0);
 INSERT INTO `mob_groups` VALUES (31,8001,187,'Crawler',330,0,5001,3100,0,62,64,0);
 INSERT INTO `mob_groups` VALUES (32,8002,187,'Bees',330,0,5002,2800,0,62,64,0);
@@ -10548,6 +10526,7 @@ INSERT INTO `mob_groups` VALUES (39,8009,187,'NM13',0,128,5009,8400,0,80,80,0);
 INSERT INTO `mob_groups` VALUES (40,8010,187,'NM14',0,128,5010,8400,0,80,80,0);
 INSERT INTO `mob_groups` VALUES (41,8011,187,'NM15',0,128,5011,8400,0,80,80,0);
 INSERT INTO `mob_groups` VALUES (42,4070,187,'Mega Boss',0,128,5012,25000,0,80,80,0);
+INSERT INTO `mob_groups` VALUES (9434,2550,187,'Avatar_Icon',0,128,2193,1000,1000,77,79,0);
 
 
 

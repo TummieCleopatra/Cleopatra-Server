@@ -33083,7 +33083,9 @@ INSERT INTO `mob_droplist` VALUES (4803,0,0,1000,3541,182); -- (Aura Sculpture) 
 INSERT INTO `mob_droplist` VALUES (4803,0,0,1000,955,30); -- (Aura Sculpture) Golem shard
 INSERT INTO `mob_droplist` VALUES (4803,0,0,1000,3543,91); -- (Aura Sculpture) Fossilized fang
 
+INSERT INTO `mob_droplist` VALUES (4995,0,0,1000,3354,300); -- Divine Bijou Windurst
 INSERT INTO `mob_droplist` VALUES (4996,0,0,1000,3355,300); -- Divine Bijou Windurst
+
 -- Mandragora
 INSERT INTO `mob_droplist` VALUES (5000,0,0,1000,1449,850); -- T Whiteshell
 INSERT INTO `mob_droplist` VALUES (5000,0,0,1000,1449,850); -- T Whiteshell
