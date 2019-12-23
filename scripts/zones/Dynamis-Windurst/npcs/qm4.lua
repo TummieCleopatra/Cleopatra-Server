@@ -5,7 +5,7 @@
 --        Spawns Solemn with Chapter 15 which drops Odious Quipus
 -- Dispalcers weaken the mob
 -----------------------------------
-package.loaded["scripts/zones/Dynamis-Windurst/TextIDs"] = nil;
+
 -----------------------------------
 
 require("scripts/globals/keyitems");

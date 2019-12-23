@@ -5,7 +5,7 @@
 --        Spawns Stentorian with Chapter 12 which drops Odious Necklace
 -- Dispalcers weaken the mob
 -----------------------------------
-package.loaded["scripts/zones/Dynamis-Windurst/TextIDs"] = nil;
+
 -----------------------------------
 
 require("scripts/globals/keyitems");
@@ -38,7 +38,7 @@ elseif (GetMobAction(17543464) == 0 and trade:hasItemQty(3355,1)) then
     player:setVar("DynaWeakener",0);
     player:tradeComplete();
 	SpawnMob(17543464):updateClaim(player);
-end	
+end
 
 
 if (GetMobAction(17543294) == 0 and trade:hasItemQty(3415,1) and trade:hasItemQty(3853,3)) then
@@ -59,8 +59,8 @@ elseif (GetMobAction(17543294) == 0 and trade:hasItemQty(3415,1) and trade:hasIt
 elseif (GetMobAction(17543294) == 0 and trade:hasItemQty(3415,1)) then
 player:setVar("DynaWeakener",0);
 	SpawnMob(17543294):updateClaim(player);
-end	
-	
+end
+
 
 
 
@@ -71,11 +71,11 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-	
 
-	player:messageSpecial(ID.text.NOTHING_OUT_OF_ORDINARY);	
-	
-	
+
+	player:messageSpecial(ID.text.NOTHING_OUT_OF_ORDINARY);
+
+
 end;
 
 -----------------------------------

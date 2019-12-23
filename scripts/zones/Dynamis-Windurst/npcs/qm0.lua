@@ -3,7 +3,7 @@
 -- NPC:  qm0 (???)
 -- Notes: Spawns Megaboss
 -----------------------------------
-package.loaded["scripts/zones/Dynamis-Windurst/TextIDs"] = nil;
+
 -----------------------------------
 
 require("scripts/globals/keyitems");

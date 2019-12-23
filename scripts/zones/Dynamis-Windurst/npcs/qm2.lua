@@ -5,7 +5,7 @@
 --        Spawns Eyepiercer with Chapter 13 which drops Odious Feather
 -- Dispalcers weaken the mob
 -----------------------------------
-package.loaded["scripts/zones/Dynamis-Windurst/TextIDs"] = nil;
+
 -----------------------------------
 
 require("scripts/globals/keyitems");
