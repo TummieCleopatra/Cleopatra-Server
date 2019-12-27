@@ -32,7 +32,7 @@ function onMobSpawn(mob)
     set1HStats(mob)
     najiTrustPoints(mob)
 
-    mob:addListener("COMBAT_TICK", "NAJI_COMBAT_TICK", function(mob)
+    mob:addListener("COMBAT_TICK", "NAJI_COMBAT_TICK", function(mob, player, target)
 	    local battletime = os.time()
         local weaponSkillTime = mob:getLocalVar("wsTime")
         trustMeleeMove(mob, player, target, angle)
