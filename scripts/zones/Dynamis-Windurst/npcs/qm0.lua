@@ -16,19 +16,19 @@ local ID = require("scripts/zones/Dynamis-Windurst/IDs");
 function onTrade(player,npc,trade)
 if ((trade:hasItemQty(3388,1)) and (trade:hasItemQty(3389,1)) and (trade:hasItemQty(3390,1)) and (trade:hasItemQty(3391,1))) then
 player:addKeyItem(dsp.ki.ALABASTER_GRANULES_OF_TIME);
-player:messageSpecial(ID.text.KEYITEM_OBTAINED,ALABASTER_GRANULES_OF_TIME);
+player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.ALABASTER_GRANULES_OF_TIME);
 player:tradeComplete();
 elseif ((trade:hasItemQty(3388,1)) and (trade:hasItemQty(3389,1)) and (trade:hasItemQty(3390,1))) then
 player:addKeyItem(dsp.ki.AMBER_GRANULES_OF_TIME);
-player:messageSpecial(ID.text.KEYITEM_OBTAINED,AMBER_GRANULES_OF_TIME);
+player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.AMBER_GRANULES_OF_TIME);
 player:tradeComplete();
 elseif ((trade:hasItemQty(3388,1)) and (trade:hasItemQty(3389,1))) then
 player:addKeyItem(dsp.ki.AZURE_GRANULES_OF_TIME);
-player:messageSpecial(ID.text.KEYITEM_OBTAINED,AZURE_GRANULES_OF_TIME);
+player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.AZURE_GRANULES_OF_TIME);
 player:tradeComplete();
 elseif (trade:hasItemQty(3388,1)) then
 player:addKeyItem(dsp.ki.CRIMSON_GRANULES_OF_TIME);
-player:messageSpecial(ID.text.KEYITEM_OBTAINED,CRIMSON_GRANULES_OF_TIME);
+player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.CRIMSON_GRANULES_OF_TIME);
 player:tradeComplete();
 end
 

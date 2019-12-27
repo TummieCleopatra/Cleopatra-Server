@@ -18,19 +18,19 @@ local qm0 = GetNPCByID(17547509);
 
 if ((trade:hasItemQty(3392,1)) and (trade:hasItemQty(3393,1)) and (trade:hasItemQty(3394,1)) and (trade:hasItemQty(3395,1))) then
 player:addKeyItem(dsp.ki.ALABASTER_GRANULES_OF_TIME);
-player:messageSpecial(ID.text.KEYITEM_OBTAINED,ALABASTER_GRANULES_OF_TIME);
+player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.ALABASTER_GRANULES_OF_TIME);
 player:tradeComplete();
 elseif ((trade:hasItemQty(3392,1)) and (trade:hasItemQty(3393,1)) and (trade:hasItemQty(3394,1))) then
 player:addKeyItem(dsp.ki.AMBER_GRANULES_OF_TIME);
-player:messageSpecial(ID.text.KEYITEM_OBTAINED,AMBER_GRANULES_OF_TIME);
+player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.AMBER_GRANULES_OF_TIME);
 player:tradeComplete();
 elseif ((trade:hasItemQty(3392,1)) and (trade:hasItemQty(3393,1))) then
 player:addKeyItem(dsp.ki.AZURE_GRANULES_OF_TIME);
-player:messageSpecial(ID.text.KEYITEM_OBTAINED,AZURE_GRANULES_OF_TIME);
+player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.AZURE_GRANULES_OF_TIME);
 player:tradeComplete();
 elseif (trade:hasItemQty(3392,1)) then
 player:addKeyItem(dsp.ki.CRIMSON_GRANULES_OF_TIME);
-player:messageSpecial(ID.text.KEYITEM_OBTAINED,CRIMSON_GRANULES_OF_TIME);
+player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.CRIMSON_GRANULES_OF_TIME);
 player:tradeComplete();
 end
 
@@ -48,27 +48,27 @@ if (GetMobAction(17547265) == 0 and trade:hasItemQty(3420,1)) and trade:hasItemQ
 elseif (GetMobAction(17547265) == 0 and trade:hasItemQty(3420,1)) and trade:hasItemQty(3421,1) and trade:hasItemQty(3422,1) and trade:hasItemQty(3423,1) and player:hasKeyItem(dsp.ki.AMBER_GRANULES_OF_TIME) then
 	player:setVar("DynaWeakener",2);
 	SpawnMob(17547265):updateClaim(player);
-	qm0:setStatus(dsp.status.DISAPPEAR);	
+	qm0:setStatus(dsp.status.DISAPPEAR);
     player:delKeyItem(dsp.ki.AMBER_GRANULES_OF_TIME);
 	player:tradeComplete();
 elseif (GetMobAction(17547265) == 0 and trade:hasItemQty(3420,1)) and trade:hasItemQty(3421,1) and trade:hasItemQty(3422,1) and trade:hasItemQty(3423,1) and player:hasKeyItem(dsp.ki.AZURE_GRANULES_OF_TIME) then
 	player:setVar("DynaWeakener",2);
 	SpawnMob(17547265):updateClaim(player);
-	qm0:setStatus(dsp.status.DISAPPEAR);	
+	qm0:setStatus(dsp.status.DISAPPEAR);
 	player:delKeyItem(dsp.ki.AZURE_GRANULES_OF_TIME);
 	player:tradeComplete();
 elseif (GetMobAction(17547265) == 0 and trade:hasItemQty(3420,1)) and trade:hasItemQty(3421,1) and trade:hasItemQty(3422,1) and trade:hasItemQty(3423,1) and player:hasKeyItem(dsp.ki.CRIMSON_GRANULES_OF_TIME) then
     player:setVar("DynaWeakener",1);
 	SpawnMob(17547265):updateClaim(player);
-	qm0:setStatus(dsp.status.DISAPPEAR);	
+	qm0:setStatus(dsp.status.DISAPPEAR);
 	player:delKeyItem(dsp.ki.CRIMSON_GRANULES_OF_TIME);
-    player:tradeComplete();	
+    player:tradeComplete();
 elseif (GetMobAction(17547265) == 0 and trade:hasItemQty(3420,1)) and trade:hasItemQty(3421,1) and trade:hasItemQty(3422,1) and trade:hasItemQty(3423,1) then
     player:setVar("DynaWeakener",0);
     player:tradeComplete();
-	SpawnMob(17547265):updateClaim(player);	
-	qm0:setStatus(dsp.status.DISAPPEAR);	
-end	
+	SpawnMob(17547265):updateClaim(player);
+	qm0:setStatus(dsp.status.DISAPPEAR);
+end
 
 end;
 
@@ -81,9 +81,9 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-	
-player:messageSpecial(ID.text.NOTHING_OUT_OF_ORDINARY);	
-	
+
+player:messageSpecial(ID.text.NOTHING_OUT_OF_ORDINARY);
+
 end;
 
 -----------------------------------

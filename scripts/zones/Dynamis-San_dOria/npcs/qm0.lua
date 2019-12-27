@@ -23,21 +23,21 @@ local slot4 = trade:getItem(3);
 if (((slot1 == 3380) or (slot1 == 3381) or (slot1 == 3382) or (slot1 == 3387)) and ((slot2 == 3380) or (slot2 == 3381) or (slot2 == 3382) or (slot2 == 3387)) and
 ((slot3 == 3380) or (slot3 == 3381) or (slot3 == 3382) or (slot3 == 3387)) and ((slot4 == 3380) or (slot4 == 3381) or (slot4 == 3382) or (slot4 == 3387))) then
 player:addKeyItem(dsp.ki.ALABASTER_GRANULES_OF_TIME);
-player:messageSpecial(ID.text.KEYITEM_OBTAINED,ALABASTER_GRANULES_OF_TIME);
+player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.ALABASTER_GRANULES_OF_TIME);
 player:tradeComplete();
 elseif (((slot1 == 3380) or (slot1 == 3381) or (slot1 == 3382) or (slot1 == 3387)) and ((slot2 == 3380) or (slot2 == 3381) or (slot2 == 3382) or (slot2 == 3387)) and
 ((slot3 == 3380) or (slot3 == 3381) or (slot3 == 3382) or (slot3 == 3387))) then
 player:addKeyItem(dsp.ki.AMBER_GRANULES_OF_TIME);
-player:messageSpecial(ID.text.KEYITEM_OBTAINED,AMBER_GRANULES_OF_TIME);
+player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.AMBER_GRANULES_OF_TIME);
 player:tradeComplete();
 elseif (((slot1 == 3380) or (slot1 == 3381) or (slot1 == 3382) or (slot1 == 3387)) and ((slot2 == 3380) or (slot2 == 3381) or (slot2 == 3382) or (slot2 == 3387)) and
 ((slot3 == 3380))) then
 player:addKeyItem(dsp.ki.AZURE_GRANULES_OF_TIME);
-player:messageSpecial(ID.text.KEYITEM_OBTAINED,AZURE_GRANULES_OF_TIME);
+player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.AZURE_GRANULES_OF_TIME);
 player:tradeComplete();
 elseif (((slot1 == 3380) or (slot1 == 3381) or (slot1 == 3382) or (slot1 == 3387))) then
 player:addKeyItem(dsp.ki.CRIMSON_GRANULES_OF_TIME);
-player:messageSpecial(ID.text.KEYITEM_OBTAINED,CRIMSON_GRANULES_OF_TIME);
+player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.CRIMSON_GRANULES_OF_TIME);
 player:tradeComplete();
 end
 
@@ -65,12 +65,12 @@ elseif (GetMobAction(17534977) == 0 and trade:hasItemQty(3405,1)) and trade:hasI
     player:setVar("DynaWeakener",1);
 	SpawnMob(17534977):updateClaim(player);
 	player:delKeyItem(dsp.ki.CRIMSON_GRANULES_OF_TIME);
-    player:tradeComplete();	
+    player:tradeComplete();
 elseif (GetMobAction(17534977) == 0 and trade:hasItemQty(3405,1)) and trade:hasItemQty(3406,1) and trade:hasItemQty(3407,1) and trade:hasItemQty(3408,1) then
 player:setVar("DynaWeakener",0);
     player:tradeComplete();
-	SpawnMob(17534977):updateClaim(player);	
-end	
+	SpawnMob(17534977):updateClaim(player);
+end
 
 end;
 
@@ -79,9 +79,9 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-	
 
-	
+
+
 end;
 
 -----------------------------------

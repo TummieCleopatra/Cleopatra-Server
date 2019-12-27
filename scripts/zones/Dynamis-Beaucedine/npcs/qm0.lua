@@ -32,25 +32,25 @@ local totalkeys = 0;
 local qm0 = GetNPCByID(17326800);
 if (player:hasKeyItem(dsp.ki.ALABASTER_GRANULES_OF_TIME)) then
     player:delKeyItem(dsp.ki.ALABASTER_GRANULES_OF_TIME);
-	player:messageSpecial(ID.text.KEYITEM_LOST,ALABASTER_GRANULES_OF_TIME);
+	player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.ALABASTER_GRANULES_OF_TIME);
 	key1 = 1;
 end
 
 if (player:hasKeyItem(dsp.ki.AMBER_GRANULES_OF_TIME)) then
     player:delKeyItem(dsp.ki.AMBER_GRANULES_OF_TIME);
-	player:messageSpecial(ID.text.KEYITEM_LOST,AMBER_GRANULES_OF_TIME);
+	player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.AMBER_GRANULES_OF_TIME);
 	key2 = 1;
 end
 
 if (player:hasKeyItem(dsp.ki.AZURE_GRANULES_OF_TIME)) then
     player:delKeyItem(dsp.ki.AZURE_GRANULES_OF_TIME);
-	player:messageSpecial(ID.text.KEYITEM_LOST,AZURE_GRANULES_OF_TIME);
+	player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.AZURE_GRANULES_OF_TIME);
 	key3 = 1;
 end
 
 if (player:hasKeyItem(dsp.ki.CRIMSON_GRANULES_OF_TIME)) then
     player:delKeyItem(dsp.ki.CRIMSON_GRANULES_OF_TIME);
-	player:messageSpecial(ID.text.KEYITEM_LOST,CRIMSON_GRANULES_OF_TIME);
+	player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.CRIMSON_GRANULES_OF_TIME);
 	key4 = 1;
 end
 
