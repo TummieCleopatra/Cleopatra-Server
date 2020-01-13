@@ -60,6 +60,69 @@ function onEventFinish(player,csid,option)
         if (checkFirstDyna(player,2)) then
             player:setVar("Dynamis_Status",bit.bor(player:getVar("Dynamis_Status"),4));
         end
+
+		-- Store information about Key Items Gained and relay re-enter time to variable
+
+
+		local d1 = 0;
+		local d2 = 0;
+		local d3 = 0;
+		local d4 = 0;
+		local d5 = 0;
+		local d6 = 0;
+		local reduction = 0;
+		local reentertime = 43200;
+
+
+		if (player:hasKeyItem(dsp.ki.HYDRA_CORPS_COMMAND_SCEPTER)) then
+		d1 = 1;
+		end
+		if (player:hasKeyItem(dsp.ki.HYDRA_CORPS_EYEGLASS)) then
+		d2 = 1;
+		end
+		if (player:hasKeyItem(dsp.ki.HYDRA_CORPS_LANTERN)) then
+		d3 = 1;
+		end
+		if (player:hasKeyItem(dsp.ki.HYDRA_CORPS_TACTICAL_MAP)) then
+		d4 = 1;
+		end
+		if (player:hasKeyItem(dsp.ki.HYDRA_CORPS_INSIGNIA)) then
+		d5 = 1;
+		end
+		if (player:hasKeyItem(dsp.ki.HYDRA_CORPS_BATTLE_STANDARD)) then
+		d6 = 1;
+		end
+
+		reduction = d1 + d2 + d3 + d4 + d5 + d6;
+
+		if (reduction == 1) then
+		reentertime = 28800;
+		player:setVar("Dyna_KI_Counter",1);
+		elseif (reduction == 2) then
+		reentertime = 21600;
+		player:setVar("Dyna_KI_Counter",2);
+		elseif (reduction == 3) then
+		reentertime = 14400;
+		player:setVar("Dyna_KI_Counter",3);
+		elseif (reduction == 4) then
+		reentertime = 10800;
+		player:setVar("Dyna_KI_Counter",4);
+		elseif (reduction == 5) then
+		reentertime = 7200;
+		player:setVar("Dyna_KI_Counter",5);
+		elseif (reduction == 6) then
+		reentertime = 0;
+		player:setVar("Dyna_KI_Counter",6);
+		else
+		reentertime = 43200;
+		player:setVar("Dyna_KI_Counter",0);
+		end
+
+		player:setVar("Dyna_Reduction", reentertime);
+
+
+		player:setVar("Dynamis_Bastok_Enter",1);
+        player:setVar("Dynamis_Entry",os.time());
         player:setVar("enteringDynamis",1);
         player:setPos(116.482,0.994,-72.121,128,186);
     end

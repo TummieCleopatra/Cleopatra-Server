@@ -103,7 +103,11 @@ end;
 -----------------------------------
 
 function onMobDeath(mob,player,isKiller)
-
+local targetid = 0;
+local target = mob:getTarget();
+if target then
+    targetid = target:getShortID();
+end;
 local new_target = mob:getEntity(targetid)
 local killx = mob:getXPos();
 local killy = mob:getYPos();
