@@ -1,73 +1,136 @@
 -----------------------------------
--- Area: Aht Urhgan Whitegate
---  NPC: Zasshal
--- Type: Salvage Key Item giver
--- !pos 101.468 -1 -20.088 50
+--  Area: Aht Urhgan Whitegate
+--  NPC:  Zasshal
+--  Type: Salvage
+--  @pos 101.468 -1 -20.088 50
 -----------------------------------
-require("scripts/globals/missions")
-require("scripts/globals/keyitems")
+
+-----------------------------------
+
+locla ID = require("scripts/zones/Aht_Urhgan_Whitegate/IDs");
+require("scripts/globals/missions");
+require("scripts/globals/titles");
+require("scripts/globals/keyitems");
+require("scripts/globals/settings");
+
+-----------------------------------
+-- onTrade Action
+-----------------------------------
 
 function onTrade(player,npc,trade)
+    if (player:getVar("SALVAGE_PERMITED") == 1) then
+        if (trade:hasItemQty(65535,10000)) then
+		    local tags = player:getVar("SALVAGE_TAGS");
+		    -- Make sure they don't have a permit already
+			if (player:hasKeyItem(dsp.ki.REMNANTS_PERMIT)) then
+		        player:PrintToPlayer("Zasshal : You can only hold one permit at a time!" ,0x0D);
+	        -- Check if tags are available
+		    elseif (tags > 0) then
+		        player:tradeComplete();
+			    player:setVar("SALVAGE_TAGS",tags - 1);
+				player:setVar("SALVAGE_LAST_TAG",os.time());
+				player:PrintToPlayer("Zasshal : Here you go, one Remnants Permit to explore the Undersea Remnants." ,0x0D);
+				player:addKeyItem(dsp.ki.REMNANTS_PERMIT);
+			    player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.REMNANTS_PERMIT);
+			elseif (tags == 0) then
+			    player:PrintToPlayer("Zasshal : I'm sorry, you don't have any Remnants Permits available.  Try again later." ,0x0D);
+			end
+		else
+		    player:PrintToPlayer("Zasshal : Please trade me exactly 10,000g" ,0x0D);
+		end
+	else
+	    player:PrintToPlayer("Zasshal : I am not accepting donations at this time." ,0x0D);
+	end
 end;
+
+-----------------------------------
+-- onTrigger Action
+-----------------------------------
 
 function onTrigger(player,npc)
-    local currentday = tonumber(os.date("%j"))
-    local lastPermit = player:getVar("LAST_PERMIT")
-    local diffday = currentday - lastPermit
-    local a1 = player:getAssaultPoint(LEUJAOAM_ASSAULT_POINT)
-    local a2 = player:getAssaultPoint(MAMOOL_ASSAULT_POINT)
-    local a3 = player:getAssaultPoint(LEBROS_ASSAULT_POINT)
-    local a4 = player:getAssaultPoint(PERIQIA_ASSAULT_POINT)
-    local a5 = player:getAssaultPoint(ILRUSI_ASSAULT_POINT)
+	-- player:startEvent(0x0331);
+	local arrapago = 99999999;
+	local bhaflau = 99999999;
+	local silver = 99999999;
+	local zhayolm = 99999999;
 
-    if player:hasKeyItem(dsp.ki.REMNANTS_PERMIT) then
-        player:startEvent(821)
---[[    elseif player:getCurrentMission(TOAU) > dsp.mission.id.toau.GUESTS_OF_THE_EMPIRE and player:getMainLvl() >= 65 then
-        if lastPermit == 0 then
-            player:startEvent(818,a1,a2,a3,a4,a5)
-        elseif diffday > 0 then
-            player:startEvent(820,a1,a2,a3,a4,a5)
-        end]]
-    else
-        player:startEvent(817)
-    end
-end
+	if (player:getVar("Zhayolm_Card") == 1) then
+	    zhayolm = 15000;
+	end
 
-function onEventUpdate(player,csid,option)
-    if (csid == 818 or csid == 820) and option == 10 and player:getAssaultPoint(LEUJAOAM_ASSAULT_POINT) >= 500 then
-        player:setLocalVar("SalvageValid",1)
-    elseif (csid == 818 or csid == 820) and option == 11 and player:getAssaultPoint(MAMOOL_ASSAULT_POINT) >= 500 then
-        player:setLocalVar("SalvageValid",2)
-    elseif (csid == 818 or csid == 820) and option == 12 and player:getAssaultPoint(LEBROS_ASSAULT_POINT) >= 500 then
-        player:setLocalVar("SalvageValid",3)
-    elseif (csid == 818 or csid == 820) and option == 13 and player:getAssaultPoint(PERIQIA_ASSAULT_POINT) >= 500 then
-        player:setLocalVar("SalvageValid",4)   
-    elseif (csid == 818 or csid == 820) and option == 14 and player:getAssaultPoint(ILRUSI_ASSAULT_POINT) >= 500 then
-        player:setLocalVar("SalvageValid",5)
-    end
+	if (player:getVar("Arrapago_Card") == 1) then
+	    arrapago = 15000;
+	end
+
+	if (player:getVar("Bhaflau_Card") == 1) then
+	    bhaflau = 10000;
+	end
+
+	if (player:getVar("Silver_Card") == 1) then
+	    silver = 10000;
+	end
+
+    local stock_1 =
+    {
+        2376,    arrapago,
+	    2377,    bhaflau,
+		2378,    silver,
+		2375,    zhayolm
+    };
+
+    dsp.shop.general(player, stock_1);
+
+    local hours = SALVAGE_REFRESH;
+	local completedCoffin = player:hasCompletedMission(TOAU,dsp.mission.id.toau.THE_BLACK_COFFIN);
+	local salvageOK = player:getVar("SALVAGE_PERMITED");
+	local tags = player:getVar("SALVAGE_TAGS");
+	local lasttag = player:getVar("SALVAGE_LAST_TAG");
+	local localtime = os.time();
+	local calctag = localtime - lasttag;  -- How much time has passed since player got a tag
+	-- Calculate Tag Times
+	calctag = math.floor(calctag / (hours * 60 * 60));
+	tags = utils.clamp(tags + calctag,0,SALVAGE_TAGS);
+	player:setVar("SALVAGE_TAGS",tags);
+
+	-- First see if this is the first time the player has talked to Zasshal while meeting requirements
+	if (salvageOK ~= 1 and completedCoffin) then
+	    player:PrintToPlayer("Zasshal : Oh you want to explore the Remnants?  Well I have two Permits saved for you.  Just trade me 10,000g when ready.",0x0D);
+		player:setVar("SALVAGE_PERMITED",1);
+		player:setVar("SALVAGE_TAGS",2);  -- Auto set the players tags to 2
+		player:PrintToPlayer("You are now able to enter Salvage with a Remnants Permit", 0x1C);
+	elseif (salvageOK == 1 and completedCoffin) then
+	    if (tags < 2) then
+			local remaining = math.floor(((lasttag + (hours * 60 * 60)) - localtime) / 60);
+		    player:PrintToPlayer("Remnants Permits Available: "..tags..".", 0x1C);
+		    player:PrintToPlayer("Next Remnants Permit Available in: "..remaining.." minutes.", 0x1C);
+	        player:PrintToPlayer("Zasshal : You currently have "..tags.." Remnants Permit(s) available.  Just trade me 10,000g when you are ready." ,0x0D);
+	    elseif (tags == 2) then
+			local remaining = math.floor((localtime - lasttag) / 60);
+		    player:PrintToPlayer("Remnants Permits Available: "..tags..".", 0x1C);
+		    -- player:PrintToPlayer("Next Remnants Permit Available in: "..remaining.." minutes.", 0x1C);
+	        player:PrintToPlayer("Zasshal : You currently have "..tags.." Remnants Permit(s) available.  Just trade me 10,000g when you are ready." ,0x0D);
+        end
+	else
+	    player:PrintToPlayer("Zasshal : Once you've done enough work for the Empire, come back and talk to me.",0x0D);
+	end
+
+
 end;
 
+-----------------------------------
+-- onEventUpdate
+-----------------------------------
+
+function onEventUpdate(player,csid,option)
+	-- printf("CSID: %u",csid);
+	-- printf("RESULT: %u",option);
+end;
+
+-----------------------------------
+-- onEventFinish
+-----------------------------------
+
 function onEventFinish(player,csid,option)
-    local currentday = tonumber(os.date("%j"))
-    
-    if (csid == 818 or csid == 820) and option == 100 then
-        if player:getLocalVar("SalvageValid") == 1 then
-            player:addKeyItem(dsp.ki.REMNANTS_PERMIT)
-            player:delCurrency("LEUJAOAM_ASSAULT_POINT",500)
-        elseif player:getLocalVar("SalvageValid") == 2 then
-            player:delCurrency("MAMOOL_ASSAULT_POINT",500)
-            player:addKeyItem(dsp.ki.REMNANTS_PERMIT)
-        elseif player:getLocalVar("SalvageValid") == 3 then
-            player:delCurrency("LEBROS_ASSAULT_POINT",500)
-            player:addKeyItem(dsp.ki.REMNANTS_PERMIT)
-        elseif player:getLocalVar("SalvageValid") == 4 then
-            player:delCurrency("PERIQIA_ASSAULT_POINT",500)
-            player:addKeyItem(dsp.ki.REMNANTS_PERMIT)
-        elseif player:getLocalVar("SalvageValid") == 5 then
-            player:delCurrency("ILRUSI_ASSAULT_POINT",500)
-            player:addKeyItem(dsp.ki.REMNANTS_PERMIT)
-        end
-        player:setLocalVar("SalvageValid",0)
-        player:setVar("LAST_PERMIT",currentday)
-    end
-end
+	-- printf("CSID: %u",csid);
+	-- printf("RESULT: %u",option);
+end;

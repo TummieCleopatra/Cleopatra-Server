@@ -165,3 +165,9 @@ EVALUATIOIN_RATE = 180; -- Time in seconds for mini evaluations during besieged.
 TEMP_ITEMS = 0; -- Set to 1 to enable temp items given to players when besieged starts
 WIN_BUFFS = 0; -- Set to 1 to enable specific buffs given to players based on consecutive wins
 UNDEAD_RATE = 2; -- Multiplier for how quickly the forces build
+
+-- SALVAGE
+SALVAGE_REFRESH = 4; -- Rate at which players can get new tags
+SALVAGE_TAGS = 2; -- Max tags a player can hold
+AMBIENCE_MULT = 2; -- Multiplier to ambiance points
+ALEX_MULT = 2; -- Alexandrite Purse Mulitplier

@@ -673,6 +673,7 @@ INSERT INTO `status_effects` VALUES (799,'skillchain',32,0,0,0,0,0,0,0);
 INSERT INTO `status_effects` VALUES (800,'dynamis',0,0,0,0,0,0,0,0);
 INSERT INTO `status_effects` VALUES (801,'meditate',32,0,0,0,0,0,7,0);
 
+INSERT INTO `status_effects` VALUES (811,'dyna_restriction',0,0,0,0,0,0,0,0);
 INSERT INTO `status_effects` VALUES (821,'indi-regen',32,0,0,2,0,0,0,0);
 INSERT INTO `status_effects` VALUES (822,'indi-poison',32,0,0,0,0,0,0,0);
 INSERT INTO `status_effects` VALUES (823,'indi-refresh',32,0,0,0,0,0,0,0);

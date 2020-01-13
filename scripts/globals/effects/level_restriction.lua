@@ -88,6 +88,16 @@ if (target:getObjType() == dsp.objType.PC) and (zone == 73) or (zone == 74) or (
 		-- target:PrintToPlayer(duration);
 	end
 
+	if (seconds < 3 or seconds == 0) then
+	    target:setVar("1st_Floor_NM",0);
+	    target:setVar("2nd_Floor_NM",0);
+	    target:setVar("3rd_Floor_NM",0);
+	    target:setVar("4th_Floor_NM",0);
+	    target:setVar("5th_Floor_NM",0);
+	    target:setVar("6th_Floor_NM",0);
+		target:setVar("Salvage_Floor",0);
+        target:startEvent(1);
+	end
 
 end
 

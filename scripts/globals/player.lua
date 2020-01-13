@@ -155,7 +155,7 @@ function onGameIn(player, firstLogin, zoning)
             player:addStatusEffect(dsp.effect.CUSTOM_EFFECT,0,3,12)
         end --]]
         -- Check for Besieged if player is logging into the zone
-		
+
 		if (player:getObjType() == dsp.objType.PC) then
         	player:addMod(dsp.mod.RERAISE_III,1);
 	    end
@@ -210,7 +210,11 @@ function onGameIn(player, firstLogin, zoning)
         if (prevZone == 48) then
             player:delStatusEffect(dsp.effect.BESIEGED)
         end
-    end
+
+        if (prevZone >=73 and prevZone <= 76) then
+           player:delStatusEffect(dsp.effect.LEVEL_RESTRICTION)
+        end
+
 
     -- apply mods from gearsets (scripts/globals/gear_sets.lua)
     checkForGearSet(player)

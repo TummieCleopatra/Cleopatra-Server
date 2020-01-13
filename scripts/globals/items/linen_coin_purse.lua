@@ -1,19 +1,36 @@
-------------------------------------
--- ID: 5736
--- Lin. Purse (Alx.)
--- Breaks up a Linen Purse
 -----------------------------------------
-require("scripts/globals/msg")
+-- ID: 5736
+-- Item: Linen Coin Purse
+-- Grants 150-225 Alexandrite
+--
+-----------------------------------------
+
+require("scripts/globals/status");
+
+-----------------------------------------
+-- OnItemCheck
 -----------------------------------------
 
 function onItemCheck(target)
-    local result = 0
-    if target:getFreeSlotsCount() == 0 then
-        result = dsp.msg.basic.ITEM_NO_USE_INVENTORY
-    end
-    return result
-end
+	return 0;
+end;
+
+-----------------------------------------
+-- OnItemUse
+-----------------------------------------
 
 function onItemUse(target)
-    target:addItem(2488,math.random(50,99))
-end
+    local amount = math.random(1,100);
+	if (amount < 35) then
+	    target:addItem(5735,1);
+		target:addItem(5735,1);
+		-- target:addItem(5735,1);
+	    target:PrintToPlayer("You obtain 2 Cotton Coin Purses", 0x15);
+    else
+	    target:addItem(5735,1);
+		-- target:addItem(5735,1);
+		target:PrintToPlayer("You obtain 1 Cotton Coin Purses", 0x15);
+	end
+
+
+end;

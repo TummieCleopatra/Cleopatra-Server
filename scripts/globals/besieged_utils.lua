@@ -55,7 +55,7 @@ function besiegedCheck(zone)
         end
         despawnNPCS()
         spawnForces()
-		
+
         SetServerVariable("[BESIEGED]Undead_Swarm_Status",10);
         undeadMarch = os.time() + 250
         SetServerVariable("[BESIEGED]Undead_Swarm_March",undeadMarch)
@@ -92,7 +92,7 @@ function besiegedCheck(zone)
 		randomize = randomize * 3
 		randomize = randomize * 60
         SetServerVariable("[BESIEGED]Undead_Swarm_End",os.time() + 1110 + randomize);
-        printf("======== START UNEAD BESIEGED!!! =========")		
+        printf("======== START UNEAD BESIEGED!!! =========")
         printf("Current time is %u",os.time())
         printf("End time is: %u", os.time() + 1110 + randomize)
 
@@ -348,7 +348,7 @@ function generalStrength(mob)
     mob:addMod(dsp.mod.STR,strboost);
 	mob:addMod(dsp.mod.MATT,magicatk);
     mob:addMod(dsp.mod.DEATHRES, 100)  -- Resist Death from Perdition
-	mob:addMod(dsp.mod.AMNESIARES, 100)	
+	mob:addMod(dsp.mod.AMNESIARES, 100)
     mob:addHP(65000);
 end
 
@@ -366,7 +366,7 @@ function volunteerStrength(mob)
 	    level = 10;
 	end
 
-	local hpboost = (2 * level) + 10;
+	local hpboost = (4 * level) + 20;
 	local strboost = (3 * level) + 2;
 	local attboost = (level) + 2;
 	local defboost = (2 * level) - 160;
@@ -426,7 +426,7 @@ function helperStrength(mob)
     mob:addMod(dsp.mod.STR,strboost);
 	mob:addMod(dsp.mod.MATT,magicatk);
 	mob:addMod(dsp.mod.DEATHRES, 100)  -- Resist Death from Perdition
-	mob:addMod(dsp.mod.AMNESIARES, 100)	
+	mob:addMod(dsp.mod.AMNESIARES, 100)
     mob:addHP(35000);
 end
 
@@ -518,13 +518,13 @@ function enemyPath(mob)
             mob:setLocalVar("PathDone",1);
             mob:clearPath();
             mob:setLocalVar("Path",0);
-			
+
 
         else
             for i, v in ipairs(posPoint) do -- Set the Current Point of the Path so that the Mob can continue later on from this point
                 local currentPoint = dsp.path.get(AL_ZAHBI.mobPath[randPath],v)
 				local mobid = mob:getID()
-				
+
                 if (mob:atPoint(currentPoint)) then
 				    printf("%u is at specific point",mobid)
                     mob:setLocalVar("CurrentPathPoint",v);
@@ -810,7 +810,7 @@ function undeadDeathCount(mob)
         -- Depsawn Helpers
         despawnForces()
         -- Spawn Regular Zone NPCS
-        spawnNPCS()	
+        spawnNPCS()
         SetServerVariable("[BESIEGED]Undead_Swarm_End",1)
         printf("[DEBUG] - The Undead have retreated")
         SetServerVariable("[BESIEGED]Undead_Swarm_Status",11);
@@ -818,7 +818,7 @@ function undeadDeathCount(mob)
         if (level < HORDE_CAP) then
             SetServerVariable("[BESIEGED]Undead_Swarm_LVL",level + 1);
         end
-		
+
 		SetServerVariable("[BESIEGED]Consecutive_Wins", wins + 1);
         for i,v in pairs(ID.besieged.UNDEAD) do
         -- GetMobByID(v):setSpawn(-333,-20,231,180)
@@ -827,8 +827,8 @@ function undeadDeathCount(mob)
                     printf("[%u] - Despawning Mob with an ID of: %u",i,v)
                     DespawnMob(v)
                 end
-            else			    
-                despawnUndeadBoss()  
+            else
+                despawnUndeadBoss()
                 break
             end
         end
@@ -879,7 +879,7 @@ function npcDeathCount(mob)
 					    print(i)
 				    end
                 else
-				    despawnUndeadBoss()                   
+				    despawnUndeadBoss()
                     break
                 end
             end
@@ -891,12 +891,12 @@ function npcDeathCount(mob)
 
             SetServerVariable("[BESIEGED]Undead_Swarm_LVL",1);
             SetServerVariable("[BESIEGED]Undead_Swarm_End",1)
-            SetServerVariable("[BESIEGED]Undead_Swarm_Status",11);			
+            SetServerVariable("[BESIEGED]Undead_Swarm_Status",11);
         end
 
         SetServerVariable("[BESIEGED]Fallen_Allies",0)
         SetServerVariable("[BESIEGED]Consecutive_Wins",0);
- 
+
     end
 end
 
@@ -904,7 +904,7 @@ function despawnUndeadBoss()
 
     for i,v in pairs(ID.besieged.UNDEAD_BOSS) do
 	    if (i < 9) then
-		    if (GetMobByID(v):isAlive()) then			
+		    if (GetMobByID(v):isAlive()) then
 			    DespawnMob(v)
 			    printf("Despawning Mob boss %u", v)
 			end
