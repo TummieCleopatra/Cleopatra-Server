@@ -306,20 +306,20 @@ INSERT INTO `abilities` VALUES (338,'mending_halation',21,55,1,300,251,0,0,83,20
 
 INSERT INTO `abilities` VALUES (340,'elemental_sforzo',22,0,1,3600,0,0,0,302,2000,0,6,20.0,0,0,0,0,0,'SOA');
 INSERT INTO `abilities` VALUES (341,'Rune_enchantment',22,5,1,0,10,0,0,0,2000,0,6,0.0,0,0,0,0,0,'SOA');
-INSERT INTO `abilities` VALUES (342,'Ignis',22,5,1,10,10,0,0,291,2000,0,6,20.0,0,1,300,0,0,'SOA');
-INSERT INTO `abilities` VALUES (343,'Gelus',22,5,1,10,10,0,0,292,2000,0,6,20.0,0,1,300,0,0,'SOA');
-INSERT INTO `abilities` VALUES (344,'Flabra',22,5,1,10,10,0,0,293,2000,0,6,20.0,0,1,300,0,0,'SOA');
-INSERT INTO `abilities` VALUES (345,'Tellus',22,5,1,10,10,0,0,294,2000,0,6,20.0,0,1,300,0,0,'SOA');
-INSERT INTO `abilities` VALUES (346,'Sulpor',22,5,1,10,10,0,0,295,2000,0,6,20.0,0,1,300,0,0,'SOA');
-INSERT INTO `abilities` VALUES (347,'Unda',22,5,1,10,10,0,0,296,2000,0,6,20.0,0,1,300,0,0,'SOA');
-INSERT INTO `abilities` VALUES (348,'Lux',22,5,1,10,10,0,0,297,2000,0,6,20.0,0,1,300,0,0,'SOA');
-INSERT INTO `abilities` VALUES (349,'Tenebrae',22,5,1,10,10,0,0,298,2000,0,6,20.0,0,1,300,0,0,'SOA');
+INSERT INTO `abilities` VALUES (342,'Ignis',22,5,1,10,10,0,0,291,2000,0,6,20.0,0,20,300,0,0,'SOA');
+INSERT INTO `abilities` VALUES (343,'Gelus',22,5,1,10,10,0,0,292,2000,0,6,20.0,0,20,300,0,0,'SOA');
+INSERT INTO `abilities` VALUES (344,'Flabra',22,5,1,10,10,0,0,293,2000,0,6,20.0,0,20,300,0,0,'SOA');
+INSERT INTO `abilities` VALUES (345,'Tellus',22,5,1,10,10,0,0,294,2000,0,6,20.0,0,20,300,0,0,'SOA');
+INSERT INTO `abilities` VALUES (346,'Sulpor',22,5,1,10,10,0,0,295,2000,0,6,20.0,0,20,300,0,0,'SOA');
+INSERT INTO `abilities` VALUES (347,'Unda',22,5,1,10,10,0,0,296,2000,0,6,20.0,0,20,300,0,0,'SOA');
+INSERT INTO `abilities` VALUES (348,'Lux',22,5,1,10,10,0,0,297,2000,0,6,20.0,0,20,300,0,0,'SOA');
+INSERT INTO `abilities` VALUES (349,'Tenebrae',22,5,1,10,10,0,0,298,2000,0,6,20.0,0,20,300,0,0,'SOA');
 INSERT INTO `abilities` VALUES (350,'Vallation',22,10,1,300,23,0,0,0,2000,0,15,20.0,0,450,900,0,0,'SOA');
-INSERT INTO `abilities` VALUES (351,'Swordplay',22,20,1,300,24,0,0,299,2000,0,6,20.0,0,160,320,0,0,'SOA');
-INSERT INTO `abilities` VALUES (352,'Lunge',22,25,4,300,25,0,0,15,2000,0,15,20.0,0,1,300,0,0,'SOA');
-INSERT INTO `abilities` VALUES (353,'Pflug',22,40,1,300,59,0,0,0,2000,0,15,20.0,0,1,300,0,0,'SOA');
+INSERT INTO `abilities` VALUES (351,'Swordplay',22,20,1,300,24,0,0,299,2000,0,6,20.0,0,160,1280,0,0,'SOA');
+INSERT INTO `abilities` VALUES (352,'Lunge',22,25,4,300,25,0,0,15,2000,0,15,20.0,0,1,1280,0,0,'SOA');
+INSERT INTO `abilities` VALUES (353,'Pflug',22,40,1,300,59,0,0,0,2000,0,15,20.0,0,1,900,0,0,'SOA');
 INSERT INTO `abilities` VALUES (354,'Embolden',22,60,1,600,72,0,0,300,2000,0,6,20.0,0,1,300,0,0,'SOA');
-INSERT INTO `abilities` VALUES (355,'Valiance',22,50,1,300,113,0,0,0,2000,0,15,20.0,1,1,300,0,0,'SOA');
+INSERT INTO `abilities` VALUES (355,'Valiance',22,50,1,300,113,0,0,0,2000,0,15,20.0,1,1,900,0,0,'SOA');
 INSERT INTO `abilities` VALUES (356,'Gambit',22,70,4,300,116,0,0,0,2000,0,15,20.0,0,640,1280,0,0,'SOA');
 -- INSERT INTO `abilities` VALUES (357,'Liement',22,20,1,300,117,0,0,???,2000,0,6,20.0,0,1,300,0,0,'SOA');
 -- INSERT INTO `abilities` VALUES (358,'One_for_all',22,95,1,300,0,0,0,301,2000,0,6,20.0,1,1,300,0,0,'SOA');
@@ -330,10 +330,16 @@ INSERT INTO `abilities` VALUES (364,'Effusion',22,25,1,0,0,0,0,0,2000,0,6,20.0,0
 INSERT INTO `abilities` VALUES (365,'chocobo_jig_ii',19,70,1,60,218,126,0,13,2000,0,14,20.0,1,1,300,0,0,'WOTG');
 INSERT INTO `abilities` VALUES (367,'Vivacious_pulse',22,65,1,60,0,0,0,327,2000,0,6,20.0,0,1,300,0,0,NULL);
 INSERT INTO `abilities` VALUES (369,'apogee',15,70,1,180,108,0,0,333,2000,0,6,20.0,0,1,0,0,0,NULL);
+
+INSERT INTO `abilities` VALUES (371,'beast_loyalty',9,23,1,1200,104,0,0,83,2000,0,6,18.0,0,0,0,900,0,NULL);
 INSERT INTO `abilities` VALUES (372,'cascade',4,45,1,60,0,0,0,176,2000,0,6,20.0,0,1,300,0,0,NULL);  -- Fix/Find correct animation
 INSERT INTO `abilities` VALUES (373,'consume_mana',8,55,1,60,373,0,0,337,2000,0,6,20.0,0,1,1300,0,0,'SOA');
 INSERT INTO `abilities` VALUES (374,'naturalists_roll',17,67,1,60,193,420,0,328,2000,0,6,8.0,1,1,80,0,8,'SOA'); -- No Enhancing Magic Duration MOD, Empty PH effect exists
 INSERT INTO `abilities` VALUES (375,'runeists_roll',17,70,1,60,193,420,0,329,2000,0,6,8.0,1,1,80,0,8,'SOA');
+INSERT INTO `abilities` VALUES (378,'majesty',7,70,1,60,150,0,0,330,2000,0,6,20.0,0,1,300,0,0,NULL);
+
+
+
 INSERT INTO `abilities` VALUES (496,'healing_ruby',15,1,3,60,174,0,0,6,2000,0,6,18.0,0,1,60,0,0,NULL);
 INSERT INTO `abilities` VALUES (497,'poison_nails',15,5,4,60,173,0,0,11,2000,0,6,18.0,0,1,60,0,0,NULL);
 INSERT INTO `abilities` VALUES (498,'shining_ruby',15,24,1,60,174,0,0,44,2000,0,6,18.0,0,1,60,0,0,NULL);

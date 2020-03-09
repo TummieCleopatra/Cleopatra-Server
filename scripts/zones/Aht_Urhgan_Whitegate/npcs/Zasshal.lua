@@ -7,7 +7,7 @@
 
 -----------------------------------
 
-locla ID = require("scripts/zones/Aht_Urhgan_Whitegate/IDs");
+local ID = require("scripts/zones/Aht_Urhgan_Whitegate/IDs");
 require("scripts/globals/missions");
 require("scripts/globals/titles");
 require("scripts/globals/keyitems");

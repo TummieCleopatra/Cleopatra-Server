@@ -231,30 +231,31 @@ function doAyameOpenWeaponskill(mob, player)
 end
 
 function doAyameSoloSC(mob, player)
+    printf("Do Ayame SkillchainSolo");
     local lvl = mob:getMainLvl()
     local sekkaWS = mob:getLocalVar("sekkaWS")
     local sekkaType = mob:getLocalVar("sekkaType")
-    local scCombo = {{70,151,152}, {65,150,151}, {1,144,144}}
+    local scCombo = {{70,151,152}, {65,150,151}, {1,144,144}};
     local finalWS = 0
     local element = player:getVar("SCProp1");
     local wsList = {}
 
-    print(element)
+    printf("Element is %u",element)
     if (element == nil) then
         element = 1
     end
 
 
     if (element == 2) then -- Compression - SSC Detonation REsult Grav
-        wsList = {{60,150}, {1,144}}
+        wsList = {{72,152,150},{50,148,148},{1,144,144}}
     elseif (element == 3) then -- Liquefication - SSC Scicion result Liquefecation
-        wsList = {{1,144}}
+        wsList = {{60,150,144},{50,147,148},{1,144,144}}
     elseif (element == 4) then -- Scission - SSC Transfixion Result Distortion
-        wsList = {{1,144}}
+        wsList = {{72,152,144},{1,144,144}}
     elseif (element == 5) then -- Reverberation - SSC Induration result Frag
-        wsList = {{60,150}, {49,148}, {1,144}}
+        wsList = {{65,151,150},{60,149,150}, {55,149,145}, {1,144,144}}
     elseif (element == 6) then -- Detonation - SSC IMpation result Detonation
-        wsList = {{55,149}, {1,144}}
+        wsList = {{55,149, 149}, {1,144,144}}
     elseif (element == 7) then -- Induration - SSC Reverb result Induration
         wsList = {{65,114,151},{55,144,149}} -- Default to Enpi if level isn't high enough
     elseif (element == 8) then -- Impaction - SSC Liquefication result Fusion
@@ -289,7 +290,7 @@ function doAyameSoloSC(mob, player)
             end
         end
     elseif (sekkaType == 2) then
-        printf("Group Skillchain with Player")
+        printf("Group Skillchain with Player Now")
         for i = 1, #wsList do
             if (sekkaWS == 1) then
                 if (lvl >= wsList[i][1]) then
@@ -300,6 +301,7 @@ function doAyameSoloSC(mob, player)
                     break
                 end
             elseif (sekkaWS == 2) then
+                printf("Sekka is 2");
                 if (lvl >= wsList[i][1]) then
                     finalWS = wsList[i][3]
                     printf("DEBUG: Ayame Second WS Now: %u! \n", finalWS)

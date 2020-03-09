@@ -675,6 +675,7 @@ enum EFFECT
     EFFECT_NEGATE_CURSE             = 609,
     EFFECT_NEGATE_CHARM             = 610,
     EFFECT_MAGIC_EVASION_BOOST_II   = 611,
+    EFFECT_MAJESTY                  = 621,
 
     // Effect icons in packet can go from 0-767, so no custom effects should go in that range.
 
@@ -717,6 +718,7 @@ enum EFFECT
     EFFECT_SKILLCHAIN               = 799,
     EFFECT_DYNAMIS                  = 800,
     EFFECT_MEDITATE                 = 801, // Dummy effect for SAM Meditate JA
+    EFFECT_RESTING_BONUS            = 802,
 
     EFFECT_INDI_REGEN                = 821,
 	EFFECT_INDI_POISON               = 822,
@@ -748,7 +750,7 @@ enum EFFECT
 	EFFECT_INDI_PARALYSIS            = 848,
 	EFFECT_INDI_GRAVITY              = 849,
 
-    EFFECT_RESTING_BONUS             = 851,
+
 
 	EFFECT_LEVEL_TWO_SC              = 950,
 	EFFECT_LEVEL_THREE_SC            = 951,

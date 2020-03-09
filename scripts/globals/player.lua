@@ -211,9 +211,12 @@ function onGameIn(player, firstLogin, zoning)
             player:delStatusEffect(dsp.effect.BESIEGED)
         end
 
-        if (prevZone >=73 and prevZone <= 76) then
+        if (prevZone >= 73 and prevZone <= 76) then
            player:delStatusEffect(dsp.effect.LEVEL_RESTRICTION)
         end
+
+
+    end
 
 
     -- apply mods from gearsets (scripts/globals/gear_sets.lua)

@@ -430,8 +430,8 @@ namespace petutils
 
         PMob->setModifier(Mod::DEF, GetJugBase(PMob, petStats->defRank));
         PMob->setModifier(Mod::EVA, GetJugBase(PMob, petStats->evaRank));
-        PMob->setModifier(Mod::ATT, GetJugBase(PMob, petStats->attRank));
-        PMob->setModifier(Mod::ACC, GetJugBase(PMob, petStats->accRank));
+
+
 
         PMob->m_Weapons[SLOT_MAIN]->setDamage(GetJugWeaponDamage(PMob));
 
@@ -465,6 +465,8 @@ namespace petutils
         PMob->stats.MND = (uint16)((fMND + mMND) * 0.9f);
         PMob->stats.CHR = (uint16)((fCHR + mCHR) * 0.9f);
 
+        PMob->setModifier(Mod::ACC, GetJugBase(PMob, petStats->accRank) + ((PMob->stats.DEX * 3) / 4));
+        PMob->setModifier(Mod::ATT, GetJugBase(PMob, petStats->attRank) + ((PMob->stats.STR * 3) / 4));
     }
 
     void LoadAutomatonStats(CCharEntity* PMaster, CPetEntity* PPet, Pet_t* petStats)

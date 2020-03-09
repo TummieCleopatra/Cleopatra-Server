@@ -6,7 +6,7 @@
 package.loaded["scripts/zones/Bhaflau_Remnants/IDs"] = nil;
 
 
-require("scripts/zones/Bhaflau_Remnants/TextIDs");
+local ID = require("scripts/zones/Bhaflau_Remnants/IDs");
 require("scripts/globals/treasure");
 require("scripts/globals/settings");
 require("scripts/globals/status");
@@ -22,13 +22,13 @@ function onTrigger(player,npc,trade)
 		local chance = math.random(1,100);
 		local item = salvageLoot(player,npc)
 		local alex = 2488;
-		local purse = 5735;
-		local purse2 = 5736;
+		local purse = 5735; -- Cotton Coin Purse
+		local purse2 = 5736; -- Linen Coin Purse: can give 1-2 cotton coin purses
 		local chest = GetNPCByID(npcID);
 		-- player:addItem(item,1);
-		if (chance < 10) then
+		if (chance < 5) then
 		    player:addTreasure(purse2,chest);
-		elseif (chance < 25) then
+		elseif (chance < 16) then
 		    player:addTreasure(item,chest);
 			player:addTreasure(purse,chest);
 		elseif (chance < 50) then

@@ -9,8 +9,8 @@ require("scripts/globals/keyitems");
 -----------------------------------
 
 function onEffectGain(target,effect)
-	-- target:levelRestriction(effect:getPower());
-	local zone = target:getZoneID()
+	target:levelRestriction(effect:getPower());
+    target:messageBasic(314, effect:getPower());
 end;
 
 -----------------------------------
@@ -18,12 +18,28 @@ end;
 -----------------------------------
 
 function onEffectTick(target,effect)
- local duration = target:getStatusEffect(dsp.effect.DYNA_RESTRICTION):getTimeRemaining();
+ local duration = target:getStatusEffect(dsp.effect.LEVEL_RESTRICTION):getTimeRemaining();
  local zone = target:getZoneID();
- target:PrintToPlayer(duration);
- -- print(duration)
 
 
+
+if (target:getObjType() == dsp.objType.PC) and (zone == 73) or (zone == 74) then
+    if (duration < 3600000 and duration > 3596000) then
+	    target:PrintToPlayer("A powerful force has weakened you to Level 35.", 0xD);
+	    target:PrintToPlayer("You have 60 minutes remaining to complete your objective", 0xD);
+	end
+end
+
+if (target:getObjType() == dsp.objType.PC) and (zone == 75) or (zone == 76) then
+    if (duration < 5400000 and duration > 5396000) then
+	    target:PrintToPlayer("A powerful force has weakened you to Level 15.", 0xD);
+	    target:PrintToPlayer("You have 90 minutes remaining to complete your objective", 0xD);
+	end
+end
+
+
+
+print(duration)
 
 	local seconds = math.floor(duration / 1000);
 if ((target:getObjType() == dsp.objType.PC) and (zone == 185) or (zone == 186) or (zone == 187) or (zone == 188) or (zone == 134) or (zone == 135)) then

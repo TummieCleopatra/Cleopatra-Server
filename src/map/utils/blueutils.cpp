@@ -134,9 +134,57 @@ void TryLearningSpells(CCharEntity* PChar, CMobEntity* PMob) {
             auto playerSkillLvl = PBlueMage->GetSkill(SKILL_BLUE_MAGIC);
 
             // make sure the difference between spell skill and player is at most 31 points
-            if (playerSkillLvl >= skillLvlForSpell - 31)
+            if (playerSkillLvl >= skillLvlForSpell)
             {
-                auto chanceToLearn = 33 + PBlueMage->getMod(Mod::BLUE_LEARN_CHANCE);
+                auto chanceToLearn = 60 + PBlueMage->getMod(Mod::BLUE_LEARN_CHANCE);
+                if (dsprand::GetRandomNumber(100) < chanceToLearn) {
+					if (charutils::addSpell(PBlueMage, static_cast<uint16>(PSpell->getID()))) {
+						PBlueMage->pushPacket(new CMessageBasicPacket(PBlueMage, PBlueMage, static_cast<uint16>(PSpell->getID()), 0, MSGBASIC_LEARNS_SPELL));
+						charutils::SaveSpell(PBlueMage, static_cast<uint16>(PSpell->getID()));
+						PBlueMage->pushPacket(new CCharSpellsPacket(PBlueMage));
+					}
+				}
+				break; // only one attempt at learning a spell, regardless of learn or not.
+			}
+            else if (playerSkillLvl >= skillLvlForSpell - 10)
+            {
+                auto chanceToLearn = 50 + PBlueMage->getMod(Mod::BLUE_LEARN_CHANCE);
+                if (dsprand::GetRandomNumber(100) < chanceToLearn) {
+					if (charutils::addSpell(PBlueMage, static_cast<uint16>(PSpell->getID()))) {
+						PBlueMage->pushPacket(new CMessageBasicPacket(PBlueMage, PBlueMage, static_cast<uint16>(PSpell->getID()), 0, MSGBASIC_LEARNS_SPELL));
+						charutils::SaveSpell(PBlueMage, static_cast<uint16>(PSpell->getID()));
+						PBlueMage->pushPacket(new CCharSpellsPacket(PBlueMage));
+					}
+				}
+				break; // only one attempt at learning a spell, regardless of learn or not.
+			}
+            else if (playerSkillLvl >= skillLvlForSpell - 20)
+            {
+                auto chanceToLearn = 40 + PBlueMage->getMod(Mod::BLUE_LEARN_CHANCE);
+                if (dsprand::GetRandomNumber(100) < chanceToLearn) {
+					if (charutils::addSpell(PBlueMage, static_cast<uint16>(PSpell->getID()))) {
+						PBlueMage->pushPacket(new CMessageBasicPacket(PBlueMage, PBlueMage, static_cast<uint16>(PSpell->getID()), 0, MSGBASIC_LEARNS_SPELL));
+						charutils::SaveSpell(PBlueMage, static_cast<uint16>(PSpell->getID()));
+						PBlueMage->pushPacket(new CCharSpellsPacket(PBlueMage));
+					}
+				}
+				break; // only one attempt at learning a spell, regardless of learn or not.
+			}
+            else if (playerSkillLvl >= skillLvlForSpell - 30)
+            {
+                auto chanceToLearn = 30 + PBlueMage->getMod(Mod::BLUE_LEARN_CHANCE);
+                if (dsprand::GetRandomNumber(100) < chanceToLearn) {
+					if (charutils::addSpell(PBlueMage, static_cast<uint16>(PSpell->getID()))) {
+						PBlueMage->pushPacket(new CMessageBasicPacket(PBlueMage, PBlueMage, static_cast<uint16>(PSpell->getID()), 0, MSGBASIC_LEARNS_SPELL));
+						charutils::SaveSpell(PBlueMage, static_cast<uint16>(PSpell->getID()));
+						PBlueMage->pushPacket(new CCharSpellsPacket(PBlueMage));
+					}
+				}
+				break; // only one attempt at learning a spell, regardless of learn or not.
+			}
+            else if (playerSkillLvl >= skillLvlForSpell - 35)
+            {
+                auto chanceToLearn = 20 + PBlueMage->getMod(Mod::BLUE_LEARN_CHANCE);
                 if (dsprand::GetRandomNumber(100) < chanceToLearn) {
 					if (charutils::addSpell(PBlueMage, static_cast<uint16>(PSpell->getID()))) {
 						PBlueMage->pushPacket(new CMessageBasicPacket(PBlueMage, PBlueMage, static_cast<uint16>(PSpell->getID()), 0, MSGBASIC_LEARNS_SPELL));

@@ -17,7 +17,7 @@
 -- 5 = 13-15 Players
 -- 6 = 16-18 Players
 -------------------------------------------
-
+require("scripts/globals/settings");
 
 -----------------------------------
 -- mobScaler
@@ -244,8 +244,8 @@ function salvageChestB(mob, isKiller)
 	-- Set chest frequency to 20%?
 	printf("CEST FREQUENCY IS: %s",chestdrop);
 	printf("CHEST TYPE IS: %s", chesttype);
-	if (chestdrop <= 35) then
-	    if (chesttype < 10) then
+	if (chestdrop <= CHEST_CHANCE) then
+	    if (chesttype < GOLD_CHEST) then
 		    printf("GOLD");
 	        if (gold1:getStatus() ~= dsp.status.NORMAL) then
 	            gold1:setPos(killx+1,killy,killz);
@@ -256,7 +256,7 @@ function salvageChestB(mob, isKiller)
 	            -- gold2:setStatus(dsp.status.NORMAL);
 				gold2:showNPC(60);
             end
-	    elseif (chesttype < 45) then
+	    elseif (chesttype < BROWN_CHEST) then
 		    printf("BROWN");
 	        if (brown1:getStatus() ~= dsp.status.NORMAL) then
 	            brown1:setPos(killx+1,killy,killz);

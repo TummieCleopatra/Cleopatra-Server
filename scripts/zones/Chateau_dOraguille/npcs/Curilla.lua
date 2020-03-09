@@ -124,7 +124,7 @@ function onTrigger(player,npc)
         player:PrintToPlayer("Curilla : I humbly accept your request.  I will fight by your side", 0xD);
         player:addSpell(902);
 	    player:PrintToPlayer("You are now able to summon the trust Curilla!", 0x15);
-	elseif (pNation == WINDURST) and (player:hasKeyItem(dsp.ki.WINDURST_TRUST_PERMIT)) and (player:hasSpell(902) == false) then  -- Windurst Nation
+	elseif (player:getNation() == 2) and (player:hasKeyItem(dsp.ki.WINDURST_TRUST_PERMIT)) and (player:hasSpell(902) == false) then  -- Windurst Nation
 	    player:PrintToPlayer("Your Green Institute Card flashes brilliantly ", 0x1C);
         player:PrintToPlayer("Curilla : I humbly accept your request.  I will fight by your side", 0xD);
         player:addSpell(902);

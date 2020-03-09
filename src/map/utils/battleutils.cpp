@@ -4829,7 +4829,13 @@ namespace battleutils
             if (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_ACCESSION) || (PCaster->objtype == TYPE_PC &&
                 charutils::hasTrait((CCharEntity*)PCaster, TRAIT_DIVINE_VEIL) && PSpell->isNa() &&
                 (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_DIVINE_SEAL) || PCaster->getMod(Mod::AOE_NA) == 1)))
+            {
                 return SPELLAOE_RADIAL;
+            }
+            else if (PCaster->StatusEffectContainer->HasStatusEffect(EFFECT_MAJESTY) && PSpell->getID() <= SpellID::Cure_IV)
+            {
+                return SPELLAOE_RADIAL;
+            }
             else
                 return SPELLAOE_NONE;
         }

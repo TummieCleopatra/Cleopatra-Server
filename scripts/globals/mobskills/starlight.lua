@@ -18,7 +18,8 @@ end
 
 function onMobWeaponSkill(target, mob, skill)
 
-    local tp = mob:getLocalVar("WS_TP")
+    -- local tp = mob:getLocalVar("WS_TP")
+    local tp = 1000;
 
     local damage = (mob:getMainLvl() / 9) - 1
     local damagemod = damage * ((50+(tp*0.5))/100)
