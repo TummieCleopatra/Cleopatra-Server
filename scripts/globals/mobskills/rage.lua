@@ -21,5 +21,9 @@ function onMobWeaponSkill(target, mob, skill)
 
     local typeEffect = dsp.effect.BERSERK
     skill:setMsg(MobBuffMove(mob, typeEffect, 1, 0, duration))
+    if (mob:getMaster() ~= nil) then
+        local master = mob:getMaster()
+        master:addStatusEffect(typeEffect, 1, 0, duration)
+    end
     return typeEffect
 end

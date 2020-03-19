@@ -21,6 +21,10 @@ function onMobWeaponSkill(target, mob, skill)
     local power = 50
 
     skill:setMsg(MobBuffMove(mob, typeEffect, power, 0, 180))
+    if (mob:getMaster() ~= nil) then
+        local master = mob:getMaster()
+        master:addStatusEffect(typeEffect, power, 0, duration)
+    end
 
     return typeEffect
 end

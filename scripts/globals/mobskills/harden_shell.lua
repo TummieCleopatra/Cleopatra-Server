@@ -19,5 +19,9 @@ function onMobWeaponSkill(target, mob, skill)
     local typeEffect = dsp.effect.DEFENSE_BOOST
 
     skill:setMsg(MobBuffMove(mob, typeEffect, 100, 0, 60))
+    if (mob:getMaster() ~= nil) then
+        local master = mob:getMaster()
+        master:addStatusEffect(typeEffect, 100, 0, 60)
+    end
     return typeEffect
 end

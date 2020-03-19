@@ -21,5 +21,9 @@ function onMobWeaponSkill(target, mob, skill)
     end
     ]]
     skill:setMsg(MobBuffMove(mob, dsp.effect.STONESKIN, power, 0, 300))
+    if (mob:getMaster() ~= nil) then
+        local master = mob:getMaster()
+        master:addStatusEffect(dsp.effect.STONESKIN, power, 0, 300)
+    end
     return dsp.effect.STONESKIN
 end
