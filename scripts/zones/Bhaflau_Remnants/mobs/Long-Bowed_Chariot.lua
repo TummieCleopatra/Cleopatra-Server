@@ -10,7 +10,7 @@ require("scripts/globals/titles");
 -----------------------------------
 
 function onMobSpawn(mob)
-  
+
 end;
 
 -----------------------------------
@@ -18,5 +18,6 @@ end;
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
+    salvageChestBBoss(mob, isKiller)
 	player:addTitle(COMET_CHARIOTEER);
 end;

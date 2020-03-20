@@ -40,3 +40,14 @@ INSERT INTO `mob_spawn_points` VALUES (17126198,'Run_AF_Head','Run_AF_Head',70,-
 -- Sea Lions Den
 INSERT INTO `mob_spawn_points` VALUES (16908475,'Prishe','Prishe',20,-639,-231,512,187);
 INSERT INTO `mob_spawn_points` VALUES (16908476,'Ulmia','Ulmia',21,-640,-234,508,187);
+
+-- Talacca Cove
+INSERT INTO `mob_spawn_points` VALUES (17010908,'Mihli','Mihli',1000,-176,39,179,51);
+-- Hazhalm Testing
+INSERT INTO `mob_spawn_points` VALUES (17097390,'Zazarg','Zazarg',1000,408,-215,27,4);
+-- Navukgo
+INSERT INTO `mob_spawn_points` VALUES (17039452,'Gadalar','Gadalar',1000,383.144,-116.5,381.355,128);
+-- Jade Sepulcher
+INSERT INTO `mob_spawn_points` VALUES (17051905,'Najelith','Najelith',1000,238.707,-32,240.117,170);
+-- Nyzul Isle
+INSERT INTO `mob_spawn_points` VALUES (17093483,'Rud','Rud',1000,-486.5,-4.449,420,0);
