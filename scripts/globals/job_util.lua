@@ -443,8 +443,13 @@ function doGeoPotency(caster, target, spell)
 	local bell = caster:getSkillLevel(dsp.skill.BELL);
 	local potency = 1;
 	local geobonus = 0;  -- Future use to look at if specific Geomancy+ items are equipped;
+
 	local bolster = 1;
 	local pet = caster:getPet();
+
+    if (player:getEquipID(dsp.slot.MAIN) == 19381) then
+        geobonus = 5;
+    end
 
 	if (caster:hasStatusEffect(dsp.effect.BOLSTER)) then
 	    bolster = 2;
@@ -461,13 +466,13 @@ function doGeoPotency(caster, target, spell)
 	if (spellId == 768 or spellId == 798) then
 	    potency = ((skill + bell) / 20);
 		potency = utils.clamp(potency, 1, 30);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 2)) * bolster;
 	end
 	-- Poison
 	if (spell:getID() == 769 or spell:getID() == 799) then
 	    potency = ((skill + bell) / 20);
 		potency = utils.clamp(potency, 1, 30);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 3)) * bolster;
 	end
 	-- Refresh
 	if (spellId == 770 or spellId == 800) then
@@ -479,157 +484,157 @@ function doGeoPotency(caster, target, spell)
 	if (spellId == 772 or spellId == 802) then
 	    potency = ((skill + bell) / 36);
 		potency = utils.clamp(potency, 1, 25);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 2)) * bolster;
 	end
 	-- Boost DEX
 	if (spellId == 773 or spellId == 803) then
 	    potency = ((skill + bell) / 36);
 		potency = utils.clamp(potency, 1, 25);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 2)) * bolster;
 	end
 	-- Boost VIT
 	if (spellId == 774 or spellId == 804) then
 	    potency = ((skill + bell) / 36);
 		potency = utils.clamp(potency, 1, 25);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 2)) * bolster;
 	end
 	-- Boost AGI
 	if (spellId == 775 or spellId == 805) then
 	    potency = ((skill + bell) / 36);
 		potency = utils.clamp(potency, 1, 25);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 2)) * bolster;
 	end
 	-- Boost INT
 	if (spellId == 776 or spellId == 806) then
 	    potency = ((skill + bell) / 36);
 		potency = utils.clamp(potency, 1, 25);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 2)) * bolster;
 	end
 	-- Boost MND
 	if (spellId == 777 or spellId == 807) then
 	    potency = ((skill + bell) / 36);
 		potency = utils.clamp(potency, 1, 25);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 2)) * bolster;
 	end
 	-- Boost CHR
 	if (spellId == 778 or spellId == 808) then
 	    potency = ((skill + bell) / 36);
 		potency = utils.clamp(potency, 1, 25);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 2)) * bolster;
 	end
 	-- Fury
 	if (spell:getID() == 779 or spell:getID() == 809) then
 	    potency = ((skill + bell) / 26);
 		potency = utils.clamp(potency, 4, 35);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 2.2)) * bolster;
 	end
 	-- Barrier (Defense)
 	if (spell:getID() == 780 or spell:getID() == 810) then
 	    potency = ((skill + bell) / 23);
 		potency = utils.clamp(potency, 9, 40);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 4.6)) * bolster;
 	end
 	-- Acumen
 	if (spell:getID() == 781 or spell:getID() == 811) then -- Max of 20
 	    potency = ((skill + bell) / 45);
 		potency = utils.clamp(potency, 3, 20);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 3)) * bolster;
 	end
 	-- Fend (Magic Def Bonus)
 	if (spell:getID() == 782 or spell:getID() == 812) then
 	    potency = ((skill + bell) / 18);
 		potency = utils.clamp(potency, 1, 50);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 4)) * bolster;
 	end
 	-- Precision (Accuracy)
 	if (spell:getID() == 783 or spell:getID() == 813) then
 	    potency = ((skill + bell) / 18);
 		potency = utils.clamp(potency, 1, 50);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 5)) * bolster;
 	end
 	-- Voidance
 	if (spell:getID() == 784 or spell:getID() == 814) then
 	    potency = ((skill + bell) / 14);
 		potency = utils.clamp(potency, 1, 65);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 6)) * bolster;
 	end
 	-- Focus (Magic Accuracy)
 	if (spell:getID() == 785 or spell:getID() == 815) then
 	    potency = ((skill + bell) / 18);
 		potency = utils.clamp(potency, 1, 50);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 5)) * bolster;
 	end
 	-- Attunement
 	if (spell:getID() == 786 or spell:getID() == 816) then -- Max of 20
 	    potency = ((skill + bell) / 14);
 		potency = utils.clamp(potency, 1, 65);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 6)) * bolster;
 	end
 	-- Wilt
 	if (spell:getID() == 787 or spell:getID() == 817) then -- NYI
 	    potency = ((skill + bell) / 36);
 		potency = utils.clamp(potency, 4, 25);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 4.6)) * bolster;
 	end
 	-- Frailty
 	if (spell:getID() == 788 or spell:getID() == 818) then -- NYU
 	    potency = ((skill + bell) / 60);
 		potency = utils.clamp(potency, 3, 15);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 2.7)) * bolster;
 	end
 	-- Fade
 	if (spell:getID() == 789 or spell:getID() == 819) then  -- NYI
 	    potency = ((skill + bell) / 45);
 		potency = utils.clamp(potency, 5, 20);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 4)) * bolster;
 	end
 	-- Malaise
 	if (spell:getID() == 790 or spell:getID() == 820) then  -- NYI
 	    potency = ((skill + bell) / 60);
 		potency = utils.clamp(potency, 3, 15);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 3)) * bolster;
 	end
 	-- Slip
 	if (spell:getID() == 791 or spell:getID() == 821) then
 	    potency = ((skill + bell) / 65);
 		potency = utils.clamp(potency, 1, 14);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 6)) * bolster;
 	end
 	-- Torpor
 	if (spell:getID() == 792 or spell:getID() == 822) then
 	    potency = ((skill + bell) / 18);
 		potency = utils.clamp(potency, 1, 50);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 5)) * bolster;
 	end
 	-- Vex
 	if (spell:getID() == 793 or spell:getID() == 823) then
 	    potency = ((skill + bell) / 14);
 		potency = utils.clamp(potency, 1, 65);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 6)) * bolster;
 	end
 	-- Languor
 	if (spell:getID() == 794 or spell:getID() == 824) then
 	    potency = ((skill + bell) / 18);
 		potency = utils.clamp(potency, 1, 50);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 5)) * bolster;
 	end
 	-- Slow
 	if (spell:getID() == 795 or spell:getID() == 825) then
 	    potency = ((skill + bell) / 60);
 		potency = utils.clamp(potency, 1, 15);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 0.5)) * bolster;
 	end
 	-- Paralysis
 	if (spell:getID() == 796 or spell:getID() == 826) then
 	    potency = ((skill + bell) / 60);
 		potency = utils.clamp(potency, 1, 15);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 1)) * bolster;
 	end
 	-- Gravity
 	if (spellId == 797 or spellId == 826) then -- NYI
 	    potency = ((skill + bell) / 112);
 		potency = utils.clamp(potency, 4, 8);
-		potency = (potency + geobonus) * bolster;
+		potency = (potency + (geobonus * 1)) * bolster;
 	end
 	-- Slip
 	-- Boost STR

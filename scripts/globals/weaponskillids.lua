@@ -92,6 +92,7 @@ dsp.weaponskill =
     SCOURGE             = 57,
     TORCLEAVER          = 59,
     RESOLUTION          = 60,
+    DIMIDATION          = 61,
 
     ------------------------------------
     -- AXE
@@ -219,6 +220,7 @@ dsp.weaponskill =
     FLASH_NOVA          = 172,
     DAGAN               = 173,
     REALMRAZER          = 174,
+    EXUDATION           = 175,
 
     ------------------------------------
     -- STAFF
@@ -279,7 +281,7 @@ dsp.ws = dsp.weaponskill
 -- Weaponskill Unlock IDs
 ------------------------------------
 
-dsp.ws_unlock = 
+dsp.ws_unlock =
 {
     ASURAN_FISTS        = 1,
     EVISCERATION        = 2,
@@ -329,4 +331,6 @@ dsp.ws_unlock =
     MYRKR               = 46,
     JISHNUS_RADIANCE    = 47,
     WILDFIRE            = 48,
+    DIMIDATION          = 49,
+    EXUDATION           = 50,
 }
