@@ -11,6 +11,10 @@ require("scripts/globals/bcnm");
 -----------------------------------
 
 function onTrade(player,npc,trade)
+    printf("Trade")
+	if (TradeBCNM(player,player:getZoneID(),trade,npc)) then
+        return;
+    end
 end;
 
 function onTrigger(player,npc)
@@ -19,6 +23,9 @@ function onTrigger(player,npc)
 
     if (LuckOfTheDraw ==4) then
         player:startEvent(3);
+    elseif (player:hasCompletedMission(TOAU,LEGACY_OF_THE_LOST)) then
+        player:PrintToPlayer("You are now able to summon Gessho as a Trust!", 0x1C);
+		player:addSpell(918);
     elseif (EventTriggerBCNM(player,npc)) then
         return;
     end

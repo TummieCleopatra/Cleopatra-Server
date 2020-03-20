@@ -14,7 +14,10 @@ end;
 function onTrigger(player,npc)
     if (player:getCurrentMission(TOAU) == dsp.mission.id.toau.GAZE_OF_THE_SABOTEUR and player:getVar("AhtUrganStatus") == 1) then
         player:startEvent(7);
+    elseif (EventTriggerBCNM(player,npc)) then
+        return;
     end
+
 end;
 
 function onEventUpdate(player,csid,option)

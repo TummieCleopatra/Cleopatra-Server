@@ -28,6 +28,8 @@ function onTrigger(player,npc)
             armband = 1
         end
         player:startEvent(405, assaultid, -4, 0, recommendedLevel, 5, armband)
+    elseif (EventTriggerBCNM(player,npc)) then
+        return;
     else
         player:messageSpecial(ID.text.NOTHING_HAPPENS)
     end

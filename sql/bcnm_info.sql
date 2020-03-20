@@ -322,10 +322,10 @@ INSERT INTO `bcnm_info` VALUES (1386,206,'impersonating_zeid','Cleopatra',1,18,1
 INSERT INTO `bcnm_info` VALUES (1388,32,'double_trouble','Cleopatra',1,18,1800,75,6,202,15,0);
 
 INSERT INTO `bcnm_info` VALUES (1389,57,'call_of_the_waterserpent','Cleopatra',1,18,1800,75,6,0,7,0);
-INSERT INTO `bcnm_info` VALUES (1390,64,'call_of_the_flameserpent','Cleopatra',1,18,1800,75,6,0,7,0);
-INSERT INTO `bcnm_info` VALUES (1391,78,'call_of_the_stoneserpent','Cleopatra',1,18,1800,75,6,0,7,0);
+INSERT INTO `bcnm_info` VALUES (1390,64,'call_of_the_flameserpent','Cleopatra',1,18,1800,75,6,0,7,0);  -- No item
+INSERT INTO `bcnm_info` VALUES (1391,78,'call_of_the_stoneserpent','Cleopatra',1,18,1800,75,6,0,7,0);  -- No Item
 INSERT INTO `bcnm_info` VALUES (1392,67,'call_of_the_galeserpent','Cleopatra',1,18,1800,75,6,0,7,0);
-INSERT INTO `bcnm_info` VALUES (1393,77,'call_of_the_skyserpent','Cleopatra',1,18,1800,75,6,0,7,0);
+INSERT INTO `bcnm_info` VALUES (1393,77,'call_of_the_skyserpent','Cleopatra',1,18,1800,75,6,0,7,0);  -- No Item
 /*!40000 ALTER TABLE `bcnm_info` ENABLE KEYS */;
 UNLOCK TABLES;
 commit;
