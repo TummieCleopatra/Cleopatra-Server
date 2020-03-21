@@ -93,9 +93,9 @@ struct MeritCategoryInfo_t
 static const MeritCategoryInfo_t meritCatInfo[] =
 {
     {3,45,0},  //MCATEGORY_HP_MP
-    {7,60,1},  //MCATEGORY_ATTRIBUTES
-    {19,112,2}, //MCATEGORY_COMBAT
-    {14,80,4}, //MCATEGORY_MAGIC
+    {7,105,1},  //MCATEGORY_ATTRIBUTES
+    {19,152,2}, //MCATEGORY_COMBAT
+    {14,112,4}, //MCATEGORY_MAGIC
     {5,10,5},  //MCATEGORY_OTHERS
 
     {5,10,6},  //MCATEGORY_WAR_1
@@ -132,17 +132,17 @@ static const MeritCategoryInfo_t meritCatInfo[] =
 
     {4,10,7},  //MCATEGORY_WAR_2
     {4,10,7},  //MCATEGORY_MNK_2
-    {4,10,7},  //MCATEGORY_WHM_2
-    {6,10,7},  //MCATEGORY_BLM_2
-    {6,10,7},  //MCATEGORY_RDM_2
+    {6,10,7},  //MCATEGORY_WHM_2
+    {12,10,7},  //MCATEGORY_BLM_2
+    {12,10,7},  //MCATEGORY_RDM_2
     {4,10,7},  //MCATEGORY_THF_2
     {4,10,7},  //MCATEGORY_PLD_2
     {4,10,7},  //MCATEGORY_DRK_2
     {4,10,7},  //MCATEGORY_BST_2
-    {4,10,7},  //MCATEGORY_BRD_2
+    {6,10,7},  //MCATEGORY_BRD_2
     {4,10,7},  //MCATEGORY_RNG_2
     {4,10,7},  //MCATEGORY_SAM_2
-    {6,10,7},  //MCATEGORY_NIN_2
+    {12,10,7},  //MCATEGORY_NIN_2
     {4,10,7},  //MCATEGORY_DRG_2
     {6,10,7},  //MCATEGORY_SMN_2
     {4,10,7},  //MCATEGORY_BLU_2
@@ -151,6 +151,7 @@ static const MeritCategoryInfo_t meritCatInfo[] =
     {4,10,7},  //MCATEGORY_DNC_2
     {6,10,7},  //MCATEGORY_SHC_2
     {4,10,7},  //MCATEGORY_GEO_2
+    {4,10,7},  //MCATEGORY_RUN_2
     {4,10,7},  //MCATEGORY_RUN_2
 };
 
@@ -206,7 +207,7 @@ void CMeritPoints::LoadMeritPoints(uint32 charid)
 
     for (uint16 i = 0; i < MERITS_COUNT; ++i)
     {
-        if ((catNumber < 53 && i == meritNameSpace::groupOffset[catNumber]) || (catNumber > 27 && catNumber < 31))
+        if ((catNumber < 54 && i == meritNameSpace::groupOffset[catNumber]) || (catNumber > 27 && catNumber < 31))
         {
 
             if (catNumber > 27 && catNumber < 31) // point these to valid merits to prevent crash
@@ -345,36 +346,45 @@ void CMeritPoints::SetMeritPoints(uint16 points)
 
 bool CMeritPoints::IsMeritExist(MERIT_TYPE merit)
 {
-	//ShowWarning(CL_YELLOW"The Merit is %u \n" CL_RESET, GetMeritID(merit));
-    if ((int16)merit <  MCATEGORY_START) return false;
-    if ((int16)merit >= MCATEGORY_COUNT) return false;	
+	//ShowWarning(CL_YELLOW"The Merit number is %u \n" CL_RESET, merit);
 
+    if ((int16)merit <  MCATEGORY_START) {
+        ShowWarning(CL_YELLOW"The Merit is %u \n" CL_RESET, merit);
+        return  false;
+    }
+    if ((int16)merit >= MCATEGORY_COUNT) {
+        ShowWarning(CL_YELLOW"The Merit is greater than category:  %u \n" CL_RESET, merit);
+        return false;
+    }
+    /*
 	if ((int16)merit >= 2184 && ((int16)merit <= 2186))
-    {	
+    {
 		if ((GetMeritID(merit) - 2) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
-	}	
+	}
 	else if ((int16)merit >= 2252 && ((int16)merit <= 2262))
-    {	
+    {
 		if ((GetMeritID(merit) - 6) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
 	}
 	else if ((int16)merit >= 2316 && ((int16)merit <= 2326))
-    {	
+    {
 		if ((GetMeritID(merit) - 6) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
 	}
 	else if ((int16)merit >= 2632 && ((int16)merit <= 2634))
-    {	
+    {
 		if ((GetMeritID(merit) - 2) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
 	}
 	else if ((int16)merit >= 2832 && ((int16)merit <= 2838))
-    {	
+    {
 		if ((GetMeritID(merit) - 6) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
 	}
-	else 
+	else
 	{
+        //ShowWarning(CL_YELLOW"MERIT ID is ...... %u \n" CL_RESET, GetMeritID(merit));
+        //ShowWarning(CL_YELLOW"MERIT CAT! %u \n" CL_RESET, meritCatInfo[GetMeritCategory(merit)].MeritsInCat);
 		if ((GetMeritID(merit)) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
-	}
-    //if ((GetMeritID(merit)) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
-    
+	}*/
+    if ((GetMeritID(merit)) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
+
     return true;
 }
 
@@ -410,11 +420,13 @@ const Merit_t* CMeritPoints::GetMeritByIndex(uint16 index)
 
 Merit_t* CMeritPoints::GetMeritPointer(MERIT_TYPE merit)
 {
+    //ShowWarning(CL_YELLOW"The Merit is %u \n" CL_RESET, merit);
     if (IsMeritExist(merit))
     {
+        /*
 		if (merit >= 2184 && merit <= 2186){
 			return &Categories[GetMeritCategory(merit)][GetMeritID(merit) - 2]; // WHM T2 Merits
-		}		
+		}
 		else if (merit >= 2252 && merit <= 2262){
 			return &Categories[GetMeritCategory(merit)][GetMeritID(merit) - 6]; // BLM T2 Merits
 		}
@@ -426,12 +438,16 @@ Merit_t* CMeritPoints::GetMeritPointer(MERIT_TYPE merit)
 		}
 		else if (merit >= 2832 && merit <= 2838){
 			return &Categories[GetMeritCategory(merit)][GetMeritID(merit) - 6]; // NIN T2 Merits
-		}		
+		}*/
+		if (merit >= 3456 && merit <= 3462){
+			return &Categories[GetMeritCategory(merit)][GetMeritID(merit) - 1]; // NIN T2 Merits
+		}
 		else
 		{
 			return &Categories[GetMeritCategory(merit)][GetMeritID(merit)];
 		}
-        
+        //return &Categories[GetMeritCategory(merit)][GetMeritID(merit)];
+
     }
     return nullptr;
 }

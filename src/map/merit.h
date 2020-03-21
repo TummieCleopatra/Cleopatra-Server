@@ -93,11 +93,11 @@ enum MERIT_CATEGORY
     MCATEGORY_PUP_2      = 0x0C40,
     MCATEGORY_DNC_2      = 0x0C80,
     MCATEGORY_SCH_2      = 0x0CC0,
-    MCATEGORY_GEO_2      = 0x0D00,
-    MCATEGORY_RUN_2      = 0x0D40,
+    MCATEGORY_GEO_2      = 0x0D40,
+    MCATEGORY_RUN_2      = 0x0D80,
 
     MCATEGORY_START      = 0x0040,
-    MCATEGORY_COUNT      = 0x0D80,
+    MCATEGORY_COUNT      = 0x0DC0,
 };
 
 /************************************************************************
@@ -366,7 +366,7 @@ enum MERIT_TYPE
     MERIT_ANIMUS_MISERY             = MCATEGORY_WHM_2 + 0x0A,
 
     //BLM 2
-   
+
     MERIT_ANCIENT_MAB               = MCATEGORY_BLM_2 + 0x0C,
     MERIT_ANCIENT_MDB               = MCATEGORY_BLM_2 + 0x0E,
     MERIT_ELEMENTAL_ACC             = MCATEGORY_BLM_2 + 0x10,
