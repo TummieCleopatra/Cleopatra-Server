@@ -369,7 +369,7 @@ function onTrade(player,npc,trade)
     -- Complete the trade..
     player:tradeComplete();
     --
-    player:addItem(20784, 1, 301, 9);
+    player:addItem(20784, 1, 1472, 4, 39, 9, 1155, 5);
     player:setVar("RUNMythicWeapon", 6);
     player:messageSpecial(ID.text.ITEM_OBTAINED, 20784);
   end

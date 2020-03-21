@@ -9,6 +9,9 @@ require("scripts/globals/titles");
 -----------------------------------
 
 function onTrade(player,npc,trade)
+	if (TradeBCNM(player,player:getZoneID(),trade,npc)) then
+        return;
+    end
 end;
 
 function onTrigger(player,npc)

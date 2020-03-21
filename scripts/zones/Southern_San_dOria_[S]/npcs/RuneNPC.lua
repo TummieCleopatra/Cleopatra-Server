@@ -36,7 +36,7 @@ function onTrigger(player,npc)
             player:setVar("RUN_AF",2)
         elseif (FreeSlots > 0 and player:getVar("RUN_AF_LEGS") == 1) then
             player:PrintToPlayer("Fivinne : You've done well.  Here are some pants for you.  You can only wear them as a Rune Fencer though.", 0x15);
-            player:addItem(12237,1,288,9,797,4,49,4,54,1)  -- Divine Skill +10, Enhance res all status ailments, Haste+5% PDT-2
+            player:addItem(12237,1,288,9,796,9,49,4,54,1)  -- Divine Skill +10, Enhance res all status ailments, Haste+5% PDT-2
             player:messageSpecial(ID.text.ITEM_OBTAINED,12237)
             player:setVar("RUN_AF_LEGS",0)
             player:setVar("RUN_AF",3)
