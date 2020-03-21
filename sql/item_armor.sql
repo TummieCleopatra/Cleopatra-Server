@@ -9075,7 +9075,7 @@ INSERT INTO `item_armor` VALUES (19377,'stenz',75,0,1048580,113,0,0,3,0);
 INSERT INTO `item_armor` VALUES (19378,'rageblow',75,0,4,115,0,0,3,0);
 INSERT INTO `item_armor` VALUES (19379,'culacula',75,0,4,116,0,0,3,0);
 INSERT INTO `item_armor` VALUES (19380,'goedendag',75,0,4,103,0,0,3,0);
-INSERT INTO `item_armor` VALUES (19381,'ingrimm',75,0,1048580,243,0,0,3,0);
+INSERT INTO `item_armor` VALUES (19381,'ingrimm',75,0,1048576,707,0,0,3,0);  -- GEO Ergon
 INSERT INTO `item_armor` VALUES (19382,'crook',75,0,1589788,304,0,0,1,0);
 INSERT INTO `item_armor` VALUES (19383,'shillelagh',75,0,540680,299,0,0,1,0);
 INSERT INTO `item_armor` VALUES (19384,'slaine',75,0,540680,298,0,0,1,0);
@@ -9907,7 +9907,7 @@ INSERT INTO `item_armor` VALUES (20780,'senbaak_nagan_+1',99,118,2097344,73,0,0,
 INSERT INTO `item_armor` VALUES (20781,'sowilo_claymore',1,0,2097152,68,0,0,1,0);
 INSERT INTO `item_armor` VALUES (20782,'coalition_sword',99,100,2097344,608,0,0,1,0);
 INSERT INTO `item_armor` VALUES (20783,'uruz_blade',75,0,2097152,705,0,0,1,0); -- RUN HA Weapon
-INSERT INTO `item_armor` VALUES (20784,'uruz_blade_+1',75,0,2097152,72,0,0,1,0);  -- RUN Ergon
+INSERT INTO `item_armor` VALUES (20784,'uruz_blade_+1',75,0,2097152,706,0,0,1,0);  -- RUN Ergon
 INSERT INTO `item_armor` VALUES (20785,'thurisaz_blade',99,100,2097152,67,0,0,1,0);
 INSERT INTO `item_armor` VALUES (20786,'thurisaz_blade_+1',99,101,2097152,67,0,0,1,0);
 INSERT INTO `item_armor` VALUES (20787,'crobaci',99,105,2097344,432,0,0,1,0);

@@ -23984,6 +23984,8 @@ INSERT INTO `item_mods` VALUES (19316,250,2);
 INSERT INTO `item_mods` VALUES (19316,431,1);
 INSERT INTO `item_mods` VALUES (19317,8,4);
 INSERT INTO `item_mods` VALUES (19317,25,4);
+INSERT INTO `item_mods` VALUES (19381,256,31); -- Aftermath
+INSERT INTO `item_mods` VALUES (19381,355,175); -- Exudation
 INSERT INTO `item_mods` VALUES (19456,8,10);   -- Verethragna 85 - STR+10
 INSERT INTO `item_mods` VALUES (19456,256,44); -- Aftermath
 INSERT INTO `item_mods` VALUES (19456,355,14); -- Victory Smite
@@ -25316,6 +25318,8 @@ INSERT INTO `item_mods` VALUES (20783,29,4);
 INSERT INTO `item_mods` VALUES (20783,355,58); -- HA GSWORD
 INSERT INTO `item_mods` VALUES (20784,23,9);
 INSERT INTO `item_mods` VALUES (20784,29,5);
+INSERT INTO `item_mods` VALUES (20784,256,29); -- Aftermath
+INSERT INTO `item_mods` VALUES (20784,355,61); -- Dimidiation
 INSERT INTO `item_mods` VALUES (20790,23,40); -- Guttler iLvL 119 - ATT +40
 INSERT INTO `item_mods` VALUES (20790,256,5); -- Aftermath
 INSERT INTO `item_mods` VALUES (20790,355,73); -- Onslaught
