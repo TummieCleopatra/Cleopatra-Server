@@ -71,37 +71,37 @@ dsp.aftermath.effects =
     -----------------------------------
     [29] = -- Conqueror, Glanzfaust, Vajra, Burtgang, Liberator, Aymur, Kogarasumaru, Nagi, Ryunohige, Nirvana, Kenkonken, Terpsichore, Epeolatry
     {
-        mods = { { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.ATT, function(tp) return math.floor(tp / 100 + 10) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 - 5) end },
-                 { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.ATT, function(tp) return math.floor(tp / 100 + 10) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 - 5) end },
-                 { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.ATT, function(tp) return math.floor(tp / 100 + 10) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 - 5) end }},
+        mods = { { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.ATT, function(tp) return math.floor(tp / 100 + 10) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 + 10) end },
+                 { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.ATT, function(tp) return math.floor(tp / 100 + 10) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 + 10) end },
+                 { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.ATT, function(tp) return math.floor(tp / 100 + 10) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 + 10) end }},
         duration = { 60, 90, 120 }
     },
     [30] = -- Yagrush, Carnwenhan
     {
-        mods = { { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 - 5) end },
-                 { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 - 5) end },
-                 { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 - 5) end }},
+        mods = { { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 + 10) end },
+                 { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 + 10) end },
+                 { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 + 10) end }},
         duration = { 180, 90, 120 }
     },
     [31] = -- Laevateinn, Murgleis, Tupsimati, Idris
     {
-        mods = { { dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MATT, function(tp) return math.floor(tp / 100 + 10) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 - 5) end },
-                 { dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MATT, function(tp) return math.floor(tp / 100 + 10) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 - 5) end },
-                 { dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MATT, function(tp) return math.floor(tp / 100 + 10) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 - 5) end }},
+        mods = { { dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MATT, function(tp) return math.floor(tp / 100 + 10) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 + 10) end },
+                 { dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MATT, function(tp) return math.floor(tp / 100 + 10) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 + 10) end },
+                 { dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MATT, function(tp) return math.floor(tp / 100 + 10) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 + 10) end }},
         duration = { 180, 180, 120 }
     },
     [32] = -- Tizona
     {
-        mods = { { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 - 5) end },
-                 { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 - 5) end },
-                 { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 - 5) end }},
+        mods = { { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 + 10) end },
+                 { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 + 10) end },
+                 { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 + 10) end }},
         duration = { 60, 90, 120 }
     },
     [33] = -- Gastraphetes, Death Penalty
     {
-        mods = { { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.ATT, function(tp) return math.floor(tp / 100 + 10) end, dsp.mod.REM_OCC_DO_DOUBLE_DMG_RANGED, function(tp) return math.floor(tp / 100 - 5) end },
-                 { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.ATT, function(tp) return math.floor(tp / 100 + 10) end, dsp.mod.REM_OCC_DO_DOUBLE_DMG_RANGED, function(tp) return math.floor(tp / 100 - 5) end },
-                 { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.ATT, function(tp) return math.floor(tp / 100 + 10) end, dsp.mod.REM_OCC_DO_DOUBLE_DMG_RANGED, function(tp) return math.floor(tp / 100 - 5) end }},
+        mods = { { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.ATT, function(tp) return math.floor(tp / 100 + 10) end, dsp.mod.REM_OCC_DO_DOUBLE_DMG_RANGED, function(tp) return math.floor(tp / 100 + 10) end },
+                 { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.ATT, function(tp) return math.floor(tp / 100 + 10) end, dsp.mod.REM_OCC_DO_DOUBLE_DMG_RANGED, function(tp) return math.floor(tp / 100 + 10) end },
+                 { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.ATT, function(tp) return math.floor(tp / 100 + 10) end, dsp.mod.REM_OCC_DO_DOUBLE_DMG_RANGED, function(tp) return math.floor(tp / 100 + 10) end }},
         duration = { 60, 90, 120 }
     },
 
