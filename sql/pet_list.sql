@@ -175,6 +175,7 @@ INSERT INTO `pet_list` VALUES (122, 'Zazarg-W', 7047, 1, 99, 0, 0);
 INSERT INTO `pet_list` VALUES (123, 'Zazarg-N', 7047, 1, 99, 0, 0);
 
 INSERT INTO `pet_list` VALUES (124, 'Luzaf', 7048, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (125, 'Koru-Moru', 7049, 1, 99, 0, 0);
 
 
 

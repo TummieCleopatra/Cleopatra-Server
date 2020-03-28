@@ -10,6 +10,16 @@ require("scripts/globals/msg")
 require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
+    local master = mob:getMaster()
+    local lvl = master:getMainLvl()
+    local addDef = (lvl * 4) / 3
+    mob:addMod(dsp.mod.DEF, addDef)
+
+    local defense = mob:getStat(dsp.mod.DEF)
+
+    mob:addStatusEffect(dsp.effect.MAX_MP_BOOST,60,0,0);
+    mob:addMP(350)
+
     mob:addMod(dsp.mod.CURE_POTENCY,38)
     curillaTrustPoints(mob)
     local weaponskill = 0

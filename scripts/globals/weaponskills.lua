@@ -265,12 +265,16 @@ function doPhysicalWeaponskill(attacker, target, wsID, tp, primary, action, taCh
 
     attacker:delStatusEffectSilent(dsp.effect.BUILDING_FLOURISH)
     finaldmg = finaldmg * WEAPON_SKILL_POWER
-	
+
 	if (attacker:getObjType() == dsp.objType.PC and attacker:hasStatusEffect(dsp.effect.BESIEGED)) then
         wsPoints(attacker,finaldmg)
     end
-	
+
     finaldmg = takeWeaponskillDamage(target, attacker, params, primary, finaldmg, dsp.attackType.PHYSICAL, damageType, dsp.slot.MAIN, tpHitsLanded, extraHitsLanded, shadowsAbsorbed, bonusTP, action, taChar)
+    if (target:getObjType() ~= dsp.objType.TRUST and target:getObjType() == dsp.objType.MOB) then
+        local wsdmg = target:getLocalVar("wsDamage")
+        target:setLocalVar("wsDamage",wsdmg + finaldmg)
+    end
     return finaldmg, criticalHit, tpHitsLanded, extraHitsLanded
 end
 
@@ -325,13 +329,13 @@ function doMagicWeaponskill(attacker, target, wsID, tp, primary, action, params)
     else
         shadowsAbsorbed = shadowsAbsorbed + 1
     end
-	
+
 	local finaldmg = dmg
-	
+
 	if (attacker:getObjType() == dsp.objType.PC and attacker:hasStatusEffect(dsp.effect.BESIEGED)) then
         wsPoints(attacker,finaldmg)
-    end	
-	
+    end
+
     damageType = dsp.damageType.ELEMENTAL + params.ele
     dmg = takeWeaponskillDamage(target, attacker, params, primary, dmg, dsp.attackType.MAGICAL, damageType, dsp.slot.MAIN, 1, 0, shadowsAbsorbed, bonusTP, action, nil)
     return dmg, false, 1, 0
@@ -898,11 +902,11 @@ end
     finaldmg = finaldmg * target:getMod(dsp.mod.PIERCERES) / 1000
 
     finaldmg = finaldmg * WEAPON_SKILL_POWER
-	
+
 	if (attacker:getObjType() == dsp.objType.PC and attacker:hasStatusEffect(dsp.effect.BESIEGED)) then
         wsPoints(attacker,finaldmg)
-    end	
-	
+    end
+
     finaldmg = takeWeaponskillDamage(target, attacker, params, primary, finaldmg, dsp.attackType.RANGED, attacker:getWeaponDamageType(dsp.slot.RANGED), dsp.slot.RANGED, tpHitsLanded, extraHitsLanded, shadowsAbsorbed, bonusTP, action, nil)
     return finaldmg, crit, tpHitsLanded, extraHitsLanded, shadowsAbsorbed
 end

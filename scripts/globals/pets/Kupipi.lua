@@ -24,6 +24,14 @@ function onMobSpawn(mob)
     local wsCooldown = 4
     local enmity = math.floor(mob:getMainLvl() / 6 )
     mob:addMod(dsp.mod.ENMITY, -enmity)
+
+    local master = mob:getMaster()
+    local lvl = master:getMainLvl()
+    local addMP = (lvl * 2)
+    mob:addMod(dsp.mod.MP, addMP)
+    mob:addMP(600)
+
+
     mob:setLocalVar("wsTime",0)
     mob:setLocalVar("cureTime",0)
     mob:setLocalVar("debuffTime",0)
@@ -43,6 +51,8 @@ function onMobSpawn(mob)
         if (battletime > cureTime + cureCooldown) then
             local party = player:getParty()
             for _,member in ipairs(party) do
+                local name = member:getName()
+                print(name)
                 if (member:getHPP() <= 30) then
                     local spell = doEmergencyCureKupipi(mob)
                     if (spell > 0) then
@@ -188,7 +198,8 @@ function doBuff(mob, player)
     for i,member in pairs(party) do
         if (not member:hasStatusEffect(dsp.effect.PROTECT)) then
             procount = procount + 1
-            if (procount >= 2) then -- do protectra instead
+            -- if (procount >= 2) then -- do protectra instead
+            if (not mob:hasStatusEffect(dsp.effect.PROTECT)) then
                 for i = 1, #proRaList do
                     if (lvl >= proRaList[i][1] and mp >= proRaList[i][2]) then
                         pro = proRaList[i][3]
@@ -202,6 +213,9 @@ function doBuff(mob, player)
         end
     end
 
+    -- Handle this in a seperate timer
+
+    --[[
     if (procount == 1) then
         for i,member in pairs(party) do
             if (not member:hasStatusEffect(dsp.effect.PROTECT)) then
@@ -216,12 +230,13 @@ function doBuff(mob, player)
                 break
             end
         end
-    end
+    end]]--
 
     for i,member in pairs(party) do
         if (not member:hasStatusEffect(dsp.effect.SHELL)) then
             shellcount = shellcount + 1
-            if (shellcount >= 2) then
+            -- if (shellcount >= 3) then
+            if (not mob:hasStatusEffect(dsp.effect.SHELL)) then
                 for i = 1, #shellRaList do
                     if (lvl >= shellRaList[i][1] and mp >= shellRaList[i][2]) then
                         shell = shellRaList[i][3]
@@ -235,6 +250,7 @@ function doBuff(mob, player)
         end
     end
 
+    --[[
     if (shellcount == 1) then
         for i,member in pairs(party) do
             if (not member:hasStatusEffect(dsp.effect.SHELL)) then
@@ -250,6 +266,7 @@ function doBuff(mob, player)
             end
         end
     end
+    --]]
 end
 
 function doCureKupipi(mob)

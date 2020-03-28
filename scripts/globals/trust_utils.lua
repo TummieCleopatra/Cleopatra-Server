@@ -3,6 +3,48 @@ require("scripts/globals/keyitems")
 require("scripts/globals/status")
 -----------------------------------
 
+
+
+function checkDoubleCure(mob, member)
+    -- member is the person that needs the cure
+    -- Person is the other caster in the party
+    local player = mob:getMaster()
+    local party = player:getParty()
+    local canCure = 1
+    for _,person in ipairs(party) do
+        local cureCast = person:getLocalVar("cureCasting")
+        if (person:getObjType() == dsp.objType.TRUST and cureCast == 10 and mob:getID() ~= person:getID()) then
+            canCure = 0  -- No Cure
+        elseif (person:getObjType() == dsp.objType.TRUST and cureCast > 0 and mob:getID() ~= person:getID()) then
+            canCure = person:getLocalVar("cureCasting")
+        end
+    end
+    return canCure
+end
+
+
+function checkKoruCure(mob, member)
+    -- member is the person that needs the cure
+    -- Person is the other caster in the party
+    local player = mob:getMaster()
+    local party = player:getParty()
+    for _,person in ipairs(party) do
+        local cureCast = person:getLocalVar("cureCasting")
+        print(cureCast)
+        if (person:getObjType() == dsp.objType.TRUST and cureCast == 1) then
+
+            print(mobt)
+            print(test)
+
+            printf("SOMEONE ELSE IS CASTING AND SO I SHOULDN'T!!!!!!")
+            return false
+        end
+    end
+
+    return true
+end
+
+
 -- ATT and ACC Fix
 
 function set2HStats(mob)
@@ -371,6 +413,20 @@ function isKupipiInParty(mob, player, target)
     end
 
     return kupipi
+end
+
+function isKoruInParty(mob, player, target)
+    local koru = 0
+    local party = player:getParty()
+
+    for i, member in ipairs(party) do
+        if (member:getName() == "Koru-Moru") then
+            koru = 1
+            break
+        end
+    end
+
+    return koru
 end
 
 function isPrisheInParty(mob, player, target)

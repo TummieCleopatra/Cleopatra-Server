@@ -8,9 +8,8 @@
 -------------------------------------------------
 require("scripts/globals/status")
 require("scripts/globals/msg")
-require("scripts/globals/enmitycalc")
 require("scripts/globals/pathfind")
-require("scripts/globals/trustpoints")
+require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
     local cureCooldown = 22
@@ -22,6 +21,10 @@ function onMobSpawn(mob)
     local mbCooldown = 5
     local skill = 0
     local angle = 85
+    local master = mob:getMaster()
+    mob:addStatusEffect(dsp.effect.MAX_MP_BOOST,105,0,0);
+    mob:addMP(900)
+
     adelheidTrustPoints(mob)
     local lvl = mob:getMainLvl()
     if (lvl < 61) then

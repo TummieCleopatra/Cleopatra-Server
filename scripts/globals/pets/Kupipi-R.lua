@@ -15,6 +15,7 @@ require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
     local weaponskill = 0
+    local magicCheck = 4
     local cureCooldown = 14
     local debuffCooldown = 10
     local buffCooldown = 7
@@ -25,7 +26,11 @@ function onMobSpawn(mob)
     local angle = getAngle(mob)
     local wsCooldown = 4
     local sleepCooldown = 10
+    -- increase Kupipi's MP
+    mob:addStatusEffect(dsp.effect.MAX_MP_BOOST,32,0,0);
+    mob:addMP(600)
     mob:setLocalVar("wsTime",0)
+    mob:setLocalVar("magicTime",0)
     mob:setLocalVar("cureTime",0)
     mob:setLocalVar("debuffTime",0)
     mob:setLocalVar("ailmentTime",0)
@@ -45,6 +50,13 @@ function onMobSpawn(mob)
     mob:addListener("COMBAT_TICK", "KUPIPI_CURE_TICK", function(mob, player, target)
         local battletime = os.time()
         local cureTime = mob:getLocalVar("cureTime")
+        local act = mob:getCurrentAction()
+
+
+        if (act ~= dsp.act.MAGIC_CASTING) then
+            mob:setLocalVar("cureCasting",0)  -- Set this to 0 to mean mob is not or is done casting cures
+            -- printf("Done Casting, set cure to 0")
+        end
 
         if (battletime > cureTime + cureCooldown) then
             local party = player:getParty()
@@ -54,69 +66,88 @@ function onMobSpawn(mob)
                     if (spell > 0) then
                         mob:castSpell(spell, member)
                         mob:setLocalVar("cureTime",battletime)
+                        mob:setLocalVar("magicTime",battletime)
                         break
                     end
-                elseif (member:getHPP() <= 67) then
-                    local spell = doCureKupipi(mob)
+                elseif (member:getHPP() <= 73) then
+
+                    local spell, moreCure = doCureKupipi(mob, member)
                     if (spell > 0) then
-                        mob:castSpell(spell, member)
-                        mob:setLocalVar("cureTime",battletime)
-                        break
+                    -- local canCast = true
+                        local canCast = checkDoubleCure(mob, member)
+                        if (canCast == 1) then
+                            -- printf("Set Cure Cast to 1")
+                            mob:setLocalVar("cureCasting",moreCure) -- Sets the cure casting to what is needed
+                            mob:castSpell(spell, member)
+                            mob:setLocalVar("cureTime",battletime)
+                            mob:setLocalVar("magicTime",battletime)
+                            break
+                        elseif (canCast > 0) then
+                            -- See which spell is allowed
+                            mob:castSpell(canCast, member)
+                            mob:setLocalVar("cureTime",battletime)
+                            mob:setLocalVar("magicTime",battletime)
+                        end
                     end
-                else
-                    mob:setLocalVar("cureTime",battletime - 10)  -- If no member has low HP change global check to 8 seconds
                 end
             end
+            mob:setLocalVar("cureTime",battletime - 12)
         end
     end)
 
-    mob:addListener("COMBAT_TICK", "KUPIPI_BUFF_TICK", function(mob, player, target)
+
+
+    mob:addListener("COMBAT_TICK", "KUPIPI_MAGIC_TICK", function(mob, player, target)
         local battletime = os.time()
+        local magicTime = mob:getLocalVar("magicTime")
         local buffTime = mob:getLocalVar("buffTime")
-
-        if (battletime > buffTime + buffCooldown) then
-            doBuff(mob, player)
-        end
-    end)
-
-    mob:addListener("COMBAT_TICK", "AILMENT_TICK", function(mob, player, target)
-        local battletime = os.time()
-        local ailmentTime = mob:getLocalVar("ailmentTime")
-
-        if (battletime > ailmentTime + ailmentCooldown) then
-            local spell = doStatusRemoval(mob, player)
-            if (spell > 0 ) then
-                mob:castSpell(spell, player)
-            end
-            mob:setLocalVar("ailmentTime",battletime)
-        end
-    end)
-
-    mob:addListener("COMBAT_TICK", "DEBUFF_TICK", function(mob, player, target)
-        local battletime = os.time()
         local debuffTime = mob:getLocalVar("debuffTime")
-
-        if (battletime > debuffTime + debuffCooldown) then
-            local spell = doDebuff(mob, target)
-            if (spell > 0 ) then
-                mob:castSpell(spell, target)
-            end
-            mob:setLocalVar("debuffTime",battletime)
-        end
-    end)
-
-    mob:addListener("COMBAT_TICK", "KUPIPI_HASTE_TICK", function(mob, player, target)
-        local battletime = os.time()
+        local ailmentTime = mob:getLocalVar("ailmentTime")
         local hasteTime = mob:getLocalVar("hasteTime")
+        local distance = mob:checkDistance(target)
 
-        if (battletime > hasteTime + hasteCooldown) then
-            local spell = doHasteKupipi(mob)
-            if (spell > 0 ) then
-                mob:castSpell(spell, player)
+            -- Global Magic Check every 4 Seconds
+        if (battletime > magicTime + magicCheck) then
+            -- BUFFS
+            if (battletime > buffTime + buffCooldown and distance >= 10) then
+
+                doKupipiBuff(mob, player)
+                mob:setLocalVar("buffTime",battletime)
+            -- HASTE
+            elseif (battletime > hasteTime + hasteCooldown and koru == 0) then
+
+                local spell = doHasteKupipi(mob)
+                if (spell > 0 ) then
+                    mob:castSpell(spell, player)
+                end
+                mob:setLocalVar("hasteTime",battletime)
+            -- DEBUFF
+            elseif (battletime > debuffTime + debuffCooldown and koru == 0) then
+
+                local spell = doDebuff(mob, target)
+                if (spell > 0 ) then
+                    mob:castSpell(spell, target)
+                end
+                mob:setLocalVar("debuffTime",battletime)
+            -- AILMENTS
+            elseif (battletime > ailmentTime + ailmentCooldown) then
+
+                local spell = doStatusRemoval(mob, player)
+                if (spell > 0 ) then
+                    mob:castSpell(spell, player)
+                end
+                mob:setLocalVar("ailmentTime",battletime)
+            else
+               mob:setLocalVar("magicTime",battletime)
             end
-            mob:setLocalVar("hasteTime",battletime)
         end
     end)
+
+
+
+
+
+
 
     mob:addListener("COMBAT_TICK", "COMBAT_TICK", function(mob, player, target)
         local tlvl = target:getMainLvl()
@@ -230,7 +261,7 @@ function doKupipiWeaponskill(mob)
     return finalWS
 end
 
-function doBuff(mob, player)
+function doKupipiBuff(mob, player)
     local proRaList = {}
     local shellRaList = {}
     if (player:getVar("TrustPro_Kup") == 1) then
@@ -258,9 +289,7 @@ function doBuff(mob, player)
 
     for i,member in pairs(party) do
         if (member:hasStatusEffect(dsp.effect.PROTECT) == false) then
-            procount = procount + 1
-            printf("Protect Count is %u",procount)
-            if (procount >= 2) then -- do protectra instead
+            if (not mob:hasStatusEffect(dsp.effect.PROTECT)) then
                 for i = 1, #proRaList do
                     if (lvl >= proRaList[i][1] and mp >= proRaList[i][2]) then
                         pro = proRaList[i][3]
@@ -274,6 +303,7 @@ function doBuff(mob, player)
         end
     end
 
+    --[[
     if (procount == 1) then
         for i,member in pairs(party) do
             if (not member:hasStatusEffect(dsp.effect.PROTECT)) then
@@ -288,12 +318,11 @@ function doBuff(mob, player)
                 break
             end
         end
-    end
+    end ]]--
 
     for i,member in pairs(party) do
         if (not member:hasStatusEffect(dsp.effect.SHELL)) then
-            shellcount = shellcount + 1
-            if (shellcount >= 2) then
+            if (not mob:hasStatusEffect(dsp.effect.SHELL)) then
                 for i = 1, #shellRaList do
                     if (lvl >= shellRaList[i][1] and mp >= shellRaList[i][2]) then
                         shell = shellRaList[i][3]
@@ -306,6 +335,8 @@ function doBuff(mob, player)
             end
         end
     end
+
+    --[[
 
     if (shellcount == 1) then
         for i,member in pairs(party) do
@@ -321,7 +352,7 @@ function doBuff(mob, player)
                 break
             end
         end
-    end
+    end ]]--
 end
 
 function doDebuff(mob, target)
@@ -350,8 +381,22 @@ function doDebuff(mob, target)
     return debuff
 end
 
-function doCureKupipi(mob)
-    local cureList = {{41,88,4}, {21,46,3}, {11,24,2}, {1,8,1}}
+function doCureKupipi(mob, member)
+    local maxhp = member:getMaxHP()
+    local hp = member:getHP()
+    local hpdif = (maxhp - hp)
+    local cureList = {}
+
+    if (hpdif < 50) then
+        cureList = {{1,8,1}}
+    elseif (hpdif < 120) then
+        cureList = {{11,24,2}, {1,8,1}}
+    elseif (hpdif < 300) then
+        cureList = {{21,46,3}, {11,24,2}, {1,8,1}}
+    else
+        cureList = {{41,88,4}, {21,46,3}, {11,24,2}, {1,8,1}}
+    end
+
     local mp = mob:getMP()
     local lvl = mob:getMainLvl()
     local cure = 0
@@ -363,7 +408,29 @@ function doCureKupipi(mob)
         end
     end
 
-    return cure
+    local expectedLeft = 0
+    local cureNeeded = 0
+    if (cure == 4) then
+        expectedLeft = hpdif - 440
+    elseif (cure == 3) then
+        expectedLeft = hpdif - 275
+    elseif (cure == 2) then
+        expectedLeft = hpdif - 125
+    elseif (cure == 1) then
+        expectedLeft = hpdif - 45
+    end
+
+    if (expectedLeft > 350) then
+        cureNeeded = 4
+    elseif (expectedLeft > 200) then
+        cureNeeded = 3
+    elseif (expectedLeft > 100) then
+        cureNeeded = 2
+    else
+        cureNeeded = 10
+    end
+
+    return cure, cureNeeded
 end
 
 function doEmergencyCureKupipi(mob)
@@ -383,8 +450,14 @@ function doEmergencyCureKupipi(mob)
 end
 
 function doHasteKupipi(mob)
+    local mp = mob:getMP()
+    local lvl = mob:getMainLvl()
+    local haste = 0
 
+    if (lvl >= 48 and mp >= 40) then
+       haste = 57
+    end
 
-    return 0
+    return haste
 
 end
