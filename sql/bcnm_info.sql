@@ -326,6 +326,7 @@ INSERT INTO `bcnm_info` VALUES (1390,64,'call_of_the_flameserpent','Cleopatra',1
 INSERT INTO `bcnm_info` VALUES (1391,78,'call_of_the_stoneserpent','Cleopatra',1,18,1800,75,6,0,7,0);  -- No Item
 INSERT INTO `bcnm_info` VALUES (1392,67,'call_of_the_galeserpent','Cleopatra',1,18,1800,75,6,0,7,0);
 INSERT INTO `bcnm_info` VALUES (1393,77,'call_of_the_skyserpent','Cleopatra',1,18,1800,75,6,0,7,0);  -- No Item
+INSERT INTO `bcnm_info` VALUES (1394,78,'rise_of_the_corsair','Cleopatra',1,18,1800,75,6,0,7,0);  -- No Item
 /*!40000 ALTER TABLE `bcnm_info` ENABLE KEYS */;
 UNLOCK TABLES;
 commit;

@@ -28,7 +28,7 @@ itemid_bcnmid_map =
     57,  {0, 0, 10115, 1389}, -- Talacca Cove
     64,  {0, 0,2461,1390}, -- Navukgo Execution Chamber
     67,  {0, 0, 0, 0, 0, 0, 0, 0, 2462, 1392}, -- Jade Sepulcher  //Nyzul Isle Ribbon Key Item
-    78,  {4211, 1391},
+    78,  {4211, 1391, 10124, 1394},
     139, {1177, 4, 1552, 10, 1553, 11, 1131, 12, 1175, 15, 1180, 17}, -- Horlais Peak
     140, {1551, 34, 1552, 35, 1552, 36}, -- Ghelsba Outpost
     144, {1166, 68, 1553, 76, 1130, 79, 1178, 81, 1180, 82}, -- Waughroon Shrine
@@ -74,7 +74,7 @@ battlefield_bitmask_map =
     [64] = {1120,1121,1122,1123,1124,1390},
     [67] = {1152,1153,1154,1155,1156,0,0,1392},
     [77] = {1393},
-    [78] = {1184, 1391}, -- 1184
+    [78] = {1184, 1391, 1394}, -- 1184
     [85] = {1170,1171},
     [186] = {1280},
     [185] = {1281},
@@ -161,6 +161,8 @@ function EventTriggerBCNM(player, npc)
             status = player:getStatusEffect(dsp.effect.BATTLEFIELD)
             playerbcnmid = status:getPower()
             playermask = GetBattleBitmask(playerbcnmid, player:getZoneID(), 1)
+             -- mask = 268435455 -- uncomment to open menu with all possible battlefields
+            playermask = 268435455
             if (playermask~=-1) then
                 -- This gives players who did not trade to go in the option of entering the fight
                 player:startEvent(32000, 0, 0, 0, playermask, 0, 0, 0, 0)
@@ -295,7 +297,7 @@ function EventFinishBCNM(player, csid, option)
         local id = player:getVar("trade_bcnmid")
         local item = player:getVar("trade_itemid")
 
-        if (id == 68 or id == 418 or id == 450 or id == 482 or id == 545 or id == 578 or id == 609 or id == 293 or id == 1375 or id == 1376 or id == 1389 or id == 1390 or id == 1391 or id == 1392 or id == 1393) then
+        if (id == 68 or id == 418 or id == 450 or id == 482 or id == 545 or id == 578 or id == 609 or id == 293 or id == 1375 or id == 1376 or id == 1389 or id == 1390 or id == 1391 or id == 1392 or id == 1393 or id == 1394) then
             player:tradeComplete() -- Removes the item
         elseif ((item >= 1426 and item <= 1440) or item == 1130 or item == 1131 or item == 1175 or item == 1177 or item == 1180 or item == 1178 or item == 1550 or item == 1551 or item == 1552 or item == 1553) then -- Testimony, Orb, Ark Pentasphere (one time item)
             player:createWornItem(item)
@@ -440,6 +442,8 @@ function ItemToBCNMID(player, zone, trade)
                     elseif (item == 2525) then
                         questTimelineOK = 1
                     elseif (item == 3557) then
+                        questTimelineOK = 1
+                    elseif (item == 10124) then
                         questTimelineOK = 1
                     elseif (item == 4211) then
                         questTimelineOK = 1

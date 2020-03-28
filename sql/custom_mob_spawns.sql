@@ -45,6 +45,7 @@ INSERT INTO `mob_spawn_points` VALUES (16908476,'Ulmia','Ulmia',21,-640,-234,508
 INSERT INTO `mob_spawn_points` VALUES (17010908,'Mihli','Mihli',1000,-176,39,179,51);
 -- Hazhalm Testing
 INSERT INTO `mob_spawn_points` VALUES (17097390,'Zazarg','Zazarg',1000,408,-215,27,4);
+INSERT INTO `mob_spawn_points` VALUES (17097391,'Luzaf','Luzaf',2000,408,-215,27,4);
 -- Navukgo
 INSERT INTO `mob_spawn_points` VALUES (17039452,'Gadalar','Gadalar',1000,383.144,-116.5,381.355,128);
 -- Jade Sepulcher

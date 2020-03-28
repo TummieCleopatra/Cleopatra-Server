@@ -24,6 +24,9 @@ function onTrigger(player,npc)
 end;
 
 function onEventUpdate(player,csid,option)
+    local res = EventUpdateBCNM(player,csid,option)
+    print(res)
+    return res
 
 end;
 
@@ -36,6 +39,10 @@ function onEventFinish(player,csid,option)
         player:addKeyItem(dsp.ki.LUMINIAN_DAGGER);
         player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.LUMINIAN_DAGGER);
         player:addMission(TOAU,dsp.mission.id.toau.PATH_OF_BLOOD);
+    end
+
+    if EventFinishBCNM(player,csid,option) then
+        return
     end
 
 end;

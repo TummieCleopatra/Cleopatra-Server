@@ -3186,6 +3186,7 @@ INSERT INTO `bcnm_battlefield` VALUES (1390,1,17039452,3); -- Galadar
 INSERT INTO `bcnm_battlefield` VALUES (1391,1,17097390,3); -- Zazarg
 INSERT INTO `bcnm_battlefield` VALUES (1392,1,17051905,3); -- Najelith Jade Sepulcher
 INSERT INTO `bcnm_battlefield` VALUES (1393,1,17093483,3); -- Rud Nyzul Isle
+INSERT INTO `bcnm_battlefield` VALUES (1394,1,17097391,3); -- Luzaf Trust Halzam Testing Grounds
 
 -- 1 is spawned at start
 -- 2 is kill to win

@@ -14,8 +14,8 @@ function onMobSpawn(mob)
     local hpp = mob:getHPP()
     local weaponskill = 0
 	local jumpCooldown = 60
-	local phantomRollCooldownOne = 300
-	local phantomRollCooldownTwo = 300
+	local phantomRollCooldownOne = 0
+	local phantomRollCooldownTwo = 61
     local daCooldown = 6
     local angle = getAngle(mob)
     local wsCooldown = 4
@@ -25,6 +25,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("prTimeTwo",0)
     mob:setLocalVar("daTime",0)
     mob:setLocalVar("corsairRollTotal",0)
+    mob:addMod(dsp.mod.REGAIN, 100)
 
 	mob:addListener("COMBAT_TICK", "LUZAF_COMBAT_TICK", function(mob, player, target)
 	    trustMeleeMove(mob, player, target, angle)
@@ -40,6 +41,7 @@ function onMobSpawn(mob)
     mob:addListener("COMBAT_TICK", "LUZAF_PR_ONE_TICK", function(mob, player, target)
         local battletime = os.time()
         local phantomOne = mob:getLocalVar("prTimeOne")
+
         -- decide based on acc levels
         local acc = mob:getACC()
         local eva = target:getEVA()
@@ -49,6 +51,7 @@ function onMobSpawn(mob)
             mob:setLocalVar("trustRoll",roll)
             mob:setLocalVar("prTimeOne",battletime)
             mob:setLocalVar("prTimeTwo",battletime)
+            phantomRollCooldownOne = 300
             phantomRollCooldownTwo = 60
             phantomRoll = 1
             mob:setLocalVar("daTime",battletime)
@@ -58,6 +61,7 @@ function onMobSpawn(mob)
             mob:setLocalVar("trustRoll",roll)
             mob:setLocalVar("prTimeOne",battletime)
             mob:setLocalVar("prTimeTwo",battletime)
+            phantomRollCooldownOne = 300
             phantomRollCooldownTwo = 60
             phantomRoll = 1
             mob:setLocalVar("daTime",battletime)
@@ -67,6 +71,7 @@ function onMobSpawn(mob)
             mob:setLocalVar("trustRoll",roll)
             mob:setLocalVar("prTimeOne",battletime)
             mob:setLocalVar("prTimeTwo",battletime)
+            phantomRollCooldownOne = 300
             phantomRollCooldownTwo = 60
             phantomRoll = 0
             mob:setLocalVar("daTime",battletime)
@@ -174,7 +179,7 @@ end
 
 
 function doLuzafWeaponskill(mob)
-    local wsList = {{55,212}, {1,208}}
+    local wsList = {{75,3255},{75,3253},{55,3254}, {30,3252}, {1,208}}
     local newWsList = {}
 	local maxws = 2 -- Maximum number of weaponskills to choose from randomly
 	local wscount = 0

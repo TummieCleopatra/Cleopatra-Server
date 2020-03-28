@@ -2887,7 +2887,7 @@ INSERT INTO `mob_groups` VALUES (27,216,76,'Archaic_Chariot',300,0,0,0,0,73,75,0
 INSERT INTO `mob_groups` VALUES (28,221,76,'Archaic_Rampart',300,0,0,0,0,73,75,0);
 INSERT INTO `mob_groups` VALUES (29,2878,76,'Night_Eft',0,128,0,0,0,80,80,0);  -- 4th Floor unlock
 INSERT INTO `mob_groups` VALUES (30,732,76,'Citadel_Chelonian',300,0,0,0,0,81,81,0);
---Boss Floor
+-- Boss Floor
 INSERT INTO `mob_groups` VALUES (31,2431,76,'Long-Armed_Chariot',120,0,2074,40000,40000,82,83,0);
 
 INSERT INTO `mob_groups` VALUES (1,221,77,'Archaic_Rampart',0,128,0,0,0,75,76,0);
@@ -3231,6 +3231,7 @@ INSERT INTO `mob_groups` VALUES (2510,68,77,'Aiatar',0,128,39,0,0,75,80,0);
 INSERT INTO `mob_groups` VALUES (2514,110,77,'Amnaf_blu',0,128,0,0,0,75,75,0);
 INSERT INTO `mob_groups` VALUES (2634,3332,77,'Razfahd',0,128,0,0,0,75,75,0);
 INSERT INTO `mob_groups` VALUES (1000,1496,78,'Zazarg',0,128,0,15000,25000,82,82,0);
+INSERT INTO `mob_groups` VALUES (2000,6989,78,'Luzaf',0,128,0,15000,25000,82,82,0);
 INSERT INTO `mob_groups` VALUES (2685,110,78,'Amnaf_blu',0,0,0,0,0,0,0,0);
 INSERT INTO `mob_groups` VALUES (2686,133,78,'Andhrimnir',0,128,0,0,0,85,90,0);
 INSERT INTO `mob_groups` VALUES (2687,137,78,'Angantyr',0,128,0,0,0,75,80,0);
