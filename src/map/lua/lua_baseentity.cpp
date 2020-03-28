@@ -2983,7 +2983,7 @@ inline int32 CLuaBaseEntity::addTeleport(lua_State *L)
 *  Function: getTeleport(uint8 type)
 *  Purpose : Returns bit mask or table for supplied type of teleport
 *  Example : player:getTeleport(dsp.teleport.type.HOMEPOINT)
-*  Notes   : 
+*  Notes   :
 ************************************************************************/
 
 inline int32 CLuaBaseEntity::getTeleport(lua_State *L)
@@ -3014,7 +3014,7 @@ inline int32 CLuaBaseEntity::getTeleport(lua_State *L)
                 lua_rawseti(L, -2, x + 1);
             }
             break;
-        case TELEPORT_SURVIVAL: 
+        case TELEPORT_SURVIVAL:
             lua_newtable(L);
             for (uint8 x = 0; x < 4; x++)
             {
@@ -3033,7 +3033,7 @@ inline int32 CLuaBaseEntity::getTeleport(lua_State *L)
 *  Function: hasTeleport(uint8 type, uint8 bit, uint8 set (optional))
 *  Purpose : Returns true if player has HP, false otherwise
 *  Example : player:hasTeleport(dsp.teleport.type.HOMEPOINT, bit, set)
-*  Notes   : 
+*  Notes   :
 ************************************************************************/
 
 inline int32 CLuaBaseEntity::hasTeleport(lua_State *L)
@@ -3085,7 +3085,7 @@ inline int32 CLuaBaseEntity::hasTeleport(lua_State *L)
 *  Function: setTeleportMenu(uint8 type)
 *  Purpose : Store favorite homepoints or menu layout
 *  Example : player:setTeleportMenu(dsp.teleport.type.HOMEPOINT)
-*  Notes   : 
+*  Notes   :
 ************************************************************************/
 
 inline int32 CLuaBaseEntity::setTeleportMenu(lua_State *L)
@@ -3130,7 +3130,7 @@ inline int32 CLuaBaseEntity::setTeleportMenu(lua_State *L)
 *  Function: getTeleportMenu(uint8)
 *  Purpose : Return lua table containing integer values for favs + layout
 *  Example : player:getTeleportMenu(dsp.teleport.teleport.HOMEPOINT)
-*  Notes   : 
+*  Notes   :
 ************************************************************************/
 
 inline int32 CLuaBaseEntity::getTeleportMenu(lua_State *L)
@@ -15088,7 +15088,7 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,hasTeleport),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setTeleportMenu),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getTeleportMenu),
-    LUNAR_DECLARE_METHOD(CLuaBaseEntity,setHomePoint), 	
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,setHomePoint),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,resetPlayer),
 
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,goToEntity),
@@ -15096,7 +15096,7 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,bringPlayer),
 
 
-	
+
 
     // Items
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getEquipID),
@@ -15375,6 +15375,11 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,addTimeToSpecialBattlefield),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,isSpecialBattlefieldEmpty),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,RestoreAndHealOnBattlefield),
+
+    //LUNAR_DECLARE_METHOD(CLuaBaseEntity,registerBattlefield),
+    //LUNAR_DECLARE_METHOD(CLuaBaseEntity,battlefieldAtCapacity),
+    //LUNAR_DECLARE_METHOD(CLuaBaseEntity,enterBattlefield),
+    //LUNAR_DECLARE_METHOD(CLuaBaseEntity,leaveBattlefield),
 
     // BCNM
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,bcnmRegister),

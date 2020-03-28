@@ -169,14 +169,14 @@ public:
     int32 setPos(lua_State*);                // Set Entity position (x,y,z,rot) or (x,y,z,rot,zone)
     int32 warp(lua_State*);                  // Returns Character to home point
     int32 teleport(lua_State*);              // Set Entity position (without entity despawn/spawn packets)
-	
+
     int32 addTeleport(lua_State*);           // Add new teleport means to char unlocks
     int32 getTeleport(lua_State*);           // Get unlocked teleport means
     int32 hasTeleport(lua_State*);           // Has access to specific teleport
     int32 setTeleportMenu(lua_State*);       // Set favorites or menu layout preferences for homepoints or survival guides
     int32 getTeleportMenu(lua_State*);       // Get favorites and menu layout preferences
     int32 setHomePoint(lua_State*);          // Sets character's homepoint
-	
+
     int32 resetPlayer(lua_State*);           // if player is stuck, GM command @resetPlayer name
 
     int32 goToEntity(lua_State*);            // Warps self to NPC or Mob; works across multiple game servers
@@ -458,6 +458,11 @@ public:
     int32 addTimeToSpecialBattlefield(lua_State*);   // add time of the specific instance
     int32 isSpecialBattlefieldEmpty(lua_State*);     // 1 if this battlefield is full
     int32 RestoreAndHealOnBattlefield(lua_State*);   // restore ability , PM and PV on the specific instance
+
+    int32 registerBattlefield(lua_State*);           // attempt to register a battlefield, returns BATTLEFIELD_RETURNCODE
+    int32 battlefieldAtCapacity(lua_State*);         // 1 if this battlefield is full
+    int32 enterBattlefield(lua_State*);              // enter a battlefield entity is registered with
+    int32 leaveBattlefield(lua_State*);              // leave battlefield if inside one
 
     // BCNM
     int32 bcnmRegister(lua_State*);                  //Attempts to register a bcnm battlefield (used by Dynamis and BCNM)
