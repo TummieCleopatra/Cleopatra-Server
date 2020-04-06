@@ -171,7 +171,7 @@ function onMobDeath(mob,player,isKiller)
 	if (player:getObjType() == dsp.objType.PC) then
     local randombuff = math.random(1,100)
 	if (randombuff >= 50) then
-	player:addStatusEffect(EFFECT_DEFENSE_BOOST,defBoost,0,duration);
+	player:addStatusEffect(dsp.effect.DEFENSE_BOOST,defBoost,0,duration);
     player:PrintToPlayer("The monster has endowed you with a temporary Defense Bonus", 0xD);
 	elseif (randombuff < 20) then
 	local heal = player:getMaxHP();

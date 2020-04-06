@@ -1115,6 +1115,26 @@ function onTrade(player,npc,trade)
   end
 
 
+  ---------------------------------
+  --    Ele Staff                --
+  ---------------------------------
+    if (trade:hasItemQty(17545,1) and trade:hasItemQty(17547,1) and trade:hasItemQty(17549,1) and trade:hasItemQty(17551,1)
+        and trade:hasItemQty(17553,1) and trade:hasItemQty(17555,1) and trade:hasItemQty(17557,1) and trade:hasItemQty(17559,1) and trade:getGil() == 50000) then
+        player:tradeComplete()
+        player:messageSpecial(ID.text.ITEM_OBTAINED, 18632);
+        player:addItem(18632)
+    elseif (trade:hasItemQty(17546,1) and trade:hasItemQty(17548,1) and trade:hasItemQty(17550,1) and trade:hasItemQty(17552,1)
+        and trade:hasItemQty(17554,1) and trade:hasItemQty(17556,1) and trade:hasItemQty(17558,1) and trade:hasItemQty(17560,1) and trade:getGil() == 50000) then
+        player:tradeComplete()
+        player:messageSpecial(ID.text.ITEM_OBTAINED, 18633);
+        player:addItem(18633)
+    elseif (trade:hasItemQty(17545,1) or trade:hasItemQty(17547,1) or trade:hasItemQty(17549,1) or trade:hasItemQty(17551,1)
+        or trade:hasItemQty(17553,1) or trade:hasItemQty(17555,1) or trade:hasItemQty(17557,1) or trade:hasItemQty(17559,1)) then
+        player:PrintToPlayer("Oboro : I can combine all 8 of this type into a Iridal Staff.  Bring me all 8 and trade me 50,000", 0xD);
+    elseif (trade:hasItemQty(17546,1) or trade:hasItemQty(17548,1) or trade:hasItemQty(17550,1) or trade:hasItemQty(17552,1)
+        or trade:hasItemQty(17554,1) or trade:hasItemQty(17556,1) or trade:hasItemQty(17558,1) or trade:hasItemQty(17560,1)) then
+        player:PrintToPlayer("Oboro : I can combine all 8 of this type into a Chatoyant Staff.  Bring me all 8 and trade me 50,000", 0xD);
+    end
 
   end;
 
