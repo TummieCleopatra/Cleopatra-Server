@@ -354,7 +354,7 @@ function onTrade(player,npc,trade)
     -- Complete the trade..
     player:tradeComplete();
     --
-    player:addItem(19381, 1, 35, 9, 300,5);
+    player:addItem(19381, 1, 45, 18, 35, 9, 300,4);
     player:setVar("GEOMythicWeapon", 6);
     player:messageSpecial(ID.text.ITEM_OBTAINED, 19381);
   end

@@ -56,3 +56,38 @@ function onPetAbility(target, automaton, skill, master, action)
 
     return damage
 end
+
+function onUseAbility(pet, target, skill, action)
+    local master = pet:getMaster()
+    local chance = 90
+    local damage = 65
+
+    chance = chance + (master:getMainLvl() - target:getMainLvl()) * 5
+
+    if math.random()*100 < chance then
+        target:addStatusEffect(dsp.effect.STUN, 1, 0, 6)
+    end
+
+    local ratio = pet:getStat(dsp.mod.ATT)/target:getStat(dsp.mod.DEF)
+
+    if ratio > 1.3 then
+        ratio = 1.3
+    end
+
+    if ratio < 0.2 then
+        ratio = 0.2
+    end
+
+    local pdif = math.random(ratio * 0.8 * 1000, ratio * 1.2 * 1000)
+
+    -- printf("damge %d, ratio: %f, pdif: %d\n", damage, ratio, pdif)
+
+    damage = damage * (pdif / 1000)
+    damage = utils.stoneskin(target, damage)
+    target:takeDamage(damage, pet, dsp.attackType.PHYSICAL, dsp.damageType.BLUNT)
+    target:updateEnmityFromDamage(pet,damage)
+
+
+    return damage
+
+end

@@ -16,7 +16,7 @@ function onMobSpawn(mob)
     local regenCooldown = 120
     local helixCooldown = 120
     local stormCooldown = 180
-    local nukeCooldown = 23
+    local nukeCooldown = 37
     local subCooldown = 30
     local mbCooldown = 5
     local skill = 0
@@ -68,7 +68,7 @@ function onMobSpawn(mob)
         local battletime = os.time()
         local regenTime = mob:getLocalVar("regenTime")
         local distance  = mob:checkDistance(target)
-        if (distance == 10) then
+        if (distance ~= 10) then
             if (battletime > regenTime + regenCooldown) then
                 doRegen(mob, player)
             end
@@ -89,8 +89,46 @@ function onMobSpawn(mob)
     mob:addListener("COMBAT_TICK", "ADEL_CURE_TICK", function(mob, player, target)
         local battletime = os.time()
         local cureTime = mob:getLocalVar("cureTime")
+        local act = mob:getCurrentAction()
+
+        if (act ~= dsp.act.MAGIC_CASTING) then
+            mob:setLocalVar("cureCasting",0)  -- Set this to 0 to mean mob is not or is done casting cures
+        end
+
         if (battletime > cureTime + cureCooldown) then
-            doCure(mob, player, target)
+            local party = player:getParty()
+            for _,member in ipairs(party) do
+                if (member:getHPP() <= 30) then
+                    local spell = doEmergencyCureAdel(mob)
+                    if (spell > 0) then
+                        mob:castSpell(spell, member)
+                        mob:setLocalVar("cureTime",battletime)
+                        mob:setLocalVar("magicTime",battletime)
+                        break
+                    end
+                elseif (member:getHPP() <= 55) then
+
+                    local spell, moreCure = doAdelCure(mob, member)
+                    if (spell > 0) then
+                    -- local canCast = true
+                        local canCast = checkDoubleCure(mob, member)
+                        if (canCast == 1) then
+                            -- printf("Set Cure Cast to 1")
+                            mob:setLocalVar("cureCasting",moreCure) -- Sets the cure casting to what is needed
+                            mob:castSpell(spell, member)
+                            mob:setLocalVar("cureTime",battletime)
+                            mob:setLocalVar("magicTime",battletime)
+                            break
+                        elseif (canCast > 0) then
+                            -- See which spell is allowed
+                            mob:castSpell(canCast, member)
+                            mob:setLocalVar("cureTime",battletime)
+                            mob:setLocalVar("magicTime",battletime)
+                        end
+                    end
+                end
+            end
+            mob:setLocalVar("cureTime",battletime - 12)
         end
     end)
 
@@ -421,42 +459,56 @@ function doDebuff(mob, target)
     return debuff
 end
 --]]
-function doCure(mob, player, target)
-    local cureList = {{55,46,3}, {30,24,2}, {17,8,1}, {5,8,1}}
+function doAdelCure(mob, member)
+    local maxhp = member:getMaxHP()
+    local hp = member:getHP()
+    local hpdif = (maxhp - hp)
     local mp = mob:getMP()
     local lvl = mob:getMainLvl()
     local cure = 0
-    local master = mob:getMaster()
-    local party = master:getParty()
-    local battletime = os.time()
+    local expectedLeft = 0
+    local cureNeeded = 0
+    local cureList = {}
 
-    for _,member in ipairs(party) do
-        if (member:getHPP() <= 30) then
-            cure = doEmergencyCureAdel(mob)
-            if (cure > 0) then
-                mob:castSpell(cure, member)
-                mob:setLocalVar("cureTime",battletime)
-                break
-            end
-        elseif (member:getHPP() <= 65) then
-            for i = 1, #cureList do
-                if (lvl >= cureList[i][1] and mp >= cureList[i][2]) then
-                    cure = cureList[i][3]
-                    if (cure > 0) then
-                        mob:castSpell(cure, member)
-                        mob:setLocalVar("cureTime",battletime)
-                        printf("Adel cure with %u \n",cure)
-                        break
-                    end
-                end
-            end
+    if (hpdif < 50) then
+        cureList = {{8,8,1}}
+    elseif (hpdif < 120) then
+        cureList = {{17,8,1}, {5,8,1}}
+    elseif (hpdif < 300) then
+        cureList = {{30,24,2}, {17,8,1}, {5,8,1}}
+    else
+        cureList = {{55,46,3}, {30,24,2}, {17,8,1}, {5,8,1}}
+    end
+
+    for i = 1, #cureList do
+        if (lvl >= cureList[i][1] and mp >= cureList[i][2]) then
+            cure = cureList[i][3]
+            break
         end
     end
 
-    if (cure == 0) then
-        mob:setLocalVar("cureTime",battletime - 14)  -- If no member has low HP change global check to 8 seconds
+
+    if (cure == 4) then
+        expectedLeft = hpdif - 440
+    elseif (cure == 3) then
+        expectedLeft = hpdif - 275
+    elseif (cure == 2) then
+        expectedLeft = hpdif - 125
+    elseif (cure == 1) then
+        expectedLeft = hpdif - 45
     end
 
+    if (expectedLeft > 350) then
+        cureNeeded = 4
+    elseif (expectedLeft > 200) then
+        cureNeeded = 3
+    elseif (expectedLeft > 100) then
+        cureNeeded = 2
+    else
+        cureNeeded = 10
+    end
+
+    return cure, cureNeeded
 end
 
 function doEmergencyCureAdel(mob)

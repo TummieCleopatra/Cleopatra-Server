@@ -1,14 +1,14 @@
 -----------------------------------
--- Dimidiation
--- Great Sword weapon skill
+-- Exudation
+-- Club weapon skill
 -- Skill Level: N/A
--- Delivers a twofold attack.
--- Damage varies with TP. Epeolatry: Aftermath effect varies with TP.
--- Available only after completing the Unlocking a Myth (RUN) quest.
+-- Single Attack
+-- Attack varies with TP. Idris: Aftermath effect varies with TP.
+-- Available only after completing the Unlocking a Myth (GEO) quest.
 -- Will stack with Sneak Attack.
--- Modifiers: DEX:80%
+-- Modifiers: INT:50% MND:50%
 -- 100%TP    200%TP    300%TP
--- 2.25      4.50      6.50
+-- 1.5      3.625      4.75
 -----------------------------------
 require("scripts/globals/aftermath")
 require("scripts/globals/settings")
@@ -18,19 +18,20 @@ require("scripts/globals/weaponskills")
 
 function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
     local params = {}
-    params.numHits = 2
-    params.ftp100 = 2 params.ftp200 = 2.13 params.ftp300 = 2.5
-    params.str_wsc = 0.0 params.dex_wsc = 0.3 params.vit_wsc = 0.0 params.agi_wsc = 0.0 params.int_wsc = 0.0
-    params.mnd_wsc = 0.0 params.chr_wsc = 0.0
+    params.numHits = 1
+    params.ftp100 = 2.8 params.ftp200 = 2.8 params.ftp300 = 2.8
+    params.str_wsc = 0.0 params.dex_wsc = 0.0 params.vit_wsc = 0.0 params.agi_wsc = 0.0 params.int_wsc = 0.5
+    params.mnd_wsc = 0.5 params.chr_wsc = 0.0
     params.crit100 = 0.0 params.crit200 = 0.0 params.crit300 = 0.0
     params.canCrit = false
     params.acc100 = 0.0 params.acc200 = 0.0 params.acc300 = 0.0
-    params.atk100 = 1.66; params.atk200 = 1.66; params.atk300 = 1.66;
+    params.atk100 = 1.5; params.atk200 = 3.66; params.atk300 = 4.75;
 
     if USE_ADOULIN_WEAPON_SKILL_CHANGES then
-        params.ftp100 = 2.25 params.ftp200 = 4.50 params.ftp300 = 6.50
-        params.dex_wsc = 0.8
-        params.atk100 = 1.0; params.atk200 = 1.0; params.atk300 = 1.0;
+        params.ftp100 = 4.8 params.ftp200 = 4.8 params.ftp300 = 4.8
+        params.int_wsc = 0.5
+        params.mnd_wsc = 0.5
+        params.atk100 = 2.5; params.atk200 = 3.625; params.atk300 = 4.75;
     end
 
     local damage, criticalHit, tpHits, extraHits = doPhysicalWeaponskill(player, target, wsID, tp, primary, action, taChar, params)

@@ -30,13 +30,9 @@ function checkKoruCure(mob, member)
     local party = player:getParty()
     for _,person in ipairs(party) do
         local cureCast = person:getLocalVar("cureCasting")
-        print(cureCast)
         if (person:getObjType() == dsp.objType.TRUST and cureCast == 1) then
 
-            print(mobt)
-            print(test)
-
-            printf("SOMEONE ELSE IS CASTING AND SO I SHOULDN'T!!!!!!")
+            -- printf("SOMEONE ELSE IS CASTING AND SO I SHOULDN'T!!!!!!")
             return false
         end
     end
@@ -267,7 +263,7 @@ function enmityFromCure(caster, final)
                 if (enmity.active and enmity.entity:getID() == caster:getID()) then
 		            local mob = member:getID();
                     GetMobByID(mob):addEnmity(caster, ce, ve)
-                    printf("Total Cure Enmity is %u", total)
+                    -- printf("Total Cure Enmity is %u", total)
                 end
             end
         end

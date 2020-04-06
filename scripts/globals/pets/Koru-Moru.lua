@@ -76,7 +76,7 @@ function onMobSpawn(mob)
         if (battletime > cureTime + cureCooldown) then
             local party = player:getParty()
             for _,member in ipairs(party) do
-                if (member:getHPP() <= 70) then
+                if (member:getHPP() <= 65) then
                     local spell, moreCure = doCureKoru(mob, member)
                     if (spell > 0) then
                     -- local canCast = true
@@ -204,7 +204,6 @@ function doKoruBuff(mob, player)
     local proRaList = {}
     local shellRaList = {}
 
-    printf("try Buff")
 
 
     local proList = {{63,65,46}, {47,46,45}, {27,28,44}, {7,9,43}}
@@ -217,9 +216,10 @@ function doKoruBuff(mob, player)
     local shell = 0
     local procount = 0
     local shellcount = 0
+    local kupipi = isKupipiInParty(mob, player, target)
 
 
-    if (player:hasStatusEffect(dsp.effect.PROTECT) == false) then
+    if (player:hasStatusEffect(dsp.effect.PROTECT) == false and kupipi == 0) then
         for i = 1, #proList do
             if (lvl >= proList[i][1] and mp >= proList[i][2]) then
                 pro = proList[i][3]
@@ -231,19 +231,8 @@ function doKoruBuff(mob, player)
     end
 
 
-    if (mob:hasStatusEffect(dsp.effect.PROTECT) == false) then
-        for i = 1, #proList do
-            if (lvl >= proList[i][1] and mp >= proList[i][2]) then
-                pro = proList[i][3]
-                break
-            end
-        end
-        mob:castSpell(pro, mob)
-        mob:setLocalVar("buffTime",battletime)
-    end
 
-
-    if (player:hasStatusEffect(dsp.effect.SHELL) == false) then
+    if (player:hasStatusEffect(dsp.effect.SHELL) == false and kupipi == 0) then
         for i = 1, #proList do
             if (lvl >= shellList[i][1] and mp >= shellList[i][2]) then
                 shell = shellList[i][3]
@@ -254,16 +243,6 @@ function doKoruBuff(mob, player)
         mob:setLocalVar("buffTime",battletime)
     end
 
-    if (mob:hasStatusEffect(dsp.effect.SHELL) == false) then
-        for i = 1, #proList do
-            if (lvl >= shellList[i][1] and mp >= shellList[i][2]) then
-                shell = shellList[i][3]
-                break
-            end
-        end
-        mob:castSpell(shell, mob)
-        mob:setLocalVar("buffTime",battletime)
-    end
 
     if (lvl >= 41 and mp > 40) then
         local party = player:getParty()
@@ -290,9 +269,21 @@ function doDebuffKoru(mob, target)
     local mp = mob:getMP()
     local lvl = mob:getMainLvl()
     local debuff = 0
+    local maxmp = mob:getMaxMP()
+    local mpp = (mp / maxmp) * 100
 
-
-    if ((battletime > paraTime + paraCooldown) and not target:hasStatusEffect(dsp.effect.PARALYSIS)) then
+    if ((battletime > paraTime + paraCooldown) and not target:hasStatusEffect(dsp.effect.DIA) and mpp > 70) then
+        if (lvl > 74 and mp >= 45) then
+            mob:setLocalVar("diaTime",battletime)
+            debuff = 25
+        elseif (lvl >= 31 and mp >= 30) then
+            mob:setLocalVar("diaTime",battletime)
+            debuff = 24
+        elseif (lvl >= 1 and mp >= 7) then
+            mob:setLocalVar("diaTime",battletime)
+            debuff = 23
+        end
+    elseif ((battletime > paraTime + paraCooldown) and not target:hasStatusEffect(dsp.effect.PARALYSIS) and mpp > 80) then
         if (lvl > 74 and mp >= 36) then
             mob:setLocalVar("paraTime",battletime)
             debuff = 80
@@ -300,7 +291,7 @@ function doDebuffKoru(mob, target)
             mob:setLocalVar("paraTime",battletime)
             debuff = 58
         end
-    elseif ((battletime > slowTime + slowCooldown) and not target:hasStatusEffect(dsp.effect.SLOW)) then
+    elseif ((battletime > slowTime + slowCooldown) and not target:hasStatusEffect(dsp.effect.SLOW) and mpp > 80) then
         if (lvl > 74 and mp >= 45) then
             mob:setLocalVar("slowTime",battletime)
             debuff = 79
@@ -308,7 +299,7 @@ function doDebuffKoru(mob, target)
             mob:setLocalVar("slowTime",battletime)
             debuff = 56
         end
-    elseif ((battletime > blindTime + blindCooldown) and not target:hasStatusEffect(dsp.effect.BLINDNESS)) then
+    elseif ((battletime > blindTime + blindCooldown) and not target:hasStatusEffect(dsp.effect.BLINDNESS) and mpp > 90) then
         if (lvl > 74 and mp >= 31) then
             mob:setLocalVar("slowTime",battletime)
             debuff = 254

@@ -103,7 +103,6 @@ void CTargetFind::findWithinArea(CBattleEntity* PTarget, AOERADIUS radiusType, f
         // handle this as a player because the player is the one casting
         if (m_PMasterTarget->objtype == TYPE_PC)
         {
-
             // players will never need to add whole alliance
             m_findType = FIND_PLAYER_PLAYER;
 
@@ -315,18 +314,17 @@ void CTargetFind::addAllInParty(CBattleEntity* PTarget, bool withPet)
     {
         addEntity(PMember, withPet);
         CCharEntity* PChar = (CCharEntity*)PMember;
+        // This is where the target is a player
         if (PChar->objtype == TYPE_PC)
         {
             if (PChar->PTrusts.size() > 0)
             {
-
                 for (CTrustEntity* trust : PChar->PTrusts)
                 {
                     CBattleEntity* PTrustID = (CBattleEntity*)trust;
                     uint16 memberID = PTrustID->id;
                     if (memberID != m_originalTarget)
                     {
-
                         addEntity((CBattleEntity*)trust, withPet);
                     }
                 }
@@ -436,6 +434,8 @@ validEntity will check if the given entity can be targeted in the AoE.
 bool CTargetFind::validEntity(CBattleEntity* PTarget)
 {
 
+
+
     if (std::find(m_targets.begin(), m_targets.end(), PTarget) != m_targets.end()) {
         return false;
     }
@@ -512,6 +512,7 @@ bool CTargetFind::validEntity(CBattleEntity* PTarget)
         if (PTarget->objtype == TYPE_TRUST && isWithinArea(&PTarget->loc.p))
         {
             //ShowWarning("AoE within area for trust!!!!");
+            //return true;
         }
     }
 

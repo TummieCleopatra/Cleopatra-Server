@@ -38,7 +38,8 @@ INSERT INTO `mob_spawn_points` VALUES (17142639,'Run_AF_Body','Run_AF_Body',70,4
 INSERT INTO `mob_spawn_points` VALUES (17126198,'Run_AF_Head','Run_AF_Head',70,-100,-1,-215,0); -- RUN AF Body
 
 -- Sea Lions Den
-INSERT INTO `mob_spawn_points` VALUES (16908475,'Prishe','Prishe',20,-639,-231,512,187);
+
+INSERT INTO `mob_spawn_points` VALUES (16908475,'Prishe','Prishe',20,-639,-231,521,187);
 INSERT INTO `mob_spawn_points` VALUES (16908476,'Ulmia','Ulmia',21,-640,-234,508,187);
 
 -- Talacca Cove

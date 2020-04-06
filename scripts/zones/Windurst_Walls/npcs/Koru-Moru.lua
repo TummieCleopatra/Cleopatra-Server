@@ -68,7 +68,11 @@ function onTrigger(player,npc)
     local CarbuncleDebacle = player:getQuestStatus(WINDURST,dsp.quest.id.windurst.CARBUNCLE_DEBACLE);
     local CarbuncleDebacleProgress = player:getVar("CarbuncleDebacleProgress");
 
-    if (blastFromPast == QUEST_AVAILABLE and qStarStruck == QUEST_COMPLETED and player:getQuestStatus(WINDURST,dsp.quest.id.windurst.CLASS_REUNION) ~= QUEST_ACCEPTED and player:getFameLevel(WINDURST) >= 3 and player:needToZone() == false) then
+    if (player:getQuestStatus(WINDURST, dsp.quest.id.windurst.THE_THREE_MAGI) == QUEST_COMPLETED and not player:hasSpell(952)) then
+        player:PrintToPlayer("Koru-Moru : Since you did so well defeating that Chaos Elemental, I will help you out in your battles.", 0xD);
+        player:PrintToPlayer("You can now summon Koru-Moru as a Trust!", 0x15);
+        player:addSpell(952)
+    elseif (blastFromPast == QUEST_AVAILABLE and qStarStruck == QUEST_COMPLETED and player:getQuestStatus(WINDURST,dsp.quest.id.windurst.CLASS_REUNION) ~= QUEST_ACCEPTED and player:getFameLevel(WINDURST) >= 3 and player:needToZone() == false) then
         player:startEvent(214);
     elseif (blastFromPast == QUEST_ACCEPTED and blastProg >= 2) then
         player:startEvent(215);

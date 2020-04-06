@@ -27,6 +27,8 @@ function onMobSpawn(mob)
     local provokeCooldown = 30
     local reprisalCooldown = 0
     local sleepCooldown = 10
+    local bashCooldown = 180
+    local chivalryCooldown = 600
     local wsCooldown = 4
     local lvl = mob:getMainLvl()
     local enmity = math.floor(lvl / 3.9)
@@ -35,7 +37,7 @@ function onMobSpawn(mob)
     set1HStats(mob)
     mob:setLocalVar("protectTime",0)
     mob:setLocalVar("shellTime",0)
-    mob:setLocalVar("cureTimeCurilla",0)
+    mob:setLocalVar("cureCurilla",0)
     mob:setLocalVar("wsTime",0)
     mob:setLocalVar("provokeTime",0)
     mob:setLocalVar("flashTime",0)
@@ -43,9 +45,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("sentinelTime",0)
     mob:setLocalVar("sentinelCooldown",300)
     mob:setLocalVar("bashTime",0)
-    mob:setLocalVar("bashCooldown",300)
     mob:setLocalVar("chivalryTime",0)
-    mob:setLocalVar("chivalryCooldown",600)
     mob:setLocalVar("reprisalCooldown",180)
     mob:setLocalVar("castingSpell",0)
     mob:setLocalVar("sleepTime",0)
@@ -94,16 +94,20 @@ function onMobSpawn(mob)
 
 
 
-    --[[
+
     mob:addListener("COMBAT_TICK", "SHIELD_BASH_TICK", function(mob, player, target)
         local battletime = os.time()
         local bashTime = mob:getLocalVar("bashTime")
-        local bashCooldown = mob:getLocalVar("bashCooldown")
-        if (battletime > bashTime + bashCooldown) then
+        local act = target:getCurrentAction()
+
+
+        if ((battletime > bashTime + bashCooldown) and (act == dsp.act.MOBABILITY_START or act == dsp.act.MOBABILITY_USING)) then
             mob:useJobAbility(30, target)
+            printf("Bashing")
+            print(bashTime)
             mob:setLocalVar("bashTime",battletime)
         end
-    end)]]--
+    end)
 
     mob:addListener("COMBAT_TICK", "CUR_FLASH_TICK", function(mob, player, target)
         local enmity = enmityCalc(mob, player, target)
@@ -159,11 +163,43 @@ function onMobSpawn(mob)
 
     mob:addListener("COMBAT_TICK", "CUR_CURE_TICK", function(mob, player, target)
         local battletime = os.time()
-        local cureTime = mob:getLocalVar("cureTimeCurilla")
+        local cureTime = mob:getLocalVar("cureTime")
+        local act = mob:getCurrentAction()
+
+
+        if (act ~= dsp.act.MAGIC_CASTING) then
+            mob:setLocalVar("cureCasting",0)  -- Set this to 0 to mean mob is not or is done casting cures
+            -- printf("Done Casting, set cure to 0")
+        end
+
         if (battletime > cureTime + cureCooldown) then
-            doCurillaCure(mob, player, target)
+            local party = player:getParty()
+            for _,member in ipairs(party) do
+                if (member:getHPP() <= 85) then
+                    local spell, moreCure = doCureCurilla(mob, member)
+                    if (spell > 0) then
+                    -- local canCast = true
+                        local canCast = checkDoubleCure(mob, member)
+                        if (canCast == 1) then
+                            -- printf("Set Cure Cast to 1")
+                            mob:setLocalVar("cureCasting",moreCure) -- Sets the cure casting to what is needed
+                            mob:castSpell(spell, member)
+                            mob:setLocalVar("cureTime",battletime)
+                            mob:setLocalVar("magicTime",battletime)
+                            break
+                        elseif (canCast > 0) then
+                            -- See which spell is allowed
+                            mob:castSpell(canCast, member)
+                            mob:setLocalVar("cureTime",battletime)
+                            mob:setLocalVar("magicTime",battletime)
+                        end
+                    end
+                end
+            end
+            mob:setLocalVar("cureTime",battletime - 12)
         end
     end)
+
 
     mob:addListener("COMBAT_TICK", "CUR_CHIVALRY_TICK", function(mob, player, target)
         local battletime = os.time()
@@ -262,68 +298,57 @@ function doCurillaSentinel(mob, target)
     end
 end
 
-function doCurillaCure(mob, player, target)
-    local cureList = {{55,46,3}, {30,24,2}, {17,8,1}, {5,8,1}}
-    local cureListSmall = {{30,24,2}, {17,8,1}, {5,8,1}}
+function doCureCurilla(mob, member)
+    local maxhp = member:getMaxHP()
+    local hp = member:getHP()
+    local hpdif = (maxhp - hp)
     local mp = mob:getMP()
-    local maxmp = mob:getMaxMP()
-    local mpp = (mp / maxmp) * 100
     local lvl = mob:getMainLvl()
     local cure = 0
-    local party = player:getParty()
-    local battletime = os.time()
-    for _,member in ipairs(party) do
-        if (member:getHPP() <= 30) then
-            cure = doEmergencyCureCur(mob)
-            if (cure > 0) then
-                mob:castSpell(cure, member)
-                mob:setLocalVar("cureTimeCurilla",battletime)
-                break
-            end
-        elseif (member:getName() == "Curilla" and mpp >= 80 and member:getHPP() <= 87) then
-            printf("Curilla Cures herself with lower Tier")
-            for i = 1, #cureListSmall do
-                if (lvl >= cureListSmall[i][1] and mp >= cureListSmall[i][2]) then
-                    cure = cureListSmall[i][3]
-                    if (cure > 0) then
-                        mob:castSpell(cure, member)
-                        mob:setLocalVar("cureTimeCurilla",battletime)
-                        break
-                    end
-                end
-            end
-        elseif (member:getName() == "Curilla" and mpp >= 50 and member:getHPP() <= 75) then
-            printf("Curilla Cures herself with lower Tier")
-            for i = 1, #cureList do
-                if (lvl >= cureList[i][1] and mp >= cureList[i][2]) then
-                    cure = cureList[i][3]
-                    if (cure > 0) then
-                        mob:castSpell(cure, member)
-                        mob:setLocalVar("cureTimeCurilla",battletime)
-                        break
-                    end
-                end
-            end
-        elseif (member:getHPP() <= 50) then
-            for i = 1, #cureList do
-                if (lvl >= cureList[i][1] and mp >= cureList[i][2]) then
-                    cure = cureList[i][3]
-                    if (cure > 0) then
-                        mob:castSpell(cure, member)
-                        mob:setLocalVar("cureTimeCurilla",battletime)
-                        break
-                    end
-                end
-            end
+    local expectedLeft = 0
+    local cureNeeded = 0
+    local cureList = {}
+
+    if (hpdif < 50) then
+        cureList = {{5,8,1}}
+    elseif (hpdif < 120) then
+        cureList = {{17,8,1}, {5,8,1}}
+    elseif (hpdif < 300) then
+        cureList = {{30,24,2}, {17,8,1}, {5,8,1}}
+    else
+        cureList = {{55,46,3}, {30,24,2}, {17,8,1}, {5,8,1}}
+    end
+
+
+    for i = 1, #cureList do
+        if (lvl >= cureList[i][1] and mp >= cureList[i][2]) then
+            cure = cureList[i][3]
+            break
         end
     end
 
-    mob:setLocalVar("castingSpell",cure)
 
-    if (cure == 0) then
-        mob:setLocalVar("cureTimeCurilla",battletime - 12)
+    if (cure == 4) then
+        expectedLeft = hpdif - 440
+    elseif (cure == 3) then
+        expectedLeft = hpdif - 275
+    elseif (cure == 2) then
+        expectedLeft = hpdif - 125
+    elseif (cure == 1) then
+        expectedLeft = hpdif - 45
     end
 
+    if (expectedLeft > 350) then
+        cureNeeded = 4
+    elseif (expectedLeft > 200) then
+        cureNeeded = 3
+    elseif (expectedLeft > 100) then
+        cureNeeded = 2
+    else
+        cureNeeded = 10
+    end
+
+    return cure, cureNeeded
 end
 
 function doEmergencyCureCur(mob)

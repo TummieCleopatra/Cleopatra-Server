@@ -69,7 +69,7 @@ function onMobSpawn(mob)
                         mob:setLocalVar("magicTime",battletime)
                         break
                     end
-                elseif (member:getHPP() <= 73) then
+                elseif (member:getHPP() <= 75) then
 
                     local spell, moreCure = doCureKupipi(mob, member)
                     if (spell > 0) then
@@ -105,11 +105,20 @@ function onMobSpawn(mob)
         local ailmentTime = mob:getLocalVar("ailmentTime")
         local hasteTime = mob:getLocalVar("hasteTime")
         local distance = mob:checkDistance(target)
+        local tlvl = target:getMainLvl()
+        local lvl = mob:getMainLvl()
+        local dlvl = tlvl - lvl
+        local move = 10
+        if (dlvl >= 3) then
+            move = 10
+        else
+           move = 1
+        end
 
             -- Global Magic Check every 4 Seconds
         if (battletime > magicTime + magicCheck) then
             -- BUFFS
-            if (battletime > buffTime + buffCooldown and distance >= 10) then
+            if (battletime > buffTime + buffCooldown and distance >= move) then
 
                 doKupipiBuff(mob, player)
                 mob:setLocalVar("buffTime",battletime)
@@ -207,6 +216,13 @@ function onMobSpawn(mob)
         end
     end)
 
+    mob:addListener("MAGIC_START", "KUPIPI_MAGIC_CHECK", function(pet, spell, action)
+        if (spell:getID() > 124 and spell:getID() < 135) then
+            spell:setFlag(dsp.magic.spellFlag.HIT_ALL);
+            spell:setRadius(60);
+        end
+    end)
+
 
 
 end
@@ -296,6 +312,7 @@ function doKupipiBuff(mob, player)
                         break
                     end
                 end
+                print(pro)
                 mob:castSpell(pro, mob)
                 mob:setLocalVar("buffTime",battletime)
                 break
@@ -385,6 +402,11 @@ function doCureKupipi(mob, member)
     local maxhp = member:getMaxHP()
     local hp = member:getHP()
     local hpdif = (maxhp - hp)
+    local mp = mob:getMP()
+    local lvl = mob:getMainLvl()
+    local cure = 0
+    local expectedLeft = 0
+    local cureNeeded = 0
     local cureList = {}
 
     if (hpdif < 50) then
@@ -397,9 +419,6 @@ function doCureKupipi(mob, member)
         cureList = {{41,88,4}, {21,46,3}, {11,24,2}, {1,8,1}}
     end
 
-    local mp = mob:getMP()
-    local lvl = mob:getMainLvl()
-    local cure = 0
 
     for i = 1, #cureList do
         if (lvl >= cureList[i][1] and mp >= cureList[i][2]) then
@@ -408,8 +427,7 @@ function doCureKupipi(mob, member)
         end
     end
 
-    local expectedLeft = 0
-    local cureNeeded = 0
+
     if (cure == 4) then
         expectedLeft = hpdif - 440
     elseif (cure == 3) then
@@ -461,3 +479,4 @@ function doHasteKupipi(mob)
     return haste
 
 end
+

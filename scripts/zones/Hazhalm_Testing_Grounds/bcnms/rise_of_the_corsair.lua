@@ -35,7 +35,7 @@ function onBcnmLeave(player,instance,leavecode)
 -- print("leave code "..leavecode);
     if (leavecode == 2) then
         player:startEvent(0x7d02);
-		player:setVar("Luzaf_Fight",2)
+        player:setVar("LUZAF_FIGHT") == 2
     -- player:addStatusEffect(dsp.effect.LEVEL_RESTRICTION,75,3,300);
 	elseif (leavecode == 4) then
         player:startEvent(0x7d02);

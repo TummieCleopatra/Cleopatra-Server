@@ -81,14 +81,14 @@ dsp.aftermath.effects =
         mods = { { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 + 10) end },
                  { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 + 10) end },
                  { dsp.mod.ACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 + 10) end }},
-        duration = { 180, 90, 120 }
+        duration = { 60, 90, 120 }
     },
     [31] = -- Laevateinn, Murgleis, Tupsimati, Idris
     {
         mods = { { dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MATT, function(tp) return math.floor(tp / 100 + 10) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 + 10) end },
                  { dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MATT, function(tp) return math.floor(tp / 100 + 10) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 + 10) end },
                  { dsp.mod.MACC, function(tp) return math.floor(tp / 200 + 5) end, dsp.mod.MATT, function(tp) return math.floor(tp / 100 + 10) end, dsp.mod.MYTHIC_OCC_ATT_TWICE, function(tp) return math.floor(tp / 100 + 10) end }},
-        duration = { 180, 180, 120 }
+        duration = { 60, 90, 120 }
     },
     [32] = -- Tizona
     {

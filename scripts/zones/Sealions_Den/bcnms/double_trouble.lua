@@ -3,11 +3,12 @@
 -- Name: one_to_be_feared
 -- bcnmID : 992
 -----------------------------------
-package.loaded["scripts/zones/Sealions_Den/TextIDs"] = nil;
+
 -----------------------------------
 
 require("scripts/globals/missions");
-require("scripts/zones/Sealions_Den/TextIDs");
+
+local ID = require("scripts/zones/Sealions_Den/IDs")
 
 -----------------------------------
 --instance 1   @pos -780 -103 -90
@@ -16,15 +17,15 @@ require("scripts/zones/Sealions_Den/TextIDs");
          --  >      -151             = lieux de combat
 --instance 3   @pos 500  56  -810
          --  >    640  -71   -206           = lieux de combat
-		 
-		 
+
+
 	--cs 0,instanceID= cs + teleportation	 vers mamet
-	--cs 1,instanceID= cs + teleportation	 vers ultima	 
-	--cs 2,instanceID= cs + teleportation	 vers omega	 
-	--cs 7 leave l'insctance	 
-	-- cs 8 =>navire de guerre > retourner a tavnazia	 
-		 
-		 
+	--cs 1,instanceID= cs + teleportation	 vers ultima
+	--cs 2,instanceID= cs + teleportation	 vers omega
+	--cs 7 leave l'insctance
+	-- cs 8 =>navire de guerre > retourner a tavnazia
+
+
 -- After registering the BCNM via bcnmRegister(bcnmid)
 function onBcnmRegister(player,instance)
 end;
@@ -43,23 +44,24 @@ end;
 
 function onBcnmLeave(player,instance,leavecode)
 
-	
+
 	if (leavecode == 2) then -- play end CS. Need time and battle id for record keeping + storage
-		player:startEvent(0x7d02); 
+		player:startEvent(0x7d02);
+        player:setVar("PRISHE_WIN",1)
 	elseif (leavecode == 4) then
 	       player:startEvent(0x7d02);
 	else
 		player:startEvent(0x7d02);
     end
-	
+
 end;
 
 function onEventUpdate(player,csid,option)
 -- print("bc update csid "..csid.." and option "..option);
 end;
-	
+
 function onEventFinish(player,csid,option)
--- print("bc finish csid "..csid.." and option "..option);	
+-- print("bc finish csid "..csid.." and option "..option);
     if (csid == 0x7d01) then
      player:addExp(1500);
 	 player:setPos(438 ,0 ,-18 ,11 ,24);-- tp lufease

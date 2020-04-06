@@ -513,7 +513,7 @@ function checkNonTradeBCNM(player, npc, mode)
         [32] = {
                     [992] = function() return (player:getCurrentMission(COP) == dsp.mission.id.cop.ONE_TO_BE_FEARED and player:getVar("PromathiaStatus")==2)  end, -- one_to_be_feared
                     [993] = function() return (player:getCurrentMission(COP) == dsp.mission.id.cop.THE_WARRIOR_S_PATH)  end, -- warriors_path
-                    [1388] = function() return (player:hasCompletedMission(COP,dsp.mission.id.cop.THE_WARRIOR_S_PATH))  end, -- warriors_path
+                    [1388] = function() return (player:hasCompletedMission(COP,dsp.mission.id.cop.THE_WARRIOR_S_PATH))  end, -- Priseh/Ulmia Trust
                },
         [35] = {
                     [1024] = function() return (player:getCurrentMission(COP) == dsp.mission.id.cop.WHEN_ANGELS_FALL and player:getVar("PromathiaStatus")==4)  end, -- when_angels_fall

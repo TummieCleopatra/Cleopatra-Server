@@ -49,14 +49,19 @@ function onTrigger(player,npc)
     end
 
     if (player:hasCompletedMission(TOAU, dsp.mission.id.toau.LIGHT_OF_JUDGMENT) and not player:hasSpell(928)) then
-        if (player:getVar("LUZAF_DONE") == 1) then
+        if (player:getVar("LUZAF_FIGHT") == 2) then
             player:addSpell(928)
             player:setVar("LUZAF_DONE",0)
             player:PrintToPlayer("You can now summon Luzaf as a Trust!", 0x15);
         else
             player:PrintToPlayer("??? : If you want me to fight by your side, trade this to the gates at the Halzhalm Testing Grounds", 0xD);
-            player:addItem(10124, 1)
-            player:messageSpecial(ID.text.ITEM_OBTAINED,10124);
+            if (player:getFreeSlotsCount() > 0) then
+                player:addItem(10124, 1)
+                player:messageSpecial(ID.text.ITEM_OBTAINED,10124);
+                player:setVar("LUZAF_FIGHT",1)
+            else
+                player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,10124)
+            end
         end
     end
 end

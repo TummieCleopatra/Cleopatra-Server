@@ -29,7 +29,7 @@ function onMobWeaponSkill(target, mob, skill)
 
         if (mob: getID() == 17097391) then
             basemod = 0.9
-            info = TrustPhysicalMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,TP_DMG_VARIES,1.1,1.2,1.3);
+            info = TrustPhysicalMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,TP_DMG_VARIES,1.3,1.3,1.3);
         end
 
 

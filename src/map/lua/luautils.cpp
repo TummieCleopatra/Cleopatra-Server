@@ -2155,6 +2155,30 @@ namespace luautils
                 return 0;
             }
         }
+
+        if (PCaster->objtype == TYPE_TRUST)
+        {
+            lua_prepscript("scripts/globals/pets/%s.lua", static_cast<CPetEntity*>(PCaster)->GetScriptName().c_str());
+
+            if (prepFile(File, "onSpellPrecast"))
+            {
+                return 0;
+            }
+
+            CLuaBaseEntity LuaCasterEntity(PCaster);
+            Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaCasterEntity);
+
+            CLuaSpell LuaSpell(PSpell);
+            Lunar<CLuaSpell>::push(LuaHandle, &LuaSpell);
+
+            if (lua_pcall(LuaHandle, 2, 0, 0))
+            {
+                ShowError("luautils::onSpellPrecast: %s\n", lua_tostring(LuaHandle, -1));
+                lua_pop(LuaHandle, 1);
+                return 0;
+            }
+        }
+
         return 0;
     }
 

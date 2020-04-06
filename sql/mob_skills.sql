@@ -1949,11 +1949,11 @@ INSERT INTO `mob_skills` VALUES (2081,1825,'hammer-go-round',0,7.0,2000,1500,4,0
 -- INSERT INTO `mob_skills` VALUES (2085,1829,'venomous_tail',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (2086,1830,'grim_reaper',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (2087,1831,'.',0,7.0,2000,1500,4,0,0,0,0,0,0);
--- INSERT INTO `mob_skills` VALUES (2088,1427,'victory_beacon',0,7.0,2000,1500,4,0,0,0,0,0,0);
--- INSERT INTO `mob_skills` VALUES (2089,1428,'salamander_flame',0,7.0,2000,1500,4,0,0,0,0,0,0);
--- INSERT INTO `mob_skills` VALUES (2090,1429,'typhonic_arrow',0,7.0,2000,1500,4,0,0,0,0,0,0);
--- INSERT INTO `mob_skills` VALUES (2091,1430,'meteoric_impact',0,7.0,2000,1500,4,0,0,0,0,0,0);
--- INSERT INTO `mob_skills` VALUES (2092,1431,'scouring_bubbles',0,7.0,2000,1500,4,0,0,0,0,0,0);
+INSERT INTO `mob_skills` VALUES (2088,1427,'victory_beacon',2,7.0,2000,1500,4,0,0,0,0,0,0);  -- NPC Version AoE
+INSERT INTO `mob_skills` VALUES (2089,1428,'salamander_flame',2,7.0,2000,1500,4,0,0,0,0,0,0);  -- NPC Version AoE
+INSERT INTO `mob_skills` VALUES (2090,1429,'typhonic_arrow',0,7.0,2000,1500,4,0,0,0,0,0,0);  -- NPC Version AoE
+INSERT INTO `mob_skills` VALUES (2091,1430,'meteoric_impact',0,7.0,2000,1500,4,0,0,0,0,0,0);  -- NPC Version AoE
+INSERT INTO `mob_skills` VALUES (2092,1431,'scouring_bubbles',2,7.0,2000,1500,4,0,0,0,0,0,0);  -- NPC Version AoE
 -- INSERT INTO `mob_skills` VALUES (2093,1837,'.',0,7.0,2000,1500,4,0,0,0,0,0,0);
 INSERT INTO `mob_skills` VALUES (2094,1432,'fire_angon',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (2095,1839,'batterhorn',0,7.0,2000,1500,4,0,0,0,0,0,0);
@@ -1995,11 +1995,11 @@ INSERT INTO `mob_skills` VALUES (2126,151,'zantetsuken',4,10.0,2000,3000,4,0,0,0
 -- INSERT INTO `mob_skills` VALUES (2131,1875,'.',0,7.0,2000,1500,4,0,0,0,0,0,0);
 INSERT INTO `mob_skills` VALUES (2132,434,'replicator',0,7.0,2000,0,16,4,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (2133,1877,'liar's_dice',0,7.0,2000,1500,4,0,0,0,0,0,0);
-INSERT INTO `mob_skills` VALUES (2134,1427,'victory_beacon',0,7.0,2000,1500,4,0,0,0,0,0,0);
-INSERT INTO `mob_skills` VALUES (2135,1428,'salamander_flame',0,7.0,2000,1500,4,0,0,0,0,0,0);
+INSERT INTO `mob_skills` VALUES (2134,1427,'victory_beacon',2,7.0,2000,1500,4,0,0,0,0,0,0);
+INSERT INTO `mob_skills` VALUES (2135,1428,'salamander_flame',2,7.0,2000,1500,4,0,0,0,0,0,0);
 INSERT INTO `mob_skills` VALUES (2136,1429,'typhonic_arrow',0,15.0,2000,1500,4,0,0,0,0,0,0);
 INSERT INTO `mob_skills` VALUES (2137,1430,'meteoric_impact',0,7.0,2000,1500,4,0,0,0,0,0,0);
-INSERT INTO `mob_skills` VALUES (2138,1431,'scouring_bubbles',0,7.0,2000,1500,4,0,0,0,0,0,0);
+INSERT INTO `mob_skills` VALUES (2138,1431,'scouring_bubbles',2,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (2139,1883,'doom',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (2140,1884,'peacebreaker',0,7.0,2000,1500,4,0,0,0,0,0,0);
 INSERT INTO `mob_skills` VALUES (2141,1465,'radiant_sacrament',0,20.0,2000,1000,4,4,0,0,0,0,0);
@@ -3094,9 +3094,9 @@ INSERT INTO `mob_skills` VALUES (3221,2302,'atramentous_libations',1,18.0,2000,1
 -- INSERT INTO `mob_skills` VALUES (3231,2975,'debonair_rush',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (3232,2976,'iridal_pierce',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (3233,2977,'lunar_revolution',0,7.0,2000,1500,4,0,0,0,0,0,0);
-INSERT INTO `mob_skills` VALUES (3234,2978,'nullifying_dropkick',0,7.0,2000,0,4,0,0,0,7,6,8);
-INSERT INTO `mob_skills` VALUES (3235,2979,'auroral_uppercut',0,7.0,2000,0,4,0,0,0,13,12,0);
-INSERT INTO `mob_skills` VALUES (3236,2980,'knuckle_sandwich',0,7.0,2000,0,4,0,0,0,11,2,8);
+INSERT INTO `mob_skills` VALUES (3234,1095,'nullifying_dropkick',0,7.0,2000,0,4,0,0,0,7,6,8);
+INSERT INTO `mob_skills` VALUES (3235,1096,'auroral_uppercut',0,7.0,2000,0,4,0,0,0,13,12,0);
+INSERT INTO `mob_skills` VALUES (3236,2033,'knuckle_sandwich',0,7.0,2000,0,4,0,0,0,11,2,8);
 -- INSERT INTO `mob_skills` VALUES (3237,2981,'victory_beacon',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (3238,2982,'salamander_flame',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (3239,2983,'typhonic_arrow',0,7.0,2000,1500,4,0,0,0,0,0,0);

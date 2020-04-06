@@ -9,6 +9,8 @@ function onMobSpawn(mob)
 	mob:setLocalVar("HasteBuff",1);
 	mob:setLocalVar("ParryBuff",1);
 	mob:setLocalVar("INV",1);
+    mob:setMod(dsp.mod.ATT, 50)
+    mob:setMoc(dsp.mod.STR, 45)
 end
 
 
@@ -19,7 +21,7 @@ function onMobFight(mob,target)
 	-- 25% gains high counter bonus
 	local acc = mob:getLocalVar("AccBuff");
 	local haste = mob:getLocalVar("HasteBuff");
-	local counter = mob:getLocalVar("ParryBuff");	
+	local counter = mob:getLocalVar("ParryBuff");
 	local inv = mob:getLocalVar("INV");
 	local twohr = math.random(30,70);
 	local hp = mob:getHPP();
@@ -29,19 +31,19 @@ function onMobFight(mob,target)
 	    mob:setLocalVar("AccBuff",2);
 	elseif (haste == 1 and hp < 50) then
 	    mob:addMod(dsp.mod.HASTE_MAGIC,1500);
-	    mob:setLocalVar("HasteBuff",2);	
-		mob:addStatusEffect(dsp.effect.ENLIGHT, 10, 0, 1500);
+	    mob:setLocalVar("HasteBuff",2);
+		mob:addStatusEffect(dsp.effect.ENLIGHT, 30, 0, 1500);
 	elseif (counter == 1 and hp < 25) then
-	    mob:addMod(dsp.mod.PARRY,50);
+	    mob:addMod(dsp.mod.PARRY,10);
 	    mob:setLocalVar("ParryBuff",2);
     end
 
     if (hp < twohr and inv == 1) then
         mob:useMobAbility(438);
         mob:setLocalVar("INV",0);
-    end		
-    
-	
+    end
+
+
 end
 
 

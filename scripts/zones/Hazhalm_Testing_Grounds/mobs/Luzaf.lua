@@ -125,7 +125,7 @@ end
 
 
 function onAdditionalEffect(mob, target, damage)
-    return dsp.mob.onAddEffect(mob, target, damage, dsp.mob.ae.ENDARK)
+    return dsp.mob.onAddEffect(mob, target, damage, dsp.mob.ae.ENDARK, {power = 5})
 end
 
 

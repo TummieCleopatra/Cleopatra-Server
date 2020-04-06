@@ -47,30 +47,48 @@ function onMobSpawn(mob)
     mob:addListener("COMBAT_TICK", "KUPIPI_CURE_TICK", function(mob, player, target)
         local battletime = os.time()
         local cureTime = mob:getLocalVar("cureTime")
+        local act = mob:getCurrentAction()
+
+
+        if (act ~= dsp.act.MAGIC_CASTING) then
+            mob:setLocalVar("cureCasting",0)  -- Set this to 0 to mean mob is not or is done casting cures
+            -- printf("Done Casting, set cure to 0")
+        end
 
         if (battletime > cureTime + cureCooldown) then
             local party = player:getParty()
             for _,member in ipairs(party) do
-                local name = member:getName()
-                print(name)
                 if (member:getHPP() <= 30) then
                     local spell = doEmergencyCureKupipi(mob)
                     if (spell > 0) then
                         mob:castSpell(spell, member)
                         mob:setLocalVar("cureTime",battletime)
+                        mob:setLocalVar("magicTime",battletime)
                         break
                     end
-                elseif (member:getHPP() <= 65) then
-                    local spell = doCureKupipi(mob)
+                elseif (member:getHPP() <= 70) then
+
+                    local spell, moreCure = doCureKupipi(mob, member)
                     if (spell > 0) then
-                        mob:castSpell(spell, member)
-                        mob:setLocalVar("cureTime",battletime)
-                        break
+                    -- local canCast = true
+                        local canCast = checkDoubleCure(mob, member)
+                        if (canCast == 1) then
+                            -- printf("Set Cure Cast to 1")
+                            mob:setLocalVar("cureCasting",moreCure) -- Sets the cure casting to what is needed
+                            mob:castSpell(spell, member)
+                            mob:setLocalVar("cureTime",battletime)
+                            mob:setLocalVar("magicTime",battletime)
+                            break
+                        elseif (canCast > 0) then
+                            -- See which spell is allowed
+                            mob:castSpell(canCast, member)
+                            mob:setLocalVar("cureTime",battletime)
+                            mob:setLocalVar("magicTime",battletime)
+                        end
                     end
-                else
-                    mob:setLocalVar("cureTime",battletime - 10)  -- If no member has low HP change global check to 8 seconds
                 end
             end
+            mob:setLocalVar("cureTime",battletime - 12)
         end
     end)
 
@@ -269,8 +287,22 @@ function doBuff(mob, player)
     --]]
 end
 
-function doCureKupipi(mob)
-    local cureList = {{41,88,4}, {21,46,3}, {11,24,2}, {1,8,1}}
+function doCureKupipi(mob, member)
+    local maxhp = member:getMaxHP()
+    local hp = member:getHP()
+    local hpdif = (maxhp - hp)
+    local cureList = {}
+
+    if (hpdif < 50) then
+        cureList = {{1,8,1}}
+    elseif (hpdif < 120) then
+        cureList = {{11,24,2}, {1,8,1}}
+    elseif (hpdif < 300) then
+        cureList = {{21,46,3}, {11,24,2}, {1,8,1}}
+    else
+        cureList = {{41,88,4}, {21,46,3}, {11,24,2}, {1,8,1}}
+    end
+
     local mp = mob:getMP()
     local lvl = mob:getMainLvl()
     local cure = 0
@@ -282,7 +314,29 @@ function doCureKupipi(mob)
         end
     end
 
-    return cure
+    local expectedLeft = 0
+    local cureNeeded = 0
+    if (cure == 4) then
+        expectedLeft = hpdif - 440
+    elseif (cure == 3) then
+        expectedLeft = hpdif - 275
+    elseif (cure == 2) then
+        expectedLeft = hpdif - 125
+    elseif (cure == 1) then
+        expectedLeft = hpdif - 45
+    end
+
+    if (expectedLeft > 350) then
+        cureNeeded = 4
+    elseif (expectedLeft > 200) then
+        cureNeeded = 3
+    elseif (expectedLeft > 100) then
+        cureNeeded = 2
+    else
+        cureNeeded = 10
+    end
+
+    return cure, cureNeeded
 end
 
 function doEmergencyCureKupipi(mob)

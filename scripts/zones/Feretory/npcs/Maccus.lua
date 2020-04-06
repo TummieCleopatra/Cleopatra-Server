@@ -69,6 +69,13 @@ local trustdyna = player:getVar("TrustDynamis");
 	player:PrintToPlayer("All outpost warps except Tu'Lia and Tavnazia have been unlocked!", 0x15);
 	end
 
+    -- Retroactively Fix Feretory Caps
+    if (player:getVar("FerretoryQuest75") == 12) then
+        player:setVar("infamycap",30000);
+    elseif (player:getVar("FerretoryQuest75") == 13) then
+        player:setVar("infamycap",60000)
+    end
+
 
     if (player:getNation() == 0) and (trustdyna ~= 1) and (player:hasCompletedMission(SANDORIA,dsp.mission.id.sandoria.THE_SHADOW_LORD) == true) then
     player:PrintToPlayer("You may now summon Trusts inside Dynamis!", 0xD);
