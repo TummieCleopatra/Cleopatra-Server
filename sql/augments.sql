@@ -401,7 +401,7 @@ INSERT INTO `augments` VALUES (319, 0, 0, 0, 0, 0);
 -- End unused block
 
 INSERT INTO `augments` VALUES (320, 0, 357, -1, 0, 0); -- Blood Pact ability delay -1
-INSERT INTO `augments` VALUES (321, 0, 346, -1, 0, 0); -- Avatar perpetuation cost -1
+INSERT INTO `augments` VALUES (321, 0, 346, 1, 0, 0); -- Avatar perpetuation cost -1
 INSERT INTO `augments` VALUES (322, 0, 455, -1, 0, 0); -- Song spellcasting time -1%
 INSERT INTO `augments` VALUES (323, 0, 0, 0, 0, 0); -- Cure spellcasting time -1%
 INSERT INTO `augments` VALUES (324, 0, 0, 0, 0, 0); -- Call Beast ability delay -1
