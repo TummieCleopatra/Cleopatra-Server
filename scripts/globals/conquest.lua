@@ -82,7 +82,8 @@ local outposts =
 }
 
 local function hasOutpost(player, region)
-    local region = region + 5
+    local region = region
+    print(region)
     local hasOP = player:hasTeleport(player:getNation(), region)
     if not hasOP then
         if UNLOCK_OUTPOST_WARPS == 2 then
@@ -866,6 +867,7 @@ dsp.conquest.areAllies = function(nationA, nationB)
 end
 
 dsp.conquest.outpostFee = function(player, region)
+    print(region)
     if not hasOutpost(player, region) then
         return 0
     end
