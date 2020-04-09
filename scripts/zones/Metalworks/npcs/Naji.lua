@@ -101,11 +101,12 @@ function onTrigger(player,npc)
     local srank = player:getRank();
 	local wrank = player:getRank();
 	local brank = player:getRank();
+    local pNation = player:getNation();
 	local mainlvl = player:getMainLvl();
     local tribfight = player:getVar("NAJI_TRIB_FIGHT");
 
 
-	if (srank >= 2) and (player:hasKeyItem(dsp.ki.RED_INSTITUTE_CARD)) and (player:hasSpell(897) == false) then  -- Sandy Rnak 4 or higher
+	if ((pNation == 0 and player:hasCompletedMission(pNation,2) == true) and (player:hasKeyItem(dsp.ki.RED_INSTITUTE_CARD)) and (player:hasSpell(897) == false)) then  -- Sandy Rnak 4 or higher
 	    player:PrintToPlayer("Your Red Institute Card flashes brilliantly!", 0x1C);
         player:PrintToPlayer("Naji : Ah a Red Institute Card.  From now on, you can summon me to help you with your battles", 0xD);
         player:addSpell(897);
@@ -114,7 +115,7 @@ function onTrigger(player,npc)
         player:PrintToPlayer("Naji : I cannot recognize your efforts.  Please try again at a higher rank", 0xD);
     end
 
-	if (wrank >= 2) and (player:hasKeyItem(dsp.ki.GREEN_INSTITUTE_CARD)) and (player:hasSpell(897) == false) then  -- Sandy Rnak 4 or higher
+	if ((pNation == 2 and player:hasCompletedMission(pNation,2) == true) and (player:hasKeyItem(dsp.ki.GREEN_INSTITUTE_CARD)) and (player:hasSpell(897) == false)) then  -- Sandy Rnak 4 or higher
 	    player:PrintToPlayer("Your Green Institute Card flashes brilliantly...", 0x1C);
         player:PrintToPlayer("Naji : Ah a Green Institute Card.  From now on, you can summon me to help you with your battles", 0xD);
         player:addSpell(897);
@@ -123,7 +124,7 @@ function onTrigger(player,npc)
         player:PrintToPlayer("Naji : I cannot recognize your efforts.  Please try again at a higher rank", 0xD);
     end
 
-    if (brank >= 1) and (player:hasKeyItem(dsp.ki.BLUE_INSTITUTE_CARD)) and (player:hasSpell(897) == false) then  -- Sandy Rnak 4 or higher
+    if ((pNation == 1 and player:hasCompletedMission(pNation,0) == true) and (player:hasKeyItem(dsp.ki.BLUE_INSTITUTE_CARD)) and (player:hasSpell(897) == false)) then  -- Sandy Rnak 4 or higher
 	    player:PrintToPlayer("Your Blue Institute Card flashes brilliantly!", 0x1C);
         player:PrintToPlayer("Naji : Ah a Blue Institute Card.  From now on, you can summon me to help you with your battles", 0xD);
         player:addSpell(897);

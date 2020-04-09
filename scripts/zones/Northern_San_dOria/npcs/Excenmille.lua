@@ -100,17 +100,18 @@ function onTrigger(player,npc)
 	local brank = player:getRank();
 	local tribfight = player:getVar("EXCEN_TRIB_FIGHT");
 	local mainlvl = player:getMainLvl();
+    local pNation = player:getNation();
 
 
-	if (srank >= 4) and (player:hasKeyItem(dsp.ki.RED_INSTITUTE_CARD)) and (player:hasSpell(899) == false) then  -- Sandy Rnak 4 or higher
+	if ((pNation == 0 and player:hasCompletedMission(pNation,0) == true) and (player:hasKeyItem(dsp.ki.RED_INSTITUTE_CARD)) and (player:hasSpell(899) == false)) then  -- Sandy Rnak Mission 1-1 or higher
 	player:PrintToPlayer("Your Red Institute Card flashes brilliantly!", 0x1C);
     player:PrintToPlayer("Excenmille : Ah a Red Institute Card.  From now on, you can summon me to help you with your battles", 0xD);
     player:addSpell(899);
-	elseif (wrank >= 4) and (player:hasKeyItem(dsp.ki.GREEN_INSTITUTE_CARD)) and (player:hasSpell(899) == false) then  -- Sandy Rnak 4 or higher
+	elseif (wrank >= 2) and (player:hasKeyItem(dsp.ki.GREEN_INSTITUTE_CARD)) and (player:hasSpell(899) == false) then  -- Windy Rnak 2 or higher
 	player:PrintToPlayer("Your Green Institute Card flashes brilliantly!", 0x1C);
     player:PrintToPlayer("Excenmille : Ah a Green Institute Card.  From now on, you can summon me to help you with your battles", 0xD);
     player:addSpell(899);
-	elseif (brank >= 4) and (player:hasKeyItem(dsp.ki.BLUE_INSTITUTE_CARD)) and (player:hasSpell(899) == false) then  -- Sandy Rnak 4 or higher
+	elseif (brank >= 2) and (player:hasKeyItem(dsp.ki.BLUE_INSTITUTE_CARD)) and (player:hasSpell(899) == false) then  -- Bastok Rnak 2 or higher
 	player:PrintToPlayer("Your Green Institute Card flashes brilliantly!", 0x1C);
     player:PrintToPlayer("Excenmille : Ah a Blue Institute Card.  From now on, you can summon me to help you with your battles", 0xD);
     player:addSpell(899);
