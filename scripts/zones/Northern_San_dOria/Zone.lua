@@ -67,10 +67,10 @@ end;
 function onRegionEnter(player,region)
     switch (region:GetRegionID()): caseof
     {
-        [1] = function (x)  -- Chateau d'Oraguille access
+        [1] = function (x)  -- Chateau d'Oraguille access (No restriction for San d'Orians, Rank 2 required for other nations)
         pNation = player:getNation();
         currentMission = player:getCurrentMission(pNation)
-            if ((pNation == 0 and player:getRank() >= 2) or (pNation > 0 and player:hasCompletedMission(pNation,5) == 1) or (currentMission >= 5 and currentMission <= 9) or (player:getRank() >= 3)) then
+            if ((pNation == 0) or (player:getRank() >= 2)) then
                 player:startEvent(569);
             else
                 player:startEvent(568);
