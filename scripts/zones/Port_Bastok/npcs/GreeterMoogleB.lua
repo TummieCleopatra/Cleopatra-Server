@@ -143,7 +143,7 @@ function onEventUpdate(player,csid,option)
 	end
 
 	if (t3nm1 == 1 and t3nm2 == 1 and t3nm3 == 1) then
-		m3a10 = ; -- Monkey Wine
+		m3a10 = 2573; -- Monkey Wine
 	end
 
 	-- Tier IV
