@@ -204,7 +204,22 @@ local aura = player:getVar("FerretoryAura");
         player:PrintToPlayer("Merchant Moogle : Mounts! Unlock more mount options with more Aura!", 0x1F);
 		elseif (page == 7 and aura < 2) then
         player:PrintToPlayer("Merchant Moogle : Gain more Feretory Aura and have a Choco License to access this shop Kupo!", 0x1F);
-	    elseif (page == 8) then -- Beyond infinity
+	    elseif (page == 8) then
+        local stock_8 =
+        {
+		    2580,    5000,    -- Hellcage Butterfly
+		    2581,    5000,    -- Floral Nectar
+		    2582,    5000,    -- Rodent Cheese
+		    2590,    5000,    -- Shadeleaf
+		    2591,    5000,    -- Pectin
+            2592,    5000,    -- Cog Lubricant
+            2600,    5000,    -- Golden Teeth
+            2601,    5000,    -- Greenling
+            2602,    5000,    -- Spoilt Blood
+        }
+        dsp.shop.general(player, stock_8);
+        player:PrintToPlayer("Merchant Moogle : Paragon Chapter 3 Pop items!", 0x1F);
+        elseif (page == 9) then -- Beyond infinity
         local plevel = player:getMainLvl();
             if (plevel > 98) then
             local stock_8 =
