@@ -15,8 +15,19 @@ function onMobSkillCheck(target,mob,skill)
 end
 
 function onMobWeaponSkill(target, mob, skill)
+    if (mob:getID() == 16974137) then
+        local numhits = 1
+        local accmod = 1
+        local dmgmod = 2.5
 
-    if (mob:getName() == "Najelith" or mob:getName() == "Najelith-W" or mob:getName() == "Najelith-N") then
+        local info = MobRangedMove(mob,target,skill,numhits,accmod,dmgmod,TP_NO_EFFECT)
+
+        local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,dsp.attackType.RANGED,dsp.damageType.PIERCING,info.hitslanded)
+
+        target:takeDamage(dmg, mob, dsp.attackType.RANGED, dsp.damageType.PIERCING)
+        return dmg
+
+	elseif (mob:getName() == "Najelith" or mob:getName() == "Najelith-W" or mob:getName() == "Najelith-N") then
         local basemod = 1
         local numhits = 1
         local attmod = 1
@@ -37,7 +48,7 @@ function onMobWeaponSkill(target, mob, skill)
 
     	local info = TrustPhysicalRangedMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,TP_DMG_VARIES,1.0,1.0,1.0);
 
-        if (mob: getID() == 17051905) then
+        if (mob:getID() == 17051905) then
             basemod = 0.8
             info = TrustPhysicalRangedMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,TP_ACC_VARIES,5.0,5.0,5.0);
         end
