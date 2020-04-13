@@ -43,6 +43,9 @@ function onMobSpawn(mob)
 	mob:setLocalVar("lightShotTime",0)
 	mob:setLocalVar("darkShotTime",0)
 
+    mob:setMobMod(dsp.mobMod.DUAL_WIELD, 1)
+    mob:addMod(dsp.mod.HASTE_ABILITY, 3500)
+
 	mob:addListener("COMBAT_TICK", "LUZAF_COMBAT_TICK", function(mob, player, target)
 	    trustMeleeMove(mob, player, target, angle)
 	    local battletime = os.time()

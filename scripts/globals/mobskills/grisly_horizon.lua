@@ -16,7 +16,7 @@ function onMobSkillCheck(target,mob,skill)
 end
 
 function onMobWeaponSkill(target, mob, skill)
-        local basemod = 1
+        local basemod = 4
         local numhits = 1
         local attmod = 1
         local accmod = 1
@@ -29,9 +29,10 @@ function onMobWeaponSkill(target, mob, skill)
 
 
 
-        local info = TrustPhysicalMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,TP_DMG_VARIES,2.0,3.0,3.0);
+        local info = TrustPhysicalMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,TP_DMG_VARIES,3.5,3.5,3.5);
 
         if (mob: getID() == 17051905) then
+            basemod = 1
             info = TrustPhysicalMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,TP_DMG_VARIES,2.4,2.4,2.4);
         end
 
