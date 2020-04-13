@@ -21,6 +21,7 @@ function onMobSpawn(mob)
     printf("spawnnned")
     if (master:hasStatusEffect(dsp.effect.AVATAR_S_FAVOR)) then
         printf("Apply buffs on spawn")
+        master:addMod(dsp.mod.AVATAR_PERPETUATION, 9)
         local skill = master:getSkillLevel(dsp.skill.SUMMONING_MAGIC)
         local attBuff = (skill / 30) + 1;
         local accBuff = (skill / 5) + 1;
@@ -85,38 +86,42 @@ function onMobSpawn(mob)
     if (petID <= 20) then
         mob:addListener("TICK", "TEST", function(mob)
             local hp = mob:getMaxHP()
-            print(hp)
+            -- print(hp)
             local favorOn = mob:getLocalVar("favorOn")
             local player = mob:getMaster()
             -- Turn On if favor is on
-            if (player:hasStatusEffect(dsp.effect.AVATAR_S_FAVOR) and favorOn == 0) then
-                printf("Favor On!")
-                local skill = player:getSkillLevel(dsp.skill.SUMMONING_MAGIC)
-                local attBuff = (skill / 30) + 1;
-                local accBuff = (skill / 5) + 1;
-                local mabBuff = (skill / 10) + 5;
-                local regain = (skill / 10) + 20;
+            if (player ~= nil) then
+                if (player:hasStatusEffect(dsp.effect.AVATAR_S_FAVOR) and favorOn == 0) then
+                    printf("Favor On!")
+                    player:addMod(dsp.mod.AVATAR_PERPETUATION, 9)
+                    local skill = player:getSkillLevel(dsp.skill.SUMMONING_MAGIC)
+                    local attBuff = (skill / 30) + 1;
+                    local accBuff = (skill / 5) + 1;
+                    local mabBuff = (skill / 10) + 5;
+                    local regain = (skill / 10) + 20;
 
-                mob:addMod(dsp.mod.ATTP, attBuff)
-                mob:addMod(dsp.mod.ACC, accBuff)
-                mob:addMod(dsp.mod.MATT, mabBuff)
-                mob:addMod(dsp.mod.REGAIN, regain)
-                mob:setLocalVar("favorOn",1)
+                    mob:addMod(dsp.mod.ATTP, attBuff)
+                    mob:addMod(dsp.mod.ACC, accBuff)
+                    mob:addMod(dsp.mod.MATT, mabBuff)
+                    mob:addMod(dsp.mod.REGAIN, regain)
+                    mob:setLocalVar("favorOn",1)
+                end
             end
-
-            if (not player:hasStatusEffect(dsp.effect.AVATAR_S_FAVOR) and favorOn == 1) then
-                printf("Favor off")
-                local skill = player:getSkillLevel(dsp.skill.SUMMONING_MAGIC)
-                local attBuff = (skill / 30) + 1;
-                local accBuff = (skill / 5) + 1;
-                local mabBuff = (skill / 10) + 5;
-                local regain = (skill / 10) + 20;
-
-                mob:delMod(dsp.mod.ATTP, attBuff)
-                mob:delMod(dsp.mod.ACC, accBuff)
-                mob:delMod(dsp.mod.MATT, mabBuff)
-                mob:delMod(dsp.mod.REGAIN, regain)
-                mob:setLocalVar("favorOn",0)
+            if (player ~= nil) then
+                if (not player:hasStatusEffect(dsp.effect.AVATAR_S_FAVOR) and favorOn == 1) then
+                   printf("Favor off")
+                    local skill = player:getSkillLevel(dsp.skill.SUMMONING_MAGIC)
+                    local attBuff = (skill / 30) + 1;
+                    local accBuff = (skill / 5) + 1;
+                    local mabBuff = (skill / 10) + 5;
+                    local regain = (skill / 10) + 20;
+                    master:addMod(dsp.mod.AVATAR_PERPETUATION, -9)
+                    mob:delMod(dsp.mod.ATTP, attBuff)
+                    mob:delMod(dsp.mod.ACC, accBuff)
+                    mob:delMod(dsp.mod.MATT, mabBuff)
+                    mob:delMod(dsp.mod.REGAIN, regain)
+                    mob:setLocalVar("favorOn",0)
+                end
             end
 
         end)

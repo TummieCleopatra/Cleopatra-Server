@@ -21,6 +21,15 @@ end
 
 function onSpellCast(caster,target,spell)
     caster:spawnPet(dsp.pet.id.TITAN)
+    local skill = caster:getSkillLevel(dsp.skill.SUMMONING_MAGIC);
+    local pet = caster:getPet();
+    local avatarBuff = 1 + (skill / 33)
+    local enspellPower = (skill / 35) + 1
+
+    if (pet ~= nill) then
+        pet:addStatusEffect(dsp.effect.TITAN_S_FAVOR, avatarBuff, 3, 3000);
+        pet:addStatusEffect(dsp.effect.ENSTONE,enspellPower,0,3000);
+    end
 
     return 0
 end
