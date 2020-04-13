@@ -15,7 +15,7 @@ function onMobSkillCheck(target,mob,skill)
 end
 
 function onMobWeaponSkill(target, mob, skill)
-        local basemod = 3.2
+        local basemod = 1
         local numhits = 1
         local attmod = 1
         local accmod = 1
@@ -25,9 +25,14 @@ function onMobWeaponSkill(target, mob, skill)
         local vit_wsc = 0
         local mnd_wsc = 0
 
-        local info = TrustPhysicalRangedMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,TP_DMG_VARIES,7.0,5.0,5.0);
+        local info = TrustPhysicalRangedMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,TP_DMG_VARIES,5.0,5.0,5.0);
 
-        if (mob: getID() == 17051905) then
+        if (mob:getID() == 16974137) then
+            local basemod = 2.2
+            local info = TrustPhysicalRangedMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,TP_DMG_VARIES,3.0,3.0,3.0);
+        end
+
+        if (mob:getID() == 17051905) then
             basemod = 1
             info = TrustPhysicalRangedMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,TP_DMG_VARIES,2.0,2.0,2.0);
         end
