@@ -1,7 +1,8 @@
 -----------------------------------
 -- Area: Alzadaal Undersea Ruins
--- Door: Gilded Gateway (Arrapago)
--- !pos -580 0 -159 72
+-- Silver Seas Remnants
+-- Door: Gilded Gateway (Silve Sea)
+-- !pos 580 0 442 72
 -----------------------------------
 require("scripts/globals/keyitems")
 require("scripts/globals/missions")
@@ -17,6 +18,7 @@ function onTrigger(player,npc)
         local mask = -2
         if player:getMainLvl() >= 96 then
             mask = -14
+
         elseif player:getMainLvl() >= 65 then
             mask = -6
         end
@@ -28,57 +30,41 @@ function onTrigger(player,npc)
 end
 
 function onEventUpdate(player,csid,option,target)
-    local instanceid = bit.rshift(option, 19) + 70
-
-    local party = player:getParty()
-
-    if party ~= nil then
-        for i,v in ipairs(party) do
-            if not v:hasKeyItem(dsp.ki.REMNANTS_PERMIT) then
-                player:messageText(target,ID.text.MEMBER_NO_REQS, false)
-                player:instanceEntry(target,1)
-                return
-            elseif v:getZoneID() == player:getZoneID() and v:checkDistance(player) > 50 then
-                player:messageText(target,ID.text.MEMBER_TOO_FAR, false)
-                player:instanceEntry(target,1)
-                return
-            elseif v:checkImbuedItems() then
-                player:messageText(target,ID.text.MEMBER_IMBUED_ITEM, false)
-                player:instanceEntry(target,1)
-                return
-            end
-        end
-    end
-
-    player:createInstance(instanceid, 76)
-
+	if (csid == 410) and (option == 524288) then
+	    -- Add checks for players to ensure they are on the same mission (see pashow [S] waypoint)
+        player:stopEvent(); -- Kills the Cutscene without text
+	end
 end
 
 function onEventFinish(player,csid,option,target)
-    if (csid == 410 and option == 4) or csid == 116 then
-        player:setPos(0,0,0,0,76)
+    -- printf("RESULT: %u",option);
+  	local party = player:getParty();
+	if (csid == 410) then
+		if (player:hasKeyItem(dsp.ki.REMNANTS_PERMIT)) then
+			if (party ~= nil) then
+				for i,v in ipairs(party) do
+					if (v:hasKeyItem(dsp.ki.REMNANTS_PERMIT) == false) then
+						player:messageSpecial(MEMBER_NO_REQS);
+						return
+					elseif v:getZoneID() == player:getZoneID() and v:checkDistance(player) > 50 then
+						player:messageSpecial(ID.text.MEMBER_TOO_FAR);
+						return
+					end
+				end
+			end
+		    for i,k in ipairs(party) do
+	            k:delKeyItem(dsp.ki.REMNANTS_PERMIT);
+				k:setVar("Salvage_Level",35);
+				k:setVar("Salvage_Entry",os.time());
+                k:startEvent(116,2)
+		    end
+
+		else
+		    player:messageSpecial(ID.text.MEMBER_NO_REQS);
+		end
+	elseif (csid == 116) then
+        player:setPos(339,16,-189,62,0x4C);
     end
 end
 
-function onInstanceCreated(player,target,instance)
-    if instance then
-        player:setInstance(instance)
-        player:instanceEntry(target,4)
-        player:delKeyItem(dsp.ki.REMNANTS_PERMIT)
 
-        local party = player:getParty()
-        if party ~= nil then
-            for i,v in ipairs(party) do
-                if v:getID() ~= player:getID() and v:getZoneID() == player:getZoneID() then
-                    v:setInstance(instance)
-                    v:startEvent(116, 2)
-                    v:delKeyItem(dsp.ki.REMNANTS_PERMIT)
-                    v:setLocalVar("SalvageSilverSea", 1)
-                end
-            end
-        end
-    else
-        player:messageText(target,ID.text.CANNOT_ENTER, false)
-        player:instanceEntry(target,3)
-    end
-end

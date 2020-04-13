@@ -1355,6 +1355,35 @@ inline int32 CLuaBaseEntity::release(lua_State *L)
     return 0;
 }
 
+
+/************************************************************************
+*  Function: stopEvent()
+*  Purpose : Ends an event for a PC; releases from cutscene
+*  Example : player:stopEvent()
+*  Notes   :
+************************************************************************/
+
+inline int32 CLuaBaseEntity::stopEvent(lua_State *L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+
+    CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
+
+    RELEASE_TYPE releaseType = RELEASE_STANDARD;
+
+    if (PChar->m_event.EventID != -1)
+    {
+        // Message: Event skipped
+        releaseType = RELEASE_SKIPPING;
+
+    }
+    PChar->pushPacket(new CReleasePacket(PChar, releaseType));
+    PChar->pushPacket(new CReleasePacket(PChar, RELEASE_EVENT));
+    return 0;
+}
+
+
 /************************************************************************
 *  Function: setFlag()
 *  Purpose : Sets a flag for a PC
@@ -14062,7 +14091,7 @@ inline int32 CLuaBaseEntity::setMobMod(lua_State *L)
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
 
     // putting this in here to find elusive bug
-    if (!(m_PBaseEntity->objtype & TYPE_MOB))
+    if (!(m_PBaseEntity->objtype & TYPE_MOB) && !(m_PBaseEntity->objtype & TYPE_TRUST))
     {
         // this once broke on an entity (17532673) but it could not be found
         ShowError("CLuaBaseEntity::setMobMod Expected type mob (%d) but its a (%d)\n", m_PBaseEntity->id, m_PBaseEntity->objtype);
@@ -15004,6 +15033,7 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,updateEventString),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getEventTarget),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,release),
+    LUNAR_DECLARE_METHOD(CLuaBaseEntity,stopEvent),
 
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setFlag),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,moghouseFlag),

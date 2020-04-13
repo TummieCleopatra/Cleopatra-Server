@@ -85,6 +85,7 @@ public:
     int32 updateEventString(lua_State*);    // (string, string, string, string, uint32, ...)
     int32 getEventTarget(lua_State*);       //
     int32 release(lua_State*);              // Stops event
+    int32 stopEvent(lua_State*);              // Stops event
 
     int32 setFlag(lua_State*);
     int32 moghouseFlag(lua_State*);
