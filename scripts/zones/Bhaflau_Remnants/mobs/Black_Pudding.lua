@@ -6,7 +6,7 @@
 require("scripts/globals/titles");
 require("scripts/globals/salvagescaler");
 require("scripts/globals/status");
-require("scripts/zones/Bhaflau_Remnants/TextIDs");
+local ID = require("scripts/zones/Bhaflau_Remnants/IDs");
 
 -----------------------------------
 -- onMobSpawn Action

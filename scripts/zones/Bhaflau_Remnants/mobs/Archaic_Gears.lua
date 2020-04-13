@@ -14,7 +14,7 @@ function onMobSpawn(mob)
     if (mob:getID() >= 17084666 and mob:getID() <= 17084686) then
         mob:setLocalVar("Gears",1);
 	end
-    mob:setMobMod(MOBMOD_EXP_BONUS, -100); 	
+    mob:setMobMod(dsp.mobMod.EXP_BONUS, -100); 	
 -- setModelId
 end;
 

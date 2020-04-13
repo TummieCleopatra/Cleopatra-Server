@@ -3,10 +3,7 @@
 --  NPC: Treasure Chest
 -- @zone 73
 -----------------------------------
-package.loaded["scripts/zones/Bhaflau_Remnants/TextIDs"] = nil;
-
-
-require("scripts/zones/Bhaflau_Remnants/TextIDs");
+local ID = require("scripts/zones/Bhaflau_Remnants/IDs");
 require("scripts/globals/settings");
 require("scripts/globals/status");
 require("scripts/globals/salvagescaler");

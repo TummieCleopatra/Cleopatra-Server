@@ -16,7 +16,7 @@ local ID = require("scripts/zones/Bhaflau_Remnants/IDs");
 
 function onMobSpawn(mob)
 
-    mob:setMobMod(MOBMOD_EXP_BONUS, -100);
+    mob:setMobMod(dsp.mobMod.EXP_BONUS, -100);
 
 end;
 

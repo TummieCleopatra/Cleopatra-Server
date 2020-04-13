@@ -12,7 +12,7 @@ require("scripts/globals/keyitems");
 function onMobSpawn(mob)
    mob:setModelId(282);  -- Big Bomb with the correct animation subs change later in mob group/pool
    mob:setLocalVar("Size",1);
-       mob:setMobMod(MOBMOD_EXP_BONUS, -100); 
+       mob:setMobMod(dsp.mobMod.EXP_BONUS, -100); 
 end;
 
 
