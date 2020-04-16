@@ -37,9 +37,9 @@ stock = {0x0F0D,1000,  -- Displacers
 		 0x0AA6,30000   -- SCH
 
 
-}  
+}
 player:PrintToPlayer("Moogle : Discounts for you Kupo, for defeating that ugly Gu Dha Effigy!!", 0xD);
-showShop(player, STATIC, stock);  
+dsp.shop.general(player, stock);
 else
 stock = {0x0F0D,3500,  -- Displacers
          0x07FA,1000000,  -- MNK
@@ -57,9 +57,9 @@ stock = {0x0F0D,3500,  -- Displacers
 		 0x0A6F,1000000,  -- COR
 		 0x0A9E,1000000,  -- DNC
 		 0x0AA6,1000000   -- SCH
-}  
+}
 player:PrintToPlayer("Moogle : Kupo, I'll give you a discount if you defeat the Gu Dha Effigy that's been distrubing the Moogles.", 0xD);
-showShop(player, STATIC, stock);  
+dsp.shop.general(player, stock);
 end
 end;
 

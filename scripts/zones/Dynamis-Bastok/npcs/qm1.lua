@@ -1,7 +1,7 @@
 -----------------------------------
 -- Area:  Dynamis Bastok
 -- NPC:   qm1 (???)
--- Notes: Forgesoul and Manameister
+-- Notes: [1]Forgesoul and [2]Manameister
 -----------------------------------
 local ID = require("scripts/zones/Dynamis-Bastok/IDs")
 -----------------------------------
@@ -17,30 +17,38 @@ function onTrade(player,npc,trade)
 if (GetMobAction(17539307) == 0 and trade:hasItemQty(3354,1) and trade:hasItemQty(3853,3)) then
 	player:setVar("DynaWeakener",3);
 	SpawnMob(17539307):updateClaim(player);
+    player:tradeComplete();
 elseif (GetMobAction(17539307) == 0 and trade:hasItemQty(3354,1) and trade:hasItemQty(3853,2)) then
 	player:setVar("DynaWeakener",2);
 	SpawnMob(17539307):updateClaim(player);
+    player:tradeComplete();
 elseif (GetMobAction(17539307) == 0 and trade:hasItemQty(3354,1) and trade:hasItemQty(3853,1)) then
 	player:setVar("DynaWeakener",1);
 	SpawnMob(17539307):updateClaim(player);
+    player:tradeComplete();
 elseif (GetMobAction(17539307) == 0 and trade:hasItemQty(3354,1)) then
 player:setVar("DynaWeakener",0);
 	SpawnMob(17539307):updateClaim(player);
-end	
+    player:tradeComplete();
+end
 
 
 if (GetMobAction(17539188) == 0 and trade:hasItemQty(3410,1) and trade:hasItemQty(3853,3)) then
 	player:setVar("DynaWeakener",3);
 	SpawnMob(17539188):updateClaim(player);
+    player:tradeComplete();
 elseif (GetMobAction(17539188) == 0 and trade:hasItemQty(3410,1) and trade:hasItemQty(3853,2)) then
 	player:setVar("DynaWeakener",2);
 	SpawnMob(17539188):updateClaim(player);
+    player:tradeComplete();
 elseif (GetMobAction(17539188) == 0 and trade:hasItemQty(3410,1) and trade:hasItemQty(3853,1)) then
 	player:setVar("DynaWeakener",1);
 	SpawnMob(17539188):updateClaim(player);
+    player:tradeComplete();
 elseif (GetMobAction(17539188) == 0 and trade:hasItemQty(3410,1)) then
-player:setVar("DynaWeakener",0);
+    player:setVar("DynaWeakener",0);
 	SpawnMob(17539188):updateClaim(player);
+    player:tradeComplete();
 end
 end;
 
@@ -49,9 +57,9 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-	
 
-			player:messageSpecial(ID.text.NOTHING_OUT_OF_ORDINARY);	
+
+			player:messageSpecial(ID.text.NOTHING_OUT_OF_ORDINARY);
 end;
 
 -----------------------------------

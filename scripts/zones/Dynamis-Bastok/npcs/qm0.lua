@@ -32,30 +32,41 @@ player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.CRIMSON_GRANULES_OF_TIME);
 player:tradeComplete();
 end
 
+local mob = GetMobByID(17539073)
+
 if (GetMobAction(17539073) == 0 and trade:hasItemQty(3410,1)) and trade:hasItemQty(3411,1) and trade:hasItemQty(3412,1) and trade:hasItemQty(3413,1) and player:hasKeyItem(dsp.ki.ALABASTER_GRANULES_OF_TIME) then
-	player:setVar("DynaWeakener",4);
 	SpawnMob(17539073):updateClaim(player);
 	player:tradeComplete();
 	player:delKeyItem(dsp.ki.ALABASTER_GRANULES_OF_TIME);
+
+    mob:setLocalVar("DynaWeakener",4);
+    megaBossWeakener(mob, player)
 elseif (GetMobAction(17539073) == 0 and trade:hasItemQty(3410,1)) and trade:hasItemQty(3411,1) and trade:hasItemQty(3412,1) and trade:hasItemQty(3413,1) and player:hasKeyItem(dsp.ki.AMBER_GRANULES_OF_TIME) then
-	player:setVar("DynaWeakener",2);
 	SpawnMob(17539073):updateClaim(player);
 	player:tradeComplete();
     player:delKeyItem(dsp.ki.AMBER_GRANULES_OF_TIME);
+
+    mob:setLocalVar("DynaWeakener",3);
+        megaBossWeakener(mob, player)
 elseif (GetMobAction(17539073) == 0 and trade:hasItemQty(3410,1)) and trade:hasItemQty(3411,1) and trade:hasItemQty(3412,1) and trade:hasItemQty(3413,1) and player:hasKeyItem(dsp.ki.AZURE_GRANULES_OF_TIME) then
-	player:setVar("DynaWeakener",2);
 	SpawnMob(17539073):updateClaim(player);
 	player:tradeComplete();
 	player:delKeyItem(dsp.ki.AZURE_GRANULES_OF_TIME);
+
+    mob:setLocalVar("DynaWeakener",2);
+        megaBossWeakener(mob, player)
 elseif (GetMobAction(17539073) == 0 and trade:hasItemQty(3410,1)) and trade:hasItemQty(3411,1) and trade:hasItemQty(3412,1) and trade:hasItemQty(3413,1) and player:hasKeyItem(dsp.ki.CRIMSON_GRANULES_OF_TIME) then
-    player:setVar("DynaWeakener",1);
 	SpawnMob(17539073):updateClaim(player);
 	player:tradeComplete();
 	player:delKeyItem(dsp.ki.CRIMSON_GRANULES_OF_TIME);
+
+    mob:setLocalVar("DynaWeakener",1);
+        megaBossWeakener(mob, player)
 elseif (GetMobAction(17539073) == 0 and trade:hasItemQty(3410,1)) and trade:hasItemQty(3411,1) and trade:hasItemQty(3412,1) and trade:hasItemQty(3413,1) then
-player:setVar("DynaWeakener",0);
     player:tradeComplete();
 	SpawnMob(17539073):updateClaim(player);
+    mob:setLocalVar("DynaWeakener",0);
+        megaBossWeakener(mob, player)
 end
 
 end;

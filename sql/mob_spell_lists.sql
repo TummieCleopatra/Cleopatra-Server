@@ -960,7 +960,7 @@ INSERT INTO `mob_spell_lists` VALUES ('Goblin_Golem',47,57,1,255);
 INSERT INTO `mob_spell_lists` VALUES ('Goblin_Golem',47,128,1,255);
 INSERT INTO `mob_spell_lists` VALUES ('Goblin_Golem',47,133,1,255);
 INSERT INTO `mob_spell_lists` VALUES ('Goblin_Golem',47,367,1,255);
-INSERT INTO `mob_spell_lists` VALUES ('Gu_Dha_Effigy',48,367,1,255);
+-- INSERT INTO `mob_spell_lists` VALUES ('Gu_Dha_Effigy',48,367,1,255);
 INSERT INTO `mob_spell_lists` VALUES ('Gu_Dha_Effigy',48,273,1,255);
 INSERT INTO `mob_spell_lists` VALUES ('Gu_Dha_Effigy',48,362,1,255);
 INSERT INTO `mob_spell_lists` VALUES ('Gu_Dha_Effigy',48,365,1,255);

@@ -1,7 +1,7 @@
 -----------------------------------
 -- Area:  Dynamis Bastok
 -- NPC:   qm3 (???)
--- Notes: Pummelsong and Cannonball
+-- Notes: [1]Pummelsong and [2]Cannonball
 -----------------------------------
 local ID = require("scripts/zones/Dynamis-Bastok/IDs")
 -----------------------------------
@@ -26,7 +26,7 @@ elseif (GetMobAction(17539310) == 0 and trade:hasItemQty(3354,1) and trade:hasIt
 elseif (GetMobAction(17539310) == 0 and trade:hasItemQty(3354,1)) then
 player:setVar("DynaWeakener",0);
 	SpawnMob(17539310):updateClaim(player);
-end	
+end
 
 
 if (GetMobAction(17539190) == 0 and trade:hasItemQty(3412,1) and trade:hasItemQty(3853,3)) then
@@ -49,9 +49,9 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-	
 
-				player:messageSpecial(ID.text.NOTHING_OUT_OF_ORDINARY);		
+
+				player:messageSpecial(ID.text.NOTHING_OUT_OF_ORDINARY);
 end;
 
 -----------------------------------
