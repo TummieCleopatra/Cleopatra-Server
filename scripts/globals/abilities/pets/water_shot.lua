@@ -17,7 +17,7 @@ function onUseAbility(pet, target, skill, action)
     local agi = pet:getStat(dsp.mod.AGI)
 	local tagi = target:getStat(dsp.mod.AGI)
 	local delta = tagi - agi
-	local base = mob:getWeaponDmg() * 4
+	local base = pet:getWeaponDmg() * 4
 
     -- TODO: Add In MAB Later
     local dmg = base * 2
@@ -43,11 +43,21 @@ function onUseAbility(pet, target, skill, action)
 		end
 	end
 
-    if (dmg > 0) then
+    if dmg > 0 then
         local effects = {}
-        local shock = target:getStatusEffect(dsp.effect.DROWN)
-        if shock ~= nil then
-            table.insert(effects, shock)
+        local drown = target:getStatusEffect(dsp.effect.DROWN)
+        if drown ~= nil then
+            table.insert(effects, drown)
+        end
+
+        local poison = target:getStatusEffect(dsp.effect.POISON)
+        if poison ~= nil then
+            table.insert(effects, poison)
+        end
+
+        local threnody = target:getStatusEffect(dsp.effect.THRENODY)
+        if threnody ~= nil and threnody:getSubPower() == dsp.mod.FIRERES then
+            table.insert(effects, threnody)
         end
 
         if #effects > 0 then
@@ -59,10 +69,10 @@ function onUseAbility(pet, target, skill, action)
             local subpower = effect:getSubPower()
             local tier = effect:getTier()
             local effectId = effect:getType()
-
-            power = power * 1.05
+            local subId = effect:getSubType()
+            power = power * 1.2
             target:delStatusEffectSilent(effectId)
-            target:addStatusEffect(effectId, power, tick, duration, 0, subpower, tier)
+            target:addStatusEffect(effectId, power, tick, duration, subId, subpower, tier)
             local newEffect = target:getStatusEffect(effectId)
             newEffect:setStartTime(startTime)
         end

@@ -43,30 +43,33 @@ function onUseAbility(pet, target, skill, action)
 		end
 	end
 
-    if (dmg > 0) then
-        local effects = {}
-        local shock = target:getStatusEffect(dsp.effect.DIA)
-        if shock ~= nil then
-            table.insert(effects, shock)
-        end
-
-        if #effects > 0 then
-            local effect = effects[math.random(#effects)]
-            local duration = effect:getDuration()
-            local startTime = effect:getStartTime()
-            local tick = effect:getTick()
-            local power = effect:getPower()
-            local subpower = effect:getSubPower()
-            local tier = effect:getTier()
-            local effectId = effect:getType()
-
-            power = power * 1.05
-            target:delStatusEffectSilent(effectId)
-            target:addStatusEffect(effectId, power, tick, duration, 0, subpower, tier)
-            local newEffect = target:getStatusEffect(effectId)
-            newEffect:setStartTime(startTime)
-        end
+    local effects = {}
+    local dia = target:getStatusEffect(dsp.effect.DIA)
+    if dia ~= nil then
+        table.insert(effects, dia)
+    end
+    local threnody = target:getStatusEffect(dsp.effect.THRENODY)
+    if threnody ~= nil and threnody:getSubPower() == dsp.mod.DARKRES then
+        table.insert(effects, threnody)
     end
 
-    return dmg
+    if #effects > 0 then
+        local effect = effects[math.random(#effects)]
+        local duration = effect:getDuration()
+        local startTime = effect:getStartTime()
+        local tick = effect:getTick()
+        local power = effect:getPower()
+        local subpower = effect:getSubPower()
+        local tier = effect:getTier()
+        local effectId = effect:getType()
+        local subId = effect:getSubType()
+        power = power * 1.5
+        subpower = subpower * 1.5
+        target:delStatusEffectSilent(effectId)
+        target:addStatusEffect(effectId, power, tick, duration, subId, subpower, tier)
+        local newEffect = target:getStatusEffect(effectId)
+        newEffect:setStartTime(startTime)
+    end
+
+    return 0
 end

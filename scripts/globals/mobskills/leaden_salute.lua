@@ -18,10 +18,10 @@ function onMobWeaponSkill(target, mob, skill)
     local dmgmod = 3
     local accmod = 1
 
-    local info = MobMagicalMove(mob,target,skill,mob:getWeaponDmg()*9,dsp.magic.ele.DARK,dmgmod,TP_NO_EFFECT)
+    local info = MobMagicalMove(mob,target,skill,mob:getWeaponDmg()*7,dsp.magic.ele.DARK,dmgmod,TP_NO_EFFECT)
 
-    if (mob: getID() == 17097391) then
-        dmgmod = 4
+    if (mob:getID() == 17097391) then
+        dmgmod = 1
         local info = MobMagicalMove(mob,target,skill,mob:getWeaponDmg()*2,dsp.magic.ele.DARK,dmgmod,TP_NO_EFFECT)
     end
 

@@ -17,7 +17,7 @@ function onUseAbility(pet, target, skill, action)
     local agi = pet:getStat(dsp.mod.AGI)
 	local tagi = target:getStat(dsp.mod.AGI)
 	local delta = tagi - agi
-	local base = mob:getWeaponDmg() * 4
+	local base = pet:getWeaponDmg() * 4
 
     -- TODO: Add In MAB Later
     local dmg = base * 2
@@ -43,22 +43,37 @@ function onUseAbility(pet, target, skill, action)
 		end
 	end
 
-    if (dmg > 0) then
+    if dmg > 0 then
         local effects = {}
-        local shock = target:getStatusEffect(dsp.effect.SILENCE)
-        if shock ~= nil then
-            table.insert(effects, shock)
+        local choke = target:getStatusEffect(dsp.effect.CHOKE)
+        if choke ~= nil then
+            table.insert(effects, choke)
         end
+
+        local threnody = target:getStatusEffect(dsp.effect.THRENODY)
+        if threnody ~= nil and threnody:getSubPower() == dsp.mod.EARTHRES then
+            table.insert(effects, threnody)
+        end
+        --TODO: Frightful Roar
+        --[[local frightfulRoar = target:getStatusEffect(dsp.effect.)
+        if (frightfulRoar ~= nil) then
+            effects[counter] = frightfulRoar
+            counter = counter + 1
+        end]]
 
         if #effects > 0 then
             local effect = effects[math.random(#effects)]
             local duration = effect:getDuration()
             local startTime = effect:getStartTime()
+            local tick = effect:getTick()
+            local power = effect:getPower()
+            local subpower = effect:getSubPower()
+            local tier = effect:getTier()
             local effectId = effect:getType()
-
-            duration = duration * 1.20
+            local subId = effect:getSubType()
+            power = power * 1.2
             target:delStatusEffectSilent(effectId)
-            target:addStatusEffect(1,0,duration)
+            target:addStatusEffect(effectId, power, tick, duration, subId, subpower, tier)
             local newEffect = target:getStatusEffect(effectId)
             newEffect:setStartTime(startTime)
         end

@@ -42,12 +42,17 @@ function onMobSpawn(mob)
 	mob:setLocalVar("waterShotTime",0)
 	mob:setLocalVar("lightShotTime",0)
 	mob:setLocalVar("darkShotTime",0)
+    mob:setLocalVar("phantomRoll",0)
 
     mob:setMobMod(dsp.mobMod.DUAL_WIELD, 1)
-    mob:addMod(dsp.mod.HASTE_ABILITY, 3500)
+    mob:addMod(dsp.mod.HASTE_ABILITY, 2000)
 
 	mob:addListener("COMBAT_TICK", "LUZAF_COMBAT_TICK", function(mob, player, target)
 	    trustMeleeMove(mob, player, target, angle)
+                local phantomRoll = mob:getLocalVar("phantomRoll")
+
+
+          -- printf("Phantom Roll is %u",phantomRoll)
 	    local battletime = os.time()
         local weaponSkillTime = mob:getLocalVar("wsTime")
         if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown)) then
@@ -69,6 +74,7 @@ function onMobSpawn(mob)
 		local darkShotTime = mob:getLocalVar("darkShotTime")
         local quickDrawTime = mob:getLocalVar("qdTime")
         if (battletime > quickDrawTime + quickDrawCooldown) then
+          -- printf("try QD")
 		    if ((battletime > fireShotTime + fireShotCooldown) and target:hasStatusEffect(dsp.effect.BURN)) then
 		        mob:useJobAbility(109, target)
 		        mob:setLocalVar("fireShotTime",battletime)
@@ -108,39 +114,43 @@ function onMobSpawn(mob)
     mob:addListener("COMBAT_TICK", "LUZAF_PR_ONE_TICK", function(mob, player, target)
         local battletime = os.time()
         local phantomOne = mob:getLocalVar("prTimeOne")
+        local distance = mob:checkDistance(target)
 
         -- decide based on acc levels
         local acc = mob:getACC()
         local eva = target:getEVA()
         local hitrate = 75 + math.floor((acc - eva) / 2)
-        if (lvl >= 11 and hitrate < 80 and not mob:hasStatusEffect(dsp.effect.HUNTERS_ROLL) and battletime > phantomOne + phantomRollCooldownOne) then
+        if (lvl >= 11 and hitrate < 80 and not mob:hasStatusEffect(dsp.effect.HUNTERS_ROLL) and battletime > phantomOne + phantomRollCooldownOne and distance < 4) then
+          -- printf("Roll ONE!!!!!")
             local roll = math.random(1,6)
             mob:setLocalVar("trustRoll",roll)
             mob:setLocalVar("prTimeOne",battletime)
             mob:setLocalVar("prTimeTwo",battletime)
             phantomRollCooldownOne = 300
             phantomRollCooldownTwo = 60
-            phantomRoll = 1
+            mob:setLocalVar("phantomRoll",1)
             mob:setLocalVar("daTime",battletime)
             mob:useJobAbility(92, mob)
-        elseif (lvl >= 49 and not mob:hasStatusEffect(dsp.effect.FIGHTERS_ROLL) and battletime > phantomOne + phantomRollCooldownOne) then
+        elseif (lvl >= 49 and not mob:hasStatusEffect(dsp.effect.FIGHTERS_ROLL) and battletime > phantomOne + phantomRollCooldownOne and distance < 4) then
+            -- printf("Roll ONE!!!!!")
             local roll = math.random(1,6)
             mob:setLocalVar("trustRoll",roll)
             mob:setLocalVar("prTimeOne",battletime)
             mob:setLocalVar("prTimeTwo",battletime)
             phantomRollCooldownOne = 300
             phantomRollCooldownTwo = 60
-            phantomRoll = 1
+            mob:setLocalVar("phantomRoll",1)
             mob:setLocalVar("daTime",battletime)
             mob:useJobAbility(82, mob)
-        elseif (lvl >= 5 and not mob:hasStatusEffect(dsp.effect.CORSAIRS_ROLL) and battletime > phantomOne + phantomRollCooldownOne) then
+        elseif (lvl >= 5 and not mob:hasStatusEffect(dsp.effect.CORSAIRS_ROLL) and battletime > phantomOne + phantomRollCooldownOne and distance < 4) then
+          -- printf("Roll ONE!!!!!")
             local roll = math.random(1,6)
             mob:setLocalVar("trustRoll",roll)
             mob:setLocalVar("prTimeOne",battletime)
             mob:setLocalVar("prTimeTwo",battletime)
             phantomRollCooldownOne = 300
             phantomRollCooldownTwo = 60
-            phantomRoll = 0
+            mob:setLocalVar("phantomRoll",0)
             mob:setLocalVar("daTime",battletime)
             mob:useJobAbility(98, mob)
         end
@@ -151,39 +161,48 @@ function onMobSpawn(mob)
     mob:addListener("COMBAT_TICK", "LUZAF_PR_TWO_TICK", function(mob, player, target)
         local battletime = os.time()
         local phantomTwo = mob:getLocalVar("prTimeTwo")
+        local phantomOne = mob:getLocalVar("prTimeOne")
+        if (phantomTwo == 0) then
+            phantomTwo = os.time() + 60
+        elseif (battletime > phantomOne + 60) then
+            phantomTwo = os.time() + 60
+        end
         -- decide based on att pdif
         local att = mob:getStat(dsp.mod.ATT)
         local def = target:getStat(dsp.mod.DEF)
         local pdif = (att / def)
         if (not mob:hasStatusEffect(dsp.effect.DOUBLE_UP_CHANCE)) then
         if (lvl >= 14 and pdif < 1.75 and not mob:hasStatusEffect(dsp.effect.CHAOS_ROLL) and battletime > phantomTwo + phantomRollCooldownTwo) then
+           -- printf("Roll TWO")
             local roll = math.random(1,6)
             mob:setLocalVar("trustRoll",roll)
             mob:setLocalVar("prTimeTwo",battletime)
             phantomRollCooldownTwo = 300
-            phantomRoll = 2
+            mob:setLocalVar("phantomRoll",2)
             mob:setLocalVar("daTime",battletime)
             mob:useJobAbility(89, mob)
         elseif (lvl >= 43 and not mob:hasStatusEffect(dsp.effect.ROGUES_ROLL) and battletime > phantomTwo + phantomRollCooldownTwo) then
+            -- printf("Roll TWO")
             local roll = math.random(1,6)
             mob:setLocalVar("trustRoll",roll)
             mob:setLocalVar("prTimeTwo",battletime)
             phantomRollCooldownTwo = 300
-            phantomRoll = 2
+            mob:setLocalVar("phantomRoll",2)
             mob:setLocalVar("daTime",battletime)
             mob:useJobAbility(87, mob)
         elseif (lvl >= 5 and not mob:hasStatusEffect(dsp.effect.CORSAIRS_ROLL) and battletime > phantomTwo + phantomRollCooldownTwo) then
+          -- printf("Roll TWO")
             local roll = math.random(1,6)
             mob:setLocalVar("trustRoll",roll)
             mob:setLocalVar("prTimeTwo",battletime)
             phantomRollCooldownTwo = 300
-            phantomRoll = 2
+            mob:setLocalVar("phantomRoll",2)
             mob:setLocalVar("daTime",battletime)
             mob:useJobAbility(98, mob)
         else
             mob:setLocalVar("prTimeTwo",battletime)
             phantomRollCooldownTwo = 10
-            phantomRoll = 0
+            -- mob:setLocalVar("phantomRoll",0)
             mob:setLocalVar("daTime",battletime)
         end
         end
@@ -192,10 +211,14 @@ function onMobSpawn(mob)
     mob:addListener("COMBAT_TICK", "LUZAF_DU_TICK", function(mob, player, target)
         local battletime = os.time()
         local daTime = mob:getLocalVar("daTime")
+        local phantomRoll = mob:getLocalVar("phantomRoll")
+
         if (battletime > daTime + daCooldown) then
+          -- printf("Phantom Roll is %u",phantomRoll)
             if (phantomRoll == 1) then
                 if (mob:hasStatusEffect(dsp.effect.HUNTERS_ROLL)) then
                     local roll = mob:getLocalVar("corsairRollTotal")
+                    -- printf("Hunters Roll is %u", roll)
                     if (roll <= 3 or roll == 5) then
                         local duroll = math.random(1,6)
                         mob:setLocalVar("duRoll",duroll)
@@ -204,6 +227,7 @@ function onMobSpawn(mob)
                     end
                 elseif (mob:hasStatusEffect(dsp.effect.FIGHTERS_ROLL)) then
                     local roll = mob:getLocalVar("corsairRollTotal")
+                  -- printf("Fighters Roll is %u", roll)
                     if (roll <= 4 or roll == 6) then
                         local duroll = math.random(1,6)
                         mob:setLocalVar("duRoll",duroll)
@@ -212,6 +236,7 @@ function onMobSpawn(mob)
                     end
                 elseif (mob:hasStatusEffect(dsp.effect.CORSAIRS_ROLL)) then
                     local roll = mob:getLocalVar("corsairRollTotal")
+                    -- prinft("Corsairs Roll is %u", roll)
                     if (roll <= 4 or roll == 6) then
                         local duroll = math.random(1,6)
                         mob:setLocalVar("duRoll",duroll)

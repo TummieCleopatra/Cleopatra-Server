@@ -68,5 +68,5 @@ function onUseAbility(pet, target, skill, action)
         end
     end
 
-    return dmg
+    return 0
 end

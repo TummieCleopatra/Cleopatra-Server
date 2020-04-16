@@ -17,7 +17,7 @@ function onUseAbility(pet, target, skill, action)
     local agi = pet:getStat(dsp.mod.AGI)
 	local tagi = target:getStat(dsp.mod.AGI)
 	local delta = tagi - agi
-	local base = mob:getWeaponDmg() * 4
+	local base = pet:getWeaponDmg() * 4
 
     -- TODO: Add In MAB Later
     local dmg = base * 2
@@ -45,9 +45,19 @@ function onUseAbility(pet, target, skill, action)
 
     if (dmg > 0) then
         local effects = {}
-        local shock = target:getStatusEffect(dsp.effect.PARALYSIS)
-        if shock ~= nil then
-            table.insert(effects, shock)
+        local frost = target:getStatusEffect(dsp.effect.FROST)
+        if frost ~= nil then
+            table.insert(effects, frost)
+        end
+
+        local threnody = target:getStatusEffect(dsp.effect.THRENODY)
+        if threnody ~= nil and threnody:getSubPower() == dsp.mod.WINDRES then
+            table.insert(effects, threnody)
+        end
+
+        local paralyze = target:getStatusEffect(dsp.effect.PARALYSIS)
+        if paralyze ~= nil then
+            table.insert(effects, paralyze)
         end
 
         if #effects > 0 then
