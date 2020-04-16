@@ -5,7 +5,7 @@
 -----------------------------------
 package.loaded["scripts/zones/Mount_Zhayolm/IDs"] = nil;
 -----------------------------------
-require("scripts/zones/Mount_Zhayolm/IDs");
+local ID = require("scripts/zones/Mount_Zhayolm/IDs");
 require("scripts/globals/status");
 require("scripts/globals/keyitems");
 
@@ -24,8 +24,8 @@ function onTrade(player,npc,trade)
         if (GetMobAction(mobID) == dsp.act.NONE) then
             player:tradeComplete();
             player:addKeyItem(dsp.ki.BRIGHT_BLUE_SEAL);
-			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.BRIGHT_BLUE_SEAL);			
-        end		
+			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.BRIGHT_BLUE_SEAL);
+        end
     end
 end;
 
@@ -34,13 +34,14 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-    if (player:hasKeyItem(COPPER_COLOR_SEAL)) then
+    if (player:hasKeyItem(dsp.ki.COPPER_COLOR_SEAL)) then
 	    if (player:getFreeSlotsCount() == 0) then
-		    player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,2583);
+		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2583);
 	    else
-	        player:delKeyItem(COPPER_COLOR_SEAL);
+	        player:delKeyItem(dsp.ki.COPPER_COLOR_SEAL);
+            player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.COPPER_COLOR_SEAL);
 		    player:additem(2583,1);
-			player:messageSpecial(ITEM_OBTAINED,2583);
+			player:messageSpecial(ID.text.ITEM_OBTAINED,2583);
 		end
     else
         player:messageSpecial(ID.text.NOTHING_HAPPENS)

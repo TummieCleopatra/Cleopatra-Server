@@ -3,9 +3,9 @@
 --  NPC: ??? (Spawn Iriz Ima(ZNM T2))
 -- @pos 253 -23 116 51
 -----------------------------------
-package.loaded["scripts/zones/Wajaom_Woodlands/IDs"] = nil;
+
 -----------------------------------
-require("scripts/zones/Wajaom_Woodlands/IDs");
+local ID = require("scripts/zones/Wajaom_Woodlands/IDs");
 require("scripts/globals/status");
 
 -----------------------------------
@@ -33,12 +33,12 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-    if (player:hasKeyItem(MAROON_SEAL)) then
+    if (player:hasKeyItem(dsp.ki.MAROON_SEAL)) then
 	    if (player:getFreeSlotsCount() == 0) then
 		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2577);
 	    else
 	        player:delKeyItem(dsp.ki.MAROON_SEAL);
-			player:messageSpecial(ID.text.KEYITEM_LOST,MAROON_SEAL);
+			player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.MAROON_SEAL);
 		    player:addItem(2577,1);
 			player:messageSpecial(ID.text.ITEM_OBTAINED,2577);
 		end

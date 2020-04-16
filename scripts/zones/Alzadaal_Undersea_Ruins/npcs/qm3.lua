@@ -3,9 +3,9 @@
 --  NPC: ??? (Spawn Armed Gears(ZNM T3))
 -- @pos -42 -4 -169 72
 -----------------------------------
-package.loaded["scripts/zones/Alzadaal_Undersea_Ruins/IDs"] = nil;
+
 -----------------------------------
-require("scripts/zones/Alzadaal_Undersea_Ruins/IDs");
+local ID = require("scripts/zones/Alzadaal_Undersea_Ruins/IDs");
 require("scripts/globals/status");
 require("scripts/globals/keyitems");
 
@@ -25,7 +25,7 @@ function onTrade(player,npc,trade)
             player:tradeComplete();
             player:addKeyItem(dsp.ki.CHARCOAL_GREY_SEAL);
 			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.CHARCOAL_GREY_SEAL);
-        end			
+        end
     end
 end;
 
@@ -34,14 +34,14 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-    if (player:hasKeyItem(APPLE_GREEN_SEAL)) then
+    if (player:hasKeyItem(dsp.ki.APPLE_GREEN_SEAL)) then
 	    if (player:getFreeSlotsCount() == 0) then
-		    player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,2575);
+		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2575);
 	    else
-	        player:delKeyItem(APPLE_GREEN_SEAL);
-			player:messageSpecial(KEYITEM_LOST,APPLE_GREEN_SEAL);			
+	        player:delKeyItem(dsp.ki.APPLE_GREEN_SEAL);
+			player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.APPLE_GREEN_SEAL);
 		    player:addItem(2575,1);
-			player:messageSpecial(ITEM_OBTAINED,2575);			
+			player:messageSpecial(ID.text.ITEM_OBTAINED,2575);
 		end
     else
         player:messageSpecial(ID.text.NOTHING_HAPPENS)

@@ -5,7 +5,7 @@
 -----------------------------------
 package.loaded["scripts/zones/Halvung/IDs"] = nil;
 -----------------------------------
-require("scripts/zones/Halvung/IDs");
+local ID = require("scripts/zones/Halvung/IDs");
 require("scripts/globals/status");
 require("scripts/globals/keyitems");
 
@@ -24,8 +24,8 @@ function onTrade(player,npc,trade)
         if (GetMobAction(mobID) == dsp.act.NONE) then
             player:tradeComplete();
             player:addKeyItem(dsp.ki.SALMON_SEAL);
-			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.SALMON_SEAL);			
-        end		
+			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.SALMON_SEAL);
+        end
     end
 end;
 
@@ -34,14 +34,14 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-    if (player:hasKeyItem(CERISE_SEAL)) then
+    if (player:hasKeyItem(dsp.ki.CERISE_SEAL)) then
 	    if (player:getFreeSlotsCount() == 0) then
-		    player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,2589);
+		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2589);
 	    else
-	        player:delKeyItem(MAROON_SEAL);
-			player:messageSpecial(KEYITEM_LOST,CERISE_SEAL);
+	        player:delKeyItem(dsp.ki.MAROON_SEAL);
+			player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.CERISE_SEAL);
 		    player:addItem(2589,1);
-			player:messageSpecial(ITEM_OBTAINED,2589);
+			player:messageSpecial(ID.text.ITEM_OBTAINED,2589);
 		end
     else
         player:messageSpecial(ID.text.NOTHING_HAPPENS)

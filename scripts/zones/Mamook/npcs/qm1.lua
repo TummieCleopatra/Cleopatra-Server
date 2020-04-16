@@ -5,7 +5,7 @@
 -----------------------------------
 package.loaded["scripts/zones/Mamook/IDs"] = nil;
 -----------------------------------
-require("scripts/zones/Mamook/IDs");
+local ID = require("scripts/zones/Mamook/IDs");
 require("scripts/globals/status");
 require("scripts/globals/keyitems");
 
@@ -25,7 +25,7 @@ function onTrade(player,npc,trade)
             player:tradeComplete();
             player:addKeyItem(dsp.ki.MAROON_SEAL);
 			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.MAROON_SEAL);
-        end			
+        end
     end
 end;
 

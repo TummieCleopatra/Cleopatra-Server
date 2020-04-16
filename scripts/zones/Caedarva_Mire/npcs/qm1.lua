@@ -3,9 +3,9 @@
 --  NPC: ??? (Spawn Verdelet(ZNM T2))
 -- @pos 417 -19 -69 79
 -----------------------------------
-package.loaded["scripts/zones/Caedarva_Mire/IDs"] = nil;
+
 -----------------------------------
-require("scripts/zones/Caedarva_Mire/IDs");
+local ID = require("scripts/zones/Caedarva_Mire/IDs");
 require("scripts/globals/status");
 require("scripts/globals/keyitems");
 
@@ -24,8 +24,8 @@ function onTrade(player,npc,trade)
         if (GetMobAction(mobID) == dsp.act.NONE) then
             player:tradeComplete();
             player:addKeyItem(dsp.ki.AMBER_SEAL);
-			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.AMBER_SEAL);			
-        end		
+			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.AMBER_SEAL);
+        end
     end
 end;
 
@@ -34,14 +34,14 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-    if (player:hasKeyItem(PINE_GREEN_SEAL)) then
+    if (player:hasKeyItem(dsp.ki.PINE_GREEN_SEAL)) then
 	    if (player:getFreeSlotsCount() == 0) then
-		    player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,2599);
+		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2599);
 	    else
-	        player:delKeyItem(PINE_GREEN_SEAL);
-			player:messageSpecial(KEYITEM_LOST,PINE_GREEN);
+	        player:delKeyItem(dsp.ki.PINE_GREEN_SEAL);
+			player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.PINE_GREEN_SEAL);
 		    player:addItem(2599,1);
-			player:messageSpecial(ITEM_OBTAINED,2599);
+			player:messageSpecial(ID.text.ITEM_OBTAINED,2599);
 		end
     else
         player:messageSpecial(ID.text.NOTHING_HAPPENS)

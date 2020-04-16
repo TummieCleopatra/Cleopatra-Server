@@ -3,9 +3,9 @@
 --  NPC: ??? (Spawn Mahjlaef the Paintorn(ZNM T3))
 -- @pos 695 -7 527 79
 -----------------------------------
-package.loaded["scripts/zones/Caedarva_Mire/IDs"] = nil;
+
 -----------------------------------
-require("scripts/zones/Caedarva_Mire/IDs");
+local ID = require("scripts/zones/Caedarva_Mire/IDs");
 require("scripts/globals/status");
 require("scripts/globals/keyitems");
 
@@ -24,8 +24,8 @@ function onTrade(player,npc,trade)
         if (GetMobAction(mobID) == dsp.act.NONE) then
             player:tradeComplete();
             player:addKeyItem(dsp.ki.FALLOW_COLORED_SEAL);
-			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.FALLOW_COLORED_SEAL);			
-        end		
+			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.FALLOW_COLORED_SEAL);
+        end
     end
 end;
 
@@ -34,14 +34,14 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-    if (player:hasKeyItem(AMBER_SEAL)) then
+    if (player:hasKeyItem(dsp.ki.AMBER_SEAL)) then
 	    if (player:getFreeSlotsCount() == 0) then
-		    player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,2594);
+		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2594);
 	    else
-	        player:delKeyItem(AMBER_SEAL);
-			player:messageSpecial(KEYITEM_LOST,AMBER_GREEN);
+	        player:delKeyItem(dsp.ki.AMBER_SEAL);
+			player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.AMBER_GREEN);
 		    player:addItem(2594,1);
-			player:messageSpecial(ITEM_OBTAINED,2594);
+			player:messageSpecial(ID.text.ITEM_OBTAINED,2594);
 		end
     else
         player:messageSpecial(ID.text.NOTHING_HAPPENS)

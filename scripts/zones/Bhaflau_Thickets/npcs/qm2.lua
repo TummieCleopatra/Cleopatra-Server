@@ -3,9 +3,9 @@
 --  NPC: ??? (Spawn Dea(ZNM T3))
 -- @pos -34 -32 481 52
 -----------------------------------
-package.loaded["scripts/zones/Bhaflau_Thickets/IDs"] = nil;
+
 -----------------------------------
-require("scripts/zones/Bhaflau_Thickets/IDs");
+local ID = require("scripts/zones/Bhaflau_Thickets/IDs");
 require("scripts/globals/status");
 require("scripts/globals/keyitems");
 
@@ -25,7 +25,7 @@ function onTrade(player,npc,trade)
             player:tradeComplete();
             player:addKeyItem(dsp.ki.CHESTNUT_COLORED_SEAL);
 			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.CHESTNUT_COLORED_SEAL);
-        end			
+        end
     end
 end;
 -- 2612
@@ -34,14 +34,14 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-    if (player:hasKeyItem(DEEP_PURPLE_SEAL)) then
+    if (player:hasKeyItem(dsp.ki.DEEP_PURPLE_SEAL)) then
 	    if (player:getFreeSlotsCount() == 0) then
-		    player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,2576);
+		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2576);
 	    else
-	        player:delKeyItem(DEEP_PURPLE_SEAL);
-			player:messageSpecial(KEYITEM_LOST,DEEP_PURPLE_SEAL);
+	        player:delKeyItem(dsp.ki.DEEP_PURPLE_SEAL);
+			player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.DEEP_PURPLE_SEAL);
 		    player:addItem(2576,1);
-			player:messageSpecial(ITEM_OBTAINED,2576);
+			player:messageSpecial(ID.text.ITEM_OBTAINED,2576);
 		end
     else
         player:messageSpecial(ID.text.NOTHING_HAPPENS)

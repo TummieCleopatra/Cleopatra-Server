@@ -3,9 +3,9 @@
 --  NPC: ??? (Spawn Gotoh Zha the Redolent(ZNM T3))
 -- @pos -337 -31 676 51
 -----------------------------------
-package.loaded["scripts/zones/Wajaom_Woodlands/IDs"] = nil;
+
 -----------------------------------
-require("scripts/zones/Wajaom_Woodlands/IDs");
+local ID = require("scripts/zones/Wajaom_Woodlands/IDs");
 require("scripts/globals/status");
 require("scripts/globals/keyitems");
 
@@ -39,7 +39,7 @@ function onTrigger(player,npc)
 		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2575);
 	    else
 	        player:delKeyItem(dsp.ki.CHARCOAL_GREY_SEAL);
-			player:messageSpecial(ID.text.KEYITEM_LOST,CHARCOAL_GREY_SEAL);
+			player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.CHARCOAL_GREY_SEAL);
 		    player:addItem(2575,1);
 			player:messageSpecial(ID.text.ITEM_OBTAINED,2575);
 		end

@@ -3,9 +3,9 @@
 --  NPC: ??? (Spawn Chigre(ZNM T1))
 -- @pos -217 35 12 68
 -----------------------------------
-package.loaded["scripts/zones/Aydeewa_Subterrane/IDs"] = nil;
+
 -----------------------------------
-require("scripts/zones/Aydeewa_Subterrane/IDs");
+local ID = require("scripts/zones/Aydeewa_Subterrane/IDs");
 require("scripts/globals/status");
 require("scripts/globals/keyitems");
 
@@ -22,8 +22,8 @@ function onTrade(player,npc,trade)
         if (GetMobAction(mobID) == dsp.act.NONE) then
             player:tradeComplete();
             player:addKeyItem(dsp.ki.PINE_GREEN_SEAL);
-			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.PINE_GREEN_SEAL);			
-        end		
+			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.PINE_GREEN_SEAL);
+        end
     end
 end;
 

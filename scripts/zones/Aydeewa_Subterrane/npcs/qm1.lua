@@ -5,7 +5,7 @@
 -----------------------------------
 package.loaded["scripts/zones/Aydeewa_Subterrane/IDs"] = nil;
 -----------------------------------
-require("scripts/zones/Aydeewa_Subterrane/IDs");
+local ID = require("scripts/zones/Aydeewa_Subterrane/IDs");
 require("scripts/globals/status");
 require("scripts/globals/keyitems");
 
@@ -24,8 +24,8 @@ function onTrade(player,npc,trade)
         if (GetMobAction(mobID) == dsp.act.NONE) then
             player:tradeComplete();
             player:addKeyItem(dsp.ki.PURPLISH_GREY_SEAL);
-			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.PURPLISH_GREY_SEAL);			
-        end		
+			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.PURPLISH_GREY_SEAL);
+        end
     end
 end;
 
@@ -34,14 +34,14 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-    if (player:hasKeyItem(SALMON_SEAL)) then
+    if (player:hasKeyItem(dsp.ki.SALMON_SEAL)) then
 	    if (player:getFreeSlotsCount() == 0) then
-		    player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,2584);
+		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2584);
 	    else
-	        player:delKeyItem(SALMON_SEAL);
-			player:messageSpecial(KEYITEM_LOST,CERISE_SEAL);
+	        player:delKeyItem(dsp.ki.SALMON_SEAL);
+			player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.CERISE_SEAL);
 		    player:addItem(2584,1);
-			player:messageSpecial(ITEM_OBTAINED,2584);
+			player:messageSpecial(ID.text.ITEM_OBTAINED,2584);
 		end
     else
         player:messageSpecial(ID.text.NOTHING_HAPPENS)

@@ -3,9 +3,9 @@
 --  NPC: ??? (Spawn Experimental Lamia(ZNM T3))
 -- @pos -773 -11 322 79
 -----------------------------------
-package.loaded["scripts/zones/Caedarva_Mire/IDs"] = nil;
+
 -----------------------------------
-require("scripts/zones/Caedarva_Mire/IDs");
+local ID = require("scripts/zones/Caedarva_Mire/IDs");
 require("scripts/globals/status");
 require("scripts/globals/keyitems");
 
@@ -24,8 +24,8 @@ function onTrade(player,npc,trade)
         if (GetMobAction(mobID) == dsp.act.NONE) then
             player:tradeComplete();
             player:addKeyItem(dsp.ki.TAUPE_COLORED_SEAL);
-			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.TAUPE_COLORED_SEAL);			
-        end		
+			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.TAUPE_COLORED_SEAL);
+        end
     end
 end;
 
@@ -34,14 +34,14 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-    if (player:hasKeyItem(FALLOW_COLORED_SEAL)) then
+    if (player:hasKeyItem(dsp.ki.FALLOW_COLORED_SEAL)) then
 	    if (player:getFreeSlotsCount() == 0) then
-		    player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,2595);
+		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2595);
 	    else
-	        player:delKeyItem(FALLOW_COLORED_SEAL);
-			player:messageSpecial(KEYITEM_LOST,FALLOW_COLORED_SEAL);
+	        player:delKeyItem(dsp.ki.FALLOW_COLORED_SEAL);
+			player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.FALLOW_COLORED_SEAL);
 		    player:addItem(2595,1);
-			player:messageSpecial(ITEM_OBTAINED,2595);
+			player:messageSpecial(ID.text.ITEM_OBTAINED,2595);
 		end
     else
         player:messageSpecial(ID.text.NOTHING_HAPPENS)

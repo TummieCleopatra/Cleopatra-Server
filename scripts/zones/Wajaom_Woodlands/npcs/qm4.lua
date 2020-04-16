@@ -3,9 +3,9 @@
 --  NPC: ??? (Spawn Tinnin(ZNM T4))
 -- @pos 278 0 -703 51
 -----------------------------------
-package.loaded["scripts/zones/Wajaom_Woodlands/IDs"] = nil;
+
 -----------------------------------
-require("scripts/zones/Wajaom_Woodlands/IDs");
+local ID = require("scripts/zones/Wajaom_Woodlands/IDs");
 require("scripts/globals/status");
 require("scripts/globals/keyitems");
 
@@ -33,6 +33,7 @@ function onTrigger(player,npc)
 		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2573);
 	    else
 	        player:delKeyItem(dsp.ki.CHESTNUT_COLOR_SEAL);
+            player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.CHESTNUT_COLOR_SEAL);
 		    player:addItem(2573,1);
 			player:messageSpecial(ID.text.ITEM_OBTAINED,2573);
 		end

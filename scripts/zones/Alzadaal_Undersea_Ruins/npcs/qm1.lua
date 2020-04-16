@@ -8,10 +8,20 @@ require("scripts/globals/npc_util")
 -----------------------------------
 
 function onTrade(player,npc,trade)
-    if npcUtil.tradeHas(trade, 2592) and npcUtil.popFromQM(player, npc, ID.mob.OB) then
-        player:confirmTrade()
-        player:messageSpecial(ID.text.DRAWS_NEAR)
+    local mobID = 17072171;
+    if (trade:hasItemQty(2592,1) and trade:getItemCount() == 1) then -- Trade Cog Lubricant
+        if (GetMobAction(mobID) == dsp.act.NONE) then
+            player:tradeComplete();
+            SpawnMob(mobID):updateClaim(player);
+        end
+    elseif (trade:hasItemQty(2628,1) and trade:getItemCount() == 1) then -- Trade Ob's Arm
+        if (GetMobAction(mobID) == dsp.act.NONE) then
+            player:tradeComplete();
+            player:addKeyItem(dsp.ki.CERISE_SEAL);
+			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.CERISE_SEAL);
+        end
     end
+end;
 end
 
 function onTrigger(player,npc)

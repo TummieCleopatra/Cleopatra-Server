@@ -3,9 +3,9 @@
 --  NPC: ??? (Spawn Iriri Samariri(ZNM T2))
 -- @pos -118 7 -80 65
 -----------------------------------
-package.loaded["scripts/zones/Mamook/IDs"] = nil;
+
 -----------------------------------
-require("scripts/zones/Mamook/IDs");
+local ID = require("scripts/zones/Mamook/IDs");
 require("scripts/globals/status");
 require("scripts/globals/keyitems");
 
@@ -25,7 +25,7 @@ function onTrade(player,npc,trade)
             player:tradeComplete();
             player:addKeyItem(dsp.ki.APPLE_GREEN_SEAL);
 			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.APPLE_GREAN_SEAL);
-        end			
+        end
     end
 end;
 
@@ -34,14 +34,14 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-    if (player:hasKeyItem(MAROON_SEAL)) then
+    if (player:hasKeyItem(dsp.ki.MAROON_SEAL)) then
 	    if (player:getFreeSlotsCount() == 0) then
-		    player:messageSpecial(ITEM_CANNOT_BE_OBTAINED,2579);
+		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2579);
 	    else
-	        player:delKeyItem(MAROON_SEAL);
-			player:messageSpecial(KEYITEM_LOST,MAROON_SEAL);
+	        player:delKeyItem(dsp.ki.MAROON_SEAL);
+			player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.MAROON_SEAL);
 		    player:addItem(2579,1);
-			player:messageSpecial(ITEM_OBTAINED,2579);
+			player:messageSpecial(ID.text.ITEM_OBTAINED,2579);
 		end
     else
         player:messageSpecial(ID.text.NOTHING_HAPPENS)
