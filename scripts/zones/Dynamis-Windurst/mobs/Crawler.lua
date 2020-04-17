@@ -8,7 +8,8 @@ package.loaded["scripts/zones/Dynamis-Windurst/IDs"] = nil;
 -----------------------------------
 require("scripts/globals/status");
 require("scripts/globals/dynamis");
-require("scripts/zones/Dynamis-Windurst/IDs");
+require("scripts/globals/dynamis_utils");
+local ID = require("scripts/zones/Dynamis-Windurst/IDs");
 
 -----------------------------------
 -- onMobSpawn Action
@@ -17,9 +18,11 @@ require("scripts/zones/Dynamis-Windurst/IDs");
 function onMobSpawn(mob)
 local crawler = mob:getID()
 GetMobByID(crawler):setDropID(5001); -- Default Drop ID
-mob:setMod(dsp.mod.ACC,260);
+mob:setMod(dsp.mod.ACC,350);
+mob:setMod(dsp.mod.ATT,200);
+mob:setMod(dsp.mod.STR,40);
 mob:setMod(dsp.mod.EVA,295);
-mob:setMod(dsp.mod.DEF,250);
+mob:setMod(dsp.mod.DEF,100);
 
 
 
@@ -49,49 +52,59 @@ end;
 -- onWeaponskillHit
 -----------------------------------
 function onWeaponskillHit(mob, attacker, weaponskill)
+    local stagger, white, red, blue, yellow = staggerRate(mob)
+
+
 -- Staggering Function
-if (attacker:getObjType() == dsp.objType.PC) then
 	local isweak = mob:getLocalVar("WeakenedTrigger");
 	local crawler = mob:getID()
+    if (stagger < math.random(1,100)) then
+	    local wsweakness = math.random(1,100);
+        if (wsweakness <= white) and (isweak ~= 1) then
+            mob:weaknessTrigger(3); -- White Stagger drops 100's  5% of Triggers
+            mob:addStatusEffect(dsp.effect.TERROR,1,0,10);
+            GetMobByID(crawler):setDropID(6007); -- L Jadeshell
+            mob:setLocalVar("WeakenedTrigger",1);
+        elseif (wsweakness <= blue) and (isweak ~= 1) then
+            mob:weaknessTrigger(1); -- Blue Stagger drops Memoirs which grants 4-8 currency
+            mob:addStatusEffect(dsp.effect.TERROR,1,0,10);
+            GetMobByID(crawler):setDropID(6006); -- Miratetes Memoirs
+            mob:setLocalVar("WeakenedTrigger",1);
+        elseif (wsweakness <= red) and (isweak ~= 1) then
+            mob:weaknessTrigger(2); -- Red Stagger drops Pop Items
+            mob:addStatusEffect(dsp.effect.TERROR,1,0,10);
+            local itemdrop = math.random(1,4);
+            if (itemdrop == 1) then
+                GetMobByID(crawler):setDropID(6008); -- Fiendish Tome 12
+            elseif (itemdrop == 2) then
+                GetMobByID(crawler):setDropID(6009); -- Fiendish Tome 13
+            elseif (itemdrop == 3) then
+                GetMobByID(crawler):setDropID(6010); -- Fiendish Tome 14
+            elseif (itemdrop == 4) then
+                GetMobByID(crawler):setDropID(6011); -- Fiendish Tome 15
+            end
+            mob:setLocalVar("WeakenedTrigger",1);
+        elseif (wsweakness <= yellow) and (isweak ~= 1) then
+            mob:weaknessTrigger(0); -- Yellow Stagger Increase Scyld
+            mob:addStatusEffect(dsp.effect.TERROR,1,0,10);
+            local randomscyld = math.random(10,20);
+            if (attack:getObjType() == dsp.Type.TRUST) then
+                local master = attacker:getMaster()
+                local oldscyld = master:getVar("ScyldMultiplier");
+                local newscyld = (randomscyld + oldscyld);
+                master:setVar("ScyldMultiplier",newscyld);
+                mob:setLocalVar("WeakenedTrigger",1);
+                master:PrintToPlayer("You have crawlern granted a "..randomscyld.."% scyld bonus.  Total Bonus: "..newscyld.."%.", 0x15);
+            else
+                local oldscyld = attacker:getVar("ScyldMultiplier");
+                local newscyld = (randomscyld + oldscyld);
+                attacker:setVar("ScyldMultiplier",newscyld);
+                mob:setLocalVar("WeakenedTrigger",1);
+                attacker:PrintToPlayer("You have crawlern granted a "..randomscyld.."% scyld bonus.  Total Bonus: "..newscyld.."%.", 0x15);
+	        end
+        end
+    end
 
-	local wsweakness = math.random(1,1000);
-	-- attacker:PrintToPlayer(wsweakness);
-	if (wsweakness > 180) and (wsweakness < 401) and (isweak ~= 1) then
-		mob:weaknessTrigger(0); -- Yellow Stagger Increase Scyld 55% of Triggers
-		mob:addStatusEffect(dsp.effect.TERROR,1,0,10);
-		local randomscyld = math.random(10,20);
-		local oldscyld = attacker:getVar("ScyldMultiplier");
-		local newscyld = (randomscyld + oldscyld);
-		attacker:setVar("ScyldMultiplier",newscyld);
-		mob:setLocalVar("WeakenedTrigger",1);
-		attacker:PrintToPlayer("You have been granted a "..randomscyld.."% scyld bonus.  Total Bonus: "..newscyld.."%.", 0x15);
-	elseif (wsweakness > 80) and (wsweakness < 181) and (isweak ~= 1) then
-		mob:weaknessTrigger(1); -- Blue Stagger drops Memoirs which grants 4-8 currency  15%
-		mob:addStatusEffect(dsp.effect.TERROR,1,0,10);
-		GetMobByID(crawler):setDropID(6006); -- Miratetes Memoirs
-		mob:setLocalVar("WeakenedTrigger",1);
-	elseif (wsweakness > 20) and (wsweakness < 81) and (isweak ~= 1) then
-		mob:weaknessTrigger(2); -- Red Stagger drops Pop Items 10%
-		mob:addStatusEffect(dsp.effect.TERROR,1,0,10);
-		local itemdrop = math.random(1,4);
-		if (itemdrop == 1) then
-			GetMobByID(crawler):setDropID(6008); -- Fiendish Tome 12
-		elseif (itemdrop == 2) then
-			GetMobByID(crawler):setDropID(6009); -- Fiendish Tome 13
-		elseif (itemdrop == 3) then
-			GetMobByID(crawler):setDropID(6010); -- Fiendish Tome 14
-		elseif (itemdrop == 4) then
-			GetMobByID(crawler):setDropID(6011); -- Fiendish Tome 15
-		end
-		mob:setLocalVar("WeakenedTrigger",1);
-	elseif (wsweakness < 21) and (isweak ~= 1) then
-		mob:weaknessTrigger(3); -- White Stagger drops 100's
-		mob:addStatusEffect(dsp.effect.TERROR,1,0,10);
-		GetMobByID(crawler):setDropID(6007); -- L Jadeshell
-		mob:setLocalVar("WeakenedTrigger",1);
-	end
-
-end
 
 
 

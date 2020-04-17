@@ -690,6 +690,13 @@ void CMobEntity::OnMobSkillFinished(CMobSkillState& state, action_t& action)
         }
         else
         {
+            if (objtype == TYPE_TRUST && PTarget->objtype == TYPE_MOB)
+            {
+                if (PSkill->getID() != 1202)
+                {
+                    luautils::OnWeaponskillHit(PTarget, this, PSkill->getID());
+                }
+            }
             target.param = luautils::OnMobWeaponSkill(PTarget, this, PSkill, &action);
             this->PAI->EventHandler.triggerListener("WEAPONSKILL_USE", this, PTarget, PSkill->getID(), state.GetSpentTP(), &action);
             PTarget->PAI->EventHandler.triggerListener("WEAPONSKILL_TAKE", PTarget, this, PSkill->getID(), state.GetSpentTP(), &action);
