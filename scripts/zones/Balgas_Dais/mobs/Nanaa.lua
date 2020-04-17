@@ -86,7 +86,7 @@ function onCriticalHit(mob)
             mob:weaknessTrigger(2);
             mob:addStatusEffect(EFFECT_TERROR,1,0,3);
             mob:setLocalVar("WeakenedTrigger",1);
-            mob:injectActionPacket(5, 350);
+            -- mob:injectActionPacket(5, 350);
             mob:setHP(0);
 
         end

@@ -11,15 +11,15 @@ require("scripts/globals/titles");
 -----------------------------------
 
 function onMobInitialize(mob)
-  
+
 end;
 
 function onMobSpawn(mob)
-  
+
     local special = mob:setLocalVar("Special", 2);
     local change = mob:setLocalVar("Changed",1);
 	mob:setUnkillable(true);
-	
+
 end;
 
 function onMobRoam(mob)
@@ -45,36 +45,36 @@ function onMobFight(mob,target)
 	local tp = mob:getTP();
     local mobSkin = mob:getModelId();
 
-	
+
     if (hp < twohr) and (special ~= 1) then
       mob:useMobAbility(437);
 	  mob:setLocalVar("Special",1);
-    end	
-	
+    end
+
 
 
     if (isweak ~= 1) and (trusttalk ~= 1) and (hp < 60) then
         if (target:getObjType() == dsp.objType.PET or target:getObjType() == dsp.objType.TRUST) then
-		    local master = target:getMaster(); 
-			master:PrintToPlayer(string.format("(Darcullin) %s, we must strike this imposter down to reveal its true self!", target:getName()),0xF);  
+		    local master = target:getMaster();
+			master:PrintToPlayer(string.format("(Darcullin) %s, we must strike this imposter down to reveal its true self!", target:getName()),0xF);
 			mob:setLocalVar("TrustTalk",1);
 	    elseif (target:getObjType() == dsp.objType.PC) then
-	        target:PrintToPlayer(string.format("(Darcullin) %s, we must strike this imposter down to reveal its true self!", target:getName()),0xF);  
-		    mob:setLocalVar("TrustTalk",1);			
+	        target:PrintToPlayer(string.format("(Darcullin) %s, we must strike this imposter down to reveal its true self!", target:getName()),0xF);
+		    mob:setLocalVar("TrustTalk",1);
 		end
 	end
-	
-
-   
 
 
 
-  
+
+
+
+
 end;
 
 
 
-function onCriticalHit(mob) 
+function onCriticalHit(mob)
     local hp = mob:getHPP();
     local changed = mob:getLocalVar("Changed");
 	local isweak = mob:getLocalVar("WeakenedTrigger");
@@ -86,9 +86,9 @@ function onCriticalHit(mob)
 		    mob:weaknessTrigger(2);
             mob:addStatusEffect(dsp.effect.TERROR,1,0,3);
             mob:setLocalVar("WeakenedTrigger",1);
-			mob:injectActionPacket(5, 350);
+			-- mob:injectActionPacket(5, 350);
 			mob:setHP(0);
-			
+
         end
     end
 end;
@@ -101,9 +101,9 @@ function onMobDeath(mob,player,isKiller)
 local killx = mob:getXPos();
 local killy = mob:getYPos();
 local killz = mob:getZPos();
-local mammett = 17621315;	
-	
-	
+local mammett = 17621315;
+
+
 	SpawnMob(mammett):setPos(killx,killy,killz);
-    GetMobByID(mammett):updateClaim(player);	
+    GetMobByID(mammett):updateClaim(player);
 end;
