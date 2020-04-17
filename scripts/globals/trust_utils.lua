@@ -148,7 +148,7 @@ function nanaaTrustPoints(mob)
 end
 
 function kupipiTrustPoints(mob)
-    printf("Kupipi Trust Points Triggered")
+    -- printf("Kupipi Trust Points Triggered")
     local player = mob:getMaster()
 	local att = player:getVar("TrustAtt_Kup");
 	local acc = player:getVar("TrustAcc_Kup");
@@ -558,7 +558,7 @@ function doBarrage(target, mob)
     local barrage = 0
     local hits = 0
 
-    printf("Ranged Acc is %u",racc)
+    -- printf("Ranged Acc is %u",racc)
 
     if (lvl < 50) then
         barrage = 4
@@ -575,10 +575,10 @@ function doBarrage(target, mob)
         hitRate = 20
     end
 
-    printf("Hit Rate is %u",hitRate)
+    -- printf("Hit Rate is %u",hitRate)
     for i = 1, barrage, 1 do
         local chance = math.random(1,100)
-        printf("Chance is %u",chance)
+       -- printf("Chance is %u",chance)
 
         if (chance > hitRate) then
             break
@@ -587,7 +587,7 @@ function doBarrage(target, mob)
         end
     end
 
-    printf("Number of hits is %u",hits)
+    -- printf("Number of hits is %u",hits)
     return hits
 
 end
@@ -651,9 +651,12 @@ function trustSneakAttackMove(mob, player, target)
 end
 
 function trustMeleeMove(mob, player, target, angle)
+    local battletime = mob:getBattleTime()
     local enmity = enmityCalc(mob, player, target)
+    local distance = mob:checkDistance(target)
     local size = target:getModelSize() -- Take size of model to account
     -- Todo: Maybe put bard closer to the mob, maybe remove size
+    -- if (battletime < 10) then
     if (mob:getCurrentAction() ~= dsp.act.MAGIC_CASTING and enmity ~= 0) then
         mob:moveToDistance(size + 2.5, angle, target)
     end

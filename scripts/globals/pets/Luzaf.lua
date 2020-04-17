@@ -49,7 +49,7 @@ function onMobSpawn(mob)
 
 	mob:addListener("COMBAT_TICK", "LUZAF_COMBAT_TICK", function(mob, player, target)
 	    trustMeleeMove(mob, player, target, angle)
-                local phantomRoll = mob:getLocalVar("phantomRoll")
+        local phantomRoll = mob:getLocalVar("phantomRoll")
 
 
           -- printf("Phantom Roll is %u",phantomRoll)

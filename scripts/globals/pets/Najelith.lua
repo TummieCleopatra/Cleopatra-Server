@@ -24,6 +24,8 @@ function onMobSpawn(mob)
     local angle = getAngle(mob)
 	local master = mob:getMaster()
 	local najelith = mob:getID()
+    local threshold = 1520 + (56 * lvl)
+    local enmityCheck = 1 -- 1 is allow enmity check, 0 means enmity is
 	mob:setLocalVar("rangedAttackTime",0)
 	mob:setLocalVar("sharpShotTime",0)
 	mob:setLocalVar("barrageTime",0)
@@ -39,6 +41,37 @@ function onMobSpawn(mob)
             mob:setLocalVar("disatnceTime",os.time())
         end
     end)
+
+    mob:addListener("COMBAT_TICK", "NAJELITH_ENMITY_CHECK", function(mob, player, target)
+        local enmity = enmityCalc(mob, player, target)
+        local increase = 0
+        local tlvl = target:getMainLvl()
+        local lvl = mob:getMainLvl()
+        local dlvl = tlvl - lvl
+        if (dlvl > 3) then
+            increase = 500
+        elseif (dlvl == 2) then
+            incrase = 250
+        end
+
+        -- Dynamically increase Enmity Threshold
+       -- printf("Najelith Enmity: %u",enmity)
+       -- printf("Najelith Threshold: %u", threshold)
+       -- printf(" ")
+        if (enmity == 0) then
+            if (enmityCheck == 1) then
+                threshold = threshold + 500
+                enmityCheck = 0
+            end
+        end
+
+
+        if (enmity < 0 and enmityCheck == 0) then
+            enmityCheck = 1 -- Enmity is OK
+        end
+
+    end)
+
 
 	mob:addListener("COMBAT_TICK", "NAJELITH_RA_TICK", function(mob, player, target)
 	    local battletime = os.time()
@@ -60,7 +93,7 @@ function onMobSpawn(mob)
 		local barrageTime = mob:getLocalVar("barrageTime")
         local enmity = enmityCalc(mob, player, target)
 
-        if (lvl >= 30 and enmity >= 2000 and mob:getTP() >= 400) then
+        if (lvl >= 30 and enmity >= threshold and mob:getTP() >= 400) then
             if (battletime > barrageTime + barrageCooldown) then
 		        mob:useJobAbility(44, mob)
 			    mob:setLocalVar("barrageTime",battletime)
@@ -98,7 +131,7 @@ function onMobSpawn(mob)
         local enmity = enmityCalc(mob, player, target)
 		local battletime = os.time()
         local weaponSkillTime = mob:getLocalVar("wsTime")
-	    if (mob:getTP() >= 1000 and enmity >= 300 and (battletime > weaponSkillTime + wsCooldown)) then
+	    if (mob:getTP() >= 1000 and enmity >= threshold and (battletime > weaponSkillTime + wsCooldown)) then
 		    weaponskill = doNajelithWeaponskill(mob)
             mob:setLocalVar("WS_TP",mob:getTP())
 			mob:useMobAbility(weaponskill)
