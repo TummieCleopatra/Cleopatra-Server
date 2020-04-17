@@ -21,7 +21,7 @@ function onTrade(player,npc,trade)
 			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.CERISE_SEAL);
         end
     end
-end;
+
 end
 
 function onTrigger(player,npc)
