@@ -466,7 +466,7 @@ namespace battleutils
         {
             damage = PAttacker->getMod(Mod::ENSPELL_DMG);
 
-            if (damage > 1)
+            if (damage > 1 && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_ENDARK) || PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_ENLIGHT))
                 PAttacker->delModifier(Mod::ENSPELL_DMG, 1);
             else
             {
@@ -1713,8 +1713,14 @@ namespace battleutils
             int16 blockskill = PDefender->getMod(Mod::SWORD);
             float skillmodifier = (blockskill - attackskill) * 0.215f;
             base = PDefender->getMod(Mod::SHIELDBLOCKRATE);
+
+            //ShowWarning(CL_RED"blockskill is %i \n" CL_RESET, blockskill);
+            //ShowWarning(CL_RED"mob attackskill is %i \n" CL_RESET, attackskill);
+
+            //ShowWarning(CL_RED"SKillmod is %f \n" CL_RESET, skillmodifier);
+            //ShowWarning(CL_RED"base is %u \n" CL_RESET, base);
+            //ShowWarning(CL_RED"trust shield rate is %i \n" CL_RESET, trustShieldRate);
             /*
-            ShowWarning(CL_RED"SKillmod is %f" CL_RESET, skillmodifier);
             if (base <= 0)
                 return 0;
             else*/
