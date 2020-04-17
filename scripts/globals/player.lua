@@ -156,9 +156,10 @@ function onGameIn(player, firstLogin, zoning)
         end --]]
         -- Check for Besieged if player is logging into the zone
 
+        --[[
 		if (player:getObjType() == dsp.objType.PC) then
         	player:addMod(dsp.mod.RERAISE_III,1);
-	    end
+	    end]]--
 
         -- Login Message... Logout message handled in Core
         if (player:getObjType() == dsp.objType.PC) then
@@ -212,6 +213,10 @@ function onGameIn(player, firstLogin, zoning)
         end
 
         if (prevZone >= 73 and prevZone <= 76) then
+           player:delStatusEffect(dsp.effect.LEVEL_RESTRICTION)
+        end
+
+        if (prevZone >= 185 and prevZone <= 188) then
            player:delStatusEffect(dsp.effect.LEVEL_RESTRICTION)
         end
 
