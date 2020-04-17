@@ -29,6 +29,12 @@ function onMobDeath(mob, player, isKiller)
 
 end
 
+function onMobFight(mob, target)
+    local size = target:getPartySize(0);
+    -- printf("Total Size: %s",size);
+    mobScaler(mob,target);
+end
+
 function onMobDespawn(mob)
     local ToD = GetServerVariable("[POP]Nidhogg")
     local kills = GetServerVariable("[PH]Nidhogg")

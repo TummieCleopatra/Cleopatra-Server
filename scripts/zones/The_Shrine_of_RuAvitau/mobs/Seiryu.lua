@@ -3,7 +3,13 @@
 --  MOB: Seiryu (Pet version)
 -----------------------------------
 require("scripts/globals/status");
+require("scripts/globals/mobscaler");
 -----------------------------------
+
+function onMobSpawn(mob)
+    mob:setLocalVar("PartySize",9);  -- Large Party of 75's can defeat Kirin
+end
+
 
 function onMonsterMagicPrepare(mob,target)
     if (mob:hasStatusEffect(dsp.effect.HUNDRED_FISTS,0) == false) then
@@ -20,6 +26,10 @@ function onMonsterMagicPrepare(mob,target)
     end
     return 0; -- Still need a return, so use 0 when not casting
 end;
+
+function onMobFight(mob, target)
+    mobScaler(mob,target);
+end
 
 function onMobDeath(mob, player, isKiller)
 end;

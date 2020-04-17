@@ -11,7 +11,7 @@ function onMobSpawn(mob)
 end
 
 function onMobFight(mob,target)
-    local size = target:getPartySize();
+    local size = target:getPartySize(0);
     printf("Total Size: %s",size);
 	mobScaler(mob,target);
 

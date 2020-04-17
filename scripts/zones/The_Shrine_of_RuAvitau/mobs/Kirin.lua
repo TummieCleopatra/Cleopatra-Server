@@ -31,33 +31,9 @@ end
 -----------------------------------
 function onMobFight( mob, target )
 
-    local size = target:getPartySize();
-    -- printf("Total Size: %s",size);	
+    -- local size = target:getPartySize();
+    -- printf("Total Size: %s",size);
     mobScaler(mob,target);
-	
-	local att = mob:getStat(dsp.mod.ATT);
-	local def = mob:getStat(dsp.mod.DEF);
-	local eva = mob:getStat(dsp.mod.EVA);
-	local acc = mob:getStat(dsp.mod.ACC);
-	local patt = target:getStat(dsp.mod.ATT);
-	local pdef = target:getStat(dsp.mod.DEF);
-	local pdif = patt / def;
-	local mobpdif = att / pdef;
-	local plvl = target:getMainLvl();
-	local mlvl = mob:getMainLvl();
-	local lvlcor = (mlvl - plvl);
-	local cpdif = (patt / def) - (0.05 * lvlcor);
-   -- printf("Attack is: %s",att);
-	-- printf("Defense is: %s",def);
-	printf("Player PDIF is: %s",pdif);
-	printf("Player Corrected PDIF is: %s",cpdif);	
-	-- printf("MOB PDIF is: %s",mobpdif);	
-	-- printf("Evasion is: %s",eva);
-	-- printf("Accuray is: %s",acc);
-
-
-
-
 
 
     if (mob:getHPP() < math.random(50,60) and mob:getLocalVar("astralFlow") == 0) then
@@ -72,28 +48,28 @@ function onMobFight( mob, target )
         local seiryu = mob:getLocalVar("seiryu");
         local byakko = mob:getLocalVar("byakko");
         local suzaku = mob:getLocalVar("suzaku");
-        
+
         if (genbu == 1 and seiryu == 1 and byakko == 1 and suzaku == 1) then
             return;
         end
-        
+
         -- Pick a pet to spawn at random..
         local ChosenPet = nil;
         local newVar = nil;
         repeat
-        
+
             local rand = math.random( 0, 3 );
             ChosenPet = 17506671 + rand;
-            
+
             switch (ChosenPet): caseof {
                 [17506671] = function (x) if ( genbu == 1) then ChosenPet = 0; else newVar = "genbu";  end end, -- Genbu
                 [17506672] = function (x) if (seiryu == 1) then ChosenPet = 0; else newVar = "seiryu"; end end, -- Seiryu
                 [17506673] = function (x) if (byakko == 1) then ChosenPet = 0; else newVar = "byakko"; end end, -- Byakko
                 [17506674] = function (x) if (suzaku == 1) then ChosenPet = 0; else newVar = "suzaku"; end end, -- Suzaku
             }
-            
+
         until (ChosenPet ~= 0 and ChosenPet ~= nil)
-        
+
         -- Spawn the pet..
         local pet = SpawnMob( ChosenPet );
         pet:updateEnmity( target );
@@ -105,7 +81,7 @@ function onMobFight( mob, target )
 
     -- Ensure all spawned pets are doing stuff..
     for pets = 17506671, 17506674 do
-        if (GetMobAction( pets ) == 16) then 
+        if (GetMobAction( pets ) == 16) then
             -- Send pet after current target..
             GetMobByID( pets ):updateEnmity( target );
         end
@@ -121,7 +97,7 @@ function onMobDeath( mob, killer, player)
     player:showText( mob, ID.text.KIRIN_OFFSET + 1 );
 	player:setVar("Kirin_Win",1);
 	player:addCurrency('jetton',500);
-    
+
     -- Despawn pets..
     DespawnMob( 17506671 );
     DespawnMob( 17506672 );
