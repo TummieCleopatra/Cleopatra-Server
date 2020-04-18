@@ -872,6 +872,15 @@ namespace petutils
             //ShowWarning(CL_YELLOW"Setting Curilal Shield Size to 3\n" CL_RESET);
         }
 
+        if (PTrust->m_PetID == PETID_LUZAF)
+        {
+            uint16 LuzafDmg = (uint16)(MainLevel * 0.36) + 3;
+            PTrust->m_Weapons[SLOT_SUB]->setDamage(LuzafDmg);
+            PTrust->m_Weapons[SLOT_SUB]->setDelay((uint16)(floor(1000* (220 / 60))));
+            PTrust->m_Weapons[SLOT_SUB]->setDmgType(4);
+            PTrust->m_Weapons[SLOT_SUB]->setSkillType(SKILL_DAGGER);
+        }
+
         if (PTrust->m_PetID == PETID_KUPIPI || PTrust->m_PetID == PETID_KUPIPI_W || PTrust->m_PetID == PETID_KUPIPI_R)
         {
             PTrust->setModifier(Mod::MP, (uint8)(MainLevel * 2.23));
