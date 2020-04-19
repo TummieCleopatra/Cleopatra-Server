@@ -29,7 +29,14 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-player:startEvent(0x001A);
+    local alexbank = player:getVar("Alexandrite_Bank");
+    local remaining = 30000;
+    remaining = remaining - alexbank;
+    if (alexbank == 0) then
+        player:startEvent(0x001A);
+    else
+        player:startEvent(29,remaining);
+    end
 end;
 
 -----------------------------------
@@ -37,8 +44,8 @@ end;
 -----------------------------------
 
 function onEventUpdate(player,csid,option)
---printf("CSID: %u",csid);
---printf("RESULT: %u",option);
+  printf("CSID: %u",csid);
+  printf("RESULT: %u",option);
 end;
 
 -----------------------------------

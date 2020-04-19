@@ -111,7 +111,7 @@ function onWeaponskillHit(mob, attacker, weaponskill)
 return 0;
 
 
-end;
+
 
 
 end;

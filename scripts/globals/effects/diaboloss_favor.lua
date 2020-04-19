@@ -31,7 +31,7 @@ function onEffectTick(target,effect)
     if (party ~= nil) then
         for i,member in ipairs(party) do
 		    if (member:checkDistance(pet) < 10) then
-            member:addStatusEffect(dsp.effect.DIABLOS_S_FAVOR, effect:getPower(), 0, 3);
+            member:addStatusEffect(dsp.effect.DIABOLOS_S_FAVOR, effect:getPower(), 0, 3);
 
 			end
         end

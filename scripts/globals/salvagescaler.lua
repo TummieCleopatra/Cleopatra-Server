@@ -264,7 +264,7 @@ function salvageChestB(mob, isKiller)
 	            -- gold2:setStatus(dsp.status.NORMAL);
 				gold2:showNPC(60);
             end
-	    elseif (chesttype < red_CHEST) then
+	    elseif (chesttype < RED_CHEST) then
 		    printf("red");
 	        if (red1:getStatus() ~= dsp.status.NORMAL) then
 	            red1:setPos(killx+1,killy,killz);
@@ -604,6 +604,7 @@ function salvageAmbient(mob,player)
 	local salvagelvl = player:getVar("Salvage_Level");
 	local salvagefloor = 0;
 	local playerzone = player:getZoneID();
+    local factor = 0.82
 
 	local multiplier = AMBIENCE_MULT;
 	local additive = 0;
@@ -618,26 +619,12 @@ function salvageAmbient(mob,player)
 	end
 	printf("Salvage floor %s",salvagefloor);
 	local lvldif = (mob:getMainLvl() - player:getMainLvl());
-	print(lvldif);
 	local ambpts = player:getVar("Ambience_Points");
 
-	if (lvldif < 0) then  -- EP
-		additive = math.random(20,25);
-	elseif (lvldif == 0) then
-		additive = math.random(27,32);
-	elseif (lvldif <= 1) then
-		additive = math.random(47,60);
-	elseif (lvldif <= 3) then
-		additive = math.random(63,70);
-    elseif (lvldif <= 5) then
- 		additive = math.random(75,84);
-	elseif (lvldif <= 8) then
-		additive = math.random(85,99);
-	else
-        additive = math.random(95,110);
-	end
+	additive = math.random(95,110);
 
-    local ambience = math.floor((((lvldif * 2) + additive) * multiplier));
+
+    local ambience = math.floor(((((lvldif * 2) + additive) * multiplier)) * (factor ^ (10 - lvldif)));
 
     -- Increase required ambience points based on floor
     local ambscap = 1000 + (salvagefloor * 500)

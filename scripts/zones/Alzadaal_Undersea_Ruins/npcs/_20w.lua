@@ -91,6 +91,7 @@ function onEventFinish(player,csid,option)
 		    player:messageSpecial(ID.text.MEMBER_NO_REQS);
 		end
 	elseif (csid == 116) then
+        player:setVar("Ambience_Points",0);
         player:setPos(340,15,-509,191,0x4B);
     end
 end;

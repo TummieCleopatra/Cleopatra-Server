@@ -92,6 +92,7 @@ function onTrigger(player,npc)
 	tags = utils.clamp(tags + calctag,0,SALVAGE_TAGS);
 	player:setVar("SALVAGE_TAGS",tags);
 
+
 	-- First see if this is the first time the player has talked to Zasshal while meeting requirements
 	if (salvageOK ~= 1 and completedCoffin) then
 	    player:PrintToPlayer("Zasshal : Oh you want to explore the Remnants?  Well I have two Permits saved for you.  Just trade me 10,000g when ready.",0x0D);
