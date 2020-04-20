@@ -15,6 +15,7 @@ zones[dsp.zone.MOUNT_ZHAYOLM] =
         ITEM_OBTAINED           = 6388, -- Obtained: <item>.
         GIL_OBTAINED            = 6389, -- Obtained <number> gil.
         KEYITEM_OBTAINED        = 6391, -- Obtained key item: <keyitem>.
+        KEYITEM_LOST            = 6392, -- Lost key item: <keyitem>.
         FISHING_MESSAGE_OFFSET  = 7049, -- You can't fish here.
         RESPONSE                = 7329, -- There is no response...
         MINING_IS_POSSIBLE_HERE = 7418, -- Mining is possible here if you have <item>.
@@ -29,12 +30,12 @@ zones[dsp.zone.MOUNT_ZHAYOLM] =
     },
     mob =
     {
-        ENERGETIC_ERUCA_PH    = 
+        ENERGETIC_ERUCA_PH    =
         {
             [17027146] = 17027466, -- 175.315 -14.444 -173.589
             [17027145] = 17027466, -- 181.601 -14.120 -166.218
         },
-        IGNAMOTH_PH = 
+        IGNAMOTH_PH =
         {
             [17027421] = 17027423, -- -567.6 -15.35 252.201
             [17027422] = 17027423, -- -544.3 -14.8 262.992

@@ -7,6 +7,7 @@
 -----------------------------------
 local ID = require("scripts/zones/Wajaom_Woodlands/IDs");
 require("scripts/globals/status");
+require("scripts/globals/keyitems");
 
 -----------------------------------
 -- onTrade Action
