@@ -814,7 +814,7 @@ dsp.effect =
     SKILLCHAIN               = 799,
     DYNAMIS                  = 800,
     MEDITATE                 = 801, -- Dummy effect for SAM Meditate JA
-    RESTING_BONUS            = 802,
+
     DYNA_RESTRICTION         = 811,
 
     INDI_REGEN               = 821,

@@ -184,7 +184,7 @@ function onGameIn(player, firstLogin, zoning)
 				end
 
 			    player:setVar("RestExp",bonus)
-			    player:addStatusEffectEx(dsp.effect.RESTING_BONUS,dsp.effect.DEDICATION,bonus,0,86400,0,20000)
+			    player:addStatusEffectEx(dsp.effect.RESTING_BONUS,dsp.effect.DEDICATION,bonus,3,86400,0,20000)
                 player:setVar("logoutOK",0)
 			else
                 local minutes = (logintime - lastlogin) / 60

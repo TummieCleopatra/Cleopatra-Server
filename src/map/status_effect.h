@@ -718,7 +718,7 @@ enum EFFECT
     EFFECT_SKILLCHAIN               = 799,
     EFFECT_DYNAMIS                  = 800,
     EFFECT_MEDITATE                 = 801, // Dummy effect for SAM Meditate JA
-    EFFECT_RESTING_BONUS            = 802,
+
 
     EFFECT_INDI_REGEN                = 821,
 	EFFECT_INDI_POISON               = 822,
@@ -749,6 +749,7 @@ enum EFFECT
 	EFFECT_INDI_SLOW                 = 847,
 	EFFECT_INDI_PARALYSIS            = 848,
 	EFFECT_INDI_GRAVITY              = 849,
+    EFFECT_RESTING_BONUS             = 851,
 
 
 

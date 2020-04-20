@@ -4426,7 +4426,7 @@ namespace charutils
                 Sql_Query(SqlHandle, query, buf, PChar->id);
                 return;
             }
-            default: 
+            default:
                 ShowError("charutils:SaveTeleport : Unknown type parameter.");
                 return;
         }
@@ -4459,30 +4459,42 @@ namespace charutils
             int16 percentage = dedication->GetPower();
             int16 cap = dedication->GetSubPower();
 			int16 reduction = 0;
-			if (dedication->GetPower() > 100)
+
+			if (dedication->GetPower() >= 250)
+			{
+              reduction = (int16)(exp / exp) * 8;
+			}
+			else if (dedication->GetPower() > 200)
+			{
+              reduction = (int16)(exp / exp) * 7;
+			}
+			else if (dedication->GetPower() > 150)
+			{
+              reduction = (int16)(exp / exp) * 7;
+			}
+			else if (dedication->GetPower() > 100)
+			{
+              reduction = (int16)(exp / exp) * 6;
+			}
+			else if (dedication->GetPower() > 50)
 			{
               reduction = (int16)(exp / exp) * 5;
 			}
-			else if (dedication->GetPower() > 80)
-			{
-              reduction = (int16)(exp / exp) * 4;
-			}
-			else if (dedication->GetPower() > 35)
-			{
-              reduction = (int16)(exp / exp) * 3;
-			}
 			else if (dedication->GetPower() > 15)
 			{
-              reduction = (int16)(exp / exp) * 2;
+              reduction = (int16)(exp / exp) * 3;
 			}
 			else
 			{
               reduction = (int16)(exp / exp);
 			}
 
+
             bonus += std::clamp<int32>((int32)((exp * percentage) / 100), 0, cap);
             dedication->SetSubPower(cap -= bonus);
 			dedication->SetPower(percentage -= reduction);
+
+
 
             if (cap <= 0 || percentage <= 0)
             {
@@ -4490,6 +4502,7 @@ namespace charutils
             }
 
         }
+
 
         bonus += (int32)(exp * (PChar->getMod(Mod::EXP_BONUS) / 100.0f));
 
