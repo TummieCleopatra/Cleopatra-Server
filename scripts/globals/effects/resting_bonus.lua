@@ -12,7 +12,8 @@ require("scripts/globals/status");
 
 function onEffectGain(target,effect)
     local bonus = target:getVar("RestExp")
-    target:PrintToPlayer("You are now receiving a resting bonus of "..bonus.."%", 0x1C);
+    printf("Dedication applied")
+
 end;
 
 -----------------------------------
@@ -20,8 +21,10 @@ end;
 -----------------------------------
 
 function onEffectTick(target,effect)
-
-
+    if (effect:getTickCount() == 3) then
+        local bonus = target:getVar("RestExp")
+        target:PrintToPlayer("You are now receiving a resting bonus of "..bonus.."%", 0x1C);
+    end
 end;
 
 -----------------------------------
