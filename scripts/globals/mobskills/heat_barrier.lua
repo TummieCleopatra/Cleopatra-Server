@@ -21,6 +21,13 @@ function onMobWeaponSkill(target, mob, skill)
     local typeEffectOne = dsp.effect.BLAZE_SPIKES
     -- local typeEffectTwo = dsp.effect.ENFIRE
     local randy = math.random(50,67)
+
+    if (mob:getZoneID() == 75) then
+        local lvl = mob:getMainLvl()
+        local rMin = math.floor(lvl / 3)
+        local rMax = math.floor(lvl / 2)
+        randy = math.random(rMin, rmax)
+    end
     skill:setMsg(MobBuffMove(mob, typeEffectOne, randy, 0, 180))
     -- MobBuffMove(mob, typeEffectTwo, ???, 0, 180)
 

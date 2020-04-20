@@ -11,23 +11,25 @@ require("scripts/globals/settings");
 -----------------------------------
 
 function onTrade(player,npc,trade)
-end; 
+end;
 
 -----------------------------------
 -- onTrigger Action
 -----------------------------------
 
 function onTrigger(player,npc)
+    -- 1: Windurst
+    -- 2: Bastok
+    -- 3: San d'Oria
     local warp = player:getVar("FeretoryWarp");
 	if (warp == 1) then -- Windurst Warp
-	player:setPos(218,-12,223,123,240);
-	else if (warp == 2) then -- Bastok Warp
-	player:setPos(218,-12,223,123,232);
-	else
-	player:setPos(218,-12,223,123,236);
+	    player:setPos(218,-12,223,123,240);
+	elseif (warp == 2) then -- Bastok Warp
+	    player:setPos(81,8,-231,236);
+	elseif (warp == 3) then -- San d'Oria
+	    player:setPos(83,0,41,231);
 	end
-	end
-	
+
 end;
 
 -----------------------------------
