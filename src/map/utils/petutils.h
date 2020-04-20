@@ -75,7 +75,8 @@ enum PETID
     PETID_DARC               = 98,
     PETID_DARC_W             = 99,
     PETID_DARC_N             = 100,
-    PETID_ULMIA              = 103
+    PETID_ULMIA              = 103,
+    PETID_LUZAF              = 124
     // Todo: change how this works so trusts don't need PetID at all..
 };
 
