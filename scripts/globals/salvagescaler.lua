@@ -31,6 +31,18 @@ local ssnmred = 85
 -- mobScaler
 -----------------------------------
 
+function restoreStats(player)
+    local party = player:getParty()
+    for _,member in ipairs(party) do
+        local mpamt = member:getMaxMP() - member:getMP()
+        member:restoreMP(mpamt)
+        member:messageBasic(dsp.msg.basic.RECOVERS_MP, 0, mpamt)
+        local hpamt = member:getMaxHP() - member:getHP()
+        member:restoreHP(hpamt)
+        member:messageBasic(dsp.msg.basic.RECOVERS_HP, 0, hpamt)
+    end
+end
+
 function hpScaler(mob)
 
 	local floorcount = mob:getLocalVar("Floor");
@@ -224,7 +236,7 @@ function salvageChestA(mob, isKiller)
 end
 
 
-function salvageChestB(mob, isKiller)
+function salvageChestB(mob, player, isKiller)
 
     local killx = mob:getXPos();
     local killy = mob:getYPos();
@@ -246,6 +258,10 @@ function salvageChestB(mob, isKiller)
 	-- Blue is low quality items
 	-- red is HQ meds
 	-- Gold is Alexandrite
+    local healChance = math.random(1,100)
+    if (healChance < 25) then
+        restoreStats(player)
+    end
 
 	local chestdrop = math.random(1,100);
 	local chesttype = math.random(1,100);
@@ -665,7 +681,18 @@ function salvageAmbient(mob,player)
 	        if (player:getObjType() == dsp.objType.PC) then
 			    local duration = player:getStatusEffect(dsp.effect.LEVEL_RESTRICTION):getTimeRemaining();
 				duration = duration / 1000;
-				print(duration);
+				-- Check to see if players got healed
+                local party = player:getParty()
+                for _,member in ipairs(party) do
+                    local mpamt = member:getMaxMP() - member:getMP()
+                    local hpamt = member:getMaxHP() - member:getHP()
+                    if (mpamt > 0 and hpamt > 0) then
+                        restoreStats(player)
+                        break
+                    end
+                end
+
+
 	            player:PrintToPlayer("The dark energy has weakened around you.  You are now Level "..salvagelvl..".", 0x15);
 	            player:setVar("Salvage_Level",salvagelvl);
 

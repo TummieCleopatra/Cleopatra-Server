@@ -35,7 +35,8 @@ function onMobDeath(mob, player, isKiller)
 
  	salvageAmbient(mob,player);
     salvageChestB(mob,player)
-	if (player:getObjType() ~= dsp.objType.PC) then
+    local mobid = mob:getID()
+	if (player:getObjType() ~= dsp.objType.PC and (mobid == 17084925 or mobid == 17084926)) then
 	    local master = player:getMaster();
         master:PrintToPlayer("The device emits a faint hum...",0x15);
 		master:setVar("3rd_Floor_NM",1);
