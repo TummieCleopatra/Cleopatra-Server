@@ -100,16 +100,22 @@ function besiegedCheck(zone)
         -- do cs here
         -- set spawns
         spawnUndead(undeadLvl,zone)
-        if (players ~= nil) then
-            for i, player in pairs(players) do
-                local start = math.random(1,20)
-	            player:messageSpecial(ID.text.UNDEAD_START);
-                player:addStatusEffect(dsp.effect.BESIEGED,0,3,3600)
-                player:ChangeMusic(1, 142)
-                player:ChangeMusic(2, 142)
-                player:startEvent(5,start)
-	        end
+        if (not player:isInMogHouse()) then
+            if (players ~= nil) then
+                for i, player in pairs(players) do
+                    local start = math.random(1,20)
+                    player:messageSpecial(ID.text.UNDEAD_START);
+                    player:addStatusEffect(dsp.effect.BESIEGED,0,3,3600)
+                    player:ChangeMusic(1, 142)
+                    player:ChangeMusic(2, 142)
+                    player:startEvent(5,start)
+                end
+            end
+        else
+            player:messageSpecial(ID.text.UNDEAD_START);
         end
+
+
     end
 
    if (mamoolEnd > 1) then
