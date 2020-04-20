@@ -11,16 +11,16 @@ require("scripts/globals/mobscaler");
 -----------------------------------
 
 function onMobSpawn(mob)
-    mob:setLocalVar("PartySize",8); 
+    mob:setLocalVar("PartySize",8);
 end
 
 -----------------------------------
 -- onMobDeath
 -----------------------------------
 
-function onMobDeath(mob, killer, player)
+function onMobDeath(mob, player, isKiller)
     player:setVar("Faust_Win",1);
 	player:addCurrency('jetton',50);
-	player:PrintToPlayer("Your obtain 50 Jettons.", 0x15);		
+	player:PrintToPlayer("Your obtain 50 Jettons.", 0x15);
 	mob:setRespawnTime(math.random((1800),(2700))); -- respawn 3-6 hrs
 end;

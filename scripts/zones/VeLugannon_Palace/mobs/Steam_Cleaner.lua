@@ -39,10 +39,10 @@ end;
 -- onMobDeath
 -----------------------------------
 
-function onMobDeath(mob, killer, player)
+function onMobDeath(mob, player, isKiller)
 	player:setVar("Steam_Win",1);
 	player:addCurrency('jetton',50);
-	player:PrintToPlayer("Your obtain 50 Jettons.", 0x15);	
+	player:PrintToPlayer("Your obtain 50 Jettons.", 0x15);
 
 end;
 

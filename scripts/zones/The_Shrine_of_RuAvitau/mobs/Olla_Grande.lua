@@ -8,7 +8,7 @@ require("scripts/globals/mobscaler");
 -----------------------------------
 
 function onMobSpawn(mob)
-    mob:setLocalVar("PartySize",4); 
+    mob:setLocalVar("PartySize",4);
 end;
 
 function onMobFight( mob, target )
@@ -19,10 +19,10 @@ end;
 -- onMobDeath
 -----------------------------------
 
-function onMobDeath(mob, killer, player)
+function onMobDeath(mob, player, isKiller)
 	player:setVar("Olla_Win",1);
 	player:addCurrency('jetton',50);
-	player:PrintToPlayer("Your obtain 50 Jettons.", 0x15);		
+	player:PrintToPlayer("Your obtain 50 Jettons.", 0x15);
 end;
 
 -----------------------------------

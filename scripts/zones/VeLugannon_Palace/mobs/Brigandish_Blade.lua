@@ -12,7 +12,7 @@ require("scripts/globals/mobs")
 
 function onMobInitialize(mob)
     mob:setMobMod(dsp.mobMod.ADD_EFFECT, 1)
- 
+
 end;
 
 -----------------------------------
@@ -34,10 +34,10 @@ end
 -----------------------------------
 -- onMobDeath
 -----------------------------------
-function onMobDeath(mob, killer, player) 
+function onMobDeath(mob, player, isKiller)
 	player:setVar("Brig_Win",1);
 	player:addCurrency('jetton',50);
-	player:PrintToPlayer("Your obtain 50 Jettons.", 0x15);	
+	player:PrintToPlayer("Your obtain 50 Jettons.", 0x15);
 end;
 
 

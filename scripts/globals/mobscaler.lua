@@ -341,7 +341,7 @@ end
 function znmTherionT1(mob, player, nm)
     local points = 100;
     if (nm == 1) then -- Vulpangue
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Vulpangue_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -352,7 +352,7 @@ function znmTherionT1(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 2) then -- Chamrosh
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Chamrosh_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -363,7 +363,7 @@ function znmTherionT1(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 3) then -- Cheese
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("CheeseHoarder_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -374,7 +374,7 @@ function znmTherionT1(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 4) then -- Brass
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Brass_Borer_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -385,7 +385,7 @@ function znmTherionT1(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 5) then -- Claret
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Claret_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -396,7 +396,7 @@ function znmTherionT1(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 6) then -- Ob
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Ob_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -407,7 +407,7 @@ function znmTherionT1(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 7) then -- Velionis
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Velionis_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -418,7 +418,7 @@ function znmTherionT1(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 8) then -- Apkallu
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Apkallu_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -429,7 +429,7 @@ function znmTherionT1(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 9) then -- chigre
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Chigre_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -447,7 +447,7 @@ end
 function znmTherionT2(mob, player, nm)
     local points = 250;
     if (nm == 10) then -- Iriz
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Iriz_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -458,7 +458,7 @@ function znmTherionT2(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 11) then -- Iriri
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Iriri_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -469,7 +469,7 @@ function znmTherionT2(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 12) then -- Lividroot
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Lividroot_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -480,7 +480,7 @@ function znmTherionT2(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 13) then -- Anantaboga
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Anantaboga_Borer_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -491,7 +491,7 @@ function znmTherionT2(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 14) then -- Reacton
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Reacton_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -502,7 +502,7 @@ function znmTherionT2(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 15) then -- Dextrose
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Dextrose_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -513,7 +513,7 @@ function znmTherionT2(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 16) then -- Zareehkl
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Zareehkl_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -524,7 +524,7 @@ function znmTherionT2(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 17) then -- Verdelet
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Verdelet_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -535,7 +535,7 @@ function znmTherionT2(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 18) then -- Wulgaru
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Wulgaru_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -553,7 +553,7 @@ end
 function znmTherionT3(mob, player, nm)
     local points = 500;
     if (nm == 19) then -- Armed
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Armed_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -564,7 +564,7 @@ function znmTherionT3(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 20) then -- Gotah
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Gotah_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -575,7 +575,7 @@ function znmTherionT3(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 21) then -- Dea
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Dea_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -586,7 +586,7 @@ function znmTherionT3(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 22) then -- Nosferatu
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Nosferatu_Borer_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -597,7 +597,7 @@ function znmTherionT3(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 23) then -- Khrom
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Khrom_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -608,7 +608,7 @@ function znmTherionT3(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 24) then -- Achamoth
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Achamoth_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -619,7 +619,7 @@ function znmTherionT3(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 25) then -- Mahjlaef
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Mahjlaef_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -630,7 +630,7 @@ function znmTherionT3(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 26) then -- Experimental
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Experimental_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -641,7 +641,7 @@ function znmTherionT3(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 27) then -- Nuhn
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Nuhn_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -660,7 +660,7 @@ end
 function znmTherionT4(mob, player, nm)
     local points = 500;
     if (nm == 28) then -- Tinnin
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Tinnin_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -671,7 +671,7 @@ function znmTherionT4(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 29) then -- Sarameya
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Sarameya_Win",1);
             master:addCurrency("therion_ichor",points);
@@ -682,7 +682,7 @@ function znmTherionT4(mob, player, nm)
             player:PrintToPlayer("You obtain "..points.." Therion Ichor.", 0x15);
         end
     elseif (nm == 30) then -- Tyger
-        if (player:getObjType() ~= TYPE_PC) then
+        if (player:getObjType() ~= dsp.objType.PC) then
             local master = player:getMaster();
             master:setVar("Tyger_Win",1);
             master:addCurrency("therion_ichor",points);

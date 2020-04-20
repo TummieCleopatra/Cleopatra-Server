@@ -9,7 +9,7 @@ require("scripts/globals/mobscaler");
 -----------------------------------
 
 function onMobSpawn(mob)
-    mob:setLocalVar("PartySize",4); 
+    mob:setLocalVar("PartySize",4);
 end;
 
 function onMobFight( mob, target )
@@ -20,7 +20,7 @@ end;
 -- onMobDeath
 -----------------------------------
 
-function onMobDeath(mob, killer)
+function onMobDeath(mob, player, isKiller)
     SpawnMob(mob:getID() + 1,180):updateEnmity(killer);
 end;
 
