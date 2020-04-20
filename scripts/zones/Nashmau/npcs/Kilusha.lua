@@ -30,9 +30,14 @@ function onTrade(player,npc,trade)
 		((job == 20) and (player:getVar("SCHMythicWeapon") == 4)) or
         ((job == 21) and (player:getVar("GEOMythicWeapon") == 4)) or
         ((job == 22) and (player:getVar("RUNMythicWeapon") == 4)) and player:hasKeyItem(dsp.ki.CAPTAIN_WILDCAT_BADGE) and merc == 25000 and trade:getGil() == 750000) then
-        player:additem(2571)
-        player:messageSpecial(ID.text.ITEM_OBTAINED,1127);
-        player:setVar("Mercenary_Points",0)
+        if (player:getFreeSlotsCount() == 0) then
+            player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2571);
+		else
+		    player:addItem(2571)
+			player:delGil(750000)
+			player:messageSpecial(ID.text.ITEM_OBTAINED,2571);
+			player:setVar("Mercenary_Points",0)
+		end
     end
 end;
 
