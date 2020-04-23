@@ -21,7 +21,7 @@ end;
 -----------------------------------
 
 function onMobDeath(mob, player, isKiller)
-    SpawnMob(mob:getID() + 1,180):updateEnmity(killer);
+    SpawnMob(mob:getID() + 1,180):updateEnmity(player);
 end;
 
 -----------------------------------

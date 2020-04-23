@@ -3405,3 +3405,13 @@ INSERT INTO `mob_skill_lists` VALUES ('Besieged_BLU',1015,169);
 INSERT INTO `mob_skill_lists` VALUES ('Besieged_Trooper',1016,40);
 INSERT INTO `mob_skill_lists` VALUES ('Besieged_Volunteer',1017,69);
 INSERT INTO `mob_skill_lists` VALUES ('Besieged_Volunteer',1017,72);
+
+
+INSERT INTO `mob_skill_lists` VALUES ('Trust_Sword',1030,40);
+INSERT INTO `mob_skill_lists` VALUES ('Trust_Dagger',1031,23);
+INSERT INTO `mob_skill_lists` VALUES ('Trust_Pole',1032,116);
+INSERT INTO `mob_skill_lists` VALUES ('Trust_GK',1033,151);
+INSERT INTO `mob_skill_lists` VALUES ('Trust_club',1034,168);
+INSERT INTO `mob_skill_lists` VALUES ('Trust_Lion',1035,2894);
+INSERT INTO `mob_skill_lists` VALUES ('Trust_GS',1035,55);
+INSERT INTO `mob_skill_lists` VALUES ('Reactionary_Rampart',1036,2034);

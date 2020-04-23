@@ -91,12 +91,13 @@ end
 -----------------------------------
 -- onMobDeath
 -----------------------------------
-function onMobDeath( mob, killer, player)
+function onMobDeath( mob, player, isKiller)
     -- Award title and cleanup..
     player:addTitle(dsp.title.KIRIN_CAPTIVATOR );
     player:showText( mob, ID.text.KIRIN_OFFSET + 1 );
 	player:setVar("Kirin_Win",1);
 	player:addCurrency('jetton',500);
+    player:PrintToPlayer("Your obtain 500 Jettons.", 0x15);
 
     -- Despawn pets..
     DespawnMob( 17506671 );

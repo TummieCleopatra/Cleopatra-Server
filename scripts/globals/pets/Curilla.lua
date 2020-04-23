@@ -49,6 +49,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("reprisalCooldown",180)
     mob:setLocalVar("castingSpell",0)
     mob:setLocalVar("sleepTime",0)
+    mob:setLocalVar("chivalryCooldown",300)
 
 
 
@@ -207,9 +208,10 @@ function onMobSpawn(mob)
         local chivalryCooldown = mob:getLocalVar("chivalryCooldown")
         local trustPointChivalry = player:getVar("TrustTrait1_Cur")
         local mp = mob:getMP()
+        local lvl = mob:getMainLvl()
         local maxmp = mob:getMaxMP()
         local dif = (mp / maxmp) * 100
-        if (trustPointChivalry == 5) then
+        if (trustPointChivalry == 5 and lvl >= 75) then
             if ((battletime > chivalryTime + chivalryCooldown) and dif < 20) then
                 mob:useJobAbility(142, mob)
                 mob:setLocalVar("chivalryTime",battletime)

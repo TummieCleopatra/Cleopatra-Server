@@ -62,9 +62,6 @@ local trustdyna = player:getVar("TrustDynamis");
 
     -- Retroactively Fix Feretory Quest 3 Nation Warp
 	if (player:getVar("Aura3WarpUnlock") ~= 1 and (player:getVar("FerretoryAura") >= 3)) then
-	player:addNationTeleport(0,2097120);
-    player:addNationTeleport(1,2097120);
-    player:addNationTeleport(2,2097120);
 	player:setVar("Aura3WarpUnlock",1);
 	player:PrintToPlayer("All outpost warps except Tu'Lia and Tavnazia have been unlocked!", 0x15);
 	end
@@ -164,9 +161,6 @@ local trustdyna = player:getVar("TrustDynamis");
 	player:setVar("FerretoryPlantoidComplete",0);
 	player:setVar("FerretoryExp",4);
 	player:setVar("FerretoryAura",3);
-	player:addNationTeleport(0,2097120);
-    player:addNationTeleport(1,2097120);
-    player:addNationTeleport(2,2097120);
 	player:setVar("Aura3WarpUnlock", 1);
 	aura = player:getVar("FerretoryAura");
 	player:PrintToPlayer("Your Aura has reached Level "..aura.."!", 0x15);
@@ -194,7 +188,7 @@ local trustdyna = player:getVar("TrustDynamis");
 	player:setVar("FerretoryAura",4);
 	aura = player:getVar("FerretoryAura");
 	player:PrintToPlayer("Your Aura has reached Level "..aura.."!", 0x15);
-	player:PrintToPlayer("New items are available in Mogshop #8", 0x15);
+	player:PrintToPlayer("New items are available in Mogshop #5 and $7", 0x15);
 
 
 
@@ -207,7 +201,7 @@ local trustdyna = player:getVar("TrustDynamis");
 	player:setVar("FerretoryAura",5);
 	aura = player:getVar("FerretoryAura");
 	player:PrintToPlayer("Your Aura has reached Level "..aura.."!", 0x15);
-	player:PrintToPlayer("New items are available in Mogshop #8", 0x15);
+	player:PrintToPlayer("New items are available in Mogshop #5", 0x15);
 
 	elseif (player:getVar("FerretoryAura") == 4) and (plvl < 50) and (player:getVar("FerretoryQuest1") == 4) then
 	player:PrintToPlayer("Maccus : Come back when you are level 50 for your next assignment.", 0xD);  -- Level Check
@@ -228,7 +222,7 @@ local trustdyna = player:getVar("TrustDynamis");
 	player:setVar("FerretoryAura",6);
 	aura = player:getVar("FerretoryAura");
 	player:PrintToPlayer("Your Aura has reached Level "..aura.."!", 0x15);
-	player:PrintToPlayer("New items are available in Mogshop #8", 0x15);
+	player:PrintToPlayer("New items are available in Mogshop #5 and #7", 0x15);
 
 	elseif (player:getVar("FerretoryAura") == 5) and (plvl < 60) and (player:getVar("FerretoryQuest1") == 5) then
 	player:PrintToPlayer("Maccus : Come back when you are level 60 for your next assignment.", 0xD);  -- Level Check

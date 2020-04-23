@@ -4438,8 +4438,10 @@ namespace charutils
     float  AddExpBonus(CCharEntity* PChar, float exp)
     {
         int32 bonus = 0;
+        //ShowWarning(CL_YELLOW"Add Exp Bonus \n" CL_RESET);
         if (PChar->StatusEffectContainer->GetStatusEffect(EFFECT_DEDICATION))
         {
+            //ShowWarning(CL_YELLOW"DEDICATION TRIGGERED \n" CL_RESET);
             CStatusEffect* dedication = PChar->StatusEffectContainer->GetStatusEffect(EFFECT_DEDICATION);
             int16 percentage = dedication->GetPower();
             int16 cap = dedication->GetSubPower();
@@ -4459,42 +4461,40 @@ namespace charutils
             int16 percentage = dedication->GetPower();
             int16 cap = dedication->GetSubPower();
 			int16 reduction = 0;
+            int16 rBonus = 0;
+            //ShowWarning(CL_YELLOW"Add Resting Bonus \n" CL_RESET);
+            //ShowWarning(CL_YELLOW"Current Exp Percentage is %u \n" CL_RESET, percentage);
 
-			if (dedication->GetPower() >= 250)
-			{
-              reduction = (int16)(exp / exp) * 8;
-			}
-			else if (dedication->GetPower() > 200)
-			{
-              reduction = (int16)(exp / exp) * 7;
-			}
-			else if (dedication->GetPower() > 150)
-			{
-              reduction = (int16)(exp / exp) * 7;
-			}
-			else if (dedication->GetPower() > 100)
-			{
-              reduction = (int16)(exp / exp) * 6;
-			}
-			else if (dedication->GetPower() > 50)
-			{
-              reduction = (int16)(exp / exp) * 5;
-			}
-			else if (dedication->GetPower() > 15)
-			{
-              reduction = (int16)(exp / exp) * 3;
-			}
-			else
-			{
-              reduction = (int16)(exp / exp);
-			}
 
+            //ShowWarning(CL_YELLOW"Reduce Exp Bonus to %u \n" CL_RESET, reduction);
 
             bonus += std::clamp<int32>((int32)((exp * percentage) / 100), 0, cap);
+            rBonus = std::clamp<int32>((int32)((exp * percentage) / 100), 0, cap);
+                if (dedication->GetPower() > 100)
+                {
+                    reduction = (int16)(exp / exp) * 5;
+                }
+                else if (dedication->GetPower() > 80)
+                {
+                    reduction = (int16)(exp / exp) * 4;
+                }
+                else if (dedication->GetPower() > 35)
+                {
+                    reduction = (int16)(exp / exp) * 3;
+                }
+                else if (dedication->GetPower() > 15)
+                {
+                    reduction = (int16)(exp / exp) * 2;
+                }
+                else
+                {
+                    reduction = (int16)(exp / exp);
+                }
+
             dedication->SetSubPower(cap -= bonus);
 			dedication->SetPower(percentage -= reduction);
 
-
+             //ShowWarning(CL_YELLOW"Final Exp Percentage is %u \n" CL_RESET, percentage);
 
             if (cap <= 0 || percentage <= 0)
             {

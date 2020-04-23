@@ -26,10 +26,10 @@ function onMobSpawn(mob)
     mob:setLocalVar("PartySize",5);
 	mob:addStatusEffectEx(dsp.effect.SHOCK_SPIKES,0,60,0,0); -- ~60 damage
 	-- TODO: Effect can be stolen, giving a THF (Aura Steal) or BLU (Voracious Trunk) a 60 minute shock spikes effect (unknown potency).
-	-- If effect is stolen, he will recast it instantly. 
-	
+	-- If effect is stolen, he will recast it instantly.
+
 	-- TODO: Additional Effect for ~100 damage (theme suggests enthunder)
-	-- Unknown if this can be stolen/dispelled like spikes.  Isn't mentioned, probably not	
+	-- Unknown if this can be stolen/dispelled like spikes.  Isn't mentioned, probably not
 end;
 
 -----------------------------------
@@ -39,7 +39,7 @@ function onMobFight(mob, target)
    -- Keep pets linked
     mobScaler(mob,target);
 	local MotherGlobe = mob:getID();
-   
+
 	for i = MotherGlobe+1, MotherGlobe+6 do
 		if (GetMobAction(i) == 16) then
 			GetMobByID(i):updateEnmity(target);
@@ -62,12 +62,12 @@ end;
 -----------------------------------
 -- onMobDeath
 -----------------------------------
-function onMobDeath( mob, killer, player)
+function onMobDeath( mob, player, isKiller)
 
 	local MotherGlobe = mob:getID();
 	player:setVar("Globe_Win",1);
 	player:addCurrency('jetton',50);
-	player:PrintToPlayer("Your obtain 50 Jettons.", 0x15);		
+	player:PrintToPlayer("Your obtain 50 Jettons.", 0x15);
 	mob:setRespawnTime(math.random((1800),(2700))); -- respawn 3-6 hrs
 
 	for i = MotherGlobe+1, MotherGlobe+6 do

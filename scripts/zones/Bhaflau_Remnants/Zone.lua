@@ -75,16 +75,13 @@ cs = -1;
 	player:setVar("Bhaflau_Floor",bfloor);
 
 	local prevzone = player:getPreviousZone();
-	if (prevzone == 72) then
-	    salvagelvl = 35;
-		player:getVar("Salvage_Level",35);
-	end
+
 	local entertime = player:getVar("Salvage_Entry");
 	local currentTime = os.time()
 	local fixduration = currentTime - entertime;
-	local finaltime = 3600 - fixduration;
-	if (fixduration < 3600) then
-	    player:addStatusEffect(dsp.effect.LEVEL_RESTRICTION,salvagelvl,3,3600 - fixduration);
+	local finaltime = 5400 - fixduration;
+	if (fixduration < 5400) then
+	    player:addStatusEffect(dsp.effect.LEVEL_RESTRICTION,salvagelvl,3,5400 - fixduration);
 	    -- player:PrintToPlayer("You have 100 minutes to complete your objective.", 0x15);
     else
 		player:setVar("1st_Floor_NM",0);
@@ -96,6 +93,20 @@ cs = -1;
 		player:setVar("Salvage_Floor",0);
 		cs = 1;
     end
+
+    local posx = player:getVar("Bhaflau_X");
+    local posy = player:getVar("Bhaflau_Y");
+	local posz = player:getVar("Bhaflau_Z");
+
+    -- Prevent players from getting stuck in Rampart Room on DC
+    if (posx ~= 0 and posy ~= 0 and posz ~= 0) then
+        player:setPos(posx,posy,posz);
+	    player:setVar("Bhaflau_X",0);
+        player:setVar("Bhaflau_Y",0);
+	    player:setVar("Bhaflau_Z",0);
+    end
+
+
 return cs;
 end;
 
@@ -122,18 +133,18 @@ function onRegionEnter(player,region)
 
 
 	-- FLOOR 1 TELEPORTS
-	if (regionId == 1) then
+	if (regionId == 1 and player:getVar("1st_Floor_NM") == 1) then
 	    player:startEvent(200);
 	end
 
 	-- FLOOR 2 TELEPORT
-	if (regionId == 2) then
+	if (regionId == 2 and player:getVar("2nd_Floor_NM") == 1) then
 	   player:startEvent(201);
-	elseif (regionId == 3) then
+	elseif (regionId == 3 and player:getVar("2nd_Floor_NM") == 1) then
 	   player:startEvent(202);
-	elseif (regionId == 4) then
+	elseif (regionId == 4 and player:getVar("2nd_Floor_NM") == 1) then
 	   player:startEvent(203);
-	elseif (regionId == 5) then
+	elseif (regionId == 5 and player:getVar("2nd_Floor_NM") == 1) then
 	   player:startEvent(204);
 	end
 

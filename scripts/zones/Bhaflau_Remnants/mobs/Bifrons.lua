@@ -45,7 +45,7 @@ function onMobDeath(mob, player, isKiller)
             if (math.random(0,99) < chance) then
                 master:PrintToPlayer("You feel an unknown presense...",0x15);
 	            SpawnMob(nm):setPos(killx+1,killy,killz);
-                GetMobByID(nm):updateClaim(killer);
+                GetMobByID(nm):updateClaim(player);
             end
 		else
             -- printf("Not of the correct level yet");
@@ -59,7 +59,7 @@ function onMobDeath(mob, player, isKiller)
                     player:PrintToPlayer("You feel an unknown presense...",0x15);
 	            end
 	            SpawnMob(nm):setPos(killx+1,killy,killz);
-                GetMobByID(nm):updateClaim(killer);
+                GetMobByID(nm):updateClaim(player);
 	        end
 		else
 		    -- printf("Not of the correct level yet");

@@ -2,19 +2,15 @@
 -- Area: Ru'Aun Gardens
 --  NPC: Byakko
 -----------------------------------
-
-local ID = require("scripts/zones/RuAun_Gardens/IDs");
-require("scripts/globals/status");
+local ID = require("scripts/zones/RuAun_Gardens/IDs")
+mixins = {require("scripts/mixins/job_special")}
+require("scripts/globals/mobs")
 require("scripts/globals/mobscaler");
-
------------------------------------
--- onMobInitialize
 -----------------------------------
 
 function onMobInitialize(mob)
-    mob:setMobMod(dsp.mobMod.ADD_EFFECT,mob:getShortID());
-
-end;
+    mob:setMobMod(dsp.mobMod.ADD_EFFECT, 1)
+end
 
 -----------------------------------
 -- onMobSpawn Action
@@ -78,6 +74,4 @@ end;
 -- onMobDespawn
 -----------------------------------
 
-function onMobDespawn(mob)
-    GetNPCByID(17310052):updateNPCHideTime(FORCE_SPAWN_QM_RESET_TIME);
-end;
+

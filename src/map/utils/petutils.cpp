@@ -1203,9 +1203,20 @@ namespace petutils
             PMaster->PParty = new CParty(PMaster);
         }
 
+
+
         CTrustEntity* PTrust = LoadTrust(PMaster, TrustID);
         PMaster->PTrusts.insert(PMaster->PTrusts.begin(), PTrust);
         PMaster->StatusEffectContainer->CopyConfrontationEffect(PTrust);
+
+        if (PMaster->PInstance)
+        {
+            PTrust->PInstance = PMaster->PInstance;
+        }
+
+
+        
+
         PMaster->loc.zone->InsertPET(PTrust);
         PMaster->PParty->ReloadParty();
     }

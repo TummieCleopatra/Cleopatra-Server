@@ -83,13 +83,22 @@ local outposts =
 
 local function hasOutpost(player, region)
     local region = region
-    print(region)
+    -- print(region)
     local hasOP = player:hasTeleport(player:getNation(), region)
     if not hasOP then
         if UNLOCK_OUTPOST_WARPS == 2 then
             hasOP = true
-        elseif UNLOCK_OUTPOST_WARPS == 1 then
+        elseif UNLOCK_OUTPOST_WARPS == 1 and player:getVar("Aura3WarpUnlock") == 1 then
             hasOP = region <= dsp.region.ELSHIMOUPLANDS
+        else
+            local pNation = player:getNation()
+            if (pNation == 0) then
+                hasOP = region >= dsp.region.RONFAURE and region <= dsp.region.ZULKHEIM
+            elseif (pNation == 1) then
+                hasOP = region >= dsp.region.GUSTABERG and region <= dsp.region.DERFLAND
+            elseif (pNation == 2) then
+                hasOP = region >= dsp.region.SARUTABARUTA and region <= dsp.region.KOLSHUSHU
+            end
         end
     end
     return hasOP
@@ -127,7 +136,7 @@ local function getAllowedTeleports(player, nation)
 
     if UNLOCK_OUTPOST_WARPS == 2 then
         return allowedTeleports -- Allow all outposts
-    elseif UNLOCK_OUTPOST_WARPS == 1 then
+    elseif UNLOCK_OUTPOST_WARPS == 1 and player:getVar("Aura3WarpUnlock") == 1 then
         return 0x3FE0001F -- Allow all outposts except for Tulia and Tavnazia
     end
     for region = dsp.region.RONFAURE, dsp.region.TAVNAZIANARCH do

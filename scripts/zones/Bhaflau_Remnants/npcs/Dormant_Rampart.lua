@@ -10,12 +10,34 @@ require("scripts/globals/salvagescaler");
 
 function onTrigger(player,npc)
  	local pos = player:getPos();
-	local posx = pos.x;
-	local posy = pos.y;
-	local posz = pos.z;
+	local posx = math.floor(pos.x);
+	local posy = math.floor(pos.y);
+	local posz = math.floor(pos.z);
+
+    if (posx < 0) then
+        posx = posx * -1
+        player:setVar("XBFloorNeg",1)
+    end
+
+    if (posy < 0) then
+        posy = posy * -1
+        player:setVar("YBFloorNeg",1)
+    end
+
+    if (posz < 0) then
+        posz = posz * -1
+        player:setVar("ZBFloorNeg",1)
+    end
+
+
+
 	player:setVar("Bhaflau_X",posx);
 	player:setVar("Bhaflau_Y",posy);
 	player:setVar("Bhaflau_Z",posz);
+
+    print(posx)
+    print(posy)
+    print(posz)
     local npcID = npc:getID()
 	-- Open
     if (npcID == 17084688 and player:getLocalVar(npc:getID()) == npc:getLocalVar(npc:getID())) then -- First floor

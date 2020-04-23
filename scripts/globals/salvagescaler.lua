@@ -286,14 +286,20 @@ function salvageChestB(mob, player, isKiller)
 	            red1:setPos(killx+1,killy,killz);
 	            -- red1:setStatus(dsp.status.NORMAL);
 				red1:showNPC(60);
+                red1:setAnimation(0)
+                red1:AnimationSub(4)
 		    elseif (red2:getStatus() ~= dsp.status.NORMAL) then
 	            red2:setPos(killx+1,killy,killz);
 	            -- red2:setStatus(dsp.status.NORMAL);
 				red2:showNPC(60);
+                red2:setAnimation(0)
+                red2:AnimationSub(4)
 		    elseif (red3:getStatus() ~= dsp.status.NORMAL) then
 	            red3:setPos(killx+1,killy,killz);
 	            -- red3:setStatus(dsp.status.NORMAL);
 				red3:showNPC(60);
+                red3:setAnimation(0)
+                red3:AnimationSub(4)
             end
 	    else
 		    printf("BLUE");
@@ -301,22 +307,32 @@ function salvageChestB(mob, player, isKiller)
 	            blue1:setPos(killx+1,killy,killz);
 	            -- blue1:setStatus(dsp.status.NORMAL);
 				blue1:showNPC(60);
+                blue1:setAnimation(0)
+                blue1:AnimationSub(4)
 		    elseif (blue2:getStatus() ~= dsp.status.NORMAL) then
 	            blue2:setPos(killx+1,killy,killz);
 	            -- blue2:setStatus(dsp.status.NORMAL);
 				blue2:showNPC(60);
+                blue2:setAnimation(0)
+                blue2:AnimationSub(4)
 		    elseif (blue3:getStatus() ~= dsp.status.NORMAL) then
 	            blue3:setPos(killx+1,killy,killz);
 	            -- blue3:setStatus(dsp.status.NORMAL);
 				blue3:showNPC(60);
+                blue3:setAnimation(0)
+                blue3:AnimationSub(4)
 		    elseif (blue4:getStatus() ~= dsp.status.NORMAL) then
 	            blue4:setPos(killx+1,killy,killz);
 	           -- blue4:setStatus(dsp.status.NORMAL);
 				blue4:showNPC(60);
+                blue4:setAnimation(0)
+                blue4:AnimationSub(4)
 		    elseif (blue5:getStatus() ~= dsp.status.NORMAL) then
 	            blue5:setPos(killx+1,killy,killz);
 	           -- blue5:setStatus(dsp.status.NORMAL);
 				blue5:showNPC(60);
+                blue5:setAnimation(0)
+                blue5:AnimationSub(4)
             end
 	    end
     end

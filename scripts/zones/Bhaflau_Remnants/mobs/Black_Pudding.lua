@@ -13,13 +13,13 @@ local ID = require("scripts/zones/Bhaflau_Remnants/IDs");
 -----------------------------------
 
 function onMobSpawn(mob)
-    
+
     salvageScaler(mob)
 
 end;
 
 function onMobFight(mob,target)
- 
+
 
 
 
@@ -31,8 +31,9 @@ end;
 
 function onMobDeath(mob, player, isKiller)
 
-   salvageAmbient(mob,player); 
-   
+	salvageAmbient(mob,player);
+	salvageChestB(mob,player);
+    --[[
     -- Porogo Gent Spawn Chance
     local killx = mob:getXPos();
     local killy = mob:getYPos();
@@ -45,13 +46,13 @@ function onMobDeath(mob, player, isKiller)
 	    local master = player:getMaster();
 		local level = master:getVar("Salvage_Level");
 		if (level >= 60 and level <= 65) then
-            if (chance < math.random(0,99)) then 
+            if (chance < math.random(0,99)) then
                 master:PrintToPlayer("You feel an unknown presense...",0x15);
 	            SpawnMob(nm):setPos(killx+1,killy,killz);
-                GetMobByID(nm):updateClaim(killer);
+                GetMobByID(nm):updateClaim(player);
             end
 		else
-            -- printf("Not of the correct level yet");		
+            -- printf("Not of the correct level yet");
     	end
     else
         local plvl = player:getVar("Salvage_Level");
@@ -61,10 +62,10 @@ function onMobDeath(mob, player, isKiller)
                     player:PrintToPlayer("You feel an unknown presense...",0x15);
 	            end
 	            SpawnMob(nm):setPos(killx+1,killy,killz);
-                GetMobByID(nm):updateClaim(killer);	
+                GetMobByID(nm):updateClaim(player);
 	        end
 		else
-		    -- printf("Not of the correct level yet");	
-        end	
-    end		
+		    -- printf("Not of the correct level yet");
+        end
+    end --]]
 end;

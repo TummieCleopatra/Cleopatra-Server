@@ -214,6 +214,8 @@ public:
     UnlockedAttachments_t	m_unlockedAttachments;			// Unlocked Automaton Attachments (1 bit per attachment)
     CAutomatonEntity*       PAutomaton;                     // Automaton statistics
 
+    CTrustEntity*           PTrust;
+
     std::vector<CTrustEntity*> PTrusts; // Active trusts
 
 
