@@ -4003,7 +4003,7 @@ void SmallPacket0x0B5(map_session_data_t* session, CCharEntity* PChar, CBasicPac
                         ShowError("packet_system::call: Failed to log inPrison MESSAGE_SAY.\n");
                     }
                 }
-                PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE, new CChatMessagePacket(PChar, MESSAGE_SAY, (const char*)data[6]));
+                PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE, new CChatMessagePacket(PChar, MESSAGE_UNITY, (const char*)data[6]));
             }
             else
             {
@@ -4030,13 +4030,18 @@ void SmallPacket0x0B5(map_session_data_t* session, CCharEntity* PChar, CBasicPac
                         ShowError("packet_system::call: Failed to log MESSAGE_SAY.\n");
                     }
                 }
+                /*
 				for (uint16 zone = 0; zone < 284; ++zone)
                 {
 				    if (zoneutils::GetZone(zone) != nullptr)
                     {
 			          zoneutils::GetZone(zone)->PushPacket(PChar,CHAR_INZONE, new CChatMessagePacket(PChar, MESSAGE_SAY, (const char*)data[6]));
 					}
-                }
+                }*/
+                int8 packetData[4] {};
+                ref<uint32>(packetData, 0) = PChar->id;
+
+                message::send(MSG_CHAT_UNITY, packetData, sizeof packetData, new CChatMessagePacket(PChar, MESSAGE_UNITY, (const char*)data[6]));
             }
             break;
             case MESSAGE_EMOTION:    PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE, new CChatMessagePacket(PChar, MESSAGE_EMOTION, (const char*)data[6])); break;

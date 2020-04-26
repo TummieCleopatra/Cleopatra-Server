@@ -153,6 +153,26 @@ namespace message
             }
             break;
         }
+		case MSG_CHAT_UNITY:
+        {
+            zoneutils::ForEachZone([&packet, &extra](CZone* PZone)
+            {
+                {
+                    PZone->ForEachChar([&packet, &extra](CCharEntity* PChar)
+                    {
+                        // don't push to sender
+                        if (PChar->id != ref<uint32>((uint8*)extra->data(), 0))
+                        {
+                            CBasicPacket* newPacket = new CBasicPacket();
+                            memcpy(*newPacket, packet->data(), std::min<size_t>(packet->size(), PACKET_SIZE));
+
+                            PChar->pushPacket(newPacket);
+                        }
+                    });
+                }
+            });
+            break;
+        }
         case MSG_CHAT_YELL:
         {
             zoneutils::ForEachZone([&packet, &extra](CZone* PZone)
