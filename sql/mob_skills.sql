@@ -1893,7 +1893,7 @@ INSERT INTO `mob_skills` VALUES (2028,1386,'fulmination',1,32.0,2000,1500,4,0,0,
 INSERT INTO `mob_skills` VALUES (2031,433,'reactive_shield',0,7.0,2000,0,16,4,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (2032,1776,'roller_chain',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (2033,1777,'choke_chain',0,7.0,2000,1500,4,0,0,0,0,0,0);
--- INSERT INTO `mob_skills` VALUES (2034,1778,'reinforcements',0,7.0,2000,1500,4,0,0,0,0,0,0);
+INSERT INTO `mob_skills` VALUES (2034,1778,'reinforcements',0,30.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (2035,1779,'biomagnet',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (2036,1780,'astral_gate',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (2037,1781,'warp',0,7.0,2000,1500,4,0,0,0,0,0,0);
@@ -2302,12 +2302,12 @@ INSERT INTO `mob_skills` VALUES (2438,1700,'frozen_mist',1,18.0,2000,1000,4,0,0,
 INSERT INTO `mob_skills` VALUES (2439,1701,'hydro_wave',1,18.0,2000,1000,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (2440,2184,'ice_guillotine',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (2441,2185,'aqua_cannon',0,7.0,2000,1500,4,0,0,0,0,0,0);
-INSERT INTO `mob_skills` VALUES (2442,1714,'thorned_dance',1,18.0,2000,1000,4,0,0,0,0,0,0);
+INSERT INTO `mob_skills` VALUES (2442,1714,'thorned_dance',0,18.0,2000,1000,1,0,0,0,0,0,0);
 INSERT INTO `mob_skills` VALUES (2443,1715,'sensual_dance',1,18.0,2000,1000,4,0,0,0,0,0,0);
-INSERT INTO `mob_skills` VALUES (2444,1712,'dancers_fury',1,18.0,2000,1000,4,0,0,0,0,0,0);
-INSERT INTO `mob_skills` VALUES (2445,1713,'whirling_edge',1,18.0,2000,1000,4,0,0,0,0,0,0);
-INSERT INTO `mob_skills` VALUES (2446,1716,'rousing_samba',1,18.0,2000,1000,4,0,0,0,0,0,0);
-INSERT INTO `mob_skills` VALUES (2447,1717,'vivifying_waltz',1,18.0,2000,1000,4,0,0,0,0,0,0);
+INSERT INTO `mob_skills` VALUES (2444,1712,'dancers_fury',0,18.0,2000,1000,4,0,0,0,0,0,0);
+INSERT INTO `mob_skills` VALUES (2445,1713,'whirling_edge',0,18.0,2000,1000,4,0,0,0,0,0,0);
+INSERT INTO `mob_skills` VALUES (2446,1716,'rousing_samba',1,18.0,2000,1000,1,0,0,0,0,0,0);
+INSERT INTO `mob_skills` VALUES (2447,1717,'vivifying_waltz',1,18.0,2000,1000,1,0,0,0,0,0,0);
 INSERT INTO `mob_skills` VALUES (2448,1686,'regal_scratch',1,18.0,2000,1000,4,4,0,0,4,0,0); -- Scission (4)
 INSERT INTO `mob_skills` VALUES (2449,1687,'mewing_lullaby',1,18.0,2000,1000,4,0,0,0,0,0,0);
 INSERT INTO `mob_skills` VALUES (2450,1688,'eerie_eye',1,18.0,2000,1000,4,0,0,0,0,0,0);

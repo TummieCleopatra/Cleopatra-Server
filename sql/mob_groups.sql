@@ -2791,41 +2791,41 @@ INSERT INTO `mob_groups` VALUES (14637,1015,74,'Deviate_Bhoot',0,128,4801,0,0,75
 
 -- --------------- Bhaflau Remnants  ----------
 -- Floor 1
-INSERT INTO `mob_groups` VALUES (1,642,75,'Carmine_Eruca',330,0,0,0,0,42,45,0);  
-INSERT INTO `mob_groups` VALUES (2,2471,75,'Bifrons',330,0,0,0,0,42,45,0);
-INSERT INTO `mob_groups` VALUES (3,4017,75,'Troll_Gemologist',330,0,0,0,0,42,45,0);
-INSERT INTO `mob_groups` VALUES (4,4281,75,'Wamouracampa',330,0,0,0,0,42,45,0);
-INSERT INTO `mob_groups` VALUES (5,4022,75,'Troll_Lepardist',330,0,0,0,0,42,45,0);
-INSERT INTO `mob_groups` VALUES (6,4021,75,'Troll_Ironworker',330,0,0,0,0,42,45,0);
+INSERT INTO `mob_groups` VALUES (1,642,75,'Carmine_Eruca',180,0,0,0,0,42,45,0);  
+INSERT INTO `mob_groups` VALUES (2,2471,75,'Bifrons',180,0,0,0,0,42,45,0);
+INSERT INTO `mob_groups` VALUES (3,4017,75,'Troll_Gemologist',180,0,0,0,0,42,45,0);
+INSERT INTO `mob_groups` VALUES (4,4281,75,'Wamouracampa',180,0,0,0,0,42,45,0);
+INSERT INTO `mob_groups` VALUES (5,4022,75,'Troll_Lepardist',180,0,0,0,0,42,45,0);
+INSERT INTO `mob_groups` VALUES (6,4021,75,'Troll_Ironworker',180,0,0,0,0,42,45,0);
 INSERT INTO `mob_groups` VALUES (7,4286,75,'Wandering_Wamouracampa',330,0,0,0,0,42,45,0);
-INSERT INTO `mob_groups` VALUES (8,3808,75,'Sulfer_Scorpion',330,0,0,0,0,42,45,0);
+INSERT INTO `mob_groups` VALUES (8,3808,75,'Sulfer_Scorpion',180,0,0,0,0,42,45,0);
 INSERT INTO `mob_groups` VALUES (9,2471,75,'Mad_Bomber',0,128,0,0,0,52,52,0);
 -- Floor 2 45-55
-INSERT INTO `mob_groups` VALUES (10,1209,75,'Emphatic_Flan',330,0,0,0,0,53,55,0);
-INSERT INTO `mob_groups` VALUES (11,3808,75,'Sulfer_Scorpion',330,0,0,0,0,53,55,0);
-INSERT INTO `mob_groups` VALUES (12,4030,75,'Troll_Smelter',330,0,0,0,0,53,55,0); 
-INSERT INTO `mob_groups` VALUES (13,4021,75,'Troll_Ironworker',330,0,0,0,0,53,55,0);
-INSERT INTO `mob_groups` VALUES (14,4010,75,'Troll_Cameist',330,0,0,0,0,53,55,0); 
-INSERT INTO `mob_groups` VALUES (15,4032,75,'Troll_Stoneworker',330,0,0,0,0,53,55,0);
+INSERT INTO `mob_groups` VALUES (10,1209,75,'Emphatic_Flan',180,0,0,0,0,53,55,0);
+INSERT INTO `mob_groups` VALUES (11,3808,75,'Sulfer_Scorpion',180,0,0,0,0,53,55,0);
+INSERT INTO `mob_groups` VALUES (12,4030,75,'Troll_Smelter',180,0,0,0,0,53,55,0); 
+INSERT INTO `mob_groups` VALUES (13,4021,75,'Troll_Ironworker',180,0,0,0,0,53,55,0);
+INSERT INTO `mob_groups` VALUES (14,4010,75,'Troll_Cameist',180,0,0,0,0,53,55,0); 
+INSERT INTO `mob_groups` VALUES (15,4032,75,'Troll_Stoneworker',180,0,0,0,0,53,55,0);
 INSERT INTO `mob_groups` VALUES (16,4286,75,'Wandering_Wamoura',300,0,0,0,0,53,55,0);
 INSERT INTO `mob_groups` VALUES (17,4015,75,'Troll_Engraver',300,0,0,0,0,53,55,0);
 INSERT INTO `mob_groups` VALUES (18,4035,75,'Troll_Automaton',300,0,0,0,0,53,55,0);
 -- Floor 3 55-65
-INSERT INTO `mob_groups` VALUES (19,4010,75,'Troll_Cameist',300,0,0,0,0,63,65,0);  -- Troll Cameist  2473
-INSERT INTO `mob_groups` VALUES (20,4017,75,'Troll_Gemolist',300,0,0,0,0,63,65,0);  -- Troll Gemologist  2475
-INSERT INTO `mob_groups` VALUES (21,4030,75,'Troll_Smelter',300,0,0,0,0,63,65,0);  -- Troll Smelter  2478
-INSERT INTO `mob_groups` VALUES (22,4022,75,'Troll_Lapidarist',300,0,0,0,0,63,65,0);  -- Troll Lapidarist 2477
-INSERT INTO `mob_groups` VALUES (23,4032,75,'Troll_Stoneworker',300,0,0,0,0,63,65,0);  -- Troll Stoneworker  2479
-INSERT INTO `mob_groups` VALUES (24,4021,75,'Troll_Ironworker',300,0,0,0,0,63,65,0);  -- Troll Ironworker  2476
-INSERT INTO `mob_groups` VALUES (25,4015,75,'Troll_Engraver',300,0,0,0,0,63,65,0);  -- Troll Engraver   2474
-INSERT INTO `mob_groups` VALUES (26,4035,75,'Troll_Automaton',300,0,0,0,0,63,65,0);  -- Troll Automaton  2480
-INSERT INTO `mob_groups` VALUES (27,437,75,'Black_Pudding',300,0,0,0,0,63,65,0);  -- Black Pudding  2456
+INSERT INTO `mob_groups` VALUES (19,4010,75,'Troll_Cameist',180,0,0,0,0,63,65,0);  -- Troll Cameist  2473
+INSERT INTO `mob_groups` VALUES (20,4017,75,'Troll_Gemolist',180,0,0,0,0,63,65,0);  -- Troll Gemologist  2475
+INSERT INTO `mob_groups` VALUES (21,4030,75,'Troll_Smelter',180,0,0,0,0,63,65,0);  -- Troll Smelter  2478
+INSERT INTO `mob_groups` VALUES (22,4022,75,'Troll_Lapidarist',180,0,0,0,0,63,65,0);  -- Troll Lapidarist 2477
+INSERT INTO `mob_groups` VALUES (23,4032,75,'Troll_Stoneworker',180,0,0,0,0,63,65,0);  -- Troll Stoneworker  2479
+INSERT INTO `mob_groups` VALUES (24,4021,75,'Troll_Ironworker',180,0,0,0,0,63,65,0);  -- Troll Ironworker  2476
+INSERT INTO `mob_groups` VALUES (25,4015,75,'Troll_Engraver',180,0,0,0,0,63,65,0);  -- Troll Engraver   2474
+INSERT INTO `mob_groups` VALUES (26,4035,75,'Troll_Automaton',180,0,0,0,0,63,65,0);  -- Troll Automaton  2480
+INSERT INTO `mob_groups` VALUES (27,437,75,'Black_Pudding',180,0,0,0,0,63,65,0);  -- Black Pudding  2456
 -- Floor 4 65-75
-INSERT INTO `mob_groups` VALUES (28,218,75,'Archaic_Gear',300,0,161,0,0,73,75,0); -- Level 4 Archaic Gear
-INSERT INTO `mob_groups` VALUES (29,219,75,'Archaic_Gears',300,0,164,0,0,73,75,0);  -- Level 4 Archaic GearS
-INSERT INTO `mob_groups` VALUES (30,216,75,'Chariot',300,0,0,0,0,82,82,0);  -- Chariot 4th floor
+INSERT INTO `mob_groups` VALUES (28,218,75,'Archaic_Gear',180,0,161,0,0,73,75,0); -- Level 4 Archaic Gear
+INSERT INTO `mob_groups` VALUES (29,219,75,'Archaic_Gears',180,0,164,0,0,73,75,0);  -- Level 4 Archaic GearS
+INSERT INTO `mob_groups` VALUES (30,216,75,'Chariot',180,0,0,0,0,82,82,0);  -- Chariot 4th floor
 -- Various Mob
-INSERT INTO `mob_groups` VALUES (31,221,75,'Archaic_Rampart',0,128,0,10000,0,35,35,0); -- Level 1 Archaic Rampart
+INSERT INTO `mob_groups` VALUES (31,3338,75,'Archaic_Rampart',0,128,0,10000,0,35,35,0); -- Level 1 Archaic Rampart
 -- INSERT INTO `mob_groups` VALUES (32,714,75,'Chigoe',0,128,5200,0,0,20,20,0); -- Chigoe
 -- INSERT INTO `mob_groups` VALUES (33,3732,75,'Gate_Widow',0,128,5201,0,0,50,50,0); -- Gate Widow
 INSERT INTO `mob_groups` VALUES (32,714,75,'Chigoe',0,128,0,0,0,20,20,0); -- Chigoe
@@ -2843,8 +2843,8 @@ INSERT INTO `mob_groups` VALUES (40,221,75,'Arhcaic_Rampart',0,128,0,10000,0,65,
 -- INSERT INTO `mob_groups` VALUES (42,3120,75,'Peryton',0,128,5207,0,0,80,80,0); -- Peryton
 INSERT INTO `mob_groups` VALUES (41,3984,75,'Tragopan',0,128,0,0,0,50,50,0); -- Tragopan
 INSERT INTO `mob_groups` VALUES (42,3120,75,'Peryton',0,128,0,0,0,80,80,0); -- Peryton
-INSERT INTO `mob_groups` VALUES (43,218,75,'Archaic_Gear',300,0,161,0,0,73,75,0); -- Level 4 Archaic Gear
-INSERT INTO `mob_groups` VALUES (44,219,75,'Archaic_Gears',300,0,164,0,0,73,75,0);  -- Level 4 Archaic GearS
+INSERT INTO `mob_groups` VALUES (43,218,75,'Archaic_Gear',180,0,161,0,0,73,75,0); -- Level 4 Archaic Gear
+INSERT INTO `mob_groups` VALUES (44,219,75,'Archaic_Gears',180,0,164,0,0,73,75,0);  -- Level 4 Archaic GearS
 -- Unlock NM's
 INSERT INTO `mob_groups` VALUES (45,967,75,'Demeted_Jagil',60,0,0,10000,10000,51,51,0);  -- Demented 
 INSERT INTO `mob_groups` VALUES (46,1372,75,'Flux_Flan',0,0,0,10000,10000,61,61,0); -- Flux Flan
@@ -12649,7 +12649,8 @@ INSERT INTO `mob_groups` VALUES (78,5614,291,'Quetzalcoatls_Sibilus',0,128,0,0,0
 INSERT INTO `mob_groups` VALUES (1,4819,293,'Cloud_Of_Darkness',0,128,0,0,20000,130,130,0);
 INSERT INTO `mob_groups` VALUES (2,4821,293,'Darkness',0,128,0,0,0,130,130,0);
 
-INSERT INTO `mob_groups` VALUES (1,6999,210,'Test1',300,0,0,90000,90000,65,65,0);
+INSERT INTO `mob_groups` VALUES (1,6999,210,'Test1',100,0,0,90000,90000,65,65,0);
+INSERT INTO `mob_groups` VALUES (2,8750,210,'Test1',300,0,0,90000,90000,65,65,0);
 
 /*!40000 ALTER TABLE `mob_groups` ENABLE KEYS */;
 UNLOCK TABLES;

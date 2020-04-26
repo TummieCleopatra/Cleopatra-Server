@@ -1,11 +1,11 @@
 -----------------------------------------
 -- Spell: Shantotto
 -----------------------------------------
--- require("scripts/globals/trust");
+require("scripts/globals/trust_utils");
 -----------------------------------------
-
 function onMagicCastingCheck(caster,target,spell)
-    return 0
+    local check = trustSpawnCheck(caster, target, spell)
+    return check
 end
 
 function onSpellCast(caster,target,spell)

@@ -654,6 +654,9 @@ function salvageAmbient(mob,player)
 	local ambpts = player:getVar("Ambience_Points");
 
 	additive = math.random(95,110);
+    if (mob:getPool() == 218 or mob:getPool() == 219) then  -- bonus to gears
+        additive = math.random(115,125);
+    end
 
 
     local ambience = math.floor(((((lvldif * 2) + additive) * multiplier)) * (factor ^ (10 - lvldif)));

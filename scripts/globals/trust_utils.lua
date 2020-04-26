@@ -1,7 +1,54 @@
 -----------------------------------
 require("scripts/globals/keyitems")
 require("scripts/globals/status")
+require("scripts/globals/msg")
 -----------------------------------
+
+
+function trustSpawnCheck(caster, target, spell)
+    -- Dynamis Check
+    local zone = caster:getZoneID();
+    local dynamis = caster:getVar("TrustDynamis");
+    local bf = caster:getBattlefield()
+    local bc = caster:getBattlefieldID()
+    local trust = spell:getID()
+    local name = ""
+    print(bc)
+    if ((zone >= 185 and zone <= 188) or (zone >= 134 and zone <= 135) and dynamis ~= 1) then
+        -- caster:PrintToPlayer("You cannot summon a trust in this area.  Please speak to Maccus in Feretory",0xD);
+        return dsp.msg.basic.CANT_BE_USED_IN_AREA
+    elseif ((bc == 1377 and trust ~= 902) or (bc == 1378 and trust ~= 899) or (bc == 1379 and trust ~= 900) or
+    (bc == 1380 and trust ~= 897) or (bc == 1381 and trust ~= 898) or (bc == 1382 and trust ~= 901) or (bc == 1383 and trust ~= 991) or
+    (bc == 1384 and trust ~= 968) or (bc == 1385 and trust ~= 907) or (bc == 1386 and trust ~= 906)) then
+        if (bc == 1377) then
+            name = "Curilla"
+        elseif (bc == 1378) then
+            name = "Exenmille"
+        elseif (bc == 1379) then
+            name = "Ayame"
+        elseif (bc == 1380) then
+            name = "Naji"
+        elseif (bc == 1381) then
+            name = "Kupipi"
+        elseif (bc == 1382) then
+            name = "Nanaa"
+        elseif (bc == 1383) then
+            name = "Darcuillin"
+        elseif (bc == 1384) then
+            name = "Adelheid"
+        elseif (bc == 1385) then
+            name = "Lion"
+        elseif (bc == 1386) then
+            name = "Zeid"
+        end
+        caster:PrintToPlayer("You can only summon "..name.." for this fight.",0xD);
+        return dsp.msg.basic.CANT_BE_USED_IN_AREA
+    else
+        return 0
+    end
+end
+
+
 
 
 

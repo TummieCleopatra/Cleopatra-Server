@@ -84,7 +84,7 @@ function onCriticalHit(mob)
         if (wsweakness < 5) and (isweak ~= 1) then
             mob:setUnkillable(false);
             mob:weaknessTrigger(2);
-            mob:addStatusEffect(EFFECT_TERROR,1,0,3);
+            mob:addStatusEffect(dsp.effect.TERROR,1,0,3);
             mob:setLocalVar("WeakenedTrigger",1);
             -- mob:injectActionPacket(5, 350);
             mob:setHP(0);
@@ -105,5 +105,5 @@ function onMobDeath(mob,player,isKiller)
 
 
     SpawnMob(mammett):setPos(killx,killy,killz);
-    GetMobByID(mammett):updateClaim(killer);
+    GetMobByID(mammett):updateClaim(player);
 end;

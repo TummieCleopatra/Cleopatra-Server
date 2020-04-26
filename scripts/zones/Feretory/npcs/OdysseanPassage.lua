@@ -25,9 +25,9 @@ function onTrigger(player,npc)
 	if (warp == 1) then -- Windurst Warp
 	    player:setPos(218,-12,223,123,240);
 	elseif (warp == 2) then -- Bastok Warp
-	    player:setPos(81,8,-231,236);
+	    player:setPos(81,8,-231,100,236);
 	elseif (warp == 3) then -- San d'Oria
-	    player:setPos(83,0,41,231);
+	    player:setPos(83,0,41,100,231);
 	end
 
 end;

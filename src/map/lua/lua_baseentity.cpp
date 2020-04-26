@@ -9464,21 +9464,12 @@ inline int32 CLuaBaseEntity::getBattlefield(lua_State* L)
 inline int32 CLuaBaseEntity::getBattlefieldID(lua_State *L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
-    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+    CBattlefield* PBattlefield = m_PBaseEntity->PBCNM;
 
-    CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
-    DSP_DEBUG_BREAK_IF(PChar->loc.zone->m_BattlefieldHandler == nullptr);
-
-    uint8 inst = 255;
-
-    if (PChar->loc.zone != nullptr && PChar->loc.zone->m_BattlefieldHandler != nullptr)
-    {
-        inst = PChar->loc.zone->m_BattlefieldHandler->findBattlefieldIDFor(PChar);
-    }
-
-    lua_pushinteger(L, inst);
+    lua_pushinteger(L, PBattlefield ? PBattlefield->getID() : -1);
     return 1;
 }
+
 
 /************************************************************************
 *  Function: isInBattlefieldList()

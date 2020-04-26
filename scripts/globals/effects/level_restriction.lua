@@ -39,7 +39,7 @@ end
 
 
 
-print(duration)
+-- print(duration)
 
 	local seconds = math.floor(duration / 1000);
 if ((target:getObjType() == dsp.objType.PC) and (zone == 185) or (zone == 186) or (zone == 187) or (zone == 188) or (zone == 134) or (zone == 135)) then

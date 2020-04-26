@@ -111,5 +111,5 @@ local mammett = 17367331;
 
 
 	SpawnMob(mammett):setPos(killx,killy,killz);
-    GetMobByID(mammett):updateClaim(new_target);
+    GetMobByID(mammett):updateClaim(player);
 end;

@@ -87,11 +87,13 @@ function onMobSpawn(mob)
                             mob:castSpell(canCast, member)
                             mob:setLocalVar("cureTime",battletime)
                             mob:setLocalVar("magicTime",battletime)
+                            break
                         end
                     end
+                else
+                    mob:setLocalVar("cureTime",battletime - 12)
                 end
             end
-            mob:setLocalVar("cureTime",battletime - 12)
         end
     end)
 

@@ -39,7 +39,7 @@ end;
 -----------------------------------
 -- onMobDeath
 -----------------------------------
-function onMobDeath(mob,player,killer)
+function onMobDeath(mob,player,isKiller)
 
     -- Set Despot ToD
     SetServerVariable("[POP]Despot", os.time(t) + 3600); -- 1 hour

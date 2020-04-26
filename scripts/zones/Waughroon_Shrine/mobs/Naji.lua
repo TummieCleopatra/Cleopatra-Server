@@ -57,13 +57,12 @@ function onMobFight(mob,target)
     end
 
 
-
     if (isweak ~= 1) and (trusttalk ~= 1) and (hp < 60) then
         if (target:getObjType() == dsp.objType.PET or target:getObjType() == dsp.objType.TRUST) then
 		    local master = target:getMaster();
 			master:PrintToPlayer(string.format("(Naji) %s, we must strike this imposter down to reveal its true self!", target:getName()),0xF);
 			mob:setLocalVar("TrustTalk",1);
-	    elseif (target:getObjType() == dps.objType.PC) then
+	    elseif (target:getObjType() == dsp.objType.PC) then
 	        target:PrintToPlayer(string.format("(Naji) %s, we must strike this imposter down to reveal its true self!", target:getName()),0xF);
 		    mob:setLocalVar("TrustTalk",1);
 		end
@@ -116,5 +115,5 @@ local mammett = 17367333;
 
 
 	SpawnMob(mammett):setPos(killx,killy,killz);
-    GetMobByID(mammett):updateClaim(new_target);
+    GetMobByID(mammett):updateClaim(player);
 end;

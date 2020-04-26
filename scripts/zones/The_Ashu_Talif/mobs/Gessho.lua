@@ -13,6 +13,12 @@ require("scripts/globals/magic");
 -----------------------------------
 
 function onMobSpawn(mob)
+    mob:addStatusEffect(dsp.effect.MAX_HP_BOOST,500,0,1800)
+	mob:addHP(120000)
+	mob:addMod(dsp.mod.STR, 40)
+	mob:addMod(dsp.mod.DEF, 220)
+	mob:addMod(dsp.mod.DMGPHYS, -20)
+
     -- Gessho will engage by himself ~1min in if you stall too long.
     -- Give a little buffer for while the instance loads
     mob:timer(80000, function(mob)
