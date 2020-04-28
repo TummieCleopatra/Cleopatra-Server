@@ -19,6 +19,7 @@ function onTrade(player,npc,trade)
     local wsQuestEvent = dsp.wsquest.getTradeEvent(wsQuest,player,trade)
 
     local currentTokens = player:getVar("CurrentTokens_Curilla");
+    local tribfight = player:getVar("CURILLA_TRIB_FIGHT");
 
     if wsQuestEvent ~= nil then
         player:startEvent(wsQuestEvent)

@@ -11,6 +11,7 @@ require("scripts/globals/npc_util")
 
 function onTrade(player,npc,trade)
      local currentTokens = player:getVar("CurrentTokens_Zeid");
+     local tribfight = player:getVar("ZEID_TRIB_FIGHT");
 
 	if ((player:getVar("ZEID_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Zeid") == 0) and (trade:hasItemQty(65535, 1000)) and (currentTokens >= 1)) then
       player:PrintToPlayer("??? : Thank you for your Tribute.",0x0D);

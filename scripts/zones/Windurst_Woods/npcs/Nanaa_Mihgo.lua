@@ -25,6 +25,7 @@ function onTrade(player,npc,trade)
             player:startEvent(494, GIL_RATE*200)
         end
     end
+    local tribfight = player:getVar("NANAA_TRIB_FIGHT");
 
     local currentTokens = player:getVar("CurrentTokens_Nanaa");
 

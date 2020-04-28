@@ -37,7 +37,7 @@ function onMobFight(mob,target)
     local change = mob:getLocalVar("Changed");
     local special = mob:getLocalVar("Special");
     local hp = mob:getHPP();
-    local twohr = math.random(75,50);
+    local twohr = math.random(50,70);
     local tpmove = math.random(1,30);
     local taunt = mob:getLocalVar("Taunt");
     local isweak = mob:getLocalVar("WeakenedTrigger");
@@ -47,7 +47,7 @@ function onMobFight(mob,target)
 
 
     if (hp < twohr) and (special ~= 1) then
-        mob:useMobAbility(437);
+        mob:useMobAbility(693);
         mob:setLocalVar("Special",1);
     end
 
@@ -105,5 +105,10 @@ function onMobDeath(mob,player,isKiller)
 
 
     SpawnMob(mammett):setPos(killx,killy,killz);
-    GetMobByID(mammett):updateClaim(player);
+	if (player:getObjType() == dsp.objType.TRUST) then
+	    local master = player:getMaster()
+		GetMobByID(mammett):updateClaim(master);
+	else
+        GetMobByID(mammett):updateClaim(player);
+	end
 end;

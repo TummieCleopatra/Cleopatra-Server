@@ -102,12 +102,6 @@ end;
 -----------------------------------
 
 function onMobDeath(mob,player,isKiller)
-local targetid = 0;
-local target = mob:getTarget();
-if target then
-    targetid = target:getShortID();
-end;
-local new_target = mob:getEntity(targetid)
 local killx = mob:getXPos();
 local killy = mob:getYPos();
 local killz = mob:getZPos();
@@ -115,5 +109,10 @@ local mammett = 17367333;
 
 
 	SpawnMob(mammett):setPos(killx,killy,killz);
-    GetMobByID(mammett):updateClaim(player);
+	if (player:getObjType() == dsp.objType.TRUST) then
+	    local master = player:getMaster()
+		GetMobByID(mammett):updateClaim(master);
+	else
+        GetMobByID(mammett):updateClaim(player);
+	end
 end;

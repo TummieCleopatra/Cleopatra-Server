@@ -2843,8 +2843,8 @@ INSERT INTO `mob_groups` VALUES (40,221,75,'Arhcaic_Rampart',0,128,0,10000,0,65,
 -- INSERT INTO `mob_groups` VALUES (42,3120,75,'Peryton',0,128,5207,0,0,80,80,0); -- Peryton
 INSERT INTO `mob_groups` VALUES (41,3984,75,'Tragopan',0,128,0,0,0,50,50,0); -- Tragopan
 INSERT INTO `mob_groups` VALUES (42,3120,75,'Peryton',0,128,0,0,0,80,80,0); -- Peryton
-INSERT INTO `mob_groups` VALUES (43,218,75,'Archaic_Gear',180,0,161,0,0,73,75,0); -- Level 4 Archaic Gear
-INSERT INTO `mob_groups` VALUES (44,219,75,'Archaic_Gears',180,0,164,0,0,73,75,0);  -- Level 4 Archaic GearS
+INSERT INTO `mob_groups` VALUES (43,218,75,'Archaic_Gear',180,0,161,0,0,63,65,0); -- Level 3 Archaic Gear
+INSERT INTO `mob_groups` VALUES (44,219,75,'Archaic_Gears',180,0,164,0,0,63,65,0);  -- Level 3 Archaic GearS
 -- Unlock NM's
 INSERT INTO `mob_groups` VALUES (45,967,75,'Demeted_Jagil',60,0,0,10000,10000,51,51,0);  -- Demented 
 INSERT INTO `mob_groups` VALUES (46,1372,75,'Flux_Flan',0,0,0,10000,10000,61,61,0); -- Flux Flan

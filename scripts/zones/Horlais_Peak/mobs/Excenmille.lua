@@ -114,5 +114,10 @@ local mammett = 17347106;
 
 
 	SpawnMob(mammett):setPos(killx,killy,killz);
-    GetMobByID(17347106):updateClaim(player);
+	if (player:getObjType() == dsp.objType.TRUST) then
+	    local master = player:getMaster()
+		GetMobByID(mammett):updateClaim(master);
+	else
+        GetMobByID(mammett):updateClaim(player);
+	end
 end;

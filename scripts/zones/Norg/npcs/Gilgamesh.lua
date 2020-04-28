@@ -15,6 +15,7 @@ function onTrade(player,npc,trade)
             player:startEvent(99); -- Bastok Mission 6-2
         end
     end
+    local tribfight = player:getVar("LION_TRIB_FIGHT");
 
 	if ((player:getVar("LION_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Lion") == 0) and (trade:hasItemQty(65535, 1000)) and (currentTokens >= 1)) then
       player:PrintToPlayer("Gilgamesh : Thank you for your Tribute.",0x0D);

@@ -14,6 +14,7 @@ local ID = require("scripts/zones/Caedarva_Mire/IDs");
 
 function onTrade(player,npc,trade)
     local currentTokens = player:getVar("CurrentTokens_Darc");
+    local tribfight = player:getVar("DARC_TRIB_FIGHT");
 
 	if ((player:getVar("DARC_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Darc") == 0) and (trade:hasItemQty(65535, 1000)) and (currentTokens >= 1)) then
         player:PrintToPlayer("Nareema : Thank you for your Tribute.",0x0D);

@@ -47,7 +47,7 @@ function onMobFight(mob,target)
 
 
     if (hp < twohr) and (special ~= 1) then
-      mob:useMobAbility(433);
+      mob:useMobAbility(689);
 	  mob:setLocalVar("Special",1);
     end
 
@@ -105,5 +105,10 @@ local mammett = 17375771;
 
 
 	SpawnMob(mammett):setPos(killx,killy,killz);
-    GetMobByID(mammett):updateClaim(player);
+	if (player:getObjType() == dsp.objType.TRUST) then
+	    local master = player:getMaster()
+		GetMobByID(mammett):updateClaim(master);
+	else
+        GetMobByID(mammett):updateClaim(player);
+	end
 end;

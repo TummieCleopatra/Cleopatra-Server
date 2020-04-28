@@ -29,7 +29,7 @@ function mobScaler(mob,target)
 
 
 
-    currentsize = target:getPartySize(0)
+    local currentsize = target:getPartySize(0)
     -- printf("Current Size mobscaler is %u",currentsize)
 
     partycalc = math.ceil(target:getPartySize(0)/3);
@@ -108,10 +108,7 @@ function znmScalerT1(mob,target)
 	local storedsize = mob:getLocalVar("PartySize");
 
 
-	local currentsize = 1
-    if (target:getParty() ~= nil) then
-       currentsize = target:getPartySize(0);
-    end
+	local currentsize = target:getPartySize(0)
 	local partycalc = math.ceil(target:getPartySize(0)/3);
 	local sizecalc = math.ceil(currentsize/3);
 	local sizediff = 0;
@@ -170,13 +167,13 @@ function znmScalerT2(mob,target)
 
 	local storedsize = mob:getLocalVar("PartySize");
 	local currentsize = 1
-    if (target:getParty() ~= nil) then
-       currentsize = target:getPartySize(0);
-    end
+    local currentsize = target:getPartySize(0)
 	local partycalc = math.ceil(target:getPartySize(0)/3);
 	local sizecalc = math.ceil(currentsize/3);
 	local sizediff = 0;
 	local newsize = 0;
+
+    printf("Current Size is %u",currentsize)
 
 	if (partycalc ~= storedsize) then -- the two party sizes don't match; adjust
 	    sizediff = partycalc - storedsize; -- Find differences between stored and partycalc size
@@ -226,10 +223,7 @@ end
 function znmScalerT3(mob,target)
 
 	local storedsize = mob:getLocalVar("PartySize");
-	local currentsize = 1
-    if (target:getParty() ~= nil) then
-       currentsize = target:getPartySize(0);
-    end
+	local currentsize = target:getPartySize(0)
 	local partycalc = math.ceil(target:getPartySize(0)/3);
 	local sizecalc = math.ceil(currentsize/3);
 	local sizediff = 0;
@@ -284,10 +278,7 @@ end
 function znmScalerT4(mob,target)
 
 	local storedsize = mob:getLocalVar("PartySize");
-	local currentsize = 1
-    if (target:getParty() ~= nil) then
-       currentsize = target:getPartySize(0);
-    end
+	local currentsize = target:getPartySize(0)
 	local partycalc = math.ceil(target:getPartySize(0)/3);
 	local sizecalc = math.ceil(currentsize/3);
 	local sizediff = 0;

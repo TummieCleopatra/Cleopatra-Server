@@ -3441,7 +3441,7 @@ namespace charutils
                         {
                             case 0: PMember->expChain.chainTime = gettick() + 360000; break;
                             case 1: PMember->expChain.chainTime = gettick() + 310000; break;
-                            case 2: PMember->expChain.chainTime = gettick() + 23000; break;
+                            case 2: PMember->expChain.chainTime = gettick() + 230000; break;
                             case 3: PMember->expChain.chainTime = gettick() + 190000; break;
                             case 4: PMember->expChain.chainTime = gettick() + 140000; break;
                             case 5: PMember->expChain.chainTime = gettick() + 110000; break;

@@ -17,6 +17,7 @@ function onTrade(player,npc,trade)
     local war = 11988;
     local rdm = 11992;
     local kupipiSJ = player:getVar("TRUST_SJ_QUEST")
+    local tribfight = player:getVar("KUPIPI_TRIB_FIGHT");
 
     if (trade:hasItemQty(war,1) and kupipiSJ >= 1) then
         player:setVar("KUPIPI_TYPE",1)

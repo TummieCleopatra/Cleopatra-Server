@@ -52,7 +52,7 @@ function onMobFight(mob,target)
 
 
     if (hp < twohr) and (special ~= 1) then
-      mob:useMobAbility(474);
+      mob:useMobAbility(730);
 	  mob:setLocalVar("Special",1);
     end
 
@@ -103,7 +103,6 @@ end;
 -----------------------------------
 
 function onMobDeath(mob,player,isKiller)
-local new_target = mob:getEntity(targetid)
 local killx = mob:getXPos();
 local killy = mob:getYPos();
 local killz = mob:getZPos();
@@ -111,5 +110,10 @@ local mammett = 17367331;
 
 
 	SpawnMob(mammett):setPos(killx,killy,killz);
-    GetMobByID(mammett):updateClaim(player);
+	if (player:getObjType() == dsp.objType.TRUST) then
+	    local master = player:getMaster()
+		GetMobByID(mammett):updateClaim(master);
+	else
+        GetMobByID(mammett):updateClaim(player);
+	end
 end;
