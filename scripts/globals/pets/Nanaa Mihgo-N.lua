@@ -20,16 +20,38 @@ function onMobSpawn(mob)
     local utsuNiCooldown = 45
     nanaaTrustPoints(mob)
     mob:setLocalVar("sneakAttackCooldown",60)
+    mob:setLocalVar("trickAttackCooldown",60)
 
     mob:setLocalVar("distanceTime",0)
-    mob:setLocalVar("saTime",0)
+    mob:setLocalVar("saTime",15)
+    mob:setLocalVar("taTime",0)
     mob:setLocalVar("wsTime",0)
     mob:setLocalVar("utsuIchiTime",0)
     mob:setLocalVar("utsuNiTime",0)
+    mob:setLocalVar("TrickAttack",1)  -- Do TA First
 
     set1HStats(mob)
     mob:addListener("COMBAT_TICK", "NANAA_DISTANCE_TICK", function(mob, player, target)
-        trustSneakAttackMove(mob, player, target)
+        local trickAttackCooldown = mob:getLocalVar("trickAttackCooldown")
+        local taTime = mob:getLocalVar("taTime")
+        local curilla, id = isCurillaInParty(mob, player, target)
+        local battletime = os.time()
+        if (battletime > taTime + trickAttackCooldown) then
+            mob:setLocalVar("TrickAttack",1)
+        end
+
+        local test = mob:getLocalVar("TrickAttack")
+
+
+        if (mob:getLocalVar("TrickAttack") == 0) then
+            -- printf("SNEAK ATTACK POS")
+            trustSneakAttackMove(mob, player, target)
+        elseif (curilla == 1 and mob:getLocalVar("TrickAttack") == 1) then
+            -- printf("MOVE TO DO TRICK ATTACK")
+            trustTrickAttackMove(mob,player,target,id)
+        else
+            trustSneakAttackMove(mob, player, target)
+        end
     end)
 
     mob:addListener("COMBAT_TICK", "NANAA_UTSU_TICK", function(mob, player, target)
@@ -53,8 +75,18 @@ function onMobSpawn(mob)
         end
     end)
 
+    mob:addListener("COMBAT_TICK", "NANAA_TA_TICK", function(mob, player, target)
+        local ta = mob:getLocalVar("TrickAttack")
+        if (ta == 1) then
+            doNanaaTa(mob, player, target)
+        end
+    end)
+
     mob:addListener("COMBAT_TICK", "NANAA_SA_TICK", function(mob, player, target)
-        doNanaaSa(mob, player, target)
+        local ta = mob:getLocalVar("TrickAttack")
+        if (ta == 0) then
+            doNanaaSa(mob, player, target)
+        end
     end)
 
     mob:addListener("COMBAT_TICK", "NANAA_COMBAT_TICK", function(mob, player, target)
@@ -92,17 +124,41 @@ function doNanaaSa(mob, player, target)
     local sneakAttackCooldown = 60
     local battletime = os.time()
 
+
     local trot = target:getRotPos()
     local mrot = mob:getRotPos()
     local drot = trot - mrot
     local tp = mob:getTP()
     local enmity = enmityCalc(mob, player, target)
     if ((drot > -5 and drot < 5) and enmity ~= 0) then
-        if (tp < 400) then
+        if (tp < 700) then
             if (battletime > saTime + sneakAttackCooldown) then
                 mob:useJobAbility(28, mob)
-                printf("Sneak Attack")
                 mob:setLocalVar("saTime",os.time())
+            end
+        end
+    end
+end
+
+
+function doNanaaTa(mob, player, target)
+    local taTime = mob:getLocalVar("taTime")
+    local trickAttackCooldown = 60
+    local battletime = os.time()
+
+    local trot = target:getRotPos()
+    local mrot = mob:getRotPos()
+    local drot = mrot - trot
+    local nrot = trot - mrot
+    local tp = mob:getTP()
+
+    -- printf("Trick Attack Rot is %u",drot)
+
+    if ((drot < 131 and drot > 125) or (nrot < 131 and nrot > 125)) then
+        if (tp < 800) then
+            if (battletime > taTime + trickAttackCooldown) then
+                mob:useJobAbility(60, mob)
+                mob:setLocalVar("taTime",os.time())
             end
         end
     end
@@ -110,15 +166,20 @@ end
 
 function doNanaaWeaponskill(mob)
     local lvl = mob:getMainLvl()
-    local wsList = {}
+    local wsList = {{75,3189},{65,24},{60,23},{33,17},{20,18},{1,16}}
     local newWsList = {}
-    if (lvl > 32) then
-        wsList = {{65,24},{60,23},{33,17}}
+
+    local maxws = 0 -- Maximum number of weaponskills to choose from randomly
+    if (lvl >= 65) then
+        maxws = 2
+    elseif (lvl >= 60) then
+        maxws = 2
+    elseif (lvl >= 33) then
+        maxws = 1
     else
-        wsList = {{23,18},{1,16}}
+        maxws = 2
     end
 
-    local maxws = 3 -- Maximum number of weaponskills to choose from randomly
     local wscount = 0
 
     local finalWS = 0

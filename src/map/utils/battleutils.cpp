@@ -2302,6 +2302,16 @@ namespace battleutils
         {
             hitrate = 100; //attack with SA active or TA/Assassin cannot miss
         }
+		else if (PAttacker->objtype == TYPE_TRUST && ((PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_SNEAK_ATTACK) && (abs(PDefender->loc.p.rotation - PAttacker->loc.p.rotation) < 23))))
+		{
+			hitrate = 100; //attack with SA active or TA/Assassin cannot miss
+            ShowWarning(CL_GREEN"SA is GOOOD! \n" CL_RESET);
+		}
+        else if (PAttacker->objtype == TYPE_TRUST && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_TRICK_ATTACK) && battleutils::getAvailableTrickAttackChar(PAttacker, PDefender))
+		{
+			hitrate = 100; //attack with SA active or TA/Assassin cannot miss
+            ShowWarning(CL_GREEN"TA is GOOOD! \n" CL_RESET);
+		}
         else
         {
             //ShowDebug("Accuracy mod before direction checks: %d\n", offsetAccuracy);
@@ -2377,8 +2387,14 @@ namespace battleutils
         }
         else if (PAttacker->objtype == TYPE_PC && (!ignoreSneakTrickAttack) && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_SNEAK_ATTACK))
         {
-
             if (abs(PDefender->loc.p.rotation - PAttacker->loc.p.rotation) < 23 || PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_HIDE))
+            {
+                crithitrate = 100;
+            }
+        }
+        else if (PAttacker->objtype == TYPE_TRUST && (!ignoreSneakTrickAttack) && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_SNEAK_ATTACK))
+        {
+            if (abs(PDefender->loc.p.rotation - PAttacker->loc.p.rotation) < 23)
             {
                 crithitrate = 100;
             }
@@ -2387,6 +2403,12 @@ namespace battleutils
             PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_TRICK_ATTACK))
         {
             CBattleEntity* taChar = battleutils::getAvailableTrickAttackChar(PAttacker, PDefender);
+            if (taChar != nullptr) crithitrate = 100;
+        }
+        else if (PAttacker->objtype == TYPE_TRUST && PAttacker->GetMJob() == JOB_THF && (!ignoreSneakTrickAttack) && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_TRICK_ATTACK))
+        {
+            CBattleEntity* taChar = battleutils::getAvailableTrickAttackChar(PAttacker, PDefender);
+            ShowWarning(CL_GREEN"TA Crit is GOOOD! \n" CL_RESET);
             if (taChar != nullptr) crithitrate = 100;
         }
         else
@@ -3575,8 +3597,47 @@ namespace battleutils
             maxSlope = (maxZpoint - mobZ) / (maxXpoint - mobX);
             minSlope = (minZpoint - mobZ) / (minXpoint - mobX);
         }
+
+        if (taUser->objtype == TYPE_TRUST)
+        {
+            ShowWarning(CL_GREEN"INITIAL TA SEEK \n" CL_RESET);
+            CCharEntity* TAChar = (CCharEntity*)taUser->PMaster;
+            for (CTrustEntity* trust : TAChar->PTrusts)
+            {
+                CBattleEntity* PTrustID = (CBattleEntity*)trust;
+                if (PTrustID->id != taUser->id && distance(PTrustID->loc.p, PMob->loc.p) <= distance(taUser->loc.p, PMob->loc.p))
+                {
+                    float PTrustIDXdif = PTrustID->loc.p.x - mobX;
+                    float PTrustIDZdif = PTrustID->loc.p.z - mobZ;
+                    if (zDependent)
+                    {
+                        if ((PTrustIDZdif <= PTrustIDXdif * maxSlope) &&
+                            (PTrustIDZdif >= PTrustIDXdif * minSlope))
+                        {
+                            //finally found a TA partner
+                            ShowWarning(CL_GREEN"TA User Partner Found \n" CL_RESET);
+                            return PTrustID;
+                        }
+                    }
+                    else {
+                            if ((PTrustIDXdif <= PTrustIDZdif * maxSlope) &&
+                                (PTrustIDXdif >= PTrustIDZdif * minSlope))
+                            {
+                                ShowWarning(CL_GREEN"TA User Partner Found \n" CL_RESET);
+                                //finally found a TA partner
+                                return PTrustID;
+                            }
+                    }
+                }
+            }
+            ShowWarning(CL_RED"TRUST CAN NOT FIND A MEMBER \n" CL_RESET);
+            return nullptr;
+        }
+
+
         if (taUser->PParty != nullptr)
         {
+            ShowWarning(CL_GREEN"INITIAL TA SEEK \n" CL_RESET);
             if (taUser->PParty->m_PAlliance != nullptr)
             {
                 for (uint8 a = 0; a < taUser->PParty->m_PAlliance->partyList.size(); ++a)
