@@ -5,6 +5,7 @@ require("scripts/globals/status")
 require("scripts/globals/teleports")
 require("scripts/globals/titles")
 require("scripts/globals/zone")
+require("scripts/globals/trust_points")
 -----------------------------------
 
 local startingRaceInfo =
@@ -145,6 +146,9 @@ function onGameIn(player, firstLogin, zoning)
         if firstLogin then
             CharCreate(player)
         end
+
+        -- Trust Point Conversions
+        rankConversion(player)
 
         --[[
         local jpmid = getMidnight()

@@ -447,7 +447,7 @@ function doGeoPotency(caster, target, spell)
 	local bolster = 1;
 	local pet = caster:getPet();
 
-    if (player:getEquipID(dsp.slot.MAIN) == 19381) then
+    if (caster:getEquipID(dsp.slot.MAIN) == 19381) then
         geobonus = 5;
     end
 
@@ -461,6 +461,37 @@ function doGeoPotency(caster, target, spell)
 	end
 
     -- TODO: Turn this into an array
+	-- Delete all Indi
+	caster:delStatusEffect(dsp.effect.INDI_REFESH)
+    caster:delStatusEffect(dsp.effect.INDI_REGEN)
+	caster:delStatusEffect(dsp.effect.INDI_POISON)
+	caster:delStatusEffect(dsp.effect.INDI_REFRESH)
+	caster:delStatusEffect(dsp.effect.INDI_STR)
+	caster:delStatusEffect(dsp.effect.INDI_DEX)
+	caster:delStatusEffect(dsp.effect.INDI_VIT)
+	caster:delStatusEffect(dsp.effect.INDI_AGI)
+	caster:delStatusEffect(dsp.effect.INDI_INT)
+	caster:delStatusEffect(dsp.effect.INDI_MND)
+	caster:delStatusEffect(dsp.effect.INDI_CHR)
+	caster:delStatusEffect(dsp.effect.INDI_FURY)
+	caster:delStatusEffect(dsp.effect.INDI_BARRIER)
+	caster:delStatusEffect(dsp.effect.INDI_ACUMEN)
+	caster:delStatusEffect(dsp.effect.INDI_FEND)
+	caster:delStatusEffect(dsp.effect.INDI_PRECISION)
+	caster:delStatusEffect(dsp.effect.INDI_VOIDANCE)
+	caster:delStatusEffect(dsp.effect.INDI_FOCUS)
+	caster:delStatusEffect(dsp.effect.INDI_ATTUNEMENT)
+	caster:delStatusEffect(dsp.effect.INDI_WILT)
+	caster:delStatusEffect(dsp.effect.INDI_FRAILTY)
+	caster:delStatusEffect(dsp.effect.INDI_FADE)
+	caster:delStatusEffect(dsp.effect.INDI_MALAISE)
+	caster:delStatusEffect(dsp.effect.INDI_SLIP)
+	caster:delStatusEffect(dsp.effect.INDI_TOPOR)
+	caster:delStatusEffect(dsp.effect.INDI_VEX)
+	caster:delStatusEffect(dsp.effect.INDI_LANGUOR)
+	caster:delStatusEffect(dsp.effect.INDI_SLOW)
+	caster:delStatusEffect(dsp.effect.INDI_PARALYSIS)
+	caster:delStatusEffect(dsp.effect.INDI_GRAVITY)
 
 	-- Regen
 	if (spellId == 768 or spellId == 798) then

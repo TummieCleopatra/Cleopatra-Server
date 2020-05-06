@@ -74,9 +74,22 @@ function onMobSpawn(mob)
 
             -- CURE CHECK
         if (battletime > cureTime + cureCooldown) then
-            local party = player:getParty()
+            local party = player:getPartyWithTrusts()
+            local threshold = 65
+            local mymp = math.floor((mob:getMP() / mob:getMaxMP()) * 100)
+            local kup, mp = isKupipiInParty(mob, player, target)
+            if (kup == 1) then
+                if (mymp >= 30 and mp >= 30) then
+                    threshold = 35
+                elseif (mp < 30 and mymp >=30) then
+                    threshold = 70
+                else
+                    threshold = 50
+                end
+            end
+
             for _,member in ipairs(party) do
-                if (member:getHPP() <= 65) then
+                if (member:getHPP() <= threshold) then
                     local spell, moreCure = doCureKoru(mob, member)
                     if (spell > 0) then
                     -- local canCast = true
@@ -163,7 +176,7 @@ function onMobSpawn(mob)
         local lvl = mob:getMainLvl()
         local cure = 0
         local sleepTime = mob:getLocalVar("sleepTime")
-        local party = player:getParty()
+        local party = player:getPartyWithTrusts()
         local memberCount = 0
         if (battletime > sleepTime + sleepCooldown) then
             for i, member in ipairs(party) do
@@ -211,12 +224,12 @@ function doKoruBuff(mob, player)
     local battletime = os.time()
     local mp = mob:getMP()
     local lvl = mob:getMainLvl()
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
     local pro = 0
     local shell = 0
     local procount = 0
     local shellcount = 0
-    local kupipi = isKupipiInParty(mob, player, target)
+    local kupipi, kupmp = isKupipiInParty(mob, player, target)
 
 
     if (player:hasStatusEffect(dsp.effect.PROTECT) == false and kupipi == 0) then
@@ -245,7 +258,7 @@ function doKoruBuff(mob, player)
 
 
     if (lvl >= 41 and mp > 40) then
-        local party = player:getParty()
+        local party = player:getPartyWithTrusts()
         for _,member in pairs(party) do
             if (member:getMP() > 50 and (member:hasStatusEffect(dsp.effect.REFRESH) == false and member:hasStatusEffect(dsp.effect.SUBLIMATION_ACTIVATED) == false and member:hasStatusEffect(dsp.effect.SUBLIMATION_COMPLETE) == false)) then
                 mob:castSpell(109, member)

@@ -418,6 +418,7 @@ public:
 
     // Parties and Alliances
     int32 getParty(lua_State* L);
+    int32 getPartyWithTrusts(lua_State* L);
     int32 getPartySize(lua_State* L);               // Get the size of a party in an entity's alliance
     int32 hasPartyJob(lua_State*);
     int32 getPartyMember(lua_State* L);             // Get a character entity from another entity's party or alliance

@@ -154,9 +154,9 @@ INSERT INTO `pet_list` VALUES (106, 'Zeid', 7030, 1, 99, 0, 0);
 INSERT INTO `pet_list` VALUES (107, 'Zeid-W', 7031, 1, 99, 0, 0);
 INSERT INTO `pet_list` VALUES (108, 'Zeid-S', 7032, 1, 99, 0, 0);
 
-INSERT INTO `pet_list` VALUES (109, 'Mihli Alipoh', 7033, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (110, 'Mihli Alipoh-W', 7034, 1, 99, 0, 0);
-INSERT INTO `pet_list` VALUES (111, 'Milhi Alipoh-N', 7035, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (109, 'Mihli Aliapoh', 7033, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (110, 'Mihli Aliapoh-W', 7034, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (111, 'Milhi Aliapoh-N', 7035, 1, 99, 0, 0);
 
 INSERT INTO `pet_list` VALUES (112, 'Gadalar', 7036, 1, 99, 0, 0);
 INSERT INTO `pet_list` VALUES (113, 'Gadalar-W', 7037, 1, 99, 0, 0);
@@ -176,6 +176,7 @@ INSERT INTO `pet_list` VALUES (123, 'Zazarg-N', 7047, 1, 99, 0, 0);
 
 INSERT INTO `pet_list` VALUES (124, 'Luzaf', 7048, 1, 99, 0, 0);
 INSERT INTO `pet_list` VALUES (125, 'Koru-Moru', 7049, 1, 99, 0, 0);
+INSERT INTO `pet_list` VALUES (126, 'Lilisette', 7050, 1, 99, 0, 0);
 
 
 

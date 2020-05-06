@@ -59,7 +59,21 @@ function onMobSpawn(mob)
         end
 
         if (battletime > cureTime + cureCooldown) then
-            local party = player:getParty()
+            local party = player:getPartyWithTrusts()
+            local threshold = 75
+            local mymp = math.floor((mob:getMP() / mob:getMaxMP()) * 100)
+            local koru, mp = isKoruInParty(mob, player, target)
+            if (koru == 1) then
+                if (mymp >= 30 and mp >= 30) then
+                    threshold = 75
+                elseif (mymp < 30 and mp >= 30) then
+                    threshold = 35
+                else
+                    threshold = 50
+                end
+            end
+
+
             for _,member in ipairs(party) do
                 if (member:getHPP() <= 30) then
                     local spell = doEmergencyCureKupipi(mob)
@@ -111,7 +125,8 @@ function onMobSpawn(mob)
         local lvl = mob:getMainLvl()
         local dlvl = tlvl - lvl
         local move = 10
-        if (dlvl >= 3) then
+        local koru, mp = isKoruInParty(mob, player, target)
+        if (dlvl > 3) then
             move = 10
         else
            move = 1
@@ -164,7 +179,7 @@ function onMobSpawn(mob)
         local tlvl = target:getMainLvl()
         local lvl = mob:getMainLvl()
         local dlvl = tlvl - lvl
-        if (dlvl >= 3) then
+        if (dlvl > 3) then
             trustMageMove(mob, player, target, angle)
         else
             trustMeleeMove(mob, player, target, angle)
@@ -188,7 +203,7 @@ function onMobSpawn(mob)
         local lvl = mob:getMainLvl()
         local cure = 0
         local sleepTime = mob:getLocalVar("sleepTime")
-        local party = player:getParty()
+        local party = player:getPartyWithTrusts()
         local memberCount = 0
         if (battletime > sleepTime + sleepCooldown) then
             for i, member in ipairs(party) do
@@ -299,7 +314,7 @@ function doKupipiBuff(mob, player)
     local battletime = os.time()
     local mp = mob:getMP()
     local lvl = mob:getMainLvl()
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
     local pro = 0
     local shell = 0
     local procount = 0

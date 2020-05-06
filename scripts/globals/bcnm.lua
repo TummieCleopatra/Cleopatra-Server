@@ -12,49 +12,49 @@ require("scripts/globals/quests")
 -- DO NOT INCLUDE MAAT FIGHTS
 itemid_bcnmid_map =
 {
-    6,   {0, 0}, -- Bearclaw_Pinnacle
-    8,   {0, 0}, -- Boneyard_Gully
-    10,  {0, 0}, -- The_Shrouded_Maw
-    13,  {0, 0}, -- Mine_Shaft_2716
-    17,  {0, 0}, -- Spire of Holla
-    19,  {0, 0}, -- Spire of Dem
-    21,  {0, 0}, -- Spire of Mea
-    23,  {0, 0}, -- Spire of Vahzl
-    29,  {0, 0}, -- Riverne Site #B01
-    31,  {0, 0}, -- Monarch Linn
-    32,  {0, 0, 3557, 1388}, -- Sealion's Den
-    35,  {0, 0}, -- The Garden of RuHmet
-    36,  {0, 0}, -- Empyreal Paradox
-    57,  {0, 0, 10115, 1389}, -- Talacca Cove
-    64,  {0, 0,2461,1390}, -- Navukgo Execution Chamber
-    67,  {0, 0, 0, 0, 0, 0, 0, 0, 2462, 1392}, -- Jade Sepulcher  //Nyzul Isle Ribbon Key Item
-    78,  {4211, 1391, 10124, 1394},
-    139, {1177, 4, 1552, 10, 1553, 11, 1131, 12, 1175, 15, 1180, 17}, -- Horlais Peak
-    140, {1551, 34, 1552, 35, 1552, 36}, -- Ghelsba Outpost
-    144, {1166, 68, 1553, 76, 1130, 79, 1178, 81, 1180, 82}, -- Waughroon Shrine
-    146, {1552, 104, 1551, 105, 1553, 107}, -- Balgas Dias
-    163, {1130, 129, 1130, 130}, -- Sacrificial Chamber
-    168, {0, 0}, -- Chamber of Oracles
-    170, {0, 0, 2525, 1376}, -- Full Moon Fountain
-    180, {1550, 293}, -- LaLoff Amphitheater
-    181, {0, 0}, -- The Celestial Nexus
-    201, {1174, 417, 1546, 418}, -- Cloister of Gales
-    202, {1172, 449, 1548, 450, 19210, 1375}, -- Cloister of Storms
-    203, {1171, 481, 1545, 482}, -- Cloister of Frost
-    206, {0, 0}, -- Qu'Bia Arena
-    207, {1544, 545}, -- Cloister of Flames
-    209, {1169, 577, 1547, 578}, -- Cloister of Tremors
-    211, {1549, 609} -- Cloister of Tides
+    6,   {0,0}, -- Bearclaw_Pinnacle
+    8,   {0,0}, -- Boneyard_Gully
+    10,  {0,0}, -- The_Shrouded_Maw
+    13,  {0,0}, -- Mine_Shaft_2716
+    17,  {0,0}, -- Spire of Holla
+    19,  {0,0}, -- Spire of Dem
+    21,  {0,0}, -- Spire of Mea
+    23,  {0,0}, -- Spire of Vahzl
+    29,  {0,0}, -- Riverne Site #B01
+    31,  {0,0}, -- Monarch Linn
+    32,  {0,0,3557,1388}, -- Sealion's Den
+    35,  {0,0}, -- The Garden of RuHmet
+    36,  {0,0}, -- Empyreal Paradox
+    57,  {0,0,10115,1389}, -- Talacca Cove
+    64,  {0,0,2461,1390}, -- Navukgo Execution Chamber
+    67,  {0,0,0,0,0,0,0,0,2462,1392}, -- Jade Sepulcher  //Nyzul Isle Ribbon Key Item
+    78,  {4211,1391,10124,1394},
+    139, {1177,4,1552,10,1553,11,1131,12,1175,15,1180,17}, -- Horlais Peak
+    140, {1551,34,1552,35,1552,36}, -- Ghelsba Outpost
+    144, {1131,65,1166,68,1553,76,1130,79,1178,81,1180,82}, -- Waughroon Shrine
+    146, {1552,104,1551,105,1553,107}, -- Balgas Dias
+    163, {1130,129,1130,130}, -- Sacrificial Chamber
+    168, {0,0}, -- Chamber of Oracles
+    170, {0,0,2525,1376}, -- Full Moon Fountain
+    180, {1550,293}, -- LaLoff Amphitheater
+    181, {0,0}, -- The Celestial Nexus
+    201, {1174,417,1546,418}, -- Cloister of Gales
+    202, {1172,449,1548,450,19210,1375}, -- Cloister of Storms
+    203, {1171,481,1545,482}, -- Cloister of Frost
+    206, {0,0}, -- Qu'Bia Arena
+    207, {1544,545}, -- Cloister of Flames
+    209, {1169,577,1547,578}, -- Cloister of Tremors
+    211, {1549,609} -- Cloister of Tides
 }
 
 -- [zoneId] = {bcnm, ids, in, order}
 battlefield_bitmask_map =
 {
-    [6] = {640, 641, 642, 643, 644},
-    [8] = {672, 673, 674, 675, 676, 677, 678, 679},
-    [10] = {704, 705, 706},
-    [13] = {736, 737, 738, 739, 740, 741},
-    [17] = {768, 769, 770},
+    [6] = {640,641,642,643,644},
+    [8] = {672,673,674,675,676,677,678,679},
+    [10] = {704,705,706},
+    [13] = {736,737,738,739,740,741},
+    [17] = {768,769,770},
     [19] = {800,801,802},
     [21] = {832,833,834},
     [23] = {864,865,866},
@@ -74,7 +74,7 @@ battlefield_bitmask_map =
     [64] = {1120,1121,1122,1123,1124,1390},
     [67] = {1152,1153,1154,1155,1156,0,0,1392},
     [77] = {1393},
-    [78] = {1184, 1391, 1394}, -- 1184
+    [78] = {1184,1391,1394}, -- 1184
     [85] = {1170,1171},
     [186] = {1280},
     [185] = {1281},
@@ -84,7 +84,7 @@ battlefield_bitmask_map =
     [135] = {1285},
     [139] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1377,1378},
     [140] = {32,33,34,35,36,37},
-    [144] = {64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,1379,1380},
+    [144] = {64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,1379,0,0,0,1380},
     [146] = {96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,1381,1382},
     [156] = {352,353,354},
     [163] = {128,129,130,131,132},
@@ -161,8 +161,6 @@ function EventTriggerBCNM(player, npc)
             status = player:getStatusEffect(dsp.effect.BATTLEFIELD)
             playerbcnmid = status:getPower()
             playermask = GetBattleBitmask(playerbcnmid, player:getZoneID(), 1)
-             -- mask = 268435455 -- uncomment to open menu with all possible battlefields
-            playermask = 268435455
             if (playermask~=-1) then
                 -- This gives players who did not trade to go in the option of entering the fight
                 player:startEvent(32000, 0, 0, 0, playermask, 0, 0, 0, 0)
@@ -297,7 +295,7 @@ function EventFinishBCNM(player, csid, option)
         local id = player:getVar("trade_bcnmid")
         local item = player:getVar("trade_itemid")
 
-        if (id == 68 or id == 418 or id == 450 or id == 482 or id == 545 or id == 578 or id == 609 or id == 293 or id == 1375 or id == 1376 or id == 1389 or id == 1390 or id == 1391 or id == 1392 or id == 1393 or id == 1394) then
+        if (id == 68 or id == 418 or id == 450 or id == 482 or id == 545 or id == 578 or id == 609 or id == 293) then
             player:tradeComplete() -- Removes the item
         elseif ((item >= 1426 and item <= 1440) or item == 1130 or item == 1131 or item == 1175 or item == 1177 or item == 1180 or item == 1178 or item == 1550 or item == 1551 or item == 1552 or item == 1553) then -- Testimony, Orb, Ark Pentasphere (one time item)
             player:createWornItem(item)
@@ -378,8 +376,9 @@ function GetBattleBitmask(id, zone, mode)
                     print(index);
                     return math.pow(2, index - 1);
                 else
-                    -- print(index);
-                    return index;
+                    -- local check = bit.bor(mask,math.pow(2,index))
+                    -- printf("Bit Bor is %u",check);
+                    return bit.bor(mask,math.pow(2,index))
                 end
             end
         end
@@ -513,7 +512,6 @@ function checkNonTradeBCNM(player, npc, mode)
         [32] = {
                     [992] = function() return (player:getCurrentMission(COP) == dsp.mission.id.cop.ONE_TO_BE_FEARED and player:getVar("PromathiaStatus")==2)  end, -- one_to_be_feared
                     [993] = function() return (player:getCurrentMission(COP) == dsp.mission.id.cop.THE_WARRIOR_S_PATH)  end, -- warriors_path
-                    [1388] = function() return (player:hasCompletedMission(COP,dsp.mission.id.cop.THE_WARRIOR_S_PATH))  end, -- Priseh/Ulmia Trust
                },
         [35] = {
                     [1024] = function() return (player:getCurrentMission(COP) == dsp.mission.id.cop.WHEN_ANGELS_FALL and player:getVar("PromathiaStatus")==4)  end, -- when_angels_fall
@@ -526,18 +524,9 @@ function checkNonTradeBCNM(player, npc, mode)
                },
         [64] =  {
                     [1124] = function() return (player:getCurrentMission(TOAU) == dsp.mission.id.toau.SHIELD_OF_DIPLOMACY and player:getVar("AhtUrganStatus")==2)  end, -- TOAU-22 shield of diplomacy
-                    [1390] = function() return (player:getVar("GADALAR_CIPHER")==1)  end, -- Gadalar Fight For Trust
                 },
         [67] =  {
                     [1156] = function() return (player:getCurrentMission(TOAU) == dsp.mission.id.toau.PUPPET_IN_PERIL and player:getVar("AhtUrganStatus")==1)  end, -- TOAU-29 Puppet in Peril
-                },
-        [77] =  {
-                    [1393] = function() return (player:hasKeyItem(dsp.ki.LILAC_RIBBON))  end, -- Fight For Rud
-                },
-
-        [78] =  {
-                    -- [1184] = function() return (player:hasKeyItem(dsp.ki.TALISMAN_KEY))  end, -- Zazarg Fight For Trust
-                    [1391] = function() return (player:getVar("ZAZARG_CIPHER") == 1)  end, -- Zazarg Fight For Trust
                 },
         [85] =  {
                     [1171] = function() return (player:getCurrentMission(WOTG) == dsp.mission.id.wotg.PURPLE_THE_NEW_BLACK and player:getVar("WoTGStatus")==1)  end, -- TOAU-29 Puppet in Peril
@@ -548,8 +537,6 @@ function checkNonTradeBCNM(player, npc, mode)
                                   player:getCurrentMission(WINDURST) == dsp.mission.id.windurst.THE_THREE_KINGDOMS_SANDORIA2) and player:getVar("MissionStatus") == 9)
                           end, -- Mission 2-3
                     [3] = function() return (player:getCurrentMission(SANDORIA) == dsp.mission.id.sandoria.THE_SECRET_WEAPON and player:getVar("SecretWeaponStatus") == 2)  end,
-                    [1377] = function() return (player:getVar("CURILLA_TRIB_FIGHT") == 1)  end,  -- Curilla Tribute Fight
-                    [1378] = function() return (player:getVar("EXCEN_TRIB_FIGHT") == 1)  end,  -- Excenmille Tribute Fight
                 },
         [140] = {
                     [32] = function()
@@ -569,8 +556,6 @@ function checkNonTradeBCNM(player, npc, mode)
         [146] = {
                     [96] = function() return (player:hasKeyItem(dsp.ki.DARK_KEY))  end, -- Mission 2-3
                     [99] = function() return ((player:getCurrentMission(WINDURST) == dsp.mission.id.windurst.SAINTLY_INVITATION) and (player:getVar("MissionStatus") == 1))  end, -- Mission 6-2
-                    [1381] = function() return (player:getVar("KUPIPI_TRIB_FIGHT") == 1)  end,  -- Kupipi Tribute Fight
-                    [1382] = function() return (player:getVar("NANAA_TRIB_FIGHT") == 1)  end,  -- Nanaa Mihgo Tribute Fight
                 },
         [163] = {
                     [128] = function() return (player:getCurrentMission(ZILART) == dsp.mission.id.zilart.THE_TEMPLE_OF_UGGALEPIH)  end, -- Zilart Mission 4
@@ -614,10 +599,6 @@ function checkNonTradeBCNM(player, npc, mode)
         [206] = {
                     [512] = function() return (player:getCurrentMission(player:getNation()) == 14 and player:getVar("MissionStatus") == 11)  end, -- Mission 5-1
                     [516] = function() return (player:getCurrentMission(SANDORIA) == dsp.mission.id.sandoria.THE_HEIR_TO_THE_LIGHT and player:getVar("MissionStatus") == 3)  end, -- sando 9-2
-                    [1383] = function() return (player:getVar("DARC_TRIB_FIGHT") == 1)  end, -- Darcullin Tribute Fight
-                    [1384] = function() return (player:getVar("ADEL_TRIB_FIGHT") == 1)  end, -- Adelheid Tribute Fight
-                    [1385] = function() return (player:getVar("LION_TRIB_FIGHT") == 1)  end, -- Lion Tribute Fight
-                    [1386] = function() return (player:getVar("ZEID_TRIB_FIGHT") == 1)  end, -- Zeid Tribute Fight
                 --[[
                     Temp disabled pending BCNM mob fixes
                     [532] = function() return (player:getCurrentMission(ACP) >= dsp.mission.id.acp.THOSE_WHO_LURK_IN_SHADOWS_III and player:hasKeyItem(dsp.ki.MARK_OF_SEED))  end, -- ACP Mission 7
@@ -640,6 +621,8 @@ function checkNonTradeBCNM(player, npc, mode)
     for keyid, condition in pairs(checks[Zone]) do
         if condition() and GetBattleBitmask(keyid, Zone, mode) ~= -1 then
             mask = mask + GetBattleBitmask(keyid, Zone, mode);
+            local test = GetBattleBitmask(keyid, Zone, mode);
+            printf("BattleBitMask is %u",test)
             if mode == 2 then
                 player:setVar("trade_bcnmid", keyid);
             end
@@ -647,6 +630,8 @@ function checkNonTradeBCNM(player, npc, mode)
             break;
         end;
     end;
+
+    printf("Mask is %u",mask);
 
     if mode == 2 then
         player:startEvent(32000, 0, 0, 0, mask, 0, 0, 0, 0);

@@ -5,7 +5,6 @@ require("scripts/globals/trust_utils");
 -----------------------------------------
 
 function onMagicCastingCheck(caster,target,spell)
-    local bc = caster:getBattlefield
     local check = trustSpawnCheck(caster, target, spell)
     return check
 end

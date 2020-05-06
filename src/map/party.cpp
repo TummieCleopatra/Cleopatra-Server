@@ -202,9 +202,22 @@ uint8 CParty::MemberCount(uint16 ZoneID)
 
     for (uint32 i = 0; i < members.size(); ++i)
     {
+        /*
         if (members.at(i)->getZone() == ZoneID)
         {
             count++;
+        }*/
+        auto* member = members.at(i);
+        if (member->getZone() == ZoneID)
+        {
+            count++;
+        }
+        if (member->objtype == TYPE_PC)
+        {
+            for (auto* trust : static_cast<CCharEntity*>(member)->PTrusts)
+            {
+                count++;
+            }
         }
     }
     return count;
@@ -836,7 +849,7 @@ void CParty::ReloadTreasurePool(CCharEntity* PChar)
 
     if (PChar->PTreasurePool != nullptr && PChar->PTreasurePool->GetPoolType() == TREASUREPOOL_ZONE)
         return;
-    
+
 
 
     //alliance

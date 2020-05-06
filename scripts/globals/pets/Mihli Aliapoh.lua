@@ -57,7 +57,7 @@ function onMobSpawn(mob)
         local cureTime = mob:getLocalVar("cureTime")
 
         if (battletime > cureTime + cureCooldown) then
-            local party = player:getParty()
+            local party = player:getPartyWithTrusts()
             for _,member in ipairs(party) do
                 if (member:getHPP() <= 25) then
                     local spell = doEmergencyCureMihli(mob)
@@ -126,7 +126,7 @@ function doMihliStatusRemoval(mob)
 end
 
 function doMihliWeaponskill(mob)
-    local wsList = {{2092, 72}, {65,168},{60, 167}{55,165}, {20,161}, {1,160}}
+    local wsList = {{2092, 72}, {65,168},{60, 167}, {55,165}, {20,161}, {1,160}}
     local maxws = 3
 
     local newWsList = {}
@@ -169,7 +169,7 @@ function doBuff(mob, player)
     local battletime = os.time()
     local mp = mob:getMP()
     local lvl = mob:getMainLvl()
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
     local pro = 0
     local shell = 0
     local procount = 0

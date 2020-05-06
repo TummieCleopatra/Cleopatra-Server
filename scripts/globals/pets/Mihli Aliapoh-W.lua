@@ -21,9 +21,7 @@ function onMobSpawn(mob)
     local kupipi = mob:getID()
     local angle = 115
     local wsCooldown = 4
-    local utsuIchiCooldown = 30
-    local utsuNiCooldown = 45
-
+    local berserkCooldown = 300
     mob:setLocalVar("wsTime",0)
     mob:setLocalVar("cureTime",0)
     mob:setLocalVar("debuffTime",0)
@@ -32,9 +30,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("paraTime",0)
     mob:setLocalVar("slowTime",0)
     mob:setLocalVar("flashTime",0)
-    mob:setLocalVar("utsuIchiTime",0)
-    mob:setLocalVar("utsuNiTime",0)
-
+    mob:setLocalVar("berserkTime",0)
 
     mob:addListener("COMBAT_TICK", "MIHLI_BUFF_TICK", function(mob, player, target)
         local battletime = os.time()
@@ -63,7 +59,7 @@ function onMobSpawn(mob)
         local cureTime = mob:getLocalVar("cureTime")
 
         if (battletime > cureTime + cureCooldown) then
-            local party = player:getParty()
+            local party = player:getPartyWithTrusts()
             for _,member in ipairs(party) do
                 if (member:getHPP() <= 25) then
                     local spell = doEmergencyCureMihli(mob)
@@ -104,24 +100,12 @@ function onMobSpawn(mob)
         end
     end)
 
-    mob:addListener("COMBAT_TICK", "MIHLI_UTSU_TICK", function(mob, player, target)
+    mob:addListener("COMBAT_TICK", "MIHLI_BERSERK_TICK", function(mob, player, target)
         local battletime = os.time()
-        local utsuIchi = mob:getLocalVar("utsuIchiTime")
-        local utsuNi = mob:getLocalVar("utsuNiTime")
-        local shadows = mob:getStatusEffect(dsp.effect.COPY_IMAGE)
-        local count = 0
-        if (shadows ~= nil) then
-            count = shadows:getPower()
-        else
-            count = 0
-        end
-
-        if ((battletime > utsuNi + utsuNiCooldown) and lvl >= 37 and (count == nil or count <= 1)) then
-            mob:castSpell(339, mob)
-            mob:setLocalVar("utsuNiTime",battletime)
-        elseif ((battletime > utsuIchi + utsuIchiCooldown) and lvl >= 12 and (count == nil)) then
-            mob:castSpell(338, mob)
-            mob:setLocalVar("utsuIchiTime",battletime)
+        local berserk = mob:getLocalVar("berserkTime")
+        if ((battletime > berserk + berserkCooldown) and lvl >= 50 and mob:getTP() >= 800) then
+            mob:useJobAbility(15, target)
+            mob:setLocalVar("berserkTime",battletime)
         end
     end)
 
@@ -197,7 +181,7 @@ function doBuff(mob, player)
     local battletime = os.time()
     local mp = mob:getMP()
     local lvl = mob:getMainLvl()
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
     local pro = 0
     local shell = 0
     local procount = 0

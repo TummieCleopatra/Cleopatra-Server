@@ -18,10 +18,11 @@ function onMobSpawn(mob)
     local defense = mob:getStat(dsp.mod.DEF)
 
     mob:addStatusEffect(dsp.effect.MAX_MP_BOOST,60,0,0);
-    mob:addMP(350)
+
 
     mob:addMod(dsp.mod.CURE_POTENCY,38)
     curillaTrustPoints(mob)
+
     local weaponskill = 0
     local cureCooldown = 17
     local provokeCooldown = 30
@@ -46,11 +47,14 @@ function onMobSpawn(mob)
     mob:setLocalVar("sentinelCooldown",300)
     mob:setLocalVar("bashTime",0)
     mob:setLocalVar("chivalryTime",0)
+    mob:setLocalVar("majestyTime",0)
     mob:setLocalVar("reprisalCooldown",180)
     mob:setLocalVar("castingSpell",0)
     mob:setLocalVar("sleepTime",0)
     mob:setLocalVar("chivalryCooldown",300)
-
+    mob:setLocalVar("majestyCooldown",180)
+    mob:addMP(550)
+    mob:addHP(500)
 
 
     --[[
@@ -135,7 +139,7 @@ function onMobSpawn(mob)
     mob:addListener("COMBAT_TICK", "CUR_PRO_TICK", function(mob, player, target)
         local battletime = os.time()
         local proTime = mob:getLocalVar("protectTime")
-        local kupipi = isKupipiInParty(mob, player, target)
+        local kupipi, mp = isKupipiInParty(mob, player, target)
         if (battletime > proTime + 30 and mob:hasStatusEffect(dsp.effect.PROTECT) == false and kupipi == 0) then
             doCurillaProtect(mob)
             mob:setLocalVar("protectTime",battletime)
@@ -145,7 +149,7 @@ function onMobSpawn(mob)
     mob:addListener("COMBAT_TICK", "CUR_SHELL_TICK", function(mob, player, target)
         local battletime = os.time()
         local shellTime = mob:getLocalVar("shellTime")
-        local kupipi = isKupipiInParty(mob, player, target)
+        local kupipi, mp = isKupipiInParty(mob, player, target)
         if (battletime > shellTime + 30 and mob:hasStatusEffect(dsp.effect.SHELL) == false and kupipi == 0) then
             doCurillaShell(mob)
             mob:setLocalVar("shellTime",battletime)
@@ -157,7 +161,7 @@ function onMobSpawn(mob)
         local sentinelTime = mob:getLocalVar("sentinelTime")
         local sentinelCooldown = mob:getLocalVar("sentinelCooldown")
         if (battletime > sentinelTime + sentinelCooldown) then
-            doCurillaSentinel(mob, target)
+            doCurillaSentinel(mob)
         end
     end)
 
@@ -174,7 +178,7 @@ function onMobSpawn(mob)
         end
 
         if (battletime > cureTime + cureCooldown) then
-            local party = player:getParty()
+            local party = player:getPartyWithTrusts()
             for _,member in ipairs(party) do
                 if (member:getHPP() <= 85) then
                     local spell, moreCure = doCureCurilla(mob, member)
@@ -206,15 +210,28 @@ function onMobSpawn(mob)
         local battletime = os.time()
         local chivalryTime = mob:getLocalVar("chivalryTime")
         local chivalryCooldown = mob:getLocalVar("chivalryCooldown")
-        local trustPointChivalry = player:getVar("TrustTrait1_Cur")
+        local trustPointChivalry = mob:getLocalVar("[TRUST]CURILLA_CHIV")
         local mp = mob:getMP()
         local lvl = mob:getMainLvl()
         local maxmp = mob:getMaxMP()
         local dif = (mp / maxmp) * 100
-        if (trustPointChivalry == 5 and lvl >= 75) then
+        if (trustPointChivalry == 1 and lvl >= 75) then
             if ((battletime > chivalryTime + chivalryCooldown) and dif < 20) then
                 mob:useJobAbility(142, mob)
                 mob:setLocalVar("chivalryTime",battletime)
+            end
+        end
+    end)
+
+    mob:addListener("COMBAT_TICK", "CUR_MAJ_TICK", function(mob, player, target)
+        local battletime = os.time()
+        local majestyTime = mob:getLocalVar("majestyTime")
+        local majestyCooldown = mob:getLocalVar("majestyCooldown")
+        local trustPointMajesty = mob:getLocalVar("[TRUST]CURILLA_MAJ")
+        if (trustPointMajesty == 1 and lvl >= 75) then
+            if (battletime > majestyTime + majestyCooldown) then
+                mob:useJobAbility(378, mob)
+                mob:setLocalVar("majestyTime",battletime)
             end
         end
     end)
@@ -223,7 +240,7 @@ function onMobSpawn(mob)
         local battletime = os.time()
         local mp = mob:getMP()
         local sleepTime = mob:getLocalVar("sleepTime")
-        local party = player:getParty()
+        local party = player:getPartyWithTrusts()
         if (battletime > sleepTime + sleepCooldown) then
             for i, member in ipairs(party) do
                 if ((member:hasStatusEffect(dsp.effect.SLEEP_I)) and mp >= 8) then -- Check to see if there is a member in the party who is slept and is a WHM
@@ -288,14 +305,12 @@ function doCurillaFlash(mob, player, target)
     mob:setLocalVar("castingSpell",112)
 end
 
-function doCurillaSentinel(mob, target)
+function doCurillaSentinel(mob)
     local lvl = mob:getMainLvl()
-    local tlvl = target:getMainLvl()
-    local dlvl = tlvl - lvl
     local battletime = os.time()
 
-    if (dlvl > 4 and lvl >= 30) then
-        mob:useJobAbility(32, target)
+    if (lvl >= 30) then
+        mob:useJobAbility(32, mob)
         mob:setLocalVar("sentinelTime",battletime)
     end
 end

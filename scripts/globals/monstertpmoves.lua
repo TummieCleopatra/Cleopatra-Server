@@ -783,14 +783,24 @@ function TrustPhysicalMove(mob,target,skill,basemod,numhits,attmod,accmod,str_ws
 
     --get dstr (bias to monsters, so no fSTR)
     local dstr = mob:getStat(dsp.mod.STR) - target:getStat(dsp.mod.VIT)
-	local sadmg = mob:getStat(dsp.mod.DEX)
+	local lvl = mob:getMainLvl()
 
     local weaponbase = mob:getWeaponDmg()
+    local trot = target:getRotPos()
+    local mrot = mob:getRotPos()
+    local drot = trot - mrot
+    local tp = mob:getTP()
 
-	if (mob:hasStatusEffect(dsp.effect.SNEAK_ATTACK)) then
-	    weaponbase = weaponbase + sadmg
+
+	if (mob:hasStatusEffect(dsp.effect.SNEAK_ATTACK) and (drot > -5 and drot < 5)) then
+        printf("Apply DEX")
+	    weaponbase = (weaponbase + (mob:getStat(dsp.mod.DEX) + math.floor((lvl/3)*4))) * (1 + mob:getMod(dsp.mod.SNEAK_ATK_DEX)/100)
+        mob:delStatusEffect(dsp.effect.SNEAK_ATTACK)
 	end
 
+    if (mob:getMainJob() == dsp.job.THF) then
+        printf("Weapon base is now %u",weaponbase)
+    end
 
     if (dstr >= 12) then
 		fstr1 = ((dstr+4)/4)
@@ -833,7 +843,7 @@ function TrustPhysicalMove(mob,target,skill,basemod,numhits,attmod,accmod,str_ws
     --apply WSC
 
 
-    local base = (mob:getWeaponDmg() * basemod) + fstr1 + wsc;
+    local base = (weaponbase * basemod) + fstr1 + wsc;
     if (base < 1) then
         base = 1;
     end

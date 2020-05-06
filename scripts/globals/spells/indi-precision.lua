@@ -27,7 +27,6 @@ function onMagicCastingCheck(caster,target,spell)
 end;
 
 function onSpellCast(caster,target,spell)
-    removeIndi(caster)
     local potency = doGeoPotency(caster, target, spell)
 	local duration = 180 + caster:getMod(dsp.mod.INDI_DURATION);
     caster:addStatusEffectEx(dsp.effect.INDI_PRECISION,dsp.effect.ACCURACY_BOOST_II,potency,3,duration)

@@ -53,7 +53,7 @@ function onMobSpawn(mob)
         local cureTime = mob:getLocalVar("cureTime")
 
         if (battletime > cureTime + cureCooldown) then
-            local party = player:getParty()
+            local party = player:getPartyWithTrusts()
             for _,member in ipairs(party) do
                 if (member:getHPP() <= 40) then
                     local spell = doPrisheCure(mob)

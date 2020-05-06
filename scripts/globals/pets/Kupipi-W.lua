@@ -45,7 +45,7 @@ function onMobSpawn(mob)
         local cureTime = mob:getLocalVar("cureTime")
 
         if (battletime > cureTime + cureCooldown) then
-            local party = player:getParty()
+            local party = player:getPartyWithTrusts()
             for _,member in ipairs(party) do
                 if (member:getHPP() <= 30) then
                     local spell = doEmergencyCureKupipi(mob)
@@ -181,7 +181,7 @@ function doBuff(mob, player)
     local battletime = os.time()
     local mp = mob:getMP()
     local lvl = mob:getMainLvl()
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
     local pro = 0
     local shell = 0
     local procount = 0

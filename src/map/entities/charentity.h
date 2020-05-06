@@ -218,6 +218,22 @@ public:
 
     std::vector<CTrustEntity*> PTrusts; // Active trusts
 
+    template        <typename F, typename... Args>
+    void            ForPartyWithTrusts(F func, Args&&... args)
+    {
+        if (PParty) {
+            for (auto PMember : PParty->members) {
+                func(PMember, std::forward<Args>(args)...);
+                for (auto PTrust : static_cast<CCharEntity*>(PMember)->PTrusts) {
+                    func(PTrust, std::forward<Args>(args)...);
+                }
+            }
+        }
+        else {
+            func(this, std::forward<Args>(args)...);
+        }
+    }
+
 
     // Эти миссии не нуждаются в списке пройденных, т.к. клиент автоматически
     // отображает более ранние миссии выплненными

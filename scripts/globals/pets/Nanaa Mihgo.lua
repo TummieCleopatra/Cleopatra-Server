@@ -11,15 +11,16 @@ require("scripts/globals/msg")
 require("scripts/globals/trust_utils")
 
 function onMobSpawn(mob)
-    printf("spawned")
+
     local weaponskill = 0
     local wsCooldown = 4
-    local sneakAttackCooldown = 60
-    mob:setLocalVar("sneakAttackCooldown",60)
+    local sneakAttackCooldown = 20
+    mob:setLocalVar("sneakAttackCooldown",20)
     nanaaTrustPoints(mob)
     mob:setLocalVar("distanceTime",0)
     mob:setLocalVar("saTime",0)
     mob:setLocalVar("wsTime",0)
+    mob:addMod(dsp.mod.REGAIN,180)
 
     set1HStats(mob)
     mob:addListener("COMBAT_TICK", "NANAA_DISTANCE_TICK", function(mob, player, target)
@@ -81,15 +82,20 @@ end
 
 function doNanaaWeaponskill(mob)
     local lvl = mob:getMainLvl()
-    local wsList = {}
+    local wsList = {{75,3189},{65,24},{60,23},{33,17},{20,18},{1,16}}
     local newWsList = {}
-    if (lvl > 32) then
-        wsList = {{65,24},{60,23},{33,17}}
+
+    local maxws = 0 -- Maximum number of weaponskills to choose from randomly
+    if (lvl >= 65) then
+        maxws = 2
+    elseif (lvl >= 60) then
+        maxws = 2
+    elseif (lvl >= 33) then
+        maxws = 1
     else
-        wsList = {{23,18},{1,16}}
+        maxws = 2
     end
 
-    local maxws = 3 -- Maximum number of weaponskills to choose from randomly
     local wscount = 0
 
     local finalWS = 0

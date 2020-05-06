@@ -112,7 +112,7 @@ function doDarrcuilnCure(mob, player, target)
     local mp = mob:getMP()
     local lvl = mob:getMainLvl()
     local cure = 0
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
     local battletime = os.time()
     for _,member in ipairs(party) do
         if (member:getHPP() <= 45) then

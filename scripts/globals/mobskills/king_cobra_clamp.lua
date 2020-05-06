@@ -1,5 +1,5 @@
 ---------------------------------------------
--- Shark Bite
+-- Viper Bite
 --
 --
 -- Type: Physical
@@ -18,22 +18,26 @@ end
 function onMobWeaponSkill(target, mob, skill)
 
     local basemod = 1
-    local numhits = 2
-	local attmod = 1
+    local numhits = 1
+	local attmod = 1.2
     local accmod = 1
-	local str_wsc = 0
-	local dex_wsc = 0.4
-	local agi_wsc = 0.4
+	local str_wsc = 1
+	local dex_wsc = 0
+	local agi_wsc = 0
 	local vit_wsc = 0
 	local mnd_wsc = 0
 
 
-	-- local info = TrustPhysicalMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,TP_DMG_VARIES,4.5,6.8,8.5)
-    local info = TrustPhysicalMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,TP_DMG_VARIES,2.0,3.0,4.0)
+	local info = TrustPhysicalMove(mob,target,skill,basemod,numhits,attmod,accmod,str_wsc,dex_wsc,agi_wsc,vit_wsc,mnd_wsc,TP_DMG_VARIES,3.0,4.0,5.0)
+
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,dsp.attackType.PHYSICAL,dsp.damageType.PIERCING,info.hitslanded)
 
     target:delHP(dmg)
 
+    local tp =  mob:getLocalVar("WS_TP")
+    local duration = math.floor(tp / 11)
+
+    target:addStatusEffect(dsp.effect.POISON,8,3,duration)
 
 
     return dmg

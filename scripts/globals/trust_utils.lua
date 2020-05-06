@@ -13,7 +13,6 @@ function trustSpawnCheck(caster, target, spell)
     local bc = caster:getBattlefieldID()
     local trust = spell:getID()
     local name = ""
-    print(bc)
     if ((zone >= 185 and zone <= 188) or (zone >= 134 and zone <= 135) and dynamis ~= 1) then
         -- caster:PrintToPlayer("You cannot summon a trust in this area.  Please speak to Maccus in Feretory",0xD);
         return dsp.msg.basic.CANT_BE_USED_IN_AREA
@@ -56,7 +55,7 @@ function checkDoubleCure(mob, member)
     -- member is the person that needs the cure
     -- Person is the other caster in the party
     local player = mob:getMaster()
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
     local canCure = 1
     for _,person in ipairs(party) do
         local cureCast = person:getLocalVar("cureCasting")
@@ -74,7 +73,7 @@ function checkKoruCure(mob, member)
     -- member is the person that needs the cure
     -- Person is the other caster in the party
     local player = mob:getMaster()
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
     for _,person in ipairs(party) do
         local cureCast = person:getLocalVar("cureCasting")
         if (person:getObjType() == dsp.objType.TRUST and cureCast == 1) then
@@ -138,16 +137,131 @@ end
 
 
 function curillaTrustPoints(mob)
-    local player = mob:getMaster()
-    local att = player:getVar("TrustAtt_Cur")
-	local acc = player:getVar("TrustAcc_Cur")
-	local def = player:getVar("TrustDEF_Cur")
-	local enm = player:getVar("TrustEnm_Cur")
+--[[
 
-    mob:addMod(dsp.mod.ATT, att)
-    mob:addMod(dsp.mod.ACC, acc)
-    mob:addMod(dsp.mod.DEF, def)
-    mob:addMod(dsp.mod.ENMITY, enm)
+1  Holy Circle dmg taken
+2  VIT + 1
+3  STR + 1
+4  MND + 1
+5  Shield Bash Dmg
+6  Sword Skill + 1
+7  Shield Skill + 1
+8  Healing Skill + 1
+9  Enhancing SKill +1
+10  Sentinel Effect  ]]--
+    local player = mob:getMaster()
+    local total = player:getVar("[TRUST]CurillaTokensTotal")
+    local rank = player:getVar("[TRUST]CurillaRank")
+    local subRank = player:getVar("[TRUST]CurillaSubRank")
+
+    local hcdmg = subRank/1 >= 1 and 1 or 0
+    local vit = subRank/2 >= 2 and 1 or 0
+    local str = subRank/3 >= 3 and 1 or 0
+    local mnd = subRank/4 >= 4 and 1 or 0
+    local sbd = subRank/5 >= 5 and 1 or 0
+    local shield = subRank/6 >= 6 and 1 or 0
+    local sword = subRank/7 >= 7 and 1 or 0
+    local healing = subRank/8 >= 8 and 1 or 0
+    local enhancing = subRank/9 >= 9 and 1 or 0
+    local senm = rank
+
+    mob:setLocalVar("HolyCircleDmg", rank + hcdmg)
+    mob:addMod(dsp.mod.VIT, rank + vit)
+    mob:addMod(dsp.mod.STR, rank + str)
+    mob:addMod(dsp.mod.MND, rank + mnd)
+    mob:setLocalVar("sentinelEnm", rank + sbd)
+    mob:addMod(dsp.mod.SHIELD, rank + shield)
+    mob:addMod(dsp.mod.SWORD, rank + sword)
+    mob:addMod(dsp.mod.HEALING, rank + healing)
+    mob:addMod(dsp.mod.ENHANCE, rank + enhancing)
+    mob:setLocalVar("sentinelEnm", senm)
+
+    -- Gifts
+    -- Defense Bonus
+    if (total >= 180) then
+        mob:addMod(dsp.mod.DEF, 38)
+    elseif (total >= 5) then
+        mob:addMod(dsp.mod.DEF, 15)
+    end
+
+    -- Attack Bonus
+    if (total >= 210) then
+        mob:addMod(dsp.mod.ATT, 14)
+    elseif (total >= 10) then
+        mob:addMod(dsp.mod.ATT, 6)
+    end
+
+    -- Evasion Bonus
+    if (total >= 300) then
+        mob:addMod(dsp.mod.EVA, 25
+        )
+    elseif (total >= 20) then
+        mob:addMod(dsp.mod.EVA, 15)
+    end
+
+    -- Trust Points +
+    if (total >= 550) then
+        mob:setLocalVar("[TRUST]CURILLA_POINTS_PLUS",26)
+    elseif (total >= 475) then
+        mob:setLocalVar("[TRUST]CURILLA_POINTS_PLUS",23)
+    elseif (total >= 400) then
+        mob:setLocalVar("[TRUST]CURILLA_POINTS_PLUS",20)
+    elseif (total >= 325) then
+        mob:setLocalVar("[TRUST]CURILLA_POINTS_PLUS",17)
+    elseif (total >= 250) then
+        mob:setLocalVar("[TRUST]CURILLA_POINTS_PLUS",14)
+    elseif (total >= 175) then
+        mob:setLocalVar("[TRUST]CURILLA_POINTS_PLUS",11)
+    elseif (total >= 100) then
+        mob:setLocalVar("[TRUST]CURILLA_POINTS_PLUS",8)
+    elseif (total >= 25) then
+        mob:setLocalVar("[TRUST]CURILLA_POINTS_PLUS",5)
+    end
+
+    -- Accuracy Bonus
+    if (total >= 410) then
+        mob:addMod(dsp.mod.ACC, 25)
+    elseif (total >= 30) then
+        mob:addMod(dsp.mod.ACC, 15)
+    end
+
+    -- Fast Cast
+    if (total >= 425) then
+       mob:addMod(dsp.mod.FASTCAST, 20)
+    elseif (total >= 230) then
+        mob:addMod(dsp.mod.FASTCAST, 15)
+    elseif (total >= 130) then
+        mob:addMod(dsp.mod.FASTCAST, 10)
+    elseif (total >= 50) then
+        mob:addMod(dsp.mod.FASTCAST, 5)
+    end
+
+    -- Job Abilities
+    if (total >= 125) then
+        mob:setLocalVar("[TRUST]CURILLA_CHIV",1)
+    end
+
+    if (total >= 375) then  -- Change to 300 or 400
+        mob:setLocalVar("[TRUST]CURILLA_MAJ",1)
+    end
+
+    -- HP
+    if (total >= 450) then
+        mob:addMod(dsp.mod.HP, 120)
+    elseif (total >= 80) then
+        mob:addMod(dsp.mod.HP,70)
+    end
+
+    if (total >= 500) then
+        mob:addMod(dsp.mod.MP,80)
+    elseif (total >= 110) then
+        mob:addMod(dsp.mod.MP,40)
+    end
+
+    -- Savage Blade 150
+    -- Enmity + 4 at 70
+    -- Enmity + 10 at 525
+    -- Cure Potency 5% at 350
 
 end
 
@@ -195,19 +309,150 @@ function nanaaTrustPoints(mob)
 end
 
 function kupipiTrustPoints(mob)
-    -- printf("Kupipi Trust Points Triggered")
-    local player = mob:getMaster()
-	local att = player:getVar("TrustAtt_Kup");
-	local acc = player:getVar("TrustAcc_Kup");
-	local curepot = player:getVar("TrustCure_Kup");  -- Cure Potency
-	local cct = player:getVar("TrustCast_Kup"); -- Cure Spellcasting Time
-	    -- int32 proKup = charutils::GetVar(PChar, "TrustPro_Kup");       // Core Pro V
-	    -- int32 shellKup = charutils::GetVar(PChar, "TrustShell_Kup");   // Core Shell V
+--[[
 
-    mob:addMod(dsp.mod.ATT, att)
-    mob:addMod(dsp.mod.ACC, acc)
+
+1   MND + 1
+2   CHR + 1
+3   STR + 1
+4   Cure Casting -1%
+5   Healing Skill + 1
+6   Enhancing Skill + 1
+7   Divine Skill + 1
+8   Enfeebling
+9   Club Skill +1
+10  Cure Potency + 1%  ]]--
+
+    local player = mob:getMaster()
+    local total = player:getVar("[TRUST]KupipiTokensTotal")
+    local rank = player:getVar("[TRUST]KupipiRank")
+    local subRank = player:getVar("[TRUST]KupipiSubRank")
+
+    local mnd = subRank/1 >= 1 and 1 or 0
+    local chr = subRank/2 >= 2 and 1 or 0
+    local str = subRank/3 >= 3 and 1 or 0
+    local cc = subRank/4 >= 4 and 1 or 0
+    local heal = subRank/5 >= 5 and 1 or 0
+    local enh = subRank/6 >= 6 and 1 or 0
+    local div = subRank/7 >= 7 and 1 or 0
+    local enf = subRank/8 >= 8 and 1 or 0
+    local club = subRank/9 >= 9 and 1 or 0
+    local curepot = rank
+
+
+    mob:addMod(dsp.mod.MND, rank + mnd)
+    mob:addMod(dsp.mod.CHR, rank + chr)
+    mob:addMod(dsp.mod.STR, rank + str)
+	mob:addMod(dsp.mod.CURE_CAST_TIME, rank + cc)
+    mob:addMod(dsp.mod.HEAL, rank + heal)
+    mob:addMod(dsp.mod.ENHANCE, rank + enh)
+    mob:addMod(dsp.mod.DIVINE, rank + div)
+    mob:addMod(dsp.mod.ENFEEBLE, rank + enf)
+    mob:addMod(dsp.mod.CLUB, rank + club)
     mob:addMod(dsp.mod.CURE_POTENCY, curepot)
-    mob:addMod(dsp.mod.CURE_CAST_TIME,cct)
+
+    -- Gifts
+
+
+    -- Attack Bonus
+    if (total >= 180) then
+        mob:addMod(dsp.mod.ATT, 22)
+    elseif (total >= 5) then
+        mob:addMod(dsp.mod.ATT, 10)
+    end
+
+    -- Defense Bonus
+    if (total >= 210) then
+        mob:addMod(dsp.mod.DEF, 40)
+    elseif (total >= 10) then
+        mob:addMod(dsp.mod.DEF, 18)
+    end
+
+    -- Evasion Bonus
+    if (total >= 300) then
+        mob:addMod(dsp.mod.EVA, 28)
+    elseif (total >= 20) then
+        mob:addMod(dsp.mod.EVA, 16)
+    end
+
+    -- Trust Points +
+    if (total >= 550) then
+        mob:setLocalVar("[TRUST]KUPIPI_POINTS_PLUS",26)
+    elseif (total >= 475) then
+        mob:setLocalVar("[TRUST]KUPIPI_POINTS_PLUS",23)
+    elseif (total >= 400) then
+        mob:setLocalVar("[TRUST]KUPIPI_POINTS_PLUS",20)
+    elseif (total >= 325) then
+        mob:setLocalVar("[TRUST]KUPIPI_POINTS_PLUS",17)
+    elseif (total >= 250) then
+        mob:setLocalVar("[TRUST]KUPIPI_POINTS_PLUS",14)
+    elseif (total >= 175) then
+        mob:setLocalVar("[TRUST]KUPIPI_POINTS_PLUS",11)
+    elseif (total >= 100) then
+        mob:setLocalVar("[TRUST]KUPIPI_POINTS_PLUS",8)
+    elseif (total >= 25) then
+        mob:setLocalVar("[TRUST]KUPIPI_POINTS_PLUS",5)
+    end
+
+    -- Accuracy Bonus
+    if (total >= 410) then
+        mob:addMod(dsp.mod.ACC, 25)
+    elseif (total >= 30) then
+        mob:addMod(dsp.mod.ACC, 15)
+    end
+
+    -- Shell Bonus
+    if (total >= 425) then
+        mob:setLocalVar("shell",2)
+    elseif (total >= 130) then
+        mob:setLocalVar("shell",1)
+    end
+
+	 -- Protect bonus
+    if (total >= 230) then
+        mob:setLocalVar("protect",8)
+    elseif (total >= 50) then
+        mob:setLocalVar("protect",4)
+    end
+
+
+    -- Shell and Pro
+    if (total >= 125) then
+        mob:setLocalVar("[TRUST]KUPIPI_SHELLPROV",1)
+    end
+
+    if (total >= 375) then  -- Change to 300 or 400  -- This needs something
+        mob:addMod(dsp.mod.CURE2MP_PERCENT, 5)
+    end
+
+    -- MP
+    if (total >= 450) then
+        mob:addMod(dsp.mod.MP, 130)
+    elseif (total >= 80) then
+        mob:addMod(dsp.mod.MP,90)
+    end
+
+    -- HP
+    if (total >= 500) then
+        mob:addMod(dsp.mod.HP,80)
+    elseif (total >= 110) then
+        mob:addMod(dsp.mod.HP,40)
+    end
+
+    -- Savage Blade 150
+	if (total >= 150) then
+	    mob:setLocalVar("[TRUST]KUPIPI_BH",1)
+	end
+
+	if (total >= 525) then
+	    mob:addMod(dsp.mod.ENMITY, -15)
+    elseif (total >= 70) then
+	    mob:addMod(dsp.mod.ENMITY, -10)
+    end
+
+	if (total >= 350) then
+	    mob:addMod(dsp.mod.REGEN_MULTIPLIER, 5)
+	end
 end
 
 function zeidTrustPoints(mob)
@@ -331,7 +576,7 @@ function debugEnmity(mob, player, target)
 
     local trustID = mob:getID()
     local playerID = player:getID()
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
     local ce = 0
     local ve = 0
     local total = 0
@@ -360,7 +605,7 @@ function enmityCalc(mob, player, target)
 
     local trustID = mob:getID()
     local trustEnmity = 0
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
     local ce = 0
     local ve = 0
     local total = 0
@@ -443,38 +688,72 @@ function getWeakness(mob, player, target)
     return weak
 end
 
+-- ---------------------------- --
+--     Who's in the Party?      --
+-- ---------------------------- --
+
+
+function isCurillaInParty(mob, player, target)
+    local curilla = 0
+    local party = player:getPartyWithTrusts()
+    local id = 0
+
+    for i, member in ipairs(party) do
+        if (member:getName() == "Curilla") then
+            curilla = 1
+            id = mob:getID()
+
+            break
+        end
+    end
+
+    return curilla, id
+end
 
 function isKupipiInParty(mob, player, target)
     local kupipi = 0
-    local party = player:getParty()
+    local koru = 0
+    local mp = 0
+    local maxmp = 0
+    local kupmp = 0
+    local party = player:getPartyWithTrusts()
 
     for i, member in ipairs(party) do
         if (member:getName() == "Kupipi" or member:getName() == "Kupipi-W" or member:getName() == "Kupipi-R") then
             kupipi = 1
+            mp = member:getMP()
+            maxmp = member:getMaxMP()
+            kupmp = math.floor((mp / maxmp) * 100)
             break
         end
     end
 
-    return kupipi
+    return kupipi, kupmp
 end
 
 function isKoruInParty(mob, player, target)
     local koru = 0
-    local party = player:getParty()
+    local mp = 0
+    local maxmp = 0
+    local korump = 0
+    local party = player:getPartyWithTrusts()
 
     for i, member in ipairs(party) do
         if (member:getName() == "Koru-Moru") then
             koru = 1
+            mp = member:getMP()
+            maxmp = member:getMaxMP()
+            korump = math.floor((mp / maxmp) * 100)
             break
         end
     end
 
-    return koru
+    return koru, korump
 end
 
 function isPrisheInParty(mob, player, target)
     local prishe = 0
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
 
     for i, member in ipairs(party) do
         if (member:getName() == "Prishe") then
@@ -488,7 +767,7 @@ end
 
 function isZeidInParty(mob, player, target)
     local zeid = 0
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
 
     for i, member in ipairs(party) do
         if (member:getName() == "Zeid-S") then
@@ -502,7 +781,7 @@ end
 
 function isLionInParty(mob, player, target)
     local lion = 0
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
 
     for i, member in ipairs(party) do
         if (member:getName() == "Lion") then
@@ -516,7 +795,7 @@ end
 
 function getLionTPPrishe(mob, player, target)
     local tp = 0
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
 
     for i, member in ipairs(party) do
         if (member:getName() == "Lion") then
@@ -529,7 +808,7 @@ end
 
 function getZeidTP(mob, player, target)
     local tp = 0
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
 
     for i, member in ipairs(party) do
         if (member:getName() == "Zeid-S") then
@@ -544,7 +823,7 @@ function getLionTP(mob, player, target)
     local tp = 0
     local lastWStime = 0
     local lastWS = 0
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
 
 
     for i, member in ipairs(party) do
@@ -563,7 +842,7 @@ function getPrisheTP(mob, player, target)
     local tp = 0
     local lastWStime = 0
     local lastWS = 0
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
 
 
     for i, member in ipairs(party) do
@@ -642,7 +921,7 @@ end
 function getAngle(mob)
     local master = mob:getMaster()
     local angle = math.random(20, 180)
-    local party = master:getParty()
+    local party = master:getPartyWithTrusts()
     local trust = 0
 
     for i,member in ipairs(party) do
@@ -697,6 +976,15 @@ function trustSneakAttackMove(mob, player, target)
     end
 end
 
+function trustTrickAttackMove(mob, player, target, id)
+
+    local size = target:getModelSize() -- Take size of model to account
+    if (mob:getCurrentAction() ~= dsp.act.MAGIC_CASTING) then
+
+         mob:moveToDistanceFacing(size + 2.7, target)
+    end
+end
+
 function trustMeleeMove(mob, player, target, angle)
     local battletime = mob:getBattleTime()
     local enmity = enmityCalc(mob, player, target)
@@ -743,7 +1031,7 @@ function trustTankMove(mob, player, target)
 end
 
 function weaponSkillEnmityCheck(mob, player, target)
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
     local enmity = enmityCalc(mob, player, target)
     local tatt = mob:getStat(dsp.mod.ATT)
     local mobdef = mob:getStat(dsp.mod.DEF)
@@ -988,7 +1276,7 @@ local zazarg = 0
 local luzaf = 0
 
     -- Lets clean this up later with an lua function in the core
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
     if (party ~= nil) then
         for i, member in ipairs(party) do
             if (member:getObjType() == dsp.objType.TRUST and (member:getName() == "Kupipi" or member:getName() == "Kupipi-W" or member:getName() == "Kupipi-R")) then

@@ -101,7 +101,7 @@ function onMobSpawn(mob)
         end
 
         if (battletime > cureTime + cureCooldown) then
-            local party = player:getParty()
+            local party = player:getPartyWithTrusts()
             for _,member in ipairs(party) do
                 if (member:getHPP() <= 30) then
                     local spell = doEmergencyCureAdel(mob)
@@ -365,7 +365,7 @@ function doBuff(mob, player)
     local battletime = os.time()
     local mp = mob:getMP()
     local lvl = mob:getMainLvl()
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
     local pro = 0
     local shell = 0
     local procount = 0
@@ -583,7 +583,7 @@ function doMagicBurst(player, target, element)
 
 
     -- Hack to find Adelheid
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
     for _,member in ipairs(party) do
         id = member:getID()
             printf("PTMember is %u \n",ptmember)

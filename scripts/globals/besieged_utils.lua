@@ -56,7 +56,7 @@ function besiegedCheck(zone)
         despawnNPCS()
         spawnForces()
 
-        SetServerVariable("[BESIEGED]Undead_Swarm_Status",10);
+        -- SetServerVariable("[BESIEGED]Undead_Swarm_Status",10);
         undeadMarch = os.time() + 250
         SetServerVariable("[BESIEGED]Undead_Swarm_March",undeadMarch)
         printf("Current time is %u",os.time())

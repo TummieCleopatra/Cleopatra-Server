@@ -93,11 +93,14 @@ enum MERIT_CATEGORY
     MCATEGORY_PUP_2      = 0x0C40,
     MCATEGORY_DNC_2      = 0x0C80,
     MCATEGORY_SCH_2      = 0x0CC0,
+
+    MCATEGORY_UNK_5      = 0x0D00,
+
     MCATEGORY_GEO_2      = 0x0D40,
     MCATEGORY_RUN_2      = 0x0D80,
 
     MCATEGORY_START      = 0x0040,
-    MCATEGORY_COUNT      = 0x0DC0,
+    MCATEGORY_COUNT      = 0x0DC0,  //3520 new Max Rune Fencer stops at 3462
 };
 
 /************************************************************************
@@ -362,11 +365,19 @@ enum MERIT_TYPE
     //WHM 2
     MERIT_MARTYR                    = MCATEGORY_WHM_2 + 0x00,
     MERIT_DEVOTION                  = MCATEGORY_WHM_2 + 0x02,
+    MERIT_PROTECTRA_V               = MCATEGORY_WHM_2 + 0x04,
+    MERIT_SHELLRA_V                 = MCATEGORY_WHM_2 + 0x06,
     MERIT_ANIMUS_SOLACE             = MCATEGORY_WHM_2 + 0x08,
     MERIT_ANIMUS_MISERY             = MCATEGORY_WHM_2 + 0x0A,
 
     //BLM 2
 
+    MERIT_FLARE_II                  = MCATEGORY_BLM_2 + 0x00,
+    MERIT_FREEZE_II                 = MCATEGORY_BLM_2 + 0x02,
+    MERIT_TORNADO_II                = MCATEGORY_BLM_2 + 0x04,
+    MERIT_QUAKE_II                  = MCATEGORY_BLM_2 + 0x06,
+    MERIT_BURST_II                  = MCATEGORY_BLM_2 + 0x08,
+    MERIT_FLOOD_II                  = MCATEGORY_BLM_2 + 0x0A,
     MERIT_ANCIENT_MAB               = MCATEGORY_BLM_2 + 0x0C,
     MERIT_ANCIENT_MDB               = MCATEGORY_BLM_2 + 0x0E,
     MERIT_ELEMENTAL_ACC             = MCATEGORY_BLM_2 + 0x10,
@@ -375,12 +386,18 @@ enum MERIT_TYPE
     MERIT_ASPIR_ABSORB_AMOUNT       = MCATEGORY_BLM_2 + 0x16,
 
     //RDM 2
-    MERIT_ENFEEBLING_MAGIC_DURATION = MCATEGORY_RDM_2 + 0x06,
-    MERIT_MAGIC_ACCURACY            = MCATEGORY_RDM_2 + 0x08,
-    MERIT_ENHANCING_MAGIC_DURATION  = MCATEGORY_RDM_2 + 0x0A,
-    MERIT_IMMUNOBREAK_CHANCE        = MCATEGORY_RDM_2 + 0x0C,
-    MERIT_ENSPELL_DAMAGE            = MCATEGORY_RDM_2 + 0x0E,
-    MERIT_ACCURACY                  = MCATEGORY_RDM_2 + 0x10,
+    MERIT_DIA_III                   = MCATEGORY_RDM_2 + 0x00,
+    MERIT_SLOW_II                   = MCATEGORY_RDM_2 + 0x02,
+    MERIT_PARALYZE_II               = MCATEGORY_RDM_2 + 0x04,
+    MERIT_PHALANX_II                = MCATEGORY_RDM_2 + 0x06,
+    MERIT_BIO_III                   = MCATEGORY_RDM_2 + 0x08,
+    MERIT_BLIND_II                  = MCATEGORY_RDM_2 + 0x0A,
+    MERIT_ENFEEBLING_MAGIC_DURATION = MCATEGORY_RDM_2 + 0x0C,
+    MERIT_MAGIC_ACCURACY            = MCATEGORY_RDM_2 + 0x0E,
+    MERIT_ENHANCING_MAGIC_DURATION  = MCATEGORY_RDM_2 + 0x10,
+    MERIT_IMMUNOBREAK_CHANCE        = MCATEGORY_RDM_2 + 0x12,
+    MERIT_ENSPELL_DAMAGE            = MCATEGORY_RDM_2 + 0x14,
+    MERIT_ACCURACY                  = MCATEGORY_RDM_2 + 0x16,
 
     //THF 2
     MERIT_ASSASSINS_CHARGE          = MCATEGORY_THF_2 + 0x00,
@@ -427,6 +444,12 @@ enum MERIT_TYPE
     //NIN 2
     MERIT_SANGE                     = MCATEGORY_NIN_2 + 0x00,
     MERIT_NINJA_TOOL_EXPERTISE      = MCATEGORY_NIN_2 + 0x02,
+    MERIT_KATON_SAN                 = MCATEGORY_NIN_2 + 0x04,
+    MERIT_HYOTON_SAN                = MCATEGORY_NIN_2 + 0x06,
+    MERIT_HUTON_SAN                 = MCATEGORY_NIN_2 + 0x08,
+    MERIT_DOTON_SAN                 = MCATEGORY_NIN_2 + 0x0A,
+    MERIT_RAITON_SAN                = MCATEGORY_NIN_2 + 0x0C,
+    MERIT_SUITON_SAN                = MCATEGORY_NIN_2 + 0x0E,
     YONIN_EFFECT                    = MCATEGORY_NIN_2 + 0x10,
     INNIN_EFFECT                    = MCATEGORY_NIN_2 + 0x12,
     NINJITSU_MACC                   = MCATEGORY_NIN_2 + 0x14,

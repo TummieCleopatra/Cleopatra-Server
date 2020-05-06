@@ -90,7 +90,7 @@ end
 function doSongCheck(mob, player, target)
     -- printf("Song Check")
     local battletime = os.time()
-    local party = player:getParty()
+    local party = player:getPartyWithTrusts()
     local eva = target:getEVA()
     local def = target:getStat(dsp.mod.DEF)
     local mlvl = mob:getMainLvl()

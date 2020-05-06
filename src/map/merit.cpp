@@ -150,8 +150,8 @@ static const MeritCategoryInfo_t meritCatInfo[] =
     {4,10,7},  //MCATEGORY_PUP_2
     {4,10,7},  //MCATEGORY_DNC_2
     {6,10,7},  //MCATEGORY_SHC_2
+    {0,0,7},   //MCATEGORY_UNK_5
     {4,10,7},  //MCATEGORY_GEO_2
-    {4,10,7},  //MCATEGORY_RUN_2
     {4,10,7},  //MCATEGORY_RUN_2
 };
 
@@ -168,13 +168,10 @@ CMeritPoints::CMeritPoints(CCharEntity* PChar)
 {
 	/*
 	DSP_DEBUG_BREAK_IF(sizeof(merits) != sizeof(merits::GMeritsTemplate));
-
     memcpy(merits, merits::GMeritsTemplate, sizeof(merits));
-
     for (uint8 m = 0, i = 0; i < sizeof(Categories)/sizeof(Merit_t*); ++i)
     {
         Categories[i] = &merits[m];
-
         for (uint8 t = 0; t < count[i].MaxMerits; ++t)
         {
             merits[m].next = upgrade[count[i].UpgradeID][0];
@@ -204,18 +201,21 @@ CMeritPoints::CMeritPoints(CCharEntity* PChar)
 void CMeritPoints::LoadMeritPoints(uint32 charid)
 {
     uint8 catNumber = 0;
+     //ShowWarning(CL_GREEN"Merits Count is %u \n" CL_RESET, MERITS_COUNT);
 
     for (uint16 i = 0; i < MERITS_COUNT; ++i)
     {
-        if ((catNumber < 54 && i == meritNameSpace::groupOffset[catNumber]) || (catNumber > 27 && catNumber < 31))
+        if ((catNumber < 54 && i == meritNameSpace::groupOffset[catNumber]) || (catNumber > 27 && catNumber < 31) || catNumber == 51)
         {
 
-            if (catNumber > 27 && catNumber < 31) // point these to valid merits to prevent crash
+            if (catNumber > 27 && catNumber < 31 || catNumber == 51) // point these to valid merits to prevent crash
                 Categories[catNumber] = &merits[163];
             else
                 Categories[catNumber] = &merits[i];
 
+            //ShowWarning(CL_GREEN"Merit Cat is %u \n" CL_RESET, catNumber);
             catNumber++;
+
         }
 
         merits[i].count = 0;
@@ -346,44 +346,20 @@ void CMeritPoints::SetMeritPoints(uint16 points)
 
 bool CMeritPoints::IsMeritExist(MERIT_TYPE merit)
 {
-	//ShowWarning(CL_YELLOW"The Merit number is %u \n" CL_RESET, merit);
-
-    if ((int16)merit <  MCATEGORY_START) {
-        ShowWarning(CL_YELLOW"The Merit is %u \n" CL_RESET, merit);
-        return  false;
-    }
-    if ((int16)merit >= MCATEGORY_COUNT) {
-        ShowWarning(CL_YELLOW"The Merit is greater than category:  %u \n" CL_RESET, merit);
+    if ((int16)merit <  MCATEGORY_START){
+        ShowWarning(CL_GREEN"Merit is less than category start \n" CL_RESET);
         return false;
     }
-    /*
-	if ((int16)merit >= 2184 && ((int16)merit <= 2186))
-    {
-		if ((GetMeritID(merit) - 2) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
-	}
-	else if ((int16)merit >= 2252 && ((int16)merit <= 2262))
-    {
-		if ((GetMeritID(merit) - 6) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
-	}
-	else if ((int16)merit >= 2316 && ((int16)merit <= 2326))
-    {
-		if ((GetMeritID(merit) - 6) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
-	}
-	else if ((int16)merit >= 2632 && ((int16)merit <= 2634))
-    {
-		if ((GetMeritID(merit) - 2) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
-	}
-	else if ((int16)merit >= 2832 && ((int16)merit <= 2838))
-    {
-		if ((GetMeritID(merit) - 6) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
-	}
-	else
-	{
-        //ShowWarning(CL_YELLOW"MERIT ID is ...... %u \n" CL_RESET, GetMeritID(merit));
-        //ShowWarning(CL_YELLOW"MERIT CAT! %u \n" CL_RESET, meritCatInfo[GetMeritCategory(merit)].MeritsInCat);
-		if ((GetMeritID(merit)) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
-	}*/
-    if ((GetMeritID(merit)) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat) return false;
+    if ((int16)merit >= MCATEGORY_COUNT){
+        ShowWarning(CL_GREEN"Merit is greater than or equal to category count \n" CL_RESET);
+        return false;
+    }
+
+    if ((GetMeritID(merit)) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat){
+        ShowWarning(CL_GREEN"Merit ID is %i \n" CL_RESET, GetMeritID(merit));
+        ShowWarning(CL_GREEN"Merit Cat Info is %i \n" CL_RESET, meritCatInfo[GetMeritCategory(merit)].MeritsInCat);
+        return false;
+    }
 
     return true;
 }
@@ -420,34 +396,9 @@ const Merit_t* CMeritPoints::GetMeritByIndex(uint16 index)
 
 Merit_t* CMeritPoints::GetMeritPointer(MERIT_TYPE merit)
 {
-    //ShowWarning(CL_YELLOW"The Merit is %u \n" CL_RESET, merit);
     if (IsMeritExist(merit))
     {
-        /*
-		if (merit >= 2184 && merit <= 2186){
-			return &Categories[GetMeritCategory(merit)][GetMeritID(merit) - 2]; // WHM T2 Merits
-		}
-		else if (merit >= 2252 && merit <= 2262){
-			return &Categories[GetMeritCategory(merit)][GetMeritID(merit) - 6]; // BLM T2 Merits
-		}
-		else if (merit >= 2316 && merit <= 2326){
-			return &Categories[GetMeritCategory(merit)][GetMeritID(merit) - 6]; // RDM T2 Merits
-		}
-		else if (merit >= 2632 && merit <= 2634){
-			return &Categories[GetMeritCategory(merit)][GetMeritID(merit) - 2]; // BRD T2 Merits
-		}
-		else if (merit >= 2832 && merit <= 2838){
-			return &Categories[GetMeritCategory(merit)][GetMeritID(merit) - 6]; // NIN T2 Merits
-		}*/
-		if (merit >= 3456 && merit <= 3462){
-			return &Categories[GetMeritCategory(merit)][GetMeritID(merit) - 1]; // NIN T2 Merits
-		}
-		else
-		{
-			return &Categories[GetMeritCategory(merit)][GetMeritID(merit)];
-		}
-        //return &Categories[GetMeritCategory(merit)][GetMeritID(merit)];
-
+        return &Categories[GetMeritCategory(merit)][GetMeritID(merit)];
     }
     return nullptr;
 }
@@ -616,7 +567,6 @@ namespace meritNameSpace
 			groupOffset[catIndex] = index - catMeritIndex;			// add the last offset manually since loop finishes before hand.
 
            /* ret = Sql_Query(SqlHandle, "SELECT meritid, spellid FROM merits INNER JOIN spell_list ON merits.name = spell_list.name");
-
             if (ret != SQL_ERROR)
             {
 		        while( Sql_NextRow(SqlHandle) == SQL_SUCCESS )
