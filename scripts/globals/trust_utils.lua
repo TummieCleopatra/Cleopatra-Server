@@ -266,46 +266,458 @@ function curillaTrustPoints(mob)
 end
 
 function excenmilleTrustPoints(mob)
+--[[
+
+
+1   Jump Att Bonus
+2   STR + 1
+3   VIT + 1
+4   DEX + 1
+5   AGI + 1
+6   Polearm SKill + 1
+7   Jump Recast - 1
+8   High Jump Recast - 1
+9   High Jump Enm REduction + 1
+10  Super Jump Recast +5  ]]--
+
     local player = mob:getMaster()
-	local att = player:getVar("TrustAtt_Excen");
-	local acc = player:getVar("TrustAcc_Excen");
-	    -- int32 jumpExcen = charutils::GetVar(PChar, "TrustJump_Excen");
-	local enm = player:getVar("TrustEnm_Excen");
-	    -- int32 trait1Excen = charutils::GetVar(PChar, "TrustJA_Excen");
+    local total = player:getVar("[TRUST]ExcenmilleTokensTotal")
+    local rank = player:getVar("[TRUST]ExcenmilleRank")
+    local subRank = player:getVar("[TRUST]ExcenmilleSubRank")
 
-    mob:addMod(dsp.mod.ATT, att)
-    mob:addMod(dsp.mod.ACC, acc)
+    local r1 = subRank/1 >= 1 and 1 or 0
+    local r2 = subRank/2 >= 2 and 1 or 0
+    local r3 = subRank/3 >= 3 and 1 or 0
+    local r4 = subRank/4 >= 4 and 1 or 0
+    local r5 = subRank/5 >= 5 and 1 or 0
+    local r6 = subRank/6 >= 6 and 1 or 0
+    local r7 = subRank/7 >= 7 and 1 or 0
+    local r8 = subRank/8 >= 8 and 1 or 0
+    local r9 = subRank/9 >= 9 and 1 or 0
+    local r10 = rank * 5
 
-    mob:addMod(dsp.mod.ENMITY, -enm)
+
+    mob:addMod(dsp.mod.JUMP_ATT_BONUS, rank + r1)
+    mob:addMod(dsp.mod.STR, rank + r2)
+    mob:addMod(dsp.mod.VIT, rank + r3)
+	mob:addMod(dsp.mod.DEX, rank + r4)
+    mob:addMod(dsp.mod.AGI, rank + r5)
+    mob:addMod(dsp.mod.POLE, rank + r6)
+    mob:setLocalVar("JumpRecast", rank + r7)
+	mob:setLocalvar("HighJump",rank + r8)
+    mob:addMod(dsp.mod.HIGH_JUMP_ENMITY_REDUCTION, rank + r9)
+    mob:setLocalVar("SuperJumpRecast",r10)
+
+    -- Gifts
+
+
+    -- Attack Bonus 5/180
+    if (total >= 180) then
+        mob:addMod(dsp.mod.ATT, 20)
+    elseif (total >= 5) then
+        mob:addMod(dsp.mod.ATT, 12)
+    end
+
+    -- Acc Bonus 10/210
+    if (total >= 210) then
+        mob:addMod(dsp.mod.ACC, 22)
+    elseif (total >= 10) then
+        mob:addMod(dsp.mod.ACC, 11)
+    end
+
+    -- Defense Bonus  20/300
+    if (total >= 300) then
+        mob:addMod(dsp.mod.DEF, 18)
+    elseif (total >= 20) then
+        mob:addMod(dsp.mod.DEF, 8)
+    end
+
+    -- Trust Points +
+    if (total >= 550) then
+        mob:setLocalVar("[TRUST]EXCENMILLE_POINTS_PLUS",26)
+    elseif (total >= 475) then
+        mob:setLocalVar("[TRUST]EXCENMILLE_POINTS_PLUS",23)
+    elseif (total >= 400) then
+        mob:setLocalVar("[TRUST]EXCENMILLE_POINTS_PLUS",20)
+    elseif (total >= 325) then
+        mob:setLocalVar("[TRUST]EXCENMILLE_POINTS_PLUS",17)
+    elseif (total >= 250) then
+        mob:setLocalVar("[TRUST]EXCENMILLE_POINTS_PLUS",14)
+    elseif (total >= 175) then
+        mob:setLocalVar("[TRUST]EXCENMILLE_POINTS_PLUS",11)
+    elseif (total >= 100) then
+        mob:setLocalVar("[TRUST]EXCENMILLE_POINTS_PLUS",8)
+    elseif (total >= 25) then
+        mob:setLocalVar("[TRUST]EXCENMILLE_POINTS_PLUS",5)
+    end
+
+    -- Evasion Bonus  30/410
+    if (total >= 410) then
+        mob:addMod(dsp.mod.EVA, 20)
+    elseif (total >= 30) then
+        mob:addMod(dsp.mod.EVA, 12)
+    end
+
+
+	 -- CRIT bonus  50/230
+    if (total >= 230) then
+        mob:addMod(dsp.mod.CRITHITRATE,4)
+    elseif (total >= 50) then
+        mob:addMod(dsp.mod.CRITHITRATE,2)
+    end
+
+    -- HP  70/525
+    if (total >= 525) then
+        mob:addMod(dsp.mod.HP,100)
+    elseif (total >= 70) then
+        mob:addMod(dsp.mod.HP,50)
+    end
+
+	-- 80/450
+	if (total >= 450) then
+	    mob:addMod(dsp.mod.ENMITY, -4)
+    elseif (total >= 80) then
+	    mob:addMod(dsp.mod.ENMITY, -2)
+    end
+
+   -- JA Haste
+    if (total >= 500) then
+        mob:addMod(dsp.mod.HASTE_ABILITY, 8)
+    elseif (total >= 110) then
+	    mob:addMod(dsp.mod.HASTE_ABILITY, 3)
+   end
+
+
+    -- JA/Spell 125
+    if (total >= 125) then
+        mob:setLocalVar("[TRUST]EXCENMILLE_ANGON",1)
+    end
+
+    -- Damage Limit  350
+    if (total >= 350) then
+        mob:addMod(dsp.mod.DAMAGE_LIMIT,10)
+    end
+
+
+    -- WS 150
+	if (total >= 150) then
+	    mob:setLocalVar("[TRUST]EXCENMILLE_WS",1)
+	end
+
+
+    -- JA/Spell 375
+    if (total >= 375) then
+        mob:setLocalVar("[TRUST]EXCENMILLE_ANGON_BONUS",1)
+    end
+
 
 end
 
 function ayameTrustPoints(mob)
-    local player = mob:getMaster()
-    local att = player:getVar("TrustAtt_Ayame");
-	local acc = player:getVar("TrustAcc_Ayame");
-	local stp = player:getVar("TrustSTP_Ayame");
-	local zan = player:getVar("TrustZan_Ayame");
-	    -- int32 trait1Aya = charutils::GetVar(PChar, "TrustJA_Ayame");     // Script Meditate + 20
+--[[
 
-    mob:addMod(dsp.mod.ATT, att)
-    mob:addMod(dsp.mod.ACC, acc)
-    mob:addMod(dsp.mod.STORETP, stp)
-    mob:addMod(dsp.mod.ZANSHIN,zan)
+
+1   Zanshin + 1
+2   STR + 1
+3   DEX + 1
+4   AGI + 1
+5   Store TP +2
+6   Great Katana + 1
+7   Hasso STR + 1
+8   Seigan Def + 1
+9   Third Eye Anticipation + 1
+10  Meditate +5  ]]--
+
+    local player = mob:getMaster()
+    local total = player:getVar("[TRUST]AyameTokensTotal")
+    local rank = player:getVar("[TRUST]AyameRank")
+    local subRank = player:getVar("[TRUST]AyameSubRank")
+
+    local r1 = subRank/1 >= 1 and 1 or 0
+    local r2 = subRank/2 >= 2 and 1 or 0
+    local r3 = subRank/3 >= 3 and 1 or 0
+    local r4 = subRank/4 >= 4 and 1 or 0
+    local r5 = subRank/5 >= 5 and 1 or 0
+    local r6 = subRank/6 >= 6 and 1 or 0
+    local r7 = subRank/7 >= 7 and 1 or 0
+    local r8 = subRank/8 >= 8 and 1 or 0
+    local r9 = subRank/9 >= 9 and 1 or 0
+    local r10 = rank * 5
+
+
+    mob:addMod(dsp.mod.ZANSHIN, rank + r1)
+    mob:addMod(dsp.mod.STR, rank + r2)
+    mob:addMod(dsp.mod.DEX, rank + r3)
+	mob:addMod(dsp.mod.AGI, rank + r4)
+    mob:addMod(dsp.mod.STORETP, rank + r5)
+    mob:addMod(dsp.mod.GKATANA, rank + r6)
+    mob:setLocalVar("Hasso", rank + r7)
+	mob:setLocalVar("Seigan",rank + r8)
+    mob:addMod(dsp.mod.THIRD_EYE_ANTICIPATE_RATE, rank + r9)
+    mob:setLocalVar("Meditate",r10)
+
+    -- Gifts
+
+
+    -- Attack Bonus 5/180
+    if (total >= 180) then
+        mob:addMod(dsp.mod.ATT, 20)
+    elseif (total >= 5) then
+        mob:addMod(dsp.mod.ATT, 8)
+    end
+
+    -- Acc Bonus 10/210
+    if (total >= 210) then
+        mob:addMod(dsp.mod.ACC, 20)
+    elseif (total >= 10) then
+        mob:addMod(dsp.mod.ACC, 10)
+    end
+
+    -- Defense Bonus  20/300
+    if (total >= 300) then
+        mob:addMod(dsp.mod.DEF, 22)
+    elseif (total >= 20) then
+        mob:addMod(dsp.mod.DEF, 15)
+    end
+
+    -- Trust Points +
+    if (total >= 550) then
+        mob:setLocalVar("[TRUST]AYAME_POINTS_PLUS",26)
+    elseif (total >= 475) then
+        mob:setLocalVar("[TRUST]AYAME_POINTS_PLUS",23)
+    elseif (total >= 400) then
+        mob:setLocalVar("[TRUST]AYAME_POINTS_PLUS",20)
+    elseif (total >= 325) then
+        mob:setLocalVar("[TRUST]AYAME_POINTS_PLUS",17)
+    elseif (total >= 250) then
+        mob:setLocalVar("[TRUST]AYAME_POINTS_PLUS",14)
+    elseif (total >= 175) then
+        mob:setLocalVar("[TRUST]AYAME_POINTS_PLUS",11)
+    elseif (total >= 100) then
+        mob:setLocalVar("[TRUST]AYAME_POINTS_PLUS",8)
+    elseif (total >= 25) then
+        mob:setLocalVar("[TRUST]AYAME_POINTS_PLUS",5)
+    end
+
+    -- Evasion Bonus  30/410
+    if (total >= 410) then
+        mob:addMod(dsp.mod.EVA, 22)
+    elseif (total >= 30) then
+        mob:addMod(dsp.mod.EVA, 15)
+    end
+
+
+	 -- Skillchain bonus  50/230
+    if (total >= 230) then
+        mob:addMod(dsp.mod.SKILLCHAINBONUS,4)
+    elseif (total >= 50) then
+        mob:addMod(dsp.mod.SKILLCHAINBONUS,2)
+    end
+
+	-- 70/525
+	if (total >= 525) then
+	    mob:addMod(dsp.mod.ENMITY, -8)
+    elseif (total >= 350) then
+	    mob:addMod(dsp.mod.ENMITY, -6)
+    elseif (total >= 70) then
+	    mob:addMod(dsp.mod.ENMITY, -4)
+    end
+
+    -- HP  80/110/450/500
+    if (total >= 500) then
+        mob:addMod(dsp.mod.HP,900)
+    elseif (total >= 450) then
+        mob:addMod(dsp.mod.HP, 70)
+    elseif (total >= 110) then
+        mob:addMod(dsp.mod.HP,50)
+    elseif (total >= 80) then
+        mob:addMod(dsp.mod.MP,30)
+    end
+
+
+    -- JA/Spell 125
+    if (total >= 125) then
+        mob:setLocalVar("[TRUST]MEDITATE_RECAST",20)
+    end
+
+    -- Damage Limit  130/425
+    if (total >= 425) then
+        mob:addMod(dsp.mod.DAMAGE_LIMIT,15)
+    elseif (total >= 130) then
+        mob:addMod(dsp.mod.DAMAGE_LIMIT,5)
+    end
+
+
+    -- WS 150
+	if (total >= 150) then
+	    mob:setLocalVar("[TRUST]SEKKANOKI_RECAST",30)
+	end
+
+
+    -- JA/Spell 375
+    if (total >= 375) then  -- Change to 300 or 400  -- This needs something
+        mob:setLocalVar("[TRUST]SHIKIKOYO",1)
+    end
+
+
 end
 
 function nanaaTrustPoints(mob)
-    local player = mob:getMaster()
-	local att = player:getVar("TrustAtt_Nanaa");
-	local acc = player:getVar("TrustAcc_Nanaa");
-	local dex = player:getVar("TrustDEX_Nanaa");
-	local ta = player:getVar("TrustTA_Nanaa");	-- Triple Attack
-	local th = player:getVar("TrustTH_Nanaa");	-- Treasure Hunter
+--[[
 
-    mob:addMod(dsp.mod.ATT, att)
-    mob:addMod(dsp.mod.ACC, acc)
-    mob:addMod(dsp.mod.DEX, dex)
-    mob:addMod(dsp.mod.TRIPLE_ATTACK,ta)
+
+1   STR + 1
+2   DEX + 1
+3   AGI + 1
+4   VIT + 1
+5   MND + 1
+6   CHR + 1
+7   Dagger Skill + 1
+8   Sneak Attack Dex + 1
+9   Trick Attack AGi + 1
+10  Crit Defense Bonus  ]]--
+
+    local player = mob:getMaster()
+    local total = player:getVar("[TRUST]NanaaTokensTotal")
+    local rank = player:getVar("[TRUST]NanaaRank")
+    local subRank = player:getVar("[TRUST]NanaaSubRank")
+
+    local r1 = subRank/1 >= 1 and 1 or 0
+    local r2 = subRank/2 >= 2 and 1 or 0
+    local r3 = subRank/3 >= 3 and 1 or 0
+    local r4 = subRank/4 >= 4 and 1 or 0
+    local r5 = subRank/5 >= 5 and 1 or 0
+    local r6 = subRank/6 >= 6 and 1 or 0
+    local r7 = subRank/7 >= 7 and 1 or 0
+    local r8 = subRank/8 >= 8 and 1 or 0
+    local r9 = subRank/9 >= 9 and 1 or 0
+    local r10 = rank * 5
+
+
+    mob:addMod(dsp.mod.STR, rank + r1)
+    mob:addMod(dsp.mod.DEX, rank + r2)
+    mob:addMod(dsp.mod.AGI, rank + r3)
+	mob:addMod(dsp.mod.VIT, rank + r4)
+    mob:addMod(dsp.mod.MND, rank + r5)
+    mob:addMod(dsp.mod.CHR, rank + r6)
+    mob:addMod(dsp.mod.DAGGER, rank + r7)
+	mob:addMod(dsp.mod.SNEAK_ATK_DEX, rank + r8)
+    mob:addMod(dsp.mod.TRICK_ATK_AGI, rank + r9)
+    mob:addMod(dsp.mod.CRIT_DEF_BONUS,r10)
+
+    -- Gifts
+
+
+    -- Attack Bonus 5/180
+    if (total >= 180) then
+        mob:addMod(dsp.mod.ATT, 25)
+    elseif (total >= 5) then
+        mob:addMod(dsp.mod.ATT, 12)
+    end
+
+    -- Acc Bonus 10/210
+    if (total >= 210) then
+        mob:addMod(dsp.mod.ACC, 20)
+    elseif (total >= 10) then
+        mob:addMod(dsp.mod.ACC, 11)
+    end
+
+    -- Evasion Bonus  20/300
+    if (total >= 300) then
+        mob:addMod(dsp.mod.EVA, 20)
+    elseif (total >= 20) then
+        mob:addMod(dsp.mod.EVA, 10)
+    end
+
+    -- Defense Bonus  30/410
+    if (total >= 300) then
+        mob:addMod(dsp.mod.DEF, 35)
+    elseif (total >= 20) then
+        mob:addMod(dsp.mod.DEF, 18)
+    end
+
+    -- Trust Points +
+    if (total >= 550) then
+        mob:setLocalVar("[TRUST]NANAA_POINTS_PLUS",26)
+    elseif (total >= 475) then
+        mob:setLocalVar("[TRUST]NANAA_POINTS_PLUS",23)
+    elseif (total >= 400) then
+        mob:setLocalVar("[TRUST]NANAA_POINTS_PLUS",20)
+    elseif (total >= 325) then
+        mob:setLocalVar("[TRUST]NANAA_POINTS_PLUS",17)
+    elseif (total >= 250) then
+        mob:setLocalVar("[TRUST]NANAA_POINTS_PLUS",14)
+    elseif (total >= 175) then
+        mob:setLocalVar("[TRUST]NANAA_POINTS_PLUS",11)
+    elseif (total >= 100) then
+        mob:setLocalVar("[TRUST]NANAA_POINTS_PLUS",8)
+    elseif (total >= 25) then
+        mob:setLocalVar("[TRUST]NANAA_POINTS_PLUS",5)
+    end
+
+	 -- SA Crit Bonus  50/425
+    if (total >= 425) then
+        mob:addMod(dsp.mod.AUGMENTS_SA, 2)
+    elseif (total >= 50) then
+        mob:addMod(dsp.mod.AUGMENTS_TA, 1)
+    end
+
+	 -- TA Crit Bonus  70/525
+    if (total >= 525) then
+        mob:addMod(dsp.mod.AUGMENTS_TA,2)
+    elseif (total >= 70) then
+        mob:addMod(dsp.mod.AUGMENTS_TA,1)
+    end
+
+
+	-- CRIT bonus  80/450
+    if (total >= 230) then
+        mob:addMod(dsp.mod.CRITHITRATE,7)
+    elseif (total >= 50) then
+        mob:addMod(dsp.mod.CRITHITRATE,4)
+    end
+
+    -- CRIT DMG BONUS 110/500
+	if (total >= 500) then
+	    mob:addMod(dsp.mod.CRIT_DMG_INCREASE,5)
+	elseif (total >= 110) then
+	    mob:addMod(dsp.mod.CRIT_DMG_INCREASE, 2)
+	end
+
+
+
+    -- JA/Spell 125
+    if (total >= 125) then
+        mob:setLocalVar("[TRUST]NANAA_FEINT",1)
+    end
+
+    -- JA/Spell 130
+    if (total >= 130) then
+        mob:setLocalVar("[TRUST]NANAA_SA_RECAST",5)
+    end
+
+    -- WS 150
+	if (total >= 150) then
+	    mob:setLocalVar("[TRUST]NANAA_WS",1)
+	end
+
+    -- JA/Spell 230
+    if (total >= 230) then
+        mob:setLocalVar("[TRUST]NANAA_TA_RECAST",5)
+    end
+
+    -- HP+  350
+    if (total >= 350) then
+        mob:addMod(dsp.mod.HP,110)
+    end
+
+    -- Ability Haste 375
+    if (total >= 375) then
+        mob:addMod(dsp.mod.HASTE_ABILITY, 500)
+    end
+
+
+
 end
 
 function kupipiTrustPoints(mob)
@@ -470,18 +882,162 @@ function zeidTrustPoints(mob)
 end
 
 function lionTrustPoints(mob)
-    local player = mob:getMaster()
-	local att = player:getVar("TrustAtt_Lion");
-	local acc = player:getVar("TrustAcc_Lion");
-	local agi = player:getVar("TrustAGI_Lion");
-	local ta = player:getVar("TrustTA_Lion");       -- Triple Attack
-	local th = player:getVar("TrustTH_Lion");       -- Treasure Hunter II
+function lionTrustPoints(mob)
+--[[
 
-    mob:addMod(dsp.mod.ATT, att)
-    mob:addMod(dsp.mod.ACC, acc)
-    mob:addMod(dsp.mod.AGI, agi)
-    mob:addMod(dsp.mod.TRIPLE_ATTACK,ta)
-    mob:addMod(dsp.mod.TREASURE_HUNTER, th)
+
+1   STR + 1
+2   DEX + 1
+3   AGI + 1
+4   VIT + 1
+5   MND + 1
+6   CHR + 1
+7   Dagger Skill + 1
+8   Sneak Attack Dex + 1
+9   Trick Attack AGi + 1
+10  Crit Defense Bonus  ]]--
+
+    local player = mob:getMaster()
+    local total = player:getVar("[TRUST]LionTokensTotal")
+    local rank = player:getVar("[TRUST]LionRank")
+    local subRank = player:getVar("[TRUST]LionSubRank")
+
+    local r1 = subRank/1 >= 1 and 1 or 0
+    local r2 = subRank/2 >= 2 and 1 or 0
+    local r3 = subRank/3 >= 3 and 1 or 0
+    local r4 = subRank/4 >= 4 and 1 or 0
+    local r5 = subRank/5 >= 5 and 1 or 0
+    local r6 = subRank/6 >= 6 and 1 or 0
+    local r7 = subRank/7 >= 7 and 1 or 0
+    local r8 = subRank/8 >= 8 and 1 or 0
+    local r9 = subRank/9 >= 9 and 1 or 0
+    local r10 = rank * 5
+
+
+    mob:addMod(dsp.mod.STR, rank + r1)
+    mob:addMod(dsp.mod.DEX, rank + r2)
+    mob:addMod(dsp.mod.AGI, rank + r3)
+	mob:addMod(dsp.mod.VIT, rank + r4)
+    mob:addMod(dsp.mod.MND, rank + r5)
+    mob:addMod(dsp.mod.CHR, rank + r6)
+    mob:addMod(dsp.mod.DAGGER, rank + r7)
+	mob:addMod(dsp.mod.SNEAK_ATK_DEX, rank + r8)
+    mob:addMod(dsp.mod.TRICK_ATK_AGI, rank + r9)
+    mob:addMod(dsp.mod.CRIT_DEF_BONUS,r10)
+
+    -- Gifts
+
+
+    -- Attack Bonus 5/180
+    if (total >= 180) then
+        mob:addMod(dsp.mod.ATT, 25)
+    elseif (total >= 5) then
+        mob:addMod(dsp.mod.ATT, 12)
+    end
+
+    -- Acc Bonus 10/210
+    if (total >= 210) then
+        mob:addMod(dsp.mod.ACC, 20)
+    elseif (total >= 10) then
+        mob:addMod(dsp.mod.ACC, 11)
+    end
+
+    -- Evasion Bonus  20/300
+    if (total >= 300) then
+        mob:addMod(dsp.mod.EVA, 20)
+    elseif (total >= 20) then
+        mob:addMod(dsp.mod.EVA, 10)
+    end
+
+    -- Defense Bonus  30/410
+    if (total >= 300) then
+        mob:addMod(dsp.mod.DEF, 35)
+    elseif (total >= 20) then
+        mob:addMod(dsp.mod.DEF, 18)
+    end
+
+    -- Trust Points +
+    if (total >= 550) then
+        mob:setLocalVar("[TRUST]LION_POINTS_PLUS",26)
+    elseif (total >= 475) then
+        mob:setLocalVar("[TRUST]LION_POINTS_PLUS",23)
+    elseif (total >= 400) then
+        mob:setLocalVar("[TRUST]LION_POINTS_PLUS",20)
+    elseif (total >= 325) then
+        mob:setLocalVar("[TRUST]LION_POINTS_PLUS",17)
+    elseif (total >= 250) then
+        mob:setLocalVar("[TRUST]LION_POINTS_PLUS",14)
+    elseif (total >= 175) then
+        mob:setLocalVar("[TRUST]LION_POINTS_PLUS",11)
+    elseif (total >= 100) then
+        mob:setLocalVar("[TRUST]LION_POINTS_PLUS",8)
+    elseif (total >= 25) then
+        mob:setLocalVar("[TRUST]LION_POINTS_PLUS",5)
+    end
+
+	 -- SA Crit Bonus  50/425
+    if (total >= 425) then
+        mob:addMod(dsp.mod.AUGMENTS_SA, 2)
+    elseif (total >= 50) then
+        mob:addMod(dsp.mod.AUGMENTS_TA, 1)
+    end
+
+	 -- TA Crit Bonus  70/525
+    if (total >= 525) then
+        mob:addMod(dsp.mod.AUGMENTS_TA,2)
+    elseif (total >= 70) then
+        mob:addMod(dsp.mod.AUGMENTS_TA,1)
+    end
+
+
+	-- CRIT bonus  80/450
+    if (total >= 230) then
+        mob:addMod(dsp.mod.CRITHITRATE,7)
+    elseif (total >= 50) then
+        mob:addMod(dsp.mod.CRITHITRATE,4)
+    end
+
+    -- CRIT DMG BONUS 110/500
+	if (total >= 500) then
+	    mob:addMod(dsp.mod.CRIT_DMG_INCREASE,5)
+	elseif (total >= 110) then
+	    mob:addMod(dsp.mod.CRIT_DMG_INCREASE, 2)
+	end
+
+
+
+    -- JA/Spell 125
+    if (total >= 125) then
+        mob:setLocalVar("[TRUST]LION_AC",1)
+    end
+
+    -- JA/Spell 130
+    if (total >= 130) then
+        mob:setLocalVar("[TRUST]LION_SA_RECAST",5)
+    end
+
+    -- WS 150
+	if (total >= 150) then
+	    mob:addMod(dsp.mod.ALL_WSDMG_ALL_HITS, 7)
+	end
+
+    -- JA/Spell 230
+    if (total >= 230) then
+        mob:setLocalVar("[TRUST]LION_TA_RECAST",5)
+    end
+
+    -- HP+  350
+    if (total >= 350) then
+        mob:addMod(dsp.mod.HP,110)
+    end
+
+    -- Ability Haste 375
+    if (total >= 375) then
+        mob:addMod(dsp.mod.HASTE_ABILITY, 500)
+    end
+
+
+end
 
 end
 
@@ -619,6 +1175,11 @@ function enmityCalc(mob, player, target)
         ve = target:getVE(member)
         total = ve + ce
         local id = member:getID()
+
+        if (total == 0) then
+            total = -1 -- No Hate
+        end
+
         if (id == trustID) then
             -- printf("Trust Enmity ID Triggered")
             -- printf("CE is %u \n",ce)
@@ -650,7 +1211,6 @@ function enmityCalc(mob, player, target)
         -- printf("Highest Enmity is: %u \n",highest)
         -- printf("TRUST HAS HATE!! DIFF IS: %u \n",diff)
     end
-
     return diff
 end
 
@@ -918,6 +1478,11 @@ function doBarrage(target, mob)
 
 end
 
+function calcAngle(mob, target)
+
+
+end
+
 function getAngle(mob)
     local master = mob:getMaster()
     local angle = math.random(20, 180)
@@ -967,6 +1532,10 @@ function doUtsusemi(mob, player, target)
     end
 end
 
+-- ------------------------- --
+--   Custom movement         --
+-------------------------------
+
 function trustSneakAttackMove(mob, player, target)
     local enmity = enmityCalc(mob, player, target)
     local size = target:getModelSize() -- Take size of model to account
@@ -990,9 +1559,11 @@ function trustMeleeMove(mob, player, target, angle)
     local enmity = enmityCalc(mob, player, target)
     local distance = mob:checkDistance(target)
     local size = target:getModelSize() -- Take size of model to account
+    local test = mob:getAngle(target)
     -- Todo: Maybe put bard closer to the mob, maybe remove size
     -- if (battletime < 10) then
     if (mob:getCurrentAction() ~= dsp.act.MAGIC_CASTING and enmity ~= 0) then
+
         mob:moveToDistance(size + 2.5, angle, target)
     end
 end
@@ -1029,6 +1600,41 @@ function trustTankMove(mob, player, target)
         mob:moveToDistanceFacing(size + 2, target)
     end
 end
+
+
+
+
+
+function newTrustPull(mob,player,target)
+    --first check of trust pull is 1
+    local ID = 0
+    if (player:getVar("TrustPull") == 1 and mob:getLocalVar("MobFound") == 0) then  -- No Mob Found but player has Trust Pull toggled
+        -- cycle thru mobs to get an ID
+        mob:setLocalVar("Pull",1)
+        local lvl = mob:getMainLvl()
+        local nearbyTargets = mob:getTargetsWithinArea(40, 8);  -- Seek out all mobs in the area
+        for i,monster in ipairs(nearbyTargets) do
+
+            if (monster:getMainLvl() >= (lvl + 1) and monster:getMainLvl() <= (lvl + 6) and monster:isAlive()) then
+                local distance = player:checkDistance(monster)
+
+                ID = monster:getShortID()
+                mob:setLocalVar("TargetID",ID)
+                mob:setLocalVar("MobFound",1) -- I found a mob
+                local name = monster:getName()
+                player:PrintToPlayer("(Najelith-N) Pulling a "..name ,0x1C);
+                break
+            end
+        end
+    end
+
+
+
+end
+
+
+
+
 
 function weaponSkillEnmityCheck(mob, player, target)
     local party = player:getPartyWithTrusts()
