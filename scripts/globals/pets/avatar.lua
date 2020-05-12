@@ -19,21 +19,23 @@ function onMobSpawn(mob)
     mob:setLocalVar("despawn",os.time() + 9)
     mob:setLocalVar("afTime",os.time())
     printf("spawnnned")
-    if (master:hasStatusEffect(dsp.effect.AVATAR_S_FAVOR)) then
-        printf("Apply buffs on spawn")
-        master:addMod(dsp.mod.AVATAR_PERPETUATION, 9)
-        local skill = master:getSkillLevel(dsp.skill.SUMMONING_MAGIC)
-        local attBuff = (skill / 30) + 1;
-        local accBuff = (skill / 5) + 1;
-        local mabBuff = (skill / 10) + 5;
-        local regain = (skill / 10) + 20;
-        local def = (skill / 5) + 10
+    if (mob:getMaster() ~= nil) then
+        if (master:hasStatusEffect(dsp.effect.AVATAR_S_FAVOR)) then
+            printf("Apply buffs on spawn")
+            master:addMod(dsp.mod.AVATAR_PERPETUATION, 9)
+            local skill = master:getSkillLevel(dsp.skill.SUMMONING_MAGIC)
+            local attBuff = (skill / 30) + 1;
+            local accBuff = (skill / 5) + 1;
+            local mabBuff = (skill / 10) + 5;
+            local regain = (skill / 10) + 20;
+            local def = (skill / 5) + 10
 
-        mob:addMod(dsp.mod.ATTP, attBuff)
-        mob:addMod(dsp.mod.ACC, accBuff)
-        mob:addMod(dsp.mod.MATT, mabBuff)
-        mob:addMod(dsp.mod.REGAIN, regain)
-        mob:setLocalVar("favorOn",1)
+            mob:addMod(dsp.mod.ATTP, attBuff)
+            mob:addMod(dsp.mod.ACC, accBuff)
+            mob:addMod(dsp.mod.MATT, mabBuff)
+            mob:addMod(dsp.mod.REGAIN, regain)
+            mob:setLocalVar("favorOn",1)
+        end
     end
 
 
