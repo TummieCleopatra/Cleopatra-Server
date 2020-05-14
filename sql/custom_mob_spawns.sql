@@ -53,3 +53,25 @@ INSERT INTO `mob_spawn_points` VALUES (17039452,'Gadalar','Gadalar',1000,383.144
 INSERT INTO `mob_spawn_points` VALUES (17051905,'Najelith','Najelith',1000,238.707,-32,240.117,170);
 -- Nyzul Isle
 INSERT INTO `mob_spawn_points` VALUES (17093483,'Rud','Rud',1000,-486.5,-4.449,420,0);
+
+-- Ghyous Revene
+INSERT INTO `mob_spawn_points` VALUES (17305653,'Yagudo_Interrogator','Yagudo_Interrogator',6913,-176,20,292,0);
+INSERT INTO `mob_spawn_points` VALUES (17305650,'Yagudo_Theologist','Yagudo_Theologist',6919,-160,20,299,0); 
+INSERT INTO `mob_spawn_points` VALUES (17305656,'Yagudo_Herald','Yagudo_Herald',6912,-145,16,301,0);
+INSERT INTO `mob_spawn_points` VALUES (17305647,'Yagudo_Priest','Yagudo_Priest',6915,-128,12,299,0);
+INSERT INTO `mob_spawn_points` VALUES (17305648,'Yagudo_Priest','Yagudo_Priest',6915,-112,6,296,0);
+INSERT INTO `mob_spawn_points` VALUES (17305659,'Yagudo_Votary','Yagudo_Votary',6920,-100,0,282,0);
+INSERT INTO `mob_spawn_points` VALUES (17305651,'Yagudo_Theologist','Yagudo_Theologist',6919,-113,0,260,0);
+INSERT INTO `mob_spawn_points` VALUES (17305657,'Yagudo_Herald','Yagudo_Herald',6912,-128,0,261,0);
+INSERT INTO `mob_spawn_points` VALUES (17305660,'Yagudo_Votary','Yagudo_Votary',6920,-136,-1,260,0);
+INSERT INTO `mob_spawn_points` VALUES (17305658,'Yagudo_Herald','Yagudo_Herald',6912,-140,0,248,0);
+INSERT INTO `mob_spawn_points` VALUES (17305649,'Yagudo_Priest','Yagudo_Priest',6915,-139,0,234,0);
+INSERT INTO `mob_spawn_points` VALUES (17305652,'Yagudo_Theologist','Yagudo_Theologist',6919,-139,0,219,0);
+INSERT INTO `mob_spawn_points` VALUES (17305654,'Yagudo_Interrogator','Yagudo_Interrogator',6913,-151,0,180,0);
+INSERT INTO `mob_spawn_points` VALUES (17305823,'Yagudo_Herald','Yagudo_Herald',6912,-151,0,180,0);
+INSERT INTO `mob_spawn_points` VALUES (17305819,'Yagudo_Theologist','Yagudo_Theologist',6919,-151,0,180,0);
+INSERT INTO `mob_spawn_points` VALUES (17305655,'Yagudo_Interrogator','Yagudo_Interrogator',6913,-151,0,180,0);
+INSERT INTO `mob_spawn_points` VALUES (17305661,'Yagudo_Votary','Yagudo_Votary',6920,-151,0,180,0);
+INSERT INTO `mob_spawn_points` VALUES (17305822,'Yagudo_Herald','Yagudo_Herald',6912,-151,0,180,0);
+INSERT INTO `mob_spawn_points` VALUES (17305818,'Yagudo_Theologist','Yagudo_Theologist',6919,-151,0,180,0);
+INSERT INTO `mob_spawn_points` VALUES (17305662,'Laa_Yaku_the_Austere','Laa_Yaku_the_Austere',6884,-151,0,180,0);

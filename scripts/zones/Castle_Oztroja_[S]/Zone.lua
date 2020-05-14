@@ -40,6 +40,11 @@ function onZoneIn(player,prevZone)
     if player:getXPos() == 0 and player:getYPos() == 0 and player:getZPos() == 0 then
         player:setPos(-239.447,-1.813,-19.98,250)
     end
+
+    if (player:getVar("ManifestProblem") == 1) then
+        cs = 100
+    end
+
     return cs
 end
 
@@ -50,4 +55,7 @@ function onEventUpdate(player,csid,option)
 end
 
 function onEventFinish(player,csid,option)
+    if (csid == 100) then
+        player:setVar("ManifestProblem",2)
+    end
 end

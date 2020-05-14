@@ -5,6 +5,7 @@
 -----------------------------------
 local ID = require("scripts/zones/Windurst_Waters_[S]/IDs")
 require("scripts/globals/chocobo")
+require("scripts/globals/quests")
 -----------------------------------
 
 function onInitialize(zone)
@@ -23,6 +24,11 @@ function onZoneIn(player,prevZone)
         player:setVar("PlayerMainJob", 0)
     end
 
+    -- A MANIFEST PROBLEM
+    if (player:getVar("ManifestProblem") == 4) then
+        cs = 153
+    end
+
     return cs
 end
 
@@ -33,4 +39,22 @@ function onEventUpdate(player,csid,option)
 end
 
 function onEventFinish(player,csid,option)
+    if (csid == 153) then
+        player:startEvent(231)
+    end
+
+    if (csid == 231) then
+        player:startEvent(232)
+    end
+
+    if (csid == 232) then
+        player:startEvent(233)
+    end
+
+    if (csid == 233) then
+        player:setVar("ManifestProblem",0)
+        player:completeQuest(CRYSTAL_WAR, dsp.quest.id.crystalWar.A_MANIFEST_PROBLEM)
+        player:addItem(5708,1)
+        player:messageSpecial(ID.text.ITEM_OBTAINED,5708);
+    end
 end

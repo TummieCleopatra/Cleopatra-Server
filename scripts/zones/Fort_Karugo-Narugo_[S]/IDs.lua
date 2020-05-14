@@ -17,6 +17,8 @@ zones[dsp.zone.FORT_KARUGO_NARUGO_S] =
         NOTHING_OUT_OF_ORDINARY  = 6402, -- There is nothing out of the ordinary here.
         SPONDULIX_SHOP_DIALOG    = 7204, -- Spondulix comes all the way from Boodlix's Emporium to help Tarutaru and Mithra. I can help you, too! You have gil, no?
         LOGGING_IS_POSSIBLE_HERE = 7671, -- Logging is possible here if you have <item>.
+        CANNOT_ENTER             = 7696, -- You cannot enter at this time. Please wait a while before trying again.
+        MEMBER_NO_REQS           = 7702, -- Not all players meet requirements
         ITEM_DELIVERY_DIALOG     = 8110, -- Deliveries! We're open for business!
     },
     mob =

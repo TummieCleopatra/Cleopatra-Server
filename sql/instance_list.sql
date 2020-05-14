@@ -116,6 +116,9 @@ INSERT INTO `instance_list` VALUES (65,'arrapago_remnants',72,100,340.000,0.000,
 -- INSERT INTO `instance_list` VALUES (71,'silver_sea_remnants',72,100,340.000,12.000,-165.500,63,-1,-1,-1,-1);
 -- INSERT INTO `instance_list` VALUES (73,'silver_sea_remnants_ii',72,100,340.000,12.000,-165.500,63,-1,-1,-1,-1);
 INSERT INTO `instance_list` VALUES (79,'shades_of_vengeance',79,30,127,-15,-303,0,-1,-1,-1,-1);
+INSERT INTO `instance_list` VALUES (82,'a_manifest_problem',96,30,-220,30,257,0,-1,-1,-1,-1);
+
+
 /*!40000 ALTER TABLE `instance_list` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

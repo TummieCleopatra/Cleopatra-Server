@@ -664,6 +664,29 @@ INSERT INTO `instance_entities` VALUES (79,17006761);
 INSERT INTO `instance_entities` VALUES (79,17006762);
 INSERT INTO `instance_entities` VALUES (79,17006763);
 
+-- A Manifest Problem
+INSERT INTO `instance_entities` VALUES (82,17305653);
+INSERT INTO `instance_entities` VALUES (82,17305647);
+INSERT INTO `instance_entities` VALUES (82,17305648);
+INSERT INTO `instance_entities` VALUES (82,17305649);
+INSERT INTO `instance_entities` VALUES (82,17305650);
+INSERT INTO `instance_entities` VALUES (82,17305651);
+INSERT INTO `instance_entities` VALUES (82,17305652);
+INSERT INTO `instance_entities` VALUES (82,17305654);
+INSERT INTO `instance_entities` VALUES (82,17305655);
+INSERT INTO `instance_entities` VALUES (82,17305656);
+INSERT INTO `instance_entities` VALUES (82,17305657);
+INSERT INTO `instance_entities` VALUES (82,17305658);
+INSERT INTO `instance_entities` VALUES (82,17305659);
+INSERT INTO `instance_entities` VALUES (82,17305660);
+INSERT INTO `instance_entities` VALUES (82,17305661);
+INSERT INTO `instance_entities` VALUES (82,17305818);
+INSERT INTO `instance_entities` VALUES (82,17305819);
+INSERT INTO `instance_entities` VALUES (82,17305822);
+INSERT INTO `instance_entities` VALUES (82,17305823);
+INSERT INTO `instance_entities` VALUES (82,17305662);
+INSERT INTO `instance_entities` VALUES (82,17305921);
+
 /*!40000 ALTER TABLE `instance_entities` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
