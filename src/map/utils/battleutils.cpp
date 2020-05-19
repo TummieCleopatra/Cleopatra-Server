@@ -3600,7 +3600,7 @@ namespace battleutils
 
         if (taUser->objtype == TYPE_TRUST)
         {
-            ShowWarning(CL_GREEN"INITIAL TA SEEK \n" CL_RESET);
+            //ShowWarning(CL_GREEN"INITIAL TA SEEK \n" CL_RESET);
             CCharEntity* TAChar = (CCharEntity*)taUser->PMaster;
             for (CTrustEntity* trust : TAChar->PTrusts)
             {
@@ -3615,7 +3615,7 @@ namespace battleutils
                             (PTrustIDZdif >= PTrustIDXdif * minSlope))
                         {
                             //finally found a TA partner
-                            ShowWarning(CL_GREEN"TA User Partner Found \n" CL_RESET);
+                            //ShowWarning(CL_GREEN"TA User Partner Found \n" CL_RESET);
                             return PTrustID;
                         }
                     }
@@ -3623,21 +3623,21 @@ namespace battleutils
                             if ((PTrustIDXdif <= PTrustIDZdif * maxSlope) &&
                                 (PTrustIDXdif >= PTrustIDZdif * minSlope))
                             {
-                                ShowWarning(CL_GREEN"TA User Partner Found \n" CL_RESET);
+                                //ShowWarning(CL_GREEN"TA User Partner Found \n" CL_RESET);
                                 //finally found a TA partner
                                 return PTrustID;
                             }
                     }
                 }
             }
-            ShowWarning(CL_RED"TRUST CAN NOT FIND A MEMBER \n" CL_RESET);
+            //ShowWarning(CL_RED"TRUST CAN NOT FIND A MEMBER \n" CL_RESET);
             return nullptr;
         }
 
 
         if (taUser->PParty != nullptr)
         {
-            ShowWarning(CL_GREEN"INITIAL TA SEEK \n" CL_RESET);
+            //ShowWarning(CL_GREEN"INITIAL TA SEEK \n" CL_RESET);
             if (taUser->PParty->m_PAlliance != nullptr)
             {
                 for (uint8 a = 0; a < taUser->PParty->m_PAlliance->partyList.size(); ++a)

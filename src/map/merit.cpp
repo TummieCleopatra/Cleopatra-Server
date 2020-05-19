@@ -213,7 +213,6 @@ void CMeritPoints::LoadMeritPoints(uint32 charid)
             else
                 Categories[catNumber] = &merits[i];
 
-            //ShowWarning(CL_GREEN"Merit Cat is %u \n" CL_RESET, catNumber);
             catNumber++;
 
         }
@@ -347,17 +346,17 @@ void CMeritPoints::SetMeritPoints(uint16 points)
 bool CMeritPoints::IsMeritExist(MERIT_TYPE merit)
 {
     if ((int16)merit <  MCATEGORY_START){
-        ShowWarning(CL_GREEN"Merit is less than category start \n" CL_RESET);
+        //ShowWarning(CL_GREEN"Merit is less than category start \n" CL_RESET);
         return false;
     }
     if ((int16)merit >= MCATEGORY_COUNT){
-        ShowWarning(CL_GREEN"Merit is greater than or equal to category count \n" CL_RESET);
+       // ShowWarning(CL_GREEN"Merit is greater than or equal to category count \n" CL_RESET);
         return false;
     }
 
     if ((GetMeritID(merit)) >= meritCatInfo[GetMeritCategory(merit)].MeritsInCat){
-        ShowWarning(CL_GREEN"Merit ID is %i \n" CL_RESET, GetMeritID(merit));
-        ShowWarning(CL_GREEN"Merit Cat Info is %i \n" CL_RESET, meritCatInfo[GetMeritCategory(merit)].MeritsInCat);
+        //ShowWarning(CL_GREEN"Merit ID is %i \n" CL_RESET, GetMeritID(merit));
+        //ShowWarning(CL_GREEN"Merit Cat Info is %i \n" CL_RESET, meritCatInfo[GetMeritCategory(merit)].MeritsInCat);
         return false;
     }
 

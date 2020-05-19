@@ -21,6 +21,9 @@ function onZoneIn(player,prevZone)
     if (prevZone == dsp.zone.ROLANBERRY_FIELDS_S and player:getQuestStatus(CRYSTAL_WAR, dsp.quest.id.crystalWar.DOWNWARD_HELIX) == QUEST_ACCEPTED and player:getVar("DownwardHelix") == 2) then
         cs = 3;
     end
+    if (player:getVar("FeastForGnats") == 5) then
+       cs == 110
+    end
     return cs;
 end;
 
@@ -33,5 +36,7 @@ end;
 function onEventFinish(player,csid,option)
     if (csid == 3) then
         player:setVar("DownwardHelix",3);
+    elseif (csid == 110) then
+        player:setVar("FeastForGnats",6)
     end
 end;

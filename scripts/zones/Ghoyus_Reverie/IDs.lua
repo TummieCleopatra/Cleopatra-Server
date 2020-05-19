@@ -46,6 +46,40 @@ zones[dsp.zone.GHOYUS_REVERIE] =
             YAGUDO_SIX   = 17305823, -- Herald
             YAGUDO_SEVEN = 17305819, -- Theologist
         },
+        [3] = {
+            ROMAA_MIHGO   = 17305683, -- Romaa Mihgo
+            COBRA_1       = 17305684, -- Cobra
+            COBRA_2       = 17305685, -- Cobra
+            COBRA_3       = 17305686, -- Cobra
+            COBRA_4       = 17305687, -- Cobra
+            COBRA_5       = 17305688, -- Cobra
+            COBRA_6       = 17305689, -- Cobra
+            COBRA_7       = 17305690, -- Cobra
+            COBRA_8       = 17305691, -- Cobra
+            COBRA_9       = 17305692, -- Cobra
+        },
+        [4] = {
+            MOB_1         = 17305693, -- Romaa Mihgo
+            MOB_2         = 17305694, -- Cobra
+            MOB_3         = 17305695, -- Cobra
+            MOB_4         = 17305696, -- Cobra
+            MOB_5         = 17305697, -- Cobra
+            MOB_6         = 17305698, -- Cobra
+            MOB_7         = 17305699, -- Cobra
+            MOB_8         = 17305700, -- Cobra
+            MOB_9         = 17305701, -- Cobra
+            MOB_10        = 17305702, -- Cobra
+            MOB_11        = 17305703, -- Cobra
+            MOB_12        = 17305704, -- Cobra
+            BELFRY        = 17305712, -- Cobra
+        },
+        [5] = {
+            MOB_11        = 17305705, -- Cobra
+        },
+        [6] = {
+             MOB_11        = 17305706, -- Cobra
+        },
+
     },
     npc =
     {
@@ -157,6 +191,35 @@ zones[dsp.zone.GHOYUS_REVERIE] =
                 -151,0,180
 	    },
 	},
+    feastPath =
+    {
+        ROMAA =
+        {
+            -394,0,-6,
+            -385,-3,-5,
+            -368,-4,17,
+            -367,0,36,
+            -355,0,29,
+            -333,0,37,
+        },
+        UNIT1 =
+        {
+            -385,-3,-5, -- TOP
+            -368,-4,17, -- TOP BACK RAMP
+            -367,0,36,
+            -365,0,37,
+            -344,0,37,
+        },
+        UNIT2 =
+        {
+            -394,0,-6,
+            -385,-3,-5,
+            -368,-4,17,
+            -367,0,36,
+            -365,0,37,
+            -344,0,37,
+        },
+    },
 
 }
 

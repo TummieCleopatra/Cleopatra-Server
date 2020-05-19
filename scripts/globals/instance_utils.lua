@@ -126,8 +126,57 @@ function enemyPath(mob)
     end
 end
 
-function mobMove()
+ -- A FEST FOR GNATS --
 
+function feastNpcRoam(mob)
 
+    local pathing = mob:getLocalVar("Path");
+    local mobid = mob:getID()
 
+    if (mob:isFollowingPath() == false and pathing == 1) then
+        mob:speed(20)
+        mob:pathThrough(ID.feastPath.ROMAA, 1)
+        mob:setLocalVar("Path",0);
+    elseif (mob:isFollowingPath() == false) then
+
+    end
 end
+
+function feastNpcUnitsRoam(mob)
+    mob:setMobMod(dsp.mobMod.NO_MOVE,0)
+    local pathing = mob:getLocalVar("Path");
+    local mobid = mob:getID()
+
+    if (mob:isFollowingPath() == false and pathing == 1) then
+        mob:speed(20)
+        printf("TRY")
+        mob:pathThrough(ID.feastPath.UNIT2, 1)
+        mob:setLocalVar("Path",0);
+    elseif (mob:isFollowingPath() == false) then
+
+    end
+end
+
+
+
+function feastNpcAggro(mob)
+    local instance = mob:getInstance();
+    local mobs = mob:getInstance():getMobs();
+
+    for i,npc in pairs(mobs) do
+        if (npc:getID() >= 17305693 and npc:getID() <= 17305712) then
+            local npcID = npc:getID()
+            if (mob:checkDistance(npc) < 15) then
+                if (npc:isAlive()) then
+	                mob:addEnmity(npc,0,1);
+                    mob:clearPath()
+                    mob:setLocalVar("Ready",0)
+	                break;
+                end
+            end
+        end
+    end
+end
+
+
+

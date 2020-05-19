@@ -29,6 +29,10 @@ function onZoneIn(player,prevZone)
         cs = 153
     end
 
+    if (player:hasCompletedQuest(CRYSTAL_WAR, dsp.quest.id.crystalWar.A_MANIFEST_PROBLEM) and player:getQuestStatus(CRYSTAL_WAR, dsp.quest.id.crystalWar.A_FEAST_FOR_GNATS) == QUEST_AVAILABLE) then
+        cs = 165
+    end
+
     return cs
 end
 
@@ -41,6 +45,11 @@ end
 function onEventFinish(player,csid,option)
     if (csid == 153) then
         player:startEvent(231)
+    end
+
+    if (csid == 165) then
+        player:addQuest(CRYSTAL_WAR, dsp.quest.id.crystalWar.A_FEAST_FOR_GNATS);
+        player:setVar("FeastForGnats",1)
     end
 
     if (csid == 231) then

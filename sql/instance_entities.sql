@@ -687,6 +687,34 @@ INSERT INTO `instance_entities` VALUES (82,17305823);
 INSERT INTO `instance_entities` VALUES (82,17305662);
 INSERT INTO `instance_entities` VALUES (82,17305921);
 
+-- A Feast for Gnats
+INSERT INTO `instance_entities` VALUES (83,17305683);
+INSERT INTO `instance_entities` VALUES (83,17305684);
+INSERT INTO `instance_entities` VALUES (83,17305685);
+INSERT INTO `instance_entities` VALUES (83,17305686);
+INSERT INTO `instance_entities` VALUES (83,17305687);
+INSERT INTO `instance_entities` VALUES (83,17305688);
+INSERT INTO `instance_entities` VALUES (83,17305689);
+INSERT INTO `instance_entities` VALUES (83,17305690);
+INSERT INTO `instance_entities` VALUES (83,17305691);
+INSERT INTO `instance_entities` VALUES (83,17305692);
+
+INSERT INTO `instance_entities` VALUES (83,17305693);
+INSERT INTO `instance_entities` VALUES (83,17305694);
+INSERT INTO `instance_entities` VALUES (83,17305695);
+INSERT INTO `instance_entities` VALUES (83,17305696);
+INSERT INTO `instance_entities` VALUES (83,17305697);
+INSERT INTO `instance_entities` VALUES (83,17305698);
+INSERT INTO `instance_entities` VALUES (83,17305699);
+INSERT INTO `instance_entities` VALUES (83,17305700);
+INSERT INTO `instance_entities` VALUES (83,17305701);
+INSERT INTO `instance_entities` VALUES (83,17305702);
+INSERT INTO `instance_entities` VALUES (83,17305703);
+INSERT INTO `instance_entities` VALUES (83,17305704);
+INSERT INTO `instance_entities` VALUES (83,17305705);
+INSERT INTO `instance_entities` VALUES (83,17305706);
+INSERT INTO `instance_entities` VALUES (83,17305712);
+
 /*!40000 ALTER TABLE `instance_entities` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
