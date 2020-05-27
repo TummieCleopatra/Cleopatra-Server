@@ -207,6 +207,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m1a1,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m1a1,1);
 	       player:delCurrency("therion_ichor", 5000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -215,6 +216,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 5000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -223,6 +225,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m1a2,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m1a2,1);
 	       player:delCurrency("therion_ichor", 5000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -231,6 +234,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 5000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -239,6 +243,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m1a3,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m1a3,1);
 	       player:delCurrency("therion_ichor", 5000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -247,6 +252,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 5000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -256,6 +262,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m1a4,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m1a4,1);
 	       player:delCurrency("therion_ichor", 5000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -264,6 +271,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 5000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -273,6 +281,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m1a5,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m1a5,1);
 	       player:delCurrency("therion_ichor", 5000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -281,6 +290,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 5000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -289,6 +299,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m1a6,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m1a6,1);
 	       player:delCurrency("therion_ichor", 5000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -297,6 +308,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 5000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -307,6 +319,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m1a7,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m1a7,1);
 	       player:delCurrency("therion_ichor", 5000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -315,6 +328,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 5000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -323,6 +337,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m1a8,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m1a8,1);
 	       player:delCurrency("therion_ichor", 5000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -331,6 +346,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 5000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -339,6 +355,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m1a9,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m1a9,1);
 	       player:delCurrency("therion_ichor", 5000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -347,6 +364,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 5000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -355,6 +373,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m1a10,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m1a10,1);
 	       player:delCurrency("therion_ichor", 5000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -363,6 +382,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 5000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -376,6 +396,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m2a1,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m2a1,1);
 	       player:delCurrency("therion_ichor", 10000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -384,6 +405,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 10000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -392,6 +414,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m2a2,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m2a2,1);
 	       player:delCurrency("therion_ichor", 10000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -400,6 +423,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 10000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -408,6 +432,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m2a3,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m2a3,1);
 	       player:delCurrency("therion_ichor", 10000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -416,6 +441,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 10000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -425,6 +451,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m2a4,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m2a4,1);
 	       player:delCurrency("therion_ichor", 10000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -433,6 +460,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 10000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -442,6 +470,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m2a5,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m2a5,1);
 	       player:delCurrency("therion_ichor", 10000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -450,6 +479,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 10000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -458,6 +488,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m2a6,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m2a6,1);
 	       player:delCurrency("therion_ichor", 10000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -466,6 +497,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 10000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -476,6 +508,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m2a7,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m2a7,1);
 	       player:delCurrency("therion_ichor", 10000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -484,6 +517,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 10000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -492,6 +526,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m2a8,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m2a8,1);
 	       player:delCurrency("therion_ichor", 10000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -500,6 +535,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 10000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -508,6 +544,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m2a9,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m2a9,1);
 	       player:delCurrency("therion_ichor", 10000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -516,6 +553,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 10000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -524,6 +562,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m2a10,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m2a10,1);
 	       player:delCurrency("therion_ichor", 10000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -532,6 +571,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 10000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -545,6 +585,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m3a1,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m3a1,1);
 	       player:delCurrency("therion_ichor", 15000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -553,6 +594,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 15000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -561,6 +603,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m3a2,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m3a2,1);
 	       player:delCurrency("therion_ichor", 15000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -569,6 +612,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 15000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -577,6 +621,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m3a3,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m3a3,1);
 	       player:delCurrency("therion_ichor", 15000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -585,6 +630,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 15000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -594,6 +640,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m3a4,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m3a4,1);
 	       player:delCurrency("therion_ichor", 15000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -602,6 +649,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 15000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -611,6 +659,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m3a5,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m3a5,1);
 	       player:delCurrency("therion_ichor", 15000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -619,6 +668,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 15000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -627,6 +677,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m3a6,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m3a6,1);
 	       player:delCurrency("therion_ichor", 15000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -635,6 +686,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 15000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -645,6 +697,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m3a7,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m3a7,1);
 	       player:delCurrency("therion_ichor", 15000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -653,6 +706,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 15000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -661,6 +715,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m3a8,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m3a8,1);
 	       player:delCurrency("therion_ichor", 15000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -669,6 +724,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 15000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -677,6 +733,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m3a9,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m3a9,1);
 	       player:delCurrency("therion_ichor", 15000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -685,6 +742,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 15000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -693,6 +751,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m3a10,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m3a10,1);
 	       player:delCurrency("therion_ichor", 15000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -701,6 +760,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 15000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -714,6 +774,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m4a1,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m4a1,1);
 	       player:delCurrency("therion_ichor", 25000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -722,6 +783,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 25000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -730,6 +792,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m4a2,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m4a2,1);
 	       player:delCurrency("therion_ichor", 25000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -738,6 +801,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 25000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -746,6 +810,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m4a3,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m4a3,1);
 	       player:delCurrency("therion_ichor", 25000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -754,6 +819,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 25000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -762,6 +828,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m4a4,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m4a4,1);
 	       player:delCurrency("therion_ichor", 25000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -770,6 +837,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 25000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -779,6 +847,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m4a5,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m4a5,1);
 	       player:delCurrency("therion_ichor", 25000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -787,6 +856,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 25000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -795,6 +865,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m4a6,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m4a6,1);
 	       player:delCurrency("therion_ichor", 25000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -803,6 +874,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 25000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -811,6 +883,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m4a7,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m4a7,1);
 	       player:delCurrency("therion_ichor", 25000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -819,6 +892,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 25000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -827,6 +901,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m4a8,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m4a8,1);
 	       player:delCurrency("therion_ichor", 25000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -835,6 +910,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 25000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -843,6 +919,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m4a9,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m4a9,1);
 	       player:delCurrency("therion_ichor", 25000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -851,6 +928,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 25000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -859,6 +937,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(m4a10,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,m4a10,1);
 	       player:delCurrency("therion_ichor", 25000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -867,6 +946,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("therion_ichor", 25000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end

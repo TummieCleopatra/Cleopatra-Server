@@ -224,6 +224,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(1404,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,1404,1);
 	       player:delCurrency("jetton", 1500);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -232,6 +233,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 1500);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -241,6 +243,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(1326,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,1326,1);
 	       player:delCurrency("jetton", 1500);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -249,6 +252,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 1500);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -258,6 +262,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(1324,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,1324,1);
 	       player:delCurrency("jetton", 1500);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -266,6 +271,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 1500);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -275,6 +281,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(1331,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,1331,1);
 	       player:delCurrency("jetton", 1500);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -283,6 +290,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 1500);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -292,6 +300,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(1338,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,1338,1);
 	       player:delCurrency("jetton", 1500);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -300,6 +309,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 1500);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -309,6 +319,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(12434,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,12434,1);
 	       player:delCurrency("jetton", 1500);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -317,6 +328,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 1500);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -326,6 +338,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(12296,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,12296,1);
 	       player:delCurrency("jetton", 1500);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -334,6 +347,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 1500);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -343,6 +357,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(18161,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,18161,1);
 	       player:delCurrency("jetton", 1500);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -351,6 +366,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 1500);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -360,6 +376,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(722,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,722,1);
 	       player:delCurrency("jetton", 1500);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -368,6 +385,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 1500);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -377,6 +395,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(655,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,655,1);
 	       player:delCurrency("jetton", 1500);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -385,6 +404,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 1500);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -402,6 +422,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(1407,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,1407,1);
 	       player:delCurrency("jetton", 1750);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -410,6 +431,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 1750);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -419,6 +441,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(1327,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,1327,1);
 	       player:delCurrency("jetton", 1750);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -427,6 +450,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 1750);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -436,6 +460,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(1316,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,1316,1);
 	       player:delCurrency("jetton", 1750);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -444,6 +469,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 1750);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -453,6 +479,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(1319,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,1319,1);
 	       player:delCurrency("jetton", 1750);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -461,6 +488,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 1750);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -470,6 +498,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(1343,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,1343,1);
 	       player:delCurrency("jetton", 1750);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -478,6 +507,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 1750);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -487,6 +517,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(12946,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,12946,1);
 	       player:delCurrency("jetton", 1750);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -495,6 +526,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 1750);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -504,6 +536,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(18043,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,18043,1);
 	       player:delCurrency("jetton", 1750);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -512,6 +545,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 1750);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -521,6 +555,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(18164,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,18164,1);
 	       player:delCurrency("jetton", 1750);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -529,6 +564,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 1750);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -538,6 +574,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(1313,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,1313,1);
 	       player:delCurrency("jetton", 1750);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -546,6 +583,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 1750);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -555,6 +593,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(836,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,836,1);
 	       player:delCurrency("jetton", 1750);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -563,6 +602,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 1750);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -582,6 +622,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(1405,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,1405,1);
 	       player:delCurrency("jetton", 2000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -590,6 +631,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 2000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -599,6 +641,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(1327,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,1327,1);
 	       player:delCurrency("jetton", 2000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -607,6 +650,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 2000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -616,6 +660,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(1314,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,1314,1);
 	       player:delCurrency("jetton", 2000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -624,6 +669,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 2000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -633,6 +679,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(1329,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,1329,1);
 	       player:delCurrency("jetton", 2000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -641,6 +688,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 2000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -650,6 +698,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(1336,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,1336,1);
 	       player:delCurrency("jetton", 2000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -658,6 +707,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 2000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -667,6 +717,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(12690,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,12690,1);
 	       player:delCurrency("jetton", 2000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -675,6 +726,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 2000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -684,6 +736,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(17659,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,17659,1);
 	       player:delCurrency("jetton", 2000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -692,6 +745,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 2000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -701,6 +755,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(18162,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,18162,1);
 	       player:delCurrency("jetton", 2000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -709,6 +764,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 2000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -718,6 +774,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(4272,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,4272,1);
 	       player:delCurrency("jetton", 2000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -726,6 +783,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 2000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -735,6 +793,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(903,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,903,1);
 	       player:delCurrency("jetton", 2000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -743,6 +802,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 2000);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -761,6 +821,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(1406,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,1406,1);
 	       player:delCurrency("jetton", 2250);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -769,6 +830,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 2250);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -778,6 +840,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(1324,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,1324,1);
 	       player:delCurrency("jetton", 2250);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -786,6 +849,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 2250);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -795,6 +859,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(1317,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,1317,1);
 	       player:delCurrency("jetton", 2250);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -803,6 +868,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 2250);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -812,6 +878,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(1323,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,1323,1);
 	       player:delCurrency("jetton", 2250);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -820,6 +887,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 2250);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -829,6 +897,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(1341,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,1341,1);
 	       player:delCurrency("jetton", 2250);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -837,6 +906,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 2250);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -846,6 +916,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(12818,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,12818,1);
 	       player:delCurrency("jetton", 2250);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -854,6 +925,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 2250);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -863,6 +935,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(18198,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,18198,1);
 	       player:delCurrency("jetton", 2250);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -871,6 +944,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 2250);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -880,6 +954,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(18163,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,18163,1);
 	       player:delCurrency("jetton", 2250);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -888,6 +963,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 2250);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -897,6 +973,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(860,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,860,1);
 	       player:delCurrency("jetton", 2250);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -905,6 +982,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 2250);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -914,6 +992,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(658,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,658,1);
 	       player:delCurrency("jetton", 2250);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
@@ -922,6 +1001,7 @@ function onEventUpdate(player,csid,option)
            player:addItem(613,1);
 	       player:messageSpecial(ID.text.ITEM_OBTAINED,613,1);
 	       player:delCurrency("jetton", 2250);
+           player:updateEvent(0);
 		else
 		   player:PrintToPlayer("Greeter Moogle : You can only hold one of those at a time.  Try again.", 0xD);
 		end
