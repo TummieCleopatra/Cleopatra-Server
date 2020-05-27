@@ -128,8 +128,8 @@ function feretoryKills(mob, player)
     if (mobfamily == 19) and (player:getVar("FerretoryQuest75Exp") == 8) and (mob:checkBaseExp())then
 	    if (player:getVar("FerretoryUndead")) > 0 then -- if the kills needed are greater than 0
             player:setVar("FerretoryUndead",killa - 1); -- subtract kill
-	    	killa = player:getVar("FerretoryUndead");
-		    killb = player:getVar("FerretoryArcana");
+	    	killa = player:getVar("FerretoryUndead")
+        	killb = player:getVar("FerretoryArcana");
 		    if (player:getVar("FerretoryUndead")) > 0 then
 		        player:PrintToPlayer("Feretory Quest #8 Objectives Remaining: Undead(" ..killa..")/Arcana(" ..killb.."),", 0x15);  -- Print objectives remaining
             elseif (player:getVar("FerretoryUndead") == 0) and (player:getVar("FerretoryArcana") == 0) then  -- check to see kills have been completed
@@ -137,13 +137,10 @@ function feretoryKills(mob, player)
 		        player:setVar("FerretoryLv75Complete",8);
             end
 		end
-    end
-
-
-	if (mobfamily == 3) and (player:getVar("FerretoryQuest75Exp") == 8) and (mob:checkBaseExp())then
+    elseif (mobfamily == 3) and (player:getVar("FerretoryQuest75Exp") == 8) and (mob:checkBaseExp())then
 	    if (player:getVar("FerretoryArcana")) > 0 then -- if the kills needed are greater than 0
             player:setVar("FerretoryArcana",killb - 1); -- subtract kill
-		    killa = player:getVar("FerretoryUndead");
+	    	killa = player:getVar("FerretoryUndead");
 		    killb = player:getVar("FerretoryArcana");
 		    if (player:getVar("FerretoryArcana")) > 0 then
 		        player:PrintToPlayer("Feretory Quest #8 Objectives Remaining: Undead(" ..killa..")/Arcana(" ..killb.."),", 0x15);  -- Print objectives remaining
@@ -153,6 +150,7 @@ function feretoryKills(mob, player)
             end
 		end
     end
+
 
 	-------------------- Ferretory Quest #9 (Demon/Dragon) -----------------------
 
