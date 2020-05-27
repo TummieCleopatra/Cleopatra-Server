@@ -23,7 +23,7 @@ function onTrigger(player,npc)
 
     if (LuckOfTheDraw ==4) then
         player:startEvent(3);
-    elseif (player:hasCompletedMission(TOAU,LEGACY_OF_THE_LOST)) then
+    elseif (player:hasCompletedMission(TOAU,dsp.mission.id.toau.LEGACY_OF_THE_LOST)) then
         player:PrintToPlayer("You are now able to summon Gessho as a Trust!", 0x1C);
 		player:addSpell(918);
     elseif (EventTriggerBCNM(player,npc)) then
