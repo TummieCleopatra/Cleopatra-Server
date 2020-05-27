@@ -57,6 +57,12 @@ function onMobWeaponSkill(target, mob, skill)
         doRangedAttack(target, mob, numhits, dmg)
 
         target:delHP(dmg);
+        if (mob:getLocalVar("MobFound") == 2) then
+            local master = mob:getMaster()
+            target:addEnmity(master, 0, 1)
+
+        end
+        mob:setLocalVar("Pull",0) -- Set for pulling
         return dmg;
     else
 

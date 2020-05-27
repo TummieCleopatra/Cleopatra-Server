@@ -37,6 +37,7 @@ end;
 function onEffectLose(target,effect)
     target:delMod(dsp.mod.ICERES, effect:getPower());
     target:delMod(dsp.mod.ENSPELL_DMG, (effect:getPower()/2))
+
     if (target:getActiveRunes() < 2) then
         target:setMod(dsp.mod.ENSPELL,0);
     end

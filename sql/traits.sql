@@ -652,6 +652,10 @@ INSERT INTO `traits` VALUES (117,'tenacity',22,75,4,248,11,'SOA',0);
 INSERT INTO `traits` VALUES (118,'inquartata',22,15,1,948,5,'SOA',0);
 INSERT INTO `traits` VALUES (118,'inquartata',22,45,2,948,7,'SOA',0);
 INSERT INTO `traits` VALUES (118,'inquartata',22,75,3,948,9,'SOA',0);
+
+INSERT INTO `traits` VALUES (121,'inspiration',22,75,1,170,10,'SOA',3460);
+INSERT INTO `traits` VALUES (122,'slight_of_sword',22,75,1,289,5,'SOA',3462);
+
 INSERT INTO `traits` VALUES (123,'daken',13,25,1,911,20,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (123,'daken',13,40,2,911,25,'ABYSSEA',0);
 INSERT INTO `traits` VALUES (123,'daken',13,55,3,911,30,'ABYSSEA',0);
@@ -680,35 +684,24 @@ INSERT INTO `traits` VALUES (127,'smite',14,40,1,898,25,'SOA',0);
 INSERT INTO `traits` VALUES (127,'smite',14,80,2,898,38,'SOA',0);
 INSERT INTO `traits` VALUES (127,'smite',18,60,1,898,25,'SOA',0);
 
-INSERT INTO `traits` VALUES (129,'damage_limit',1,40,1,900,10,'SOA',0); -- War 
-
-INSERT INTO `traits` VALUES (129,'damage_limit',2,30,1,900,10,'SOA',0); -- MNK
-INSERT INTO `traits` VALUES (129,'damage_limit',2,60,2,900,20,'SOA',0); -- MNK
-
-INSERT INTO `traits` VALUES (129,'damage_limit',5,60,1,900,10,'SOA',0); -- RDM 
-
-INSERT INTO `traits` VALUES (129,'damage_limit',6,50,1,900,10,'SOA',0); -- THF 
-
-INSERT INTO `traits` VALUES (129,'damage_limit',8,20,1,900,10,'SOA',0); -- DRK
-INSERT INTO `traits` VALUES (129,'damage_limit',8,40,2,900,20,'SOA',0); -- DRK
-INSERT INTO `traits` VALUES (129,'damage_limit',8,55,3,900,30,'SOA',0); -- DRK
-INSERT INTO `traits` VALUES (129,'damage_limit',8,70,4,900,40,'SOA',0); -- DRK
-
-INSERT INTO `traits` VALUES (129,'damage_limit',9,45,1,900,10,'SOA',0); -- BST 
-
-INSERT INTO `traits` VALUES (129,'damage_limit',11,30,1,900,10,'SOA',0); -- RNG
-INSERT INTO `traits` VALUES (129,'damage_limit',11,60,2,900,20,'SOA',0); -- RNG
-
-INSERT INTO `traits` VALUES (129,'damage_limit',12,40,1,900,10,'SOA',0); -- SAM
-
-INSERT INTO `traits` VALUES (129,'damage_limit',13,50,1,900,10,'SOA',0); -- BST 
-
-INSERT INTO `traits` VALUES (129,'damage_limit',14,30,1,900,10,'SOA',0); -- RNG
-INSERT INTO `traits` VALUES (129,'damage_limit',14,60,2,900,20,'SOA',0); -- RNG
-
-INSERT INTO `traits` VALUES (129,'damage_limit',18,45,1,900,10,'SOA',0); -- PUP
-
-INSERT INTO `traits` VALUES (129,'damage_limit',19,45,1,900,10,'SOA',0); -- DNC
+INSERT INTO `traits` VALUES (129,'damage_limit',1,40,1,950,10,'SOA',0); -- War 
+INSERT INTO `traits` VALUES (129,'damage_limit',2,30,1,950,10,'SOA',0); -- MNK
+INSERT INTO `traits` VALUES (129,'damage_limit',2,60,2,950,20,'SOA',0); -- MNK
+INSERT INTO `traits` VALUES (129,'damage_limit',5,60,1,950,10,'SOA',0); -- RDM 
+INSERT INTO `traits` VALUES (129,'damage_limit',6,50,1,950,10,'SOA',0); -- THF 
+INSERT INTO `traits` VALUES (129,'damage_limit',8,20,1,950,10,'SOA',0); -- DRK
+INSERT INTO `traits` VALUES (129,'damage_limit',8,40,2,950,20,'SOA',0); -- DRK
+INSERT INTO `traits` VALUES (129,'damage_limit',8,55,3,950,30,'SOA',0); -- DRK
+INSERT INTO `traits` VALUES (129,'damage_limit',8,70,4,950,40,'SOA',0); -- DRK
+INSERT INTO `traits` VALUES (129,'damage_limit',9,45,1,950,10,'SOA',0); -- BST 
+INSERT INTO `traits` VALUES (129,'damage_limit',11,30,1,950,10,'SOA',0); -- RNG
+INSERT INTO `traits` VALUES (129,'damage_limit',11,60,2,950,20,'SOA',0); -- RNG
+INSERT INTO `traits` VALUES (129,'damage_limit',12,40,1,950,10,'SOA',0); -- SAM
+INSERT INTO `traits` VALUES (129,'damage_limit',13,50,1,950,10,'SOA',0); -- BST 
+INSERT INTO `traits` VALUES (129,'damage_limit',14,30,1,950,10,'SOA',0); -- RNG
+INSERT INTO `traits` VALUES (129,'damage_limit',14,60,2,950,20,'SOA',0); -- RNG
+INSERT INTO `traits` VALUES (129,'damage_limit',18,45,1,950,10,'SOA',0); -- PUP
+INSERT INTO `traits` VALUES (129,'damage_limit',19,45,1,950,10,'SOA',0); -- DNC
 
 
 
