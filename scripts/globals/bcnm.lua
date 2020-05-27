@@ -163,8 +163,11 @@ function EventTriggerBCNM(player, npc)
             playermask = GetBattleBitmask(playerbcnmid, player:getZoneID(), 1)
             if (playermask~=-1) then
                 -- This gives players who did not trade to go in the option of entering the fight
+                printf("BRING UP MENU")
+                printf("PlayerMask is %u",playermask)
                 player:startEvent(32000, 0, 0, 0, playermask, 0, 0, 0, 0)
             else
+                printf("CANNOT ENTER!!!!!!!!")
                 player:messageBasic(94, 0, 0)
             end
         end
@@ -198,6 +201,8 @@ function EventUpdateBCNM(player, csid, option, entrance)
             -- instance that your battlefield effect represents.
             player:setVar("bcnm_instanceid_tick", 0)
             player:setVar("bcnm_instanceid", player:getBattlefieldID()) -- returns 255 if non-existent.
+            local bad = player:getBattlefieldID()
+            printf("BATTLEFIELD ID MUST BE: %u", bad)
             return true
         end
 
@@ -295,7 +300,7 @@ function EventFinishBCNM(player, csid, option)
         local id = player:getVar("trade_bcnmid")
         local item = player:getVar("trade_itemid")
 
-        if (id == 68 or id == 418 or id == 450 or id == 482 or id == 545 or id == 578 or id == 609 or id == 293) then
+        if (id == 68 or id == 418 or id == 450 or id == 482 or id == 545 or id == 578 or id == 609 or id == 293 or id == 10115 or id == 19210 or id == 10124) then
             player:tradeComplete() -- Removes the item
         elseif ((item >= 1426 and item <= 1440) or item == 1130 or item == 1131 or item == 1175 or item == 1177 or item == 1180 or item == 1178 or item == 1550 or item == 1551 or item == 1552 or item == 1553) then -- Testimony, Orb, Ark Pentasphere (one time item)
             player:createWornItem(item)
@@ -376,9 +381,10 @@ function GetBattleBitmask(id, zone, mode)
                     print(index);
                     return math.pow(2, index - 1);
                 else
-                    -- local check = bit.bor(mask,math.pow(2,index))
-                    -- printf("Bit Bor is %u",check);
-                    return bit.bor(mask,math.pow(2,index))
+                    local check = bit.bor(mask,math.pow(2,index))
+                    printf("Index is %u",index)
+                    printf("Bit Bor is %u",check);
+                    return bit.bor(mask,math.pow(2,index - 1))
                 end
             end
         end
