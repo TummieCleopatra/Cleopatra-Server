@@ -28,6 +28,7 @@ function onMobSpawn(mob)
     set1HStats(mob)
     local racc = mob:getRACC()
     local distanceCooldown = 6
+    local ID = 0
 
 	mob:setLocalVar("rangedAttackTime",0)
 	mob:setLocalVar("sharpShotTime",0)
@@ -37,6 +38,63 @@ function onMobSpawn(mob)
     mob:setLocalVar("utsuNiTime",0)
     mob:setLocalVar("wsTime",0)
     mob:setLocalVar("distanceTime",0)
+    mob:setLocalVar("Pull",0)
+    mob:setLocalVar("chase",0)
+    mob:setLocalVar("MobFound",10)
+    mob:setLocalVar("TargetID",0)
+
+
+    mob:addListener("ROAM_TICK", "NAJELITH_PULL_TICK", function(mob, player, target)
+        local pull = mob:getLocalVar("Pull")
+        local mobFound = mob:getLocalVar("MobFound")
+        local kupipi, kupmp = isKupipiInParty(mob, player, target)
+        if (player:getVar("TrustPull") == 0) then
+            mob:setLocalVar("MobFound",0)
+            mob:setLocalVar("Pull",0)
+            mob:setLocalVar("TargetID",0)
+        end
+
+        if (player:getVar("TrustPull") == 1 and kupipi == 1 and kupmp >= 40 and mobFound == 2) then
+            printf("RESET!")
+            mob:setLocalVar("MobFound",0)
+            mob:setLocalVar("Pull",0)
+            mob:setLocalVar("TargetID",0)
+        end
+
+        printf("Roaming....")
+        if (mobFound == 0) then
+            newTrustPull(mob, player, target)
+        end
+
+
+
+
+
+
+
+    end)
+
+    mob:addListener("COMBAT_TICK", "NAJELITH_TARGETMOB_TICK", function(mob, player, target)
+        local distance = mob:checkDistance(target)
+        local mobFound = mob:getLocalVar("MobFound")
+        if (mobFound == 1) then
+            mob:moveToDistanceFacing(10, target)
+        end
+        if (distance <= 11 and mobFound == 1) then
+            mob:useMobAbility(1202, target)
+            mob:setLocalVar("MobFound",2)
+        end
+        if (mobFound == 2) then
+            mob:moveToDistance(2, 20, player)
+            mob:setLocalVar("TargetID",0)
+        end
+    end)
+
+
+    --[[
+
+
+
 
     mob:addListener("COMBAT_TICK", "NAJELITH_DISTANCE_TICK", function(mob, player, target)
         local battletime = os.time()
@@ -131,7 +189,7 @@ function onMobSpawn(mob)
             mob:setLocalVar("wsTime",battletime)
 		end
 	end)
-
+    ]]--
 
 end
 

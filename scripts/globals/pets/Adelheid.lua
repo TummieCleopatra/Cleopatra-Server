@@ -21,7 +21,7 @@ function onMobSpawn(mob)
     local mbCooldown = 5
     local skill = 0
     adelheidTrustPoints(mob)
-    local angle = 85
+    local angle = getMageAngle(mob)
     local lvl = mob:getMainLvl()
     if (lvl < 61) then
         skill = (lvl * 0.75) + (lvl * 2)

@@ -20,7 +20,7 @@ function onMobSpawn(mob)
     local ailmentCooldown = 15
     local master = mob:getMaster()
     local kupipi = mob:getID()
-    local angle = getAngle(mob)
+    local angle = getMageAngle(mob)
     local wsCooldown = 4
     local enmity = math.floor(mob:getMainLvl() / 6 )
     mob:addMod(dsp.mod.ENMITY, -enmity)

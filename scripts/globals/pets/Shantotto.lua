@@ -15,7 +15,7 @@ function onMobSpawn(mob)
     local magicCooldown = 45
     local dotCooldown = 7
     local aspirCooldown = 60
-    local angle = getAngle(mob)
+    local angle = getMageAngle(mob)
 
 	mob:setLocalVar("magicTime",0)
     mob:setLocalVar("dotTime",0)

@@ -20,10 +20,11 @@ function onMobSpawn(mob)
     local debuffCooldown = 10
     local buffCooldown = 7
     local ailmentCooldown = 15
+    local sleepCheck = 20
     local hasteCooldown = 220
     local master = mob:getMaster()
     local kupipi = mob:getID()
-    local angle = getAngle(mob)
+    local angle = getMageAngle(mob)
     local wsCooldown = 4
     local sleepCooldown = 10
     -- increase Kupipi's MP
@@ -40,6 +41,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("flashTime",0)
     mob:setLocalVar("hasteTime",0)
     mob:setLocalVar("sleepTime",0)
+    mob:setLocalVar("sleepCheck",0)
     local enmity = math.floor(mob:getMainLvl() / 6 )
     mob:addMod(dsp.mod.ENMITY, -enmity)
 
@@ -111,7 +113,19 @@ function onMobSpawn(mob)
         end
     end)
 
+    mob:addListener("COMBAT_TICK", "KUPIPI_SLEEP_CHECK_TICK", function(mob, player, target)
+        local battletime = os.time()
+        local sleep = mob:getLocalVar("sleepCheck")
+        if (battletime > sleep + sleepCheck) then
+            local id = isPartyAsleep(mob, player)
+            if (id ~= 0) then
+                printf("Try to curaga!")
+                mob:castSpell(7, GetMobByID(id))
+                mob:setLocalVar("sleepCheck",battletime)
+            end
 
+        end
+    end)
 
     mob:addListener("COMBAT_TICK", "KUPIPI_MAGIC_TICK", function(mob, player, target)
         local battletime = os.time()

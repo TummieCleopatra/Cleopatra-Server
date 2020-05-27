@@ -32,7 +32,7 @@ function onMobSpawn(mob)
         mob:addMod(dsp.mod.FASTCAST, 10)
     end
     local koru = mob:getID()
-    local angle = getAngle(mob)
+    local angle = getMageAngle(mob)
     local wsCooldown = 4
     local sleepCooldown = 10
     -- increase koru's MP
@@ -58,6 +58,8 @@ function onMobSpawn(mob)
     -- koruTrustPoints(mob)
     mageArmor(mob)
     set1HStats(mob)
+
+    mob:delMP(500)
 
     mob:addListener("COMBAT_TICK", "COMBAT_TICK", function(mob, player, target)
         trustMageMove(mob, player, target, angle)

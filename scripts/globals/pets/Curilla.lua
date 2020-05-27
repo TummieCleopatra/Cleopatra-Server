@@ -70,6 +70,7 @@ function onMobSpawn(mob)
     mob:addListener("COMBAT_TICK", "DISTANCE_TICK", function(mob, player, target)
         local battletime = mob:getBattleTime()
         local distance = mob:checkDistance(target)
+        local name = target:getName()
         local size = target:getModelSize()
         if (battletime < 10 or distance > size + 2) then
             trustTankMove(mob, player, target)
@@ -79,7 +80,8 @@ function onMobSpawn(mob)
     mob:addListener("COMBAT_TICK", "PROVOKE_TICK", function(mob, player, target)
         local battletime = os.time()
         local provoke = mob:getLocalVar("provokeTime")
-        if (battletime > provoke + provokeCooldown) then
+        local distance = mob:checkDistance(target)
+        if (battletime > provoke + provokeCooldown and distance < 10) then
             mob:useJobAbility(19, target)
             mob:setLocalVar("provokeTime",battletime)
         end
@@ -104,12 +106,11 @@ function onMobSpawn(mob)
         local battletime = os.time()
         local bashTime = mob:getLocalVar("bashTime")
         local act = target:getCurrentAction()
+        local distance = mob:checkDistance(target)
 
-
-        if ((battletime > bashTime + bashCooldown) and (act == dsp.act.MOBABILITY_START or act == dsp.act.MOBABILITY_USING)) then
+        if ((battletime > bashTime + bashCooldown) and (act == dsp.act.MOBABILITY_START or act == dsp.act.MOBABILITY_USING) and distance < 4) then
             mob:useJobAbility(30, target)
             printf("Bashing")
-            print(bashTime)
             mob:setLocalVar("bashTime",battletime)
         end
     end)
@@ -129,7 +130,8 @@ function onMobSpawn(mob)
         local battletime = os.time()
         local reprisalTime = mob:getLocalVar("reprisalTime")
         local reprisalCooldown = mob:getLocalVar("reprisalCooldown")
-        if ((battletime > reprisalTime + reprisalCooldown) and mob:getMainLvl() >= 61) then
+        local distance = mob:checkDistance(target)
+        if ((battletime > reprisalTime + reprisalCooldown) and mob:getMainLvl() >= 61 and distance < 4) then
             mob:castSpell(97, mob)
             mob:setLocalVar("reprisalTime",battletime)
             mob:setLocalVar("castingSpell",97)
@@ -138,9 +140,10 @@ function onMobSpawn(mob)
 
     mob:addListener("COMBAT_TICK", "CUR_PRO_TICK", function(mob, player, target)
         local battletime = os.time()
+        local distance = mob:checkDistance(target)
         local proTime = mob:getLocalVar("protectTime")
         local kupipi, mp = isKupipiInParty(mob, player, target)
-        if (battletime > proTime + 30 and mob:hasStatusEffect(dsp.effect.PROTECT) == false and kupipi == 0) then
+        if (battletime > proTime + 30 and mob:hasStatusEffect(dsp.effect.PROTECT) == false and kupipi == 0 and distance < 4) then
             doCurillaProtect(mob)
             mob:setLocalVar("protectTime",battletime)
         end
@@ -149,8 +152,9 @@ function onMobSpawn(mob)
     mob:addListener("COMBAT_TICK", "CUR_SHELL_TICK", function(mob, player, target)
         local battletime = os.time()
         local shellTime = mob:getLocalVar("shellTime")
+        local distance = mob:checkDistance(target)
         local kupipi, mp = isKupipiInParty(mob, player, target)
-        if (battletime > shellTime + 30 and mob:hasStatusEffect(dsp.effect.SHELL) == false and kupipi == 0) then
+        if (battletime > shellTime + 30 and mob:hasStatusEffect(dsp.effect.SHELL) == false and kupipi == 0 and distance < 4) then
             doCurillaShell(mob)
             mob:setLocalVar("shellTime",battletime)
         end
@@ -160,7 +164,8 @@ function onMobSpawn(mob)
         local battletime = os.time()
         local sentinelTime = mob:getLocalVar("sentinelTime")
         local sentinelCooldown = mob:getLocalVar("sentinelCooldown")
-        if (battletime > sentinelTime + sentinelCooldown) then
+        local distance = mob:checkDistance(target)
+        if (battletime > sentinelTime + sentinelCooldown and distance < 4) then
             doCurillaSentinel(mob)
         end
     end)

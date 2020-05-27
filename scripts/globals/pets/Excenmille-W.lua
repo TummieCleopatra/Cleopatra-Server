@@ -30,6 +30,16 @@ function onMobSpawn(mob)
     excenmilleTrustPoints(mob)
     set2HStats(mob)
 
+	mob:addListener("COMBAT_TICK", "EXCENMILLE_DISTACE", function(mob, player, target)
+        local battletime = mob:getBattleTime()
+        local distance = mob:checkDistance(target)
+        local size = target:getModelSize()
+        if (battletime < 10 or distance > size + 2) then
+            trustMeleeMove(mob, player, target, angle)
+
+        end
+	end)
+
 	mob:addListener("COMBAT_TICK", "EXCENMILLE_JUMP_TICK", function(mob, player, target)
 	    local battletime = os.time()
 		local jumpTime = mob:getLocalVar("jumpTime")
@@ -75,7 +85,6 @@ function onMobSpawn(mob)
     end)
 
 	mob:addListener("COMBAT_TICK", "EXCENMILLE_COMBAT_TICK", function(mob, player, target)
-	    trustMeleeMove(mob, player, target, angle)
 	    local battletime = os.time()
         local weaponSkillTime = mob:getLocalVar("wsTime")
         if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown) and mob:getBattleTime() > player:getVar("TrustWSTime") + 30) then

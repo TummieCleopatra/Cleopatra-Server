@@ -20,7 +20,7 @@ function onMobSpawn(mob)
     local subCooldown = 30
     local mbCooldown = 5
     local skill = 0
-    local angle = 85
+    local angle = getMageAngle(mob)
     local master = mob:getMaster()
     mob:addStatusEffect(dsp.effect.MAX_MP_BOOST,105,0,0);
     mob:addMP(900)
