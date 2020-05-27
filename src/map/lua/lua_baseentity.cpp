@@ -8783,6 +8783,7 @@ inline int32 CLuaBaseEntity::getPartyWithTrusts(lua_State* L)
 *  Notes   :
 ************************************************************************/
 
+/*
 inline int32 CLuaBaseEntity::getPartySize(lua_State* L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
@@ -8828,6 +8829,33 @@ inline int32 CLuaBaseEntity::getPartySize(lua_State* L)
                 partysize = (uint8)((CBattleEntity*)m_PBaseEntity)->PParty->m_PAlliance->partyList.at(allianceparty)->members.size();
             }
         }
+    }
+
+    lua_pushnumber(L, partysize);
+    return 1;
+}*/
+
+inline int32 CLuaBaseEntity::getPartySize(lua_State* L)
+{
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
+
+    uint8 allianceparty = lua_isnil(L, 1) ? 0 : (uint8)lua_tonumber(L, 1);
+    uint8 partysize = 1;
+
+    CParty* party = ((CCharEntity*)m_PBaseEntity)->PParty;
+    if (party)
+    {
+        partysize = party->MemberCount(m_PBaseEntity->getZone());
+    }
+
+    if (((CBattleEntity*)m_PBaseEntity)->PParty != nullptr)
+    {
+
+        if (allianceparty == 0)
+            partysize = (uint8)((CBattleEntity*)m_PBaseEntity)->PParty->members.size();
+        else if (((CBattleEntity*)m_PBaseEntity)->PParty->m_PAlliance != nullptr)
+            partysize = (uint8)((CBattleEntity*)m_PBaseEntity)->PParty->m_PAlliance->partyList.at(allianceparty)->members.size();
     }
 
     lua_pushnumber(L, partysize);
@@ -9497,9 +9525,19 @@ inline int32 CLuaBaseEntity::getBattlefield(lua_State* L)
 inline int32 CLuaBaseEntity::getBattlefieldID(lua_State *L)
 {
     DSP_DEBUG_BREAK_IF(m_PBaseEntity == nullptr);
-    CBattlefield* PBattlefield = m_PBaseEntity->PBCNM;
+    DSP_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
 
-    lua_pushinteger(L, PBattlefield ? PBattlefield->getID() : -1);
+    CCharEntity* PChar = (CCharEntity*)m_PBaseEntity;
+    DSP_DEBUG_BREAK_IF(PChar->loc.zone->m_BattlefieldHandler == nullptr);
+
+    uint8 inst = 255;
+
+    if (PChar->loc.zone != nullptr && PChar->loc.zone->m_BattlefieldHandler != nullptr)
+    {
+        inst = PChar->loc.zone->m_BattlefieldHandler->findBattlefieldIDFor(PChar);
+    }
+
+    lua_pushinteger(L, inst);
     return 1;
 }
 
@@ -14818,25 +14856,6 @@ inline int32 CLuaBaseEntity::moveToDistance(lua_State *L)
 
     DSP_DEBUG_BREAK_IF(lua_isnil(L, 1) || !lua_isnumber(L, 1));
 
-
-    /*
-
-    auto PBattleTarget{ m_PBaseEntity->GetEntity(static_cast<CBattleEntity*>(m_PBaseEntity)->GetBattleTargetID()) };
-
-    position_t pos = PBattleTarget->loc.p;
-
-    double dist = (double)lua_tonumber(L, 1);
-
-    /*
-    m_PBaseEntity->loc.zone->PushPacket(m_PBaseEntity, CHAR_INRANGE, new CPositionPacket(m_PBaseEntity));
-    m_PBaseEntity->updatemask |= UPDATE_POS;
-
-
-    position_t nearEntity = nearPosition(PBattleTarget->loc.p, (float)dist, (float)M_PI);
-    m_PBaseEntity->PAI->PathFind->PathTo(nearEntity, PATHFLAG_WALLHACK | PATHFLAG_RUN);
-    m_PBaseEntity->PAI->PathFind->FollowPath();
-
-    */
     uint16 targid = 0;
 
     if (!lua_isnil(L, 3) && lua_isuserdata(L, 3))
@@ -14844,10 +14863,6 @@ inline int32 CLuaBaseEntity::moveToDistance(lua_State *L)
         CLuaBaseEntity* PLuaBaseEntity = Lunar<CLuaBaseEntity>::check(L, 3);
         if (PLuaBaseEntity->m_PBaseEntity)
         {
-
-
-
-
             position_t pos = PLuaBaseEntity->m_PBaseEntity->loc.p;
 
             double dist = (double)lua_tonumber(L, 1);
@@ -14877,13 +14892,9 @@ inline int32 CLuaBaseEntity::moveToDistanceFacing(lua_State *L)
         if (PLuaBaseEntity->m_PBaseEntity)
         {
 
-
-
-
             position_t pos = PLuaBaseEntity->m_PBaseEntity->loc.p;
 
             double dist = (double)lua_tonumber(L, 1);
-
 
             position_t nearEntity = nearPosition(PLuaBaseEntity->m_PBaseEntity->loc.p, (float)dist, (float)(2 * M_PI));
             m_PBaseEntity->PAI->PathFind->PathTo(nearEntity, PATHFLAG_WALLHACK | PATHFLAG_RUN);

@@ -44,14 +44,19 @@ public:
 
     virtual bool MobSkill(uint16 targid, uint16 wsid);
     virtual bool Ability(uint16 targid, uint16 abilityid);
+    int16 m_TickCalc;
 
 private:
     static constexpr float RoamDistance{ 2.1f };
     void DoCombatTick(time_point tick);
     void DoRoamTick(time_point tick);
 	bool TrustIsHealing();
+    bool masterHasEnmity;
 	duration m_actionCooldown{ 3s };
 	time_point m_LastActionTime;
+    time_point m_CombatEndTime;
+    time_point m_LastHealTickTime;
+
 };
 
 #endif // _TRUSTCONTROLLER

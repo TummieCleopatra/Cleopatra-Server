@@ -240,6 +240,27 @@ bool CBattleEntity::Rest(float rate)
     return false;
 }
 
+bool CBattleEntity::TrustRest(int16 rate)
+{
+    if (health.hp != health.maxhp || health.mp != health.maxmp) {
+        // recover 20% HP
+        //uint32 recoverHP = (uint32)(health.maxhp * rate);
+        //uint32 recoverMP = (uint32)(health.maxmp * rate);
+        float hptick = (((rate / 100.0f) + 4.0f) / 50.0f);
+        float mptick = (((rate / 100.0f) + 3.0f) / 50.0f);
+        uint32 recoverHP = (uint32)(health.maxhp * hptick);
+        uint32 recoverMP = (uint32)(health.maxmp * mptick);
+        //ShowWarning(CL_CYAN"RATE.... %i\n" CL_RESET, rate);
+        // ShowWarning(CL_CYAN"RECOVERED.... %u\n" CL_RESET, recoverHP);
+        addHP(recoverHP);
+        addMP(recoverMP);
+
+        return true;
+    }
+
+    return false;
+}
+
 int16 CBattleEntity::GetWeaponDelay(bool tp)
 {
     if (StatusEffectContainer->HasStatusEffect(EFFECT_HUNDRED_FISTS) && !tp)

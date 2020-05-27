@@ -7,6 +7,7 @@ require("scripts/globals/msg")
 
 function trustSpawnCheck(caster, target, spell)
     -- Dynamis Check
+    --[[
     local zone = caster:getZoneID();
     local dynamis = caster:getVar("TrustDynamis");
     local bf = caster:getBattlefield()
@@ -44,7 +45,8 @@ function trustSpawnCheck(caster, target, spell)
         return dsp.msg.basic.CANT_BE_USED_IN_AREA
     else
         return 0
-    end
+    end ]]--
+    return 0
 end
 
 
@@ -302,7 +304,7 @@ function excenmilleTrustPoints(mob)
     mob:addMod(dsp.mod.VIT, rank + r3)
 	mob:addMod(dsp.mod.DEX, rank + r4)
     mob:addMod(dsp.mod.AGI, rank + r5)
-    mob:addMod(dsp.mod.POLE, rank + r6)
+    mob:addMod(dsp.mod.POLEARM, rank + r6)
     mob:setLocalVar("JumpRecast", rank + r7)
 	mob:setLocalvar("HighJump",rank + r8)
     mob:addMod(dsp.mod.HIGH_JUMP_ENMITY_REDUCTION, rank + r9)
@@ -1249,6 +1251,28 @@ function getWeakness(mob, player, target)
 end
 
 -- ---------------------------- --
+--      Is Party Asleep         --
+-- -------------------------------
+
+function isPartyAsleep(mob, player)
+    local count = 0
+    local party = player:getPartyWithTrusts()
+    local id = 0
+
+    for i, member in ipairs(party) do
+        if (member:hasStatusEffect(dsp.effect.SLEEP_II) or member:hasStatusEffect(dsp.effect.SLEEP_I) or member:hasStatusEffect(dsp.effect.LULLABY)) then
+            count = count + 1
+            if (count >= 2) then
+                id = member:getID()
+                break
+            end
+        end
+    end
+
+    return id
+end
+
+-- ---------------------------- --
 --     Who's in the Party?      --
 -- ---------------------------- --
 
@@ -1509,6 +1533,37 @@ function getAngle(mob)
 
     return angle;
 end
+
+
+function getMageAngle(mob)
+    local master = mob:getMaster()
+    local angle = math.random(90, 110)
+    local party = master:getPartyWithTrusts()
+    local trust = 0
+
+    for i,member in ipairs(party) do
+        if (member:getObjType() == dsp.objType.TRUST) then
+            if (member:getMainJob() == dsp.job.RDM or member:getMainJob() == dsp.job.WHM or member:getMainJob() == dsp.job.BLM or member:getMainJob() == dsp.job.BRD) then
+                trust = trust + 1
+            end
+        end
+    end
+
+    if (trust == 1) then
+        angle = 95
+    elseif (trust == 2) then
+        angle = 105
+    elseif (trust == 3) then
+        angle = 90
+    elseif (trust == 4) then
+        angle = 110
+    elseif (trust == 5) then
+        angle = 85
+    end
+
+    return angle;
+end
+
 
 function doUtsusemi(mob, player, target)
     local lvl = mob:getMainLvl()

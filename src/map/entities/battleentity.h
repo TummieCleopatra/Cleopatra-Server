@@ -550,6 +550,7 @@ public:
 
     bool            CanRest(); // checks if able to heal
     bool			Rest(float rate); // heal an amount of hp / mp
+    bool			TrustRest(int16 rate); // heal an amount of hp / mp
 
     void		    addModifier(Mod type, int16 amount);
     void		    setModifier(Mod type, int16 amount);
@@ -682,6 +683,7 @@ private:
     uint8		m_slvl;						// ТЕКУЩИЙ уровень дополнительной профессии
     uint16      m_battleTarget {0};
     time_point  m_battleStartTime;
+    time_point  m_restTick;
 
     std::unordered_map<Mod, int16, EnumClassHash>		m_modStat;	// массив модификаторов
     std::unordered_map<Mod, int16, EnumClassHash>		m_modStatSave;	// saved state
