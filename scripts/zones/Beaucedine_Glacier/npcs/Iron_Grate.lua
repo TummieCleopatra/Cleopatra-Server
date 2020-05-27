@@ -44,17 +44,17 @@ function onEventFinish(player,csid,option)
 
     if (option == 1) then
         if (csid == 200) then        -- 50 Cap Area
-            LVLcap = 50;
+            LVLcap = 55;
             player:setPos(396,-8,-20,125,9);
         elseif (csid == 201) then -- 60 Cap Area
-            LVLcap = 60;
+            LVLcap = 65;
             player:setPos(220,-8,-282,66,9);
         elseif (csid == 202) then -- No Cap Area
             player:setPos(180,-8,241,190,9);
         elseif (csid == 203) then -- No Cap Area
             player:setPos(-242,8,-259,126,9);
         elseif (csid == 204) then -- Cap 40 Area
-            LVLcap = 40;
+            LVLcap = 45;
             player:setPos(-180,-8,-78,194,9);
         elseif (csid == 205) then -- No Cap Area
             player:setPos(-300,-8,203,191,9);
