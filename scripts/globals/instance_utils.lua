@@ -126,7 +126,7 @@ function enemyPath(mob)
     end
 end
 
- -- A FEST FOR GNATS --
+ -- A FEAST FOR GNATS --
 
 function feastNpcRoam(mob)
 
