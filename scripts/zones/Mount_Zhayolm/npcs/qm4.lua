@@ -38,7 +38,7 @@ function onTrigger(player,npc)
 	    if (player:getFreeSlotsCount() == 0) then
 		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2585);
 	    else
-	        player:delKeyItem(dsp.ki.MAROON_SEAL);
+	        player:delKeyItem(dsp.ki.PURPLISH_GREY_SEAL);
 			player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.PURPLISH_GREY_SEAL);
 		    player:addItem(2585,1);
 			player:messageSpecial(ID.text.ITEM_OBTAINED,2585);

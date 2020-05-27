@@ -24,7 +24,7 @@ function onTrade(player,npc,trade)
         if (GetMobAction(mobID) == dsp.act.NONE) then
             player:tradeComplete();
             player:addKeyItem(dsp.ki.APPLE_GREEN_SEAL);
-			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.APPLE_GREAN_SEAL);
+			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.APPLE_GREEN_SEAL);
         end
     end
 end;

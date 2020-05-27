@@ -42,6 +42,7 @@ function onMobSpawn(mob)
     znmT4Size(mob)
 end;
 
+
 -----------------------------------
 -- onMobRoam Action
 -- Regen head
@@ -84,6 +85,15 @@ end;
 
 function onMobFight(mob, target)
     znmScalerT4(mob,target)
+
+    local size = 1
+    if (target:getObjType() == dsp.objType.TRUST) then
+        local master = target:getMaster()
+        size = master:getPartySize(1)
+    else
+        size = target:getPartySize(1)
+    end
+
     local headTimer = mob:getLocalVar("headTimer");
     if (mob:AnimationSub() == 2 and os.time() > headTimer) then
         mob:AnimationSub(1);

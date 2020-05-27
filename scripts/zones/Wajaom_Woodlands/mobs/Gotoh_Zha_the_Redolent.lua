@@ -33,6 +33,7 @@ function onMobInitialize(mob)
 end
 
 function onMobSpawn(mob)
+    znmT3Size(mob)
     dsp.mix.jobSpecial.config(mob, {
         specials =
         {
@@ -46,6 +47,8 @@ function onMobSpawn(mob)
 end
 
 function onMobFight(mob, target)
+    znmScalerT3(mob,target)
+
     if mob:AnimationSub() == 1 and mob:getLocalVar("jobChanged") == 0 then
         mob:setLocalVar("jobChanged", 1)
         mob:setSpellList(297) -- Set WHM spell list.
@@ -77,4 +80,6 @@ function onWeaponskillHit(mob, attacker, weaponskill)
 end
 
 function onMobDeath(mob, killer)
+    local nm = 20;
+    znmTherionT3(mob, player, nm)
 end

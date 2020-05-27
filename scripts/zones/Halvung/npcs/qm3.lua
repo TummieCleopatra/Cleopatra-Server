@@ -23,8 +23,8 @@ function onTrade(player,npc,trade)
     elseif (trade:hasItemQty(2624,1) and trade:getItemCount() == 1) then -- Trade Reactons Ashes
         if (GetMobAction(mobID) == dsp.act.NONE) then
             player:tradeComplete();
-            player:addKeyItem(dsp.ki.SALMON_SEAL);
-			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.SALMON_SEAL);
+            player:addKeyItem(dsp.ki.SALMON_COLORED_SEAL);
+			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.SALMON_COLORED_SEAL);
         end
     end
 end;
@@ -38,7 +38,7 @@ function onTrigger(player,npc)
 	    if (player:getFreeSlotsCount() == 0) then
 		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2588);
 	    else
-	        player:delKeyItem(dsp.ki.MAROON_SEAL);
+	        player:delKeyItem(dsp.ki.CERISE_SEAL);
 			player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.CERISE_SEAL);
 		    player:addItem(2588,1);
 			player:messageSpecial(ID.text.ITEM_OBTAINED,2588);

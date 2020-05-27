@@ -14,7 +14,7 @@ require("scripts/globals/mobscaler");
 -----------------------------------
 
 function onMobSpawn(mob)
-    znmT3Size(mob) 
+    znmT3Size(mob)
 end;
 
 function onMobFight(mob, target)
@@ -33,5 +33,6 @@ end;
 
 function onMobDeath(mob, player, isKiller)
     local nm = 21;
-    znmTherionT3(mob, player, nm)	
+    znmTherionT3(mob, player, nm)
+    player:setVar("DeaSalt",1)
 end;

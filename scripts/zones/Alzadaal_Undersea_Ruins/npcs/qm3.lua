@@ -36,12 +36,12 @@ end;
 function onTrigger(player,npc)
     if (player:hasKeyItem(dsp.ki.APPLE_GREEN_SEAL)) then
 	    if (player:getFreeSlotsCount() == 0) then
-		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2575);
+		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2574);
 	    else
 	        player:delKeyItem(dsp.ki.APPLE_GREEN_SEAL);
 			player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.APPLE_GREEN_SEAL);
-		    player:addItem(2575,1);
-			player:messageSpecial(ID.text.ITEM_OBTAINED,2575);
+		    player:addItem(2574,1);
+			player:messageSpecial(ID.text.ITEM_OBTAINED,2574);
 		end
     else
         player:messageSpecial(ID.text.NOTHING_HAPPENS)

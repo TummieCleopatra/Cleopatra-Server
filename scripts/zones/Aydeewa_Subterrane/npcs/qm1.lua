@@ -34,12 +34,12 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-    if (player:hasKeyItem(dsp.ki.SALMON_SEAL)) then
+    if (player:hasKeyItem(dsp.ki.SALMON_COLORED_SEAL)) then
 	    if (player:getFreeSlotsCount() == 0) then
 		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2584);
 	    else
-	        player:delKeyItem(dsp.ki.SALMON_SEAL);
-			player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.CERISE_SEAL);
+	        player:delKeyItem(dsp.ki.SALMON_COLORED_SEAL);
+			player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.SALMON_COLORED_SEAL);
 		    player:addItem(2584,1);
 			player:messageSpecial(ID.text.ITEM_OBTAINED,2584);
 		end

@@ -34,13 +34,13 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-    if (player:hasKeyItem(dsp.ki.COPPER_COLOR_SEAL)) then
+    if (player:hasKeyItem(dsp.ki.COPPER_COLORED_SEAL)) then
 	    if (player:getFreeSlotsCount() == 0) then
 		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2583);
 	    else
-	        player:delKeyItem(dsp.ki.COPPER_COLOR_SEAL);
-            player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.COPPER_COLOR_SEAL);
-		    player:additem(2583,1);
+	        player:delKeyItem(dsp.ki.COPPER_COLORED_SEAL);
+            player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.COPPER_COLORED_SEAL);
+		    player:addItem(2583,1);
 			player:messageSpecial(ID.text.ITEM_OBTAINED,2583);
 		end
     else
