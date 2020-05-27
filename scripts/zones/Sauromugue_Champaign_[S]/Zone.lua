@@ -22,7 +22,7 @@ function onZoneIn(player,prevZone)
         cs = 3;
     end
     if (player:getVar("FeastForGnats") == 5) then
-       cs == 110
+       cs = 110
     end
     return cs;
 end;

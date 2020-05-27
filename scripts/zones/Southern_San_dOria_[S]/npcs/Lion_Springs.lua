@@ -19,6 +19,10 @@ function onTrigger(player,npc)
         elseif (player:getVar("QueenOfTheDance") == 2) then
             player:startEvent(70);
         end
+    elseif (player:getQuestStatus(CRYSTAL_WAR, dsp.quest.id.crystalWar.A_FEAST_FOR_GNATS) == QUEST_COMPLETED) then
+        if (player:getVar("DancersInDistress") == 0) then
+            player:startEvent(85)
+        end
     end
 
 end;
@@ -31,6 +35,9 @@ function onEventFinish(player,csid,option)
         player:setVar("QueenOfTheDance",1);
     elseif (csid == 70) then
         player:startEvent(152);
+    elseif (csid == 85) then
+        player:addMission(WOTG, dsp.mission.id.wotg.DANCERS_IN_DISTRESS);
+        player:setVar("DancersInDistress",1)
     elseif (csid == 152) then
         player:startEvent(153);
     elseif (csid == 153) then

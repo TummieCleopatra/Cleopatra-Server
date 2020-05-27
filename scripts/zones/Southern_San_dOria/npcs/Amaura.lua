@@ -19,14 +19,28 @@ function onTrade(player,npc,trade)
         end
     end
 
+    if ((trade:hasItemQty(2728,1)) and player:getVar("DaughterOfaKnight") == 1) then
+        player:startEvent(937)
+    end
+
 end;
 
 function onTrigger(player,npc)
 
     medicineWoman = player:getQuestStatus(SANDORIA,dsp.quest.id.sandoria.THE_MEDICINE_WOMAN);
     toCureaCough = player:getQuestStatus(SANDORIA,dsp.quest.id.sandoria.TO_CURE_A_COUGH);
-
-    if (medicineWoman == QUEST_ACCEPTED) then
+    if (player:getCurrentMission(WOTG) == dsp.mission.id.wotg.DAUGHTER_OF_A_KNIGHT) then
+        if (player:getVar("DaughterOfaKnight") == 0) then
+            player:startEvent(935)
+        elseif (player:getVar("DaughterOfaKnight") == 1) then
+            player:startEvent(936)
+        elseif (player:getVar("DaughterOfaKnight") == 6) then
+            player:startEvent(939)
+            -- TODO Add Need to zone here?
+        elseif (player:getVar("DaughterOfaKnight") == 7) then
+            player:startEvent(941)
+        end
+    elseif (medicineWoman == QUEST_ACCEPTED) then
         amaurasFormulaKI = player:hasKeyItem(dsp.ki.AMAURAS_FORMULA);
         coldMedicine = player:hasKeyItem(dsp.ki.COLD_MEDICINE);
 
@@ -66,6 +80,20 @@ function onEventFinish(player,csid,option)
         player:delKeyItem(dsp.ki.THYME_MOSS);
         player:addKeyItem(dsp.ki.COUGH_MEDICINE);
         player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.COUGH_MEDICINE);
+    elseif (csid == 935) then
+        player:setVar("DaughterOfaKnight",1)
+    elseif (csid == 937) then
+        player:setVar("DaughterOfaKnight",2)
+    elseif (csid == 939) then
+        player:setVar("DaughterOfaKnight",7)
+        player:delKeyItem(dsp.ki.CERNUNNOS_RESIN)
+    elseif (csid == 941) then
+        player:addKeyItem(dsp.ki.BOTTLE_OF_TREANT_TONIC)
+        player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.BOTTLE_OF_TREANT_TONIC);
+        player:setVar("DaughterOfaKnight",0)
+        player:completeMission(WOTG, dsp.mission.id.wotg.DAUGHTER_OF_A_KNIGHT)
+        player:addMission(WOTG, dsp.mission.id.wotg.A_SPOONFUL_OF_SUGAR)
     end
+
 
 end;
