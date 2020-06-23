@@ -91,7 +91,7 @@ function onMobSpawn(mob)
     end)
 
 
-    --[[
+
 
 
 
@@ -131,6 +131,9 @@ function onMobSpawn(mob)
 	    local battletime = os.time()
 		local rangedAttackTime = mob:getLocalVar("rangedAttackTime")
         local distance = mob:checkDistance(target)
+        if (mob:hasStatusEffect(dsp.effect.FLURRY)) then
+            rangedAttackCooldown = 9
+        end
         if ((battletime > rangedAttackTime + rangedAttackCooldown) and distance > 9.9) then
 		    mob:useMobAbility(1202, target)
 			mob:setLocalVar("rangedAttackTime",battletime)
@@ -189,7 +192,7 @@ function onMobSpawn(mob)
             mob:setLocalVar("wsTime",battletime)
 		end
 	end)
-    ]]--
+
 
 end
 

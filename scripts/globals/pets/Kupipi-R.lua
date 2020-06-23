@@ -140,7 +140,9 @@ function onMobSpawn(mob)
         local dlvl = tlvl - lvl
         local move = 10
         local koru, mp = isKoruInParty(mob, player, target)
-        if (dlvl > 3) then
+        if (target:getName() == "Fafnir" or target:getName() == "Nidhogg") then
+           move = 1
+        elseif (dlvl > 3) then
             move = 10
         else
            move = 1
@@ -150,7 +152,7 @@ function onMobSpawn(mob)
         if (battletime > magicTime + magicCheck) then
             -- BUFFS
             if (battletime > buffTime + buffCooldown and distance >= move) then
-
+                -- printf("DO BUFFS")
                 doKupipiBuff(mob, player)
                 mob:setLocalVar("buffTime",battletime)
             -- HASTE
@@ -162,7 +164,7 @@ function onMobSpawn(mob)
                 end
                 mob:setLocalVar("hasteTime",battletime)
             -- DEBUFF
-            elseif (battletime > debuffTime + debuffCooldown and koru == 0) then
+            elseif (battletime > debuffTime + debuffCooldown and koru == 0 and not player:hasStatusEffect(dsp.effect.HASTE)) then
 
                 local spell = doDebuff(mob, target)
                 if (spell > 0 ) then
@@ -171,12 +173,7 @@ function onMobSpawn(mob)
                 mob:setLocalVar("debuffTime",battletime)
             -- AILMENTS
             elseif (battletime > ailmentTime + ailmentCooldown) then
-
-                local spell = doStatusRemoval(mob, player)
-                if (spell > 0 ) then
-                    mob:castSpell(spell, player)
-                end
-                mob:setLocalVar("ailmentTime",battletime)
+                doStatusRemoval(mob, player)
             else
                mob:setLocalVar("magicTime",battletime)
             end
@@ -262,26 +259,39 @@ function doStatusRemoval(mob, player)
     local mp = mob:getMP()
     local lvl = mob:getMainLvl()
     local spell = 0
+    local battletime = os.time()
+    local party = player:getPartyWithTrusts()
 
-    if (player:hasStatusEffect(dsp.effect.POISON) and lvl >= 6 and mp >= 8) then
-        spell = 14
-    elseif (player:hasStatusEffect(dsp.effect.PARALYSIS) and lvl >= 9 and mp >= 12) then
-        spell = 15
-    elseif (player:hasStatusEffect(dsp.effect.BLINDNESS) and lvl >= 14 and mp >= 16) then
-        spell = 16
-    elseif (player:hasStatusEffect(dsp.effect.SILENCE) and lvl >= 19 and mp >= 24) then
-        spell = 17
-    elseif (player:hasStatusEffect(dsp.effect.CURSE_I) and lvl >= 29 and mp >= 30) then
-        spell = 20
-    elseif (player:hasStatusEffectByFlag(dsp.effectFlag.ERASABLE) and lvl >= 32 and mp >= 18) then
-        spell = 143
-    elseif (player:hasStatusEffect(dsp.effect.DISEASE) and lvl >= 34 and mp >= 20) then
-        spell = 19
-    elseif (player:hasStatusEffect(dsp.effect.PETRIFICATION) and lvl >= 39 and mp >= 40) then
-        spell = 18
+    for i,member in pairs(party) do
+        if (member:hasStatusEffect(dsp.effect.PETRIFICATION) == true and lvl >= 39 and mp >= 40) then
+            mob:castSpell(18, member)
+            break
+        elseif (member:hasStatusEffect(dsp.effect.PARALYSIS) == true and lvl >= 9 and mp >= 12) then
+            mob:castSpell(15, member)
+            break
+        elseif (member:hasStatusEffect(dsp.effect.SILENCE) == true and lvl >= 19 and mp >= 24) then
+            mob:castSpell(17, member)
+            break
+        elseif (member:hasStatusEffect(dsp.effect.BLINDNESS) == true and lvl >= 14 and mp >= 16) then
+            mob:castSpell(16, member)
+            break
+        elseif (member:hasStatusEffect(dsp.effect.CURSE_I) == true and lvl >= 29 and mp >= 30) then
+            mob:castSpell(20, member)
+            break
+        elseif (member:hasStatusEffectByFlag(dsp.effectFlag.ERASABLE) and lvl >= 32 and mp >= 18) then
+            mob:castSpell(143, member)
+            break
+        elseif (member:hasStatusEffect(dsp.effect.DISEASE) == true and lvl >= 34 and mp >= 20) then
+            mob:castSpell(19, member)
+            break
+        elseif (member:hasStatusEffect(dsp.effect.POISON) == true and lvl >= 6 and mp >= 8) then
+            mob:castSpell(14, member)
+            break
+        end
+
+        mob:setLocalVar("ailmentTime",battletime)
+
     end
-
-    return spell
 end
 
 function doKupipiWeaponskill(mob)
@@ -311,13 +321,13 @@ end
 function doKupipiBuff(mob, player)
     local proRaList = {}
     local shellRaList = {}
-    if (player:getVar("TrustPro_Kup") == 1) then
+    if (mob:getLocalVar("[TRUST]KUPIPI_SHELLPROV") == 1) then
         proRaList = {{75,84,129},{63,65,128}, {47,46,127}, {27,28,126}, {7,9,125}}
     else
         proRaList = {{63,65,128}, {47,46,127}, {27,28,126}, {7,9,125}}
     end
 
-    if (player:getVar("TrustShell_Kup") == 1) then
+    if (mob:getLocalVar("[TRUST]KUPIPI_SHELLPROV") == 1) then
         shellRaList = {{75,93,134},{68,75,133}, {57,56,132}, {37,37,131}, {17,18,130}}
     else
         shellRaList = {{68,75,133}, {57,56,132}, {37,37,131}, {17,18,130}}

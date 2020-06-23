@@ -190,13 +190,13 @@ end
 function doBuff(mob, player)
     local proRaList = {}
     local shellRaList = {}
-    if (player:getVar("TrustPro_Kup") == 1) then
+    if (mob:getLocalVar("[TRUST]KUPIPI_SHELLPROV") == 1) then
         proRaList = {{75,84,129},{63,65,128}, {47,46,127}, {27,28,126}, {7,9,125}}
     else
         proRaList = {{63,65,128}, {47,46,127}, {27,28,126}, {7,9,125}}
     end
 
-    if (player:getVar("TrustShell_Kup") == 1) then
+    if (mob:getLocalVar("[TRUST]KUPIPI_SHELLPROV") == 1) then
         shellRaList = {{75,93,134},{68,75,133}, {57,56,132}, {37,37,131}, {17,18,130}}
     else
         shellRaList = {{68,75,133}, {57,56,132}, {37,37,131}, {17,18,130}}

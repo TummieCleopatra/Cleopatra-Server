@@ -76,6 +76,9 @@ function onMobSpawn(mob)
 	mob:addListener("COMBAT_TICK", "NAJELITH_RA_TICK", function(mob, player, target)
 	    local battletime = os.time()
 		local rangedAttackTime = mob:getLocalVar("rangedAttackTime")
+        if (mob:hasStatusEffect(dsp.effect.FLURRY)) then
+            rangedAttackCooldown = 10
+        end
         if (battletime > rangedAttackTime + rangedAttackCooldown) then
 		    mob:useMobAbility(1202, target)
 			mob:setLocalVar("rangedAttackTime",battletime)

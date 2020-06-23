@@ -125,7 +125,7 @@ function onMobSpawn(mob)
         local caActive = mob:getLocalVar("caActive")
         local caSpell = mob:getLocalVar("caSpell")
 
-        if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown) and caActive ~= 1) then
+        if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown) and caActive ~= 1 and not mob:hasPreventActionEffect()) then
             if (lvl >= 40 and (battletime > caTime + caCooldown)) then
                 mob:useJobAbility(78, mob)
                 weaponskill = doDarcullinCAWeaponskill(mob)
@@ -139,7 +139,7 @@ function onMobSpawn(mob)
                 mob:useMobAbility(weaponskill, target)
                 mob:setLocalVar("wsTime",battletime)
             end
-        elseif (caActive == 1 and (battletime > weaponSkillTime + wsCooldown)) then
+        elseif (caActive == 1 and (battletime > weaponSkillTime + wsCooldown) and not mob:hasPreventActionEffect()) then
             mob:castSpell(caSpell, target)
             mob:setLocalVar("caSpell",0)
             mob:setLocalVar("caActive",0)

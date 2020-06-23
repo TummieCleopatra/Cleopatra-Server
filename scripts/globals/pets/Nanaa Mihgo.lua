@@ -15,13 +15,16 @@ function onMobSpawn(mob)
     local weaponskill = 0
     local wsCooldown = 4
     local sneakAttackCooldown = 20
+
     mob:setLocalVar("sneakAttackCooldown",20)
     nanaaTrustPoints(mob)
     mob:setLocalVar("distanceTime",0)
     mob:setLocalVar("saTime",0)
     mob:setLocalVar("wsTime",0)
-    mob:addMod(dsp.mod.REGAIN,180)
+    mob:setLocalVar("feintTime",0)
+    local feintCooldown = 120
 
+    mob:setLocalVar("sneakAttackCooldown",60 - mob:getLocalVar("[TRUST]NANAA_SA_RECAST"))
     set1HStats(mob)
     mob:addListener("COMBAT_TICK", "NANAA_DISTANCE_TICK", function(mob, player, target)
         trustSneakAttackMove(mob, player, target)
@@ -29,6 +32,15 @@ function onMobSpawn(mob)
 
     mob:addListener("COMBAT_TICK", "NANAA_SA_TICK", function(mob, player, target)
         doNanaaSa(mob, player, target)
+    end)
+
+    mob:addListener("COMBAT_TICK", "NANAA_FEINT_TICK", function(mob, player, target)
+        local battletime = os.time()
+        local feint = mob:getLocalVar("feintTime")
+        if ((battletime > feint + feintCooldown) and lvl >= 75 and (mob:getACC() + 50 <= target:getEVA())) then
+            mob:useJobAbility(140, target)
+            mob:setLocalVar("feintTime",battletime)
+        end
     end)
 
     mob:addListener("COMBAT_TICK", "NANAA_COMBAT_TICK", function(mob, player, target)
@@ -82,9 +94,12 @@ end
 
 function doNanaaWeaponskill(mob)
     local lvl = mob:getMainLvl()
-    local wsList = {{75,3189},{65,24},{60,23},{33,17},{20,18},{1,16}}
+    local wsList = {{65,24},{60,23},{33,17},{20,18},{1,16}}
     local newWsList = {}
 
+    if (mob:getLocalVar("[TRUST]NANAA_WS") == 1) then
+        wsList = {{75,3189},{65,24},{60,23},{33,17},{20,18},{1,16}}
+    end
     local maxws = 0 -- Maximum number of weaponskills to choose from randomly
     if (lvl >= 65) then
         maxws = 2

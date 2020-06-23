@@ -24,6 +24,8 @@ function onMobSpawn(mob)
 	mob:setLocalVar("jumpTime",0)
 	mob:setLocalVar("highJumpTime",0)
 	mob:setLocalVar("superJumpTime",0)
+    mob:setLocalVar("angonTime",0)
+    mob:setLocalVar("angonCooldown",180)
 
     set2HStats(mob)
     excenmilleTrustPoints(mob)
@@ -64,11 +66,24 @@ function onMobSpawn(mob)
         end
 	end)
 
+	mob:addListener("COMBAT_TICK", "EXCENMILLE_ANGON_TICK", function(mob, player, target)
+	    local battletime = os.time()
+		local angonTime = mob:getLocalVar("angonTime")
+        local angonCooldown = mob:getLocalVar("angonCooldown")
+
+        if (lvl >= 75 and mob:getLocalVar("[TRUST]EXCENMILLE_ANGON") == 1) then
+		    if (battletime > angonTime + angonCooldown) then
+		        mob:useJobAbility(154, target)
+			    mob:setLocalVar("angonTime",battletime)
+		    end
+        end
+	end)
+
 	mob:addListener("COMBAT_TICK", "EXCENMILLE_COMBAT_TICK", function(mob, player, target)
 	    trustMeleeMove(mob, player, target, angle)
 	    local battletime = os.time()
         local weaponSkillTime = mob:getLocalVar("wsTime")
-        if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown) and mob:getBattleTime() > player:getVar("TrustWSTime") + 30) then
+        if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown) and mob:getBattleTime() > player:getVar("TrustWSTime") + 30 and not mob:hasPreventActionEffect()) then
 		    weaponskill = doExcenmilleWeaponskill(mob)
             mob:setLocalVar("WS_TP",mob:getTP())
 			mob:useMobAbility(weaponskill)
@@ -87,7 +102,10 @@ function onTrade(player, mob, trade)
 end
 
 function doExcenmilleWeaponskill(mob)
-    local wsList = {{49,116}, {40,115}, {1,112}}
+    local wsList = {{60,119}, {49,116}, {40,115}, {1,112}}
+    if (mob:getLocalVar("[TRUST]EXCENMILLE_WS") == 1) then
+        wsList = {{65,120}, {60,119}, {49,116}, {40,115}, {1,112}}
+    end
     local newWsList = {}
 	local maxws = 3 -- Maximum number of weaponskills to choose from randomly
 	local wscount = 0

@@ -112,7 +112,7 @@ function onMobSpawn(mob)
         trustMeleeMove(mob, player, target, angle)
         local battletime = os.time()
         local weaponSkillTime = mob:getLocalVar("wsTime")
-        if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown) and mob:getBattleTime() > player:getVar("TrustWSTime") + 30) then
+        if (mob:getTP() >= 1000 and (battletime > weaponSkillTime + wsCooldown) and mob:getBattleTime() > player:getVar("TrustWSTime") + 30 and not mob:hasPreventActionEffect()) then
             weaponskill = doKupipiWeaponskill(mob)
             mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill, target)
@@ -151,6 +151,9 @@ function doKupipiWeaponskill(mob)
     local sJob = mob:getSubJob()
 
     local wsList = {{65,168}, {60,167}, {51,165}, {1,160}}
+    if (mob:getLocalVar("[TRUST]KUPIPI_BH") == 1) then
+        wsList = {{72,169},65,168}, {60,167}, {51,165}, {1,160}}
+    end
     local maxws = 5
 
     local newWsList = {}
@@ -174,9 +177,20 @@ function doKupipiWeaponskill(mob)
 end
 
 function doBuff(mob, player)
-    local proRaList = {{63,65,128}, {47,46,127}, {27,28,126}, {7,9,125}}
+    local proRaList = {}
+    local shellRaList = {}
+    if (mob:getLocalVar("[TRUST]KUPIPI_SHELLPROV") == 1) then
+        proRaList = {{75,84,129},{63,65,128}, {47,46,127}, {27,28,126}, {7,9,125}}
+    else
+        proRaList = {{63,65,128}, {47,46,127}, {27,28,126}, {7,9,125}}
+    end
+
+    if (mob:getLocalVar("[TRUST]KUPIPI_SHELLPROV") == 1) then
+        shellRaList = {{75,93,134},{68,75,133}, {57,56,132}, {37,37,131}, {17,18,130}}
+    else
+        shellRaList = {{68,75,133}, {57,56,132}, {37,37,131}, {17,18,130}}
+    end
     local proList = {{63,65,46}, {47,46,45}, {27,28,44}, {7,9,43}}
-    local shellRaList = {{68,75,133}, {57,56,132}, {37,37,131}, {17,18,130}}
     local shellList = {{68,75,51}, {57,56,50}, {37,37,49}, {17,18,48}}
     local battletime = os.time()
     local mp = mob:getMP()

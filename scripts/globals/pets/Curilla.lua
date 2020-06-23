@@ -90,7 +90,7 @@ function onMobSpawn(mob)
     mob:addListener("COMBAT_TICK", "COMBAT_TICK", function(mob)
         local battletime = os.time()
         local weaponSkillTime = mob:getLocalVar("wsTime")
-        if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown)) then
+        if (mob:getTP() > 1000 and (battletime > weaponSkillTime + wsCooldown) and not mob:hasPreventActionEffect()) then
             weaponskill = doCurillaWeaponskill(mob)
             mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill)
@@ -120,7 +120,13 @@ function onMobSpawn(mob)
         local battletime = os.time()
         local flashTime = mob:getLocalVar("flashTime")
         local flashCooldown = mob:getLocalVar("flashCooldown")
-        if (enmity > 0 and (battletime > flashTime + flashCooldown)) then
+        local add = player:getVar("[TRUST]KORU_SLEEP")
+
+        if ((battletime > flashTime + flashCooldown) and add > 0) then
+            local tadd = GetMobByID(add)
+            doCurillaFlash(mob, player, tadd)
+            player:setVar("[TRUST]KORU_SLEEP",0)
+        elseif (enmity > 0 and (battletime > flashTime + flashCooldown)) then
             doCurillaFlash(mob, player, target)
             mob:setLocalVar("flashTime",battletime)
         end
@@ -265,6 +271,10 @@ end
 
 function doCurillaWeaponskill(mob)
     local wsList = {{65,41},{60,40}, {17,34}, {1,33}}
+    if (mob:getLocalVar("[TRUST]CURILLA_SAVAGE_BLADE") == 1) then
+        wsList = {{72,42},{65,41},{60,40}, {17,34}, {1,33}}
+    end
+
     local newWsList = {}
     local lvl = mob:getMainLvl()
     local maxws = 0 -- Maximum number of weaponskills to choose from randomly

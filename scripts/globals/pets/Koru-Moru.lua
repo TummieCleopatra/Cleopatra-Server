@@ -22,6 +22,8 @@ function onMobSpawn(mob)
     local ailmentCooldown = 15
     local hasteCooldown = 220
     local convertCooldown = 600
+    local flurryCooldown = 180
+    local addCooldown = 45
     local master = mob:getMaster()
     local lvl = master:getMainLvl()
     if (lvl >= 55) then
@@ -59,7 +61,6 @@ function onMobSpawn(mob)
     mageArmor(mob)
     set1HStats(mob)
 
-    mob:delMP(500)
 
     mob:addListener("COMBAT_TICK", "COMBAT_TICK", function(mob, player, target)
         trustMageMove(mob, player, target, angle)
@@ -126,15 +127,20 @@ function onMobSpawn(mob)
         local hasteTime = mob:getLocalVar("hasteTime")
         local distance = mob:checkDistance(target)
                 -- Global Magic Check every 4 Seconds
+        local move = 10
+        if (target:getName() == "Fafnir" or target:getName() == "Nidhogg") then
+            move = 1
+        end
+
         if (battletime > magicTime + magicCheck) then
             -- BUFFS
-            if (battletime > buffTime + buffCooldown and distance >= 10) then
+            if (battletime > buffTime + buffCooldown and distance >= move) then
 
                 doKoruBuff(mob, player)
                 mob:setLocalVar("buffTime",battletime)
                 mob:setLocalVar("magicTime",battletime)
             -- HASTE
-            elseif (battletime > hasteTime + hasteCooldown) then
+            elseif (battletime > hasteTime + hasteCooldown and not player:hasStatusEffect(dsp.effect.HASTE)) then
                 local spell = doHasteKoru(mob)
                 if (spell > 0 ) then
                     mob:castSpell(spell, player)
@@ -143,6 +149,7 @@ function onMobSpawn(mob)
                 mob:setLocalVar("magicTime",battletime)
             -- DEBUFF
             elseif (battletime > debuffTime + debuffCooldown) then
+                printf("DO DEBUFFS")
                 local spell = doDebuffKoru(mob, target)
                 if (spell > 0 ) then
                     mob:castSpell(spell, target)
@@ -151,6 +158,24 @@ function onMobSpawn(mob)
                 mob:setLocalVar("magicTime",battletime)
             else
                mob:setLocalVar("magicTime",battletime + 5)
+            end
+        end
+    end)
+
+
+    mob:addListener("COMBAT_TICK", "FLURRY_TICK", function(mob, player)
+        local battletime = os.time()
+        local mp = mob:getMP()
+        local lvl = mob:getMainLvl()
+        local flurryTime = mob:getLocalVar("flurryTime")
+        local party = player:getPartyWithTrusts()
+        if (battletime > flurryTime + flurryCooldown and lvl >= 48 and mp >= 40) then
+            for i, member in ipairs(party) do
+                if (member:getMainJob() == dsp.job.RNG or member:getMainJob() == dsp.job.COR and member:hasStatusEffect(dsp.effect.FLURRY) == false and mob:checkDistance(member) < 6) then
+                   mob:castSpell(845, member)
+                   break
+                end
+                mob:setLocalVar("flurryTime",battletime)
             end
         end
     end)
@@ -167,6 +192,39 @@ function onMobSpawn(mob)
         if (battletime > convertTime + convertCooldown and lvl >= 40 and mpp < 10) then
             mob:useJobAbility(67, mob)
             mob:setLocalVar("convertTime",battletime)
+        end
+    end)
+
+    mob:addListener("COMBAT_TICK", "KORU_ADD_TICK", function(mob, player, target)
+        local battletime = os.time()
+        local addTime = mob:getLocalVar("addTime")
+        local tID = target:getID()
+        if (battletime > addTime + addCooldown and lvl >= 25) then
+            local nearbyTargets = target:getTargetsWithinArea(12, 8);
+            for i,enemy in pairs(nearbyTargets) do  -- Look around for all targets in area
+                if ((enemy:getID() ~= tID) and enemy:getObjType() == dsp.objType.MOB and enemy:hasStatusEffect(dsp.effect.SLEEP_II) == false) then
+                    local enmityList = enemy:getEnmityList()
+                    local party = player:getPartyWithTrusts()
+                    if enmityList and #enmityList > 0 then
+                        printf("Something has enmity")
+                        for _,enmity in ipairs(enmityList) do
+                            for i, member in ipairs(party) do
+                                if (enmity.entity:getID() == member:getID()) then
+                                    printf("Try to sleep")
+                                    mob:castSpell(259, enemy)
+                                    local enemID = enemy:getID()
+                                    player:setVar("[TRUST]KORU_SLEEP",enemID)
+                                    mob:setLocalVar("addTime",battletime)
+                                    break
+                                end
+                            end
+                        end
+                    end
+                end
+
+                mob:setLocalVar("addTime",battletime - 40)
+            end
+
         end
     end)
 
@@ -274,6 +332,7 @@ function doKoruBuff(mob, player)
 end
 
 function doDebuffKoru(mob, target)
+    local player = mob:getMaster()
     local paraCooldown = 120
     local slowCooldown = 180
     local blindCooldown = 120
@@ -286,41 +345,78 @@ function doDebuffKoru(mob, target)
     local debuff = 0
     local maxmp = mob:getMaxMP()
     local mpp = (mp / maxmp) * 100
-
-    if ((battletime > paraTime + paraCooldown) and not target:hasStatusEffect(dsp.effect.DIA) and mpp > 70) then
+    -- printf("TRYING TO DEBUFF THE MOB!!!")
+    if ((battletime > paraTime + paraCooldown) and not target:hasStatusEffect(dsp.effect.DIA) and mpp > 40) then
+      --  printf("TRY DIA!!!")
         if (lvl > 74 and mp >= 45) then
             mob:setLocalVar("diaTime",battletime)
             debuff = 25
+            if (player:getVar("TrustSilence") == 1) then
+                local tname = target:getName()
+                player:PrintToPlayer("(Koru-Moru) Dia III >>  "..tname.."",0xF)
+            end
         elseif (lvl >= 31 and mp >= 30) then
             mob:setLocalVar("diaTime",battletime)
             debuff = 24
+            if (player:getVar("TrustSilence") == 1) then
+                local tname = target:getName()
+                player:PrintToPlayer("(Koru-Moru) Dia II >>  "..tname.."",0xF)
+            end
         elseif (lvl >= 1 and mp >= 7) then
             mob:setLocalVar("diaTime",battletime)
             debuff = 23
+            if (player:getVar("TrustSilence") == 1) then
+                local tname = target:getName()
+                player:PrintToPlayer("(Koru-Moru) Dia >>  "..tname.."",0xF)
+            end
         end
-    elseif ((battletime > paraTime + paraCooldown) and not target:hasStatusEffect(dsp.effect.PARALYSIS) and mpp > 80) then
+    elseif ((battletime > paraTime + paraCooldown) and not target:hasStatusEffect(dsp.effect.PARALYSIS) and mpp > 40) then
         if (lvl > 74 and mp >= 36) then
             mob:setLocalVar("paraTime",battletime)
             debuff = 80
+            if (player:getVar("TrustSilence") == 1) then
+                local tname = target:getName()
+                player:PrintToPlayer("(Koru-Moru) Paralyze II >>  "..tname.."",0xF)
+            end
         elseif (lvl >= 4 and mp >= 6) then
             mob:setLocalVar("paraTime",battletime)
             debuff = 58
+            if (player:getVar("TrustSilence") == 1) then
+                local tname = target:getName()
+                player:PrintToPlayer("(Koru-Moru) Paralyze >>  "..tname.."",0xF)
+            end
         end
-    elseif ((battletime > slowTime + slowCooldown) and not target:hasStatusEffect(dsp.effect.SLOW) and mpp > 80) then
+    elseif ((battletime > slowTime + slowCooldown) and not target:hasStatusEffect(dsp.effect.SLOW) and mpp > 40) then
         if (lvl > 74 and mp >= 45) then
             mob:setLocalVar("slowTime",battletime)
             debuff = 79
+            if (player:getVar("TrustSilence") == 1) then
+                local tname = target:getName()
+                player:PrintToPlayer("(Koru-Moru) Slow II >>  "..tname.."",0xF)
+            end
         elseif (lvl >= 13 and mp >= 15) then
             mob:setLocalVar("slowTime",battletime)
             debuff = 56
+            if (player:getVar("TrustSilence") == 1) then
+                local tname = target:getName()
+                player:PrintToPlayer("(Koru-Moru) Slow >>  "..tname.."",0xF)
+            end
         end
-    elseif ((battletime > blindTime + blindCooldown) and not target:hasStatusEffect(dsp.effect.BLINDNESS) and mpp > 90) then
+    elseif ((battletime > blindTime + blindCooldown) and not target:hasStatusEffect(dsp.effect.BLINDNESS) and mpp > 40) then
         if (lvl > 74 and mp >= 31) then
             mob:setLocalVar("slowTime",battletime)
             debuff = 254
+            if (player:getVar("TrustSilence") == 1) then
+                local tname = target:getName()
+                player:PrintToPlayer("(Koru-Moru) Blind II >>  "..tname.."",0xF)
+            end
         elseif (lvl >= 8 and mp >= 5) then
             mob:setLocalVar("slowTime",battletime)
             debuff = 276
+            if (player:getVar("TrustSilence") == 1) then
+                local tname = target:getName()
+                player:PrintToPlayer("(Koru-Moru) Blind >>  "..tname.."",0xF)
+            end
         end
     end
 

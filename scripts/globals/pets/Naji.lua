@@ -24,6 +24,8 @@ function onMobSpawn(mob)
     mob:setLocalVar("berserkCooldown",300)
     mob:setLocalVar("aggresorTime",0)
     mob:setLocalVar("aggresorCooldown",300)
+    mob:setLocalVar("tomahawkTime",0)
+    local tomahawkCooldown = 300
     set1HStats(mob)
     najiTrustPoints(mob)
     mob:addListener("COMBAT_TICK", "NAJI_COMBAT_TICK", function(mob, player, target)
@@ -66,6 +68,16 @@ function onMobSpawn(mob)
         if ((battletime > aggresor + aggresorCooldown) and lvl >= 45) then
             mob:useJobAbility(18, mob)
             mob:setLocalVar("aggresorTime",battletime)
+        end
+    end)
+
+    mob:addListener("COMBAT_TICK", "NAJI_TOMA_TICK", function(mob, player, target)
+        local battletime = os.time()
+        local mobfamily = target:getSystem()
+        local tomahawk = mob:getLocalVar("tomahawkTime")
+        if ((battletime > tomwahawk + tomwahawkCooldown) and lvl >= 75 and (mobfamily == 1 or mobfamily == 11) and (mob:getLocalVar("[TRUST]NAJI_TOMAWAHK") == 1) then
+            mob:useJobAbility(134, target)
+            mob:setLocalVar("tomahawkTime",battletime)
         end
     end)
 end

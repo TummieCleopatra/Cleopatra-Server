@@ -24,6 +24,11 @@ function onMobSpawn(mob)
     mob:setLocalVar("finaleRecast",90)
     mob:setLocalVar("requiemRecast",90)
     local angle = 100
+    -- Add in ACC for acc check
+    local addAcc = (mob:getMainLvl() / 4) * 3
+    local addAtt = math.floor(mob:getMainLvl() * 1.25)
+    mob:addMod(dsp.mod.ACC, addAcc)
+    mob:addMod(dsp.mod.ATT, addAtt)
 
     printf("Ulmia Spawn!!!!")
     mob:SetAutoAttackEnabled(false)
@@ -94,7 +99,7 @@ function doSongCheck(mob, player, target)
     local eva = target:getEVA()
     local def = target:getStat(dsp.mod.DEF)
     local mlvl = mob:getMainLvl()
-    local tlvl = mob:getMainLvl()
+    local tlvl = target:getMainLvl()
     local count = 0
     local acc = 0
     local att = 0
@@ -105,6 +110,8 @@ function doSongCheck(mob, player, target)
     else
         dlvl = tlvl - mlvl
     end
+
+
 
     -- Iterate through party and average out accuracy
     for i, member in ipairs(party) do
@@ -117,7 +124,7 @@ function doSongCheck(mob, player, target)
     end
 
     local tacc = (acc / count)
-    local thitrate = 75 + math.floor((tacc - eva) / 2) - 2*(dlvl)
+    local thitrate = 75 + math.floor(((tacc - eva) / 2) - 2*(dlvl))
     thitrate = utils.clamp(thitrate, 20, 95)
     printf("The current party hitrate is %u \n",thitrate)
 
@@ -143,20 +150,23 @@ function pickSongs(mob, player, target, thitrate, pdif)
     -- 3) Minute Minute
     -- 4) Madrigal Minute
     -- 5) Madgrigal Madrigal
+    -- 6) Madrigal March
 
     local battletime = os.time()
     local combo = 0
 
-    local songCombo = {{90, 2, 1},{90, 1, 2},{90, 0, 3},{75, 1, 4},{20, 0, 5}}
+    local songCombo = {{85, 2, 1},{85, 1, 2},{85, 0, 3},{70,2,6},{70, 1, 4},{20, 0, 5}}
 
     for i=1, #songCombo do
         if (thitrate >= songCombo[i][1]) then
             if (pdif >= songCombo[i][2]) then
-                    combo = songCombo[i][3]
-                    break
+                combo = songCombo[i][3]
+                break
             end
         end
     end
+
+    pdif = utils.clamp(pdif, 0.5, 3.7)
 
     printf("Song Combo is %u \n",combo)
     mob:setLocalVar("songCombo",combo)
@@ -164,6 +174,24 @@ function pickSongs(mob, player, target, thitrate, pdif)
     mob:setLocalVar("songTime",battletime)
     mob:setLocalVar("singTime",battletime)
     mob:setLocalVar("singCheck",3) -- force songs to cast 3 seconds after songcheck determines combos
+
+    local newdif = string.format("%.1f", pdif)
+	if (player:getVar("TrustSilence") == 1) then
+        printf("CHECK!!!!!!!!!!!!!!")
+    if (combo == 1) then
+        player:PrintToPlayer("(Ulmia) Party HitRate: "..thitrate.." Party pDif: "..newdif.." Song Combo: March x2",0xF)
+    elseif (combo == 2) then
+        player:PrintToPlayer("(Ulmia) Party HitRate: "..thitrate.." Party pDif: "..newdif.." Song Combo: March / Minuet",0xF)
+    elseif (combo == 3) then
+        player:PrintToPlayer("(Ulmia) Party HitRate: "..thitrate.." Party pDif: "..newdif.." Song Combo: Minuet x2",0xF)
+    elseif (combo == 4) then
+        player:PrintToPlayer("(Ulmia) Party HitRate: "..thitrate.." Party pDif: "..newdif.." Song Combo: Madrigal / Minuet",0xF)
+    elseif (combo == 5) then
+        player:PrintToPlayer("(Ulmia) Party HitRate: "..thitrate.." Party pDif: "..newdif.." Song Combo: Madrigal x2",0xF)
+    elseif (combo == 6) then
+        player:PrintToPlayer("(Ulmia) Party HitRate: "..thitrate.." Party pDif: "..newdif.." Song Combo: Madrigal / March",0xF)
+    end
+	end
 end
 
 
@@ -179,9 +207,9 @@ function doSong(mob, player, target)
     local song = 0
 
     -- {Combo, Level, SpellID}
-    local first = {{1,60,420},{1,29,419},{2,60,420},{2,29,419},{3,63,397},{3,43,396},{3,23,395},{3,3,394},{4,51,400},{4,11,399},{5,51,400},{5,11,399}}
+    local first = {{1,60,420},{1,29,419},{2,60,420},{2,29,419},{3,63,397},{3,43,396},{3,23,395},{3,3,394},{4,51,400},{4,11,399},{5,51,400},{5,11,399},{6,51,400},{6,11,399}}
 
-    local second = {{1,60,419},{2,63,397},{2,43,396},{2,23,395},{2,3,394},{3,63,396},{3,43,395},{3,23,394},{4,63,397},{4,43,396},{4,23,395},{4,3,394},{5,51,399}}
+    local second = {{1,60,419},{2,63,397},{2,43,396},{2,23,395},{2,3,394},{3,63,396},{3,43,395},{3,23,394},{4,63,397},{4,43,396},{4,23,395},{4,3,394},{5,51,399},{6,60,420},{6,29,419}}
 
     -- printf("Looking thru list for SongCombo %u \n",songCombo)
     if (firstSong == 0) then

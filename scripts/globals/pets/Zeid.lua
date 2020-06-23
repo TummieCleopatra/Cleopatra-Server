@@ -16,6 +16,7 @@ function onMobSpawn(mob)
 	local weaponBashCooldown = 180
 	local souleaterCooldown = 360
     local lastResortCooldown = 300
+
     local meditateCooldown = 300
     local hassoCooldown = 60
     local seiganCooldown = 60
@@ -36,6 +37,9 @@ function onMobSpawn(mob)
     mob:setLocalVar("hassoTime",0)
     mob:setLocalVar("seiganTime",0)
     mob:setLocalVar("thirdEyeTime",0)
+    mob:setLocalVar("daibolicTime",0)
+    local diabolicCooldown = 300
+
 
 
     mob:addListener("COMBAT_TICK", "DISTANCE_TICK", function(mob, player, target)
@@ -100,6 +104,16 @@ function onMobSpawn(mob)
         local hp = mob:getHPP()
         if ((battletime > drainTime + drainCooldown) and hp < 40) then
             doZeidDrain(mob, target)
+        end
+    end)
+
+    mob:addListener("COMBAT_TICK", "ZEID_DIABOLIC_TICK", function(mob, player, target)
+        local battletime = os.time()
+        local diabolicTime = mob:getLocalVar("diabolicTime")
+
+        if ((battletime > diabolicTime + diabolicCooldown) and (mob:getACC() + 40 <= target:getEVA() and mob:getLocalVar("[TRUST]ZEID_DEYE") == 1)) then
+            mob:useMobAbility(144)
+            mob:setLocalVar("diabolicTime",battletime)
         end
     end)
 

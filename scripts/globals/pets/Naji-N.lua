@@ -29,6 +29,8 @@ function onMobSpawn(mob)
     mob:setLocalVar("aggresorCooldown",300)
     mob:setLocalVar("utsuIchiTime",0)
     mob:setLocalVar("utsuNiTime",0)
+    mob:setLocalVar("tomahawkTime",0)
+    local tomahawkCooldown = 300
     set1HStats(mob)
     najiTrustPoints(mob)
 
@@ -78,6 +80,16 @@ function onMobSpawn(mob)
 
     mob:addListener("COMBAT_TICK", "NAJI_UTSU_TICK", function(mob, player, target)
         doUtsusemi(mob, player, target)
+    end)
+
+    mob:addListener("COMBAT_TICK", "NAJI_TOMA_TICK", function(mob, player, target)
+        local battletime = os.time()
+        local mobfamily = target:getSystem()
+        local tomahawk = mob:getLocalVar("tomahawkTime")
+        if ((battletime > tomwahawk + tomwahawkCooldown) and lvl >= 75 and (mobfamily == 1 or mobfamily == 11) and (mob:getLocalVar("[TRUST]NAJI_TOMAWAHK") == 1) then
+            mob:useJobAbility(134, target)
+            mob:setLocalVar("tomahawkTime",battletime)
+        end
     end)
 end
 

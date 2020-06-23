@@ -18,7 +18,6 @@ function onMobSpawn(mob)
     local angle = getAngle(mob)
     local wsCooldown = 4
     mob:setLocalVar("meditateTime",0)
-    mob:setLocalVar("meditateCooldown",180)
     mob:setLocalVar("hassoTime",0)
     mob:setLocalVar("hassoCooldown",60)
     mob:setLocalVar("seiganTime",0)
@@ -26,12 +25,20 @@ function onMobSpawn(mob)
     mob:setLocalVar("teTime",0)
     mob:setLocalVar("teCooldown",30)
     mob:setLocalVar("sekkaTime",0)
-    mob:setLocalVar("sekkaCooldown",300)
+    mob:setLocalVar("shikTime",0)
+    mob:setLocalVar("shikRecast",300)
+
     mob:setLocalVar("sekkaType",0) -- 1: self sc, 2: Two Step with player close
     mob:setLocalVar("berserkTime",0)
+    mob:setLocalvar("berserkCooldown",300)
     mob:setLocalVar("wsTime",0)
     set2HStats(mob)
     ayameTrustPoints(mob)
+
+    local medRecast = mob:getLocalVar("[TRUST]MEDITATE_RECAST")
+    local sekRecast = mob:getLocalVar("[TRUST]SEKKANOKI_RECAST")
+    mob:setLocalVar("sekkaCooldown",300 - sekRecast)
+    mob:setLocalVar("meditateCooldown",180 - medRecast)
 
     mob:addListener("COMBAT_TICK", "AYAME_DISTANCE_TICK", function(mob, player, target)
         trustMeleeMove(mob, player, target, angle)
@@ -86,6 +93,22 @@ function onMobSpawn(mob)
         end
     end)
 
+    mob:addListener("COMBAT_TICK", "AYAME_SHIK_TICK", function(mob, player, target)
+        local battletime = os.time()
+        local shikTime = mob:getLocalVar("shikTime")
+        local shikCooldown = mob:getLocalVar("shikCooldown")
+        local ayameTP = mob:getTP()
+        local pTP = player:getTP()
+        if (lvl >= 75) then
+            if (battletime > shikTime + shikCooldown) then
+                if (ayameTP > 750 and pTP < 100) then
+                    mob:useJobAbility(151, player)
+                    mob:setLocalVar("shikTime",battletime)
+                end
+            end
+        end
+    end)
+
     mob:addListener("COMBAT_TICK", "AMAYE_COMBAT_TICK", function(mob, player, target)
         local element = player:getVar("SCProp1")
         local sekkaType = mob:getLocalVar("sekkaType")
@@ -94,33 +117,33 @@ function onMobSpawn(mob)
         local tp = mob:getTP()
         local canWS = weaponSkillEnmityCheck(mob, player, target)
         local weaponSkillTime = mob:getLocalVar("wsTime")
-        if (tp >= 2000 and sekkaType == 1) then
+        if (tp >= 2000 and sekkaType == 1 and not mob:hasPreventActionEffect()) then
             mob:setLocalVar("sekkaWS",1)
             weaponskill = doAyameSoloSC(mob, player)
             mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill, target)
-        elseif (tp >= 1000 and sekkaType == 1 and (battletime > scTimer + 5)) then
+        elseif (tp >= 1000 and sekkaType == 1 and (battletime > scTimer + 5) and not mob:hasPreventActionEffect()) then
             weaponskill = doAyameSoloSC(mob, player)
             mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill, target)
             mob:setLocalVar("sekkaWS",0)
-        elseif (tp >= 2000 and sekkaType == 2) then
+        elseif (tp >= 2000 and sekkaType == 2 and not mob:hasPreventActionEffect()) then
             printf("Ayame Start Two Step!!!")
             mob:setLocalVar("sekkaWS",1)
             weaponskill = doAyameSoloSC(mob, player)
             mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill, target)
-        elseif (tp >= 1000 and sekkaType == 2 and (battletime > scTimer + 5)) then
+        elseif (tp >= 1000 and sekkaType == 2 and (battletime > scTimer + 5) and not mob:hasPreventActionEffect()) then
             weaponskill = doAyameSoloSC(mob, player)
             mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill, target)
             mob:setLocalVar("sekkaWS",0)
-        elseif (tp > 1000 and ((element == 0) or (element == 1) or (element == 10)) and sekkaType == 0 and canWS ~= 1 and (battletime > weaponSkillTime + wsCooldown))  then
+        elseif (tp > 1000 and ((element == 0) or (element == 1) or (element == 10)) and sekkaType == 0 and canWS ~= 1 and (battletime > weaponSkillTime + wsCooldown) and not mob:hasPreventActionEffect())  then
             weaponskill = doAyameWeaponskill(mob, player)
             mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill, target)
             mob:setLocalVar("wsTime",battletime)
-        elseif (tp > 1000 and sekkaType == 0 and canWS ~= 1 and (battletime > weaponSkillTime + wsCooldown)) then
+        elseif (tp > 1000 and sekkaType == 0 and canWS ~= 1 and (battletime > weaponSkillTime + wsCooldown) and not mob:hasPreventActionEffect()) then
             weaponskill = doAyameOpenWeaponskill(mob, player)
             mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill, target)
@@ -164,6 +187,7 @@ function onMobSpawn(mob)
     mob:addListener("COMBAT_TICK", "AYAME_BERSERK_TICK", function(mob, player, target)
         local battletime = os.time()
         local berserk = mob:getLocalVar("berserkTime")
+        local berserkCooldown = mob:getLocalVar("berserkCooldown")
         if ((battletime > berserk + berserkCooldown) and lvl >= 50 and mob:getTP() >= 800) then
             mob:useJobAbility(15, mob)
             mob:setLocalVar("berserkTime",battletime)
