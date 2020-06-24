@@ -37,7 +37,7 @@ function onSpellCast(caster,target,spell)
     pet:setPos(pos.x,pos.y,pos.z);
 
 
-    pet:setModelId(2855)
+    pet:setModelId(2863)
     pet:addStatusEffectEx(dsp.effect.INDI_POISON,dsp.effect.COLURE_ACTIVE,potency,3,500)
     pet:addMod(dsp.mod.REGEN_DOWN, hploss);
     caster:setVar("FullCircle",25);
