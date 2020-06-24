@@ -26,59 +26,147 @@
 function mobScaler(mob,target)
 
 	local storedsize = mob:getLocalVar("PartySize");
+	local currentsize = 1
+	local partycalc = 1
 
 
+    if (target:getObjType() == dsp.objType.TRUST) then
+        local master = target:getMaster()
+        currentsize = master:getPartySize(1)
+        partycalc = math.ceil(master:getPartySize(1)/3);
+    else
+        currentsize = target:getPartySize(1)
+        partycalc = math.ceil(target:getPartySize(1)/3);
+    end
 
-    local currentsize = target:getPartySize(0)
-    -- printf("Current Size mobscaler is %u",currentsize)
-
-    partycalc = math.ceil(target:getPartySize(0)/3);
 
 
 	local sizecalc = math.ceil(currentsize/3);
 	local sizediff = 0;
 	local newsize = 0;
 
-	if (partycalc ~= storedsize) then -- the two party sizes don't match; adjust
-	    sizediff = partycalc - storedsize; -- Find differences between stored and partycalc size
+
+
+	if (partycalc ~= math.ceil(storedsize /3)) then -- the two party sizes don't match; adjust
+	    sizediff = partycalc - math.ceil(storedsize /3);
 	 -- Apply Difference to mob calculations
-	    mob:addMod(dsp.mod.ATT,7*sizediff);
-	    mob:addMod(dsp.mod.DEF,20*sizediff);
+        local sub = math.ceil(storedsize /3)
+        -- printf("Party Calc is %u",partycalc)
+        -- printf("Sub is %i",sub)
+        printf("Size difference is %s",sizediff)
+	    mob:addMod(dsp.mod.ATT,9*sizediff);
+	    mob:addMod(dsp.mod.DEF,12*sizediff);
 	    mob:addMod(dsp.mod.ACC,5*sizediff);
 	    mob:addMod(dsp.mod.MACC,10*sizediff);
 	    mob:addMod(dsp.mod.EVA,10*sizediff);
 	    mob:addMod(dsp.mod.INT,10*sizediff);
 	    mob:addMod(dsp.mod.CHR,30*sizediff);
 	    mob:addMod(dsp.mod.MND,30*sizediff);
-	    mob:addMod(dsp.mod.STR,10*sizediff);
+	    mob:addMod(dsp.mod.STR,40*sizediff);
 		mob:addMod(dsp.mod.UDMGPHYS,-15*sizediff);
 
      -- set Mob dmg
 	    local mobdmg = mob:getWeaponDmg();
+        printf("Mob Damage before is: %s",mobdmg)
 		mob:setDamage(mobdmg + (6*sizediff));
 		local newdmg = (mobdmg + (6*sizediff));
-		printf("Mob damage is: %s",newdmg);
+		printf("New Mob damage is: %s",newdmg);
 
 
 	 -- Store the Party Size
 		if (sizecalc == 1) then -- 1-3 Players
-		    mob:setLocalVar("PartySize",partycalc);
-			printf("Changing Party Size to: %s",partycalc);
+		    mob:setLocalVar("PartySize",partycalc * 3);
+			printf("Changing Party Size to: %s",partycalc * 3);
 		elseif (sizecalc == 2) then -- 4-6 Players
-		    mob:setLocalVar("PartySize",partycalc);
-			printf("Changing Party Size to: %s",partycalc);
+		    mob:setLocalVar("PartySize",partycalc * 3);
+			printf("Changing Party Size to: %s",partycalc * 3);
 		elseif (sizecalc == 3) then -- 7-9 Players
-		    mob:setLocalVar("PartySize",partycalc);
-			printf("Changing Party Size to: %s",partycalc);
+		    mob:setLocalVar("PartySize",partycalc * 3);
+			printf("Changing Party Size to: %s",partycalc * 3);
 		elseif (sizecalc == 4) then -- 10-12 Players
-		    mob:setLocalVar("PartySize",partycalc);
-			printf("Changing Party Size to: %s",partycalc);
+		    mob:setLocalVar("PartySize",partycalc * 3);
+			printf("Changing Party Size to: %s",partycalc * 3);
 		elseif (sizecalc == 5) then -- 13-15 Players
-		    mob:setLocalVar("PartySize",partycalc);
-			printf("Changing Party Size to: %s",partycalc);
+		    mob:setLocalVar("PartySize",partycalc * 3);
+			printf("Changing Party Size to: %s",partycalc * 3);
 		elseif (sizecalc == 6) then -- 16-18 Players
-		    mob:setLocalVar("PartySize",partycalc);
-			printf("Changing Party Size to: %s",partycalc);
+		    mob:setLocalVar("PartySize",partycalc * 3);
+			printf("Changing Party Size to: %s",partycalc * 3);
+        end
+	end
+end
+
+function mobScalerHNM(mob,target)
+
+	local storedsize = mob:getLocalVar("PartySize");
+	local currentsize = 1
+	local partycalc = 1
+
+
+    if (target:getObjType() == dsp.objType.TRUST) then
+        local master = target:getMaster()
+        currentsize = master:getPartySize(1)
+        partycalc = math.ceil(master:getPartySize(1)/3);
+    else
+        currentsize = target:getPartySize(1)
+        partycalc = math.ceil(target:getPartySize(1)/3);
+    end
+
+
+
+	local sizecalc = math.ceil(currentsize/3);
+	local sizediff = 0;
+	local newsize = 0;
+
+   -- printf("Size Calc is %u",sizecalc)
+    -- printf("Size Calc should be 2...it is %u",partycalc)
+    -- printf("Sub stored size should be 5...it is %i",math.ceil(storedsize /3))
+
+	if (partycalc ~= math.ceil(storedsize /3)) then -- the two party sizes don't match; adjust
+	    sizediff = partycalc - math.ceil(storedsize /3);
+	 -- Apply Difference to mob calculations
+        local sub = math.ceil(storedsize /3)
+        -- printf("Party Calc is %u",partycalc)
+        -- printf("Sub is %i",sub)
+        printf("Size difference is %s",sizediff)
+	    mob:addMod(dsp.mod.ATT,20*sizediff);
+	    mob:addMod(dsp.mod.DEF,90*sizediff);
+	    mob:addMod(dsp.mod.ACC,5*sizediff);
+	    mob:addMod(dsp.mod.MACC,10*sizediff);
+	    mob:addMod(dsp.mod.EVA,30*sizediff);
+	    mob:addMod(dsp.mod.INT,10*sizediff);
+	    mob:addMod(dsp.mod.CHR,30*sizediff);
+	    mob:addMod(dsp.mod.MND,30*sizediff);
+	    mob:addMod(dsp.mod.STR,40*sizediff);
+		mob:addMod(dsp.mod.UDMGPHYS,-10*sizediff);
+
+     -- set Mob dmg
+	    local mobdmg = mob:getWeaponDmg();
+        printf("Mob Damage before is: %s",mobdmg)
+		mob:setDamage(mobdmg + (9*sizediff));
+		local newdmg = (mobdmg + (9*sizediff));
+		printf("New Mob damage is: %s",newdmg);
+
+
+	 -- Store the Party Size
+		if (sizecalc == 1) then -- 1-3 Players
+		    mob:setLocalVar("PartySize",partycalc * 3);
+			printf("Changing Party Size to: %s",partycalc * 3);
+		elseif (sizecalc == 2) then -- 4-6 Players
+		    mob:setLocalVar("PartySize",partycalc * 3);
+			printf("Changing Party Size to: %s",partycalc * 3);
+		elseif (sizecalc == 3) then -- 7-9 Players
+		    mob:setLocalVar("PartySize",partycalc * 3);
+			printf("Changing Party Size to: %s",partycalc * 3);
+		elseif (sizecalc == 4) then -- 10-12 Players
+		    mob:setLocalVar("PartySize",partycalc * 3);
+			printf("Changing Party Size to: %s",partycalc * 3);
+		elseif (sizecalc == 5) then -- 13-15 Players
+		    mob:setLocalVar("PartySize",partycalc * 3);
+			printf("Changing Party Size to: %s",partycalc * 3);
+		elseif (sizecalc == 6) then -- 16-18 Players
+		    mob:setLocalVar("PartySize",partycalc * 3);
+			printf("Changing Party Size to: %s",partycalc * 3);
         end
 	end
 end

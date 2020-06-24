@@ -167,10 +167,15 @@ WIN_BUFFS = 0; -- Set to 1 to enable specific buffs given to players based on co
 UNDEAD_RATE = 2; -- Multiplier for how quickly the forces build
 
 -- SALVAGE
-SALVAGE_REFRESH = 4; -- Rate at which players can get new tags
-SALVAGE_TAGS = 2; -- Max tags a player can hold
-AMBIENCE_MULT = 8; -- Multiplier to ambiance points
-ALEX_MULT = 2; -- Alexandrite Purse Mulitplier
-CHEST_CHANCE = 25; -- Chance of a chest spawning on defeat
-GOLD_CHEST = 5; -- Chance of the chest spawning being gold
-RED_CHEST = 20;  -- Chance of the chest spawning being brown
+SALVAGE_REFRESH = 8; -- Rate at which players can get new tags
+SALVAGE_TAGS = 3; -- Max tags a player can hold.  Default is 3
+AMBIENCE_MULT = 8; -- Multiplier to ambiance points.  Default is 8
+ALEX_MULT = 2; -- Alexandrite Purse Mulitplier.  Default is 2
+CHEST_CHANCE = 25; -- Chance of a chest spawning on defeat.  Default is 25
+GOLD_CHEST = 5; -- Chance of the chest spawning being gold.  Default is 5
+RED_CHEST = 20;  -- Chance of the chest spawning being brown.  Default is 20
+
+-- TRUST POINT
+TRUST_POINT_BONUS = 2;
+MAX_TRUST_TOKENS = 25;
+MAX_TRUST_POINTS = 20000;

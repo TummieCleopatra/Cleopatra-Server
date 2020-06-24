@@ -14,12 +14,14 @@ function onMobSpawn(mob)
     if LandKingSystem_NQ > 0 or LandKingSystem_HQ > 0 then
         GetNPCByID(ID.npc.FAFNIR_QM):setStatus(dsp.status.DISAPPEAR)
     end
-    mob:setLocalVar("PartySize",11);
+    mob:setLocalVar("PartySize",18);
     mob:setLocalVar("[rage]timer", 3600) -- 60 minutes
 end
 
 function onMobFight(mob, target)
-    mobScaler(mob,target);
+    mobScalerHNM(mob,target);
+    local size = mob:getLocalVar("PartySize")
+    -- print(size)
     local battletime = mob:getBattleTime()
     local twohourTime = mob:getLocalVar("twohourTime")
 

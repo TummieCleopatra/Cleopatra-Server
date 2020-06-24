@@ -9,7 +9,8 @@ require("scripts/globals/utils")
 require("scripts/globals/zone")
 require("scripts/globals/msg")
 require("scripts/globals/feretory_utils")
-require("scripts/globals/trust_utils");
+require("scripts/globals/trust_utils")
+require("scripts/globals/hunts")
 -----------------------------------
 
 dsp = dsp or {}
@@ -43,6 +44,7 @@ function onMobDeathEx(mob, player, isKiller, isWeaponSkillKill)
     feretoryKills(mob, player)
     trustPoints(mob, player)
     trustSJQuest(mob, player)
+    huntKills(mob, player)
     local restpower = 0;
     if (player:hasStatusEffect(dsp.effect.RESTING_BONUS)) then
         local resting = player:getStatusEffect(dsp.effect.RESTING_BONUS)

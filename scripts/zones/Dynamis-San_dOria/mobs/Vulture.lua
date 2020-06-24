@@ -93,7 +93,7 @@ function onWeaponskillHit(mob, attacker, weaponskill)
             mob:weaknessTrigger(0); -- Yellow Stagger Increase Scyld
             mob:addStatusEffect(dsp.effect.TERROR,1,0,10);
             local randomscyld = math.random(10,20);
-            if (attack:getObjType() == dsp.Type.TRUST) then
+            if (attacker:getObjType() == dsp.objType.TRUST) then
                 local master = attacker:getMaster()
                 local oldscyld = master:getVar("ScyldMultiplier");
                 local newscyld = (randomscyld + oldscyld);

@@ -31,6 +31,11 @@ function onMobWeaponSkill(target, mob, skill)
     local numhits = 3
     local accmod = 1
     local dmgmod = 1.5
+    local size = mob:getLocalVar("PartySize")
+    if (size > 0) then
+        dmgmod = 1
+    end
+
     local info = MobPhysicalMove(mob,target,skill,numhits,accmod,dmgmod,TP_NO_EFFECT)
     local dmg = MobFinalAdjustments(info.dmg,mob,skill,target,dsp.attackType.PHYSICAL,dsp.damageType.SLASHING,info.hitslanded)
     local duration = 20 * (skill:getTP() / 1000)

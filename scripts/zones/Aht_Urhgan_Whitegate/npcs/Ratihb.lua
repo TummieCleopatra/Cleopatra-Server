@@ -32,10 +32,11 @@ function onTrigger(player,npc)
         player:startEvent(772)
         player:setVar("EquippedforAllOccasions",5)
         player:setVar("LuckOfTheDraw",0)
-    elseif player:getQuestStatus(AHT_URHGAN,dsp.quest.id.ahtUrhgan.LUCK_OF_THE_DRAW) == QUEST_COMPLETED and player:getQuestStatus(AHT_URHGAN,dsp.quest.id.ahtUrhgan.EQUIPPED_FOR_ALL_OCCASIONS == QUEST_COMPLETED) then
-        player:setVar("EquippedforAllOccasions",0)
     elseif player:getQuestStatus(AHT_URHGAN,dsp.quest.id.ahtUrhgan.AGAINST_ALL_ODDS) == QUEST_ACCEPTED and not player:hasKeyItem(dsp.ki.LIFE_FLOAT) then
+        printf("GOOD")
         player:startEvent(604) -- reacquire life float
+    elseif (player:getQuestStatus(AHT_URHGAN,dsp.quest.id.ahtUrhgan.LUCK_OF_THE_DRAW) == QUEST_COMPLETED and player:getQuestStatus(AHT_URHGAN,dsp.quest.id.ahtUrhgan.EQUIPPED_FOR_ALL_OCCASIONS) == QUEST_COMPLETED) then
+        player:setVar("EquippedforAllOccasions",0)
     else
         player:startEvent(603)    -- standard dialog
     end

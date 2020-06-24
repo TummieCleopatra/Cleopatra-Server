@@ -25,12 +25,24 @@ function onMobSkillCheck(target,mob,skill)
 end
 
 function onMobWeaponSkill(target, mob, skill)
-    local dmgmod = MobBreathMove(mob, target, 0.2, 1.25, dsp.magic.ele.FIRE, 1400)
+    local size = mob:getLocalVar("PartySize")
+    local amount = 1400
+    if (size == 0) then
+       amount = 1400
+    elseif (size < 5) then
+        amount = 375
+    elseif (size < 11) then
+        amount = 500
+    elseif (size < 14) then
+        amount = 900
+    end
+
+    local dmgmod = MobBreathMove(mob, target, 0.2, 1.25, dsp.magic.ele.FIRE, amount)
     local angle = mob:getAngle(target)
 
     angle = mob:getRotPos() - angle
     dmgmod = dmgmod * ((128-math.abs(angle))/128)
-    dmgmod = utils.clamp(dmgmod, 50, 1600)
+    dmgmod = utils.clamp(dmgmod, 50, amount)
 
     local dmg = MobFinalAdjustments(dmgmod,mob,skill,target,dsp.attackType.BREATH,dsp.damageType.FIRE,MOBPARAM_IGNORE_SHADOWS)
 

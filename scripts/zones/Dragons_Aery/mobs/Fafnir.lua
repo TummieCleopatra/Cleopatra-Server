@@ -17,7 +17,7 @@ function onMobSpawn(mob)
     if LandKingSystem_HQ == 0 then
         SetDropRate(918,3340,0) -- do not drop cup_of_sweet_tea
     end
-    mob:setLocalVar("PartySize",8);
+    mob:setLocalVar("PartySize",18);
     mob:setLocalVar("[rage]timer", 3600) -- 60 minutes
 end
 
@@ -32,7 +32,7 @@ end
 function onMobFight(mob, target)
     local size = target:getPartySize(0);
     -- printf("Total Size: %s",size);
-    mobScaler(mob,target);
+    mobScalerHNM(mob,target);
 end
 
 function onMobDespawn(mob)
