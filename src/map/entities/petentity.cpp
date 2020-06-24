@@ -89,6 +89,7 @@ std::string CPetEntity::GetScriptName()
             return "chocobo";
             break;
         case PETTYPE_TRUST:
+            ShowWarning(CL_YELLOW"Actual Name is %s\n" CL_RESET,(const char*)GetName());
             return (const char*)GetName();
             break;
         default:

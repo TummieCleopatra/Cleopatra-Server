@@ -1367,11 +1367,11 @@ int32 map_config_read(const int8* cfgName)
         }
         else if (strcmp(w1, "undead_swarm_growth") == 0)
         {
-            map_config.troll_mercenaries_growth = (float)atoi(w2);
+            map_config.undead_swarm_growth = (float)atoi(w2);
         }
         else if (strcmp(w1, "mamool_savages_growth") == 0)
         {
-            map_config.troll_mercenaries_growth = (float)atoi(w2);
+            map_config.mamool_savages_growth = (float)atoi(w2);
         }
         else
         {

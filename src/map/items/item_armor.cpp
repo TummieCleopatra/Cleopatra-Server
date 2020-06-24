@@ -274,14 +274,18 @@ bool CItemArmor::PushAugment(uint16 type, uint8 value)
 
 void CItemArmor::ApplyAugment(uint8 slot)
 {
-    SetAugmentMod(
-        (uint16)unpackBitsBE(m_extra, 2 + (slot * 2), 0, 11),
-        (uint8)unpackBitsBE(m_extra, 2 + (slot * 2), 11, 5)
+         //ShowWarning(CL_YELLOW"SLot on zone is %u \n" CL_RESET, slot);
+
+        SetAugmentMod(
+            (uint16)unpackBitsBE(m_extra, 2 + (slot * 2), 0, 11),
+            (uint8)unpackBitsBE(m_extra, 2 + (slot * 2), 11, 5)
         );
+
 }
 
 void CItemArmor::setAugment(uint8 slot, uint16 type, uint8 value)
 {
+    //ShowWarning(CL_YELLOW"Slot is %u \n" CL_RESET,slot);
 	if (type >= 2049 && type <= 2301)
 	{
         if (slot == 0 || slot == 1) {
@@ -293,6 +297,12 @@ void CItemArmor::setAugment(uint8 slot, uint16 type, uint8 value)
             packBitsBE(m_extra, value, 2 + (slot * 2), 8, 5);
 	    }
 	}
+    else if (type == 560)
+    {
+        packBitsBE(m_extra, (type - 416), 2 + (slot * 2), 0, 8);  // Reserved for 560-565
+        packBitsBE(m_extra, 67, 2 + (slot * 2), 8, 8);  // <-- This needs to be 0x67
+        //ref<uint8>(m_extra, 2 + (slot * 2), 11, 5) |= 0x43;
+    }
     else
     {
         packBitsBE(m_extra, type, 2 + (slot * 2), 0, 11);
@@ -317,6 +327,13 @@ void CItemArmor::SetAugmentMod(uint16 type, uint8 value)
         ref<uint8>(m_extra, 0x01) |= 0x03;
     }
 
+    //Need to convert Augment of Occ Att Twice.
+    //On Zone load it changes the applyAugment to 912 so it needs to be changed here along with value
+    if (type == 912)
+    {
+        type = 560;
+        value = 0;
+    }
 
     // obtain augment info by querying the db
     const char* fmtQuery = "SELECT augmentId, multiplier, modId, `value`, `isPet`, `petType` FROM augments WHERE augmentId = %u";
@@ -331,6 +348,8 @@ void CItemArmor::SetAugmentMod(uint16 type, uint8 value)
         Mod modId = static_cast<Mod>(Sql_GetUIntData(SqlHandle, 2));
         int16 modValue = (int16)Sql_GetIntData(SqlHandle, 3);
 
+        int16 test = (int16)Sql_GetIntData(SqlHandle, 2);
+
         // type is 0 unless mod is for pets
         uint8 isPet = (uint8)Sql_GetUIntData(SqlHandle, 4);
         PetModType petType = static_cast<PetModType>(Sql_GetIntData(SqlHandle, 5));
@@ -339,6 +358,12 @@ void CItemArmor::SetAugmentMod(uint16 type, uint8 value)
         // otherwise increase modifier power using the multiplier
         // check if we should be adding to or taking away from the mod power (handle scripted augments properly)
         modValue = (modValue > 0 ? modValue + value : modValue - value) * (multiplier > 1 ? multiplier : 1);
+
+
+        //Manually Set Occ Att Twice modValue here
+
+        //ShowWarning(CL_YELLOW"Mod ID is %i \n" CL_RESET,test);
+        //ShowWarning(CL_YELLOW"Value is %i \n" CL_RESET,modValue);
 
         if (!isPet)
             addModifier(CModifier(modId, modValue));
@@ -388,6 +413,12 @@ void CItemArmor::setMezzotint(uint8 slot, uint16 type, uint8 value)
 	{
 	packBitsBE(m_extra, type, 2 + (slot * 2), 0, 13);
     packBitsBE(m_extra, value, 2 + (slot * 2), 13, 5);
+    }
+    else if (type == 113)
+    {
+        packBitsBE(m_extra, (type + 31), 2 + (slot * 2), 0, 8);  // Reserved for 560-565
+        packBitsBE(m_extra, 67, 2 + (slot * 2), 8, 8);  // <-- This needs to be 0x67
+        //ref<uint8>(m_extra, 2 + (slot * 2), 11, 5) |= 0x43;
     }
 	else {
 	//packBitsBE(m_extra, ((type + 16744) + (2047 * (type - 552))), 2 + (slot * 2), 0, 16);  // Reserved for 560-565
@@ -483,7 +514,7 @@ void CItemArmor::setMezzotintWeapons(uint8 slot, uint16 type, uint8 value)
     }
 	else if (slot == 2)
     {
-	    packBitsBE(m_extra, type - 2301, 4 + (slot * 2), 0, 9);
+	    packBitsBE(m_extra, type - 4096, 4 + (slot * 2), 0, 9);
         packBitsBE(m_extra, value, 4 + (slot * 2), 9, 9);
 	}
 	else
@@ -506,7 +537,7 @@ void CItemArmor::SetMezzotintWeaponsMod(uint16 type, uint8 value)
 
     }
 
-
+    ShowWarning(CL_YELLOW"Value is %i \n" CL_RESET,value);
     // obtain augment info by querying the db
     const char* fmtQuery = "SELECT augmentId, multiplier, modId, `value`, `isPet`, `petType` FROM augments WHERE augmentId = %u";
 
@@ -528,6 +559,7 @@ void CItemArmor::SetMezzotintWeaponsMod(uint16 type, uint8 value)
         // otherwise increase modifier power using the multiplier
         // check if we should be adding to or taking away from the mod power (handle scripted augments properly)
         modValue = (modValue > 0 ? modValue + value : modValue - value) * (multiplier > 1 ? multiplier : 1);
+
 
         if (!isPet)
             addModifier(CModifier(modId, modValue));

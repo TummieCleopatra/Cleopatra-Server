@@ -714,19 +714,19 @@ INSERT INTO `augments` VALUES (559, 0, 8, 1, 0, 0); -- STR+1 MND+1
 INSERT INTO `augments` VALUES (559, 0, 13, 1, 0, 0); -- Cont.
 
 -- 560 to 739 currently unused. Leave at zero. Edit+move or remove this note as new augments get discovered.
-INSERT INTO `augments` VALUES (560, 0, 0, 0, 0, 0);
-INSERT INTO `augments` VALUES (561, 0, 0, 0, 0, 0);
-INSERT INTO `augments` VALUES (562, 0, 0, 0, 0, 0);
-INSERT INTO `augments` VALUES (563, 0, 0, 0, 0, 0);
-INSERT INTO `augments` VALUES (564, 0, 0, 0, 0, 0);
-INSERT INTO `augments` VALUES (565, 0, 0, 0, 0, 0);
-INSERT INTO `augments` VALUES (566, 0, 0, 0, 0, 0);
-INSERT INTO `augments` VALUES (567, 0, 0, 0, 0, 0);
-INSERT INTO `augments` VALUES (568, 0, 0, 0, 0, 0);
-INSERT INTO `augments` VALUES (569, 0, 0, 0, 0, 0);
-INSERT INTO `augments` VALUES (570, 0, 0, 0, 0, 0);
+INSERT INTO `augments` VALUES (560, 0, 865, 10, 0, 0);  -- Occ Att Twice (10%) 75
+INSERT INTO `augments` VALUES (561, 0, 0, 0, 0, 0);  -- Occ Att Twice (12%) 80
+INSERT INTO `augments` VALUES (562, 0, 0, 0, 0, 0);  -- Occ Att Twice (14%) 75
+INSERT INTO `augments` VALUES (563, 0, 0, 0, 0, 0);  -- Occ Att Twice (16%) 70
+INSERT INTO `augments` VALUES (564, 0, 0, 0, 0, 0);  -- Occ Att Twice (18%) 75
+INSERT INTO `augments` VALUES (565, 0, 0, 0, 0, 0);  -- Occ Att Twice (20%) 99
+INSERT INTO `augments` VALUES (566, 0, 0, 0, 0, 0);  -- Occ Att Twice (25%) 104
+INSERT INTO `augments` VALUES (567, 0, 0, 0, 0, 0);  -- Occ Att Twice (30%) 109
+INSERT INTO `augments` VALUES (568, 0, 0, 0, 0, 0);  -- Occ Att Twice (35%) 114
+INSERT INTO `augments` VALUES (569, 0, 0, 0, 0, 0);  -- Occ Att Twice (40%) 119
+INSERT INTO `augments` VALUES (570, 0, 0, 0, 0, 0);  -- Occ Att Twice (45%) 119 +1
 INSERT INTO `augments` VALUES (571, 0, 0, 0, 0, 0);
-INSERT INTO `augments` VALUES (572, 0, 0, 0, 0, 0);
+INSERT INTO `augments` VALUES (572, 0, 0, 0, 0, 0);  
 INSERT INTO `augments` VALUES (573, 0, 0, 0, 0, 0);
 INSERT INTO `augments` VALUES (574, 0, 0, 0, 0, 0);
 INSERT INTO `augments` VALUES (575, 0, 0, 0, 0, 0);
@@ -2616,6 +2616,133 @@ INSERT INTO `augments` VALUES (2301, 0, 0, 0, 0, 0); -- 303
 -- Format addItemMezzotintWeapon(itemid, quantity, points, path, rank, 0, augment)
 -- Augment values are static for these and are dirctly tied to the rank as the multplier
 -- There are a lot of duplicates for some reason
-INSERT INTO `augments` VALUES (2501, 0, 0, 0, 0, 0); -- Dex Agi/  ?? / Subtle Blow
+-- 1868 Double Damage / Store TP / DMG + 7 (Sword)
+-- 1967 Double Damage / Store TP / DMG + 10 (Staff)
+-- 1904 Double Damage / Store TP / DMG + 10 (Scythe)
+-- 1922 Double Damage / Store TP / DMG + 5 (Katana)
+-- 1931 Double Damage / Store TP / DMG + 13 (Great Katana)
+-- 2308 Double Damage / Store TP / DMG + 7
+-- 2313 Weapon Skill damage automaton special attack 
+-- 2326 Doulbe Damage / STore TP / DMG + 3
+-- 2350 Chance of Double Damage / Store TP
+-- 2367 HP / Cure Potency / Refresh
+-- 2371 Chance of Double Dmg / Store TP / DMG
+INSERT INTO `augments` VALUES (2501, 0, 0, 0, 0, 0); -- Dex MND/  Kick Attacks +x / Phys Damage limit
 INSERT INTO `augments` VALUES (2502, 0, 0, 0, 0, 0); -- INT MND + x / Enmity - x / Fast Cast + x%
 INSERT INTO `augments` VALUES (2503, 0, 0, 0, 0, 0); -- INT MND + x / Magic Burst Damage / Magic Burst Acc
+-- 2504 INT MND / Efneeling duration / enhancing duration
+-- 2505 DEX AGI / Evasion / Triple Attack
+-- 2506 HP / VIT MND / Damage Taken -
+-- 2507 STR / Store TP / Damage Limit
+-- 2508 STR DEX / Physical Dmage limit / Pet Double Attack
+-- 2509 DEX CHR / Store TP / Physical Damage Limit
+-- 2510 AGI / Store TP / Physical Damage Limit
+-- 2511 STR / Store TP / Damage Limit
+-- 2512 DEX AGI / Daken / Damage Limit
+-- 2513 STR VIT / Damage Limit / Wyvern Damage Taken - 
+-- 2514 MP / Avatar All Attr+ / BP Damage + 2
+-- 2515 STR DEX / Store TP / Critical hit Rate
+-- 2516 STR AGI / Magic Dmage + 6/ Matic Atk Bonus + 2
+-- 2517 DEX AGI / Physical Damage Limit / Automaton MAB + 
+-- 2518 DEX CHR / STore TP / Damage Limit
+-- 2519 INT MIND / Magic Damage / Helix Effect Duration 
+-- 2520 MP+12 / Luopan Duration / Luopan Abosrbs dmg taken
+-- 2521 HP / STR MND / Damage taken -
+-- 2522 DMG / Final Heaven / Counter DMG
+-- 2523 Ascetics
+-- 2524 Stringing
+-- 2525 Victory 
+-- 2526 Mercy 
+-- 2527 PK
+-- 2528 Mand
+-- 2529 MRime
+-- 2530 Rud
+-- 2531 Knights of Round
+-- 2532 Db
+-- 2533 Atone
+-- 2534 Expac
+-- 2535 Chant
+-- 2536 Rand
+-- 2537 Myst
+-- 2538 Dag
+-- 2539 Exuc
+-- 2540 Scourge
+-- 2541 Torcleaver
+-- 2542 Dimidiation
+-- 2543 Onslaught
+-- 2544 Primal Rend
+-- 2545 Cloudsplitter
+-- 2546 Mettatrong
+-- 2547 Kings Justice
+-- 2548 Ukko's
+-- 2549 Catas
+-- 2550 Insurge
+-- 2551 Quietus
+-- 2552 Geirsk
+-- 2553 Drakes
+-- 2554 Camlan
+-- 2555 Metsu
+-- 2556 Kamu
+-- 2557 Hi
+-- 2558 Kaiten
+-- 2559 Rana
+-- 2560 Fudo
+-- 2561 Tart
+-- 2562 Omniscience
+-- 2563 Vidohunir
+-- 2564 Garland
+-- 2565 Myrkr
+-- 2566 Namas
+-- 2567 Jishnu
+-- 2568 Truflight
+-- 2569 Coronach
+-- 2570 Leaden
+-- 2571 Wildfire
+-- 2572 Shishin
+-- 2573 Excent
+-- 2574 Requis
+-- 2575 Upheaval
+-- 2576 Entropy
+-- 2577 Stardiver
+-- 2578 Shun
+-- 2579 Shoha
+-- 2580 Realm
+-- 2581 Shatter
+-- 2582 Resolution
+-- 2583 Ruinator
+-- 2584 Apex
+-- 2585 Last Stand
+-- 2586 Healing / Enhancing / All Atr 
+-- 2587 Acc / magic Evasoin / Critical hitrate 
+-- 2588 Magic Eva / Occ increase to stat ailments / all attr + 10
+-- 2589 Acc / Eva
+-- 2590 Avatar Acc Magci acc/ Avatar all attr + 20/ mp 2-
+-- 2591 Resist silence / spell interrupt down 
+-- 2592  Attack / Magic att / All Attr + 10 
+-- 2593 STR / Double attack
+-- 2594 DMG / Acc + Rng Acc + Magic Acc + / Magic Att Bonus
+-- 2595 Consermp MP / Fast Cast
+-- 2596 magic acc / Int 
+-- 2597 Magic acc / CHR
+-- 2598 Evasion / Magic Evasion / All Tri
+-- 2599 Pet Acc/ Magic Acc/ Acc
+-- 2600 DMG / Pett acc Magic Acc/ Acc  Magic acc
+-- 2601 HP / Shield Skill / Acc Magic Acc
+-- 2602 Snapshot / DMG / RNg Acc
+-- 2603 Reist sleep / resist charm
+-- 2604 DMG / Acc +3- magic acc / store TP
+-- 2605 Magic acc / damage taken - / all attr
+-- 2606 Def / HP 
+-- 2607 Magic acc / INT MND CHR
+-- 2608 TP BOnus / Acc Magic acc / STR 10
+-- 2609 Acc / Critical hit / all attr
+-- 2610 Resist Bind / Evasion / All Att
+-- 2611 Def 20 / magic def bns
+-- 2612  Magic acc / spell interupation rate down / all atr
+-- 2613  DEF/ STR DEX VIT INT
+-- 2614 Def / Parrying
+-- 2615 Att / store tp / all attr
+-- 2616 DMG / Acc magic acc / crit hit rate
+-- 2617 VIT / HP 
+
+ 

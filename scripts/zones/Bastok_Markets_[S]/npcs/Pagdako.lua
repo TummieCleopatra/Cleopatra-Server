@@ -18,6 +18,8 @@ function onTrigger(player,npc)
         else
             player:startEvent(123);
         end
+    elseif (player:getQuestStatus(CRYSTAL_WAR,dsp.quest.id.crystalWar.LIGHT_IN_THE_DARKNESS) == QUEST_ACCEPTED and  player:getVar("LightInTheDarkness") == 1)
+	    player:startEvent(19)
     else
         player:startEvent(106);
     end
@@ -28,7 +30,9 @@ function onEventUpdate(player,csid,option)
 end;
 
 function onEventFinish(player,csid,option)
-    if (csid == 122) then
+    if (cisd == 19) then
+	    player:setVar("LightInTheDarkness",2)
+    elseif (csid == 122) then
         player:setVar("FiresOfDiscProg",1);
     end
 end;

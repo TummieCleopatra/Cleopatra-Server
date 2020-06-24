@@ -2036,17 +2036,24 @@ namespace battleutils
             switch (PDefender->objtype)
             {
                 case TYPE_MOB:
+                    /*
                     if (PAttacker->objtype == TYPE_TRUST)
                     {
 
                         ((CMobEntity*)PDefender)->PEnmityContainer->UpdateEnmityFromDamage(PAttacker, damage);
                         //ShowWarning(CL_GREEN"Trust is attacking. - Damage is %u: \n" CL_RESET, damage);
                     }
-                    else if (taChar == nullptr)
+                    else*/ if (taChar == nullptr)
+                    {
+                        //ShowWarning(CL_RED"THERE IS NO TA PARTNER! \n" CL_RESET);
                         ((CMobEntity*)PDefender)->PEnmityContainer->UpdateEnmityFromDamage(PAttacker, damage);
+                    }
                     else
-                        ((CMobEntity*)PDefender)->PEnmityContainer->UpdateEnmityFromDamage(taChar, damage);
+                    {
 
+                        ((CMobEntity*)PDefender)->PEnmityContainer->UpdateEnmityFromDamage(taChar, damage);
+                        //ShowWarning(CL_GREEN"TA PARTNER FOUND APPLY ENMITY!!!! DAMAGE IS: %u \n" CL_RESET, damage);
+                    }
                     if (((CMobEntity*)PDefender)->m_HiPCLvl < PAttacker->GetMLevel())
                     {
                         ((CMobEntity*)PDefender)->m_HiPCLvl = PAttacker->GetMLevel();
@@ -2305,12 +2312,12 @@ namespace battleutils
 		else if (PAttacker->objtype == TYPE_TRUST && ((PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_SNEAK_ATTACK) && (abs(PDefender->loc.p.rotation - PAttacker->loc.p.rotation) < 23))))
 		{
 			hitrate = 100; //attack with SA active or TA/Assassin cannot miss
-            ShowWarning(CL_GREEN"SA is GOOOD! \n" CL_RESET);
+            //ShowWarning(CL_GREEN"SA is GOOOD! \n" CL_RESET);
 		}
         else if (PAttacker->objtype == TYPE_TRUST && PAttacker->StatusEffectContainer->HasStatusEffect(EFFECT_TRICK_ATTACK) && battleutils::getAvailableTrickAttackChar(PAttacker, PDefender))
 		{
 			hitrate = 100; //attack with SA active or TA/Assassin cannot miss
-            ShowWarning(CL_GREEN"TA is GOOOD! \n" CL_RESET);
+            //ShowWarning(CL_GREEN"TA is GOOOD! \n" CL_RESET);
 		}
         else
         {
@@ -3553,6 +3560,7 @@ namespace battleutils
     {
         if (!taUser->StatusEffectContainer->HasStatusEffect(EFFECT_TRICK_ATTACK))
         {
+            //ShowWarning(CL_RED"USER DOESN'T HAVE TRICK ATTACK EFFECT \n" CL_RESET);
             return nullptr;
         }
 
@@ -3615,7 +3623,7 @@ namespace battleutils
                             (PTrustIDZdif >= PTrustIDXdif * minSlope))
                         {
                             //finally found a TA partner
-                            //ShowWarning(CL_GREEN"TA User Partner Found \n" CL_RESET);
+                            //ShowWarning(CL_GREEN"TRUST TA User Partner Found \n" CL_RESET);
                             return PTrustID;
                         }
                     }
@@ -3623,14 +3631,14 @@ namespace battleutils
                             if ((PTrustIDXdif <= PTrustIDZdif * maxSlope) &&
                                 (PTrustIDXdif >= PTrustIDZdif * minSlope))
                             {
-                                //ShowWarning(CL_GREEN"TA User Partner Found \n" CL_RESET);
+                                //ShowWarning(CL_GREEN"TRUST TA User Partner Found \n" CL_RESET);
                                 //finally found a TA partner
                                 return PTrustID;
                             }
                     }
                 }
             }
-            //ShowWarning(CL_RED"TRUST CAN NOT FIND A MEMBER \n" CL_RESET);
+            //ShowWarning(CL_RED"TRUST CAN NOT FIND A MEMBER FOR TRICK ATTACK \n" CL_RESET);
             return nullptr;
         }
 

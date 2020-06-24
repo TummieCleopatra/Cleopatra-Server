@@ -54,8 +54,14 @@ function onTrigger(player,npc)
         player:setVar("TRUST_SJ_QUEST_COUNTER",1)
         player:addItem(11988,1)
         player:messageSpecial(ID.text.ITEM_OBTAINED,11988);
-    elseif (sjQuestProgress == 1) then
+    elseif (sjQuestProgress == 1 and sjQuest == 0) then
+        local stock_1 =
+        {
+            11988,   20000
+        };
+        dsp.shop.general(player, stock_1);
         player:PrintToPlayer("Touneaux : Remember, defeat 100 monsters while wearing that torque and then bring it back to me", 0x15);
+        player:PrintToPlayer("Touneaux : Also if you lost your torque, I can sell you a new one", 0x15);
     elseif (((player:hasKeyItem(dsp.ki.RED_INSTITUTE_CARD)) or (player:hasKeyItem(dsp.ki.BLUE_INSTITUTE_CARD)) or (player:hasKeyItem(dsp.ki.GREEN_INSTITUTE_CARD))) and lvl >= 30 and sjQuest == 1 and sjQuestProgress == 0) then
         player:PrintToPlayer("Touneaux : Ah you're back.  Here take this Warlock's Torque and defeat 100 experience yeilding", 0x15);
         player:PrintToPlayer("Touneaux : monsters while wearing it and then trade it back to me", 0x15);
@@ -63,6 +69,15 @@ function onTrigger(player,npc)
         player:setVar("TRUST_SJ_QUEST_COUNTER",1)
         player:addItem(11992,1)
         player:messageSpecial(ID.text.ITEM_OBTAINED,11992);
+    elseif (sjQuestProgress == 1 and sjQuest == 1) then
+        local stock_2 =
+        {
+            11988,   20000,
+            11992,   20000
+        };
+        dsp.shop.general(player, stock_2);
+        player:PrintToPlayer("Touneaux : Remember, defeat 100 monsters while wearing that torque and then bring it back to me", 0x15);
+        player:PrintToPlayer("Touneaux : Also if you lost your torque, I can sell you a new one", 0x15);
     elseif (((player:hasKeyItem(dsp.ki.RED_INSTITUTE_CARD)) or (player:hasKeyItem(dsp.ki.BLUE_INSTITUTE_CARD)) or (player:hasKeyItem(dsp.ki.GREEN_INSTITUTE_CARD))) and lvl >= 30 and sjQuest == 2 and sjQuestProgress == 0) then
         player:PrintToPlayer("Touneaux : Ah you're back.  Here take this Myochin Shusa and defeat 100 experience yeilding", 0x15);
         player:PrintToPlayer("Touneaux : monsters while wearing it and then trade it back to me", 0x15);
@@ -70,6 +85,16 @@ function onTrigger(player,npc)
         player:setVar("TRUST_SJ_QUEST_COUNTER",1)
         player:addItem(11999,1)
         player:messageSpecial(ID.text.ITEM_OBTAINED,11999);
+    elseif (sjQuestProgress == 1 and sjQuest == 2) then
+        local stock_3 =
+        {
+            11988,   20000,
+            11992,   20000,
+            11999,   20000
+        };
+        dsp.shop.general(player, stock_3);
+        player:PrintToPlayer("Touneaux : Remember, defeat 100 monsters while wearing that torque and then bring it back to me", 0x15);
+        player:PrintToPlayer("Touneaux : Also if you lost your torque, I can sell you a new one", 0x15);
     elseif (((player:hasKeyItem(dsp.ki.RED_INSTITUTE_CARD)) or (player:hasKeyItem(dsp.ki.BLUE_INSTITUTE_CARD)) or (player:hasKeyItem(dsp.ki.GREEN_INSTITUTE_CARD))) and lvl >= 30 and sjQuest == 3 and sjQuestProgress == 0) then
         player:PrintToPlayer("Touneaux : Ah you're back.  Here take this Ninja Shusa and defeat 100 experience yeilding", 0x15);
         player:PrintToPlayer("Touneaux : monsters while wearing it and then trade it back to me", 0x15);
@@ -77,6 +102,27 @@ function onTrigger(player,npc)
         player:setVar("TRUST_SJ_QUEST_COUNTER",1)
         player:addItem(12000,1)
         player:messageSpecial(ID.text.ITEM_OBTAINED,12000);
+    elseif (sjQuestProgress == 1 and sjQuest == 3) then
+        local stock_4 =
+        {
+            11988,   20000,
+            11992,   20000,
+            11999,   20000,
+            12000,   20000,
+        };
+        dsp.shop.general(player, stock_4);
+        player:PrintToPlayer("Touneaux : Remember, defeat 100 monsters while wearing that torque and then bring it back to me", 0x15);
+        player:PrintToPlayer("Touneaux : Also if you lost your torque, I can sell you a new one", 0x15);
+    elseif (sjQuest == 4) then
+        local stock_5 =
+        {
+            11988,   20000,
+            11992,   20000,
+            11999,   20000,
+            12000,   20000,
+        };
+        dsp.shop.general(player, stock_5);
+        player:PrintToPlayer("Touneaux : Did you misplace a torque?", 0x15);
     else
         player:PrintToPlayer("Touneaux : Come see me when you have been cleared to fight with Trusts.", 0x15);
     end

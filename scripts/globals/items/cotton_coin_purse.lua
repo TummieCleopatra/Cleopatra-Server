@@ -22,6 +22,15 @@ end;
 function onItemUse(target)
     local amount = math.random(59,82);
     amount = amount * ALEX_MULT;
-	target:addItem(2488,amount);
-	target:messageBasic(557,0,amount);
+    if (amount > 99) then
+        local overage = amount - 99
+        target:addItem(2488,amount);
+        target:addItem(2488,overage)
+        target:messageBasic(557,0,99);
+        target:messageBasic(557,0,overage);
+
+    else
+       target:messageBasic(557,0,amount);
+	    target:messageBasic(557,0,amount);
+    end
 end;

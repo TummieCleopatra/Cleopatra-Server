@@ -1239,6 +1239,7 @@ inline int32 CLuaBaseEntity::updateEvent(lua_State *L)
     return 0;
 }
 
+
 /************************************************************************
 *  Function: updateEventString()
 *  Purpose : Sends a string to an event in progress

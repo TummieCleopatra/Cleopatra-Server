@@ -56,17 +56,59 @@ CAuctionHousePacket::CAuctionHousePacket(uint8 action, CItem* PItem, uint8 quant
     this->size = 0x1E;
 
     uint32 auctionFee = 0;
+    uint32 lastSold = 0;
+    uint32 lastSoldStack = 0;
+
+    uint16 auctionItem = PItem->getID();
+
+
+    //Do this to prevent exploits for listing items at 1g to avoid taxes
+
+    int32 ret = Sql_Query(SqlHandle, "SELECT price FROM auction_house WHERE itemid = %d AND stack = 0 AND seller_name = 'Cleopatra' AND buyer_name = 'Cleopatra' ORDER BY itemid ASC LIMIT 1;",auctionItem);
+
+    if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0)
+    {
+        while (Sql_NextRow(SqlHandle) == SQL_SUCCESS)
+        {
+            lastSold = (int32)Sql_GetIntData(SqlHandle, 0);
+        }
+    }
+
+    int32 rets = Sql_Query(SqlHandle, "SELECT price FROM auction_house WHERE itemid = %d AND stack = 1 AND seller_name = 'Cleopatra' AND buyer_name = 'Cleopatra' ORDER BY itemid ASC LIMIT 1;",auctionItem);
+
+    if (rets != SQL_ERROR && Sql_NumRows(SqlHandle) != 0)
+    {
+        while (Sql_NextRow(SqlHandle) == SQL_SUCCESS)
+        {
+            lastSoldStack = (int32)Sql_GetIntData(SqlHandle, 0);
+        }
+    }
+
+
+
+    //ShowDebug(CL_CYAN"Item Last sold for: %u  \n" CL_RESET, lastSold);
+    //Set to price if there is no broker price
+    if (lastSold == 0)
+    {
+        lastSold = price;
+    }
+
+    if (lastSoldStack == 0)
+    {
+        lastSoldStack = price;
+    }
+
     if (quantity == 0) // This is a stack..Yes, zero for stacks.. Why is this being called quantity?
     {
 		if ((PChar->getZone() == 26) || (PChar->getZone() == 48) || (PChar->getZone() == 50) || ((PChar->getZone() > 229) && (PChar->getZone() < 233)) ||
 	    ((PChar->getZone() > 233) && (PChar->getZone() < 236)) || ((PChar->getZone() > 237) && (PChar->getZone() < 242)) ||
 		((PChar->getZone() > 242) && (PChar->getZone() < 248)) || PChar->getZone() == 250)
         {
-            auctionFee = (uint32)(map_config.ah_base_fee_stacks + (price * map_config.ah_tax_rate_stacks / 100));
+            auctionFee = (uint32)(map_config.ah_base_fee_stacks + (lastSoldStack * map_config.ah_tax_rate_stacks / 100));
         }
         else
         {
-            auctionFee = (uint32)(map_config.ah_base_fee_stacks + (price * (3 + map_config.ah_tax_rate_stacks / 100))); // +3% higher AH Tax outside cities
+            auctionFee = (uint32)(map_config.ah_base_fee_stacks + (lastSoldStack * (3 + map_config.ah_tax_rate_stacks / 100))); // +3% higher AH Tax outside cities
         }
     }
     else // This is a single item.
@@ -75,11 +117,11 @@ CAuctionHousePacket::CAuctionHousePacket(uint8 action, CItem* PItem, uint8 quant
 	    ((PChar->getZone() > 233) && (PChar->getZone() < 236)) || ((PChar->getZone() > 237) && (PChar->getZone() < 242)) ||
 		((PChar->getZone() > 242) && (PChar->getZone() < 248)) || PChar->getZone() == 250)
         {
-            auctionFee = (uint32)(map_config.ah_base_fee_single  + (price * map_config.ah_tax_rate_single / 100));
+            auctionFee = (uint32)(map_config.ah_base_fee_single  + (lastSold * map_config.ah_tax_rate_single / 100));
         }
         else
         {
-            auctionFee = (uint32)(map_config.ah_base_fee_single  + (price * (3 + map_config.ah_tax_rate_single / 100)));
+            auctionFee = (uint32)(map_config.ah_base_fee_single  + (lastSold * (3 + map_config.ah_tax_rate_single / 100)));
         }
     }
 

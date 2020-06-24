@@ -59,6 +59,7 @@ CCharUpdatePacket::CCharUpdatePacket(CCharEntity* PChar)
         ref<uint8>(0x38) = 0x04;
     }
 
+    // 0x58 = 0x80 = Stars, add the values together
 	// Enemey Geo Debuffs
 	if (PChar->StatusEffectContainer->HasStatusEffect(EFFECT_INDI_POISON))  // Water
 	{

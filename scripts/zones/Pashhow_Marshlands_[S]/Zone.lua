@@ -21,6 +21,10 @@ function onZoneIn(player, prevZone)
         player:setPos(547.841, 23.192, 696.323, 134)
     end
 
+    if (player:getVar("LightInTheDarkness") == 3) then
+       cs = 901
+    end
+
     return cs
 end
 
@@ -51,4 +55,7 @@ function onEventUpdate(player, csid, option)
 end
 
 function onEventFinish(player, csid, option)
+    if (csid == 901) then
+        player:setVar("LightInTheDarkness",4)
+    end
 end

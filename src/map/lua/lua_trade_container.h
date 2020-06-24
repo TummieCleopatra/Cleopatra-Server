@@ -55,6 +55,8 @@ public:
     int32 getSlotCount(lua_State*);
     int32 confirmItem(lua_State*);
     int32 confirmSlot(lua_State*);
+	int32 getMezzotintType(lua_State*);
+	int32 getMezzotintWeaponType(lua_State*);
 };
 
 #endif

@@ -1,7 +1,7 @@
 -- {Mob Level, Mob, ZoneName, ZoneID, Rank, Amount Needed}
 -- Rank will determine exp, gil, and treasure type
 
-local huntList =
+huntList =
 {
     {12,"Goblin Butcher","Dangruf Wadi",191,"G",10},
     {12,"Riding Lizard","Yughott Grotto",142,"G",10},
@@ -9,7 +9,7 @@ local huntList =
     {12,"Savanna Rarab","West Sarutabaruta [S]",95,"G",10},
     {12,"Yagudo Piper","Tahrongi Canyon",117,"G",10},
     {15,"Beady Beetle","Carpenter's Landing",2,"G",10},
-    {15,"Hil Lizard","Valkurm Dunes",103,"G",10},
+    {15,"Hill Lizard","Valkurm Dunes",103,"G",10},
     {15,"Jubjub","Meriphataud Mountains",119,"G",10},
     {15,"Sand Hare","Valkurm Dunes",103,"G",10},
     {15,"Water Wasp","Pashhow Marshlands",109,"G",10},
@@ -138,7 +138,7 @@ function getHunt(player)
 	local huntRand = 0
 	local result = 0
 
-
+    local jpmid = getMidnight()
 	for i = 1, #huntList do
 		if (lvl <= huntList[i][1] and lvl + 3 >= huntList[i][1]) then
 			table.insert(newList, huntRand + 1, i)
@@ -154,6 +154,234 @@ function getHunt(player)
     player:PrintToPlayer("Defeat "..huntList[quest][6].."x "..huntList[quest][2].." in "..huntList[quest][3],0x1C);
     player:PrintToPlayer("Mob Level "..huntList[quest][1].."-"..maxLevel.."  Rank: "..huntList[quest][5],0x1C);
 
+    local rank = huntList[quest][5]
+
+    if (rank == "A") then
+        rank = 10
+    elseif (rank == "A1") then
+        rank = 11
+    elseif (rank == "A2") then
+        rank = 12
+    elseif (rank == "B") then
+        rank = 20
+    elseif (rank == "B1") then
+        rank = 21
+    elseif (rank == "B2") then
+        rank = 22
+    elseif (rank == "C") then
+        rank = 30
+    elseif (rank == "C1") then
+        rank = 31
+    elseif (rank == "C2") then
+        rank = 32
+    elseif (rank == "D") then
+        rank = 40
+    elseif (rank == "D1") then
+        rank = 41
+    elseif (rank == "D2") then
+        rank = 42
+    elseif (rank == "E") then
+        rank = 50
+    elseif (rank == "E1") then
+        rank = 51
+    elseif (rank == "E2") then
+        rank = 52
+    elseif (rank == "F") then
+        rank = 60
+    elseif (rank == "F1") then
+        rank = 61
+    elseif (rank == "F2") then
+        rank = 62
+    elseif (rank == "G") then
+        rank = 70
+    elseif (rank == "G1") then
+        rank = 71
+    elseif (rank == "G2") then
+        rank = 72
+    end
+
+    local huntquest = quest
+    local huntreq = huntList[quest][6]
+    local huntzone = huntList[quest][4]
+    local huntReward = rank
+
+
+
+    player:setVar("HuntQuest",huntquest)
+    player:setVar("HuntReq",huntreq)
+    player:setVar("HuntZone",huntzone)
+    player:setVar("HuntRank",rank)
+    player:setVar("HuntDay",jpmid)
+
+end
+
+
+function huntKills(mob, player)
+    printf("PROCESS KILL")
+    -- DON"T FORGET TO CONVERT TRUST AS KILLER
+    local huntQuest = player:getVar("HuntQuest")
+    local preName = mob:getName()
+    local zone = player:getZoneID()
+    local remain = player:getVar("HuntReq")
+    local mobName = preName:gsub("%_", " ")
+
+    if (huntQuest > 0) then
+        if (mobName == huntList[huntQuest][2] and zone == huntList[huntQuest][4]) then
+            remain = remain - 1
+            if (remain < 0) then
+                remain = 0
+            end
+            player:setVar("HuntReq",remain)
+            if (remain == 0) then
+                player:PrintToPlayer("============ HUNT REGIEME COMPLETED ==========",0x1C);
+                player:setVar("HuntQuest",0)
+                huntReward(player)
+            elseif (remain == 1) then
+                player:PrintToPlayer("Hunt Regieme: "..remain.." objective remaining",0x1C);
+            else
+                player:PrintToPlayer("Hunt Regieme: "..remain.." objectives remaining",0x1C);
+            end
+        end
+	end
 
 
 end
+
+function huntReward(player)
+    local ID = zones[player:getZoneID()]
+    local rank = player:getVar("HuntRank")
+    local xp = 0
+    local itemType = 0
+
+    local lowReward = {{1126,5}}
+
+    local rankANQ = {{2488,50},{4059,20},{1127,15}}
+    local rankAHQ = {{1456,1},{1453,1},{1450,1},{1421,1},{1425,1},{1423,1},{1419,1}}
+    local rankANQMax = 3
+    local rankAHQMax = 7
+
+    local rankBNQ = {{1127,10},{4059,20},{1127,15}}
+    local rankBHQ = {{1456,1},{1453,1},{1450,1},{1421,1},{1425,1},{1423,1},{1419,1}}
+    local rankBNQMax = 3
+    local rankBHQMax = 7
+
+    if (rank == 10) then
+        xp = 5000
+        local rtype = math.random(1,100)
+        if (rtype < 60) then
+            itemType = math.random(1,rankANQMax)
+            player:addItem(rankANQ[itemType][1],rankANQ[itemType][2])
+            player:messageSpecial(ID.text.ITEM_OBTAINED,rankANQ[itemType][1])
+        else
+            itemType = math.random(1,rankAHQMax)
+            player:addItem(rankAHQ[itemType][1],rankAHQ[itemType][2])
+            player:messageSpecial(ID.text.ITEM_OBTAINED,rankAHQ[itemType][1])
+        end
+    elseif (rank == 11) then
+        xp = 5500
+        local rtype = math.random(1,100)
+        if (rtype < 40) then
+            itemType = math.random(1,rankANQMax)
+            player:addItem(rankANQ[itemType][1],rankANQ[itemType][2])
+            player:messageSpecial(ID.text.ITEM_OBTAINED,rankANQ[itemType][1])
+        else
+            itemType = math.random(1,rankAHQMax)
+            player:addItem(rankAHQ[itemType][1],rankAHQ[itemType][2])
+            player:messageSpecial(ID.text.ITEM_OBTAINED,rankAHQ[itemType][1])
+        end
+    elseif (rank == 12) then
+        xp = 5900
+        local rtype = math.random(1,100)
+        if (rtype < 20) then
+            itemType = math.random(1,rankANQMax)
+            player:addItem(rankANQ[itemType][1],rankANQ[itemType][2])
+            player:messageSpecial(ID.text.ITEM_OBTAINED,rankANQ[itemType][1])
+        else
+            itemType = math.random(1,rankAHQMax)
+            player:addItem(rankAHQ[itemType][1],rankAHQ[itemType][2])
+            player:messageSpecial(ID.text.ITEM_OBTAINED,rankAHQ[itemType][1])
+        end
+    elseif (rank == 20) then
+        xp = 3500
+        player:addItem(1127,10)
+        player:messageSpecial(ID.text.ITEM_OBTAINED,1127)
+    elseif (rank == 21) then
+        xp = 3700
+        player:addItem(1127,10)
+        player:messageSpecial(ID.text.ITEM_OBTAINED,1127)
+    elseif (rank == 22) then
+        xp = 4000
+        player:addItem(1127,10)
+        player:messageSpecial(ID.text.ITEM_OBTAINED,1127)
+    elseif (rank == 30) then
+        xp = 2200
+        player:addItem(1127,10)
+        player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
+    elseif (rank == 31) then
+        xp = 2500
+        player:addItem(1127,10)
+        player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
+    elseif (rank == 32) then
+        xp = 2700
+        player:addItem(1127,10)
+        player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
+    elseif (rank == 40) then
+        xp = 1800
+        player:addItem(1127,10)
+        player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
+    elseif (rank == 41) then
+        xp = 2000
+        player:addItem(1127,10)
+        player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
+    elseif (rank == 42) then
+        xp = 2200
+        player:addItem(1127,10)
+        player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
+    elseif (rank == 50) then
+        xp = 1300
+        player:addItem(1127,10)
+        player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
+    elseif (rank == 51) then
+        xp = 1500
+        player:addItem(1127,10)
+        player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
+    elseif (rank == 52) then
+        xp = 1700
+        player:addItem(1127,10)
+        player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
+    elseif (rank == 60) then
+        xp = 1000
+        player:addItem(1127,10)
+        player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
+    elseif (rank == 61) then
+        xp = 1200
+        player:addItem(1127,10)
+        player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
+    elseif (rank == 62) then
+        xp = 1500
+        player:addItem(1127,10)
+        player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
+    elseif (rank == 70) then
+        xp = 700
+        player:addItem(1127,10)
+        player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
+    elseif (rank == 71) then
+        xp = 800
+        player:addItem(1127,10)
+        player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
+    elseif (rank == 72) then
+        xp = 950
+        player:addItem(1127,10)
+        player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
+    end
+
+
+
+
+
+
+
+
+end
+
+-- TODO: Need rewards and also a method to prevent people from doing this once per day (JP Midnight like gifts)

@@ -4649,6 +4649,9 @@ namespace charutils
     {
         if (PAbility->getAddType() & ADDTYPE_MERIT)
         {
+            ShowWarning(CL_GREEN"Merit Count is %i \n" CL_RESET, (PChar->PMeritPoints->GetMerit(MERIT_SABER_DANCE)->id));
+            //PChar->PMeritPoints->GetMerit((MERIT_TYPE)PAbility->getMeritModID());
+            
             if (!(PChar->PMeritPoints->GetMerit((MERIT_TYPE)PAbility->getMeritModID())->count > 0))
             {
                 return false;

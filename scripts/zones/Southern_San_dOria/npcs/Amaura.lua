@@ -93,6 +93,8 @@ function onEventFinish(player,csid,option)
         player:setVar("DaughterOfaKnight",0)
         player:completeMission(WOTG, dsp.mission.id.wotg.DAUGHTER_OF_A_KNIGHT)
         player:addMission(WOTG, dsp.mission.id.wotg.A_SPOONFUL_OF_SUGAR)
+        player:addSpell(945);
+	    player:PrintToPlayer("You are now able to summon the Lilisette as a Trust!", 0x15);
     end
 
 

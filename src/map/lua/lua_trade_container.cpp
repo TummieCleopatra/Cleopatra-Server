@@ -23,6 +23,7 @@
 
 #include "../../common/showmsg.h"
 #include "../items/item.h"
+#include "../utils/itemutils.h"
 
 #include "lua_trade_container.h"
 #include "lua_item.h"
@@ -280,6 +281,73 @@ inline int32 CLuaTradeContainer::confirmSlot(lua_State *L)
     return 1;
 }
 
+
+inline int32 CLuaTradeContainer::getMezzotintType(lua_State* L)
+{
+    if (m_pMyTradeContainer != nullptr)
+    {
+
+	    auto SlotID = (uint8)lua_tointeger(L, 1);
+	    CItemArmor* PItem = (CItemArmor*)m_pMyTradeContainer->getItem(SlotID);
+
+
+	    uint8 slot0 = 0;
+		uint8 slot1 = 1;
+	    uint16 augments = PItem->getMezzotint(slot0);
+		uint16 augments2 = PItem->getMezzotint(slot1);
+	    ShowWarning(CL_RED"Mezzotint base augment IS %u! \n" CL_RESET, augments);
+        uint16 augmentid1 = (uint16)unpackBitsBE((uint8*)(&augments), 0, 16);
+		uint16 augmentid2 = (uint16)unpackBitsBE((uint8*)(&augments2), 0, 16);
+       // uint8 augmentVal = (uint8)unpackBitsBE((uint8*)(((CItemArmor*)PItem)->getAugment(SlotID)), 11, 5);
+	    ShowWarning(CL_RED"Mezzotint Augment ID IS %u! \n" CL_RESET, augmentid1);
+		ShowWarning(CL_RED"Mezzotint Augment2 ID IS %u! \n" CL_RESET, augmentid2);
+	   //ShowWarning(CL_RED"Mezzotint Augment VAL IS %u! \n" CL_RESET, augmentVal);
+
+        lua_pushinteger(L, augmentid1);
+        lua_pushinteger(L, augmentid2);
+
+        return 2;
+	}
+	return 0;
+
+}
+
+
+inline int32 CLuaTradeContainer::getMezzotintWeaponType(lua_State* L)
+{
+    if (m_pMyTradeContainer != nullptr)
+    {
+
+	    auto SlotID = (uint8)lua_tointeger(L, 1);
+	    CItemArmor* PItem = (CItemArmor*)m_pMyTradeContainer->getItem(SlotID);
+
+
+
+        uint8 slot1 = 1;
+		uint8 slot2 = 2;
+
+
+
+        uint16 augments1 = PItem->getMezzotint(slot1);
+		uint16 augments2 = PItem->getMezzotint(slot2);
+
+
+        uint16 augmentid1 = (uint16)unpackBitsBE((uint8*)(&augments1), 0, 16);
+		uint16 augmentid2 = (uint16)unpackBitsBE((uint8*)(&augments2), 0, 16);
+       // uint8 augmentVal = (uint8)unpackBitsBE((uint8*)(((CItemArmor*)PItem)->getAugment(SlotID)), 11, 5);
+	    ShowWarning(CL_RED"Mezzotint Augment1 ID IS %u! \n" CL_RESET, augmentid1);
+		ShowWarning(CL_RED"Mezzotint Augment2 ID IS %u! \n" CL_RESET, augmentid2);
+	   //ShowWarning(CL_RED"Mezzotint Augment VAL IS %u! \n" CL_RESET, augmentVal);
+
+        lua_pushinteger(L, augmentid1);
+        lua_pushinteger(L, augmentid2);
+
+        return 2;
+	}
+	return 0;
+
+}
+
 //======================================================//
 
 const char CLuaTradeContainer::className[] = "TradeContainer";
@@ -296,5 +364,7 @@ Lunar<CLuaTradeContainer>::Register_t CLuaTradeContainer::methods[] =
     LUNAR_DECLARE_METHOD(CLuaTradeContainer,hasItemQty),
     LUNAR_DECLARE_METHOD(CLuaTradeContainer,confirmItem),
     LUNAR_DECLARE_METHOD(CLuaTradeContainer,confirmSlot),
+	LUNAR_DECLARE_METHOD(CLuaTradeContainer,getMezzotintType),
+	LUNAR_DECLARE_METHOD(CLuaTradeContainer,getMezzotintWeaponType),
     {nullptr,nullptr}
 };
