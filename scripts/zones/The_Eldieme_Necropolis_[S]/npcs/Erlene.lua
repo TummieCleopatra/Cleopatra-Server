@@ -29,78 +29,69 @@ function onTrade(player,npc,trade)
         end
     end
 
-	if ((player:getVar("ADEL_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Adel") == 0) and (trade:hasItemQty(65535, 1000)) and (currentTokens >= 1)) then
-        player:PrintToPlayer("Erlene : Thank you for your Tribute.",0x0D);
-        player:PrintToPlayer("Adelheid's Magic Attack is raised by 5 points! (Total: 5)", 0x15);
-	    player:setVar("TrustMatt_Adel",5);
-	    player:setVar("TributeRank_Adel",1);
-	    currentTokens = currentTokens - 1;
-	    player:setVar("CurrentTokens_Adel",currentTokens);
-    elseif ((player:getVar("ADEL_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Adel") == 1) and (trade:hasItemQty(65535, 2000)) and (currentTokens >= 2)) then
-	    player:PrintToPlayer("Erlene : Thank you for your Tribute.",0x0D);
-        player:PrintToPlayer("Adelheid's Magic Accuracy is raised by 2 points! (Total: 2)", 0x15);
-	    player:setVar("TrustMacc_Adel",2);
-	    player:setVar("TributeRank_Adel",2);
-	    currentTokens = currentTokens - 2;
-	    player:setVar("CurrentTokens_Adel",currentTokens);
-    elseif ((player:getVar("ADEL_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Adel") == 2) and (trade:hasItemQty(65535, 3000)) and (currentTokens >= 3)) then
-        player:PrintToPlayer("Erlene : Thank you for your Tribute.",0x0D);
-        player:PrintToPlayer("Adelheid's MP is raised by 5 points! (Total: 5)", 0x15);
-	    player:setVar("TrustMP_Adel",10);
-	    player:setVar("TributeRank_Adel",3);
-	    currentTokens = currentTokens - 3;
-	    player:setVar("CurrentTokens_Adel",currentTokens);
-    elseif ((player:getVar("ADEL_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Adel") == 3) and (trade:hasItemQty(65535, 4000)) and (currentTokens >= 4)) then
-        player:PrintToPlayer("Erlene : Thank you for your Tribute.",0x0D);
-        player:PrintToPlayer("Adelheid's Magic Attack is raised by 3 points! (Total: 5)", 0x15);
-	    player:setVar("TrustMatt_Adel",5);
-	    player:setVar("TributeRank_Adel",4);
-	    currentTokens = currentTokens - 4;
-	    player:setVar("CurrentTokens_Adel",currentTokens);
-    elseif ((player:getVar("ADEL_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Adel") == 4) and (trade:hasItemQty(65535, 5000)) and (currentTokens >= 5)) then
-        player:PrintToPlayer("Erlene : Thank you for your Tribute.",0x0D);
-        player:PrintToPlayer("Adelheid's Magic Accuracy is raised by 5 points! (Total: 10)", 0x15);
-	    player:setVar("TrustMacc_Adel",10);
-	    player:setVar("TributeRank_Adel",5);
-	    currentTokens = currentTokens - 5;
-	    player:setVar("CurrentTokens_Adel",currentTokens);
-    elseif ((player:getVar("ADEL_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Adel") == 5) and (trade:hasItemQty(65535, 10000)) and (currentTokens >= 10)) then
-        player:PrintToPlayer("Erlene : Thank you for your Tribute.",0x0D);
-        player:PrintToPlayer("Adelheid's MP is raised by 10 points! (Total: 15)", 0x15);
-	    player:setVar("TrustMP_Adel",15);
-	    player:setVar("TributeRank_Adel",6);
-	    currentTokens = currentTokens - 10;
-	    player:setVar("CurrentTokens_Adel",currentTokens);
-    elseif ((player:getVar("ADEL_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Adel") == 6) and (trade:hasItemQty(65535, 15000)) and (currentTokens >= 15)) then
-        player:PrintToPlayer("Erlene : Thank you for your Tribute.",0x0D);
-        player:PrintToPlayer("Adelheid's Magic Attack is raised by 5 points! (Total: 15)", 0x15);
-	    player:setVar("TrustMatt_Adel",15);
-	    player:setVar("TributeRank_Adel",7);
-	    currentTokens = currentTokens - 15;
-	    player:setVar("CurrentTokens_Adel",currentTokens);
-    elseif ((player:getVar("ADEL_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Adel") == 7) and (trade:hasItemQty(65535, 30000)) and (currentTokens >= 20)) then
-        player:PrintToPlayer("Erlene : Thank you for your Tribute.",0x0D);
-        player:PrintToPlayer("Adelheid's Magic Accuracy is raised by 5 points! (Total: 15)", 0x15);
-	    player:setVar("TrustMacc_Adel",15);
-	    player:setVar("TributeRank_Adel",8);
-	    currentTokens = currentTokens - 20;
-	    player:setVar("CurrentTokens_Adel",currentTokens);
-    elseif ((player:getVar("ADEL_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Adel") == 8) and (trade:hasItemQty(65535, 75000)) and (currentTokens >= 30)) then
-        player:PrintToPlayer("Erlene : Thank you for your Tribute.",0x0D);
-        player:PrintToPlayer("Adelheid's MP is raised by 15! (Total: 30)", 0x15);
-	    player:setVar("TrustMP_Adel",30);
-	    player:setVar("TributeRank_Adel",9);
-	    currentTokens = currentTokens - 30;
-	    player:setVar("CurrentTokens_Adel",currentTokens);
-    elseif ((player:getVar("ADEL_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Adel") == 9) and (trade:hasItemQty(65535, 150000)) and (currentTokens >= 35)) then
-        player:PrintToPlayer("Erlene : Thank you for your Tribute.",0x0D);
-        player:PrintToPlayer("Adelheid's Sublimiation Effect has increased by 2", 0x15);
-	    player:setVar("TrustSub_Adel",2);
-	    player:setVar("TributeRank_Adel",10);
-	    currentTokens = currentTokens - 35;
-	    player:setVar("CurrentTokens_Adel",currentTokens);
+    local currentTokens = player:getVar("CurrentTokens_Adelheid");
+    local trib = player:getVar("[TRUST]ADELHEID_TRIB");
+    local rank = player:getVar("[TRUST]AdelheidRank")
+    local subRank = player:getVar("[TRUST]AdelheidSubRank")
+    local total = player:getVar("[TRUST]AdelheidTokensTotal")
+    local quest = job.SCH.finish[subRank]
+    local finish = dialog.finish
+    local meritCount = getMeritCount()
+
+
+
+    if (trib == 1 and trade:hasItemQty(2557,1) and meritCount >= 5) then
+        player:tradeComplete()
+        player:setMerits(meritCount - 5)
+        player:PrintToPlayer("Adelheid : "..finish,0x0D);
+        player:setVar("[TRUST]ADELHEID_TRIB",2)
+    elseif ((trib == 2) and (trade:hasItemQty(65535, 5000)) and (currentTokens >= rank + 1)) then
+        player:PrintToPlayer("Adelheid : Thank you for your Tribute.",0x0D);
+        total = total + 1
+        player:setVar("[TRUST]AdelheidTokensTotal",total)
+        player:PrintToPlayer("Adelheid's "..quest.."  (Total Tokens: "..total.."/550)",0x0D);
+	    currentTokens = currentTokens - rank + 1;
+	    player:setVar("CurrentTokens_Adelheid",currentTokens);
+        subRank = subRank + 1
+        if (subRank > 9) then
+            player:setVar("[TRUST]AdelheidSubRank",0)
+            player:setVar("[TRUST]AdelheidRank",rank + 1)
+            rank = player:getVar("[TRUST]AdelheidRank")
+            player:PrintToPlayer("Adelheid's Tribute Rank has risen to "..rank.."!", 0x15);
+        else
+            player:setVar("[TRUST]AdelheidSubRank",subRank)
+        end
+        player:tradeComplete()
+
+        -- Trust Point Bonus
+        total = player:getVar("[TRUST]AdelheidTokensTotal")
+        if (total >= 550) then
+            player:setVar("[TRUST]ADELHEID_POINTS_PLUS",26)
+            player:PrintToPlayer("Adelheid will now receive a 26% Trust Point Bonus!", 0x15);
+        elseif (total >= 475) then
+            player:setVar("[TRUST]ADELHEID_POINTS_PLUS",23)
+            player:PrintToPlayer("Adelheid will now receive a 23% Trust Point Bonus!", 0x15);
+        elseif (total >= 400) then
+            player:setVar("[TRUST]ADELHEID_POINTS_PLUS",20)
+            player:PrintToPlayer("Adelheid will now receive a 20% Trust Point Bonus!", 0x15);
+        elseif (total >= 325) then
+            player:setVar("[TRUST]ADELHEID_POINTS_PLUS",17)
+            player:PrintToPlayer("Adelheid will now receive a 17% Trust Point Bonus!", 0x15);
+        elseif (total >= 250) then
+            player:setVar("[TRUST]ADELHEID_POINTS_PLUS",14)
+            player:PrintToPlayer("Adelheid will now receive a 14% Trust Point Bonus!", 0x15);
+        elseif (total >= 175) then
+            player:setVar("[TRUST]ADELHEID_POINTS_PLUS",11)
+            player:PrintToPlayer("Adelheid will now receive a 11% Trust Point Bonus!", 0x15);
+        elseif (total >= 100) then
+            player:setVar("[TRUST]ADELHEID_POINTS_PLUS",8)
+            player:PrintToPlayer("Adelheid will now receive a 8% Trust Point Bonus!", 0x15);
+        elseif (total >= 25) then
+            player:setVar("[TRUST]ADELHEID_POINTS_PLUS",5)
+            player:PrintToPlayer("Adelheid will now receive a 5% Trust Point Bonus!", 0x15);
+        end
     else
-        player:PrintToPlayer("Erlene : Please trade the correct amount of Tokens and Gil.",0x0D);
+        player:PrintToPlayer("Adelheid : Please trade the correct amount of Tokens and Gil.",0x0D);
 	end
 end;
 
@@ -165,40 +156,27 @@ function onTrigger(player,npc)
 	    player:setVar("TrustMB",10);
 	end
 
-    if ((mainlvl >= 75 and tribfight == 0 and (player:hasSpell(968)) and (player:getVar("FerretoryAura") >= 7)) and (player:getVar("TRIB_FIGHT") ~= 1)) then
-        player:PrintToPlayer("Erlene : There is someone running around claming to be Adelheid at Fei'Yin.  Please head there and I'll join you.", 0xD);
-        player:PrintToPlayer("Erlene : When you are ready, examine the Burning Circle in QuBai Arena and Adelheid to your side.", 0xD);
-        player:setVar("ADEL_TRIB_FIGHT",1);
-        player:setVar("TRIB_FIGHT",1);
-	elseif (mainlvl >= 75 and tribfight == 2 and (player:hasSpell(968))) then
-        player:PrintToPlayer("Erlene : You have done well to help with the imposter investigation.  I am in your debt.", 0xD);
-        player:PrintToPlayer("You are now able to collect Trust Tokens for Adelheid!", 0x15);
-        player:setVar("ADEL_TRIB_FIGHT",3);
-        player:setVar("TRIB_FIGHT",0);
+	-- ------------------------ --
+    --   Adelheid Tribute Unlock  --
+    -- ------------------------ --
+	if (mLvL >= 75 and player:hasSpell(968) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
+        local start = dialog.start
+        local done = dialog.finish
+	    player:PrintToPlayer("Adelheid : "..start, 0xD);
+        player:setVar("[TRUST]ADELHEID_TRIB",1)
+    elseif (trib == 1) then
+        local remind = dialog.remind
+        player:PrintToPlayer("Adelheid : "..remind, 0xD);
 	end
 
--- Handle Token Quest
-  if ((player:getVar("ADEL_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Adel") == 0)) then
-    player:PrintToPlayer("Nareema : Bring me 1 of Adelheid's Trust Tokens and 1,000 gil to raise Adelheid's Magic Attack by 5",0x0D);
-  elseif ((player:getVar("ADEL_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Adel") == 1)) then
-    player:PrintToPlayer("Nareema : Bring me 2 of Adelheid's Trust Tokens and 2,000 gil to raise Adelheid's Magic Accuracy by 5",0x0D);
-  elseif ((player:getVar("ADEL_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Adel") == 2)) then
-    player:PrintToPlayer("Nareema : Bring me 3 of Adelheid's Trust Tokens and 3,000 gil to raise Adelheid's MP by 5",0x0D);
-  elseif ((player:getVar("ADEL_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Adel") == 3)) then
-    player:PrintToPlayer("Nareema : Bring me 4 of Adelheid's Trust Tokens and 4,000 gil to raise Adelheid's Magic Attack by 5",0x0D);
-  elseif ((player:getVar("ADEL_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Adel") == 4)) then
-    player:PrintToPlayer("Nareema : Bring me 5 of Adelheid's Trust Tokens and 5,000 gil to raise Adelheid's Magic Accuracy by 5",0x0D);
-  elseif ((player:getVar("ADEL_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Adel") == 5)) then
-    player:PrintToPlayer("Nareema : Bring me 10 of Adelheid's Trust Tokens and 10,000 gil to raise Adelheid's MP by 10",0x0D);
-  elseif ((player:getVar("ADEL_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Adel") == 6)) then
-    player:PrintToPlayer("Nareema : Bring me 15 of Adelheid's Trust Tokens and 15,000 gil to raise Adelheid's Magic Attack by 5",0x0D);
-  elseif ((player:getVar("ADEL_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Adel") == 7)) then
-    player:PrintToPlayer("Nareema : Bring me 20 of Adelheid's Trust Tokens and 30,000 gil to raise Adelheid's Magic Accuracy by 5",0x0D);
-  elseif ((player:getVar("ADEL_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Adel") == 8)) then
-    player:PrintToPlayer("Nareema : Bring me 30 of Adelheid's Trust Tokens and 75,000 gil to raise Adelheid's MP by 10",0x0D);
-  elseif ((player:getVar("ADEL_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Adel") == 9)) then
-    player:PrintToPlayer("Nareema : Bring me 35 of Adelheid's Trust Tokens and 150,000 gil to grant a Sublimation Bonus of +2",0x0D);
-  end
+	-- -------------------- --
+    --  Handle Token Quest  --
+    --------------------------
+    if (trib == 2) then
+        local quest = job.SCH.start[subRank]
+        local token = subRank + 1
+        player:PrintToPlayer("Adelheid : Bring me "..token.." of my Trust Tokens and 5,000 gil to "..quest,0x0D);
+    end
 
 end;
 

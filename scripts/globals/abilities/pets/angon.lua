@@ -1,5 +1,5 @@
 ---------------------------------------------
--- Healing Breath I
+-- Angon
 ---------------------------------------------
 require("scripts/globals/settings")
 require("scripts/globals/status")
@@ -12,14 +12,12 @@ function onAbilityCheck(player, target, ability)
 end
 
 function onUseAbility(pet, target, skill, action)
-    local amount = 12
-    if (pet:getMainJob() == dsp.job.SAM) then
-        amount = 20
+    local typeEffect = dsp.effect.DEFENSE_DOWN
+    local duration = math.random(15,20)
+    if (target:addStatusEffect(typeEffect,20,0,duration) == false) then
+        ability:setMsg(dsp.msg.basic.MAGIC_NO_EFFECT)
     end
 
-    local meds = pet:getLocalVar("Meditate")
 
-    amount = amount + meds
-
-    pet:addStatusEffectEx(dsp.effect.MEDITATE,0,amount,3,15)
+    return typeEffect
 end

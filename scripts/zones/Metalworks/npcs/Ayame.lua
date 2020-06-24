@@ -15,6 +15,15 @@ local ID = require("scripts/zones/Metalworks/IDs");
 -----------------------------------
 
 function onTrade(player,npc,trade)
+    local currentTokens = player:getVar("CurrentTokens_Ayame");
+    local trib = player:getVar("[TRUST]AYAME_TRIB");
+    local rank = player:getVar("[TRUST]AyameRank")
+    local subRank = player:getVar("[TRUST]AyameSubRank")
+    local total = player:getVar("[TRUST]AyameTokensTotal")
+    local quest = job.SAM.finish[subRank]
+    local finish = dialog.finish
+    local meritCount = getMeritCount()
+
 
     if (player:getQuestStatus(BASTOK,dsp.quest.id.bastok.TRUE_STRENGTH) == QUEST_ACCEPTED) then
         if (trade:hasItemQty(1100,1) and trade:getItemCount() == 1) then -- Trade Xalmo Feather
@@ -31,6 +40,61 @@ function onTrade(player,npc,trade)
         player:setVar("AYAME_TYPE", 1)
         player:PrintToPlayer("Ayame's Subjob is now Warrior!", 0x15);
     end
+
+    if (trib == 1 and trade:hasItemQty(1437) and meritCount >= 5) then
+        player:tradeComplete()
+        player:setMerits(meritCount - 5)
+        player:PrintToPlayer("Ayame : "..finish,0x0D);
+        player:setVar("[TRUST]AYAME_TRIB",2)
+    elseif ((trib == 2) and (trade:hasItemQty(65535, 5000)) and (currentTokens >= rank + 1)) then
+        player:PrintToPlayer("Ayame : Thank you for your Tribute.",0x0D);
+        total = total + 1
+        player:setVar("[TRUST]AyameTokensTotal",total)
+        player:PrintToPlayer("Ayame's "..quest.."  (Total Tokens: "..total.."/550)",0x0D);
+	    currentTokens = currentTokens - rank + 1;
+	    player:setVar("CurrentTokens_Ayame",currentTokens);
+        subRank = subRank + 1
+        if (subRank > 9) then
+            player:setVar("[TRUST]AyameSubRank",0)
+            player:setVar("[TRUST]AyameRank",rank + 1)
+            rank = player:getVar("[TRUST]AyameRank")
+            player:PrintToPlayer("Ayame's Tribute Rank has risen to "..rank.."!", 0x15);
+        else
+            player:setVar("[TRUST]AyameSubRank",subRank)
+        end
+        player:tradeComplete()
+
+        -- Trust Point Bonus
+        total = player:getVar("[TRUST]AyameTokensTotal")
+        if (total >= 550) then
+            player:setVar("[TRUST]AYAME_POINTS_PLUS",26)
+            player:PrintToPlayer("Ayame's will now receive a 26% Trust Point Bonus!", 0x15);
+        elseif (total >= 475) then
+            player:setVar("[TRUST]AYAME_POINTS_PLUS",23)
+            player:PrintToPlayer("Ayame's will now receive a 23% Trust Point Bonus!", 0x15);
+        elseif (total >= 400) then
+            player:setVar("[TRUST]AYAME_POINTS_PLUS",20)
+            player:PrintToPlayer("Ayame's will now receive a 20% Trust Point Bonus!", 0x15);
+        elseif (total >= 325) then
+            player:setVar("[TRUST]AYAME_POINTS_PLUS",17)
+            player:PrintToPlayer("Ayame's will now receive a 17% Trust Point Bonus!", 0x15);
+        elseif (total >= 250) then
+            player:setVar("[TRUST]AYAME_POINTS_PLUS",14)
+            player:PrintToPlayer("Ayame's will now receive a 14% Trust Point Bonus!", 0x15);
+        elseif (total >= 175) then
+            player:setVar("[TRUST]AYAME_POINTS_PLUS",11)
+            player:PrintToPlayer("Ayame's will now receive a 11% Trust Point Bonus!", 0x15);
+        elseif (total >= 100) then
+            player:setVar("[TRUST]AYAME_POINTS_PLUS",8)
+            player:PrintToPlayer("Ayame's will now receive a 8% Trust Point Bonus!", 0x15);
+        elseif (total >= 25) then
+            player:setVar("[TRUST]AYAME_POINTS_PLUS",5)
+            player:PrintToPlayer("Ayame's will now receive a 5% Trust Point Bonus!", 0x15);
+        end
+    else
+        player:PrintToPlayer("Ayame : Please trade the correct amount of Tokens and Gil.",0x0D);
+	end
+
 
 end;
 
@@ -60,38 +124,30 @@ function onTrigger(player,npc)
     player:PrintToPlayer("Ayame : Ah a Red Institute Card.  My blade is ready to assist you", 0xD);
     player:addSpell(900);
 	player:PrintToPlayer("You are now able to summon the trust Ayame!", 0x15);
-	elseif (((mainlvl >= 75 and tribfight == 0 and (player:hasSpell(900))) and (player:getVar("FerretoryAura") >= 7)) and (player:getVar("TRIB_FIGHT") ~= 1)) then
-	player:PrintToPlayer("Ayame : There is someone running around claming to be me at Palborough Mines.  Please head there and I'll join you.", 0xD);
-    player:PrintToPlayer("Ayame : When you are ready, examine the Burning Circle in Palborough Mines and call me to your side.", 0xD);
-	player:setVar("AYAME_TRIB_FIGHT",1);
-    player:setVar("TRIB_FIGHT",1);
-	elseif (mainlvl >= 75 and tribfight == 2 and (player:hasSpell(900))) then
-	player:PrintToPlayer("Ayame : You have done well to help with the imposter investigation.  I am in your debt.", 0xD);
-	player:PrintToPlayer("You are now able to collect Trust Tokens for Ayame!", 0x15);
-	player:setVar("AYAME_TRIB_FIGHT",3);
-	player:setVar("TRIB_FIGHT",0);
-	-- Handle Token Quest
-    elseif ((player:getVar("AYAME_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Ayame") == 0)) then
-      player:PrintToPlayer("Ayame : Bring me 1 of my Trust Tokens and 1,000 gil to raise my Attack by 5",0x0D);
-    elseif ((player:getVar("AYAME_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Ayame") == 1)) then
-      player:PrintToPlayer("Ayame : Bring me 2 of my Trust Tokens and 2,000 gil to raise my Accuracy by 5",0x0D);
-    elseif ((player:getVar("AYAME_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Ayame") == 2)) then
-      player:PrintToPlayer("Ayame : Bring me 3 of my Trust Tokens and 3,000 gil to raise my Store TP by 5",0x0D);
-    elseif ((player:getVar("AYAME_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Ayame") == 3)) then
-      player:PrintToPlayer("Ayame : Bring me 4 of my Trust Tokens and 4,000 gil to raise my Attack by 5",0x0D);
-    elseif ((player:getVar("AYAME_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Ayame") == 4)) then
-      player:PrintToPlayer("Ayame : Bring me 5 of my Trust Tokens and 5,000 gil to raise my Accuracy by 5",0x0D);
-    elseif ((player:getVar("AYAME_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Ayame") == 5)) then
-      player:PrintToPlayer("Ayame : Bring me 10 of my Trust Tokens and 10,000 gil to raise my Store TP by 5",0x0D);
-    elseif ((player:getVar("AYAME_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Ayame") == 6)) then
-      player:PrintToPlayer("Ayame : Bring me 15 of my Trust Tokens and 15,000 gil to raise my Attack by 5",0x0D);
-    elseif ((player:getVar("AYAME_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Ayame") == 7)) then
-      player:PrintToPlayer("Ayame : Bring me 20 of my Trust Tokens and 30,000 gil to raise my Accuracy by 5",0x0D);
-    elseif ((player:getVar("AYAME_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Ayame") == 8)) then
-      player:PrintToPlayer("Ayame : Bring me 30 of my Trust Tokens and 75,000 gil to increase by Zanshin by 5",0x0D);
-    elseif ((player:getVar("AYAME_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Ayame") == 9)) then
-      player:PrintToPlayer("Ayame : Bring me 35 of my Trust Tokens and 150,000 gil so I can Meditate by 20 TP",0x0D);
     end
+
+	-- ------------------------ --
+    --   Ayame Tribute Unlock   --
+    -- ------------------------ --
+	if (mLvL >= 75 and player:hasSpell(900) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
+        local start = dialog.start
+        local done = dialog.finish
+	    player:PrintToPlayer("Ayame : "..start, 0xD);
+        player:setVar("[TRUST]AYAME_TRIB",1)
+    elseif (trib == 1) then
+        local remind = dialog.remind
+        player:PrintToPlayer("Ayame : "..remind, 0xD);
+	end
+
+	-- -------------------- --
+    --  Handle Token Quest  --
+    --------------------------
+    if (trib == 2) then
+        local quest = job.SAM.start[subRank]
+        local token = subRank + 1
+        player:PrintToPlayer("Ayame : Bring me "..token.." of my Trust Tokens and 5,000 gil to "..quest,0x0D);
+    end
+
 
     if (player:getQuestStatus(BASTOK,dsp.quest.id.bastok.LURE_OF_THE_WILDCAT_BASTOK) == QUEST_ACCEPTED and player:getMaskBit(WildcatBastok,9) == false) then
         player:startEvent(935);

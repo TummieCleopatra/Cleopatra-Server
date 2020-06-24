@@ -18,6 +18,7 @@ function onTrade(player,npc,trade)
 local balance = 0;
 local quest11 = 20000;
 local quest12 = 30000;
+local quest13 = 60000;
 local pinfamy = player:getCurrency("infamy");
 
 if (trade:hasItemQty( 613, 1 )) and (player:getVar("FerretoryQuest75noaura") == 11) then
@@ -40,6 +41,21 @@ if (trade:hasItemQty(1419, 1 )) or (trade:hasItemQty(1421, 1)) or (trade:hasItem
     player:tradeComplete();
 	player:PrintToPlayer("Your infamy cap has increased to 60,000!", 0x15);
 	player:setVar("infamycap",60000);
+	player:setVar("FerretoryQuest75",13); -- New Non Aura Quests
+    pinfamy = pinfamy - quest12
+    player:setCurrency("infamy",pinfamy)
+	else
+    balance = quest12 - pinfamy;
+    player:PrintToPlayer( "Macus : I'm sorry, you need "..balance.." more infamy.", 0xD);
+    end
+end
+
+if ((trade:getGil() == 300000) and player:getVar("FerretoryQuest75") == 13) then
+    if (pinfamy >= quest13) then
+    player:delCurrency("infamy", quest12);
+    player:tradeComplete();
+	player:PrintToPlayer("You can now summon a 5th Trust!", 0x15);
+    player:setVar("Trustsize",2);
 	player:setVar("FerretoryQuest75",13); -- New Non Aura Quests
 	else
     balance = quest12 - pinfamy;
@@ -83,6 +99,12 @@ local trustdyna = player:getVar("TrustDynamis");
     elseif (player:getNation() == 2) and (trustdyna ~= 1) and (player:hasCompletedMission(WINDURST,dsp.mission.id.windurst.THE_SHADOW_AWAITS) == true) then
     player:PrintToPlayer("You may now summon Trusts inside Dynamis!", 0xD);
 	player:setVar("TrustDynamis",1);
+    end
+
+    if (aura >= 6 and player:getVar("Trustsize") < 1) then
+        player:PrintToPlayer("You now have the ability to summon a 4th Trust!", 0x15);
+        player:setVar("Trustsize",1)
+    end
 
 
 
@@ -90,7 +112,7 @@ local trustdyna = player:getVar("TrustDynamis");
 
 
 	---------------- Start Ferretory Quest #1 -------------------
-    elseif (player:getVar("FerretoryPlantoidComplete") == 1) then
+    if (player:getVar("FerretoryPlantoidComplete") == 1) then
     player:PrintToPlayer("Maccus : You've done well!  I feel your Aura getting stronger", 0xD);
 	player:setVar("FerretoryPlantoidComplete",0);
 	player:setVar("FerretoryExp",2);  -- Allow Exp to be gained from Monster Type
@@ -223,6 +245,8 @@ local trustdyna = player:getVar("TrustDynamis");
 	aura = player:getVar("FerretoryAura");
 	player:PrintToPlayer("Your Aura has reached Level "..aura.."!", 0x15);
 	player:PrintToPlayer("New items are available in Mogshop #5 and #7", 0x15);
+    player:setVar("Trustsize",1);
+    player:PrintToPlayer("You now have the ability to summon a 4th Trust!", 0x15);
 
 	elseif (player:getVar("FerretoryAura") == 5) and (plvl < 60) and (player:getVar("FerretoryQuest1") == 5) then
 	player:PrintToPlayer("Maccus : Come back when you are level 60 for your next assignment.", 0xD);  -- Level Check
@@ -299,9 +323,8 @@ local trustdyna = player:getVar("TrustDynamis");
 	player:setVar("FerretoryLv75Complete",0);
 	player:setVar("FerretoryQuest75Exp",11); -- New Non Aura Quests
 	player:setVar("infamymult",100);
-	player:setVar("Trustsize",1);
 	player:PrintToPlayer("Your bonus infamy multiplier has increased!", 0x15);
-    player:PrintToPlayer("You now have the ability to summon a 4th Trust!", 0x15);
+
 
 	elseif (player:getVar("FerretoryQuest75Exp") == 10) and (plvl > 74)  and (player:getVar("FerretoryQuest75noaura") == 9) then
 	player:PrintToPlayer("Maccus : Defeat 200 experience yielding Beastmen.  I'll give you a nice surpise.", 0xD);  -- give the task for the quest
@@ -317,7 +340,12 @@ local trustdyna = player:getVar("TrustDynamis");
 				  ---------------- Start Ferretory Quest #12 -------------------
 	elseif (player:getVar("FerretoryQuest75") == 12) and (plvl > 74) then
 	player:PrintToPlayer("Maccus : To increase your max infamy, give me a Summerstone, Springstone, Winterstone, or Autumnstone and 30,000 infamy.", 0xD);  -- give the task for the quest
-	-- player:setVar("FerretoryQuest75noaura",11); -- enable the quest
+	player:setVar("FerretoryQuest75noaura",12); -- enable the quest
+
+				  ---------------- Start Ferretory Quest #13 -------------------
+	elseif (player:getVar("FerretoryQuest75") == 13) and (plvl > 74) then
+	player:PrintToPlayer("Maccus : To increase the maximum amount of Trusts you can summon, bring me 60,000 infamy and 200,000 gil.", 0xD);  -- give the task for the quest
+	player:setVar("FerretoryQuest75noaura",13); -- enable the quest
 
 	elseif (player:getVar("FerretoryAura") == 0) and (plvl < 10) then -- check for ferretory aura if it is 0 start the initial quest
 	player:PrintToPlayer("NPC : Sorry, I can only help adventurers level 10 and above.", 0xD);

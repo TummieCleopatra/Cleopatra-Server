@@ -1,5 +1,5 @@
 ---------------------------------------------
--- Healing Breath I
+-- Angon
 ---------------------------------------------
 require("scripts/globals/settings")
 require("scripts/globals/status")
@@ -12,14 +12,9 @@ function onAbilityCheck(player, target, ability)
 end
 
 function onUseAbility(pet, target, skill, action)
-    local amount = 12
-    if (pet:getMainJob() == dsp.job.SAM) then
-        amount = 20
-    end
-
-    local meds = pet:getLocalVar("Meditate")
-
-    amount = amount + meds
-
-    pet:addStatusEffectEx(dsp.effect.MEDITATE,0,amount,3,15)
+    local tp = pet:getTP()
+    -- (TP * .5) + (0.015 * TP * MND) = MP gained
+    local amount = (tp * 0.05 + 0.0015 * tp * pet:getStat(dsp.mod.MND))
+    target:setTP(0)
+    return pet:addMP(amount)
 end

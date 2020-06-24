@@ -545,6 +545,115 @@ function MobFinalAdjustments(dmg,mob,skill,target,attackType,damageType,shadowbe
     return dmg;
 end;
 
+
+
+function TrustFinalAdjustments(dmg,mob,skill,target,attackType,damageType,shadowbehav,taChar)
+
+    -- physical attack missed, skip rest
+    if (skill:hasMissMsg()) then
+        return 0;
+    end
+
+    --handle pd
+    if ((target:hasStatusEffect(dsp.effect.PERFECT_DODGE) or target:hasStatusEffect(dsp.effect.ALL_MISS) )
+            and attackType==dsp.attackType.PHYSICAL) then
+        skill:setMsg(dsp.msg.basic.SKILL_MISS);
+        return 0;
+    end
+
+    -- set message to damage
+    -- this is for AoE because its only set once
+    skill:setMsg(dsp.msg.basic.DAMAGE);
+
+    --Handle shadows depending on shadow behaviour / attackType
+    if (shadowbehav ~= MOBPARAM_WIPE_SHADOWS and shadowbehav ~= MOBPARAM_IGNORE_SHADOWS) then --remove 'shadowbehav' shadows.
+
+        if (skill:isAoE() or skill:isConal()) then
+            shadowbehav = MobTakeAoEShadow(mob, target, shadowbehav);
+        end
+
+        dmg = utils.takeShadows(target, dmg, shadowbehav);
+
+        -- dealt zero damage, so shadows took hit
+        if (dmg == 0) then
+            skill:setMsg(dsp.msg.basic.SHADOW_ABSORB);
+            return shadowbehav;
+        end
+
+    elseif (shadowbehav == MOBPARAM_WIPE_SHADOWS) then --take em all!
+        target:delStatusEffect(dsp.effect.COPY_IMAGE);
+        target:delStatusEffect(dsp.effect.BLINK);
+        target:delStatusEffect(dsp.effect.THIRD_EYE);
+    end
+
+    if (attackType == dsp.attackType.PHYSICAL and skill:isSingle() == false) then
+        target:delStatusEffect(dsp.effect.THIRD_EYE);
+    end
+
+    --handle Third Eye using shadowbehav as a guide
+    if (attackType == dsp.attackType.PHYSICAL and utils.thirdeye(target)) then
+        skill:setMsg(dsp.msg.basic.ANTICIPATE);
+        return 0;
+    end
+
+    -- Handle Automaton Analyzer which decreases damage from successive special attacks
+    if target:getMod(dsp.mod.AUTO_ANALYZER) > 0 then
+        local analyzerSkill = target:getLocalVar("analyzer_skill")
+        local analyzerHits = target:getLocalVar("analyzer_hits")
+        if analyzerSkill == skill:getID() and target:getMod(dsp.mod.AUTO_ANALYZER) > analyzerHits then
+            -- Successfully mitigating damage at a fixed 40%
+            dmg = dmg * 0.6
+            analyzerHits = analyzerHits + 1
+        else
+            target:setLocalVar("analyzer_skill", skill:getID())
+            analyzerHits = 0
+        end
+        target:setLocalVar("analyzer_hits", analyzerHits)
+    end
+
+    if (attackType == dsp.attackType.PHYSICAL) then
+
+        dmg = target:physicalDmgTaken(dmg, damageType);
+
+    elseif (attackType == dsp.attackType.MAGICAL) then
+
+        dmg = target:magicDmgTaken(dmg);
+
+    elseif (attackType == dsp.attackType.BREATH) then
+
+        dmg = target:breathDmgTaken(dmg);
+
+    elseif (attackType == dsp.attackType.RANGED) then
+
+        dmg = target:rangedDmgTaken(dmg);
+
+    end
+
+    --handling phalanx
+    dmg = dmg - target:getMod(dsp.mod.PHALANX);
+
+    if (dmg < 0) then
+        return 0;
+    end
+
+    dmg = utils.stoneskin(target, dmg);
+
+    if (dmg > 0) then
+        if (taChar == nil) then
+            target:updateEnmityFromDamage(mob,dmg);
+            target:handleAfflatusMiseryDamage(dmg);
+        else
+            target:updateEnmityFromDamage(taChar,dmg);
+            target:handleAfflatusMiseryDamage(dmg);
+            mob:delStatusEffect(dsp.effect.TRICK_ATTACK)
+        end
+    end
+
+    return dmg;
+end;
+
+
+
 -- returns true if mob attack hit
 -- used to stop tp move status effects
 function MobPhysicalHit(skill)
@@ -788,18 +897,37 @@ function TrustPhysicalMove(mob,target,skill,basemod,numhits,attmod,accmod,str_ws
     local weaponbase = mob:getWeaponDmg()
     local trot = target:getRotPos()
     local mrot = mob:getRotPos()
-    local drot = trot - mrot
+    local drot = mrot - trot
+    local nrot = trot - mrot
     local tp = mob:getTP()
+    local saDex = 0
+    local taDex = 0
+
+    -- printf("Weapon Base is: %u",weaponbase)
+    -- local added = mob:getStat(dsp.mod.AGI) * (1 + (mob:getMod(dsp.mod.TRICK_ATK_AGI)/100))
+    local added = mob:getStat(dsp.mod.AGI)
+    -- printf("Added is %u",added)
 
 
 	if (mob:hasStatusEffect(dsp.effect.SNEAK_ATTACK) and (drot > -5 and drot < 5)) then
-        printf("Apply DEX")
-	    weaponbase = (weaponbase + (mob:getStat(dsp.mod.DEX) + math.floor((lvl/3)*4))) * (1 + mob:getMod(dsp.mod.SNEAK_ATK_DEX)/100)
+       -- printf("Apply DEX")
+	    saDex = ((mob:getStat(dsp.mod.DEX) * (1 + mob:getMod(dsp.mod.SNEAK_ATK_DEX)/100)))
         mob:delStatusEffect(dsp.effect.SNEAK_ATTACK)
+        mob:setLocalVar("ApplyCrit",1)
+	end
+
+
+
+	if (mob:hasStatusEffect(dsp.effect.TRICK_ATTACK) and ((drot < 131 and drot > 125) or (nrot < 131 and nrot > 125))) then
+        -- printf("Apply AGI")
+	    taDex = ((mob:getStat(dsp.mod.AGI) * (1 + mob:getMod(dsp.mod.TRICK_ATK_AGI)/100)))
+        -- mob:delStatusEffect(dsp.effect.TRICK_ATTACK)
+        -- printf("APPLY CRIT!")
+        mob:setLocalVar("ApplyCrit",1)
 	end
 
     if (mob:getMainJob() == dsp.job.THF) then
-        printf("Weapon base is now %u",weaponbase)
+        -- printf("Weapon base is now %u",weaponbase)
     end
 
     if (dstr >= 12) then
@@ -873,9 +1001,7 @@ function TrustPhysicalMove(mob,target,skill,basemod,numhits,attmod,accmod,str_ws
     end;
 
     ratio = ratio + lvldiff * 0.05;
-	if (mob:hasStatusEffect(dsp.effect.SNEAK_ATTACK)) then
-	    ratio = ratio + 1;
-	end
+
     ratio = utils.clamp(ratio, 0, 3.15)
 	-- print("pDIF Corrected")
 	-- print(ratio)
@@ -980,11 +1106,24 @@ function TrustPhysicalMove(mob,target,skill,basemod,numhits,attmod,accmod,str_ws
     end
 
     firstHitChance = utils.clamp(firstHitChance, 60, 95)
-
-    if ((chance*100) <= firstHitChance) then
+    -- First Hit
+    if (mob:getLocalVar("ApplyCrit") == 1) then
         pdif = math.random((minRatio*1000),(maxRatio*1000)) --generate random PDIF
         pdif = pdif/1000; --multiplier set.
-        finaldmg = finaldmg + hitdamage * pdif;
+        finaldmg = (finaldmg + saDex + taDex + hitdamage) * pdif + 1
+        mob:setLocalVar("ApplyCrit",0)
+        -- printf("FIRST HIT TRIGGER")
+        -- printf("TA AGi is %u",taDex)
+        hitslanded = hitslanded + 1;
+    elseif ((chance*100) <= firstHitChance) then
+        pdif = math.random((minRatio*1000),(maxRatio*1000)) --generate random PDIF
+        pdif = pdif/1000; --multiplier set.
+        if (mob:getLocalVar("ApplyCrit") == 1) then
+	        finaldmg = (finaldmg + hitdamage) * pdif + 1
+            mob:setLocalVar("ApplyCrit",0)
+	    else
+            finaldmg = finaldmg + hitdamage * pdif;
+        end
         hitslanded = hitslanded + 1;
     end
     while (hitsdone < numhits) do

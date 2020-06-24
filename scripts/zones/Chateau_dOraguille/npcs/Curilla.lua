@@ -34,7 +34,7 @@ function onTrade(player,npc,trade)
         player:startEvent(wsQuestEvent)
     end
 
-    if (trib == 1 and trade:hasItemQty(1460) and meritCount >= 5) then
+    if (trib == 1 and trade:hasItemQty(1432) and meritCount >= 5) then
         player:tradeComplete()
         player:setMerits(meritCount - 5)
         player:PrintToPlayer("Curilla : "..finish,0x0D);
@@ -124,7 +124,9 @@ function onTrigger(player,npc)
     end
 
 
-	    ---------------------------- Curilla Tribute Unlock ----------------------------------
+	-- ------------------------ --
+    --      Tribute Unlock      --
+    -- ------------------------ --
 	if (mLvL >= 75 and player:hasSpell(902) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
         local start = dialog.start
         local done = dialog.finish
@@ -135,7 +137,9 @@ function onTrigger(player,npc)
         player:PrintToPlayer("Curilla : "..remind, 0xD);
 	end
 
-	-- Handle Token Quest
+	-- -------------------- --
+    --  Handle Token Quest  --
+    --------------------------
     if (trib == 2) then
         local quest = job.PLD.start[subRank]
         local token = subRank + 1

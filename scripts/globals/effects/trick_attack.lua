@@ -16,8 +16,8 @@ end
 
 function onEffectLose(target,effect)
     if (target:getObjType() == dsp.objType.TRUST) then
-        target:setLocalVar("TrickAttack",0)
         local agi = target:getMainLvl()
         target:delMod(dsp.mod.AGI, math.floor((agi/4) * 3))
+        printf("TA Wore off")
     end
 end

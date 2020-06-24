@@ -13,11 +13,19 @@ local ID = require("scripts/zones/Heavens_Tower/IDs");
 
 function onTrade(player,npc,trade)
 
-    local currentTokens = player:getVar("CurrentTokens_Kup");
     local war = 11988;
     local rdm = 11992;
     local kupipiSJ = player:getVar("TRUST_SJ_QUEST")
-    local tribfight = player:getVar("KUPIPI_TRIB_FIGHT");
+
+    local currentTokens = player:getVar("CurrentTokens_Kupipi");
+    local trib = player:getVar("[TRUST]KUPIPI_TRIB");
+    local rank = player:getVar("[TRUST]KupipiRank")
+    local subRank = player:getVar("[TRUST]KupipiSubRank")
+    local total = player:getVar("[TRUST]KupipiTokensTotal")
+    local quest = job.WHM.finish[subRank]
+    local finish = dialog.finish
+    local meritCount = getMeritCount()
+
 
     if (trade:hasItemQty(war,1) and kupipiSJ >= 1) then
         player:setVar("KUPIPI_TYPE",1)
@@ -43,79 +51,60 @@ function onTrade(player,npc,trade)
         end
     end
 
-    if ((player:getVar("KUPIPI_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Kup") == 0) and (trade:hasItemQty(65535, 1000)) and (currentTokens >= 1)) then
-      player:PrintToPlayer("Kupipi : Thank you for your Tribute.",0x0D);
-      player:PrintToPlayer("Kupipi's Attack is raised by 5 points! (Total: 5)", 0x15);
-	  player:setVar("TrustAtt_Kup",5);
-	  player:setVar("TributeRank_Kup",1);
-	  currentTokens = currentTokens - 1;
-	  player:setVar("CurrentTokens_Kup",currentTokens);
-    elseif ((player:getVar("KUPIPI_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Kup") == 1) and (trade:hasItemQty(65535, 2000)) and (currentTokens >= 2)) then
-	  player:PrintToPlayer("Kupipi : Thank you for your Tribute.",0x0D);
-      player:PrintToPlayer("Kupipi's Accuracy is raised by 5 points! (Total: 5)", 0x15);
-	  player:setVar("TrustAcc_Kup",5);
-	  player:setVar("TributeRank_Kup",2);
-	  currentTokens = currentTokens - 2;
-	  player:setVar("CurrentTokens_Kup",currentTokens);
-    elseif ((player:getVar("KUPIPI_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Kup") == 2) and (trade:hasItemQty(65535, 3000)) and (currentTokens >= 3)) then
-      player:PrintToPlayer("Kupipi : Thank you for your Tribute.",0x0D);
-      player:PrintToPlayer("Kupipi's Cure Potency is raised by 2%! (Total: 2%)", 0x15);
-	  player:setVar("TrustCure_Kup",2);
-	  player:setVar("TributeRank_Kup",3);
-	  currentTokens = currentTokens - 3;
-	  player:setVar("CurrentTokens_Kup",currentTokens);
-    elseif ((player:getVar("KUPIPI_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Kup") == 3) and (trade:hasItemQty(65535, 4000)) and (currentTokens >= 4)) then
-      player:PrintToPlayer("Kupipi : Thank you for your Tribute.",0x0D);
-      player:PrintToPlayer("Kupipi's Cure Spellcasting Time is reduced by 4%! (Total: 4%)", 0x15);
-	  player:setVar("TrustCast_Kup",4);
-	  player:setVar("TributeRank_Kup",4);
-	  currentTokens = currentTokens - 4;
-	  player:setVar("CurrentTokens_Kup",currentTokens);
-    elseif ((player:getVar("KUPIPI_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Kup") == 4) and (trade:hasItemQty(65535, 5000)) and (currentTokens >= 5)) then
-      player:PrintToPlayer("Kupipi : Thank you for your Tribute.",0x0D);
-      player:PrintToPlayer("Kupipi's Attack is raised by 5 points! (Total: 10)", 0x15);
-	  player:setVar("TrustAtt_Kup",10);
-	  player:setVar("TributeRank_Kup",5);
-	  currentTokens = currentTokens - 5;
-	  player:setVar("CurrentTokens_Kup",currentTokens);
-    elseif ((player:getVar("KUPIPI_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Kup") == 5) and (trade:hasItemQty(65535, 10000)) and (currentTokens >= 10)) then
-      player:PrintToPlayer("Kupipi : Thank you for your Tribute.",0x0D);
-      player:PrintToPlayer("Kupipi's Accuracy is raised by 5 points! (Total: 10)", 0x15);
-	  player:setVar("TrustAcc_Kup",10);
-	  player:setVar("TributeRank_Kup",6);
-	  currentTokens = currentTokens - 10;
-	  player:setVar("CurrentTokens_Kup",currentTokens);
-    elseif ((player:getVar("KUPIPI_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Kup") == 6) and (trade:hasItemQty(65535, 15000)) and (currentTokens >= 15)) then
-      player:PrintToPlayer("Kupipi : Thank you for your Tribute.",0x0D);
-      player:PrintToPlayer("Kupipi's Cure Potency is raised by 3%! (Total: 5%)", 0x15);
-	  player:setVar("TrustCure_Kup",5);
-	  player:setVar("TributeRank_Kup",7);
-	  currentTokens = currentTokens - 15;
-	  player:setVar("CurrentTokens_Kup",currentTokens);
-    elseif ((player:getVar("KUPIPI_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Kup") == 7) and (trade:hasItemQty(65535, 30000)) and (currentTokens >= 20)) then
-      player:PrintToPlayer("Kupipi : Thank you for your Tribute.",0x0D);
-      player:PrintToPlayer("Kupipi's Cure Spellcasting Time is reduced by 4%! (Total: 8%)", 0x15);
-	  player:setVar("TrustCast_Kup",8);
-	  player:setVar("TributeRank_Kup",8);
-	  currentTokens = currentTokens - 20;
-	  player:setVar("CurrentTokens_Kup",currentTokens);
-    elseif ((player:getVar("KUPIPI_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Kup") == 8) and (trade:hasItemQty(65535, 75000)) and (currentTokens >= 30)) then
-      player:PrintToPlayer("Kupipi : Thank you for your Tribute.",0x0D);
-      player:PrintToPlayer("Kupipi's learns the spell 'Protectra V!", 0x15);
-	  player:setVar("TrustPro_Kup",1);
-	  player:setVar("TributeRank_Kup",9);
-	  currentTokens = currentTokens - 30;
-	  player:setVar("CurrentTokens_Kup",currentTokens);
-    elseif ((player:getVar("KUPIPI_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Kup") == 9) and (trade:hasItemQty(65535, 150000)) and (currentTokens >= 35)) then
-      player:PrintToPlayer("Kupipi : Thank you for your Tribute.",0x0D);
-      player:PrintToPlayer("Kupipi learns the spell 'Shellra V!", 0x15);
-	  player:setVar("TrustShell_Kup",1);
-	  player:setVar("TributeRank_Kup",10);
-	  currentTokens = currentTokens - 35;
-	  player:setVar("CurrentTokens_Kup",currentTokens);
+    if (trib == 1 and trade:hasItemQty(1428) and meritCount >= 5) then
+        player:tradeComplete()
+        player:setMerits(meritCount - 5)
+        player:PrintToPlayer("Kupipi : "..finish,0x0D);
+        player:setVar("[TRUST]KUPIPI_TRIB",2)
+    elseif ((trib == 2) and (trade:hasItemQty(65535, 5000)) and (currentTokens >= rank + 1)) then
+        player:PrintToPlayer("Kupipi : Thank you for your Tribute.",0x0D);
+        total = total + 1
+        player:setVar("[TRUST]KupipiTokensTotal",total)
+        player:PrintToPlayer("Kupipi's "..quest.."  (Total Tokens: "..total.."/550)",0x0D);
+	    currentTokens = currentTokens - rank + 1;
+	    player:setVar("CurrentTokens_Kupipi",currentTokens);
+        subRank = subRank + 1
+        if (subRank > 9) then
+            player:setVar("[TRUST]KupipiSubRank",0)
+            player:setVar("[TRUST]KupipiRank",rank + 1)
+            rank = player:getVar("[TRUST]KupipiRank")
+            player:PrintToPlayer("Kupipi's Tribute Rank has risen to "..rank.."!", 0x15);
+        else
+            player:setVar("[TRUST]KupipiSubRank",subRank)
+        end
+        player:tradeComplete()
+
+        -- Trust Point Bonus
+        total = player:getVar("[TRUST]KupipiTokensTotal")
+        if (total >= 550) then
+            player:setVar("[TRUST]KUPIPI_POINTS_PLUS",26)
+            player:PrintToPlayer("Kupipi's will now receive a 26% Trust Point Bonus!", 0x15);
+        elseif (total >= 475) then
+            player:setVar("[TRUST]KUPIPI_POINTS_PLUS",23)
+            player:PrintToPlayer("Kupipi's will now receive a 23% Trust Point Bonus!", 0x15);
+        elseif (total >= 400) then
+            player:setVar("[TRUST]KUPIPI_POINTS_PLUS",20)
+            player:PrintToPlayer("Kupipi's will now receive a 20% Trust Point Bonus!", 0x15);
+        elseif (total >= 325) then
+            player:setVar("[TRUST]KUPIPI_POINTS_PLUS",17)
+            player:PrintToPlayer("Kupipi's will now receive a 17% Trust Point Bonus!", 0x15);
+        elseif (total >= 250) then
+            player:setVar("[TRUST]KUPIPI_POINTS_PLUS",14)
+            player:PrintToPlayer("Kupipi's will now receive a 14% Trust Point Bonus!", 0x15);
+        elseif (total >= 175) then
+            player:setVar("[TRUST]KUPIPI_POINTS_PLUS",11)
+            player:PrintToPlayer("Kupipi's will now receive a 11% Trust Point Bonus!", 0x15);
+        elseif (total >= 100) then
+            player:setVar("[TRUST]KUPIPI_POINTS_PLUS",8)
+            player:PrintToPlayer("Kupipi's will now receive a 8% Trust Point Bonus!", 0x15);
+        elseif (total >= 25) then
+            player:setVar("[TRUST]KUPIPI_POINTS_PLUS",5)
+            player:PrintToPlayer("Kupipi's will now receive a 5% Trust Point Bonus!", 0x15);
+        end
     else
-      player:PrintToPlayer("Kupipi : Please trade the correct amount of Tokens and Gil.",0x0D);
+        player:PrintToPlayer("Kupipi : Please trade the correct amount of Tokens and Gil.",0x0D);
 	end
+
 end;
 
 function onTrigger(player,npc)
@@ -224,41 +213,28 @@ function onTrigger(player,npc)
         player:startEvent(251);
     end
 
-	    ------- Trust Fight --------
-	if ((mainlvl >= 71 and tribfight == 0 and (player:hasSpell(898)) and (player:getVar("FerretoryAura") >= 7) and (player:getVar("TRIB_FIGHT") ~= 1))) then
-	player:PrintToPlayer("Kupipi : There is someone running around claming to be me at Balgas.  Please head there and I'll join you.", 0xD);
-    player:PrintToPlayer("Kupipi : When you are ready, examine the Burning Circle in Balgas Dias and call me to your side.", 0xD);
-	player:setVar("KUPIPI_TRIB_FIGHT",1);
-    player:setVar("TRIB_FIGHT",1);
-	elseif (mainlvl >= 75 and tribfight == 2 and (player:hasSpell(898))) then
-	player:PrintToPlayer("Kupipi : You have done well to help with the imposter investigation.  I am in your debt.", 0xD);
-	player:PrintToPlayer("You are now able to collect Trust Tokens for Kupipi!", 0x15);
-	player:setVar("KUPIPI_TRIB_FIGHT",3);
-    player:setVar("TRIB_FIGHT",0);
+
+	-- ------------------------ --
+    --   Kupipi Tribute Unlock  --
+    -- ------------------------ --
+	if (mLvL >= 75 and player:hasSpell(898) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
+        local start = dialog.start
+        local done = dialog.finish
+	    player:PrintToPlayer("Kupipi : "..start, 0xD);
+        player:setVar("[TRUST]KUPIPI_TRIB",1)
+    elseif (trib == 1) then
+        local remind = dialog.remind
+        player:PrintToPlayer("Kupipi : "..remind, 0xD);
 	end
 
--- Handle Token Quest
-  if ((player:getVar("KUPIPI_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Kup") == 0)) then
-    player:PrintToPlayer("Kupipi : Bring me 1 of my Trust Tokens and 1,000 gil to raise my Attack by 5",0x0D);
-  elseif ((player:getVar("KUPIPI_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Kup") == 1)) then
-    player:PrintToPlayer("Kupipi : Bring me 2 of my Trust Tokens and 2,000 gil to raise my Accuracy by 5",0x0D);
-  elseif ((player:getVar("KUPIPI_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Kup") == 2)) then
-    player:PrintToPlayer("Kupipi : Bring me 3 of my Trust Tokens and 3,000 gil to raise my Cure Potency by 2%",0x0D);
-  elseif ((player:getVar("KUPIPI_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Kup") == 3)) then
-    player:PrintToPlayer("Kupipi : Bring me 4 of my Trust Tokens and 4,000 gil to lower my Cure Casting by 4%",0x0D);
-  elseif ((player:getVar("KUPIPI_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Kup") == 4)) then
-    player:PrintToPlayer("Kupipi : Bring me 5 of my Trust Tokens and 5,000 gil to raise my Attack by 5",0x0D);
-  elseif ((player:getVar("KUPIPI_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Kup") == 5)) then
-    player:PrintToPlayer("Kupipi : Bring me 10 of my Trust Tokens and 10,000 gil to raise my Accuracy by 5",0x0D);
-  elseif ((player:getVar("KUPIPI_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Kup") == 6)) then
-    player:PrintToPlayer("Kupipi : Bring me 15 of my Trust Tokens and 15,000 gil to raise Cure Potency by 3%",0x0D);
-  elseif ((player:getVar("KUPIPI_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Kup") == 7)) then
-    player:PrintToPlayer("Kupipi : Bring me 20 of my Trust Tokens and 30,000 gil to lower my Cure Casting by 4%",0x0D);
-  elseif ((player:getVar("KUPIPI_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Kup") == 8)) then
-    player:PrintToPlayer("Kupipi : Bring me 30 of my Trust Tokens and 75,000 gil so I can learn the spell 'Protectra V'",0x0D);
-  elseif ((player:getVar("KUPIPI_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Kup") == 9)) then
-    player:PrintToPlayer("Kupipi : Bring me 35 of my Trust Tokens and 150,000 gil so I can learn the spell 'Shellra V'",0x0D);
-  end
+	-- -------------------- --
+    --  Handle Token Quest  --
+    --------------------------
+    if (trib == 2) then
+        local quest = job.WHM.start[subRank]
+        local token = subRank + 1
+        player:PrintToPlayer("Kupipi : Bring me "..token.." of my Trust Tokens and 5,000 gil to "..quest,0x0D);
+    end
 
 end;
 

@@ -4,92 +4,82 @@
 -- !pos 122.452 -9.009 -12.052 252
 -----------------------------------
 require("scripts/globals/missions");
+require("scripts/globals/keyitems");
 -----------------------------------
 
 function onTrade(player,npc,trade)
 
     local currentTokens = player:getVar("CurrentTokens_Lion");
+    local trib = player:getVar("[TRUST]LION_TRIB");
+    local rank = player:getVar("[TRUST]LionRank")
+    local subRank = player:getVar("[TRUST]LionSubRank")
+    local total = player:getVar("[TRUST]LionTokensTotal")
+    local quest = job.THF2.finish[subRank]
+    local finish = dialog.finish
+    local meritCount = getMeritCount()
+
+
+
+    if (trib == 1 and trade:hasItemQty(1431,1) and meritCount >= 5) then
+        player:tradeComplete()
+        player:setMerits(meritCount - 5)
+        player:PrintToPlayer("Gilgamesh : "..finish,0x0D);
+        player:setVar("[TRUST]LION_TRIB",2)
+    elseif ((trib == 2) and (trade:hasItemQty(65535, 5000)) and (currentTokens >= rank + 1)) then
+        player:PrintToPlayer("Gilgamesh : Thank you for your Tribute.",0x0D);
+        total = total + 1
+        player:setVar("[TRUST]LionTokensTotal",total)
+        player:PrintToPlayer("Lion's "..quest.."  (Total Tokens: "..total.."/550)",0x0D);
+	    currentTokens = currentTokens - rank + 1;
+	    player:setVar("CurrentTokens_Lion",currentTokens);
+        subRank = subRank + 1
+        if (subRank > 9) then
+            player:setVar("[TRUST]LionSubRank",0)
+            player:setVar("[TRUST]LionRank",rank + 1)
+            rank = player:getVar("[TRUST]LionRank")
+            player:PrintToPlayer("Lion's Tribute Rank has risen to "..rank.."!", 0x15);
+        else
+            player:setVar("[TRUST]LionSubRank",subRank)
+        end
+        player:tradeComplete()
+
+        -- Trust Point Bonus
+        total = player:getVar("[TRUST]LionTokensTotal")
+        if (total >= 550) then
+            player:setVar("[TRUST]LION_POINTS_PLUS",26)
+            player:PrintToPlayer("Lion will now receive a 26% Trust Point Bonus!", 0x15);
+        elseif (total >= 475) then
+            player:setVar("[TRUST]LION_POINTS_PLUS",23)
+            player:PrintToPlayer("Lion will now receive a 23% Trust Point Bonus!", 0x15);
+        elseif (total >= 400) then
+            player:setVar("[TRUST]LION_POINTS_PLUS",20)
+            player:PrintToPlayer("Lion will now receive a 20% Trust Point Bonus!", 0x15);
+        elseif (total >= 325) then
+            player:setVar("[TRUST]LION_POINTS_PLUS",17)
+            player:PrintToPlayer("Lion will now receive a 17% Trust Point Bonus!", 0x15);
+        elseif (total >= 250) then
+            player:setVar("[TRUST]LION_POINTS_PLUS",14)
+            player:PrintToPlayer("Lion will now receive a 14% Trust Point Bonus!", 0x15);
+        elseif (total >= 175) then
+            player:setVar("[TRUST]LION_POINTS_PLUS",11)
+            player:PrintToPlayer("Lion will now receive a 11% Trust Point Bonus!", 0x15);
+        elseif (total >= 100) then
+            player:setVar("[TRUST]LION_POINTS_PLUS",8)
+            player:PrintToPlayer("Lion will now receive a 8% Trust Point Bonus!", 0x15);
+        elseif (total >= 25) then
+            player:setVar("[TRUST]LION_POINTS_PLUS",5)
+            player:PrintToPlayer("Lion will now receive a 5% Trust Point Bonus!", 0x15);
+        end
+    else
+        player:PrintToPlayer("Gilgamesh : Please trade the correct amount of Tokens and Gil.",0x0D);
+	end
 
     if (player:getCurrentMission(BASTOK) == dsp.mission.id.bastok.THE_PIRATE_S_COVE and player:getVar("MissionStatus") == 2) then
         if (trade:hasItemQty(1160,1) and trade:getItemCount() == 1) then -- Frag Rock
             player:startEvent(99); -- Bastok Mission 6-2
         end
     end
-    local tribfight = player:getVar("LION_TRIB_FIGHT");
 
-	if ((player:getVar("LION_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Lion") == 0) and (trade:hasItemQty(65535, 1000)) and (currentTokens >= 1)) then
-      player:PrintToPlayer("Gilgamesh : Thank you for your Tribute.",0x0D);
-      player:PrintToPlayer("Lion's Attack is raised by 5 points! (Total: 5)", 0x15);
-	  player:setVar("TrustAtt_Lion",5);
-	  player:setVar("TributeRank_Lion",1);
-	  currentTokens = currentTokens - 1;
-	  player:setVar("CurrentTokens_Lion",currentTokens);
-    elseif ((player:getVar("LION_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Lion") == 1) and (trade:hasItemQty(65535, 2000)) and (currentTokens >= 2)) then
-	  player:PrintToPlayer("Gilgamesh : Thank you for your Tribute.",0x0D);
-      player:PrintToPlayer("Lion's Accuracy is raised by 5 points! (Total: 5)", 0x15);
-	  player:setVar("TrustAcc_Lion",5);
-	  player:setVar("TributeRank_Lion",2);
-	  currentTokens = currentTokens - 2;
-	  player:setVar("CurrentTokens_Lion",currentTokens);
-    elseif ((player:getVar("LION_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Lion") == 2) and (trade:hasItemQty(65535, 3000)) and (currentTokens >= 3)) then
-      player:PrintToPlayer("Gilgamesh : Thank you for your Tribute.",0x0D);
-      player:PrintToPlayer("Lion's AGI is raised by 5 points! (Total: 5)", 0x15);
-	  player:setVar("TrustAGI_Lion",5);
-	  player:setVar("TributeRank_Lion",3);
-	  currentTokens = currentTokens - 3;
-	  player:setVar("CurrentTokens_Lion",currentTokens);
-    elseif ((player:getVar("LION_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Lion") == 3) and (trade:hasItemQty(65535, 4000)) and (currentTokens >= 4)) then
-      player:PrintToPlayer("Gilgamesh : Thank you for your Tribute.",0x0D);
-      player:PrintToPlayer("Lion's Attack is raised by 5 points! (Total: 10)", 0x15);
-	  player:setVar("TrustAtt_Lion",10);
-	  player:setVar("TributeRank_Lion",4);
-	  currentTokens = currentTokens - 4;
-	  player:setVar("CurrentTokens_Lion",currentTokens);
-    elseif ((player:getVar("LION_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Lion") == 4) and (trade:hasItemQty(65535, 5000)) and (currentTokens >= 5)) then
-      player:PrintToPlayer("Gilgamesh : Thank you for your Tribute.",0x0D);
-      player:PrintToPlayer("Lion's Accuracy is raised by 5 points! (Total: 10)", 0x15);
-	  player:setVar("TrustAcc_Lion",10);
-	  player:setVar("TributeRank_Lion",5);
-	  currentTokens = currentTokens - 5;
-	  player:setVar("CurrentTokens_Lion",currentTokens);
-    elseif ((player:getVar("LION_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Lion") == 5) and (trade:hasItemQty(65535, 10000)) and (currentTokens >= 10)) then
-      player:PrintToPlayer("Gilgamesh : Thank you for your Tribute.",0x0D);
-      player:PrintToPlayer("Lion's AGI is raised by 5 points! (Total: 10)", 0x15);
-	  player:setVar("TrustAGI_Lion",10);
-	  player:setVar("TributeRank_Lion",6);
-	  currentTokens = currentTokens - 10;
-	  player:setVar("CurrentTokens_Lion",currentTokens);
-    elseif ((player:getVar("LION_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Lion") == 6) and (trade:hasItemQty(65535, 15000)) and (currentTokens >= 15)) then
-      player:PrintToPlayer("Gilgamesh : Thank you for your Tribute.",0x0D);
-      player:PrintToPlayer("Lion's Attack is raised by 5 points! (Total: 15)", 0x15);
-	  player:setVar("TrustAtt_Lion",15);
-	  player:setVar("TributeRank_Lion",7);
-	  currentTokens = currentTokens - 15;
-	  player:setVar("CurrentTokens_Lion",currentTokens);
-    elseif ((player:getVar("LION_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Lion") == 7) and (trade:hasItemQty(65535, 30000)) and (currentTokens >= 20)) then
-      player:PrintToPlayer("Gilgamesh : Thank you for your Tribute.",0x0D);
-      player:PrintToPlayer("Lion's Accuracy is raised by 5 points! (Total: 15)", 0x15);
-	  player:setVar("TrustAcc_Lion",15);
-	  player:setVar("TributeRank_Lion",8);
-	  currentTokens = currentTokens - 20;
-	  player:setVar("CurrentTokens_Lion",currentTokens);
-    elseif ((player:getVar("LION_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Lion") == 8) and (trade:hasItemQty(65535, 75000)) and (currentTokens >= 30)) then
-      player:PrintToPlayer("Gilgamesh : Thank you for your Tribute.",0x0D);
-      player:PrintToPlayer("Lion's Triple Attack is raised by 3%! (Total: 3%)", 0x15);
-	  player:setVar("TrustTA_Lion",3);
-	  player:setVar("TributeRank_Lion",9);
-	  currentTokens = currentTokens - 30;
-	  player:setVar("CurrentTokens_Lion",currentTokens);
-    elseif ((player:getVar("LION_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Lion") == 9) and (trade:hasItemQty(65535, 150000)) and (currentTokens >= 35)) then
-      player:PrintToPlayer("Gilgamesh : Thank you for your Tribute.",0x0D);
-      player:PrintToPlayer("Lion learns 'Treasure Hunter II'!", 0x15);
-	  player:setVar("TrustTH_Lion",1);
-	  player:setVar("TributeRank_Lion",10);
-	  currentTokens = currentTokens - 35;
-	  player:setVar("CurrentTokens_Lion",currentTokens);
-    else
-      player:PrintToPlayer("Gilgamesh : Please trade the correct amount of Tokens and Gil.",0x0D);
-	end
 
 end;
 
@@ -136,42 +126,27 @@ function onTrigger(player,npc)
         player:startEvent(177);
     end
 
-		    ------- Trust Fight --------
-	if ((mainlvl >= 71 and tribfight == 0 and (player:hasSpell(907)) and (player:getVar("FerretoryAura") >= 7) and (player:getVar("TRIB_FIGHT") ~= 1))) then
-	player:PrintToPlayer("Gilgamesh : There is someone running around claming to be Lion at QuBai Arena.  Please head there and she'll join you.", 0xD);
-    player:PrintToPlayer("Gilgamesh : When you are ready, examine the Burning Circle in QuBai Arena and call Lion to your side.", 0xD);
-	player:setVar("LION_TRIB_FIGHT",1);
-    player:setVar("TRIB_FIGHT",1);
-	elseif (mainlvl >= 75 and tribfight == 2 and (player:hasSpell(907))) then
-	player:PrintToPlayer("Gilgamesh : You have done well to help with the imposter investigation.  Lion is in your debt.", 0xD);
-	player:PrintToPlayer("You are now able to collect Trust Tokens for Lion!", 0x15);
-	player:setVar("LION_TRIB_FIGHT",3);
-    player:setVar("TRIB_FIGHT",0);
+	-- ------------------------ --
+    --   Lion Tribute Unlock  --
+    -- ------------------------ --
+	if (mLvL >= 75 and player:hasSpell(907) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
+        local start = dialog.start
+        local done = dialog.finish
+	    player:PrintToPlayer("Gilgamesh : "..start, 0xD);
+        player:setVar("[TRUST]LION_TRIB",1)
+    elseif (trib == 1) then
+        local remind = dialog.remind
+        player:PrintToPlayer("Gilgamesh : "..remind, 0xD);
 	end
 
-
-	-- Handle Token Quest
-  if ((player:getVar("LION_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Lion") == 0)) then
-    player:PrintToPlayer("Gilgamesh : Bring me 1 of Lion's Trust Tokens and 1,000 gil to raise Lion's Attack by 5",0x0D);
-  elseif ((player:getVar("LION_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Lion") == 1)) then
-    player:PrintToPlayer("Gilgamesh : Bring me 2 of Lion's Trust Tokens and 2,000 gil to raise Lion's Accuracy by 5",0x0D);
-  elseif ((player:getVar("LION_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Lion") == 2)) then
-    player:PrintToPlayer("Gilgamesh : Bring me 3 of Lion's Trust Tokens and 3,000 gil to raise Lion's Double Attack by 2%",0x0D);
-  elseif ((player:getVar("LION_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Lion") == 3)) then
-    player:PrintToPlayer("Gilgamesh : Bring me 4 of Lion's Trust Tokens and 4,000 gil to raise Lion's Attack by 5",0x0D);
-  elseif ((player:getVar("LION_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Lion") == 4)) then
-    player:PrintToPlayer("Gilgamesh : Bring me 5 of Lion's Trust Tokens and 5,000 gil to raise Lion's Accuracy by 5",0x0D);
-  elseif ((player:getVar("LION_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Lion") == 5)) then
-    player:PrintToPlayer("Gilgamesh : Bring me 10 of Lion's Trust Tokens and 10,000 gil to raise Lion's Double Attack by 3%",0x0D);
-  elseif ((player:getVar("LION_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Lion") == 6)) then
-    player:PrintToPlayer("Gilgamesh : Bring me 15 of Lion's Trust Tokens and 15,000 gil to raise Lion's Attack by 5",0x0D);
-  elseif ((player:getVar("LION_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Lion") == 7)) then
-    player:PrintToPlayer("Gilgamesh : Bring me 20 of Lion's Trust Tokens and 30,000 gil to raise Lion's Accuracy by 5",0x0D);
-  elseif ((player:getVar("LION_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Lion") == 8)) then
-    player:PrintToPlayer("Gilgamesh : Bring me 30 of Lion's Trust Tokens and 75,000 gil so I can raise Lion's Critical Hitrate by 3%'",0x0D);
-  elseif ((player:getVar("LION_TRIB_FIGHT") == 3) and (player:getVar("TributeRank_Lion") == 9)) then
-    player:PrintToPlayer("Gilgamesh : Bring me 35 of Lion's Trust Tokens and 150,000 gil to raise Lion's Berserk by 1%",0x0D);
-  end
+	-- -------------------- --
+    --  Handle Token Quest  --
+    --------------------------
+    if (trib == 2) then
+        local quest = job.THF2.start[subRank]
+        local token = subRank + 1
+        player:PrintToPlayer("Gilgamesh : Bring me "..token.." of Lion's Trust Tokens and 5,000 gil to "..quest,0x0D);
+    end
 
 end;
 

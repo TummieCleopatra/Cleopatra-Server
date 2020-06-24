@@ -14,7 +14,6 @@ function onMobSkillCheck(target,mob,skill)
 end
 
 function onMobWeaponSkill(target, mob, skill)
-
     if (mob:getName() == "Curilla" or mob:getName() == "Naji" or mob:getName() == "Naji-N") then
         local basemod = 1
         local numhits = 2

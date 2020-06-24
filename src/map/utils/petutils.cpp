@@ -1215,7 +1215,7 @@ namespace petutils
         }
 
 
-        
+
 
         PMaster->loc.zone->InsertPET(PTrust);
         PMaster->PParty->ReloadParty();
@@ -1911,6 +1911,80 @@ namespace petutils
         PTrust->UpdateHealth();
         PTrust->health.hp = PTrust->GetMaxHP();
         PTrust->health.mp = PTrust->GetMaxMP();
+
+
+        //char16_t u"\" only reads the firs two hex
+
+        //wchar_t L"\" reads the first two slots and second slots
+        // (const char*)L"\Number")
+        // 230 GM Icon
+        // 231 SE Icon
+        // 232 Coffer Icon
+        // 233 Balls looking thing
+        // 234 Bazaar
+        // 235 Red !
+        // 236 Sandy Flag
+        // 237 Bastok Flag
+        // 238 Blank
+        // 238 Blank
+        // 240 Windy Flag
+        // 241 Red ?
+        // 242 Mentor M
+        // 243 Blue Balista Tag
+        // 244 Yellow Ballista Tag
+        // 245  Red Rock Icon
+        // 246 Red Double Icon
+        // 247 Blank
+        // 248 Blue Double Icon
+        // 249 Blank
+        // 250 Level Sync
+        // 251 Sword Icon
+        // 252 STAR
+        // 253 Evil Cat Icon
+        // 254 Party Icons Small Star
+        // 255 Small Star
+        // 256 Pink heart kind of thing?
+        // 257 Snowflake
+        // 258
+        // 260 is Moon?
+        // 715 Sword
+
+        /*
+        Master Trial Trust STuff use small star
+        if (PTrust->m_PetID == PETID_CURILLA)
+        {
+           // std::wstring str = L"\2605 Curilla";
+            //const char16_t* star = u"\xA100"; //2122 is 2087   2120 is 2077  2120 on 16 is exclimation char16_t u only reads the first two hex
+            //const wchar_t* star = L"\2120";
+            PTrust->name.insert(0, (const char*)L"\255"); //1000 is 40  1008 is 41 1024 is 42  \715is swords
+
+        }
+        if (PTrust->m_PetID == PETID_LUZAF)
+        {
+            // std::wstring str = L"\2605 Curilla";
+            //const wchar_t* starz = L"\26";   //10408  10568?  /230 GM Icon
+            PTrust->name.insert(0, (const char*)L"\261");
+
+        }
+        if (PTrust->m_PetID == PETID_ULMIA)
+        {
+            // std::wstring str = L"\2605 Curilla";
+            //const wchar_t* starz = L"\26";   //10408  10568?
+            PTrust->name.insert(0, (const char*)L"\262");
+
+        }
+
+        if (PTrust->m_PetID == PETID_KUPIPI_R)
+        {
+            // std::wstring str = L"\2605 Curilla";
+            //const wchar_t* starz = L"\26";   //10408  10568?
+            PTrust->name.insert(0, (const char*)L"\263");
+
+        }*/
+
+
+
+
 
         PTrust->Spawn();
         // TODO: Load stats from script

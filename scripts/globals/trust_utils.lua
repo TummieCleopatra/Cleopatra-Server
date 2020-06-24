@@ -195,30 +195,13 @@ function curillaTrustPoints(mob)
 
     -- Evasion Bonus
     if (total >= 300) then
-        mob:addMod(dsp.mod.EVA, 25
-        )
+        mob:addMod(dsp.mod.EVA, 25)
     elseif (total >= 20) then
         mob:addMod(dsp.mod.EVA, 15)
     end
 
     -- Trust Points +
-    if (total >= 550) then
-        mob:setLocalVar("[TRUST]CURILLA_POINTS_PLUS",26)
-    elseif (total >= 475) then
-        mob:setLocalVar("[TRUST]CURILLA_POINTS_PLUS",23)
-    elseif (total >= 400) then
-        mob:setLocalVar("[TRUST]CURILLA_POINTS_PLUS",20)
-    elseif (total >= 325) then
-        mob:setLocalVar("[TRUST]CURILLA_POINTS_PLUS",17)
-    elseif (total >= 250) then
-        mob:setLocalVar("[TRUST]CURILLA_POINTS_PLUS",14)
-    elseif (total >= 175) then
-        mob:setLocalVar("[TRUST]CURILLA_POINTS_PLUS",11)
-    elseif (total >= 100) then
-        mob:setLocalVar("[TRUST]CURILLA_POINTS_PLUS",8)
-    elseif (total >= 25) then
-        mob:setLocalVar("[TRUST]CURILLA_POINTS_PLUS",5)
-    end
+
 
     -- Accuracy Bonus
     if (total >= 410) then
@@ -245,6 +228,10 @@ function curillaTrustPoints(mob)
 
     if (total >= 375) then  -- Change to 300 or 400
         mob:setLocalVar("[TRUST]CURILLA_MAJ",1)
+    end
+
+    if (total >= 150) then
+        mob:setLocalVar("[TRUST]CURILLA_SAVAGE_BLADE",1)
     end
 
     -- HP
@@ -306,7 +293,7 @@ function excenmilleTrustPoints(mob)
     mob:addMod(dsp.mod.AGI, rank + r5)
     mob:addMod(dsp.mod.POLEARM, rank + r6)
     mob:setLocalVar("JumpRecast", rank + r7)
-	mob:setLocalvar("HighJump",rank + r8)
+	mob:setLocalVar("HighJump",rank + r8)
     mob:addMod(dsp.mod.HIGH_JUMP_ENMITY_REDUCTION, rank + r9)
     mob:setLocalVar("SuperJumpRecast",r10)
 
@@ -790,21 +777,21 @@ function kupipiTrustPoints(mob)
     end
 
     -- Trust Points +
-    if (total >= 550) then
+    if (total == 550) then
         mob:setLocalVar("[TRUST]KUPIPI_POINTS_PLUS",26)
-    elseif (total >= 475) then
+    elseif (total == 480) then
         mob:setLocalVar("[TRUST]KUPIPI_POINTS_PLUS",23)
-    elseif (total >= 400) then
+    elseif (total == 405) then
         mob:setLocalVar("[TRUST]KUPIPI_POINTS_PLUS",20)
-    elseif (total >= 325) then
+    elseif (total == 328) then
         mob:setLocalVar("[TRUST]KUPIPI_POINTS_PLUS",17)
-    elseif (total >= 250) then
+    elseif (total == 252) then
         mob:setLocalVar("[TRUST]KUPIPI_POINTS_PLUS",14)
-    elseif (total >= 175) then
+    elseif (total == 180) then
         mob:setLocalVar("[TRUST]KUPIPI_POINTS_PLUS",11)
-    elseif (total >= 100) then
+    elseif (total == 100) then
         mob:setLocalVar("[TRUST]KUPIPI_POINTS_PLUS",8)
-    elseif (total >= 25) then
+    elseif (total == 26) then
         mob:setLocalVar("[TRUST]KUPIPI_POINTS_PLUS",5)
     end
 
@@ -870,20 +857,158 @@ function kupipiTrustPoints(mob)
 end
 
 function zeidTrustPoints(mob)
-    local player = mob:getMaster()
-	local att = player:getVar("TrustAtt_Zeid");
-	local acc = player:getVar("TrustAcc_Zeid");
-	local oa = player:getVar("TrustOA_Zeid");
-	local db = player:getVar("TrustDB_Zeid");
+--[[
 
-    mob:addMod(dsp.mod.ATT, att)
-    mob:addMod(dsp.mod.ACC, acc)
-    mob:addMod(dsp.mod.OCCULT_ACUMEN, oa)
-    mob:addMod(dsp.mod.DESPERATE_BLOWS,db)
+
+1   STR + 1
+2   DEX + 1
+3   INT + 1
+4   MND + 1
+5   GSWD + 1
+6   ELE + 1
+7   DARK + 1
+8   ENFEEB + 1
+9   Last Resort Recast + 1
+10  Soul Eater Recast  ]]--
+
+    local player = mob:getMaster()
+    local total = player:getVar("[TRUST]ZeidTokensTotal")
+    local rank = player:getVar("[TRUST]ZeidRank")
+    local subRank = player:getVar("[TRUST]ZeidSubRank")
+
+    local r1 = subRank/1 >= 1 and 1 or 0
+    local r2 = subRank/2 >= 2 and 1 or 0
+    local r3 = subRank/3 >= 3 and 1 or 0
+    local r4 = subRank/4 >= 4 and 1 or 0
+    local r5 = subRank/5 >= 5 and 1 or 0
+    local r6 = subRank/6 >= 6 and 1 or 0
+    local r7 = subRank/7 >= 7 and 1 or 0
+    local r8 = subRank/8 >= 8 and 1 or 0
+    local r9 = subRank/9 >= 9 and 1 or 0
+    local r10 = rank * 5
+
+
+    mob:addMod(dsp.mod.STR, rank + r1)
+    mob:addMod(dsp.mod.DEX, rank + r2)
+    mob:addMod(dsp.mod.INT, rank + r3)
+	mob:addMod(dsp.mod.MND, rank + r4)
+    mob:addMod(dsp.mod.GSWORD, rank + r5)
+    mob:addMod(dsp.mod.ELEM, rank + r6)
+    mob:addMod(dsp.mod.DARK, rank + r7)
+	mob:addMod(dsp.mod.ENFEEBLE, rank + r8)
+    mob:setLocalVar("LastResortRecast", rank + r9)
+    mob:setLocalVar("SouleaterRecast",r10)
+
+    -- Gifts
+
+
+    -- Attack Bonus 5/180
+    if (total >= 180) then
+        mob:addMod(dsp.mod.ATT, 22)
+    elseif (total >= 5) then
+        mob:addMod(dsp.mod.ATT, 10)
+    end
+
+    -- Acc Bonus 10/210
+    if (total >= 210) then
+        mob:addMod(dsp.mod.ACC, 18)
+    elseif (total >= 10) then
+        mob:addMod(dsp.mod.ACC, 8)
+    end
+
+    -- Defense Bonus  20/300
+    if (total >= 300) then
+        mob:addMod(dsp.mod.DEF, 18)
+    elseif (total >= 20) then
+        mob:addMod(dsp.mod.DEF, 8)
+    end
+
+    -- Trust Points +
+    if (total >= 550) then
+        mob:setLocalVar("[TRUST]ZEID_POINTS_PLUS",26)
+    elseif (total >= 475) then
+        mob:setLocalVar("[TRUST]ZEID_POINTS_PLUS",23)
+    elseif (total >= 400) then
+        mob:setLocalVar("[TRUST]ZEID_POINTS_PLUS",20)
+    elseif (total >= 325) then
+        mob:setLocalVar("[TRUST]ZEID_POINTS_PLUS",17)
+    elseif (total >= 250) then
+        mob:setLocalVar("[TRUST]ZEID_POINTS_PLUS",14)
+    elseif (total >= 175) then
+        mob:setLocalVar("[TRUST]ZEID_POINTS_PLUS",11)
+    elseif (total >= 100) then
+        mob:setLocalVar("[TRUST]ZEID_POINTS_PLUS",8)
+    elseif (total >= 25) then
+        mob:setLocalVar("[TRUST]ZEID_POINTS_PLUS",5)
+    end
+
+    -- Evasion Bonus  30/410
+    if (total >= 410) then
+        mob:addMod(dsp.mod.EVA, 16)
+    elseif (total >= 30) then
+        mob:addMod(dsp.mod.EVA, 10)
+    end
+
+
+	 -- CRIT bonus  50/230
+    if (total >= 230) then
+        mob:addMod(dsp.mod.CRITHITRATE,4)
+    elseif (total >= 50) then
+        mob:addMod(dsp.mod.CRITHITRATE,2)
+    end
+
+    -- HP  70/525
+    if (total >= 525) then
+        mob:addMod(dsp.mod.HP,110)
+    elseif (total >= 70) then
+        mob:addMod(dsp.mod.HP,70)
+    end
+
+	-- 80/450
+	if (total >= 450) then
+	    mob:addMod(dsp.mod.ENMITY, -4)
+    elseif (total >= 80) then
+	    mob:addMod(dsp.mod.ENMITY, -2)
+    end
+
+   -- JA Haste
+    if (total >= 500) then
+        mob:addMod(dsp.mod.HASTE_ABILITY, 8)
+    elseif (total >= 110) then
+	    mob:addMod(dsp.mod.HASTE_ABILITY, 3)
+   end
+
+
+    -- JA/Spell 125
+    if (total >= 125) then
+        mob:setLocalVar("[TRUST]ZEID_BASH",1)
+    end
+
+    -- MP
+    if (total >= 350) then
+        mob:addMod(dsp.mod.MP,85)
+	elseif (total >= 150) then
+	    mob:addMod(dsp.mod.MP,50)
+    end
+
+    -- JA/Spell 425
+    if (total >= 425) then
+        mob:setLocalVar("[TRUST]ZEID_DBLOWS",10)
+    elseif (total >= 425) then
+        mob:setLocalVar("[TRUST]ZEID_DBLOWS",5)
+    end
+
+
+
+    -- JA/Spell 375
+    if (total >= 375) then
+        mob:setLocalVar("[TRUST]ZEID_DEYE",1)
+    end
+
 
 end
 
-function lionTrustPoints(mob)
+
 function lionTrustPoints(mob)
 --[[
 
@@ -1041,46 +1166,471 @@ function lionTrustPoints(mob)
 
 end
 
-end
+
 
 function adelheidTrustPoints(mob)
-    local player = mob:getMaster()
-	local matt = player:getVar("TrustMatt_Adel");
-	local macc = player:getVar("TrustMacc_Adel");
-	local mp = player:getVar("TrustMP_Adel");
-	-- local sub = player:getVar("TrustSub_Adel");     // Script Sublimation Adel
+--[[
 
-    mob:addMod(dsp.mod.MATT, matt)
-    mob:addMod(dsp.mod.MACC, macc)
-    mob:addMod(dsp.mod.MP, mp)
-   -- mob:addMod(dsp.mod.ZANSHIN,zan)
+
+1   helix Duration + 1
+2   INT + 1
+3   MND + 1
+4   CHR + 1
+5   Helix Accuracy
+6   Healing Skill + 1
+7   Elemental Skill + 1
+8   Enhancing Skill + 1
+9   Dark Magic SKill + 1
+10  Sublimation charge +1  ]]--
+
+    local player = mob:getMaster()
+    local total = player:getVar("[TRUST]AdelheidTokensTotal")
+    local rank = player:getVar("[TRUST]AdelheidRank")
+    local subRank = player:getVar("[TRUST]AdelheidSubRank")
+
+    local r1 = subRank/1 >= 1 and 1 or 0
+    local r2 = subRank/2 >= 2 and 1 or 0
+    local r3 = subRank/3 >= 3 and 1 or 0
+    local r4 = subRank/4 >= 4 and 1 or 0
+    local r5 = subRank/5 >= 5 and 1 or 0
+    local r6 = subRank/6 >= 6 and 1 or 0
+    local r7 = subRank/7 >= 7 and 1 or 0
+    local r8 = subRank/8 >= 8 and 1 or 0
+    local r9 = subRank/9 >= 9 and 1 or 0
+    local r10 = rank * 5
+
+
+    mob:addMod(dsp.mod.HELIX_DURATION, rank + r1)
+    mob:addMod(dsp.mod.INT, rank + r2)
+    mob:addMod(dsp.mod.MND, rank + r3)
+	mob:addMod(dsp.mod.CHR, rank + r4)
+    mob:setLocalVar("HelixAcc", rank + r5)
+    mob:addMod(dsp.mod.HEAL, rank + r6)
+    mob:addMod(dsp.mod.ELEM, rank + r7)
+	mob:addMod(dsp.mod.ENHANCE, rank + r8)
+    mob:addMod(dsp.mod.DARK, rank + r9)
+	mob:addMod(dsp.mod.SUBLIMATION_BONUS, r10)
+
+
+    -- Gifts
+
+
+    -- M.Attack Bonus 5/180
+    if (total >= 180) then
+        mob:addMod(dsp.mod.MATT, 28)
+    elseif (total >= 5) then
+        mob:addMod(dsp.mod.MATT, 12)
+    end
+
+    -- M.Acc Bonus 10/210
+    if (total >= 210) then
+        mob:addMod(dsp.mod.MACC, 15)
+    elseif (total >= 10) then
+        mob:addMod(dsp.mod.MACC, 10)
+    end
+
+    -- Defense Bonus  20/300
+    if (total >= 300) then
+        mob:addMod(dsp.mod.DEF, 20)
+    elseif (total >= 20) then
+        mob:addMod(dsp.mod.DEF, 12)
+    end
+
+    -- Trust Points +
+    if (total >= 550) then
+        mob:setLocalVar("[TRUST]ADELHEID_POINTS_PLUS",26)
+    elseif (total >= 475) then
+        mob:setLocalVar("[TRUST]ADELHEID_POINTS_PLUS",23)
+    elseif (total >= 400) then
+        mob:setLocalVar("[TRUST]ADELHEID_POINTS_PLUS",20)
+    elseif (total >= 325) then
+        mob:setLocalVar("[TRUST]ADELHEID_POINTS_PLUS",17)
+    elseif (total >= 250) then
+        mob:setLocalVar("[TRUST]ADELHEID_POINTS_PLUS",14)
+    elseif (total >= 175) then
+        mob:setLocalVar("[TRUST]ADELHEID_POINTS_PLUS",11)
+    elseif (total >= 100) then
+        mob:setLocalVar("[TRUST]ADELHEID_POINTS_PLUS",8)
+    elseif (total >= 25) then
+        mob:setLocalVar("[TRUST]ADELHEID_POINTS_PLUS",5)
+    end
+
+    -- Evasion Bonus  30/410
+    if (total >= 410) then
+        mob:addMod(dsp.mod.EVA, 20)
+    elseif (total >= 30) then
+        mob:addMod(dsp.mod.EVA, 12)
+    end
+
+
+	 -- Regen Bonus bonus  50/230
+    if (total >= 230) then
+        mob:addMod(dsp.mod.REGEN_MULTIPLIER,15)
+    elseif (total >= 50) then
+        mob:addMod(dsp.mod.REGEN_MULTIPLIER,10)
+    end
+
+    -- HP  70/525
+    if (total >= 525) then
+        mob:addMod(dsp.mod.HP,80)
+    elseif (total >= 70) then
+        mob:addMod(dsp.mod.HP,30)
+    end
+
+	-- 80/450
+	if (total >= 450) then
+	    mob:addMod(dsp.mod.ENMITY, -4)
+    elseif (total >= 80) then
+	    mob:addMod(dsp.mod.ENMITY, -2)
+    end
+
+   -- Magic Burst Bonus
+    if (total >= 500) then
+        mob:addMod(dsp.mod.MAG_BURST_BONUS, 15)
+    elseif (total >= 110) then
+	    mob:addMod(dsp.mod.MAG_BURST_BONUS, 10)
+   end
+
+
+    -- JA/Spell 125
+    if (total >= 125) then
+        mob:setLocalVar("[TRUST]ADELHEID_MV",1)
+    end
+
+
+
+    -- Storm Duration  350
+    if (total >= 350) then
+        mob:setLocalVar("[TRUST]ADELHEID_STORM_DURATION",10)
+    end
+
+
+    -- WS 150
+	if (total >= 150) then
+	    mob:addMod(dsp.mod.CURE_POTENCY, 5)
+	end
+
+
+    -- JA/Spell 375
+    if (total >= 375) then
+        mob:setLocalVar("[TRUST]ADELHEID_MV_BONUS",1)
+    end
+
+	-- MP
+	if (total >= 425) then
+	    mob:addMod(dsp.mod.MP,70)
+    elseif (total >= 130) then
+	    mob:addMod(dsp.mod.MP,35)
+	end
+
 
 end
 
-function darcTrustPoints(mob)
+function darrcuilnTrustPoints(mob)
+--[[
+
+
+1   STR + 1
+2   DEX + 1
+3   AGI + 1
+4   VIT + 1
+5   INT + 1
+6   Chain Affinity Rcast - 1
+7   Sword Skill + 1
+8   Blue Skill + 1
+9   Blue PHys Pot + 1
+10  Blue Magic Pot +1  ]]--
+
     local player = mob:getMaster()
-	local att = player:getVar("TrustAtt_Darc");
-	local acc = player:getVar("TrustAcc_Darc");
-	local mp = player:getVar("TrustMP_Darc");
-	local macc = player:getVar("TrustMA_Darc");
-    -- local att = player:getVar("TrustCA_Darc");       // Script Chain Affinity
-    mob:addMod(dsp.mod.ATT, att)
-    mob:addMod(dsp.mod.ACC, acc)
-    mob:addMod(dsp.mod.MP, mp)
-    mob:addMod(dsp.mod.MACC,macc)
+    local total = player:getVar("[TRUST]DarrcuilnTokensTotal")
+    local rank = player:getVar("[TRUST]DarrcuilnRank")
+    local subRank = player:getVar("[TRUST]DarrcuilnSubRank")
+
+    local r1 = subRank/1 >= 1 and 1 or 0
+    local r2 = subRank/2 >= 2 and 1 or 0
+    local r3 = subRank/3 >= 3 and 1 or 0
+    local r4 = subRank/4 >= 4 and 1 or 0
+    local r5 = subRank/5 >= 5 and 1 or 0
+    local r6 = subRank/6 >= 6 and 1 or 0
+    local r7 = subRank/7 >= 7 and 1 or 0
+    local r8 = subRank/8 >= 8 and 1 or 0
+    local r9 = subRank/9 >= 9 and 1 or 0
+    local r10 = rank * 5
+
+
+    mob:addMod(dsp.mod.STR, rank + r1)
+    mob:addMod(dsp.mod.DEX, rank + r2)
+    mob:addMod(dsp.mod.AGI, rank + r3)
+	mob:addMod(dsp.mod.VIT, rank + r4)
+    mob:addMod(dsp.mod.INT, rank + r5)
+    mob:setLocalvar("CA_RECAST", rank + r6)
+    mob:addMod(dsp.mod.SWORD, rank + r7)
+	mob:addMod(dsp.mod.BLUE,rank + r8)
+    mob:setLocalvar("BLUE_PHYS_POT", rank + r9)
+    mob:setLocalvar("BLUE_MAGIC_POT",r10)
+
+    -- Gifts
+
+
+    -- Attack Bonus 5/180
+    if (total >= 180) then
+        mob:addMod(dsp.mod.ATT, 20)
+    elseif (total >= 5) then
+        mob:addMod(dsp.mod.ATT, 12)
+    end
+
+    -- Acc Bonus 10/210
+    if (total >= 210) then
+        mob:addMod(dsp.mod.ACC, 22)
+    elseif (total >= 10) then
+        mob:addMod(dsp.mod.ACC, 11)
+    end
+
+    -- Defense Bonus  20/300
+    if (total >= 300) then
+        mob:addMod(dsp.mod.DEF, 20)
+    elseif (total >= 20) then
+        mob:addMod(dsp.mod.DEF, 10)
+    end
+
+    -- Trust Points +
+    if (total >= 550) then
+        mob:setLocalVar("[TRUST]DARRCUILN_POINTS_PLUS",26)
+    elseif (total >= 475) then
+        mob:setLocalVar("[TRUST]DARRCUILN_POINTS_PLUS",23)
+    elseif (total >= 400) then
+        mob:setLocalVar("[TRUST]DARRCUILN_POINTS_PLUS",20)
+    elseif (total >= 325) then
+        mob:setLocalVar("[TRUST]DARRCUILN_POINTS_PLUS",17)
+    elseif (total >= 250) then
+        mob:setLocalVar("[TRUST]DARRCUILN_POINTS_PLUS",14)
+    elseif (total >= 175) then
+        mob:setLocalVar("[TRUST]DARRCUILN_POINTS_PLUS",11)
+    elseif (total >= 100) then
+        mob:setLocalVar("[TRUST]DARRCUILN_POINTS_PLUS",8)
+    elseif (total >= 25) then
+        mob:setLocalVar("[TRUST]DARRCUILN_POINTS_PLUS",5)
+    end
+
+    -- Evasion Bonus  30/410
+    if (total >= 410) then
+        mob:addMod(dsp.mod.EVA, 15)
+    elseif (total >= 30) then
+        mob:addMod(dsp.mod.EVA, 10)
+    end
+
+
+	 -- CRIT bonus  50/230
+    if (total >= 230) then
+        mob:addMod(dsp.mod.CRITHITRATE,4)
+    elseif (total >= 50) then
+        mob:addMod(dsp.mod.CRITHITRATE,2)
+    end
+
+    -- HP  70/525
+    if (total >= 525) then
+        mob:addMod(dsp.mod.HP,90)
+    elseif (total >= 70) then
+        mob:addMod(dsp.mod.HP,40)
+    end
+
+	-- 80/450
+	if (total >= 450) then
+	    mob:addMod(dsp.mod.MP, 100)
+    elseif (total >= 80) then
+	    mob:addMod(dsp.mod.MP, 50)
+    end
+
+   -- JA Haste
+    if (total >= 500) then
+        mob:addMod(dsp.mod.MATT, 18)
+    elseif (total >= 110) then
+	    mob:addMod(dsp.mod.MATT, 12)
+   end
+
+
+    -- JA/Spell 125
+    if (total >= 425) then
+        mob:setLocalVar("[TRUST]DARRCUILN_ENCHAINMENT",3)
+    elseif (total >= 350) then
+        mob:setLocalVar("[TRUST]DARRCUILN_ENCHAINMENT",2)
+    elseif (total >= 125) then
+        mob:setLocalVar("[TRUST]DARRCUILN_ENCHAINMENT",1)
+    end
+
+    -- Skillchain Damage
+    if (total >= 150) then
+        mob:addMod(dsp.mod.SKILLCHAINDMG,3)
+    end
+
+
+    -- WS 150
+	if (total >= 150) then
+	    mob:setLocalVar("[TRUST]DARRCUILN_WS",1)
+	end
+
+
+    -- JA/Spell 375
+    if (total >= 375) then
+        mob:addMod(dsp.mod.MACC,10)
+    elseif (total >= 130) then
+        mob:addMod(dsp.mod.MACC,10)
+    end
+
 
 end
 
 function najiTrustPoints(mob)
-    local player = mob:getMaster()
-	local att = player:getVar("TrustAtt_Naji");
-	local acc = player:getVar("TrustAcc_Naji");
-	local da = player:getVar("TrustDA_Naji");
-	    -- int32 berserkNaji = charutils::GetVar(PChar, "TrustBerserk_Naji");	// Script Berserk
+--[[
 
-    mob:addMod(dsp.mod.ATT, att)
-    mob:addMod(dsp.mod.ACC, acc)
-    mob:addMod(dsp.mod.DOUBLE_ATTACK, da)
+
+1   STR + 1
+2   DEX + 1
+3   AGI + 1
+4   VIT + 1
+5   MND + 1
+6   SWORD + 1
+7   Berserk Rcast -1
+8   Warcry Recast -1
+9   Defender Recast -1
+10  Aggresor Recast -1  ]]--
+
+    local player = mob:getMaster()
+    local total = player:getVar("[TRUST]NajiTokensTotal")
+    local rank = player:getVar("[TRUST]NajiRank")
+    local subRank = player:getVar("[TRUST]NajiSubRank")
+
+    local r1 = subRank/1 >= 1 and 1 or 0
+    local r2 = subRank/2 >= 2 and 1 or 0
+    local r3 = subRank/3 >= 3 and 1 or 0
+    local r4 = subRank/4 >= 4 and 1 or 0
+    local r5 = subRank/5 >= 5 and 1 or 0
+    local r6 = subRank/6 >= 6 and 1 or 0
+    local r7 = subRank/7 >= 7 and 1 or 0
+    local r8 = subRank/8 >= 8 and 1 or 0
+    local r9 = subRank/9 >= 9 and 1 or 0
+    local r10 = rank * 5
+
+
+    mob:addMod(dsp.mod.STR, rank + r1)
+    mob:addMod(dsp.mod.DEX, rank + r2)
+    mob:addMod(dsp.mod.AGI, rank + r3)
+	mob:addMod(dsp.mod.VIT, rank + r4)
+    mob:addMod(dsp.mod.INT, rank + r5)
+    mob:addMod(dsp.mod.SWORD, rank + r6)
+    mob:setLocalVar("BerserkRecast", rank + r7)
+	mob:setLocalVar("WarcryRecast", rank + r8)
+    mob:setLocalVar("DefenderRecast", rank + r9)
+    mob:setLocalVar("AggressorRecast",r10)
+
+    -- Gifts
+
+
+    -- Attack Bonus 5/180
+    if (total >= 180) then
+        mob:addMod(dsp.mod.ATT, 18)
+    elseif (total >= 5) then
+        mob:addMod(dsp.mod.ATT, 10)
+    end
+
+    -- Acc Bonus 10/210
+    if (total >= 210) then
+        mob:addMod(dsp.mod.ACC, 18)
+    elseif (total >= 10) then
+        mob:addMod(dsp.mod.ACC, 10)
+    end
+
+    -- Defense Bonus  20/300
+    if (total >= 300) then
+        mob:addMod(dsp.mod.DEF, 20)
+    elseif (total >= 20) then
+        mob:addMod(dsp.mod.DEF, 10)
+    end
+
+    -- Trust Points +
+    if (total >= 550) then
+        mob:setLocalVar("[TRUST]NAJI_POINTS_PLUS",26)
+    elseif (total >= 475) then
+        mob:setLocalVar("[TRUST]NAJI_POINTS_PLUS",23)
+    elseif (total >= 400) then
+        mob:setLocalVar("[TRUST]NAJI_POINTS_PLUS",20)
+    elseif (total >= 325) then
+        mob:setLocalVar("[TRUST]NAJI_POINTS_PLUS",17)
+    elseif (total >= 250) then
+        mob:setLocalVar("[TRUST]NAJI_POINTS_PLUS",14)
+    elseif (total >= 175) then
+        mob:setLocalVar("[TRUST]NAJI_POINTS_PLUS",11)
+    elseif (total >= 100) then
+        mob:setLocalVar("[TRUST]NAJI_POINTS_PLUS",8)
+    elseif (total >= 25) then
+        mob:setLocalVar("[TRUST]NAJI_POINTS_PLUS",5)
+    end
+
+    -- Evasion Bonus  30/410
+    if (total >= 410) then
+        mob:addMod(dsp.mod.EVA, 18)
+    elseif (total >= 30) then
+        mob:addMod(dsp.mod.EVA, 10)
+    end
+
+
+	 -- CRIT bonus  50/230
+    if (total >= 230) then
+        mob:addMod(dsp.mod.CRITHITRATE,4)
+    elseif (total >= 50) then
+        mob:addMod(dsp.mod.CRITHITRATE,2)
+    end
+
+    -- HP  70/525
+    if (total >= 525) then
+        mob:addMod(dsp.mod.HP,80)
+    elseif (total >= 70) then
+        mob:addMod(dsp.mod.HP,40)
+    end
+
+	-- 80/450
+	if (total >= 450) then
+	    mob:addMod(dsp.mod.ENMITY, 2)
+    elseif (total >= 80) then
+	    mob:addMod(dsp.mod.ENMITY, 1)
+    end
+
+   -- JA Haste
+    if (total >= 500) then
+        mob:addMod(dsp.mod.DOUBLE_ATTACK, 8)
+    elseif (total >= 110) then
+	    mob:addMod(dsp.mod.DOUBLE_ATTACK, 3)
+   end
+
+
+    -- JA/Spell 125
+    if (total >= 125) then
+        mob:setLocalVar("[TRUST]NAJI_SAVAGERY",1)
+    end
+
+    -- MP
+    if (total >= 350) then
+        mob:addMod(dsp.mod.DAMAGE_LIMIT,10)
+	end
+
+	if (total >= 150) then
+	    mob:setLocalVar("[TRUST]NAJI_SAVAGE_BLADE",1)
+    end
+
+    -- JA/Spell 425
+    if (total >= 425) then
+        mob:addMod(dsp.mod.HASTE_ABILITY, 8)
+    elseif (total >= 130) then
+        mob:addMod(dsp.mod.HASTE_ABILITY, 3)
+    end
+
+
+
+    -- JA/Spell 375
+    if (total >= 375) then
+        mob:setLocalVar("[TRUST]NAJI_TOMAHAWK",1)
+    end
+
 
 end
 
@@ -1618,8 +2168,11 @@ function trustMeleeMove(mob, player, target, angle)
     -- Todo: Maybe put bard closer to the mob, maybe remove size
     -- if (battletime < 10) then
     if (mob:getCurrentAction() ~= dsp.act.MAGIC_CASTING and enmity ~= 0) then
-
-        mob:moveToDistance(size + 2.5, angle, target)
+        if (target:getName() == "Fafnir" or target:getName() == "Nidhogg") then
+            mob:moveToDistance(size + 2.5, 5, target)
+        else
+            mob:moveToDistance(size + 2.5, angle, target)
+        end
     end
 end
 
@@ -1636,7 +2189,11 @@ function trustMageMove(mob, player, target, angle)
     local size = target:getModelSize() -- Take size of model to account
 
     if (mob:getCurrentAction() ~= dsp.act.MAGIC_CASTING and enmity ~= 0) then
-        mob:moveToDistance(size + 15, angle, target)
+        if (target:getName() == "Fafnir" or target:getName() == "Nidhogg") then
+            mob:moveToDistance(size + 2.5, 5, target)
+        else
+            mob:moveToDistance(size + 15, angle, target)
+        end
     end
 end
 
@@ -1863,7 +2420,7 @@ end
 
 function trustPoints(mob, player)
 local trustTokens = player:getVar("TrustTokens");
-local tokenCap = 35;
+local tokenCap = MAX_TRUST_TOKENS;
 
 local AdelheidTokens = player:getVar("CurrentTokens_Adelheid");
 local AdelheidPoints = player:getVar("CurrentPoints_Adelheid");
@@ -1911,7 +2468,30 @@ local zeidTrib = player:getVar("ZEID_TRIB_FIGHT");
 local adelheidTrib = player:getVar("ADEL_TRIB_FIGHT");
 
 local pet;
-local trustpoint = mob:getBaseExp()
+local baseTrustPoints = mob:getBaseExp() * TRUST_POINT_BONUS
+
+--[[
+SAVE THIS FOR LATER
+local dedicatonEffect = getStatusEffect(dsp.effect.DEDICATION);
+local dedication = dedicationEffect:getPower()
+local restingEffect = getStatusEffect(dsp.effect.RESTING_BONUS)
+local resting = restingEffect:getPower()
+
+local trustpoint = baseTrustPoints * (1 + ((resting + dedication) / 100))
+]]--
+
+local trustpoint = baseTrustPoints
+
+-- Bonus Points
+local bonusCurilla = 1 + (player:getVar("[TRUST]CURILLA_POINTS_PLUS") / 100)
+local bonusKupipi = 1 + (player:getVar("[TRUST]KUPIPI_POINTS_PLUS") / 100)
+local bonusAyame = 1 + (player:getVar("[TRUST]AYAME_POINTS_PLUS") / 100)
+local bonusExcenmille = 1 + (player:getVar("[TRUST]EXCENMILLE_POINTS_PLUS") / 100)
+local bonusDarrcuiln = 1 + (player:getVar("[TRUST]DARRCUILN_POINTS_PLUS") / 100)
+local bonusLion = 1 + (player:getVar("[TRUST]LION_POINTS_PLUS") / 100)
+local bonusNanaa = 1 + (player:getVar("[TRUST]NANAA_POINTS_PLUS") / 100)
+local bonusAdelheid = 1 + (player:getVar("[TRUST]ADELHEID_POINTS_PLUS") / 100)
+local bonusZeid = 1 + (player:getVar("[TRUST]ZEID_POINTS_PLUS") / 100)
 
 -- Lets see who is in the party
 
@@ -2030,143 +2610,143 @@ local luzaf = 0
 	        player:PrintToPlayer("You receive "..trustpoint.." Trust Points!!!", 0x15);
             -- Naji
 	        if ((naji == 1) and (najiTrib == 3)) then
-		        player:setVar("CurrentPoints_Naji", NajiPoints + trustpoint);
+		        player:setVar("CurrentPoints_Naji", NajiPoints + (trustpoint * bonusNaji))
 			    NajiPoints = player:getVar("CurrentPoints_Naji");
-			    if (NajiPoints > 10000) then
+			    if (NajiPoints > MAX_TRUST_POINTS) then
 			        player:setVar("CurrentTokens_Naji", NajiTokens + 1);
-					if (player:getVar("CurrentTokens_Naji", NajiTokens) >= 35) then
-					    player:setVar("CurrentTokens_Naji", 35);
+					if (player:getVar("CurrentTokens_Naji", NajiTokens) >= MAX_TRUST_TOKENS) then
+					    player:setVar("CurrentTokens_Naji", MAX_TRUST_TOKENS);
 					end
 				    NajiTokens = player:getVar("CurrentTokens_Naji");
 	                player:PrintToPlayer("You obtain "..NajiTokens.." Trust Token(Naji).  Total: ("..NajiTokens.."/"..tokenCap..").", 0x15);
-				    player:setVar("CurrentPoints_Naji", NajiPoints - 10000);
+				    player:setVar("CurrentPoints_Naji", NajiPoints - MAX_TRUST_POINTS);
 	            end
 	        end
             -- Kupipi
 	        if ((kupipi == 1) and (kupipiTrib == 3)) then
-		        player:setVar("CurrentPoints_Kupipi", KupipiPoints + trustpoint);
+		        player:setVar("CurrentPoints_Kupipi", KupipiPoints + (trustpoint * bonusKupipi))
 			    KupipiPoints = player:getVar("CurrentPoints_Kupipi");
-			    if (KupipiPoints > 10000) then
+			    if (KupipiPoints > MAX_TRUST_POINTS) then
 					player:setVar("CurrentTokens_Kupipi", KupipiTokens + 1);
-					if (player:getVar("CurrentTokens_Kupipi", KupipiTokens) >= 35) then
-					    player:setVar("CurrentTokens_Kupipi", 35);
+					if (player:getVar("CurrentTokens_Kupipi", KupipiTokens) >= MAX_TRUST_TOKENS) then
+					    player:setVar("CurrentTokens_Kupipi", MAX_TRUST_TOKENS);
 					end
 					KupipiTokens = player:getVar("CurrentTokens_Kupipi");
 					player:PrintToPlayer("You obtain "..KupipiTokens.." Trust Token(Kupipi).  Total: ("..KupipiTokens.."/"..tokenCap..").", 0x15);
-					player:setVar("CurrentPoints_Kupipi", KupipiPoints - 10000);
+					player:setVar("CurrentPoints_Kupipi", KupipiPoints - MAX_TRUST_POINTS);
 				end
 			end
 			-- Ayame
 			if ((ayame == 1) and (ayameTrib == 3)) then
-				player:setVar("CurrentPoints_Ayame", AyamePoints + trustpoint);
+				player:setVar("CurrentPoints_Ayame", AyamePoints + (trustpoint * bonusAyame))
 				AyamePoints = player:getVar("CurrentPoints_Ayame");
-				if (AyamePoints > 10000) then
+				if (AyamePoints > MAX_TRUST_POINTS) then
 					player:setVar("CurrentTokens_Ayame", AyameTokens + 1);
-					if (player:getVar("CurrentTokens_Ayame", AyameTokens) >= 35) then
-					    player:setVar("CurrentTokens_Ayame", 35);
+					if (player:getVar("CurrentTokens_Ayame", AyameTokens) >= MAX_TRUST_TOKENS) then
+					    player:setVar("CurrentTokens_Ayame", MAX_TRUST_TOKENS);
 					end
 					AyameTokens = player:getVar("CurrentTokens_Ayame");
 					player:PrintToPlayer("You obtain "..AyameTokens.." Trust Token(Ayame).  Total: ("..AyameTokens.."/"..tokenCap..").", 0x15);
-					player:setVar("CurrentPoints_Ayame", AyamePoints - 10000);
+					player:setVar("CurrentPoints_Ayame", AyamePoints - MAX_TRUST_POINTS);
 				end
 			end
 			-- Nanaa
 			if ((nanaa == 1) and (nanaaTrib == 3)) then
-				player:setVar("CurrentPoints_Nanaa", NanaaPoints + trustpoint);
+				player:setVar("CurrentPoints_Nanaa", NanaaPoints + (trustpoint * bonusNanaa))
 				NanaaPoints = player:getVar("CurrentPoints_Nanaa");
-				if (NanaaPoints > 10000) then
+				if (NanaaPoints > MAX_TRUST_POINTS) then
 					player:setVar("CurrentTokens_Nanaa", NanaaTokens + 1);
-					if (player:getVar("CurrentTokens_Nanaa", NanaaTokens) >= 35) then
-					    player:setVar("CurrentTokens_Nanaa", 35);
+					if (player:getVar("CurrentTokens_Nanaa", NanaaTokens) >= MAX_TRUST_TOKENS) then
+					    player:setVar("CurrentTokens_Nanaa", MAX_TRUST_TOKENS);
 					end
 					NanaaTokens = player:getVar("CurrentTokens_Nanaa");
 					player:PrintToPlayer("You obtain "..NanaaTokens.." Trust Token(Nanaa).  Total: ("..NanaaTokens.."/"..tokenCap..").", 0x15);
-					player:setVar("CurrentPoints_Nanaa", NanaaPoints - 10000);
+					player:setVar("CurrentPoints_Nanaa", NanaaPoints - MAX_TRUST_POINTS);
 				end
 			end
 			-- Curilla
 			if ((curilla == 1) and (curillaTrib == 3)) then
-				player:setVar("CurrentPoints_Curilla", CurillaPoints + trustpoint);
+				player:setVar("CurrentPoints_Curilla", CurillaPoints + (trustpoint * bonusCurilla))
 				CurillaPoints = player:getVar("CurrentPoints_Curilla");
-				if (CurillaPoints > 10000) then
+				if (CurillaPoints > MAX_TRUST_POINTS) then
 					player:setVar("CurrentTokens_Curilla", CurillaTokens + 1);
-					if (player:getVar("CurrentTokens_Curilla", CurillaTokens) >= 35) then
-					    player:setVar("CurrentTokens_Curilla", 35);
+					if (player:getVar("CurrentTokens_Curilla", CurillaTokens) >= MAX_TRUST_TOKENS) then
+					    player:setVar("CurrentTokens_Curilla", MAX_TRUST_TOKENS);
 					end
 					CurillaTokens = player:getVar("CurrentTokens_Curilla");
 					player:PrintToPlayer("You obtain "..CurillaTokens.." Trust Token(Curilla).  Total: ("..CurillaTokens.."/"..tokenCap..").", 0x15);
-					player:setVar("CurrentPoints_Curilla", CurillaPoints - 10000);
+					player:setVar("CurrentPoints_Curilla", CurillaPoints - MAX_TRUST_POINTS);
 				end
 			end
 			-- Excenmille
 			if ((excenmille == 1) and (excenmilleTrib == 3)) then
-				player:setVar("CurrentPoints_Excenmille", ExcenmillePoints + trustpoint);
+				player:setVar("CurrentPoints_Excenmille", ExcenmillePoints + (trustpoint * bonusExcenmille))
 				ExcenmillePoints = player:getVar("CurrentPoints_Excenmille");
-				if (ExcenmillePoints > 10000) then
+				if (ExcenmillePoints > MAX_TRUST_POINTS) then
 					player:setVar("CurrentTokens_Excenmille", ExcenmilleTokens + 1);
-					if (player:getVar("CurrentTokens_Excenmille", ExcenmilleTokens) >= 35) then
-					    player:setVar("CurrentTokens_Excenmille", 35);
+					if (player:getVar("CurrentTokens_Excenmille", ExcenmilleTokens) >= MAX_TRUST_TOKENS) then
+					    player:setVar("CurrentTokens_Excenmille", MAX_TRUST_TOKENS);
 					end
 					ExcenmilleTokens = player:getVar("CurrentTokens_Excenmille");
 					player:PrintToPlayer("You obtain "..ExcenmilleTokens.." Trust Token(Excenmille).  Total: ("..ExcenmilleTokens.."/"..tokenCap..").", 0x15);
-					player:setVar("CurrentPoints_Excenmille", ExcenmillePoints - 10000);
+					player:setVar("CurrentPoints_Excenmille", ExcenmillePoints - MAX_TRUST_POINTS);
 				end
 			end
 			-- Darcullin
 			if ((darrcuiln == 1) and (darcullinTrib == 3)) then
-				player:setVar("CurrentPoints_Darcullin", DarcullinPoints + trustpoint);
+				player:setVar("CurrentPoints_Darcullin", DarcullinPoints + (trustpoint * bonusDarrcuiln));
 				DarcullinPoints = player:getVar("CurrentPoints_Darcullin");
-				if (DarcullinPoints > 10000) then
+				if (DarcullinPoints > MAX_TRUST_POINTS) then
 					player:setVar("CurrentTokens_Darcullin", DarcullinTokens + 1);
-					if (player:getVar("CurrentTokens_Darcullin", DarcullinTokens) >= 35) then
-					    player:setVar("CurrentTokens_Darcullin", 35);
+					if (player:getVar("CurrentTokens_Darcullin", DarcullinTokens) >= MAX_TRUST_TOKENS) then
+					    player:setVar("CurrentTokens_Darcullin", MAX_TRUST_TOKENS);
 					end
 					DarcullinTokens = player:getVar("CurrentTokens_Darcullin");
 					player:PrintToPlayer("You obtain "..DarcullinTokens.." Trust Token(Darcullin).  Total: ("..DarcullinTokens.."/"..tokenCap..").", 0x15);
-					player:setVar("CurrentPoints_Darcullin", DarcullinPoints - 10000);
+					player:setVar("CurrentPoints_Darcullin", DarcullinPoints - MAX_TRUST_POINTS);
 				end
 			end
 			-- Adelheid
 			if ((adelheid == 1) and (adelheidTrib == 3)) then
-				player:setVar("CurrentPoints_Adelheid", AdelheidPoints + trustpoint);
+				player:setVar("CurrentPoints_Adelheid", AdelheidPoints + (trustpoint * bonusAdelheid));
 				AdelheidPoints = player:getVar("CurrentPoints_Adelheid");
-				if (AdelheidPoints > 10000) then
+				if (AdelheidPoints > MAX_TRUST_POINTS) then
 					player:setVar("CurrentTokens_Adelheid", AdelheidTokens + 1);
-					if (player:getVar("CurrentTokens_Adelheid", AdelheidTokens) >= 35) then
-					    player:setVar("CurrentTokens_Adelheid", 35);
+					if (player:getVar("CurrentTokens_Adelheid", AdelheidTokens) >= MAX_TRUST_TOKENS) then
+					    player:setVar("CurrentTokens_Adelheid", MAX_TRUST_TOKENS);
 					end
 					AdelheidTokens = player:getVar("CurrentTokens_Adelheid");
 					player:PrintToPlayer("You obtain "..AdelheidTokens.." Trust Token(Adelheid).  Total: ("..AdelheidTokens.."/"..tokenCap..").", 0x15);
-					player:setVar("CurrentPoints_Adelheid", AdelheidPoints - 10000);
+					player:setVar("CurrentPoints_Adelheid", AdelheidPoints - MAX_TRUST_POINTS);
 				end
 			end
 			-- Lion
 			if ((lion == 1) and (lionTrib == 3)) then
-				player:setVar("CurrentPoints_Lion", LionPoints + trustpoint);
+				player:setVar("CurrentPoints_Lion", LionPoints + (trustpoint * bonusLion));
 				LionPoints = player:getVar("CurrentPoints_Lion");
-				if (LionPoints > 10000) then
+				if (LionPoints > MAX_TRUST_POINTS) then
 					player:setVar("CurrentTokens_Lion", LionTokens + 1);
-					if (player:getVar("CurrentTokens_Lion", LionTokens) >= 35) then
-					    player:setVar("CurrentTokens_Lion", 35);
+					if (player:getVar("CurrentTokens_Lion", LionTokens) >= MAX_TRUST_TOKENS) then
+					    player:setVar("CurrentTokens_Lion", MAX_TRUST_TOKENS);
 					end
 					LionTokens = player:getVar("CurrentTokens_Lion");
 					player:PrintToPlayer("You obtain "..LionTokens.." Trust Token(Lion).  Total: ("..LionTokens.."/"..tokenCap..").", 0x15);
-					player:setVar("CurrentPoints_Lion", LionPoints - 10000);
+					player:setVar("CurrentPoints_Lion", LionPoints - MAX_TRUST_POINTS);
 				end
 			end
 
 			-- Zeid
 			if ((zeid == 1) and (zeidTrib == 3)) then
-				player:setVar("CurrentPoints_Zeid", ZeidPoints + trustpoint);
+				player:setVar("CurrentPoints_Zeid", ZeidPoints + (trustpoint * bonusZeid));
 				ZeidPoints = player:getVar("CurrentPoints_Zeid");
-				if (ZeidPoints > 10000) then
+				if (ZeidPoints > MAX_TRUST_POINTS) then
 					player:setVar("CurrentTokens_Zeid", ZeidTokens + 1);
-					if (player:getVar("CurrentTokens_Zeid", ZeidTokens) >= 35) then
-					    player:setVar("CurrentTokens_Zeid", 35);
+					if (player:getVar("CurrentTokens_Zeid", ZeidTokens) >= MAX_TRUST_TOKENS) then
+					    player:setVar("CurrentTokens_Zeid", MAX_TRUST_TOKENS);
 					end
 					ZeidTokens = player:getVar("CurrentTokens_Zeid");
 					player:PrintToPlayer("You obtain "..ZeidTokens.." Trust Token(Zeid).  Total: ("..ZeidTokens.."/"..tokenCap..").", 0x15);
-					player:setVar("CurrentPoints_Zeid", ZeidPoints - 10000);
+					player:setVar("CurrentPoints_Zeid", ZeidPoints - MAX_TRUST_POINTS);
 				end
 			end
 
