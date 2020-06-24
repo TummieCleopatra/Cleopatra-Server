@@ -31,6 +31,7 @@
 
 #include "lua/luautils.h"
 #include "latent_effect_container.h"
+#include "map.h"
 
 /************************************************************************
 *                                                                       *
@@ -83,10 +84,11 @@ namespace conquest
         int t_besiegedStatus = 0;
         int u_besiegedStatus = 0;
         int undeadLvl = 0;
-		
+        int mamoolLvl = 0;
+
 		//Hore Rate Multiplier
 		int u_rateMult = 1;
-		
+
         int32 besiegeStatus = 0;
         int32 ret = Sql_Query(SqlHandle, "SELECT value FROM server_variables WHERE name = '[BESIEGED]Undead_Swarm_LVL';");
 
@@ -95,6 +97,16 @@ namespace conquest
             while (Sql_NextRow(SqlHandle) == SQL_SUCCESS)
             {
                 undeadLvl = (int8)Sql_GetIntData(SqlHandle, 0);
+            }
+        }
+
+        int32 retm = Sql_Query(SqlHandle, "SELECT value FROM server_variables WHERE name = '[BESIEGED]Mamool_Ja_LVL';");
+
+        if (retm != SQL_ERROR && Sql_NumRows(SqlHandle) != 0)
+        {
+            while (Sql_NextRow(SqlHandle) == SQL_SUCCESS)
+            {
+                mamoolLvl = (int8)Sql_GetIntData(SqlHandle, 0);
             }
         }
 
@@ -107,7 +119,17 @@ namespace conquest
                 u_besiegedStatus = (int32)Sql_GetIntData(SqlHandle, 0);
             }
         }
-		
+
+        int32 mreq = Sql_Query(SqlHandle, "SELECT value FROM server_variables WHERE name = '[BESIEGED]Mamool_Ja_Status';");
+
+        if (mreq != SQL_ERROR && Sql_NumRows(SqlHandle) != 0)
+        {
+            while (Sql_NextRow(SqlHandle) == SQL_SUCCESS)
+            {
+                m_besiegedStatus = (int32)Sql_GetIntData(SqlHandle, 0);
+            }
+        }
+
         int32 urmult = Sql_Query(SqlHandle, "SELECT value FROM server_variables WHERE name = '[BESIEGED]Undead_Multiplier';");
 
         if (urmult != SQL_ERROR && Sql_NumRows(SqlHandle) != 0)
@@ -116,7 +138,7 @@ namespace conquest
             {
                 u_rateMult = (int8)Sql_GetIntData(SqlHandle, 0);
             }
-        }		
+        }
 
         const char* Nquery = "SELECT id, mamool_ac, troll_ac, undead_ac, mamool_lvl, troll_lvl, \
                           undead_lvl, mamool_status, troll_status, undead_status, mamool_base_status, \
@@ -212,6 +234,7 @@ namespace conquest
                 //dsprand::GetRandomNumber(100) < 33
 
                 ulvl = undeadLvl;
+                mlvl = mamoolLvl;
                 //Reset Force after win/loss
                 if (u_besiegedStatus == 11){
                     ubforces = 0;
@@ -231,23 +254,48 @@ namespace conquest
                 }
 
 
+                if (m_besiegedStatus == 11){
+                    mbforces = 0;
+                    mstatus = 0;
+                    mbstatus = 0;
+                    m_besiegedStatus = 0;
+
+                    //only write debug message to the zone that has besieged
+                    if (PZone)
+                    {
+                        ShowDebug(CL_CYAN"Resetting Mamool Status.  Status is now at %u  \n" CL_RESET, mstatus);
+                        ShowDebug(CL_CYAN"Resetting Mamool.  Forces are now at %u  \n" CL_RESET, mbforces);
+                    }
+
+                    Sql_Query(SqlHandle, "UPDATE server_variables SET value = %d WHERE name = '[BESIEGED]Mamool_Ja_Status';", m_besiegedStatus);
+                    Sql_Query(SqlHandle, "UPDATE besiege_system SET mamool_base_status = '%d' WHERE id = '1';", mbstatus, id);
+                }
+
+
+
                 int mforcerand = 0;
                 int tforcerand = 0;
                 int uforcerand = 0;
-				
+
 				if (PZone)
 				{
-	                mforcerand = dsprand::GetRandomNumber(2,7);
-                    tforcerand = dsprand::GetRandomNumber(2,7);
-                    uforcerand = dsprand::GetRandomNumber(6,17) * u_rateMult;				
+	                mforcerand = (uint8)(dsprand::GetRandomNumber(3,7) * map_config.mamool_savages_growth);
+                    tforcerand = (uint8)(dsprand::GetRandomNumber(3,7) * map_config.troll_mercenaries_growth);
+                    uforcerand = (uint8)(dsprand::GetRandomNumber(3,7) * map_config.undead_swarm_growth);
 				}
-									
+
                 if (mstatus == 0 || mstatus == 5) {
                     mbforces = mbforces + mforcerand;
                     if (mbforces > (100 + (mlvl * 10))){
                         mbforces = 100 + (mlvl * 10); // cap forces based on level.
                     }
                     //ShowDebug(CL_CYAN"Updating Mamool Ja Forces.  Forces are now at %u  \n" CL_RESET, mbforces);
+
+                    //only write debug message to the zone that has besieged
+                    if (PZone)
+                    {
+                        ShowDebug(CL_CYAN"Mamool Ja Forces: %u  \n" CL_RESET, mbforces);
+                    }
                 }
                 if (tstatus == 0 || tstatus == 5) {
                     tbforces = tbforces + tforcerand;
@@ -255,9 +303,15 @@ namespace conquest
                         tbforces = 100 + (tlvl * 10); // cap forces based on level.
                     }
                     //ShowDebug(CL_CYAN"Updating Troll Forces.  Forces are now at %u \n" CL_RESET, tbforces);
+                    /*
+                    if (PZone)
+                    {
+                        ShowDebug(CL_CYAN"Troll Savages Forces: %u  \n" CL_RESET, tbforces);
+                    }  */
+
                 }
                 //float growth = map_config.undead_swarm_growth;
-                if (ustatus == 0 || ustatus == 5) {				
+                if (ustatus == 0 || ustatus == 5) {
                     ubforces = ubforces + uforcerand;
                     if (ubforces > (100 + (ulvl * 10))){
                         ubforces = 100 + (ulvl * 10); // cap forces based on level.
@@ -266,14 +320,30 @@ namespace conquest
                     //only write debug message to the zone that has besieged
                     if (PZone)
                     {
-                        ShowDebug(CL_CYAN"Updating Undead Forces.  Forces are now at %u  \n" CL_RESET, ubforces);
+                        ShowDebug(CL_CYAN"Undead Forces: %u  \n" CL_RESET, ubforces);
                     }
-
-
                 }
 
-				
-                //Set Advance to Attack based on ticker
+
+                //Set Mamool Advance to Attack based on ticker
+                if (mstatus == 1) {
+                    mbstatus++;
+					if (PZone)
+					{
+                        ShowDebug(CL_GREEN"Mamool March Counter is now %u \n" CL_RESET, mbstatus);
+					}
+                    if (mbstatus == 2) {
+                        mstatus = 2;
+						if (PZone)
+						{
+                            ShowDebug(CL_GREEN"Mamool Ja Savages are now Attacking! \n" CL_RESET);
+						}
+                        Sql_Query(SqlHandle, "UPDATE server_variables SET value = %d WHERE name = '[BESIEGED]Mamool_Ja_Status';", mstatus);
+                    }
+                    Sql_Query(SqlHandle, "UPDATE besiege_system SET mamool_base_status = '%d' WHERE id = %d;", mbstatus, id);
+                }
+
+                //Set Undead Advance to Attack based on ticker
                 if (ustatus == 1) {
                     ubstatus++;
 					if (PZone)
@@ -290,13 +360,16 @@ namespace conquest
                         Sql_Query(SqlHandle, "UPDATE server_variables SET value = %d WHERE name = '[BESIEGED]Undead_Swarm_Status';", ustatus);
                     }
                     Sql_Query(SqlHandle, "UPDATE besiege_system SET undead_base_status = '%d' WHERE id = %d;", ubstatus, id);
-                }				
-								
+                }
+
                 //Set Preparing to Advance
-                if ((mbforces) >= 100 + (mlvl * 10) && mstatus == 5){
+                if ((mbforces) >= 100 + (mlvl * 10) && mstatus == 0){
                     mstatus = 1;
-                    //ShowDebug(CL_GREEN"Set Mamool from Preparing to March \n" CL_RESET);
-                    m_besiegedStatus = 1;
+					if (PZone)
+					{
+                        ShowDebug(CL_GREEN"Change Mamool Ja from Preparing to March \n" CL_RESET);
+                    }
+                    Sql_Query(SqlHandle, "UPDATE server_variables SET value = %d WHERE name = '[BESIEGED]Mamool_Ja_Status';", mstatus);
                 }
                 if ((tbforces) >= 100 + (tlvl * 10) && tstatus == 5){
                     tstatus = 1;
@@ -311,12 +384,15 @@ namespace conquest
                     }
 					//Sql_Query(SqlHandle, "REPLACE INTO server_variables (name,value) VALUES('[BESIEGED]Undead_Swarm_Status',%u);",ustatus); //set server var to march status
                     Sql_Query(SqlHandle, "UPDATE server_variables SET value = %d WHERE name = '[BESIEGED]Undead_Swarm_Status';", ustatus);
-                }				
-				
+                }
+
                 //Set Training ->Perparing
                 if ((mbforces) >= 100 && mstatus < 1) {
-                    //ShowDebug(CL_GREEN"Set Mamool from Training to Preparing \n" CL_RESET);
-                    mstatus = 5;
+					if (PZone)
+					{
+                        ShowDebug(CL_GREEN"Mamool Ja are Preparing \n" CL_RESET);
+					}
+                    mstatus = 0;
                 }
                 if ((tbforces) >= 100 && tstatus < 1) {
                     //ShowDebug(CL_GREEN"Set Troll from Training to Preparing \n" CL_RESET);

@@ -36,7 +36,7 @@ end;
 function onTrigger(player,npc)
     if (player:hasKeyItem(dsp.ki.TAUPE_COLORED_SEAL)) then
 	    if (player:getFreeSlotsCount() == 0) then
-		    player:messageSpecial(TD.text.ITEM_CANNOT_BE_OBTAINED,2596);
+		    player:messageSpecial(ID.text.ITEM_CANNOT_BE_OBTAINED,2596);
 	    else
 	        player:delKeyItem(dsp.ki.TAUPE_COLORED_SEAL);
 			player:messageSpecial(ID.text.KEYITEM_LOST,dsp.ki.TAUPE_COLORED_SEAL);

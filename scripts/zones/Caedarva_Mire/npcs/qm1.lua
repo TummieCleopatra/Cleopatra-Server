@@ -23,8 +23,8 @@ function onTrade(player,npc,trade)
     elseif (trade:hasItemQty(2635,1) and trade:getItemCount() == 1) then -- Trade Verdelet Wing
         if (GetMobAction(mobID) == dsp.act.NONE) then
             player:tradeComplete();
-            player:addKeyItem(dsp.ki.AMBER_SEAL);
-			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.AMBER_SEAL);
+            player:addKeyItem(dsp.ki.AMBER_COLORED_SEAL);
+			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.AMBER_COLORED_SEAL);
         end
     end
 end;

@@ -54,6 +54,62 @@ zones[dsp.zone.AL_ZAHBI] =
     },
     besieged =
     {
+        MAMOOL =
+        {
+            [1] = 16973825,  -- Mamool Ja Sapper
+            [2] = 16973854,  -- Scout Puk
+            [3] = 16973826,  -- Mamool Ja Hospitaler
+            [4] = 16973827,  -- Mamool Ja Fetial
+            [5] = 16973863,  -- Attack Ziz
+            [6] = 16973828,  -- Mamool Ja Spotter
+            [7] = 16973899,  -- Bull Bugard
+            [8] = 16973829,  -- Mamool Ja Handler
+            [9] = 16973873,  -- War Wyvern
+            [10] = 16973845,  -- Mamool Ja Fetial
+            [11] = 16973884,  -- Dive-Puk
+            [12] = 16973831,  -- Mamool Ja Cataphract
+            [13] = 16973858,  -- Raid Raptor
+            [14] = 16973833,  -- Mamool Ja Entrancer
+            [15] = 16973852,  -- Scout Puk
+            [16] = 16973853,  -- Scout Puk
+            [17] = 16973857,  -- Raid Raptor
+            [18] = 16973836,  -- Mamool Ja Fetial
+            [19] = 16973837,  -- Mamool Ja Spotter
+            [20] = 16973862,  -- Attack Ziz
+            [21] = 16973867,  -- Battering Bugard
+            [22] = 16973872,  -- War Wyvern
+            [23] = 16973877,  -- Poroggo Charmer
+            [24] = 16973883,  -- Dive-Puk
+            [25] = 16973835,  -- Mamool Ja Hospitaler
+            [26] = 16973838,  -- Mamool Ja Handler
+            [27] = 16973898,  -- Bull Bugard
+            [28] = 16973846,  -- Mamool Ja Spotter
+            [29] = 16973868,  -- Battering Bugard
+            [30] = 16973847,  -- Mamool Ja Handler
+            [31] = 16973878,  -- Poroggo Charmer
+            [32] = 16973840,  -- Mamool Ja Cataphract
+            [33] = 16973842,  -- Mamool Ja Entrancer
+            [34] = 16973843,  -- Mamool Ja Sapper
+            [35] = 16973844,  -- Mamool Ja Hospitaler
+            [36] = 16973849,  -- Mamool Ja Cataphract
+            [37] = 16973851,  -- Mamool Ja Entrancer
+            [38] = 16973893,  -- Mamool Ja Ravager
+            [39] = 16973894,  -- Mamool Ja Ravager
+            [40] = 16973921,  -- Mamool Ja Hussar
+        },
+        MAMOOL_BOSS =
+        {
+            [1] = 16973902,  -- Decimator Mabel Ja
+            [2] = 16973903,  -- Thunderclap Sareel Ja
+            [3] = 16973904,  -- Thunderbolt Piraal Ja
+            [4] = 16973905,  -- Panurgic Ryubool Ja
+            [5] = 16973906,  -- Sagelord Molaal Ja
+            [6] = 16973907,  -- Strifelord Bakool Ja
+            [7] = 16973919,  -- Searing Vogaal Ja
+            [8] = 16973920,  -- Scalding Fafool Ja
+            [9] = 16973900,  -- Gulool_Ja_Ja
+            [10] = 16973901, -- Illuyankas
+        },
         UNDEAD =
         {
             [1] = 16974025,  -- Lamia Immolator

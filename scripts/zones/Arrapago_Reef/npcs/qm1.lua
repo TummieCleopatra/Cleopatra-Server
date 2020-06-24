@@ -5,7 +5,7 @@
 -----------------------------------
 package.loaded["scripts/zones/Arrapago_Reef/IDs"] = nil;
 -----------------------------------
-require("scripts/zones/Arrapago_Reef/IDs");
+local ID = require("scripts/zones/Arrapago_Reef/IDs");
 require("scripts/globals/status");
 require("scripts/globals/keyitems");
 
@@ -24,8 +24,8 @@ function onTrade(player,npc,trade)
         if (GetMobAction(mobID) == dsp.act.NONE) then
             player:tradeComplete();
             player:addKeyItem(dsp.ki.PINE_GREEN_SEAL);
-			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.PINE_GREEN_SEAL);			
-        end		
+			player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.PINE_GREEN_SEAL);
+        end
     end
 end;
 

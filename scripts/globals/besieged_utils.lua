@@ -10,10 +10,12 @@ require("scripts/globals/settings");
 function besiegedCheck(zone)
     local players = zone:getPlayers();
     -- Check the status of besieged Army's
-    local mamool = GetServerVariable("[BESIEGED]Mamool_Status");
+    local besiegedStatus = GetServerVariable("[BESIEGED]STATUS");
+    local mamool = GetServerVariable("[BESIEGED]Mamool_Ja_Status");
     local mamoolStart = GetServerVariable("[BESIEGED]Mamool_Start");
-    local mamoolEnd = GetServerVariable("[BESIEGED]Mamool_End");
+    local mamoolEnd = GetServerVariable("[BESIEGED]Mamool_Ja_End");
     local mamoolLvl = GetServerVariable("[BESIEGED]Mamool_LVL");
+    local mamoolMarch = GetServerVariable("[BESIEGED]Mamool_Ja_March");
 
     local troll = GetServerVariable("[BESIEGED]Troll_Status");
     local trollStart = GetServerVariable("[BESIEGED]Troll_Start");
@@ -38,7 +40,12 @@ function besiegedCheck(zone)
 	            player:messageSpecial(ID.text.MAMOOL_MARCH);
 	        end
         end
-        SetServerVariable("[BESIEGED]Mamool_Status",10);
+        despawnNPCS()
+        spawnForces()
+        mamoolMarch = os.time() + 250
+        SetServerVariable("[BESIEGED]Mamool_Ja_March",mamoolMarch)
+        printf("Current time is %u",os.time())
+        printf("Current march Time for Mamool Ja is %u",mamoolMarch)
     elseif (troll == 1) then
         if (players ~= nil) then
 	        for i, player in pairs(players) do
@@ -83,9 +90,40 @@ function besiegedCheck(zone)
     printf("[Undead Swarm Status is %u]",undead)
 	printf("Undead_Swarm_March is %u",undeadMarch)
 
+    printf("[Mamool Ja Status is %u]",mamool)
+	printf("Mamool_Ja_March is %u",mamoolMarch)
 
-    -- elseif (undead == 2 and troll >= 10 and mamool >= 10) then
-    if ((undead == 2) and (os.time() > undeadMarch) and undeadMarch ~= 0) then
+    -- --------------------------- --
+    -- Besieged Spawning Mechanism --
+    -- --------------------------- --
+
+    if ((mamool == 2) and (os.time() > mamoolMarch) and mamoolMarch ~= 0 and besiegedStatus ~= 1) then
+        SetServerVariable("[BESIEGED]Mamool_Ja_March",0);
+        local randomize = math.random(1,4)
+		randomize = randomize * 3
+		randomize = randomize * 60
+        SetServerVariable("[BESIEGED]Mamool_Ja_End",os.time() + 1110 + randomize);
+        printf("======== START MAMOOL JA BESIEGED!!! =========")
+        printf("Current time is %u",os.time())
+        printf("End time is: %u", os.time() + 1110 + randomize)
+        SetServerVariable("[BESIEGED]Mamool_Ja_Status",3);
+        SetServerVariable("[BESIEGED]STATUS",1);
+        spawnMamool(mamoolLvl,zone)
+        if (players ~= nil) then
+            for i, player in pairs(players) do
+                if (not player:isInMogHouse()) then
+                    local start = math.random(1,20)
+                    player:messageSpecial(ID.text.MAMOOL_START);
+                    player:addStatusEffect(dsp.effect.BESIEGED,0,3,3600)
+                    player:ChangeMusic(1, 142)
+                    player:ChangeMusic(2, 142)
+                    player:startEvent(8,start)
+                else
+                    player:messageSpecial(ID.text.MAMOOL_START);
+                end
+            end
+        end
+    elseif ((undead == 2) and (os.time() > undeadMarch) and undeadMarch ~= 0 and besiegedStatus ~= 1) then
         -- SetServerVariable("[BESIEGED]Undead_Swarm_Start",0);
         SetServerVariable("[BESIEGED]Undead_Swarm_March",0);
         local randomize = math.random(1,4)
@@ -97,25 +135,24 @@ function besiegedCheck(zone)
         printf("End time is: %u", os.time() + 1110 + randomize)
 
         SetServerVariable("[BESIEGED]Undead_Swarm_Status",3);
+        SetServerVariable("[BESIEGED]STATUS",1);
         -- do cs here
         -- set spawns
         spawnUndead(undeadLvl,zone)
-        if (not player:isInMogHouse()) then
-            if (players ~= nil) then
-                for i, player in pairs(players) do
+        if (players ~= nil) then
+            for i, player in pairs(players) do
+                if (not player:isInMogHouse()) then
                     local start = math.random(1,20)
                     player:messageSpecial(ID.text.UNDEAD_START);
                     player:addStatusEffect(dsp.effect.BESIEGED,0,3,3600)
                     player:ChangeMusic(1, 142)
                     player:ChangeMusic(2, 142)
                     player:startEvent(5,start)
+                else
+                    player:messageSpecial(ID.text.UNDEAD_START);
                 end
             end
-        else
-            player:messageSpecial(ID.text.UNDEAD_START);
         end
-
-
     end
 
    if (mamoolEnd > 1) then
@@ -129,6 +166,11 @@ function besiegedCheck(zone)
                 stop = 40
             end
 
+			DespawnMob(ID.besieged.MAMOOL_BOSS[undeadLvl]) -- Spawn Boss for Level
+            -- Depsawn Helpers
+            despawnForces()
+            -- Spawn Regular Zone NPCS
+            spawnNPCS()
             for i, player in pairs(players) do
                 local ending = math.random(1,20)
 	            player:messageSpecial(ID.text.MAMOOL_LOSE);
@@ -148,9 +190,12 @@ function besiegedCheck(zone)
             for i,v in pairs(ID.besieged.MAMOOL) do
             -- GetMobByID(v):setSpawn(-333,-20,231,180)
                 if (i < stop) then
-                    DespawnMob(v);
+				    if (GetMobByID(v):isAlive()) then
+			            printf("Despawning Mob ID: %u",v)
+                        DespawnMob(v);
+					    print(i)
+				    end
                 else
-                    DespawnMob(ID.besieged.MAMOOL_BOSS[mamoolLvl]) -- Spawn Boss for Level
                     break
                 end
             end
@@ -158,6 +203,7 @@ function besiegedCheck(zone)
             despawnForces()
             -- Spawn Regular Zone NPCS
             spawnNPCS()
+            SetServerVariable("[BESIEGED]STATUS",0);
         end
     end
 
@@ -172,6 +218,11 @@ function besiegedCheck(zone)
                 stop = 40
             end
 
+			-- DespawnMob(ID.besieged.TROLL_BOSS[trollLvl]) -- Spawn Boss for Level
+            -- Depsawn Helpers
+            despawnForces()
+            -- Spawn Regular Zone NPCS
+            spawnNPCS()
             for i, player in pairs(players) do
                 local ending = math.random(1,20)
 	            player:messageSpecial(ID.text.TROLL_LOSE);
@@ -191,16 +242,16 @@ function besiegedCheck(zone)
             for i,v in pairs(ID.besieged.TROLL) do
             -- GetMobByID(v):setSpawn(-333,-20,231,180)
                 if (i < stop) then
-                    DespawnMob(v);
+				    if (GetMobByID(v):isAlive()) then
+			            printf("Despawning Mob ID: %u",v)
+                        DespawnMob(v);
+					    print(i)
+				    end
                 else
-                    DespawnMob(ID.besieged.TROLL_BOSS[trollLvl]) -- Spawn Boss for Level
                     break
                 end
             end
-            -- Depsawn Helpers
-            despawnForces()
-            -- Spawn Regular Zone NPCS
-            spawnNPCS()
+            SetServerVariable("[BESIEGED]STATUS",0);
         end
     end
 
@@ -249,7 +300,7 @@ function besiegedCheck(zone)
                     break
                 end
             end
-
+            SetServerVariable("[BESIEGED]STATUS",0);
         end
     end
 end;
