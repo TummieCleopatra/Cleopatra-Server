@@ -10,6 +10,15 @@ local ID = require("scripts/zones/Aht_Urhgan_Whitegate/IDs")
 -----------------------------------
 
 function onTrade(player,npc,trade)
+    if (trade:hasItemQty(65535, 20000)) then
+	    player:addKeyItem(dsp.ki.SICKLEMOON_SALT)
+		player:addKeyItem(dsp.ki.SILVER_SEA_SALT)   
+		player:addKeyItem(dsp.ki.CYAN_DEEP_SALT)		
+		player:tradeComplete()
+		player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.SICKLEMOON_SALT)  
+		player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.SILVER_SEA_SALT)
+		player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.CYAN_DEEP_SALT)      	
+	end
     --[[
     local trophies =
     {

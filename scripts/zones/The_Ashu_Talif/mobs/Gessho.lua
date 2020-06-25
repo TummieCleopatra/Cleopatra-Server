@@ -24,6 +24,7 @@ function onMobSpawn(mob)
     mob:timer(80000, function(mob)
         if(mob:getLocalVar("ready") == 0 and not(mob:getTarget())) then
             dsp.ally.startAssist(mob, dsp.ally.ASSIST_RANDOM);
+			mob:setLocalVar("ready",1)
         end
     end)
 
@@ -42,6 +43,17 @@ function onMobSpawn(mob)
             mob:showText(mob,ID.text.SWIFT_AS_LIGHTNING);
         end
     end);
+	
+	mob:addListener("TICK", "GESSHO_TICK", function(mob)
+	    local ready = mob:getLocalVar("ready")
+		local act = mob:getCurrentAction()
+	    if (act == dsp.act.NONE and ready == 1) then
+		    dsp.ally.startAssist(mob, dsp.ally.ASSIST_RANDOM);
+		end
+	
+	
+	
+	end);
 end;
 
 function onMobEngaged(mob, target)
@@ -55,11 +67,12 @@ end;
 
 function onMobRoam(mob)
     local ready = mob:getLocalVar("ready");
+	printf("Roam")
 
     -- When Gessho becomes ready via you pulling, he will assist you
-    if (ready == 1) then
-        dsp.ally.startAssist(mob, dsp.ally.ASSIST_PLAYER);
-    end
+    -- if (ready == 1) then
+        dsp.ally.startAssist(mob, dsp.ally.ASSIST_RANDOM);
+    -- end
 end;
 
 function onMobFight(mob, target)

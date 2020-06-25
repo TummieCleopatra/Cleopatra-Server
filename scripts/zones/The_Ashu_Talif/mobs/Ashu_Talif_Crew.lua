@@ -5,6 +5,15 @@
 require("scripts/globals/status");
 local ID = require("scripts/zones/The_Ashu_Talif/IDs")
 -----------------------------------
+function onMobSpawn(mob)
+
+	mob:addMod(dsp.mod.STR, -20)
+	mob:addMod(dsp.mod.DEF, -140)
+    mob:addMod(dsp.mod.ATT, -150)
+
+
+end
+
 
 function onMobEngaged(mob,target)
     local allies = mob:getInstance():getAllies();

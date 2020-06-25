@@ -13,6 +13,9 @@ function onTrade(player,npc,trade)
   local job = player:getMainJob();
 
   -- Warrior Trade
+  local test = player:getVar("PLDMythicWeapon")
+  
+  print(test)
 
 
   if (job == 1) and (trade:hasItemQty(18971, 1)) and trade:hasItemQty(2629,1) and trade:hasItemQty(2619,1) and trade:hasItemQty(2609,1) and (player:getVar("WARMythicWeapon") == 5) then

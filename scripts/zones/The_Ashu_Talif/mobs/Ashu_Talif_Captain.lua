@@ -7,7 +7,8 @@ require("scripts/globals/instance")
 -----------------------------------
 
 function onMobSpawn(mob)
-    mob:setUnkillable(true)
+                    mob:hideName(false)
+                mob:untargetable(false)
 end
 
 function onMobFight(mob, target)

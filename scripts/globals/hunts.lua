@@ -315,63 +315,63 @@ function huntReward(player)
         player:messageSpecial(ID.text.ITEM_OBTAINED,1127)
     elseif (rank == 30) then
         xp = 2200
-        player:addItem(1127,10)
+        player:addItem(1126,10)
         player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
     elseif (rank == 31) then
         xp = 2500
-        player:addItem(1127,10)
+        player:addItem(1126,10)
         player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
     elseif (rank == 32) then
         xp = 2700
-        player:addItem(1127,10)
+        player:addItem(1126,10)
         player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
     elseif (rank == 40) then
         xp = 1800
-        player:addItem(1127,10)
+        player:addItem(1126,10)
         player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
     elseif (rank == 41) then
         xp = 2000
-        player:addItem(1127,10)
+        player:addItem(1126,10)
         player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
     elseif (rank == 42) then
         xp = 2200
-        player:addItem(1127,10)
+        player:addItem(1126,10)
         player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
     elseif (rank == 50) then
         xp = 1300
-        player:addItem(1127,10)
+        player:addItem(1126,10)
         player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
     elseif (rank == 51) then
         xp = 1500
-        player:addItem(1127,10)
+        player:addItem(1126,10)
         player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
     elseif (rank == 52) then
         xp = 1700
-        player:addItem(1127,10)
+        player:addItem(1126,10)
         player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
     elseif (rank == 60) then
         xp = 1000
-        player:addItem(1127,10)
+        player:addItem(1126,10)
         player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
     elseif (rank == 61) then
         xp = 1200
-        player:addItem(1127,10)
+        player:addItem(1126,10)
         player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
     elseif (rank == 62) then
         xp = 1500
-        player:addItem(1127,10)
+        player:addItem(1126,10)
         player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
     elseif (rank == 70) then
         xp = 700
-        player:addItem(1127,10)
+        player:addItem(1126,10)
         player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
     elseif (rank == 71) then
         xp = 800
-        player:addItem(1127,10)
+        player:addItem(1126,10)
         player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
     elseif (rank == 72) then
         xp = 950
-        player:addItem(1127,10)
+        player:addItem(1126,10)
         player:messageSpecial(ID.text.ITEM_OBTAINED,1126)
     end
 

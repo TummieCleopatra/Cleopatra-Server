@@ -2,8 +2,7 @@
 -- Area: Bibiki Bay
 -- NPC:  ??? Spawns Mob for High Artifact
 -- @pos -602 -3 -686
------------------------------------
-package.loaded["scripts/zones/Bibiki_Bay/TextIDs"] = nil;
+
 -----------------------------------
 
 local ID = require("scripts/zones/Bibiki_Bay/IDs");
@@ -17,6 +16,7 @@ function onTrade(player,npc,trade)
     local balance = 0;
     local payment = 60000;
     local pinfamy = player:getCurrency("infamy");
+	printf("Trade is triggered up top")
 
     if (player:getVar("WARHAWeapon") == 2 and trade:hasItemQty(18505,1)) then
         player:tradeComplete();
@@ -135,154 +135,154 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Your weapon begins to react violently!", 0xD);
     end
 
-    if (pinfamy >= payment) then
-        player:delCurrency("infamy", payment);
-        player:tradeComplete();
-    end
 
-    if (trade:hasItemQty(1404, 1 )) and (trade:hasItemQty(1405, 1)) and (trade:hasItemQty(1406, 1)) and (trade:hasItemQty(1407, 1)) then
+
+    if (trade:hasItemQty(1404,1) == true and trade:hasItemQty(1405,1) == true and trade:hasItemQty(1406,1) == true and trade:hasItemQty(1407, 1) == true) then
       -- Obtain High Artifact
+
       if (pinfamy >= payment) then
-        if (player:getVar("WARHAFight") == 3) then  -- WAR
+        if (player:getVar("WARHAFight") == 2) then  -- WAR
+		    player:tradeComplete();
             player:addItem(18505,1,143,1,59,0)
             player:messageSpecial(ID.text.ITEM_OBTAINED,18505);
             player:setVar("WARHAFight",4);
             player:delCurrency("infamy", payment);
+        elseif (player:getVar("MNKHAFight") == 2) then  -- MNK
             player:tradeComplete();
-        elseif (player:getVar("MNKHAFight") == 3) then  -- MNK
             player:addItem(18764,1,194,1,59,0)
             player:messageSpecial(ID.text.ITEM_OBTAINED,18764);
             player:setVar("MNKHAFight",4);
             player:delCurrency("infamy", payment);
+        elseif (player:getVar("WHMHAFight") == 2) then  -- WHM
             player:tradeComplete();
-        elseif (player:getVar("WHMHAFight") == 3) then  -- WHM
             player:addItem(18870,1,329,9,59,0)
             player:messageSpecial(ID.text.ITEM_OBTAINED,18870);
             player:setVar("WHMHAFight",4);
             player:delCurrency("infamy", payment);
-            player:tradeComplete();
-        elseif (player:getVar("BLMHAFight") == 3) then  -- BLM
+        elseif (player:getVar("BLMHAFight") == 2) then  -- BLM
+            player:tradeComplete(); 
             player:addItem(18589,1,362,4,59,0)
             player:messageSpecial(ID.text.ITEM_OBTAINED,18589);
             player:setVar("BLMHAFight",4);
             player:delCurrency("infamy", payment);
+        elseif (player:getVar("RDMHAFight") == 2) then  -- RDM
             player:tradeComplete();
-        elseif (player:getVar("RDMHAFight") == 3) then  -- RDM
             player:addItem(17761,1,896,1,59,0)
             player:messageSpecial(ID.text.ITEM_OBTAINED,17761);
             player:setVar("RDMHAFight",4);
             player:delCurrency("infamy", payment);
+        elseif (player:getVar("THFHAFight") == 2) then  -- THF
             player:tradeComplete();
-        elseif (player:getVar("THFHAFight") == 3) then  -- THF
             player:addItem(19115,1,147,0,59,0)
             player:messageSpecial(ID.text.ITEM_OBTAINED,19115);
             player:setVar("THFHAFight",4);
             player:delCurrency("infamy", payment);
-            player:tradeComplete();
-        elseif (player:getVar("PLDHAFight") == 3) then  -- PLD
-            player:addItem(17762,1,137,0,59,0)
+        elseif (player:getVar("PLDHAFight") == 2) then  -- PLD
+            player:tradeComplete(); 
+             player:addItem(17762,1,137,0,59,0)
             player:messageSpecial(ID.text.ITEM_OBTAINED,17762);
             player:setVar("PLDHAFight",4);
             player:delCurrency("infamy", payment);
-            player:tradeComplete();
         elseif (player:getVar("PLDHAFightShield") == 3) then  -- PLD Shield
+            player:tradeComplete();
             player:addItem(12407,1)
             player:messageSpecial(ID.text.ITEM_OBTAINED,12407);
             player:setVar("PLDHAFightShield",4);
             player:delCurrency("infamy", payment);
+        elseif (player:getVar("DRKHAFight") == 2) then  -- DRK
             player:tradeComplete();
-        elseif (player:getVar("DRKHAFight") == 3) then  -- DRK
             player:addItem(18955,1,343,9,59,0)
             player:messageSpecial(ID.text.ITEM_OBTAINED,18995);
             player:setVar("DRKHAFight",4);
             player:delCurrency("infamy", payment);
+        elseif (player:getVar("BSTHAFight") == 2) then  -- BST
             player:tradeComplete();
-        elseif (player:getVar("BSTHAFight") == 3) then  -- BST
             player:addItem(17966,1,124,6,59,0)
             player:messageSpecial(ID.text.ITEM_OBTAINED,17966);
             player:setVar("BSTHAFight",4);
             player:delCurrency("infamy", payment);
+        elseif (player:getVar("BRDHAFight") == 2) then  -- BRD
             player:tradeComplete();
-        elseif (player:getVar("BRDHAFight") == 3) then  -- BRD
             player:addItem(19116,1,322,4,59,0)
             player:messageSpecial(ID.text.ITEM_OBTAINED,19116);
             player:setVar("BRDHAFight",4);
             player:delCurrency("infamy", payment);
+        elseif (player:getVar("RNGHAFight") == 2) then  -- RNG
             player:tradeComplete();
-        elseif (player:getVar("RNGHAFight") == 3) then  -- RNG
             player:addItem(18736,1,139,4,59,0)
             player:messageSpecial(ID.text.ITEM_OBTAINED,18763);
             player:setVar("RNGHAFight",4);
             player:delCurrency("infamy", payment);
+        elseif (player:getVar("SAMHAFight") == 2) then  -- SAM
             player:tradeComplete();
-        elseif (player:getVar("SAMHAFight") == 3) then  -- SAM
             player:addItem(18452,1,353,2,59,0)
             player:messageSpecial(ID.text.ITEM_OBTAINED,18452);
             player:setVar("SAMHAFight",4);
             player:delCurrency("infamy", payment);
+        elseif (player:getVar("NINHAFight") == 2) then  -- NIN
             player:tradeComplete();
-        elseif (player:getVar("NINHAFight") == 3) then  -- NIN
             player:addItem(19275,1,140,4,59,0)
             player:messageSpecial(ID.text.ITEM_OBTAINED,19275);
             player:setVar("NINHAFight",4);
             player:delCurrency("infamy", payment);
+        elseif (player:getVar("DRGHAFight") == 2) then  -- DRG
             player:tradeComplete();
-        elseif (player:getVar("DRGHAFight") == 3) then  -- DRG
             player:addItem(19303,1,124,6,59,0)
             player:messageSpecial(ID.text.ITEM_OBTAINED,19303);
             player:setVar("DRGHAFight",4);
             player:delCurrency("infamy", payment);
+        elseif (player:getVar("SMNHAFight") == 2) then  -- SMN
             player:tradeComplete();
-        elseif (player:getVar("SMNHAFight") == 3) then  -- SMN
             player:addItem(18601,1,321,2,59,0)
             player:messageSpecial(ID.text.ITEM_OBTAINED,18601);
             player:setVar("SMNHAFight",4);
             player:delCurrency("infamy", payment);
+        elseif (player:getVar("BLUHAFight") == 2) then  -- BLU
             player:tradeComplete();
-        elseif (player:getVar("BLUHAFight") == 3) then  -- BLU
             player:addItem(17763,1,299,9,59,0)
             player:messageSpecial(ID.text.ITEM_OBTAINED,17763);
             player:setVar("BLUHAFight",4);
             player:delCurrency("infamy", payment);
+        elseif (player:getVar("CORHAFight") == 2) then  -- COR
             player:tradeComplete();
-        elseif (player:getVar("CORHAFight") == 3) then  -- COR
             player:addItem(18737,1,133,14,59,0)
             player:messageSpecial(ID.text.ITEM_OBTAINED,18737);
             player:setVar("CORHAFight",4);
             player:delCurrency("infamy", payment);
+        elseif (player:getVar("PUPHAFight") == 2) then  -- PUP
             player:tradeComplete();
-        elseif (player:getVar("PUPHAFight") == 3) then  -- PUP
             player:addItem(18765,1,124,6,59,0)
             player:messageSpecial(ID.text.ITEM_OBTAINED,18765);
             player:setVar("PUPHAFight",4);
             player:delCurrency("infamy", payment);
+        elseif (player:getVar("DNCHAFight") == 2) then  -- DNC
             player:tradeComplete();
-        elseif (player:getVar("DNCHAFight") == 3) then  -- DNC
             player:addItem(19117,1,330,9,59,0)
             player:messageSpecial(ID.text.ITEM_OBTAINED,19117);
             player:setVar("DNCHAFight",4);
             player:delCurrency("infamy", payment);
+        elseif (player:getVar("SCHHAFight") == 2) then  -- SCH
             player:tradeComplete();
-        elseif (player:getVar("SCHHAFight") == 3) then  -- SCH
             player:addItem(18602,1,1249,14,59,0)
             player:messageSpecial(ID.text.ITEM_OBTAINED,18602);
             player:setVar("SCHHAFight",4);
             player:delCurrency("infamy", payment);
+        elseif (player:getVar("GEOHAFight") == 2) then  -- GEO
             player:tradeComplete();
-        elseif (player:getVar("GEOHAFight") == 3) then  -- GEO
             player:addItem(21460,1,11,4,140,4,1250,29,2030,1) -- MP + 70, Fast Cast + 5, Indi Duration + 30, Hidden Geomancy +2
             player:messageSpecial(ID.text.ITEM_OBTAINED,21460);
             player:setVar("GEOHAFight",4);
             player:delCurrency("infamy", payment);
+        elseif (player:getVar("RUNHAFight") == 2) then  -- RUN
             player:tradeComplete();
-        elseif (player:getVar("RUNHAFight") == 3) then  -- RUN
             player:addItem(20783,1,133,9,54,4,39,6,59,0) -- MAB+10, Phys DMG Taken -4, Enmity +7
             player:messageSpecial(ID.text.ITEM_OBTAINED,20783);
             player:setVar("RUNHAFight",4);
             player:delCurrency("infamy", payment);
-            player:tradeComplete();
-        end
-   else
+        else
+		    player:PrintToPlayer( "??? : You are not ready yet!", 0xD);
+		end
+    else
         balance = payment - pinfamy;
         player:PrintToPlayer( "??? : You can't fool me, you need "..balance.." more infamy.", 0xD);
       end

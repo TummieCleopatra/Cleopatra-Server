@@ -2355,7 +2355,7 @@ void SmallPacket0x04E(map_session_data_t* session, CCharEntity* PChar, CBasicPac
                 lastSoldStack = price;
             }
 
-
+            uint8 isStack = 0;
 
 
             if (quantity == 0)
@@ -2371,6 +2371,7 @@ void SmallPacket0x04E(map_session_data_t* session, CCharEntity* PChar, CBasicPac
 				((PChar->getZone() > 242) && (PChar->getZone() < 248)) || PChar->getZone() == 250)
 				{
                     auctionFee = (uint32)(map_config.ah_base_fee_stacks + (lastSoldStack * map_config.ah_tax_rate_stacks / 100));
+                    isStack = 1;
                 }
                 else
                 {
@@ -2430,7 +2431,7 @@ void SmallPacket0x04E(map_session_data_t* session, CCharEntity* PChar, CBasicPac
 
             //Cleopatra Track AH Fees
 			uint32 allahfees = 0;
-			const char* query = "SELECT value FROM server_variables WHERE name = 'All_AH_Fees';";
+			const char* query = "SELECT value FROM server_variables WHERE name = '[AH]Total_Fees';";
 			int ret = Sql_Query(SqlHandle, query);
             if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) == 1 && Sql_NextRow(SqlHandle) == SQL_SUCCESS)
             {
@@ -2438,8 +2439,34 @@ void SmallPacket0x04E(map_session_data_t* session, CCharEntity* PChar, CBasicPac
             }
 			uint32 totalah = allahfees + auctionFee;
 			ShowWarning(CL_RED"New Auctionhouse is %u \n" CL_RESET, totalah);
-			Sql_Query(SqlHandle, "REPLACE INTO server_variables (name,value) VALUES('All_AH_Fees', %u);",
+			Sql_Query(SqlHandle, "REPLACE INTO server_variables (name,value) VALUES('[AH]Total_Fees', %u);",
             totalah);
+            //Daily AH Fees (reset at midnight)
+            Sql_Query(SqlHandle, "REPLACE INTO server_variables (name,value) VALUES('[AH]Daily_Fees', %u);",
+            totalah);
+
+            //Cleopatra Track AH Volume Daily
+            uint32 ahvolume = 0;
+			const char* queryz = "SELECT value FROM server_variables WHERE name = '[AH]Daily_Volume';";
+			int retz = Sql_Query(SqlHandle, queryz);
+            if (retz != SQL_ERROR && Sql_NumRows(SqlHandle) == 1 && Sql_NextRow(SqlHandle) == SQL_SUCCESS)
+            {
+                ahvolume = Sql_GetUIntData(SqlHandle, 0);
+            }
+            uint32 dailyvolume = 0;
+            if (isStack == 1)
+            {
+                dailyvolume = ahvolume + lastSoldStack;
+            }
+            else
+            {
+                dailyvolume = ahvolume + lastSold;
+            }
+
+			Sql_Query(SqlHandle, "REPLACE INTO server_variables (name,value) VALUES('[AH]Daily_Volume', %u);",
+            dailyvolume);
+
+
         }
     }
     break;

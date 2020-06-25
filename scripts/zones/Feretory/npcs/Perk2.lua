@@ -24,14 +24,14 @@ local testimony = 60000;
 
 local infamy = player:getCurrency("infamy");
 local meleeboon = player:getVar("FerretoryMeleeBoon");
-local aura = player:getVar("FeretoryAura");
+local aura = player:getVar("FerretoryAura");
 
 if (trade:hasItemQty( 1156, 1 )) and (meleeboon == 1) and (aura > 0) then
 	if (infamy >= calculus) then
     player:delCurrency("infamy", 5000);
 	player:tradeComplete();
 	player:setVar("FerretoryMeleeBoon",2);  -- Quest Number you can now accept
-	player:setVar("FeretoryMeleeBoonPower",1);
+	player:setVar("FerretoryMeleeBoonPower",1);
 	player:PrintToPlayer("Leovad : Here is your Melee Boon.", 0xD);
 	player:PrintToPlayer("Melee Boon Lvl 1: Atk/R.Atk +3, Acc/R.Acc +1.", 0x15);
 	else
@@ -45,7 +45,7 @@ if (trade:hasItemQty( 4368, 1 )) and (meleeboon == 2) and (aura > 1) then
     player:delCurrency("infamy", 10000);
 	player:tradeComplete();
 	player:setVar("FerretoryMeleeBoon",3);  -- Quest Number you can now accept
-	player:setVar("FeretoryMeleeBoonPower",2);
+	player:setVar("FerretoryMeleeBoonPower",2);
 	player:PrintToPlayer("Leovad : Here is your Melee Boon.", 0xD);
 	player:PrintToPlayer("Melee Boon Lvl 2: Atk/R.Atk +5, Acc/R.Acc +3.", 0x15);
 	else
@@ -61,7 +61,7 @@ if (trade:hasItemQty( 1154, 1 )) and (meleeboon == 3) and (aura > 2) then
     player:delCurrency("infamy", 15000);
 	player:tradeComplete();
 	player:setVar("FerretoryMeleeBoon",4);  -- Quest Number you can now accept
-	player:setVar("FeretoryMeleeBoonPower",3);
+	player:setVar("FerretoryMeleeBoonPower",3);
 	player:PrintToPlayer("Leovad : Here is your Melee Boon.", 0xD);
 	player:PrintToPlayer("Melee Boon Lvl 3: Atk/R.Atk +7, Acc/R.Acc +4.", 0x15);
 	else
@@ -78,7 +78,7 @@ if (trade:hasItemQty( 4369, 1 )) and (meleeboon == 4) and (aura > 3) then
     player:delCurrency("infamy", 20000);
 	player:tradeComplete();
 	player:setVar("FerretoryMeleeBoon",5);  -- Quest Number you can now accept
-	player:setVar("FeretoryMeleeBoonPower",4);
+	player:setVar("FerretoryMeleeBoonPower",4);
 	player:PrintToPlayer("Leovad : Here is your Melee Boon.", 0xD);
 	player:PrintToPlayer("Melee Boon Lvl 4: Atk/R.Atk +9, Acc/R.Acc +6", 0x15);
 	else
@@ -93,7 +93,7 @@ if (trade:hasItemQty( 954, 3 )) and (meleeboon == 5) and (aura > 4) then
     player:delCurrency("infamy", 25000);
 	player:tradeComplete();
 	player:setVar("FerretoryMeleeBoon",6);  -- Quest Number you can now accept
-	player:setVar("FeretoryMeleeBoonPower",5);
+	player:setVar("FerretoryMeleeBoonPower",5);
 	player:PrintToPlayer("Leovad : Here is your Melee Boon.", 0xD);
 	player:PrintToPlayer("Melee Boon Lvl 5: Atk/R.Atk +11, Acc/R.Acc +7, Store TP: +1", 0x15);
 	else
@@ -107,7 +107,7 @@ if (trade:hasItemQty( 902, 12 )) and (meleeboon == 6) and (aura > 5) then
     player:delCurrency("infamy", 30000);
 	player:tradeComplete();
 	player:setVar("FerretoryMeleeBoon",7);  -- Quest Number you can now accept
-	player:setVar("FeretoryMeleeBoonPower",6);
+	player:setVar("FerretoryMeleeBoonPower",6);
 	player:PrintToPlayer("Leovad : Here is your Melee Boon.", 0xD);
 	player:PrintToPlayer("Melee Boon Lvl 6: Atk/R.Atk +13, Acc/R.Acc +9, Store TP: +1", 0x15);
 	else
@@ -121,7 +121,7 @@ if (trade:hasItemQty( 1426, 1 )) and (meleeboon == 7) and (aura > 6) then
     player:delCurrency("infamy", 60000);
 	player:tradeComplete();
 	player:setVar("FerretoryMeleeBoon",8);  -- Quest Number you can now accept
-	player:setVar("FeretoryMeleeBoonPower",7);
+	player:setVar("FerretoryMeleeBoonPower",7);
 	player:PrintToPlayer("Leovad : Here is your Melee Boon.", 0xD);
 	player:PrintToPlayer("Melee Boon Lvl 7: Atk/R.Atk +15, Acc/R.Acc +10, Store TP: +2", 0x15);
 	else
@@ -159,7 +159,7 @@ local meleeboon = player:getVar("FerretoryMeleeBoon");
 
 
 if (aura == 0) then
-player:PrintToPlayer("Leovad : Don'taru bother me with your presence until you have an aura", 0xD);
+player:PrintToPlayer("Leovad : You don't have an aura, therefore I can't help you.", 0xD);
 else if (aura > 0) and (meleeboon == 1) then
 player:PrintToPlayer("Leovad : Hey, bring me a crawler calculus and 5,000 Infamy Points for a Melee Boon.", 0xD);
 else if (aura > 1) and (meleeboon == 2) then

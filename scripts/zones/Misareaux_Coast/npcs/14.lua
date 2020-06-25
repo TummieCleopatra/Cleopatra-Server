@@ -22,6 +22,11 @@ function onTrade(player,npc,trade)
 		player:PrintToPlayer("You are now able to summon  Prishe as a Trust!", 0x1C);
 		player:addSpell(913);
 		player:tradeComplete();
+    elseif (trade:hasItemQty(604,1) and player:hasSpell(914) == false) then
+	    player:PrintToPlayer("Ulmia : I am ready to fight by your side", 0xD);
+		player:PrintToPlayer("You are now able to summon Ulmia as a Trust!", 0x1C);
+		player:addSpell(914);
+		player:tradeComplete();		
 	end
 end;
 

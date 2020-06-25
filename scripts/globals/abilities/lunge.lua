@@ -55,7 +55,7 @@ function onUseAbility(player,target,ability,action)
     end
 
     local power = (player:getMainLvl() / 10) + runes
-    local duration = math.random(10,(runes * 12) + 4)
+    local duration = math.random(10,((runes + 1) * 12) + 4)
 
     printf("Runes are %u",runes)
 

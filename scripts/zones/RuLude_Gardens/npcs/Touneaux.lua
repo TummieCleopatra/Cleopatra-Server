@@ -113,16 +113,6 @@ function onTrigger(player,npc)
         dsp.shop.general(player, stock_4);
         player:PrintToPlayer("Touneaux : Remember, defeat 100 monsters while wearing that torque and then bring it back to me", 0x15);
         player:PrintToPlayer("Touneaux : Also if you lost your torque, I can sell you a new one", 0x15);
-    elseif (sjQuest == 4) then
-        local stock_5 =
-        {
-            11988,   20000,
-            11992,   20000,
-            11999,   20000,
-            12000,   20000,
-        };
-        dsp.shop.general(player, stock_5);
-        player:PrintToPlayer("Touneaux : Did you misplace a torque?", 0x15);
     else
         player:PrintToPlayer("Touneaux : Come see me when you have been cleared to fight with Trusts.", 0x15);
     end

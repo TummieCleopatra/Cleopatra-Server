@@ -109,19 +109,19 @@ function besiegedCheck(zone)
         SetServerVariable("[BESIEGED]Mamool_Ja_Status",3);
         SetServerVariable("[BESIEGED]STATUS",1);
         spawnMamool(mamoolLvl,zone)
-        if (players ~= nil) then
-            for i, player in pairs(players) do
-                if (not player:isInMogHouse()) then
+        if (not player:isInMogHouse()) then
+            if (players ~= nil) then
+                for i, player in pairs(players) do
                     local start = math.random(1,20)
                     player:messageSpecial(ID.text.MAMOOL_START);
                     player:addStatusEffect(dsp.effect.BESIEGED,0,3,3600)
                     player:ChangeMusic(1, 142)
                     player:ChangeMusic(2, 142)
                     player:startEvent(8,start)
-                else
-                    player:messageSpecial(ID.text.MAMOOL_START);
                 end
             end
+        else
+            player:messageSpecial(ID.text.MAMOOL_START);
         end
     elseif ((undead == 2) and (os.time() > undeadMarch) and undeadMarch ~= 0 and besiegedStatus ~= 1) then
         -- SetServerVariable("[BESIEGED]Undead_Swarm_Start",0);
@@ -139,19 +139,19 @@ function besiegedCheck(zone)
         -- do cs here
         -- set spawns
         spawnUndead(undeadLvl,zone)
-        if (players ~= nil) then
-            for i, player in pairs(players) do
-                if (not player:isInMogHouse()) then
+        if (not player:isInMogHouse()) then
+            if (players ~= nil) then
+                for i, player in pairs(players) do
                     local start = math.random(1,20)
                     player:messageSpecial(ID.text.UNDEAD_START);
                     player:addStatusEffect(dsp.effect.BESIEGED,0,3,3600)
                     player:ChangeMusic(1, 142)
                     player:ChangeMusic(2, 142)
                     player:startEvent(5,start)
-                else
-                    player:messageSpecial(ID.text.UNDEAD_START);
                 end
             end
+        else
+            player:messageSpecial(ID.text.UNDEAD_START);
         end
     end
 

@@ -955,12 +955,12 @@ if (job == 10) and (trade:hasItemQty(16766, 1)) and trade:hasItemQty( 1453, 10 )
 --             BRD TRADE HORN 17352                   --
 --------------------------------------------------------
 
-if (job == 10) and (trade:hasItemQty(17352, 1)) and trade:hasItemQty( 1450, 10 ) and (player:getVar("BRDAFweapon") == 3) then
+if (job == 10) and (trade:hasItemQty(17352, 1)) and trade:hasItemQty( 1450, 10 ) and (player:getVar("BRDAFhorn") == 3) then
              -- Complete the trade..
             player:tradeComplete();
 			player:PrintToPlayer("Netblyx : Here you go.", 0xD);
 			player:addItem(18340, 1, 525,6);
-			player:setVar("BRDAFweapon", 0);
+			player:setVar("BRDAFhorn", 0);
 			player:setVar("BRDRelicweapon", 1);
 			player:messageSpecial(ID.text.ITEM_OBTAINED, 18340);
     elseif (job == 10) and (trade:hasItemQty(18340, 1)) and trade:hasItemQty( 1456, 20 ) and (player:getVar("BRDRelicweapon") == 1) then
@@ -1006,7 +1006,7 @@ if (job == 10) and (trade:hasItemQty(17352, 1)) and trade:hasItemQty( 1450, 10 )
 			player:setVar("BRDRelicweapon", 7);
 			player:messageSpecial(ID.text.ITEM_OBTAINED, 18341);
 	end
-	if (job == 10) and (trade:hasItemQty(18340, 1)) and (player:getVar("BRDAFweapon") == 3) then
+	if (job == 10) and (trade:hasItemQty(17352, 1)) and (player:getVar("BRDAFhorn") == 3) then
 			player:PrintToPlayer("Netblyx : I can make this into a Gjallahorn...eventually with 10 L.Jadeshells", 0xD);
 	elseif (job == 10) and (trade:hasItemQty(18340, 1)) and (player:getVar("BRDRelicweapon") == 1) then
 			player:PrintToPlayer("Netblyx : I can make this into a Gjallahorn...eventually with 20 One-Hundred Byne Bills", 0xD);
@@ -1329,7 +1329,7 @@ elseif (job == 13) and (trade:hasItemQty(18311, 1)) and (player:getVar("NINRelic
 
 
 
-if (job == 14) and (trade:hasItemQty(17478, 1)) and trade:hasItemQty( 1450, 10 ) and (player:getVar("DRGAFweapon") == 3) then
+if (job == 14) and (trade:hasItemQty(16887, 1)) and trade:hasItemQty( 1450, 10 ) and (player:getVar("DRGAFweapon") == 3) then
              -- Complete the trade..
             player:tradeComplete();
 			player:PrintToPlayer("Netblyx : Here you go.", 0xD);
@@ -1380,21 +1380,21 @@ if (job == 14) and (trade:hasItemQty(17478, 1)) and trade:hasItemQty( 1450, 10 )
 			player:setVar("DRGRelicweapon", 7);
 			player:messageSpecial(ID.text.ITEM_OBTAINED, 18299);
     end
-	if (job == 14) and (trade:hasItemQty(17478, 1)) and (player:getVar("DRGAFweapon") == 3) then
+	if (job == 14) and (trade:hasItemQty(16887, 1)) and (player:getVar("DRGAFweapon") == 3) then
 			player:PrintToPlayer("Netblyx : I can make this into a Gungnir...eventually with 10 L.Jadeshells", 0xD);
-	elseif (job == 14) and (trade:hasItemQty(18298, 1)) and (player:getVar("DRGAFweapon") == 1) then
+	elseif (job == 14) and (trade:hasItemQty(18298, 1)) and (player:getVar("DRGRelicweapon") == 1) then
 			player:PrintToPlayer("Netblyx : I can make this into a Gungnir...eventually with 20 One-Hundred Byne Bills", 0xD);
-	elseif (job == 14) and (trade:hasItemQty(18298, 1)) and (player:getVar("DRGAFweapon") == 2) then
+	elseif (job == 14) and (trade:hasItemQty(18298, 1)) and (player:getVar("DRGRelicweapon") == 2) then
 			player:PrintToPlayer("Netblyx : I can make this into a Gungnir...eventually with 30 Montiont Silverpieces", 0xD);
-	elseif (job == 14) and (trade:hasItemQty(18298, 1)) and (player:getVar("DRGAFweapon") == 3) then
+	elseif (job == 14) and (trade:hasItemQty(18298, 1)) and (player:getVar("DRGRelicweapon") == 3) then
 			player:PrintToPlayer("Netblyx : I can make this into a Gungnir...eventually with 40 Montiont Silverpieces", 0xD);
-	elseif (job == 14) and (trade:hasItemQty(18298, 1)) and (player:getVar("DRGAFweapon") == 4) then
+	elseif (job == 14) and (trade:hasItemQty(18298, 1)) and (player:getVar("DRGRelicweapon") == 4) then
 			player:PrintToPlayer("Netblyx : I can make this into a Gungnir...eventually with 50 One-Hundred Byne Bills", 0xD);
-	elseif (job == 14) and (trade:hasItemQty(18298, 1)) and (player:getVar("DRGAFweapon") == 5) then
+	elseif (job == 14) and (trade:hasItemQty(18298, 1)) and (player:getVar("DRGRelicweapon") == 5) then
 			player:PrintToPlayer("Netblyx : I can make this into a Gungnir...eventually with 60 L.Jadeshells", 0xD);
-	elseif (job == 14) and (trade:hasItemQty(18298, 1)) and (player:getVar("DRGAFweapon") == 6) then
+	elseif (job == 14) and (trade:hasItemQty(18298, 1)) and (player:getVar("DRGRelicweapon") == 6) then
 			player:PrintToPlayer("Netblyx : Bring me 70 100 Byne Bills and an Attestation of Fortitude", 0xD);
-	elseif (job == 14) and (trade:hasItemQty(18299, 1)) and (player:getVar("DRGAFweapon") == 7) then
+	elseif (job == 14) and (trade:hasItemQty(18299, 1)) and (player:getVar("DRGRelicweapon") == 7) then
 			player:PrintToPlayer("Netblyx : Get a Stellar Fragment, Necropsyche and an R. Stripeshell and go to Ru'Aun Gardens", 0xD);
             player:setVar("RELIC_IN_PROGRESS",18299);
     end
