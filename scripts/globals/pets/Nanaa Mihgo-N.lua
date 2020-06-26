@@ -30,7 +30,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("wsTime",0)
     mob:setLocalVar("utsuIchiTime",0)
     mob:setLocalVar("utsuNiTime",0)
-    mob:setLocalVar("TrickAttack",1)  -- Do TA First
+    mob:setLocalVar("TrickAttack",0)  -- Do TA First
 
     local tagi = mob:getStat(dsp.mod.AGI)
 
@@ -46,9 +46,9 @@ function onMobSpawn(mob)
         local battletime = os.time()
         local taMove = mob:getLocalVar("moveTimer")
         local tatype = mob:getLocalVar("TrickAttack")
-        if (battletime > taTime + trickAttackCooldown) then
+        if (battletime > taTime + trickAttackCooldown and lvl >= 60) then
             mob:setLocalVar("TrickAttack",1)
-        elseif (battletime > taMove) then -- Trick attack used recently wait
+        elseif (battletime > taMove and lvl >= 60) then -- Trick attack used recently wait
             mob:setLocalVar("TrickAttack",0)
         end
 
@@ -58,7 +58,7 @@ function onMobSpawn(mob)
         if (mob:getLocalVar("TrickAttack") == 0) then
             -- printf("SNEAK ATTACK POS")
             trustSneakAttackMove(mob, player, target)
-        elseif (curilla == 1 and mob:getLocalVar("TrickAttack") == 1) then
+        elseif (curilla == 1 and mob:getLocalVar("TrickAttack") == 1 and lvl >= 60) then
             -- printf("MOVE TO DO TRICK ATTACK")
             trustTrickAttackMove(mob,player,target,id)
         -- else
@@ -92,16 +92,16 @@ function onMobSpawn(mob)
 
     mob:addListener("COMBAT_TICK", "NANAA_TA_TICK", function(mob, player, target)
         local ta = mob:getLocalVar("TrickAttack")
-        if (ta == 1) then
+        if (ta == 1 and lvl >= 60) then
             doNanaaTa(mob, player, target)
-        elseif (ta == 2) then
+        elseif (ta == 2 and lvl >= 60) then
             doNanaaTaWS(mob, player, target)
         end
     end)
 
     mob:addListener("COMBAT_TICK", "NANAA_SA_TICK", function(mob, player, target)
         local ta = mob:getLocalVar("TrickAttack")
-        if (ta == 0) then
+        if (ta == 0 and lvl >= 30) then
             doNanaaSa(mob, player, target)
         end
     end)

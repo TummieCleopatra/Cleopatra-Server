@@ -81,6 +81,7 @@ function onTrigger(player,npc)
     dsp.shop.general(player, stock_1);
 
     local hours = SALVAGE_REFRESH;
+    local maxPlayerTags = SALVAGE_TAGS;
 	local completedCoffin = player:hasCompletedMission(TOAU,dsp.mission.id.toau.THE_BLACK_COFFIN);
 	local salvageOK = player:getVar("SALVAGE_PERMITED");
 	local tags = player:getVar("SALVAGE_TAGS");
@@ -100,12 +101,12 @@ function onTrigger(player,npc)
 		player:setVar("SALVAGE_TAGS",2);  -- Auto set the players tags to 2
 		player:PrintToPlayer("You are now able to enter Salvage with a Remnants Permit", 0x1C);
 	elseif (salvageOK == 1 and completedCoffin) then
-	    if (tags < 2) then
+	    if (tags < maxPlayerTags - 1) then
 			local remaining = math.floor(((lasttag + (hours * 60 * 60)) - localtime) / 60);
 		    player:PrintToPlayer("Remnants Permits Available: "..tags..".", 0x1C);
 		    player:PrintToPlayer("Next Remnants Permit Available in: "..remaining.." minutes.", 0x1C);
 	        player:PrintToPlayer("Zasshal : You currently have "..tags.." Remnants Permit(s) available.  Just trade me 10,000g when you are ready." ,0x0D);
-	    elseif (tags == 2) then
+	    elseif (tags == maxPlayerTags) then
 			local remaining = math.floor((localtime - lasttag) / 60);
 		    player:PrintToPlayer("Remnants Permits Available: "..tags..".", 0x1C);
 		    -- player:PrintToPlayer("Next Remnants Permit Available in: "..remaining.." minutes.", 0x1C);

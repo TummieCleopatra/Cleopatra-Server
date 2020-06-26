@@ -61,7 +61,7 @@ function onMobSpawn(mob)
             mob:setLocalVar("TargetID",0)
         end
 
-        printf("Roaming....")
+       -- printf("Roaming....")
         if (mobFound == 0) then
             newTrustPull(mob, player, target)
         end

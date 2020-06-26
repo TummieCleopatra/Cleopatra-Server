@@ -149,6 +149,7 @@ function onGameIn(player, firstLogin, zoning)
 
         -- Trust Point Conversions
         rankConversion(player)
+        trustTribConversion(player)
 
         --[[
         local jpmid = getMidnight()

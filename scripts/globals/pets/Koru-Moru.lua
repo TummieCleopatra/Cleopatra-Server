@@ -22,7 +22,7 @@ function onMobSpawn(mob)
     local ailmentCooldown = 15
     local hasteCooldown = 220
     local convertCooldown = 600
-    local flurryCooldown = 180
+    local flurryCooldown = 20
     local addCooldown = 45
     local master = mob:getMaster()
     local lvl = master:getMainLvl()
@@ -77,6 +77,7 @@ function onMobSpawn(mob)
 
             -- CURE CHECK
         if (battletime > cureTime + cureCooldown) then
+            mob:setLocalVar("cureTime", battletime + 5)
             local party = player:getPartyWithTrusts()
             local threshold = 65
             local mymp = math.floor((mob:getMP() / mob:getMaxMP()) * 100)
@@ -109,11 +110,12 @@ function onMobSpawn(mob)
                             mob:castSpell(canCast, member)
                             mob:setLocalVar("cureTime",battletime)
                             mob:setLocalVar("magicTime",battletime)
+                            break
                         end
                     end
                 end
             end
-            mob:setLocalVar("cureTime",battletime - 12)
+
         end
     end)
 
@@ -169,14 +171,18 @@ function onMobSpawn(mob)
         local lvl = mob:getMainLvl()
         local flurryTime = mob:getLocalVar("flurryTime")
         local party = player:getPartyWithTrusts()
+        printf("Try Flurry")
         if (battletime > flurryTime + flurryCooldown and lvl >= 48 and mp >= 40) then
             for i, member in ipairs(party) do
-                if (member:getMainJob() == dsp.job.RNG or member:getMainJob() == dsp.job.COR and member:hasStatusEffect(dsp.effect.FLURRY) == false and mob:checkDistance(member) < 6) then
+                local tname = member:getName()
+                if ((member:getMainJob() == dsp.job.RNG or member:getMainJob() == dsp.job.COR) and member:hasStatusEffect(dsp.effect.FLURRY) == false and mob:checkDistance(member) < 14 and tname ~= "Luzaf") then
                    mob:castSpell(845, member)
+
+                   player:PrintToPlayer("(Koru-Moru) Flurry >> "..tname.."",0xF)
                    break
                 end
-                mob:setLocalVar("flurryTime",battletime)
             end
+            mob:setLocalVar("flurryTime",battletime)
         end
     end)
 
@@ -200,6 +206,7 @@ function onMobSpawn(mob)
         local addTime = mob:getLocalVar("addTime")
         local tID = target:getID()
         if (battletime > addTime + addCooldown and lvl >= 25) then
+            mob:setLocalVar("addTime",battletime + 10)
             local nearbyTargets = target:getTargetsWithinArea(12, 8);
             for i,enemy in pairs(nearbyTargets) do  -- Look around for all targets in area
                 if ((enemy:getID() ~= tID) and enemy:getObjType() == dsp.objType.MOB and enemy:hasStatusEffect(dsp.effect.SLEEP_II) == false) then
@@ -221,8 +228,6 @@ function onMobSpawn(mob)
                         end
                     end
                 end
-
-                mob:setLocalVar("addTime",battletime - 40)
             end
 
         end

@@ -278,7 +278,7 @@ function doStatusRemoval(mob, player)
         elseif (member:hasStatusEffect(dsp.effect.CURSE_I) == true and lvl >= 29 and mp >= 30) then
             mob:castSpell(20, member)
             break
-        elseif (member:hasStatusEffectByFlag(dsp.effectFlag.ERASABLE) and lvl >= 32 and mp >= 18) then
+        elseif ((member:hasStatusEffect(dsp.effect.BIO) or member:hasStatusEffect(dsp.effect.DIA) or member:hasStatusEffect(dsp.effect.WEIGHT)) and lvl >= 32 and mp >= 18) then
             mob:castSpell(143, member)
             break
         elseif (member:hasStatusEffect(dsp.effect.DISEASE) == true and lvl >= 34 and mp >= 20) then
