@@ -2283,7 +2283,8 @@ dsp.mobMod =
     CHARMABLE           = 64, -- mob is charmable
     NO_MOVE             = 65, -- Mob will not be able to move
     MULTI_HIT           = 66, -- Mob will have as many swings as defined.
-    NO_AGGRO            = 67  -- If set, mob cannot aggro until unset.
+    NO_AGGRO            = 67,  -- If set, mob cannot aggro until unset.
+    LVL_INC             = 70   -- Increase mob Level by X Amount
 }
 
 ------------------------------------

@@ -715,6 +715,33 @@ INSERT INTO `instance_entities` VALUES (83,17305705);
 INSERT INTO `instance_entities` VALUES (83,17305706);
 INSERT INTO `instance_entities` VALUES (83,17305712);
 
+-- Sojourn V1
+INSERT INTO `instance_entities` VALUES (115,17522701);
+INSERT INTO `instance_entities` VALUES (115,17522702);
+INSERT INTO `instance_entities` VALUES (115,17522703);
+
+INSERT INTO `instance_entities` VALUES (115,17523360);  -- Bird
+INSERT INTO `instance_entities` VALUES (115,17523361);  -- Bird
+INSERT INTO `instance_entities` VALUES (115,17523362);  -- Bird
+INSERT INTO `instance_entities` VALUES (115,17523363);  -- Bird
+INSERT INTO `instance_entities` VALUES (115,17523364);  -- Greater Bird
+INSERT INTO `instance_entities` VALUES (115,17523365);  -- Greater Bird
+INSERT INTO `instance_entities` VALUES (115,17523366);  -- Greater Bird
+INSERT INTO `instance_entities` VALUES (115,17523367);  -- Greater Bird
+INSERT INTO `instance_entities` VALUES (115,17523368);  -- Hippo
+INSERT INTO `instance_entities` VALUES (115,17523369);  -- Hippo
+INSERT INTO `instance_entities` VALUES (115,17523370);  -- Hippo
+INSERT INTO `instance_entities` VALUES (115,17523371);  -- Hippo
+INSERT INTO `instance_entities` VALUES (115,17523372);  -- Apkallu nm
+INSERT INTO `instance_entities` VALUES (115,17523373);  -- Amph NM
+
+
+INSERT INTO `instance_entities` VALUES (115,17522689);
+INSERT INTO `instance_entities` VALUES (115,17522690);
+INSERT INTO `instance_entities` VALUES (115,17522691);
+
+
+
 /*!40000 ALTER TABLE `instance_entities` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

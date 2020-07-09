@@ -1510,7 +1510,12 @@ namespace battleutils
         float minPdif = 0;
         float maxPdif = 0;
 
-        if (ratio < 0.9)
+        if (ratio <= 0)
+        {
+            minPdif = 0;
+            maxPdif = 0.1f;
+        }
+        else if (ratio < 0.9)
         {
             minPdif = ratio;
             maxPdif = (10.0f / 9.0f) * ratio;
@@ -1946,6 +1951,7 @@ namespace battleutils
                             // unblocked damage (before block but as if affected by stoneskin/phalanx) must be greater than zero
                             PDefender->addTP(PDefender->getMod(Mod::SHIELD_MASTERY_TP));
                         }
+                        //ShowDebug("Shield Absorption is %u \n",absorb);
                     }
                     else if (PDefender->objtype == TYPE_PET)
                     {

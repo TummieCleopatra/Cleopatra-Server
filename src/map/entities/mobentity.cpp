@@ -526,6 +526,7 @@ void CMobEntity::Spawn()
     m_ItemStolen = false;
     m_DropItemTime = 1000;
     animationsub = (uint8)getMobMod(MOBMOD_SPAWN_ANIMATIONSUB);
+
     CallForHelp(false);
 
     PEnmityContainer->Clear();
@@ -569,6 +570,16 @@ void CMobEntity::Spawn()
 
     m_DespawnTimer = time_point::min();
     luautils::OnMobSpawn(this);
+
+    uint8 lvlScale = (uint8)getMobMod(MOBMOD_LVL_INC);
+    if (lvlScale > 0)
+    {
+        level = level + lvlScale;
+        SetMLevel(level);
+        SetSLevel(level);//calculated in function
+        mobutils::CalculateStats(this);
+        mobutils::GetAvailableSpells(this);
+    }
 }
 
 void CMobEntity::OnWeaponSkillFinished(CWeaponSkillState& state, action_t& action)

@@ -96,7 +96,9 @@ enum MOBMODIFIER : int
     MOBMOD_CHARMABLE          = 64, // mob is charmable
     MOBMOD_NO_MOVE            = 65, // Mob will not be able to move
     MOBMOD_MULTI_HIT          = 66, // Mob will have as many swings as defined.
-    MOBMOD_NO_AGGRO           = 67  // If set, mob cannot aggro until unset.
+    MOBMOD_NO_AGGRO           = 67,  // If set, mob cannot aggro until unset.
+
+    MOBMOD_LVL_INC            = 70  // Increase mob Level by X
 };
 
 #endif
