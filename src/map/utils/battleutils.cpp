@@ -327,9 +327,32 @@ namespace battleutils
 
     bool CanUseWeaponskill(CCharEntity* PChar, CWeaponSkill* PSkill)
     {
-        if ((((PSkill->getSkillLevel() > 0 && PChar->GetSkill(PSkill->getType()) >= PSkill->getSkillLevel() &&
+        // Mythic WS should only be usable at Lv 75 or higher
+        if (((PSkill->getUnlockId() >= 15 && PSkill->getUnlockId() <= 34) && charutils::hasLearnedWeaponskill(PChar, PSkill->getUnlockId())))
+        {
+            if (PChar->GetMLevel() >= 75 && (PSkill->getJob(PChar->GetMJob()) > 0))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        if (((PSkill->getUnlockId() >= 49 && PSkill->getUnlockId() <= 50) && charutils::hasLearnedWeaponskill(PChar, PSkill->getUnlockId())))
+        {
+            if (PChar->GetMLevel() >= 75 && (PSkill->getJob(PChar->GetMJob()) > 0))
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+
+
+
+        if ((PSkill->getSkillLevel() > 0 && PChar->GetSkill(PSkill->getType()) >= PSkill->getSkillLevel() &&
             (PSkill->getUnlockId() == 0 || charutils::hasLearnedWeaponskill(PChar, PSkill->getUnlockId()))) ||
-            (PSkill->getSkillLevel() == 0 && (PSkill->getUnlockId() == 0 || charutils::hasLearnedWeaponskill(PChar, PSkill->getUnlockId())))) &&
+            ((PSkill->getSkillLevel() == 0 && (PSkill->getUnlockId() == 0 || charutils::hasLearnedWeaponskill(PChar, PSkill->getUnlockId()))) &&
             (PSkill->getJob(PChar->GetMJob()) > 0 || (PSkill->getJob(PChar->GetSJob()) > 0 && !PSkill->mainOnly()))))
         {
             return true;
@@ -2496,34 +2519,76 @@ namespace battleutils
                 switch(weapon->getSkillType())
                 {
                     case SKILL_HAND_TO_HAND:
+                    {
+                       ratioCap = 2.50f + (float)dmgLimit;
+                       //ShowWarning("The ratioCap is 3.50, total is %f \n", ratioCap);
+                    }
+                    break;
                     case SKILL_GREAT_KATANA:
                     {
-                       ratioCap = 3.50f + (float)dmgLimit;
+                       ratioCap = 2.35f + (float)dmgLimit;
                        //ShowWarning("The ratioCap is 3.50, total is %f \n", ratioCap);
+                    }
+                    break;
+                    case SKILL_SCYTHE:
+                    {
+                        ratioCap = 3.0f + (float)dmgLimit;
                     }
                     break;
                     case SKILL_GREAT_SWORD:
                     case SKILL_GREAT_AXE:
-                    case SKILL_SCYTHE:
                     case SKILL_POLEARM:
                     {
-                        ratioCap = 3.75f + dmgLimit;
+                        ratioCap = 2.75f + dmgLimit;
                         //ShowWarning("The ratioCap is %f",ratioCap);
                     }
                     break;
                     default:
                     {
-                        ratioCap = 3.25f + dmgLimit;
+                        ratioCap = 2.25f + dmgLimit;
                         //ShowWarning("The ratioCap is %f",ratioCap);
                     }
                     break;
                 }
             }
         }
+        if (PAttacker->objtype == TYPE_TRUST)
+        {
+            switch (PAttacker->m_Weapons[SLOT_MAIN]->getSkillType())
+            {
+                case SKILL_HAND_TO_HAND:
+                {
+                    ratioCap = 2.50f + (float)dmgLimit;
+                    //ShowWarning("The ratioCap is 3.50, total is %f \n", ratioCap);
+                }
+                break;
+                case SKILL_GREAT_KATANA:
+                {
+                   ratioCap = 2.25f + (float)dmgLimit;
+                    //ShowWarning("The ratioCap is 3.50, total is %f \n", ratioCap);
+                }
+                break;
+                case SKILL_GREAT_SWORD:
+                case SKILL_GREAT_AXE:
+                case SKILL_SCYTHE:
+                case SKILL_POLEARM:
+                {
+                    ratioCap = 2.75f + dmgLimit;
+                    //ShowWarning("The ratioCap is %f",ratioCap);
+                }
+                break;
+                default:
+                {
+                    ratioCap = 2.25f + dmgLimit;
+                    //ShowWarning("The ratioCap is %f",ratioCap);
+                }
+                break;
+            }
+        }
         if (PAttacker->objtype == TYPE_MOB)
         {
 
-            ratioCap = 4.f;
+            ratioCap = 4.0f;
         }
 
         ratio = std::clamp<float>(ratio, 0, ratioCap);
@@ -5811,6 +5876,15 @@ namespace battleutils
                 }
             }
         }
+
+        return std::min(tp, (int16)3000);
+    }
+
+    int16 CalculateTrustWeaponSkillTP(CBattleEntity* PEntity, CMobSkill* PSkill, int16 spentTP)
+    {
+        int16 tp = spentTP + PEntity->getMod(Mod::TP_BONUS);
+
+        //Work in Fencer later
 
         return std::min(tp, (int16)3000);
     }

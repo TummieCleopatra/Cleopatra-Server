@@ -710,11 +710,13 @@ void CMobEntity::OnMobSkillFinished(CMobSkillState& state, action_t& action)
             }
             //Make a new method for trusts that mirrors player weaponskills
             //Below Points to a new subfolder for Nanaa only
-            if (objtype == TYPE_TRUST && (PSkill->getID() == 17 || PSkill->getID() == 23 || PSkill->getID() == 24 || PSkill->getID() == 3189))
+            //if (objtype == TYPE_TRUST && (PSkill->getID() == 17 || PSkill->getID() == 23 || PSkill->getID() == 24 || PSkill->getID() == 3189))
+            if (objtype == TYPE_TRUST)
             {
+                int16 tp = state.GetSpentTP();
+                tp = battleutils::CalculateTrustWeaponSkillTP(this, PSkill, tp);
                 CBattleEntity* taChar = battleutils::getAvailableTrickAttackChar(this, PTarget);
-                //ShowWarning(CL_GREEN"TRUST TRICK ATTACK ON WS NANAA \n" CL_RESET);
-                target.param = luautils::OnTrustWeaponSkill(PTarget, this, PSkill, &action, taChar);
+                target.param = luautils::OnTrustWeaponSkill(PTarget, this, PSkill, tp, &action, taChar);
             }
             else
             {
