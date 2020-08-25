@@ -23,8 +23,8 @@ function addRune(player, rune)
         player:removeOldestRune();
     end
 
-    local power = ((math.floor(lvl / 10)) * 3) + 5;
-    print(power)
+    local power = ((math.floor(lvl / 10)) * 3) + 5 + (player:getMerit(dsp.merit.MERIT_RUNE_ENHANCE) * 2);
+
     player:addStatusEffect(rune,power,3,300);
 end;
 

@@ -13,7 +13,12 @@ require("scripts/globals/msg")
 -----------------------------------
 
 function onAbilityCheck(player,target,ability)
-	return 0,0;
+    if (player:getAnimation() ~= 1) then
+        return dsp.msg.basic.REQUIRES_COMBAT,0
+    else
+
+        return 0,0
+    end
 end;
 
 -----------------------------------
@@ -25,6 +30,7 @@ function onUseAbility(player,target,ability,action)
     action:speceffect(target:getID(),element)
     action:animation(target:getID(), getLungeAnimation(player:getWeaponSkillType(dsp.slot.MAIN)))
     local params = {}
+    params.includemab = true
     local skill = player:getWeaponSkillType(dsp.slot.MAIN)
     local skillLvl = player:getSkillLevel(skill)
     local effect = 0
@@ -69,15 +75,31 @@ function onUseAbility(player,target,ability,action)
 
     local dmg = skillLvl * (0.5 + (runes * 0.75) + (5/100))
 
+    printf("Magic type is %u",magicType)
 
-    -- dmg  = addBonusesAbility(player, magicType, target, dmg, params)
+    local mburst = 1
+
+
+    dmg, mburst = addBonusesAbility(player, magicType, target, dmg, params)
     -- dmg = adjustForTarget(target,dmg,dsp.magic.ele.EARTH)
     params.targetTPMult = 0
+    magicType = magicType + 5;
 
-    --dmg = takeAbilityDamage(target, player, {}, true, dmg, dsp.attackType.MAGICAL, magicType + 5, dsp.slot.MAIN, 1, 0, 0, 0, action, nil)
+
+
+    dmg = takeAbilityDamage(target, player, {}, true, dmg, dsp.attackType.MAGICAL, magicType, dsp.slot.MAIN, 1, 0, 0, 0, action, nil)
     target:addStatusEffect(effect, power, 0, duration, 0, 0)
     player:removeAllRunes()
-    ability:setMsg(dsp.msg.basic.JA_DAMAGE)
-    target:delHP(dmg)
-    return dmg
+
+
+    if (mburst > 1) then
+        ability:setMsg(dsp.msg.basic.JA_MAGIC_BURST)
+        target:delHP(dmg)
+        return dmg
+    else
+        ability:setMsg(dsp.msg.basic.JA_DAMAGE)
+        target:delHP(dmg)
+        return dmg
+    end
+
 end;

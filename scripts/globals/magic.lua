@@ -985,6 +985,16 @@ function addBonusesAbility(caster, ele, target, dmg, params)
 
     dmg = math.floor(dmg * dayWeatherBonus);
 
+    local burst = calculateAbilityMagicBurst(caster, ele, target, dmg);
+
+   -- if (burst > 1.0) then
+       -- spell:setMsg(spell:getMagicBurstMessage()); -- "Magic Burst!"
+    -- end
+
+    dmg = math.floor(dmg * burst);
+
+
+
     local mab = 1;
     local mdefBarBonus = 0;
     if (ele > 0 and ele <= 6 and target:hasStatusEffect(dsp.magic.barSpell[ele])) then -- bar- spell magic defense bonus
@@ -1001,6 +1011,8 @@ function addBonusesAbility(caster, ele, target, dmg, params)
         mab = 0;
     end
 
+
+
     dmg = math.floor(dmg * mab);
 
     -- print(affinityBonus);
@@ -1010,8 +1022,61 @@ function addBonusesAbility(caster, ele, target, dmg, params)
     -- print(mab);
     -- print(magicDmgMod);
 
-    return dmg;
+
+    return dmg, burst;
 end;
+
+
+function calculateAbilityMagicBurst(caster, ele, target, dmg)
+    local burst = 1.0
+    local skillchainburst = 1.0;
+    local modburst = 1.0;
+
+
+    -- Obtain first multiplier from gear, atma and job traits
+    -- Add in bonus from BLM AMII merits (minimum 0, maximum 0.12 with 5/5 merits)
+    modburst = modburst + (caster:getMod(dsp.mod.MAG_BURST_BONUS) / 100);
+
+    -- Cap bonuses from first multiplier at 40% or 1.4
+    if (modburst > 1.4) then
+        modburst = 1.4;
+    end
+
+local skillchainTier, skillchainCount = FormMagicBurst(ele, target);
+
+    printf("SkillChain Count Is: %u",skillchainCount)
+    if (skillchainTier > 0) then
+        if (skillchainCount == 1) then -- two weaponskills
+            skillchainburst = 1.35;
+        elseif (skillchainCount == 2) then -- three weaponskills
+            skillchainburst = 1.45;
+        elseif (skillchainCount == 3) then -- four weaponskills
+             skillchainburst = 1.55;
+        elseif (skillchainCount == 4) then -- five weaponskills
+            skillchainburst = 1.65;
+        elseif (skillchainCount == 5) then -- six weaponskills
+            skillchainburst = 1.75;
+        else
+            -- Something strange is going on if this occurs.
+            skillchainburst = 1.0;
+        end
+    end
+
+    if (skillchainburst > 1) then
+        burst = burst * modburst * skillchainburst;
+    end
+
+    local dmgBonus = 1
+
+    burst = burst * dmgBonus
+    printf("Burst is %u",burst)
+
+    return burst;
+
+
+end
+
+
 
 -- get elemental damage reduction
 function getElementalDamageReduction(target, element)

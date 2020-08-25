@@ -17,6 +17,10 @@ function onEffectGain(target, effect)
     -- The dragoon gets a 50 Accuracy boost
     target:addMod(dsp.mod.ACC, 50)
 
+    -- The Dragoon gets a 25% Att and Def Boost
+    target:addMod(dsp.mod.ATTP, 25)
+    target:addMod(dsp.mod.DEFP, 25)
+
     -- The dragoon gets 25% Haste (see http://wiki.bluegartr.com/bg/Job_Ability_Haste for haste calculation)
     target:addMod(dsp.mod.HASTE_ABILITY, 2500)
 end
@@ -33,6 +37,10 @@ function onEffectLose(target, effect)
 
     -- The dragoon loses the 50 Accuracy boost
     target:delMod(dsp.mod.ACC, 50)
+
+    -- The Dragoon loses the 25% Att and Def Boost
+    target:delMod(dsp.mod.ATTP, 25)
+    target:delMod(dsp.mod.DEFP, 25)
 
     -- The dragoon loses 25% Haste
     target:delMod(dsp.mod.HASTE_ABILITY, 2500)
