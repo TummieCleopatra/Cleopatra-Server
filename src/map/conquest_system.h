@@ -54,6 +54,7 @@ namespace conquest
 	void	UpdateConquestSystem();										// Update conquest information in the DB
     void    UpdateCampaignSystem();
     void    UpdateBesiegeMap();
+    void    UpdateGilInfo();
 
     void    UpdateInfluencePoints(int points, unsigned int nation, unsigned int region);
 	void	GainInfluencePoints(CCharEntity* PChar, uint32 points);		// Gain influence for player's nation (+1)

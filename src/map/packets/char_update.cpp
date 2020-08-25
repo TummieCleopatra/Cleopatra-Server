@@ -121,6 +121,7 @@ CCharUpdatePacket::CCharUpdatePacket(CCharEntity* PChar)
     ref<uint16>(0x2E) |= PChar->speedsub << 1;
     ref<uint8>(0x30) = PChar->m_event.EventID != -1 ? ANIMATION_EVENT : PChar->animation;
 
+
     CItemLinkshell* linkshell = (CItemLinkshell*)PChar->getEquip(SLOT_LINK1);
 
     if ((linkshell != nullptr) && linkshell->isType(ITEM_LINKSHELL))

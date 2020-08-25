@@ -75,6 +75,49 @@ namespace conquest
             }
 		});
 	}*/
+    void UpdateGilInfo()
+    {
+        CZone* PZone = zoneutils::GetZone(48);
+        if (PZone) {
+            //Total Gil
+		    int32 totalgil = 100;
+		    const char* Query = "SELECT SUM(quantity), bazaar, itemID  FROM `char_inventory` WHERE itemID = '65535'";
+		    int32 ret = Sql_Query(SqlHandle, Query);
+		    if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0 && Sql_NextRow(SqlHandle) == SQL_SUCCESS)
+		    {
+			    totalgil = (int32)Sql_GetIntData(SqlHandle, 0);
+			    //ahfees = ahfees / 1000000;
+			    ShowWarning(CL_CYAN"Running daily Gil analytics.  Total Gil is: %i \n" CL_RESET, totalgil);
+			    time_t calltime = time(nullptr);
+			    Sql_Query(SqlHandle, "INSERT INTO server_gil (call_date, gil_value) VALUES (%u, %u);",calltime, totalgil);
+
+			}
+
+            //Daily AH Fees
+			uint32 dailyahfees = 0;
+			const char* query = "SELECT value FROM server_variables WHERE name = '[AH]Daily_Fees';";
+			int reta = Sql_Query(SqlHandle, query);
+            if (reta != SQL_ERROR && Sql_NumRows(SqlHandle) == 1 && Sql_NextRow(SqlHandle) == SQL_SUCCESS)
+            {
+                dailyahfees = Sql_GetUIntData(SqlHandle, 0);
+                time_t calltime = time(nullptr);
+                Sql_Query(SqlHandle, "INSERT INTO daily_ah_fees (call_date, gil_value) VALUES (%u, %u);",calltime, dailyahfees);
+                Sql_Query(SqlHandle, "REPLACE INTO server_variables (name,value) VALUES('[AH]Daily_Fees', '0');");
+            }
+
+            //Daily Volume
+			uint32 dailyahvolume = 0;
+			const char* queryz = "SELECT value FROM server_variables WHERE name = '[AH]Daily_Volume';";
+			int retz = Sql_Query(SqlHandle, queryz);
+            if (retz != SQL_ERROR && Sql_NumRows(SqlHandle) == 1 && Sql_NextRow(SqlHandle) == SQL_SUCCESS)
+            {
+                dailyahvolume = Sql_GetUIntData(SqlHandle, 0);
+                time_t calltime = time(nullptr);
+                Sql_Query(SqlHandle, "INSERT INTO daily_ah_volume (call_date, gil_value) VALUES (%u, %u);",calltime, dailyahvolume);
+                Sql_Query(SqlHandle, "REPLACE INTO server_variables (name,value) VALUES('[AH]Daily_Volume', '0');");
+            }
+        }
+    }
 
     void UpdateBesiegeMap()
     {
