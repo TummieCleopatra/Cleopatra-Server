@@ -33,7 +33,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
 
     -- Defense ignored is 0%, 35%, 50% as per wiki.bluegartr.com
     params.ignoresDef = true
-    params.ignored100 = 0
+    params.ignored100 = 0.15
     params.ignored200 = 0.35
     params.ignored300 = 0.5
 

@@ -27,7 +27,7 @@ function onUseWeaponSkill(player, target, wsID, tp, primary, action, taChar)
     params.atk100 = 1; params.atk200 = 1; params.atk300 = 1;
     -- Defense ignored is 0%, 25%, 50% as per http://www.bg-wiki.com/bg/One_Inch_Punch
     params.ignoresDef = true
-    params.ignored100 = 0
+    params.ignored100 = 0.10
     params.ignored200 = 0.25
     params.ignored300 = 0.5
 
