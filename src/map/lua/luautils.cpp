@@ -3061,7 +3061,7 @@ namespace luautils
     *                                                                       *
     ************************************************************************/
 
-    int32 OnTrustWeaponSkill(CBaseEntity* PTarget, CBaseEntity* PMob, CMobSkill* PMobSkill, action_t* action, CBattleEntity* taChar)
+    int32 OnTrustWeaponSkill(CBaseEntity* PTarget, CBaseEntity* PMob, CMobSkill* PMobSkill, uint16 tp, action_t* action, CBattleEntity* taChar)
     {
         lua_prepscript("scripts/zones/%s/mobs/%s.lua", PMob->loc.zone->GetName(), PMob->GetName());
 
@@ -3076,10 +3076,12 @@ namespace luautils
             CLuaMobSkill LuaMobSkill(PMobSkill);
             Lunar<CLuaMobSkill>::push(LuaHandle, &LuaMobSkill);
 
+            lua_pushnumber(LuaHandle, tp);
+
             CLuaAction LuaAction(action);
             Lunar<CLuaAction>::push(LuaHandle, &LuaAction);
 
-            if (lua_pcall(LuaHandle, 4, 0, 0))
+            if (lua_pcall(LuaHandle, 5, 0, 0))
             {
                 ShowError("luautils::onTrustWeaponSkill: %s\n", lua_tostring(LuaHandle, -1));
                 lua_pop(LuaHandle, 1);
@@ -3099,6 +3101,10 @@ namespace luautils
         CLuaMobSkill LuaMobSkill(PMobSkill);
         Lunar<CLuaMobSkill>::push(LuaHandle, &LuaMobSkill);
 
+        lua_pushnumber(LuaHandle, tp);
+
+
+
         if (taChar == nullptr)
         {
             lua_pushnil(LuaHandle);
@@ -3109,7 +3115,7 @@ namespace luautils
             Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaTrickAttackEntity);
         }
 
-        if (lua_pcall(LuaHandle, 4, 1, 0))
+        if (lua_pcall(LuaHandle, 5, 1, 0))
         {
             ShowError("luautils::onTrustWeaponSkill: %s\n", lua_tostring(LuaHandle, -1));
             lua_pop(LuaHandle, 1);

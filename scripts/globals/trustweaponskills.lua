@@ -27,7 +27,7 @@ function doTrustPhysicalWeaponskill(mob, target, skill, tp, action, taChar, para
         bonusTP = params.bonusTP
     end
 
-    printf("Bonus TP Param: %u",bonusTP)
+
 
 
     local multiHitfTP = false
@@ -283,9 +283,9 @@ function doTrustPhysicalWeaponskill(mob, target, skill, tp, action, taChar, para
 
 
 
-    finaldmg = takeWeaponskillDamage(target, mob, skill, params, finaldmg, dsp.attackType.PHYSICAL, damageType, dsp.slot.MAIN, tpHitsLanded, extraHitsLanded, shadowsAbsorbed, bonusTP, action, taChar)
+    finaldmg = takeTrustWeaponskillDamage(target, mob, skill, params, finaldmg, dsp.attackType.PHYSICAL, damageType, dsp.slot.MAIN, tpHitsLanded, extraHitsLanded, shadowsAbsorbed, bonusTP, action, taChar)
 
-        print(finaldmg)
+       -- print(finaldmg)
         printf("TP on WS is %u",tp)
     return finaldmg, criticalHit, tpHitsLanded, extraHitsLanded
 end
@@ -293,13 +293,14 @@ end
 
 
 
-function takeWeaponskillDamage(target, mob, skill, params, finaldmg, attackType, damageType, slot, tpHitsLanded, extraHitsLanded, shadowsAbsorbed, bonusTP, action, taChar)
---[[
+function takeTrustWeaponskillDamage(target, mob, skill, params, finaldmg, attackType, damageType, slot, tpHitsLanded, extraHitsLanded, shadowsAbsorbed, bonusTP, action, taChar)
+
     -- physical attack missed, skip rest
     if (skill:hasMissMsg()) then
         return 0;
     end
 
+    --[[
     --handle pd
     if ((target:hasStatusEffect(dsp.effect.PERFECT_DODGE) or target:hasStatusEffect(dsp.effect.ALL_MISS) )
             and attackType==dsp.attackType.PHYSICAL) then
@@ -314,6 +315,26 @@ function takeWeaponskillDamage(target, mob, skill, params, finaldmg, attackType,
     if (attackType == dsp.attackType.PHYSICAL) then
         finaldmg = target:physicalDmgTaken(finaldmg, damageType);
     end]]--
+
+    --handling phalanx
+    finaldmg = finaldmg - target:getMod(dsp.mod.PHALANX);
+
+    if (finaldmg < 0) then
+        return 0;
+    end
+
+    finaldmg = utils.stoneskin(target, finaldmg);
+
+    if (finaldmg > 0) then
+        if (taChar == nil) then
+            target:updateEnmityFromDamage(mob,finaldmg);
+            target:handleAfflatusMiseryDamage(finaldmg);
+        else
+            target:updateEnmityFromDamage(taChar,finaldmg);
+            target:handleAfflatusMiseryDamage(finaldmg);
+            mob:delStatusEffect(dsp.effect.TRICK_ATTACK)
+        end
+    end
 
     return finaldmg
 end

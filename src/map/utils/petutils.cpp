@@ -857,6 +857,8 @@ namespace petutils
         PTrust->m_Weapons[SLOT_MAIN]->setDamage(finalDmg);
         PTrust->m_Weapons[SLOT_MAIN]->setDelay((uint16)(floor(1000* (petStats->cmbDelay / 60))));
 
+        //Add Movement Speed to Trust
+        PTrust->setModifier(Mod::MOVE, 10);
 
         float shielddef = (floor(10 + (MainLevel / 8)));
 

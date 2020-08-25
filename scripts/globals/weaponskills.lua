@@ -271,10 +271,6 @@ function doPhysicalWeaponskill(attacker, target, wsID, tp, primary, action, taCh
     end
 
     finaldmg = takeWeaponskillDamage(target, attacker, params, primary, finaldmg, dsp.attackType.PHYSICAL, damageType, dsp.slot.MAIN, tpHitsLanded, extraHitsLanded, shadowsAbsorbed, bonusTP, action, taChar)
-    if (target:getObjType() ~= dsp.objType.TRUST and target:getObjType() == dsp.objType.MOB) then
-        local wsdmg = target:getLocalVar("wsDamage")
-        target:setLocalVar("wsDamage",wsdmg + finaldmg)
-    end
     return finaldmg, criticalHit, tpHitsLanded, extraHitsLanded
 end
 

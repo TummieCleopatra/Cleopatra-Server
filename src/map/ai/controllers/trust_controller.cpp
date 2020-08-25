@@ -174,10 +174,10 @@ void CTrustController::DoRoamTick(time_point tick)
         //ShowWarning(CL_GREEN"Battle Target Triggered! %u\n" CL_RESET, targID);
         POwner->StatusEffectContainer->DelStatusEffect(EFFECT_HEALING);
     }
+
+
     else if (bodyguard == 2)
     {
-
-
         // Weapon Not Drawn but player has hate
         CCharEntity* PChar = (CCharEntity*)POwner->PMaster;
 
@@ -185,28 +185,16 @@ void CTrustController::DoRoamTick(time_point tick)
         {
             CMobEntity* PMob = (CMobEntity*)it->second;
 
-            float currentDistance = distance(POwner->loc.p, PMob->loc.p);
-
-
-            if (PMob->PEnmityContainer->HasID(POwner->PMaster->id) && currentDistance < 10.0f) // I have hate and distance is less than 10 from mob
+            if (PMob->PEnmityContainer->HasID(POwner->PMaster->id)) // I have hate and distance is less than 10 from mob
             {
-
-                uint32 targID = PMob->targid;
-                POwner->SetBattleTargetID(targID);
-                POwner->PAI->Internal_Engage(targID);
-                //POwner->StatusEffectContainer->DelStatusEffect(EFFECT_HEALING);
-                masterHasEnmity = true;
+                POwner->PAI->Internal_Engage(POwner->PMaster->GetBattleTargetID());
+                POwner->StatusEffectContainer->DelStatusEffect(EFFECT_HEALING);
                 break;
             }
-
-            else if (PMob->PEnmityContainer->HasID(POwner->PMaster->id))
-            {
-                masterHasEnmity = true;
-                break;
-            }
-
         }
 
+
+         /*
         if (!masterHasEnmity)
         {
             if (m_TickCalc == 0)
@@ -223,24 +211,26 @@ void CTrustController::DoRoamTick(time_point tick)
                     POwner->updatemask |= UPDATE_HP;
                 }
             }
+        } */
+
+        float currentDistance = distance(POwner->loc.p, POwner->PMaster->loc.p);
+
+        if (currentDistance > RoamDistance && pull != 1)
+        {
+                //ShowWarning(CL_GREEN"TRY TO ROAM TO PLAYER on Tactics 2\n" CL_RESET);
+            if (currentDistance < 50.0f && POwner->PAI->PathFind->PathAround(POwner->PMaster->loc.p, 2.0f, PATHFLAG_RUN | PATHFLAG_WALLHACK))
+            {
+                //ShowWarning(CL_GREEN"FOLLOW PATH on Tactics 2\n" CL_RESET);
+                POwner->PAI->PathFind->FollowPath();
+            }
+            else if (POwner->GetSpeed() > 0)
+            {
+                POwner->PAI->PathFind->WarpTo(POwner->PMaster->loc.p, RoamDistance);
+            }
         }
 
-                float currentDistance = distance(POwner->loc.p, POwner->PMaster->loc.p);
-
-                if (currentDistance > RoamDistance && pull != 1)
-                {
-                    if (currentDistance < 50.0f && POwner->PAI->PathFind->PathAround(POwner->PMaster->loc.p, 2.0f, PATHFLAG_RUN | PATHFLAG_WALLHACK))
-                    {
-                        POwner->PAI->PathFind->FollowPath();
-                    }
-                    else if (POwner->GetSpeed() > 0)
-                    {
-                        POwner->PAI->PathFind->WarpTo(POwner->PMaster->loc.p, RoamDistance);
-                    }
-                }
-
-                //ShowWarning(CL_GREEN"Still Roaming\n" CL_RESET);
-                POwner->PAI->EventHandler.triggerListener("ROAM_TICK", POwner, POwner->PMaster, PTarget);
+            //ShowWarning(CL_GREEN"Still Roaming\n" CL_RESET);
+        POwner->PAI->EventHandler.triggerListener("ROAM_TICK", POwner, POwner->PMaster, PTarget);
     }
     else
     {
@@ -286,6 +276,7 @@ void CTrustController::DoRoamTick(time_point tick)
 
         if (currentDistance > RoamDistance)
         {
+            ShowWarning(CL_GREEN"TRY TO ROAM TO PLAYER\n" CL_RESET);
             if (currentDistance < 35.0f && POwner->PAI->PathFind->PathAround(POwner->PMaster->loc.p, 2.0f, PATHFLAG_RUN | PATHFLAG_WALLHACK))
             {
                 POwner->PAI->PathFind->FollowPath();

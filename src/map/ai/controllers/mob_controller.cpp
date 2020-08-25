@@ -34,9 +34,11 @@ This file is part of DarkStar-server source code.
 #include "../../mob_modifier.h"
 #include "../../mob_spell_container.h"
 #include "../../entities/mobentity.h"
+#include "../../entities/trustentity.h"
 #include "../../utils/battleutils.h"
 #include "../../../common/utils.h"
 #include "../../utils/petutils.h"
+#include "../../utils/charutils.h"
 
 CMobController::CMobController(CMobEntity* PEntity) :
     CController(PEntity),
@@ -130,6 +132,8 @@ void CMobController::TryLink()
         return;
     }
 
+    uint32 bodyguard = charutils::GetVar((CCharEntity*)PTarget,"[TRUST]Bodyguard");
+
     //handle pet behaviour on the targets behalf (faster than in ai_pet_dummy)
     // Avatars defend masters by attacking mobs if the avatar isn't attacking anything currently (bodyguard behaviour)
     if (PTarget->PPet != nullptr && PTarget->PPet->GetBattleTargetID() == 0)
@@ -137,6 +141,18 @@ void CMobController::TryLink()
         if (PTarget->PPet->objtype == TYPE_PET && ((CPetEntity*)PTarget->PPet)->getPetType() == PETTYPE_AVATAR)
         {
             petutils::AttackTarget(PTarget, PMob);
+        }
+    }
+
+    CCharEntity* PChar = (CCharEntity*)PTarget;
+    if (bodyguard == 2 && PChar->PTrusts.size() != 0)
+    {
+        //ShowWarning(CL_GREEN"AGRO PERSON HAS TRUSTS OUT TRY AGRO \n" CL_RESET);
+        for (CTrustEntity* trust : PChar->PTrusts)
+        {
+            //ShowWarning(CL_GREEN"FORCE TRUST AGRO!!! \n" CL_RESET);
+            uint32 targID = PMob->targid;
+            trust->PAI->Internal_Engage(targID);
         }
     }
 
