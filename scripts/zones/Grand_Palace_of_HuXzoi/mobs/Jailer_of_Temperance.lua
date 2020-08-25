@@ -1,7 +1,7 @@
-----------------------------------	
--- Area: Grand Palace of Hu'Xzoi	
+----------------------------------
+-- Area: Grand Palace of Hu'Xzoi
 -- NM:  Jailer of Temperance
------------------------------------	
+-----------------------------------
 
 require("scripts/globals/magic");
 require("scripts/globals/status");
@@ -14,7 +14,7 @@ require("scripts/globals/mobscaler");
 -----------------------------------
 
 function onMobSpawn(mob)
-    mob:setLocalVar("PartySize",9); 
+    mob:setLocalVar("PartySize",9);
 	-- Give it two hour
 	-- mob:setMod(dsp.mobMod.MAIN_2HOUR, 1);
 	-- Change animation to pot
@@ -24,18 +24,18 @@ function onMobSpawn(mob)
 	mob:setMod(dsp.mod.SLASHRES,0);
 	mob:setMod(dsp.mod.PIERCERES,0);
     mob:setMod(dsp.mod.IMPACTRES,1000);
-	-- Set the magic resists. It always takes no damage from direct magic
-	for n =1,table.getn (resistMod),1 do
-		mob:setMod(resistMod[n],0); 
-	end
-	for n =1,table.getn (defenseMod),1 do
-		mob:setMod(defenseMod[n],1000);
-	end 
+    -- Set the magic resists. It always takes no damage from direct magic
+    for n =1,#dsp.magic.resistMod,1 do
+        mob:setMod(dsp.magic.resistMod[n],0);
+    end
+    for n =1,#dsp.magic.defenseMod,1 do
+        mob:setMod(dsp.magic.defenseMod[n],1000);
+    end
 end;
 
 -----------------------------------
 -- onMobFight Action
--- Randomly change forms 
+-- Randomly change forms
 -----------------------------------
 
 function onMobFight(mob, target)
@@ -44,12 +44,12 @@ function onMobFight(mob, target)
 	-- Forms: 0 = Pot  1 = Pot  2 = Poles  3 = Rings
 	local randomTime = math.random(30,180);
 	local changeTime = mob:getLocalVar("changeTime");
-	
+
 	-- If we're in a pot form, but going to change to either Rings/Poles
 	if ((mob:AnimationSub() == 0 or mob:AnimationSub() == 1) and mob:getBattleTime() - changeTime > randomTime) then
 		local aniChange = math.random(2,3);
 		mob:AnimationSub(aniChange);
-		
+
 		-- We changed to Poles. Make it only take piercing.
 		if (aniChange == 2) then
 			mob:setMod(dsp.mod.HTHRES,0);
@@ -67,7 +67,7 @@ function onMobFight(mob, target)
 	-- We're in poles, but changing
 	elseif (mob:AnimationSub() == 2 and mob:getBattleTime() - changeTime > randomTime) then
 		local aniChange = math.random(0, 1);
-		
+
 		-- Changing to Pot, only take Blunt damage
 		if (aniChange == 0) then
 			mob:AnimationSub(0);
@@ -88,7 +88,7 @@ function onMobFight(mob, target)
 	elseif (mob:AnimationSub() == 3 and mob:getBattleTime() - changeTime > randomTime) then
 		local aniChange = math.random(0, 2);
 		mob:AnimationSub(aniChange);
-		
+
 		-- We're changing to pot form, only take blunt damage.
 		if (aniChange == 0 or aniChange == 1) then
 			mob:setMod(dsp.mod.HTHRES,1000);
@@ -106,18 +106,18 @@ function onMobFight(mob, target)
 	end
 end;
 
------------------------------------	
--- onMobDeath	
------------------------------------	
-function onMobDeath(mob,player,isKiller)	
-	
+-----------------------------------
+-- onMobDeath
+-----------------------------------
+function onMobDeath(mob,player,isKiller)
+
         player:setVar("Temper_Win",1);
 	    player:addCurrency('zeni_point',250);
-	    player:PrintToPlayer("You obtain 250 Zeni Points.", 0x15);		
+	    player:PrintToPlayer("You obtain 250 Zeni Points.", 0x15);
 
 	SetServerVariable("[SEA]Jailer_of_Temperance_POP", os.time(t) + 900); -- 15 mins
 	DeterMob(mob:getID(), true);
-	
+
 	-- Set PH back to normal, then set respawn time
 	PH = GetServerVariable("[SEA]Jailer_of_Temperance_PH");
 	SetServerVariable("[SEA]Jailer_of_Temperance_PH", 0);

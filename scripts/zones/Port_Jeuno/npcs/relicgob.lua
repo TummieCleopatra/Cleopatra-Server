@@ -1116,6 +1116,15 @@ if (job == 11) and (trade:hasItemQty(17256, 1)) and trade:hasItemQty( 1456, 10 )
 			player:setVar("RNGAFweapongun", 0);
 			player:setVar("RNGRelicgunweapon", 1);
 			player:messageSpecial(ID.text.ITEM_OBTAINED, 18334);
+	elseif (job == 11) and (trade:hasItemQty(18334, 1)) and trade:hasItemQty( 1450,20) and (player:getVar("RNGRelicgunweapon") == 1) then
+             -- Complete the trade..
+            player:tradeComplete();
+			player:PrintToPlayer("Netblyx : Here you go.", 0xD);
+			player:addItem(18334, 1, 519, 4); -- STR-4
+			player:setVar("RNGRelicgunweapon", 3);
+			player:messageSpecial(ID.text.ITEM_OBTAINED, 18334);
+	elseif (job == 11) and (trade:hasItemQty(18334, 1)) and trade:hasItemQty( 1453,30) and (player:getVar("RNGRelicgunweapon") == 2) then
+             -- Complete the trade..
             player:tradeComplete();
 			player:PrintToPlayer("Netblyx : Here you go.", 0xD);
 			player:addItem(18334, 1, 519, 3); -- STR-3

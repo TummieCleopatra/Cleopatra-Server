@@ -19,6 +19,8 @@ end
 
 function onMobEngaged(mob,target)
 
+    local hp = mob:getMaxHP()
+    print(hp)
 
 end;
 
@@ -47,7 +49,7 @@ function onMobFight(mob, target)
     end
 
     -- Handle TP
-    local randtp = math.random(1400,1600)
+    local randtp = math.random(1600,1800)
     if (hpp > 70 and tp >= randtp) then
         if (progress >= 9) then
             local tpmove = math.random(1,3)

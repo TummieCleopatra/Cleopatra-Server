@@ -5,6 +5,7 @@
 
 require("scripts/globals/titles");
 require("scripts/globals/quests");
+require("scripts/globals/missions")
 
 -----------------------------------
 -- EXAMPLE SCRIPT
@@ -47,14 +48,15 @@ function onBcnmLeave(player,instance,leavecode)
 end;
 
 function onEventUpdate(player,csid,option)
--- print("bc update csid "..csid.." and option "..option);
+    print("bc update csid "..csid.." and option "..option);
 end;
 
 function onEventFinish(player,csid,option)
--- print("bc finish csid "..csid.." and option "..option);
+    print("bc finish csid "..csid.." and option "..option);
     if (csid == 6) then
-        player:startEvent(32001,1,1,1,instance:getTimeInside(),1,1,0);
+        -- player:startEvent(32001,1,1,1,instance:getTimeInside(),1,1,0);
         player:completeMission(WOTG, dsp.mission.id.wotg.PURPLE_THE_NEW_BLACK)
         player:addMission(WOTG, dsp.mission.id.wotg.IN_THE_NAME_OF_THE_FATHER)
+        player:setPos(-100,0,-185,1,85)
     end
 end;
