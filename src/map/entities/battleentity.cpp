@@ -597,15 +597,15 @@ uint16 CBattleEntity::ATT()
     int32 ATT = 8 + m_modStat[Mod::ATT];
 	if (m_Weapons[SLOT_MAIN]->getSkillType() == 1)  //H2h
 	{
-	    ATT += (STR() * 5) / 8;
+	    ATT += (STR() * 3) / 4;
 	}
 	else if (m_Weapons[SLOT_MAIN]->getSkillType() == 2)  //Dagger
 	{
-	    ATT += (STR() * 9) / 16;
+	    ATT += (STR() * 13) / 20;
 	}
 	else if (m_Weapons[SLOT_MAIN]->getSkillType() == 3)  //Sword
 	{
-	    ATT += (STR() * 5) / 8;
+	    ATT += (STR() * 3) /4;
 	}
 	else if (m_Weapons[SLOT_MAIN]->getSkillType() == 4)  //Gsword
 	{
@@ -629,11 +629,11 @@ uint16 CBattleEntity::ATT()
 	}
 	else if (m_Weapons[SLOT_MAIN]->getSkillType() == 9)  //Katana
 	{
-	    ATT += (STR() * 5) / 8;
+	    ATT += (STR() * 3) / 4;
 	}
 	else if (m_Weapons[SLOT_MAIN]->getSkillType() == 10)  //GKatana
 	{
-	    ATT += (STR() * 13) / 16;
+	    ATT += (STR() * 3) / 4;
 	}
 	else if (m_Weapons[SLOT_MAIN]->getSkillType() == 11)  //Club
 	{
@@ -641,7 +641,7 @@ uint16 CBattleEntity::ATT()
 	}
 	else if (m_Weapons[SLOT_MAIN]->getSkillType() == 12)  //Staff
 	{
-	    ATT += (STR() * 3) / 4;
+	    ATT += (STR() * 13) / 16;
 	}
 
 
@@ -746,6 +746,13 @@ uint16 CBattleEntity::ACC(uint8 attackNumber, uint8 offsetAccuracy)
         ACC = ACC + std::min<int16>((ACC * m_modStat[Mod::FOOD_ACCP] / 100), m_modStat[Mod::FOOD_ACC_CAP]);
         return std::max<int16>(0, ACC);
     }
+    else if (this->objtype == TYPE_TRUST)
+    {
+        int16 ACC = m_modStat[Mod::ACC];
+        ACC = ACC + std::min<int16>((ACC * m_modStat[Mod::FOOD_ACCP] / 100), m_modStat[Mod::FOOD_ACC_CAP]) + (DEX() * 2); //food mods here for Snatch Morsel
+        return std::max<int16>(0, ACC);
+    }
+
     else
     {
         int16 ACC = m_modStat[Mod::ACC];
