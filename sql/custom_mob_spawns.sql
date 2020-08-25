@@ -75,3 +75,29 @@ INSERT INTO `mob_spawn_points` VALUES (17305661,'Yagudo_Votary','Yagudo_Votary',
 INSERT INTO `mob_spawn_points` VALUES (17305822,'Yagudo_Herald','Yagudo_Herald',6912,-151,0,180,0);
 INSERT INTO `mob_spawn_points` VALUES (17305818,'Yagudo_Theologist','Yagudo_Theologist',6919,-151,0,180,0);
 INSERT INTO `mob_spawn_points` VALUES (17305662,'Laa_Yaku_the_Austere','Laa_Yaku_the_Austere',6884,-151,0,180,0);
+
+
+-- Missing Salvage Mobs
+INSERT INTO `mob_spawn_points` VALUES (17088668,'Don_Poroggo','Don_Poroggo',35,-260,-4.448,86.5,192);
+
+
+-- Sojourn
+INSERT INTO `mob_spawn_points` VALUES (17522701,'Damask_Crab','Damask Crab',100,-562,18,722,0);  -- Crab
+INSERT INTO `mob_spawn_points` VALUES (17522702,'Damask_Crab','Damask Crab',100,-544,17,701,0);  -- Crab
+INSERT INTO `mob_spawn_points` VALUES (17522703,'Damask_Crab','Damask Crab',100,-578,18,699,0);  -- Crab
+
+
+INSERT INTO `mob_spawn_points` VALUES (17523360,'Barbaric_Bird','Barbaric Bird',105,-562,18,722,0);  -- Bird
+INSERT INTO `mob_spawn_points` VALUES (17523361,'Barbaric_Bird','Barbaric Bird',105,-544,17,701,0);  -- Bird
+INSERT INTO `mob_spawn_points` VALUES (17523362,'Barbaric_Bird','Barbaric Bird',105,-578,18,699,0);  -- Bird
+-- Hyppogphry
+-- Hyppo
+-- hyppo
+-- Greater Bird
+-- Greater Bird
+-- Greater Bird
+-- Apkalu
+-- Apkalu
+-- Apkalu
+-- Apmh
+-- Amph

@@ -33789,7 +33789,11 @@ INSERT INTO `mob_droplist` VALUES (6023,0,0,1000,11399,10);  -- SCH Feet
 -- ----------------------------
 
 
-INSERT INTO `mob_droplist` VALUES (6024,0,0,1000,4249,1000); -- Schultz Battle Theorum
+-- INSERT INTO `mob_droplist` VALUES (6024,0,0,1000,4249,1000); -- Schultz Battle Theorum
+INSERT INTO `mob_droplist` VALUES (6024,0,0,1000,1455,1000); -- Byne Bill
+INSERT INTO `mob_droplist` VALUES (6024,0,0,1000,1455,1000); -- Byne Bill
+INSERT INTO `mob_droplist` VALUES (6024,0,0,1000,1455,1000); -- Byne Bill
+INSERT INTO `mob_droplist` VALUES (6024,0,0,1000,1455,1000); -- Byne Bill
 INSERT INTO `mob_droplist` VALUES (6024,0,0,1000,1455,850); -- Byne Bill
 INSERT INTO `mob_droplist` VALUES (6024,0,0,1000,1455,850); -- Byne Bill
 INSERT INTO `mob_droplist` VALUES (6024,0,0,1000,1455,750); -- Byne Bill
