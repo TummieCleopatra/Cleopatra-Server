@@ -26,6 +26,9 @@ local nmgold = 30
 local ssnmblue = 90
 local ssnmred = 85
 
+local SSRFLOOR1 = 20
+local SSRFLOOR2 = 20
+local SSRFLOOR3 = 20
 
 -----------------------------------
 -- mobScaler
@@ -1316,13 +1319,14 @@ function gyro(player,npc)
 
     local nmdrop = 15628;
 
-    local pickdrop = math.random(1,4)
-    if (pickdrop == 1) then
-        nmdrop = 15628 -- Deimos's Cuisses
-    elseif (pickdrop == 2) then
-        nmdrop = 16085 -- Enyo's Mask
-    elseif (pickdrop == 2) then
+    local pickdrop = math.random(1,10)
+
+    if (pickdrop <= 4) then
         nmdrop = 14974 -- Anu's Gages
+    elseif (pickdrop <= 8) then
+        nmdrop = 16085 -- Enyo's Mask
+    elseif (pickdrop == 9) then
+        nmdrop = 15628 -- Deimos's Cuisses
     else
         nmdrop = 14968 -- Freya's Gloves
     end
@@ -1359,6 +1363,8 @@ function donporoggo(player,npc)
     local item = 0;
     local mods = 0
 
+    -- Always Drop
+
     local nmdrop = 14547 -- Enyo's Breastplate
     local pickdrop = math.random(1,2)
     if (pickdrop == 1) then
@@ -1367,23 +1373,20 @@ function donporoggo(player,npc)
         nmdrop = 14563 -- Nemain's Robe
     end
 
+
     local npcID = npc:getID();
     if (npcID >= 17088809 and npcID <= 17088814) then -- Blue always Potions and Ethers based on floor
 	    local itemchance = math.random(1,100);
-		if (itemchance < ssnmblue) then
-			item = 5322; -- Healing Powder
-		else
-            item = nmdrop
+		if (itemchance <= 100) then
+		    item = nmdrop;
 		end
     end
 
     if (npcID >= 17088815 and npcID <= 17088817) then -- Red always HQ temp items and Alexandrite
 	    local itemchance = math.random(1,100);
-		if (itemchance < ssnmred) then
-			item = 5436; -- Instant Reraise
-		else
-            item = nmdrop
-        end
+		if (itemchance <= 100) then
+		    item = nmdrop;
+		end
     end
 
 	if (npcID >= 17088818 and npcID <= 17088819) then -- Gold
@@ -1511,6 +1514,331 @@ function longArmedChariot(player,npc)
 	return item;
 end
 
+function deviateBhoot(player,npc)
+    local item = 0;
+    local mods = 0
+    if (mob:getID() ~= 17084719) then
+        mods = 4
+    end
+
+    local nmdrop = 16087;
+
+    local pickdrop = math.random(1,2)
+    if (pickdrop == 1) then
+        nmdrop = 16087 -- Deimos Mask
+    else
+        nmdrop = 16087 -- Deimos Mask
+    end
+
+    local npcID = npc:getID();
+    if (npcID >= 17080586 and npcID <= 17080591) then -- Blue always Potions and Ethers based on floor
+	    local itemchance = math.random(1,100);
+		if (itemchance < nmblue) then
+			item = 5322; -- Healing Powder
+		else
+            item = nmdrop
+		end
+    end
+
+    if (npcID >= 17080582 and npcID <= 17080594) then -- Red always HQ temp items and Alexandrite
+	    local itemchance = math.random(1,100);
+		if (itemchance < nmred) then
+			item = 5436; -- Instant Reraise
+		else
+            item = nmdrop
+        end
+    end
+
+	if (npcID == 17080595 or npcID == 17080598) then -- Gold
+	    local itemchance = math.random(1,100);
+		if (itemchance <= 100) then
+		    item = nmdrop;
+		end
+	end
+	return item;
+end
+
+function astrologer(player,npc)
+    local item = 0;
+    local mods = 0
+    if (mob:getID() ~= 17084719) then
+        mods = 4
+    end
+
+    local nmdrop = 16087;
+
+    local pickdrop = math.random(1,2)
+    if (pickdrop == 1) then
+        nmdrop = 15628 -- Deimos Cuisses
+    else
+        nmdrop = 15628 -- Deimos Cuisses
+    end
+
+    local npcID = npc:getID();
+    if (npcID >= 17080586 and npcID <= 17080591) then -- Blue always Potions and Ethers based on floor
+        local itemchance = math.random(1,100);
+        if (itemchance < nmblue) then
+            item = 5322; -- Healing Powder
+        else
+            item = nmdrop
+        end
+    end
+
+    if (npcID >= 17080582 and npcID <= 17080594) then -- Red always HQ temp items and Alexandrite
+        local itemchance = math.random(1,100);
+        if (itemchance < nmred) then
+            item = 5436; -- Instant Reraise
+        else
+            item = nmdrop
+        end
+    end
+
+    if (npcID == 17080595 or npcID == 17080598) then -- Gold
+        local itemchance = math.random(1,100);
+        if (itemchance <= 100) then
+            item = nmdrop;
+        end
+    end
+    return item;
+end
+
+
+function arChariot(player,npc)
+    local item = 0;
+    local mods = 0
+    if (mob:getID() ~= 17084719) then
+        mods = 4
+    end
+
+    local nmdrop = 16087;
+
+    local pickdrop = math.random(1,3)
+    if (pickdrop == 1) then
+        nmdrop = 14976; -- Enlil's Kolluks
+    elseif (pickdrop == 2) then
+        nmdrop = 15718; -- Freya's Ledelsons
+    elseif (pickdrop == 3) then
+        nmdrop = 15636;  -- Hikazu Hakama
+    end
+
+    local npcID = npc:getID();
+    if (npcID >= 17080586 and npcID <= 17080591) then -- Blue always Potions and Ethers based on floor
+        local itemchance = math.random(1,100);
+        if (itemchance < nmblue) then
+            item = 5322; -- Healing Powder
+        else
+            item = nmdrop
+        end
+    end
+
+    if (npcID >= 17080582 and npcID <= 17080594) then -- Red always HQ temp items and Alexandrite
+        local itemchance = math.random(1,100);
+        if (itemchance < nmred) then
+            item = 5436; -- Instant Reraise
+        else
+            item = nmdrop
+        end
+    end
+
+    if (npcID == 17080595 or npcID == 17080598) then -- Gold
+        local itemchance = math.random(1,100);
+        if (itemchance <= 100) then
+            item = nmdrop;
+        end
+    end
+    return item;
+end
+
+function treasureHunter(player,npc)
+    local item = 0;
+    local mods = 0
+    if (mob:getID() ~= 17084719) then
+        mods = 4
+    end
+
+    local nmdrop = 14565;
+
+    local npcID = npc:getID();
+    if (npcID >= 17080586 and npcID <= 17080591) then -- Blue always Potions and Ethers based on floor
+        local itemchance = math.random(1,100);
+        if (itemchance < nmblue) then
+            item = 5322; -- Healing Powder
+        else
+            item = nmdrop
+        end
+    end
+
+    if (npcID >= 17080582 and npcID <= 17080594) then -- Red always HQ temp items and Alexandrite
+        local itemchance = math.random(1,100);
+        if (itemchance < nmred) then
+            item = 5436; -- Instant Reraise
+        else
+            item = nmdrop
+        end
+    end
+
+    if (npcID == 17080595 or npcID == 17080598) then -- Gold
+        local itemchance = math.random(1,100);
+        if (itemchance <= 100) then
+            item = nmdrop;
+        end
+    end
+    return item;
+end
+
+function pyschFlayer(player,npc)
+    local item = 0;
+    local mods = 0
+    if (mob:getID() ~= 17084719) then
+        mods = 4
+    end
+
+    local nmdrop = 16103;
+
+    local npcID = npc:getID();
+    if (npcID >= 17080586 and npcID <= 17080591) then -- Blue always Potions and Ethers based on floor
+        local itemchance = math.random(1,100);
+        if (itemchance < nmblue) then
+            item = 5322; -- Healing Powder
+        else
+            item = nmdrop
+        end
+    end
+
+    if (npcID >= 17080582 and npcID <= 17080594) then -- Red always HQ temp items and Alexandrite
+        local itemchance = math.random(1,100);
+        if (itemchance < nmred) then
+            item = 5436; -- Instant Reraise
+        else
+            item = nmdrop
+        end
+    end
+
+    if (npcID == 17080595 or npcID == 17080598) then -- Gold
+        local itemchance = math.random(1,100);
+        if (itemchance <= 100) then
+            item = nmdrop;
+        end
+    end
+    return item;
+end
+
+function arBoss(player,npc)
+    local item = 0;
+    local mods = 0
+    if (mob:getID() ~= 17084719) then
+        mods = 4
+    end
+
+    local nmdrop = 16087;
+
+    local pickdrop = math.random(1,6)
+    if (pickdrop == 1) then
+        nmdrop = 15713; -- Phobo's Sabotons
+    elseif (pickdrop == 2) then
+        nmdrop = 14560; -- Ea's Doublet
+    elseif (pickdrop == 3) then
+        nmdrop = 16098;  -- Ea's Tiara
+    elseif (pickdrop == 4) then
+        nmdrop = 15631; -- Freyr's Trousers
+    elseif (pickdrop == 5) then
+        nmdrop = 15729; -- Bodb's Pigaches
+    elseif (pickdrop == 6) then
+        nmdrop = 14971; -- Tsukikazu Gote
+    end
+
+
+    item = nmdrop;
+
+    return item;
+end
+
+function arGears(player,npc)
+    local item = 0;
+    local mods = 0
+    if (mob:getID() ~= 17084719) then
+        mods = 4
+    end
+
+    local nmdrop = 16087;
+
+    local pickdrop = math.random(1,3)
+    if (pickdrop == 1) then
+        nmdrop = 15626; -- Enyo's Cuisses
+    elseif (pickdrop == 2) then
+        nmdrop = 15724 -- Anu's Gaiters
+    elseif (pickdrop == 3) then
+        nmdrop = 14966;-- Njord's Gloves
+    elseif (pickdrop == 4) then
+        nmdrop = 15642;-- Nemain's Slops
+    elseif (pickdrop == 5) then
+        nmdrop = 16093;  -- Hoshikazu Hachamaki
+    end
+
+    local npcID = npc:getID();
+    if (npcID >= 17080586 and npcID <= 17080591) then -- Blue always Potions and Ethers based on floor
+        local itemchance = math.random(1,100);
+        if (itemchance < nmblue) then
+            item = 5322; -- Healing Powder
+        else
+            item = nmdrop
+        end
+    end
+
+    if (npcID >= 17080582 and npcID <= 17080594) then -- Red always HQ temp items and Alexandrite
+        local itemchance = math.random(1,100);
+        if (itemchance < nmred) then
+            item = 5436; -- Instant Reraise
+        else
+            item = nmdrop
+        end
+    end
+
+    if (npcID == 17080595 or npcID == 17080598) then -- Gold
+        local itemchance = math.random(1,100);
+        if (itemchance <= 100) then
+            item = nmdrop;
+        end
+    end
+    return item;
+end
+
+function princessPudding(player,npc)
+    local item = 0;
+    local mods = 0
+    if (mob:getID() ~= 17084719) then
+        mods = 4
+    end
+
+    local nmdrop = 14555;
+
+    local npcID = npc:getID();
+    if (npcID >= 17080586 and npcID <= 17080591) then -- Blue always Potions and Ethers based on floor
+        local itemchance = math.random(1,100);
+        if (itemchance < nmblue) then
+            item = 5322; -- Healing Powder
+        else
+            item = nmdrop
+        end
+    end
+
+    if (npcID >= 17080582 and npcID <= 17080594) then -- Red always HQ temp items and Alexandrite
+        local itemchance = math.random(1,100);
+        if (itemchance < nmred) then
+            item = 5436; -- Instant Reraise
+        else
+            item = nmdrop
+        end
+    end
+
+    if (npcID == 17080595 or npcID == 17080598) then -- Gold
+        local itemchance = math.random(1,100);
+        if (itemchance <= 100) then
+            item = nmdrop;
+        end
+    end
+    return item;
+end
 
 
 
