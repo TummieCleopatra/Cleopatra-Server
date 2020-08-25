@@ -171,7 +171,7 @@ function onMobSpawn(mob)
         local lvl = mob:getMainLvl()
         local flurryTime = mob:getLocalVar("flurryTime")
         local party = player:getPartyWithTrusts()
-        printf("Try Flurry")
+        -- printf("Try Flurry")
         if (battletime > flurryTime + flurryCooldown and lvl >= 48 and mp >= 40) then
             for i, member in ipairs(party) do
                 local tname = member:getName()

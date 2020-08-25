@@ -57,6 +57,7 @@ function onMobSpawn(mob)
     mob:addHP(500)
 
 
+
     --[[
     mob:addListener("ROAM_TICK", "CUR_ROAM_TICK", function(mob)
         if (mob:hasStatusEffect(dsp.effect.HEALING) == false) then
@@ -123,9 +124,9 @@ function onMobSpawn(mob)
         local add = player:getVar("[TRUST]KORU_SLEEP")
 
         if ((battletime > flashTime + flashCooldown) and add > 0) then
-            local tadd = GetMobByID(add)
-            doCurillaFlash(mob, player, tadd)
-            player:setVar("[TRUST]KORU_SLEEP",0)
+              local tadd = GetMobByID(add)
+              doCurillaFlash(mob, player, tadd)
+              player:setVar("[TRUST]KORU_SLEEP",0)
         elseif (enmity > 0 and (battletime > flashTime + flashCooldown)) then
             doCurillaFlash(mob, player, target)
             mob:setLocalVar("flashTime",battletime)

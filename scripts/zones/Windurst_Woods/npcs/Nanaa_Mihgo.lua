@@ -13,6 +13,7 @@ require("scripts/globals/settings")
 require("scripts/globals/quests")
 require("scripts/globals/status")
 require("scripts/globals/titles")
+require("scripts/globals/trust_points");
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -30,9 +31,9 @@ function onTrade(player,npc,trade)
     local rank = player:getVar("[TRUST]NanaaRank")
     local subRank = player:getVar("[TRUST]NanaaSubRank")
     local total = player:getVar("[TRUST]NanaaTokensTotal")
-    local quest = job.THF.finish[subRank]
+    local quest = trustjob.THF.finish[subRank]
     local finish = dialog.finish
-    local meritCount = getMeritCount()
+    local meritCount = player:getMeritCount()
 
 
     local sjQuest = player:getVar("TRUST_SJ_QUEST")
@@ -48,7 +49,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Nanaa Mihgo: Subjob is now Ninja!", 0x15);
     end
 
-    if (trib == 1 and trade:hasItemQty(1431) and meritCount >= 5) then
+    if (trib == 1 and trade:hasItemQty(1431,1) and meritCount >= 5) then
         player:tradeComplete()
         player:setMerits(meritCount - 5)
         player:PrintToPlayer("Nanaa Mihgo : "..finish,0x0D);
@@ -57,9 +58,14 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Nanaa Mihgo : Thank you for your Tribute.",0x0D);
         total = total + 1
         player:setVar("[TRUST]NanaaTokensTotal",total)
-        player:PrintToPlayer("Nanaa Mihgo's "..quest.."  (Total Tokens: "..total.."/550)",0x0D);
-	    currentTokens = currentTokens - rank + 1;
+        local perc = ""
+        local tokamt = 0
+        tokamt = rank + 1
+        perc = ""
+        player:PrintToPlayer("Nanaa Mihgo's "..quest.." "..tokamt..""..perc.." (Total Tokens: "..total.."/550)",0x15);
+	    currentTokens = currentTokens - (rank + 1);
 	    player:setVar("CurrentTokens_Nanaa",currentTokens);
+
         subRank = subRank + 1
         if (subRank > 9) then
             player:setVar("[TRUST]NanaaSubRank",0)
@@ -128,6 +134,9 @@ function onTrigger(player,npc)
     local pNation = player:getNation();
 
     local tribfight = player:getVar("NANAA_TRIB_FIGHT");
+    local trib = player:getVar("[TRUST]NANAA_TRIB");
+    local subRank = player:getVar("[TRUST]NanaaSubRank")
+    local mainRank = player:getVar("[TRUST]NanaaRank")
 	local mainlvl = player:getMainLvl();
 
 
@@ -148,7 +157,7 @@ function onTrigger(player,npc)
  	-- ------------------------ --
     --   Nanaa Tribute Unlock  --
     -- ------------------------ --
-	if (mLvL >= 75 and player:hasSpell(901) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
+	if (mainlvl >= 75 and player:hasSpell(901) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
         local start = dialog.start
         local done = dialog.finish
 	    player:PrintToPlayer("Nanaa Mihgo : "..start, 0xD);
@@ -162,8 +171,8 @@ function onTrigger(player,npc)
     --  Handle Token Quest  --
     --------------------------
     if (trib == 2) then
-        local quest = job.THF.start[subRank]
-        local token = subRank + 1
+        local quest = trustjob.THF.start[subRank]
+        local token = mainRank + 1
         player:PrintToPlayer("Nanaa Mihgo : Bring me "..token.." of my Trust Tokens and 5,000 gil to "..quest,0x0D);
     end
 

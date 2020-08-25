@@ -25,6 +25,7 @@ function onMobSpawn(mob)
     mob:setLocalVar("teCooldown",30)
     mob:setLocalVar("sekkaTime",0)
     mob:setLocalVar("shikTime",0)
+    mob:setLocalVar("shikCooldown",0)
     mob:setLocalVar("sekkaTime",0)
     mob:setLocalVar("sekkaType",0) -- 1: self sc, 2: Two Step with player close
     mob:setLocalVar("wsTime",0)
@@ -96,7 +97,8 @@ function onMobSpawn(mob)
         local shikCooldown = mob:getLocalVar("shikCooldown")
         local ayameTP = mob:getTP()
         local pTP = player:getTP()
-        if (lvl >= 75) then
+        local gift = mob:getLocalVar("[TRUST]SHIKIKOYO")
+        if (lvl >= 75 and gift == 1) then
             if (battletime > shikTime + shikCooldown) then
                 if (ayameTP > 750 and pTP < 100) then
                     mob:useJobAbility(151, player)

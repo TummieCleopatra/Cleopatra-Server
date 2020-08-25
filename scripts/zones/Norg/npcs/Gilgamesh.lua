@@ -14,9 +14,9 @@ function onTrade(player,npc,trade)
     local rank = player:getVar("[TRUST]LionRank")
     local subRank = player:getVar("[TRUST]LionSubRank")
     local total = player:getVar("[TRUST]LionTokensTotal")
-    local quest = job.THF2.finish[subRank]
+    local quest = trustjob.THF2.finish[subRank]
     local finish = dialog.finish
-    local meritCount = getMeritCount()
+    local meritCount = player:getMeritCount()
 
 
 
@@ -29,8 +29,12 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Gilgamesh : Thank you for your Tribute.",0x0D);
         total = total + 1
         player:setVar("[TRUST]LionTokensTotal",total)
-        player:PrintToPlayer("Lion's "..quest.."  (Total Tokens: "..total.."/550)",0x0D);
-	    currentTokens = currentTokens - rank + 1;
+        local perc = ""
+        local tokamt = 0
+        tokamt = rank + 1
+        perc = ""
+        player:PrintToPlayer("Lion's "..quest.." "..tokamt..""..perc.." (Total Tokens: "..total.."/550)",0x15);
+	    currentTokens = currentTokens - (rank + 1);
 	    player:setVar("CurrentTokens_Lion",currentTokens);
         subRank = subRank + 1
         if (subRank > 9) then
@@ -88,6 +92,11 @@ function onTrigger(player,npc)
     local ZilartMission = player:getCurrentMission(ZILART);
 
     local tribfight = player:getVar("LION_TRIB_FIGHT");
+    local mainlvl = player:getMainLvl()
+    local subRank = player:getVar("[TRUST]LionSubRank")
+    local mainRank = player:getVar("[TRUST]LionRank")
+    local trib = player:getVar("[TRUST]LION_TRIB");
+
 
 	if ((player:hasCompletedMission(ZILART,dsp.mission.id.zilart.ROMAEVE)) and (player:hasKeyItem(dsp.ki.RED_INSTITUTE_CARD)) and (player:hasSpell(907) == false)) then
 		player:PrintToPlayer("Your Red Institute Card flashes brilliantly!", 0x1C);
@@ -129,7 +138,7 @@ function onTrigger(player,npc)
 	-- ------------------------ --
     --   Lion Tribute Unlock  --
     -- ------------------------ --
-	if (mLvL >= 75 and player:hasSpell(907) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
+	if (mainlvl >= 75 and player:hasSpell(907) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
         local start = dialog.start
         local done = dialog.finish
 	    player:PrintToPlayer("Gilgamesh : "..start, 0xD);
@@ -143,8 +152,8 @@ function onTrigger(player,npc)
     --  Handle Token Quest  --
     --------------------------
     if (trib == 2) then
-        local quest = job.THF2.start[subRank]
-        local token = subRank + 1
+        local quest = trustjob.THF2.start[subRank]
+        local token = mainRank + 1
         player:PrintToPlayer("Gilgamesh : Bring me "..token.." of Lion's Trust Tokens and 5,000 gil to "..quest,0x0D);
     end
 

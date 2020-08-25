@@ -19,7 +19,7 @@ function onMobSpawn(mob)
     local cureCooldown = 14
     local debuffCooldown = 10
     local buffCooldown = 7
-    local ailmentCooldown = 15
+    local ailmentCooldown = 10
     local sleepCheck = 20
     local hasteCooldown = 220
     local master = mob:getMaster()
@@ -261,8 +261,10 @@ function doStatusRemoval(mob, player)
     local spell = 0
     local battletime = os.time()
     local party = player:getPartyWithTrusts()
-
+    mob:setLocalVar("ailmentTime",battletime)
     for i,member in pairs(party) do
+        local tname = member:getName()
+       -- print(tname)
         if (member:hasStatusEffect(dsp.effect.PETRIFICATION) == true and lvl >= 39 and mp >= 40) then
             mob:castSpell(18, member)
             break
@@ -278,20 +280,22 @@ function doStatusRemoval(mob, player)
         elseif (member:hasStatusEffect(dsp.effect.CURSE_I) == true and lvl >= 29 and mp >= 30) then
             mob:castSpell(20, member)
             break
-        elseif ((member:hasStatusEffect(dsp.effect.BIO) or member:hasStatusEffect(dsp.effect.DIA) or member:hasStatusEffect(dsp.effect.WEIGHT)) and lvl >= 32 and mp >= 18) then
+        elseif ((member:hasStatusEffect(dsp.effect.BIO) or member:hasStatusEffect(dsp.effect.DIA) or member:hasStatusEffect(dsp.effect.WEIGHT) or member:hasStatusEffect(dsp.effect.SLOW)) and lvl >= 32 and mp >= 18) then
             mob:castSpell(143, member)
+            player:PrintToPlayer("(Kupipi-R) Erase >> "..tname.."",0xF)
             break
         elseif (member:hasStatusEffect(dsp.effect.DISEASE) == true and lvl >= 34 and mp >= 20) then
             mob:castSpell(19, member)
             break
-        elseif (member:hasStatusEffect(dsp.effect.POISON) == true and lvl >= 6 and mp >= 8) then
+        elseif (member:hasStatusEffect(dsp.effect.POISON) and lvl >= 6 and mp >= 8) then
             mob:castSpell(14, member)
+            player:PrintToPlayer("(Kupipi-R) Poisona >> "..tname.."",0xF)
             break
         end
 
-        mob:setLocalVar("ailmentTime",battletime)
-
+        mob:setLocalVar("ailmentTime",battletime - 10)
     end
+
 end
 
 function doKupipiWeaponskill(mob)

@@ -18,9 +18,9 @@ function onTrade(player,npc,trade)
     local rank = player:getVar("[TRUST]DarrcuilnRank")
     local subRank = player:getVar("[TRUST]DarrcuilnSubRank")
     local total = player:getVar("[TRUST]DarrcuilnTokensTotal")
-    local quest = job.BLU.finish[subRank]
+    local quest = trustjob.BLU.finish[subRank]
     local finish = dialog.finish
-    local meritCount = getMeritCount()
+    local meritCount = player:getMeritCount()
 
 
 
@@ -33,8 +33,12 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Nareema : Thank you for your Tribute.",0x0D);
         total = total + 1
         player:setVar("[TRUST]DarrcuilnTokensTotal",total)
-        player:PrintToPlayer("Darrcuiln's "..quest.."  (Total Tokens: "..total.."/550)",0x0D);
-	    currentTokens = currentTokens - rank + 1;
+        local perc = ""
+        local tokamt = 0
+        tokamt = rank + 1
+        perc = ""
+        player:PrintToPlayer("Darrcuiln's "..quest.." "..tokamt..""..perc.." (Total Tokens: "..total.."/550)",0x15);
+	    currentTokens = currentTokens - (rank + 1);
 	    player:setVar("CurrentTokens_Darrcuiln",currentTokens);
         subRank = subRank + 1
         if (subRank > 9) then
@@ -84,6 +88,11 @@ end;
 function onTrigger(player,npc)
     local toauMission = player:getCurrentMission(TOAU);
     local beginnings = player:getQuestStatus(AHT_URHGAN,dsp.quest.id.ahtUrhgan.BEGINNINGS);
+    local subRank = player:getVar("[TRUST]DarrcuilnSubRank")
+    local mainRank = player:getVar("[TRUST]DarrcuilnRank")
+    local trib = player:getVar("[TRUST]DARRCUILN_TRIB");
+    local mainlvl = player:getMainLvl()
+
 
 	if (player:getMainJob() == 16) and (player:hasSpell(991) == false) and (player:getMainLvl() >= 15) then
 	    player:addItem(10183);
@@ -124,7 +133,7 @@ function onTrigger(player,npc)
 	-- ------------------------ --
     --   Darrcuiln Tribute Unlock  --
     -- ------------------------ --
-	if (mLvL >= 75 and player:hasSpell(991) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
+	if (mainlvl >= 75 and player:hasSpell(991) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
         local start = dialog.start
         local done = dialog.finish
 	    player:PrintToPlayer("Nareema : "..start, 0xD);
@@ -138,8 +147,8 @@ function onTrigger(player,npc)
     --  Handle Token Quest  --
     --------------------------
     if (trib == 2) then
-        local quest = job.BLU.start[subRank]
-        local token = subRank + 1
+        local quest = trustjob.BLU.start[subRank]
+        local token = mainRank + 1
         player:PrintToPlayer("Nareema : Bring me "..token.." of Darrcuiln's Trust Tokens and 5,000 gil to "..quest,0x0D);
     end
 

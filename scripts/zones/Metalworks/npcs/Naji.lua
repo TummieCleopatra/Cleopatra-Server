@@ -11,6 +11,7 @@ require("scripts/globals/titles");
 require("scripts/globals/quests");
 require("scripts/globals/missions");
 local ID = require("scripts/zones/Metalworks/IDs");
+require("scripts/globals/trust_points");
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -38,9 +39,9 @@ function onTrade(player,npc,trade)
     local rank = player:getVar("[TRUST]NajiRank")
     local subRank = player:getVar("[TRUST]NajiSubRank")
     local total = player:getVar("[TRUST]NajiTokensTotal")
-    local quest = job.WAR.finish[subRank]
+    local quest = trustjob.WAR.finish[subRank]
     local finish = dialog.finish
-    local meritCount = getMeritCount()
+    local meritCount = player:getMeritCount()
 
 
 
@@ -53,8 +54,12 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Naji : Thank you for your Tribute.",0x0D);
         total = total + 1
         player:setVar("[TRUST]NajiTokensTotal",total)
-        player:PrintToPlayer("Naji's "..quest.."  (Total Tokens: "..total.."/550)",0x0D);
-	    currentTokens = currentTokens - rank + 1;
+        local perc = ""
+        local tokamt = 0
+        tokamt = rank + 1
+        perc = ""
+        player:PrintToPlayer("Naji's "..quest.." "..tokamt..""..perc.." (Total Tokens: "..total.."/550)",0x15);
+	    currentTokens = currentTokens - (rank + 1);
 	    player:setVar("CurrentTokens_Naji",currentTokens);
         subRank = subRank + 1
         if (subRank > 9) then
@@ -107,6 +112,9 @@ function onTrigger(player,npc)
     local pNation = player:getNation();
 	local mainlvl = player:getMainLvl();
     local tribfight = player:getVar("NAJI_TRIB_FIGHT");
+    local subRank = player:getVar("[TRUST]NajiSubRank")
+    local mainRank = player:getVar("[TRUST]NajiRank")
+    local trib = player:getVar("[TRUST]NAJI_TRIB");
 
 
 	if ((pNation == 0 and player:hasCompletedMission(pNation,2) == true) and (player:hasKeyItem(dsp.ki.RED_INSTITUTE_CARD)) and (player:hasSpell(897) == false)) then  -- Sandy Rnak 4 or higher
@@ -176,7 +184,7 @@ function onTrigger(player,npc)
 	-- ------------------------ --
     --   Naji Tribute Unlock  --
     -- ------------------------ --
-	if (mLvL >= 75 and player:hasSpell(897) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
+	if (mainlvl >= 75 and player:hasSpell(897) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
         local start = dialog.start
         local done = dialog.finish
 	    player:PrintToPlayer("Naji : "..start, 0xD);
@@ -190,8 +198,8 @@ function onTrigger(player,npc)
     --  Handle Token Quest  --
     --------------------------
     if (trib == 2) then
-        local quest = job.WAR.start[subRank]
-        local token = subRank + 1
+        local quest = trustjob.WAR.start[subRank]
+        local token = mainRank + 1
         player:PrintToPlayer("Naji : Bring me "..token.." of my Trust Tokens and 5,000 gil to "..quest,0x0D);
     end
 end;

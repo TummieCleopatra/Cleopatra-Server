@@ -34,9 +34,9 @@ function onTrade(player,npc,trade)
     local rank = player:getVar("[TRUST]AdelheidRank")
     local subRank = player:getVar("[TRUST]AdelheidSubRank")
     local total = player:getVar("[TRUST]AdelheidTokensTotal")
-    local quest = job.SCH.finish[subRank]
+    local quest = trustjob.SCH.finish[subRank]
     local finish = dialog.finish
-    local meritCount = getMeritCount()
+    local meritCount = player:getMeritCount()
 
 
 
@@ -46,11 +46,15 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Adelheid : "..finish,0x0D);
         player:setVar("[TRUST]ADELHEID_TRIB",2)
     elseif ((trib == 2) and (trade:hasItemQty(65535, 5000)) and (currentTokens >= rank + 1)) then
-        player:PrintToPlayer("Adelheid : Thank you for your Tribute.",0x0D);
+        player:PrintToPlayer("Erlene : Thank you for your Tribute.",0x0D);
         total = total + 1
         player:setVar("[TRUST]AdelheidTokensTotal",total)
-        player:PrintToPlayer("Adelheid's "..quest.."  (Total Tokens: "..total.."/550)",0x0D);
-	    currentTokens = currentTokens - rank + 1;
+        local perc = ""
+        local tokamt = 0
+        tokamt = rank + 1
+        perc = ""
+        player:PrintToPlayer("Adelheid's "..quest.." "..tokamt..""..perc.." (Total Tokens: "..total.."/550)",0x15);
+	    currentTokens = currentTokens - (rank + 1);
 	    player:setVar("CurrentTokens_Adelheid",currentTokens);
         subRank = subRank + 1
         if (subRank > 9) then
@@ -91,7 +95,7 @@ function onTrade(player,npc,trade)
             player:PrintToPlayer("Adelheid will now receive a 5% Trust Point Bonus!", 0x15);
         end
     else
-        player:PrintToPlayer("Adelheid : Please trade the correct amount of Tokens and Gil.",0x0D);
+        player:PrintToPlayer("Erlene : Please trade the correct amount of Tokens and Gil.",0x0D);
 	end
 end;
 
@@ -106,6 +110,33 @@ function onTrigger(player,npc)
     local downwardHelix = player:getQuestStatus(CRYSTAL_WAR, dsp.quest.id.crystalWar.DOWNWARD_HELIX);
 	local mainlvl = player:getMainLvl();
     local tribfight = player:getVar("ADEL_TRIB_FIGHT");
+    local subRank = player:getVar("[TRUST]AdelheidSubRank")
+    local mainRank = player:getVar("[TRUST]AdelheidRank")
+    local trib = player:getVar("[TRUST]ADELHEID_TRIB");
+
+
+	-- ------------------------ --
+    --   Adelheid Tribute Unlock  --
+    -- ------------------------ --
+	if (mainlvl >= 75 and player:hasSpell(968) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
+        local start = dialog.start
+        local done = dialog.finish
+	    player:PrintToPlayer("Erlene : "..start, 0xD);
+        player:setVar("[TRUST]ADELHEID_TRIB",1)
+    elseif (trib == 1) then
+        local remind = dialog.remind
+        player:PrintToPlayer("Erlene : "..remind, 0xD);
+	end
+
+	-- -------------------- --
+    --  Handle Token Quest  --
+    --------------------------
+    if (trib == 2) then
+        local quest = trustjob.SCH.start[subRank]
+        local token = mainRank + 1
+        player:PrintToPlayer("Erlene : Bring me "..token.." of Adelheid's Trust Tokens and 5,000 gil to "..quest,0x0D);
+    end
+
 
     if (ALittleKnowledge == QUEST_AVAILABLE) then
         if (mLvl >= ADVANCED_JOB_LEVEL) then
@@ -156,27 +187,7 @@ function onTrigger(player,npc)
 	    player:setVar("TrustMB",10);
 	end
 
-	-- ------------------------ --
-    --   Adelheid Tribute Unlock  --
-    -- ------------------------ --
-	if (mLvL >= 75 and player:hasSpell(968) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
-        local start = dialog.start
-        local done = dialog.finish
-	    player:PrintToPlayer("Adelheid : "..start, 0xD);
-        player:setVar("[TRUST]ADELHEID_TRIB",1)
-    elseif (trib == 1) then
-        local remind = dialog.remind
-        player:PrintToPlayer("Adelheid : "..remind, 0xD);
-	end
 
-	-- -------------------- --
-    --  Handle Token Quest  --
-    --------------------------
-    if (trib == 2) then
-        local quest = job.SCH.start[subRank]
-        local token = subRank + 1
-        player:PrintToPlayer("Adelheid : Bring me "..token.." of my Trust Tokens and 5,000 gil to "..quest,0x0D);
-    end
 
 end;
 

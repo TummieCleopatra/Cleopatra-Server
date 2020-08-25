@@ -26,19 +26,25 @@ function onMobSpawn(mob)
     mob:setLocalVar("teCooldown",30)
     mob:setLocalVar("sekkaTime",0)
     mob:setLocalVar("shikTime",0)
-    mob:setLocalVar("shikRecast",300)
+    mob:setLocalVar("shikCooldown",300)
 
     mob:setLocalVar("sekkaType",0) -- 1: self sc, 2: Two Step with player close
     mob:setLocalVar("berserkTime",0)
-    mob:setLocalvar("berserkCooldown",300)
+    mob:setLocalVar("berserkCooldown",300)
     mob:setLocalVar("wsTime",0)
     set2HStats(mob)
     ayameTrustPoints(mob)
 
+    -- Add in Hagun TP Bonus at 72
+    if (mob:getMainLvl() >= 72) then
+        mob:addMod(dsp.mod.TP_BONUS,1000)
+    end
+
     local medRecast = mob:getLocalVar("[TRUST]MEDITATE_RECAST")
     local sekRecast = mob:getLocalVar("[TRUST]SEKKANOKI_RECAST")
-    mob:setLocalVar("sekkaCooldown",300 - sekRecast)
-    mob:setLocalVar("meditateCooldown",180 - medRecast)
+    -- 300/180
+    mob:setLocalVar("sekkaCooldown",60 - sekRecast)
+    mob:setLocalVar("meditateCooldown",60 - medRecast)
 
     mob:addListener("COMBAT_TICK", "AYAME_DISTANCE_TICK", function(mob, player, target)
         trustMeleeMove(mob, player, target, angle)
@@ -99,7 +105,8 @@ function onMobSpawn(mob)
         local shikCooldown = mob:getLocalVar("shikCooldown")
         local ayameTP = mob:getTP()
         local pTP = player:getTP()
-        if (lvl >= 75) then
+        local gift = mob:getLocalVar("[TRUST]SHIKIKOYO")
+        if (lvl >= 75 and gift == 1) then
             if (battletime > shikTime + shikCooldown) then
                 if (ayameTP > 750 and pTP < 100) then
                     mob:useJobAbility(151, player)
@@ -113,16 +120,19 @@ function onMobSpawn(mob)
         local element = player:getVar("SCProp1")
         local sekkaType = mob:getLocalVar("sekkaType")
         local scTimer = mob:getLocalVar("scTimer")
+        local sekkaWS = mob:getLocalVar("sekkaWS")
         local battletime = os.time()
         local tp = mob:getTP()
         local canWS = weaponSkillEnmityCheck(mob, player, target)
         local weaponSkillTime = mob:getLocalVar("wsTime")
         if (tp >= 2000 and sekkaType == 1 and not mob:hasPreventActionEffect()) then
             mob:setLocalVar("sekkaWS",1)
+            printf("FIRST SEKKA CHECK")
             weaponskill = doAyameSoloSC(mob, player)
             mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill, target)
-        elseif (tp >= 1000 and sekkaType == 1 and (battletime > scTimer + 5) and not mob:hasPreventActionEffect()) then
+        elseif (tp >= 1000 and sekkaType == 1 and (battletime > scTimer + 5) and not mob:hasPreventActionEffect() and sekkaWS == 1) then
+            printf("SECOND SEKKA CHECK")
             weaponskill = doAyameSoloSC(mob, player)
             mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill, target)
@@ -133,7 +143,7 @@ function onMobSpawn(mob)
             weaponskill = doAyameSoloSC(mob, player)
             mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill, target)
-        elseif (tp >= 1000 and sekkaType == 2 and (battletime > scTimer + 5) and not mob:hasPreventActionEffect()) then
+        elseif (tp >= 1000 and sekkaType == 2 and (battletime > scTimer + 5) and not mob:hasPreventActionEffect() and sekkaWS == 1) then
             weaponskill = doAyameSoloSC(mob, player)
             mob:setLocalVar("WS_TP",mob:getTP())
             mob:useMobAbility(weaponskill, target)
@@ -198,7 +208,6 @@ end
 
 function doAyameWeaponskill(mob)
     local tp = mob:getTP()
-    printf("Ayame TP is being recorded as %u",tp)
     printf("Ayame is going to solo WS")
     local wsList = {{70,152}, {65,151}, {60,150}, {55,149}, {49,148}, {33,147}, {23,146}, {9,145}, {1,144}}
     local newWsList = {}
@@ -276,6 +285,7 @@ function doAyameOpenWeaponskill(mob, player)
 end
 
 function doAyameSoloSC(mob, player)
+    printf("CHecking....")
     local lvl = mob:getMainLvl()
     local sekkaWS = mob:getLocalVar("sekkaWS")
     local sekkaType = mob:getLocalVar("sekkaType")
@@ -286,7 +296,7 @@ function doAyameSoloSC(mob, player)
     if (element == 0) then
         printf("No Elemental WS performed by player yet...pick random")
         element = math.random(2,12)
-        printf("Elemtn chosen is %i",element)
+        printf("Elemtn chosen is %u",element)
     end
 
     if (element == 2) then -- Compression - SSC Detonation REsult Grav
@@ -319,12 +329,14 @@ function doAyameSoloSC(mob, player)
                     mob:setLocalVar("sekkaWS",2)
                     mob:setLocalVar("scTimer",os.time())
                     printf("DEBUG: Ayame First WS Now!")
+                    break
                 end
             elseif (sekkaWS == 2) then
                 if (lvl >= scCombo[i][1]) then
                     finalWS = scCombo[i][3]
                     printf("DEBUG: Ayame Second WS Now!")
                     mob:setLocalVar("sekkaType",0)
+                    break
                 end
             end
         end
@@ -336,13 +348,15 @@ function doAyameSoloSC(mob, player)
                     mob:setLocalVar("sekkaWS",2)
                     mob:setLocalVar("scTimer",os.time())
                     printf("DEBUG: Ayame First WS Now: %u! \n", finalWS)
+                    break
                 end
             elseif (sekkaWS == 2) then
                 if (lvl >= wsList[i][1]) then
                     finalWS = wsList[i][3]
                     printf("DEBUG: Ayame Second WS Now: %u! \n", finalWS)
                     mob:setLocalVar("sekkaType",0)
-                    end
+                    break
+                end
             end
         end
     end

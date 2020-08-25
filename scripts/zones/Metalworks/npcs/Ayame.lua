@@ -12,6 +12,7 @@ require("scripts/globals/keyitems");
 require("scripts/globals/missions");
 require("scripts/globals/quests");
 local ID = require("scripts/zones/Metalworks/IDs");
+require("scripts/globals/trust_points");
 -----------------------------------
 
 function onTrade(player,npc,trade)
@@ -20,9 +21,9 @@ function onTrade(player,npc,trade)
     local rank = player:getVar("[TRUST]AyameRank")
     local subRank = player:getVar("[TRUST]AyameSubRank")
     local total = player:getVar("[TRUST]AyameTokensTotal")
-    local quest = job.SAM.finish[subRank]
+    local quest = trustjob.SAM.finish[subRank]
     local finish = dialog.finish
-    local meritCount = getMeritCount()
+    local meritCount = player:getMeritCount()
 
 
     if (player:getQuestStatus(BASTOK,dsp.quest.id.bastok.TRUE_STRENGTH) == QUEST_ACCEPTED) then
@@ -41,7 +42,7 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Ayame's Subjob is now Warrior!", 0x15);
     end
 
-    if (trib == 1 and trade:hasItemQty(1437) and meritCount >= 5) then
+    if (trib == 1 and trade:hasItemQty(1437,1) and meritCount >= 5) then
         player:tradeComplete()
         player:setMerits(meritCount - 5)
         player:PrintToPlayer("Ayame : "..finish,0x0D);
@@ -50,8 +51,17 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Ayame : Thank you for your Tribute.",0x0D);
         total = total + 1
         player:setVar("[TRUST]AyameTokensTotal",total)
-        player:PrintToPlayer("Ayame's "..quest.."  (Total Tokens: "..total.."/550)",0x0D);
-	    currentTokens = currentTokens - rank + 1;
+        local perc = ""
+        local tokamt = 0
+        if (subRank == 4 or subRank == 9) then
+           tokamt = (rank + 1) * 2
+           perc = ""
+        else
+           tokamt = rank + 1
+           perc = ""
+        end
+        player:PrintToPlayer("Ayame's "..quest.." "..tokamt..""..perc.." (Total Tokens: "..total.."/550)",0x15);
+	    currentTokens = currentTokens - (rank + 1);
 	    player:setVar("CurrentTokens_Ayame",currentTokens);
         subRank = subRank + 1
         if (subRank > 9) then
@@ -108,6 +118,9 @@ function onTrigger(player,npc)
 	local srank = getNationRank(dsp.nation.SANDORIA);
 	local tribfight = player:getVar("AYAME_TRIB_FIGHT");
 	local mainlvl = player:getMainLvl();
+    local subRank = player:getVar("[TRUST]AyameSubRank")
+    local mainRank = player:getVar("[TRUST]AyameRank")
+    local trib = player:getVar("[TRUST]AYAME_TRIB");
 
     if (player:getNation() == 1) and (player:hasKeyItem(dsp.ki.BLUE_INSTITUTE_CARD)) and (player:hasSpell(900) == false) then  -- Bastok Nation and mission 2-3
 	player:PrintToPlayer("Your Blue Institute Card flashes brilliantly!", 0x1C);
@@ -129,7 +142,7 @@ function onTrigger(player,npc)
 	-- ------------------------ --
     --   Ayame Tribute Unlock   --
     -- ------------------------ --
-	if (mLvL >= 75 and player:hasSpell(900) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
+	if (mainlvl >= 75 and player:hasSpell(900) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
         local start = dialog.start
         local done = dialog.finish
 	    player:PrintToPlayer("Ayame : "..start, 0xD);
@@ -143,8 +156,8 @@ function onTrigger(player,npc)
     --  Handle Token Quest  --
     --------------------------
     if (trib == 2) then
-        local quest = job.SAM.start[subRank]
-        local token = subRank + 1
+        local quest = trustjob.SAM.start[subRank]
+        local token = mainRank + 1
         player:PrintToPlayer("Ayame : Bring me "..token.." of my Trust Tokens and 5,000 gil to "..quest,0x0D);
     end
 

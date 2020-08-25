@@ -24,9 +24,9 @@ function onTrade(player,npc,trade)
     local rank = player:getVar("[TRUST]CurillaRank")
     local subRank = player:getVar("[TRUST]CurillaSubRank")
     local total = player:getVar("[TRUST]CurillaTokensTotal")
-    local quest = job.PLD.finish[subRank]
+    local quest = trustjob.PLD.finish[subRank]
     local finish = dialog.finish
-    local meritCount = getMeritCount()
+    local meritCount = player:getMeritCount()
 
 
 
@@ -34,7 +34,7 @@ function onTrade(player,npc,trade)
         player:startEvent(wsQuestEvent)
     end
 
-    if (trib == 1 and trade:hasItemQty(1432) and meritCount >= 5) then
+    if (trib == 1 and trade:hasItemQty(1432,1) and meritCount >= 5) then
         player:tradeComplete()
         player:setMerits(meritCount - 5)
         player:PrintToPlayer("Curilla : "..finish,0x0D);
@@ -43,8 +43,17 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Curilla : Thank you for your Tribute.",0x0D);
         total = total + 1
         player:setVar("[TRUST]CurillaTokensTotal",total)
-        player:PrintToPlayer("Curilla's "..quest.."  (Total Tokens: "..total.."/550)",0x0D);
-	    currentTokens = currentTokens - rank + 1;
+        local perc = ""
+        local tokamt = 0
+        if (subRank == 4) then
+           tokamt = (rank + 1)
+           perc = "%"
+        else
+           tokamt = rank + 1
+           perc = ""
+        end
+        player:PrintToPlayer("Curilla's "..quest.." "..tokamt..""..perc.." (Total Tokens: "..total.."/550)",0x15);
+	    currentTokens = currentTokens - (rank + 1);
 	    player:setVar("CurrentTokens_Curilla",currentTokens);
         subRank = subRank + 1
         if (subRank > 9) then
@@ -141,7 +150,7 @@ function onTrigger(player,npc)
     --  Handle Token Quest  --
     --------------------------
     if (trib == 2) then
-        local quest = job.PLD.start[subRank]
+        local quest = trustjob.PLD.start[subRank]
         local token = subRank + 1
         player:PrintToPlayer("Curilla : Bring me "..token.." of my Trust Tokens and 5,000 gil to "..quest,0x0D);
     end

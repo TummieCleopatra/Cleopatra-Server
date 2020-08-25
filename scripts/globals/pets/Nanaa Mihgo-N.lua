@@ -32,6 +32,8 @@ function onMobSpawn(mob)
     mob:setLocalVar("utsuNiTime",0)
     mob:setLocalVar("TrickAttack",0)  -- Do TA First
 
+
+
     local tagi = mob:getStat(dsp.mod.AGI)
 
     mob:setLocalVar("feintTime",0)

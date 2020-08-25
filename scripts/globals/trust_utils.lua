@@ -1663,8 +1663,15 @@ function enmityFromCure(caster, final)
             for _,enmity in ipairs(enmitylist) do
                 if (enmity.active and enmity.entity:getID() == caster:getID()) then
 		            local mob = member:getID();
-                    GetMobByID(mob):addEnmity(caster, ce, ve)
-                    -- printf("Total Cure Enmity is %u", total)
+                    local instance = caster:getInstance()
+                    if (instance == nil) then
+                        GetMobByID(mob):addEnmity(caster, ce, ve)
+                    else
+                        -- printf("Total Cure Enmity is %u", total)
+                        local mobinst = instance:getEntity(bit.band(mob, 0xFFF), dsp.objType.MOB)
+                        mobinst:addEnmity(caster, ce, ve)
+
+                    end
                 end
             end
         end
@@ -1723,9 +1730,28 @@ function enmityCalc(mob, player, target)
     local diff = 0
     local enmityList = {}
 
+    local instance = mob:getInstance()
+
+
+
+
+    --[[
+    local instance = mob:getInstance()
+    if (instance ~= nil) then
+       local  = instance:getEntity(bit.band((target:getID()), 0xFFF), dsp.objType.MOB)
+    end]]--
+
+
     for i, member in ipairs(party) do
-        ce = target:getCE(member)
-        ve = target:getVE(member)
+        if (instance == nil) then
+            ce = target:getCE(member)
+            ve = target:getVE(member)
+        else
+            local mobID = mob:getTarget():getID()
+            local mobinst = instance:getEntity(bit.band(mobID, 0xFFF), dsp.objType.MOB)
+            ce = mobinst:getCE(member)
+            ve = mobinst:getVE(member)
+        end
         total = ve + ce
         local id = member:getID()
 
@@ -2454,22 +2480,25 @@ local ZeidTokens = player:getVar("CurrentTokens_Zeid");
 local ZeidPoints = player:getVar("CurrentPoints_Zeid");
 
 
-local curillaTrib = player:getVar("CURILLA_TRIB_FIGHT");
-local excenmilleTrib = player:getVar("EXCEN_TRIB_FIGHT");
-local ayameTrib = player:getVar("AYAME_TRIB_FIGHT");
-local najiTrib = player:getVar("NAJI_TRIB_FIGHT");
+local curillaTrib = player:getVar("[TRUST]CURILLA_TRIB");
+local excenmilleTrib = player:getVar("[TRUST]EXCENMILLE_TRIB");
+local ayameTrib = player:getVar("[TRUST]AYAME_TRIB");
+local najiTrib = player:getVar("[TRUST]NAJI_TRIB");
 
-local kupipiTrib = player:getVar("KUPIPI_TRIB_FIGHT");
-local nanaaTrib = player:getVar("NANAA_TRIB_FIGHT");
+local kupipiTrib = player:getVar("[TRUST]KUPIPI_TRIB");
+local nanaaTrib = player:getVar("[TRUST]NANAA_TRIB");
 
 
-local lionTrib = player:getVar("LION_TRIB_FIGHT");
-local darcullinTrib = player:getVar("DARC_TRIB_FIGHT");
-local zeidTrib = player:getVar("ZEID_TRIB_FIGHT");
-local adelheidTrib = player:getVar("ADEL_TRIB_FIGHT");
+local lionTrib = player:getVar("[TRUST]LION_TRIB");
+local darcullinTrib = player:getVar("[TRUST]DARC_TRIB");
+local zeidTrib = player:getVar("[TRUST]ZEID_TRIB");
+local adelheidTrib = player:getVar("[TRUST]ADELHEID_TRIB");
 
 local pet;
-local baseTrustPoints = mob:getBaseExp() * TRUST_POINT_BONUS
+local baseTrustPoints = mob:getBaseExp()
+print(baseTrustPoints)
+baseTrustPoints = baseTrustPoints * TRUST_POINT_BONUS
+print(baseTrustPoints)
 
 --[[
 SAVE THIS FOR LATER
@@ -2603,14 +2632,16 @@ local luzaf = 0
     end
 
 
-	if (((kupipi == 1 and kupipiTrib == 3) or (ayame == 1 and ayameTrib == 3) or
-         (curilla == 1 and curillaTrib == 3) or (nanaa == 1 and nanaaTrib == 3) or
-         (naji == 1 and najiTrib == 3) or (excenmille == 1 and excenmilleTrib == 3) or
-         (adelheid == 1 and adelheidTrib == 3) or (darrcuiln == 1 and darcullinTrib == 3) or
-         (lion == 1 and lionTrib == 3)) and player:getMainLvl() >= 75) then-- Means that they are in the party.  Need to list all because it displays trust points
-	        player:PrintToPlayer("You receive "..trustpoint.." Trust Points!!!", 0x15);
+	if (((kupipi == 1 and kupipiTrib == 2) or (ayame == 1 and ayameTrib == 2) or
+         (curilla == 1 and curillaTrib == 2) or (nanaa == 1 and nanaaTrib == 2) or
+         (naji == 1 and najiTrib == 2) or (excenmille == 1 and excenmilleTrib == 2) or
+         (adelheid == 1 and adelheidTrib == 2) or (darrcuiln == 1 and darcullinTrib == 2) or
+         (lion == 1 and lionTrib == 2)) and player:getMainLvl() >= 75) then-- Means that they are in the party.  Need to list all because it displays trust points
+	        if (trustpoint > 0) then
+                player:PrintToPlayer("You receive "..trustpoint.." Trust Points!", 0x15);
+            end
             -- Naji
-	        if ((naji == 1) and (najiTrib == 3)) then
+	        if ((naji == 1) and (najiTrib == 2)) then
 		        player:setVar("CurrentPoints_Naji", NajiPoints + (trustpoint * bonusNaji))
 			    NajiPoints = player:getVar("CurrentPoints_Naji");
 			    if (NajiPoints > MAX_TRUST_POINTS) then
@@ -2624,7 +2655,7 @@ local luzaf = 0
 	            end
 	        end
             -- Kupipi
-	        if ((kupipi == 1) and (kupipiTrib == 3)) then
+	        if ((kupipi == 1) and (kupipiTrib == 2)) then
 		        player:setVar("CurrentPoints_Kupipi", KupipiPoints + (trustpoint * bonusKupipi))
 			    KupipiPoints = player:getVar("CurrentPoints_Kupipi");
 			    if (KupipiPoints > MAX_TRUST_POINTS) then
@@ -2638,7 +2669,7 @@ local luzaf = 0
 				end
 			end
 			-- Ayame
-			if ((ayame == 1) and (ayameTrib == 3)) then
+			if ((ayame == 1) and (ayameTrib == 2)) then
 				player:setVar("CurrentPoints_Ayame", AyamePoints + (trustpoint * bonusAyame))
 				AyamePoints = player:getVar("CurrentPoints_Ayame");
 				if (AyamePoints > MAX_TRUST_POINTS) then
@@ -2652,7 +2683,7 @@ local luzaf = 0
 				end
 			end
 			-- Nanaa
-			if ((nanaa == 1) and (nanaaTrib == 3)) then
+			if ((nanaa == 1) and (nanaaTrib == 2)) then
 				player:setVar("CurrentPoints_Nanaa", NanaaPoints + (trustpoint * bonusNanaa))
 				NanaaPoints = player:getVar("CurrentPoints_Nanaa");
 				if (NanaaPoints > MAX_TRUST_POINTS) then
@@ -2666,7 +2697,7 @@ local luzaf = 0
 				end
 			end
 			-- Curilla
-			if ((curilla == 1) and (curillaTrib == 3)) then
+			if ((curilla == 1) and (curillaTrib == 2)) then
 				player:setVar("CurrentPoints_Curilla", CurillaPoints + (trustpoint * bonusCurilla))
 				CurillaPoints = player:getVar("CurrentPoints_Curilla");
 				if (CurillaPoints > MAX_TRUST_POINTS) then
@@ -2680,7 +2711,7 @@ local luzaf = 0
 				end
 			end
 			-- Excenmille
-			if ((excenmille == 1) and (excenmilleTrib == 3)) then
+			if ((excenmille == 1) and (excenmilleTrib == 2)) then
 				player:setVar("CurrentPoints_Excenmille", ExcenmillePoints + (trustpoint * bonusExcenmille))
 				ExcenmillePoints = player:getVar("CurrentPoints_Excenmille");
 				if (ExcenmillePoints > MAX_TRUST_POINTS) then
@@ -2694,7 +2725,7 @@ local luzaf = 0
 				end
 			end
 			-- Darcullin
-			if ((darrcuiln == 1) and (darcullinTrib == 3)) then
+			if ((darrcuiln == 1) and (darcullinTrib == 2)) then
 				player:setVar("CurrentPoints_Darcullin", DarcullinPoints + (trustpoint * bonusDarrcuiln));
 				DarcullinPoints = player:getVar("CurrentPoints_Darcullin");
 				if (DarcullinPoints > MAX_TRUST_POINTS) then
@@ -2708,7 +2739,7 @@ local luzaf = 0
 				end
 			end
 			-- Adelheid
-			if ((adelheid == 1) and (adelheidTrib == 3)) then
+			if ((adelheid == 1) and (adelheidTrib == 2)) then
 				player:setVar("CurrentPoints_Adelheid", AdelheidPoints + (trustpoint * bonusAdelheid));
 				AdelheidPoints = player:getVar("CurrentPoints_Adelheid");
 				if (AdelheidPoints > MAX_TRUST_POINTS) then
@@ -2722,7 +2753,7 @@ local luzaf = 0
 				end
 			end
 			-- Lion
-			if ((lion == 1) and (lionTrib == 3)) then
+			if ((lion == 1) and (lionTrib == 2)) then
 				player:setVar("CurrentPoints_Lion", LionPoints + (trustpoint * bonusLion));
 				LionPoints = player:getVar("CurrentPoints_Lion");
 				if (LionPoints > MAX_TRUST_POINTS) then
@@ -2737,7 +2768,7 @@ local luzaf = 0
 			end
 
 			-- Zeid
-			if ((zeid == 1) and (zeidTrib == 3)) then
+			if ((zeid == 1) and (zeidTrib == 2)) then
 				player:setVar("CurrentPoints_Zeid", ZeidPoints + (trustpoint * bonusZeid));
 				ZeidPoints = player:getVar("CurrentPoints_Zeid");
 				if (ZeidPoints > MAX_TRUST_POINTS) then

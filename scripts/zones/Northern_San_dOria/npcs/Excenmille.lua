@@ -25,11 +25,11 @@ function onTrade(player,npc,trade)
     local rank = player:getVar("[TRUST]ExcenmilleRank")
     local subRank = player:getVar("[TRUST]ExcenmilleSubRank")
     local total = player:getVar("[TRUST]ExcenmilleTokensTotal")
-    local quest = job.DRG.finish[subRank]
+    local quest = trustjob.DRG.finish[subRank]
     local finish = dialog.finish
-    local meritCount = getMeritCount()
+    local meritCount = player:getMeritCount()
 
-    if (trib == 1 and trade:hasItemQty(1439) and meritCount >= 5) then
+    if (trib == 1 and trade:hasItemQty(1439,1) and meritCount >= 5) then
         player:tradeComplete()
         player:setMerits(meritCount - 5)
         player:PrintToPlayer("Excenmille : "..finish,0x0D);
@@ -38,8 +38,18 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Excenmille : Thank you for your Tribute.",0x0D);
         total = total + 1
         player:setVar("[TRUST]ExcenmilleTokensTotal",total)
-        player:PrintToPlayer("Excenmille's "..quest.."  (Total Tokens: "..total.."/550)",0x0D);
-	    currentTokens = currentTokens - rank + 1;
+        local perc = ""
+        local tokamt = 0
+        if (subRank == 7) then
+           tokamt = (rank + 1) * 2
+           perc = ""
+        else
+           tokamt = rank + 1
+           perc = ""
+        end
+
+        player:PrintToPlayer("Excenmille's "..quest.." "..tokamt..""..perc.." (Total Tokens: "..total.."/550)",0x15);
+	    currentTokens = currentTokens - (rank + 1);
 	    player:setVar("CurrentTokens_Excenmille",currentTokens);
         subRank = subRank + 1
         if (subRank > 9) then
@@ -91,12 +101,14 @@ function onTrigger(player,npc)
 	local tribfight = player:getVar("EXCEN_TRIB_FIGHT");
 	local mainlvl = player:getMainLvl();
     local pNation = player:getNation();
-
+    local subRank = player:getVar("[TRUST]ExcenmeilleSubRank")
+    local mainRank = player:getVar("[TRUST]ExcenmilleRank")
+    local trib = player:getVar("[TRUST]EXCENMILLE_TRIB");
 
 	-- ------------------------ --
     --   Excenmille Tribute Unlock  --
     -- ------------------------ --
-	if (mLvL >= 75 and player:hasSpell(899) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
+	if (mainlvl >= 75 and player:hasSpell(899) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
         local start = dialog.start
         local done = dialog.finish
 	    player:PrintToPlayer("Excenmille : "..start, 0xD);
@@ -110,8 +122,8 @@ function onTrigger(player,npc)
     --  Handle Token Quest  --
     --------------------------
     if (trib == 2) then
-        local quest = job.DRG.start[subRank]
-        local token = subRank + 1
+        local quest = trustjob.DRG.start[subRank]
+        local token = mainRank + 1
         player:PrintToPlayer("Excenmille : Bring me "..token.." of my Trust Tokens and 5,000 gil to "..quest,0x0D);
     end
 	-- else

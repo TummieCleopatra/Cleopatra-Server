@@ -22,9 +22,9 @@ function onTrade(player,npc,trade)
     local rank = player:getVar("[TRUST]KupipiRank")
     local subRank = player:getVar("[TRUST]KupipiSubRank")
     local total = player:getVar("[TRUST]KupipiTokensTotal")
-    local quest = job.WHM.finish[subRank]
+    local quest = trustjob.WHM.finish[subRank]
     local finish = dialog.finish
-    local meritCount = getMeritCount()
+    local meritCount = player:getMeritCount()
 
 
     if (trade:hasItemQty(war,1) and kupipiSJ >= 1) then
@@ -51,7 +51,7 @@ function onTrade(player,npc,trade)
         end
     end
 
-    if (trib == 1 and trade:hasItemQty(1428) and meritCount >= 5) then
+    if (trib == 1 and trade:hasItemQty(1428,1) and meritCount >= 5) then
         player:tradeComplete()
         player:setMerits(meritCount - 5)
         player:PrintToPlayer("Kupipi : "..finish,0x0D);
@@ -60,8 +60,17 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Kupipi : Thank you for your Tribute.",0x0D);
         total = total + 1
         player:setVar("[TRUST]KupipiTokensTotal",total)
-        player:PrintToPlayer("Kupipi's "..quest.."  (Total Tokens: "..total.."/550)",0x0D);
-	    currentTokens = currentTokens - rank + 1;
+        local perc = ""
+        local tokamt = 0
+        if (subRank == 3 or subRank == 9) then
+           tokamt = (rank + 1)
+           perc = "%"
+        else
+           tokamt = rank + 1
+           perc = ""
+        end
+        player:PrintToPlayer("Kupipi's "..quest.." "..tokamt..""..perc.." (Total Tokens: "..total.."/550)",0x15);
+	    currentTokens = currentTokens - (rank + 1);
 	    player:setVar("CurrentTokens_Kupipi",currentTokens);
         subRank = subRank + 1
         if (subRank > 9) then
@@ -113,6 +122,10 @@ function onTrigger(player,npc)
     local currentMission = player:getCurrentMission(pNation);
     local MissionStatus = player:getVar("MissionStatus");
     local kupipiSJ = player:getVar("KUPIPI_SJ_QUEST")
+    local trib = player:getVar("[TRUST]KUPIPI_TRIB");
+    local subRank = player:getVar("[TRUST]KupipiSubRank")
+    local mainRank = player:getVar("[TRUST]KupipiRank")
+    local mLvL = player:getMainLvl()
 
     if (kupipiSJ == 1) then
         player:PrintToPlayer(string.format("Kupipi : Hello %s.  My current Subjob is Warrior.", player:getName()),0x0D);
@@ -135,6 +148,28 @@ function onTrigger(player,npc)
         player:PrintToPlayer("Kupipi : Ah a Green Institute Card.  From now on, you can summon me to help you with your battles", 0xD);
         player:addSpell(898);
 	    player:PrintToPlayer("You are now able to summon the trust Kupipi!", 0x15);
+    end
+
+	-- ------------------------ --
+    --   Kupipi Tribute Unlock  --
+    -- ------------------------ --
+	if (mLvL >= 75 and player:hasSpell(898) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
+        local start = dialog.start
+        local done = dialog.finish
+	    player:PrintToPlayer("Kupipi : "..start, 0xD);
+        player:setVar("[TRUST]KUPIPI_TRIB",1)
+    elseif (trib == 1) then
+        local remind = dialog.remind
+        player:PrintToPlayer("Kupipi : "..remind, 0xD);
+	end
+
+	-- -------------------- --
+    --  Handle Token Quest  --
+    --------------------------
+    if (trib == 2) then
+        local quest = trustjob.WHM.start[subRank]
+        local token = mainRank + 1
+        player:PrintToPlayer("Kupipi : Bring me "..token.." of my Trust Tokens and 5,000 gil to "..quest,0x0D);
     end
 
 
@@ -214,27 +249,7 @@ function onTrigger(player,npc)
     end
 
 
-	-- ------------------------ --
-    --   Kupipi Tribute Unlock  --
-    -- ------------------------ --
-	if (mLvL >= 75 and player:hasSpell(898) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
-        local start = dialog.start
-        local done = dialog.finish
-	    player:PrintToPlayer("Kupipi : "..start, 0xD);
-        player:setVar("[TRUST]KUPIPI_TRIB",1)
-    elseif (trib == 1) then
-        local remind = dialog.remind
-        player:PrintToPlayer("Kupipi : "..remind, 0xD);
-	end
 
-	-- -------------------- --
-    --  Handle Token Quest  --
-    --------------------------
-    if (trib == 2) then
-        local quest = job.WHM.start[subRank]
-        local token = subRank + 1
-        player:PrintToPlayer("Kupipi : Bring me "..token.." of my Trust Tokens and 5,000 gil to "..quest,0x0D);
-    end
 
 end;
 

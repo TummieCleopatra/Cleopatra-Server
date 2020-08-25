@@ -15,9 +15,9 @@ function onTrade(player,npc,trade)
     local rank = player:getVar("[TRUST]ZeidRank")
     local subRank = player:getVar("[TRUST]ZeidSubRank")
     local total = player:getVar("[TRUST]ZeidTokensTotal")
-    local quest = job.DRK.finish[subRank]
+    local quest = trustjob.DRK.finish[subRank]
     local finish = dialog.finish
-    local meritCount = getMeritCount()
+    local meritCount = player:getMeritCount()
 
 
 
@@ -30,8 +30,12 @@ function onTrade(player,npc,trade)
         player:PrintToPlayer("Torch : Thank you for your Tribute.",0x0D);
         total = total + 1
         player:setVar("[TRUST]ZeidTokensTotal",total)
-        player:PrintToPlayer("Zeid's "..quest.."  (Total Tokens: "..total.."/550)",0x0D);
-	    currentTokens = currentTokens - rank + 1;
+        local perc = ""
+        local tokamt = 0
+        tokamt = rank + 1
+        perc = ""
+        player:PrintToPlayer("Zeid's "..quest.." "..tokamt..""..perc.." (Total Tokens: "..total.."/550)",0x15);
+	    currentTokens = currentTokens - (rank + 1);
 	    player:setVar("CurrentTokens_Zeid",currentTokens);
         subRank = subRank + 1
         if (subRank > 9) then
@@ -81,6 +85,10 @@ function onTrigger(player,npc)
     local offset = npc:getID() - ID.npc.TORCH_OFFSET
 	local mainlvl = player:getMainLvl();
     local tribfight = player:getVar("ZEID_TRIB_FIGHT");
+    local subRank = player:getVar("[TRUST]ZeidSubRank")
+    local mainRank = player:getVar("[TRUST]ZeidRank")
+    local trib = player:getVar("[TRUST]ZEID_TRIB");
+
 
     -- killed Dark Spark and clicked same torch used to spawn
     if player:getVar("BorghertzSparkKilled") == 1 and GetMobByID(ID.mob.DARK_SPARK):getLocalVar("fromTorch") == offset then
@@ -122,7 +130,7 @@ function onTrigger(player,npc)
 	-- ------------------------ --
     --   Zeid Tribute Unlock  --
     -- ------------------------ --
-	if (mLvL >= 75 and player:hasSpell(906) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
+	if (mainlvl >= 75 and player:hasSpell(906) and player:getVar("FerretoryAura") >= 7 and player:hasKeyItem(dsp.ki.LIMIT_BREAKER) and trib == 0) then
         local start = dialog.start
         local done = dialog.finish
 	    player:PrintToPlayer("Gilgamesh : "..start, 0xD);
@@ -136,8 +144,8 @@ function onTrigger(player,npc)
     --  Handle Token Quest  --
     --------------------------
     if (trib == 2) then
-        local quest = job.DRK.start[subRank]
-        local token = subRank + 1
+        local quest = trustjob.DRK.start[subRank]
+        local token = mainRank + 1
         player:PrintToPlayer("Torch : Bring me "..token.." of Zeid's Trust Tokens and 5,000 gil to "..quest,0x0D);
     end
 end
