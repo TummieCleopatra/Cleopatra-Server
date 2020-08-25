@@ -8,9 +8,12 @@ require("scripts/globals/settings");
 
 -- Move NPC ID's to a different file...maybe here??
 function besiegedCheck(zone)
+    local delay = 300
     local players = zone:getPlayers();
+    local battleTime = BATTLE_TIME
     -- Check the status of besieged Army's
     local besiegedStatus = GetServerVariable("[BESIEGED]STATUS");
+    local besiegedOverlap = GetServerVariable("[BESIEGED]OVERLAP");
     local mamool = GetServerVariable("[BESIEGED]Mamool_Ja_Status");
     local mamoolStart = GetServerVariable("[BESIEGED]Mamool_Start");
     local mamoolEnd = GetServerVariable("[BESIEGED]Mamool_Ja_End");
@@ -40,8 +43,15 @@ function besiegedCheck(zone)
 	            player:messageSpecial(ID.text.MAMOOL_MARCH);
 	        end
         end
-        despawnNPCS()
-        spawnForces()
+        if (besiegedStatus ~= 1 and undead ~= 1) then
+            despawnNPCS()
+            spawnForces()
+            SetServerVariable("[BESIEGED]OVERLAP",0)
+            printf("No Overlap....Despawn NPCs.  Spawn Battle participants!")
+        else
+            SetServerVariable("[BESIEGED]OVERLAP",1)
+            printf("Can't Spawn Forces because battle is going on or another force is marching already!")
+        end
         mamoolMarch = os.time() + 250
         SetServerVariable("[BESIEGED]Mamool_Ja_March",mamoolMarch)
         printf("Current time is %u",os.time())
@@ -55,16 +65,24 @@ function besiegedCheck(zone)
         SetServerVariable("[BESIEGED]Troll_Status",10);
     elseif (undead == 1) then
         printf("Undead is equal to 1 somehow")
+        besiegedOverlap = GetServerVariable("[BESIEGED]OVERLAP");
         if (players ~= nil) then
 	        for i, player in pairs(players) do
 	            player:messageSpecial(ID.text.UNDEAD_MARCH);
 	        end
         end
-        despawnNPCS()
-        spawnForces()
+        if (besiegedStatus ~= 1 and mamool ~= 1) then
+            despawnNPCS()
+            spawnForces()
+            printf("No Overlap....Despawn NPCs.  Spawn Battle participants!")
+            SetServerVariable("[BESIEGED]OVERLAP",0)
+        else
+            SetServerVariable("[BESIEGED]OVERLAP",1)
+            printf("Can't Spawn Forces because battle is going on or another force is marching already!")
+        end
 
         -- SetServerVariable("[BESIEGED]Undead_Swarm_Status",10);
-        undeadMarch = os.time() + 250
+        undeadMarch = os.time() + 600
         SetServerVariable("[BESIEGED]Undead_Swarm_March",undeadMarch)
         printf("Current time is %u",os.time())
         printf("Current march Time is %u",undeadMarch)
@@ -87,77 +105,107 @@ function besiegedCheck(zone)
 	-- 5 March
 
     -- Undead Status
-    printf("[Undead Swarm Status is %u]",undead)
-	printf("Undead_Swarm_March is %u",undeadMarch)
+   -- printf("[Undead Swarm Status is %u]",undead)
+	-- printf("Undead_Swarm_March is %u",undeadMarch)
 
-    printf("[Mamool Ja Status is %u]",mamool)
-	printf("Mamool_Ja_March is %u",mamoolMarch)
+    -- printf("[Mamool Ja Status is %u]",mamool)
+	-- printf("Mamool_Ja_March is %u",mamoolMarch)
 
     -- --------------------------- --
     -- Besieged Spawning Mechanism --
     -- --------------------------- --
 
+    -- Delay Mechanism when a battle is currently happening
+    if ((mamool == 2) and (os.time() > mamoolMarch) and mamoolMarch ~= 0 and besiegedStatus == 1) then
+        SetServerVariable("[BESIEGED]Mamool_Ja_March",os.time() + delay)
+        printf("=== ANOTHER HORDE IS ATTACKING RIGHT NOW ===")
+        printf("=== DELAY MAMOOL HORDE BY 5 MINUTES ===")
+    end
+
+    if ((undead == 2) and (os.time() > undeadMarch) and undeadMarch ~= 0 and besiegedStatus == 1) then
+        SetServerVariable("[BESIEGED]Undead_Swarm_March",os.time() + delay)
+        printf("=== ANOTHER HORDE IS ATTACKING RIGHT NOW ===")
+        printf("=== DELAY UNDEAD SWARM BY 5 MINUTES ===")
+    end
+
+    -- Try to Spawn
+
     if ((mamool == 2) and (os.time() > mamoolMarch) and mamoolMarch ~= 0 and besiegedStatus ~= 1) then
         SetServerVariable("[BESIEGED]Mamool_Ja_March",0);
+        besiegedOverlap = GetServerVariable("[BESIEGED]OVERLAP");
+        if (besiegedOverlap == 1) then
+            despawnNPCS()
+            spawnForces()
+            SetServerVariable("[BESIEGED]OVERLAP",0)
+        end
         local randomize = math.random(1,4)
 		randomize = randomize * 3
 		randomize = randomize * 60
-        SetServerVariable("[BESIEGED]Mamool_Ja_End",os.time() + 1110 + randomize);
+        SetServerVariable("[BESIEGED]Mamool_Ja_End",os.time() + battleTime + randomize);
         printf("======== START MAMOOL JA BESIEGED!!! =========")
         printf("Current time is %u",os.time())
-        printf("End time is: %u", os.time() + 1110 + randomize)
+        printf("End time is: %u", os.time() + battleTime + randomize)
         SetServerVariable("[BESIEGED]Mamool_Ja_Status",3);
         SetServerVariable("[BESIEGED]STATUS",1);
+        printf("****** SET BESIEGED STATUS TO 1 *****")
         spawnMamool(mamoolLvl,zone)
-        if (not player:isInMogHouse()) then
-            if (players ~= nil) then
-                for i, player in pairs(players) do
+
+        if (players ~= nil) then
+            for i, player in pairs(players) do
+                if (not player:isInMogHouse()) then
                     local start = math.random(1,20)
                     player:messageSpecial(ID.text.MAMOOL_START);
                     player:addStatusEffect(dsp.effect.BESIEGED,0,3,3600)
                     player:ChangeMusic(1, 142)
                     player:ChangeMusic(2, 142)
                     player:startEvent(8,start)
+                else
+                    player:messageSpecial(ID.text.MAMOOL_START);
                 end
             end
-        else
-            player:messageSpecial(ID.text.MAMOOL_START);
         end
     elseif ((undead == 2) and (os.time() > undeadMarch) and undeadMarch ~= 0 and besiegedStatus ~= 1) then
-        -- SetServerVariable("[BESIEGED]Undead_Swarm_Start",0);
         SetServerVariable("[BESIEGED]Undead_Swarm_March",0);
+        besiegedOverlap = GetServerVariable("[BESIEGED]OVERLAP");
+        if (besiegedOverlap == 1) then
+            despawnNPCS()
+            spawnForces()
+            SetServerVariable("[BESIEGED]OVERLAP",0)
+        end
         local randomize = math.random(1,4)
 		randomize = randomize * 3
 		randomize = randomize * 60
-        SetServerVariable("[BESIEGED]Undead_Swarm_End",os.time() + 1110 + randomize);
+        SetServerVariable("[BESIEGED]Undead_Swarm_End",os.time() + battleTime + randomize);
         printf("======== START UNEAD BESIEGED!!! =========")
         printf("Current time is %u",os.time())
-        printf("End time is: %u", os.time() + 1110 + randomize)
+        printf("End time is: %u", os.time() + battleTime + randomize)
 
         SetServerVariable("[BESIEGED]Undead_Swarm_Status",3);
         SetServerVariable("[BESIEGED]STATUS",1);
+        printf("****** SET BESIEGED STATUS TO 1 *****")
         -- do cs here
         -- set spawns
         spawnUndead(undeadLvl,zone)
-        if (not player:isInMogHouse()) then
-            if (players ~= nil) then
-                for i, player in pairs(players) do
+
+        if (players ~= nil) then
+            for i, player in pairs(players) do
+                if (not player:isInMogHouse()) then
                     local start = math.random(1,20)
                     player:messageSpecial(ID.text.UNDEAD_START);
                     player:addStatusEffect(dsp.effect.BESIEGED,0,3,3600)
                     player:ChangeMusic(1, 142)
                     player:ChangeMusic(2, 142)
                     player:startEvent(5,start)
+                else
+                    player:messageSpecial(ID.text.UNDEAD_START);
                 end
             end
-        else
-            player:messageSpecial(ID.text.UNDEAD_START);
         end
     end
 
-   if (mamoolEnd > 1) then
+    if (mamoolEnd > 1) then
         if (os.time() > mamoolEnd) then
-            SetServerVariable("[BESIEGED]Mamool_End",1)
+            SetServerVariable("[BESIEGED]Mamool_Ja_End",1)
             if (mamoolLvl <= 3) then
             stop = 20
             elseif (mamoolLvl <= 7) then
@@ -181,7 +229,7 @@ function besiegedCheck(zone)
                 player:delStatusEffect(dsp.effect.BESIEGED)
 	        end
                 printf("[DEBUG] - The Mamool have retreated")
-                SetServerVariable("[BESIEGED]Mamool_Status",11);
+                SetServerVariable("[BESIEGED]Mamool_Ja_Status",11);
                 -- Lets Cap Levels
                 if (mamoolLvl < HORDE_CAP) then
                     SetServerVariable("[BESIEGED]Mamool_LVL",mamoolLvl + 1);
@@ -190,24 +238,27 @@ function besiegedCheck(zone)
             for i,v in pairs(ID.besieged.MAMOOL) do
             -- GetMobByID(v):setSpawn(-333,-20,231,180)
                 if (i < stop) then
-				    if (GetMobByID(v):isAlive()) then
-			            printf("Despawning Mob ID: %u",v)
+				   -- if (GetMobByID(v):isAlive()) then
+			           -- printf("Despawning Mob ID: %u",v)
                         DespawnMob(v);
 					    print(i)
-				    end
+				   -- end
                 else
                     break
                 end
             end
+            -- Despawn Pets
+            DespawnMob(16973839)
+            DespawnMob(16973830)
+            DespawnMob(16973848)
             -- Depsawn Helpers
             despawnForces()
             -- Spawn Regular Zone NPCS
             spawnNPCS()
             SetServerVariable("[BESIEGED]STATUS",0);
+            printf("BESEIGED STATUS IS NOW 0")
         end
-    end
-
-    if (trollEnd > 1) then
+    elseif (trollEnd > 1) then
         if (os.time() > trollEnd) then
             SetServerVariable("[BESIEGED]Troll_End",1)
             if (trollLvl <= 3) then
@@ -243,19 +294,18 @@ function besiegedCheck(zone)
             -- GetMobByID(v):setSpawn(-333,-20,231,180)
                 if (i < stop) then
 				    if (GetMobByID(v):isAlive()) then
-			            printf("Despawning Mob ID: %u",v)
+			         --   printf("Despawning Mob ID: %u",v)
                         DespawnMob(v);
-					    print(i)
+					  --  print(i)
 				    end
                 else
                     break
                 end
             end
             SetServerVariable("[BESIEGED]STATUS",0);
+            printf("BESEIGED STATUS IS NOW 0")
         end
-    end
-
-    if (undeadEnd > 1) then
+    elseif (undeadEnd > 1) then
         if (os.time() > undeadEnd) then
             SetServerVariable("[BESIEGED]Undead_Swarm_End",1)
             if (undeadLvl <= 3) then
@@ -292,15 +342,16 @@ function besiegedCheck(zone)
             -- GetMobByID(v):setSpawn(-333,-20,231,180)
                 if (i < stop) then
 				    if (GetMobByID(v):isAlive()) then
-			            printf("Despawning Mob ID: %u",v)
+			           -- printf("Despawning Mob ID: %u",v)
                         DespawnMob(v);
-					    print(i)
+					  --  print(i)
 				    end
                 else
                     break
                 end
             end
             SetServerVariable("[BESIEGED]STATUS",0);
+            printf("BESIEGED STATUS IS NOW 0")
         end
     end
 end;
@@ -379,8 +430,8 @@ function generalStrength(mob)
 	    level = math.floor((level / 3) + 1);
 	end
     local id = mob:getID();
-	printf("Level of strength of generals is %u",level);
-    printf("General is %u",id);
+	-- printf("Level of strength of generals is %u",level);
+    -- printf("General is %u",id);
 	if (level >= 15) then
 	    level = 15;
 	end
@@ -502,7 +553,7 @@ function enemyRoam(mob)
         mob:speed(40)
         -- printf("Not Following Path set speed and start pathing for %u",undead)
 
-        printf("%u is following path %u",undead,randPath)
+       -- printf("%u is following path %u",undead,randPath)
         mob:pathThrough(AL_ZAHBI.mobPath[randPath], 1)
         mob:setLocalVar("Path",0);
     elseif (mob:isFollowingPath() == false) then
@@ -583,7 +634,7 @@ function enemyPath(mob)
 				local mobid = mob:getID()
 
                 if (mob:atPoint(currentPoint)) then
-				    printf("%u is at specific point",mobid)
+				   -- printf("%u is at specific point",mobid)
                     mob:setLocalVar("CurrentPathPoint",v);
                 end
             end
@@ -623,9 +674,10 @@ function spawnNPCS()
 end
 
 function spawnForces()
+    printf("Spawn Forces for battle")
     for force = ID.besieged.BATTLE_NPCS.npc_start,ID.besieged.BATTLE_NPCS.npc_end do
         SpawnMob(force)
-		printf("Spawning Forces...ID is: %u",force)
+		-- printf("Spawning Forces...ID is: %u",force)
     end
 end
 
@@ -634,7 +686,7 @@ function despawnForces()
     for id = ID.besieged.BATTLE_NPCS.npc_start,ID.besieged.BATTLE_NPCS.npc_end do
         if (GetMobByID(id):isAlive()) then
 		    DespawnMob(id)
-			printf("Despawning NPC with ID of: %u",id)
+			-- printf("Despawning NPC with ID of: %u",id)
 		end
     end
 end
@@ -755,12 +807,14 @@ function mamoolDeathCount(mob)
 
     if (kills < killsNeeded) then
         kills = kills + 1;
-        printf("Al Zahbi forces have defeated: %u mobs",kills)
+       -- printf("Al Zahbi forces have defeated: %u mobs",kills)
         SetServerVariable("[BESIEGED]Fallen_Enemies",kills)
     elseif (kills == killsNeeded) then
-        SetServerVariable("[BESIEGED]Mamool_End",1)
+        SetServerVariable("[BESIEGED]Mamool_Ja_End",1)
         printf("[DEBUG] - The Mamool have retreated")
-        SetServerVariable("[BESIEGED]Mamool_Status",11);
+        SetServerVariable("[BESIEGED]STATUS",0);
+        printf("BESIEGED STATUS IS NOW 0!")
+        SetServerVariable("[BESIEGED]Mamool_Ja_Status",11);
         -- Lets Cap Levels
         if (level < HORDE_CAP) then
             SetServerVariable("[BESIEGED]Mamool_LVL",level + 1);
@@ -861,7 +915,7 @@ function undeadDeathCount(mob)
 
     if (kills < killsNeeded) then
         kills = kills + 1;
-        printf("Al Zahbi forces have defeated: %u mobs",kills)
+       -- printf("Al Zahbi forces have defeated: %u mobs",kills)
         SetServerVariable("[BESIEGED]Fallen_Enemies",kills)
     elseif (kills == killsNeeded) then
         -- Depsawn Helpers
@@ -870,6 +924,8 @@ function undeadDeathCount(mob)
         spawnNPCS()
         SetServerVariable("[BESIEGED]Undead_Swarm_End",1)
         printf("[DEBUG] - The Undead have retreated")
+        SetServerVariable("[BESIEGED]STATUS",0);
+        printf("BESIEGED STATUS IS NOW 0!")
         SetServerVariable("[BESIEGED]Undead_Swarm_Status",11);
         -- Lets Cap Levels
         if (level < HORDE_CAP) then
@@ -881,7 +937,7 @@ function undeadDeathCount(mob)
         -- GetMobByID(v):setSpawn(-333,-20,231,180)
             if (i < stop) then
                 if (GetMobByID(v):isAlive()) then
-                    printf("[%u] - Despawning Mob with an ID of: %u",i,v)
+                  --  printf("[%u] - Despawning Mob with an ID of: %u",i,v)
                     DespawnMob(v)
                 end
             else
@@ -909,6 +965,7 @@ function npcDeathCount(mob)
     local players = mob:getZone():getPlayers();
     local death = GetServerVariable("[BESIEGED]Fallen_Allies")
     local undead = GetServerVariable("[BESIEGED]Undead_Swarm_Status");
+    local mamool = GetServerVariable("[BESIEGED]Mamool_Ja_Status");
     local level = GetServerVariable("[BESIEGED]Undead_Swarm_LVL");
 
     local stop = 0;
@@ -919,9 +976,9 @@ function npcDeathCount(mob)
     end
 
     death = death + 1;
-    printf("==== Fallen Allies is now %u ====",death)
+    -- printf("==== Fallen Allies is now %u ====",death)
     SetServerVariable("[BESIEGED]Fallen_Allies",death)
-    if (death >= 16) then
+    if (death >= 18) then
 	    -- Depsawn Helpers
         despawnForces()
         -- Spawn Regular Zone NPCS
@@ -949,7 +1006,35 @@ function npcDeathCount(mob)
             SetServerVariable("[BESIEGED]Undead_Swarm_LVL",1);
             SetServerVariable("[BESIEGED]Undead_Swarm_End",1)
             SetServerVariable("[BESIEGED]Undead_Swarm_Status",11);
+            SetServerVariable("[BESIEGED]STATUS",0);
         end
+
+        if (mamool == 3) then
+            printf("==== The Mamool Ja Savages Have Won ====",death)
+            for i,v in pairs(ID.besieged.MAMOOL) do
+                if (i < stop) then
+                    if (GetMobByID(v):isAlive()) then
+			            printf("Despawning Mob ID: %u",v)
+                        DespawnMob(v);
+					    print(i)
+				    end
+                else
+				    despawnMamoolBoss()
+                    break
+                end
+            end
+
+            for i, player in pairs(players) do
+	            player:messageSpecial(ID.text.MAMOOL_WIN);
+				player:delStatusEffect(dsp.effect.BESIEGED)
+	        end
+
+            SetServerVariable("[BESIEGED]Mamool_LVL",1);
+            SetServerVariable("[BESIEGED]Mamool_Ja_End",1)
+            SetServerVariable("[BESIEGED]Mamool_Ja_Status",11);
+            SetServerVariable("[BESIEGED]STATUS",0);
+        end
+
 
         SetServerVariable("[BESIEGED]Fallen_Allies",0)
         SetServerVariable("[BESIEGED]Consecutive_Wins",0);
@@ -960,6 +1045,20 @@ end
 function despawnUndeadBoss()
 
     for i,v in pairs(ID.besieged.UNDEAD_BOSS) do
+	    if (i < 9) then
+		    if (GetMobByID(v):isAlive()) then
+			    DespawnMob(v)
+			    printf("Despawning Mob boss %u", v)
+			end
+	    end
+    end
+
+end
+
+
+function despawnMamoolBoss()
+
+    for i,v in pairs(ID.besieged.MAMOOL_BOSS) do
 	    if (i < 9) then
 		    if (GetMobByID(v):isAlive()) then
 			    DespawnMob(v)
