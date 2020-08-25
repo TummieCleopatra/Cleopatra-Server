@@ -122,6 +122,7 @@ function onEventFinish(player,csid,option)
 
 
 		player:setVar("Dynamis_Bastok_Enter",1);
+        player:setVar("[DYNAMIS]PRISM_ALIGN",0)
         player:setVar("Dynamis_Entry",os.time());
         player:setVar("enteringDynamis",1);
         player:setPos(116.482,0.994,-72.121,128,186);

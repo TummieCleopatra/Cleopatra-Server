@@ -14,28 +14,19 @@ require("scripts/zones/Dynamis-San_dOria/IDs");
 -----------------------------------
 
 function onTrade(player,npc,trade)
-
-local slot1 = trade:getItem(0);
-local slot2 = trade:getItem(1);
-local slot3 = trade:getItem(2);
-local slot4 = trade:getItem(3);
-
-if (((slot1 == 3380) or (slot1 == 3381) or (slot1 == 3382) or (slot1 == 3387)) and ((slot2 == 3380) or (slot2 == 3381) or (slot2 == 3382) or (slot2 == 3387)) and
-((slot3 == 3380) or (slot3 == 3381) or (slot3 == 3382) or (slot3 == 3387)) and ((slot4 == 3380) or (slot4 == 3381) or (slot4 == 3382) or (slot4 == 3387))) then
+if ((trade:hasItemQty(3380,1)) and (trade:hasItemQty(3381,1)) and (trade:hasItemQty(3382,1)) and (trade:hasItemQty(3383,1))) then
 player:addKeyItem(dsp.ki.ALABASTER_GRANULES_OF_TIME);
 player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.ALABASTER_GRANULES_OF_TIME);
 player:tradeComplete();
-elseif (((slot1 == 3380) or (slot1 == 3381) or (slot1 == 3382) or (slot1 == 3387)) and ((slot2 == 3380) or (slot2 == 3381) or (slot2 == 3382) or (slot2 == 3387)) and
-((slot3 == 3380) or (slot3 == 3381) or (slot3 == 3382) or (slot3 == 3387))) then
+elseif ((trade:hasItemQty(3380,1)) and (trade:hasItemQty(3381,1)) and (trade:hasItemQty(3382,1))) then
 player:addKeyItem(dsp.ki.AMBER_GRANULES_OF_TIME);
 player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.AMBER_GRANULES_OF_TIME);
 player:tradeComplete();
-elseif (((slot1 == 3380) or (slot1 == 3381) or (slot1 == 3382) or (slot1 == 3387)) and ((slot2 == 3380) or (slot2 == 3381) or (slot2 == 3382) or (slot2 == 3387)) and
-((slot3 == 3380))) then
+elseif ((trade:hasItemQty(3380,1)) and (trade:hasItemQty(3381,1))) then
 player:addKeyItem(dsp.ki.AZURE_GRANULES_OF_TIME);
 player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.AZURE_GRANULES_OF_TIME);
 player:tradeComplete();
-elseif (((slot1 == 3380) or (slot1 == 3381) or (slot1 == 3382) or (slot1 == 3387))) then
+elseif (trade:hasItemQty(3380,1)) then
 player:addKeyItem(dsp.ki.CRIMSON_GRANULES_OF_TIME);
 player:messageSpecial(ID.text.KEYITEM_OBTAINED,dsp.ki.CRIMSON_GRANULES_OF_TIME);
 player:tradeComplete();
@@ -79,7 +70,7 @@ end;
 -----------------------------------
 
 function onTrigger(player,npc)
-
+player:PrintToPlayer("TEST")
 
 
 end;

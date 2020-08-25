@@ -36,7 +36,7 @@ end;
 
 function onEventFinish(player,csid,option)
     if (csid == 2) then
-        player:setVar("WOTG_MISSION_VAR",1)
+        player:setVar("WoTGStatus",1)
     end
     if (EventFinishBCNM(player,csid,option)) then
         return;

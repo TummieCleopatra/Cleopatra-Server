@@ -19,10 +19,10 @@ function onMobSpawn(mob)
 local beetle = mob:getID()
 GetMobByID(beetle):setDropID(5013); -- Default Drop ID
 mob:setMod(dsp.mod.ACC,350);
-mob:setMod(dsp.mod.ATT,200);
+mob:setMod(dsp.mod.ATT,250);
 mob:setMod(dsp.mod.STR,40);
 mob:setMod(dsp.mod.EVA,295);
-mob:setMod(dsp.mod.DEF,100);
+mob:addMod(dsp.mod.DEF,-70);
 
 
 
@@ -45,6 +45,7 @@ mob:setMod(dsp.mod.ACC,-30);
 mob:setMod(dsp.mod.ATTP,10);
 end
 
+
 end;
 
 
@@ -52,7 +53,7 @@ end;
 -- onWeaponskillHit
 -----------------------------------
 function onWeaponskillHit(mob, attacker, weaponskill)
-    local stagger, white, red, blue, yellow = staggerRate(mob)
+    local stagger, white, blue, yellow = staggerRate(mob, attacker)
 
 
 -- Staggering Function
@@ -71,6 +72,7 @@ function onWeaponskillHit(mob, attacker, weaponskill)
             mob:addStatusEffect(dsp.effect.TERROR,1,0,10);
             GetMobByID(beetle):setDropID(6024); -- Shultz
             mob:setLocalVar("WeakenedTrigger",1);
+        --[[
         elseif (wsweakness <= red) and (isweak ~= 1) then
             mob:weaknessTrigger(2); -- Red Stagger drops Pop Items
             mob:addStatusEffect(dsp.effect.TERROR,1,0,10);
@@ -84,12 +86,12 @@ function onWeaponskillHit(mob, attacker, weaponskill)
             elseif (itemdrop == 4) then
                 GetMobByID(beetle):setDropID(6029); -- Fiendish Tome 10
             end
-            mob:setLocalVar("WeakenedTrigger",1);
+            mob:setLocalVar("WeakenedTrigger",1);]]--
         elseif (wsweakness <= yellow) and (isweak ~= 1) then
             mob:weaknessTrigger(0); -- Yellow Stagger Increase Scyld
             mob:addStatusEffect(dsp.effect.TERROR,1,0,10);
             local randomscyld = math.random(10,20);
-            if (attack:getObjType() == dsp.Type.TRUST) then
+            if (attacker:getObjType() == dsp.objType.TRUST) then
                 local master = attacker:getMaster()
                 local oldscyld = master:getVar("ScyldMultiplier");
                 local newscyld = (randomscyld + oldscyld);
@@ -171,25 +173,14 @@ end;
 
 function onMobDeath(mob,player)
 	local scyldmult = player:getVar("ScyldMultiplier");
-    local duration = 45;
-	local attBoost = 15;
+    prismAlign(player)
+
 	local level = player:getMainLvl();
     local scyld = math.floor((level - 65) * (1 + (scyldmult/100)));
 	local stagger = mob:getLocalVar("MonsterStagger");
-	if (player:getObjType() == dsp.objType.PC) then
-	local randombuff = math.random(1,100)
-	if (randombuff >= 50) then
-	player:addStatusEffect(dsp.effect.ATTACK_BOOST,attBoost,0,duration);
-    player:PrintToPlayer("The monster has endowed you with a temporary Attack Bonus", 0xD);
-	elseif (randombuff < 20) then
-	local heal = player:getMaxHP();
-	local healmp = player:getMaxMP();
-	player:addHP(heal);
-	player:addMP(healmp);
-    player:PrintToPlayer(string.format("%s recovers HP and MP", player:getName()), 0x15);
-	end
+
 	player:addCurrency("scyld", scyld);
 	player:PrintToPlayer(string.format("%s gains "..scyld.." scyld.", player:getName()), 0x15);
-	end
+	-- end
 
 end;

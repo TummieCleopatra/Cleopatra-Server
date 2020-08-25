@@ -56,7 +56,7 @@ if ((trade:getGil() == 300000) and player:getVar("FerretoryQuest75") == 13) then
     player:tradeComplete();
 	player:PrintToPlayer("You can now summon a 5th Trust!", 0x15);
     player:setVar("Trustsize",2);
-	player:setVar("FerretoryQuest75",13); -- New Non Aura Quests
+	player:setVar("FerretoryQuest75",14); -- New Non Aura Quests
 	else
     balance = quest12 - pinfamy;
     player:PrintToPlayer( "Macus : I'm sorry, you need "..balance.." more infamy.", 0xD);
@@ -87,6 +87,11 @@ local trustdyna = player:getVar("TrustDynamis");
         player:setVar("infamycap",30000);
     elseif (player:getVar("FerretoryQuest75") == 13) then
         player:setVar("infamycap",60000)
+    end
+
+    -- Fix 5th Trust quest set to wrong variable
+    if (player:getVar("Trustsize") == 2 and player:getVar("FerretoryQuest75") == 13) then
+        player:setVar("FerretoryQuest75",14);
     end
 
 
