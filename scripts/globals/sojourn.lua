@@ -9,20 +9,24 @@ function t1Difficulty(mob)
        -- mob:setMobMod(dsp.mobMod.LVL_INC, 8)
         mob:setMobMod(dsp.mobMod.HP_SCALE,5)
         mob:setLocalVar("Difficulty",1)
-        mob:setMobLevel(82)
-        mob:addStatusEffect(dsp.effect.MAX_HP_BOOST,-65,0,1800)
+        mob:setMobLevel(80)
+        mob:addStatusEffect(dsp.effect.MAX_HP_BOOST,-87,0,1800)
     elseif (difficulty == 2) then
-        mob:setMobMod(dsp.mobMod.LVL_INC, 10)
+        mob:setLocalVar("Difficulty",1)
+        mob:setMobLevel(82)
+        mob:addStatusEffect(dsp.effect.MAX_HP_BOOST,-87,0,1800)
     elseif (difficulty == 3) then
         mob:setLocalVar("Difficulty",3)
         mob:setMobLevel(83)
         mob:addStatusEffect(dsp.effect.MAX_HP_BOOST,-88,0,1800)
     elseif (difficulty == 4) then
         mob:setLocalVar("Difficulty",4)
-        mob:setMobLevel(84)
-        mob:addStatusEffect(dsp.effect.MAX_HP_BOOST,-80,0,1800)
+        mob:setMobLevel(83)
+        mob:addStatusEffect(dsp.effect.MAX_HP_BOOST,-75,0,1800)
     elseif (difficulty == 5) then
-        mob:setMobMod(dsp.mobMod.LVL_INC, 17)
+        mob:setLocalVar("Difficulty",5)
+        mob:setMobLevel(84)
+        mob:addStatusEffect(dsp.effect.MAX_HP_BOOST,-75,0,1800)
     end
 
 end
@@ -32,7 +36,8 @@ end
 function t1nmDifficulty(mob)
 
         mob:setMobLevel(84)
-       -- mob:addStatusEffect(dsp.effect.MAX_HP_BOOST,-65,0,1800)
+        mob:addStatusEffect(dsp.effect.MAX_HP_BOOST,-55,0,1800)
+
 
 
 
