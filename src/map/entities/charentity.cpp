@@ -135,10 +135,10 @@ CCharEntity::CCharEntity()
     memset(&m_missionLog, 0, sizeof(m_missionLog));
     memset(&m_assaultLog, 0, sizeof(m_assaultLog));
     memset(&m_campaignLog, 0, sizeof(m_campaignLog));
-	
+
     memset(&teleport, 0, sizeof(teleport));
     memset(&teleport.homepoint.menu, -1, sizeof(teleport.homepoint.menu));
-    memset(&teleport.survival.menu,  -1, sizeof(teleport.survival.menu));	
+    memset(&teleport.survival.menu,  -1, sizeof(teleport.survival.menu));
 
     for (uint8 i = 0; i <= 3; ++i)
     {
@@ -872,7 +872,7 @@ void CCharEntity::OnWeaponSkillFinished(CWeaponSkillState& state, action_t& acti
                         actionTarget_t dummy;
                         luautils::OnAdditionalEffect(this, PTarget, static_cast<CItemWeapon*>(getEquip(SLOT_AMMO)), &dummy, damage);
                     }
-                    int wspoints = 1;
+                    int wspoints = 8;
                     if (PWeaponSkill->getPrimarySkillchain() != 0)
                     {
                         // NOTE: GetSkillChainEffect is INSIDE this if statement because it
@@ -1099,11 +1099,11 @@ void CCharEntity::OnWeaponSkillFinished(CWeaponSkillState& state, action_t& acti
                             actionTarget.additionalEffect = effect;
 
                             if (effect >= 7)
-                                wspoints += 1;
-                            else if (effect >= 3)
-                                wspoints += 2;
-                            else
                                 wspoints += 4;
+                            else if (effect >= 3)
+                                wspoints += 5;
+                            else
+                                wspoints += 7;
                         }
                     }
                     // check for ws points
