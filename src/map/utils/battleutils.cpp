@@ -2164,7 +2164,15 @@ namespace battleutils
                     PDefender->addTP((int16)(tpMultiplier * ((baseTp / 3) * sBlowMult * (1.0f + 0.01f * (float)((PDefender->getMod(Mod::STORETP) + getStoreTPbonusFromMerit(PAttacker))))))); //yup store tp counts on hits taken too!
                 }
                 else
+                {
                     PDefender->addTP((uint16)(tpMultiplier * ((baseTp + 30) * sBlowMult * (1.0f + 0.01f * (float)PDefender->getMod(Mod::STORETP))))); //subtle blow also reduces the "+30" on mob tp gain
+                   // put map config here for multiplier
+                    if (PDefender->GetMaxSP() != 0)
+                    {
+                        PDefender->addSP((int32)(1200 * (tpMultiplier * ((baseTp / 3) * sBlowMult * (1.0f + 0.01f * (float)((PDefender->getMod(Mod::STORETP) + getStoreTPbonusFromMerit(PAttacker))))))));
+                        ShowWarning(CL_YELLOW"Current Stagger Percent is %u" CL_RESET,PDefender->GetSPP());
+                    }
+                }
             }
         }
         else if (PDefender->objtype == TYPE_MOB)

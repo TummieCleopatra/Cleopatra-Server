@@ -462,6 +462,8 @@ struct health_t
     int32   hp, mp;             // текущие значения
     int32   maxhp, maxmp;       // максимальные значения
     int32   modhp, modmp;       // модифицированные максимальные значения
+    int32   sp;
+    int32   maxsp;
 };
 
 typedef std::vector<apAction_t> ActionList_t;
@@ -524,6 +526,8 @@ public:
     int32           GetMaxHP();                 // максимальное количество hp
     uint8		    GetMPP();					// количество mp в процентах
     int32           GetMaxMP();                 // максимальное количество mp
+    uint8           GetSPP();
+    int32           GetMaxSP();
     void            UpdateHealth();             // пересчет максимального количества hp и mp, а так же корректировка их текущих значений
 
     int16			GetWeaponDelay(bool tp);		//returns delay of combined weapons
@@ -542,6 +546,7 @@ public:
     virtual int16	addTP(int16 tp);			// увеличиваем/уменьшаем количество tp
     virtual int32	addHP(int32 hp);			// увеличиваем/уменьшаем количество hp
     virtual int32 	addMP(int32 mp);			// увеличиваем/уменьшаем количество mp
+    virtual int32   addSP(int32 sp);            // add Stagger Points
 
     //Deals damage and updates the last attacker which is used when sending a player death message
     virtual int32   takeDamage(int32 amount, CBattleEntity* attacker = nullptr, ATTACKTYPE attackType = ATTACK_NONE, DAMAGETYPE damageType = DAMAGE_NONE);

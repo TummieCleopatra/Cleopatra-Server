@@ -207,6 +207,27 @@ int32 CBattleEntity::GetMaxMP()
     return health.modmp;
 }
 
+
+/************************************************************************
+*                                                                       *
+*  Return Stagger Points                                                *
+*                                                                       *
+************************************************************************/
+
+uint8 CBattleEntity::GetSPP()
+{
+    return (uint8)ceil(((float)health.sp / (float)GetMaxSP()) * 100);
+}
+
+int32 CBattleEntity::GetMaxSP()
+{
+    return health.maxsp;
+}
+
+
+
+
+
 /************************************************************************
 *                                                                       *
 *  Скорость перемещения с учетом модификаторов                          *
@@ -449,6 +470,24 @@ uint16 CBattleEntity::GetRangedWeaponRank()
     //Unhandled Scenario
     DSP_DEBUG_BREAK_IF(true);
     return 0;
+}
+
+/************************************************************************
+*                                                                       *
+*  Update Stagger Gage          	                                    *
+*                                                                       *
+************************************************************************/
+
+int32 CBattleEntity::addSP(int32 sp)
+{
+    int32 cap = std::clamp(health.sp + sp, 0, GetMaxSP());
+    sp = health.sp - cap;
+    health.sp = cap;
+    if (sp != 0)
+    {
+        updatemask |= UPDATE_HP;
+    }
+    return abs(sp);
 }
 
 /************************************************************************

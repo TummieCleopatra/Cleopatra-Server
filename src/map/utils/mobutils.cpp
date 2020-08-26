@@ -281,11 +281,18 @@ void CalculateStats(CMobEntity * PMob)
 
         PMob->health.maxhp = (int16)(base * pow(mLvl, growth) * hpScale);
 
+        // Set Stagger Gauge to 0 on non NMs
+        PMob->health.maxsp = 0;
+
         if(isNM)
         {
             PMob->health.maxhp = (int32)(PMob->health.maxhp * 2.0f);
+
+            // Set Max Stagger to 10% of mob HP
+            PMob->health.maxsp = (int32)((PMob->health.maxhp * 2.0f) / 10.0f);
             if(mLvl > 75){
                 PMob->health.maxhp = (int32)(PMob->health.maxhp * 2.5f);
+                PMob->health.maxsp = (int32)((PMob->health.maxhp * 2.5f) / 10.0f);
             }
         }
 
@@ -297,6 +304,9 @@ void CalculateStats(CMobEntity * PMob)
 
     if(isNM)
     {
+        // Set Max Stagger to 10% of mob HP
+        PMob->health.maxsp = (int32)((PMob->health.maxhp * map_config.nm_hp_multiplier) / 10.0f);
+
         PMob->health.maxhp = (int32)(PMob->health.maxhp * map_config.nm_hp_multiplier);
     }
     else
@@ -380,6 +390,7 @@ void CalculateStats(CMobEntity * PMob)
     PMob->UpdateHealth();
 
     PMob->health.tp = 0;
+    PMob->health.sp = 0;
     PMob->health.hp = PMob->GetMaxHP();
     PMob->health.mp = PMob->GetMaxMP();
 
@@ -687,7 +698,7 @@ void SetupJob(CMobEntity* PMob)
 			{
 			    PMob->defaultMobMod(MOBMOD_SPECIAL_COOL, 12);
 			    PMob->defaultMobMod(MOBMOD_SPECIAL_SKILL, 1202);
-			}			
+			}
             else
             {
                 // All other rangers
