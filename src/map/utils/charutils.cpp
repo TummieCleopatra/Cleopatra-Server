@@ -321,6 +321,7 @@ namespace charutils
 
     void LoadChar(CCharEntity* PChar)
     {
+        PChar->loc.p.zone = 1;
         uint8 meritPoints = 0;
         uint16 limitPoints = 0;
         int32 HP = 0;
@@ -2320,6 +2321,7 @@ namespace charutils
         auto& WeaponSkillList = battleutils::GetWeaponSkills(skill);
         for (auto&& PSkill : WeaponSkillList)
         {
+            //ShowWarning(CL_YELLOW"Weapon Skill ID is: %u \n" CL_RESET, PSkill->getID());
             if (battleutils::CanUseWeaponskill(PChar, PSkill) ||
                 PSkill->getID() == main_ws ||
                 (isInDynamis && (PSkill->getID() == main_ws_dyn)))
@@ -4651,7 +4653,7 @@ namespace charutils
         {
             ShowWarning(CL_GREEN"Merit Count is %i \n" CL_RESET, (PChar->PMeritPoints->GetMerit(MERIT_SABER_DANCE)->id));
             //PChar->PMeritPoints->GetMerit((MERIT_TYPE)PAbility->getMeritModID());
-            
+
             if (!(PChar->PMeritPoints->GetMerit((MERIT_TYPE)PAbility->getMeritModID())->count > 0))
             {
                 return false;

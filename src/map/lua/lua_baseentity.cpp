@@ -2840,6 +2840,8 @@ inline int32 CLuaBaseEntity::setPos(lua_State *L)
 
     if (m_PBaseEntity->objtype == TYPE_PC)
     {
+        m_PBaseEntity->loc.p.zone = 1;
+
         if (!lua_isnil(L, 5) && lua_isnumber(L, 5) && ((CCharEntity*)m_PBaseEntity)->status == STATUS_DISAPPEAR)
         {
             // do not modify zone/position if the character is already zoning
@@ -2903,6 +2905,13 @@ inline int32 CLuaBaseEntity::setPos(lua_State *L)
 
     return 0;
 }
+
+
+inline int32 CLuaBaseEntity::setZoneFlag(lua_State *L)
+{
+	m_PBaseEntity->loc.p.zone = 1;
+}
+
 
 /************************************************************************
 *  Function: warp()
@@ -15146,6 +15155,7 @@ Lunar<CLuaBaseEntity>::Register_t CLuaBaseEntity::methods[] =
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getZPos),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,getRotPos),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,setPos),
+
 
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,warp),
     LUNAR_DECLARE_METHOD(CLuaBaseEntity,teleport),

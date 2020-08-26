@@ -168,6 +168,7 @@ public:
     int32 getRotPos(lua_State*);             // Get Entity Rot position
 
     int32 setPos(lua_State*);                // Set Entity position (x,y,z,rot) or (x,y,z,rot,zone)
+    int32 setZoneFlag(lua_State*);
     int32 warp(lua_State*);                  // Returns Character to home point
     int32 teleport(lua_State*);              // Set Entity position (without entity despawn/spawn packets)
 

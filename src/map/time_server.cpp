@@ -35,12 +35,69 @@
 #include "lua/luautils.h"
 #include "entities/charentity.h"
 #include "latent_effect_container.h"
+#include "status_effect_container.h"
 
 
 int32 time_server(time_point tick,CTaskMgr::CTask* PTask)
 {
     TIMETYPE VanadielTOTD = CVanaTime::getInstance()->SyncTime();
     // uint8 WeekDay = (uint8)CVanaTime::getInstance()->getWeekday();
+    // Speed/POS Hack Start
+
+    zoneutils::ForEachZone([](CZone* PZone)
+	{
+		//luautils::OnGameTick(PZone);
+		//const int8* fmtQuery = "update server_status set tick = unix_timestamp(now()) where zoneid = %i";
+		//Sql_Query(SqlHandle, fmtQuery, map_port-56000);
+
+		PZone->ForEachChar([](CCharEntity* PChar)
+		{
+			float x = PChar->loc.p.x;
+			float y = PChar->loc.p.y;
+			float z = PChar->loc.p.z;
+			float px = PChar->loc.p.px;
+			float py = PChar->loc.p.py;
+			float pz = PChar->loc.p.pz;
+			float d = sqrt(pow((x - px), 2) + pow((z - pz), 2));
+
+
+			if (PChar->loc.p.zone != 1 && d /2.4*10 > 60 && PChar->animation != ANIMATION_CHOCOBO && !PChar->StatusEffectContainer->HasStatusEffect(EFFECT_FLEE))
+			{
+				//const char* sql = "INSERT INTO speed_hacks (%u, '%s',%u,'%.3f',concat('%.3f',' ','%.3f',' ','%.3f','|','%.3f',' ','%.3f',' ','%.3f'),current_timestamp());";
+                //const char* sql = "INSERT INTO speed_hacks (%u, '%s',%u,'%.3f','%s',current_timestamp());";
+                const char* sql = "INSERT INTO speed_hacks (charid,charname,zone,speed,pos,time) VALUES(%u,'%s',%u,'%.3f',concat('%.3f',' ','%.3f',' ','%.3f','|','%.3f',' ','%.3f',' ','%.3f'),current_timestamp());";
+
+                if (Sql_Query(SqlHandle, sql, PChar->id,PChar->GetName(),PChar->getZone(),d/2.4*10,x,y,z,px,py,pz) == SQL_ERROR)
+                {
+                    ShowDebug(CL_RED"Cannot insert into the table" CL_RESET);
+                }
+				//int32 ret = Sql_Query(SqlHandle, sql, PChar->id,PChar->GetName(),map_port-56000,d/2.4*10,x,y,z,px,py,pz);
+                //int32 ret = Sql_Query(SqlHandle, sql, PChar->id,PChar->GetName(),map_port-56000,d/2.4*10,PChar->GetName());
+                //int32 ret = Sql_Query(SqlHandle, sql, PChar->id,PChar->GetName());
+				ShowDebug(CL_YELLOW"%s's speed to high: %.3f\n" CL_RESET,PChar->GetName(), d / 2.4 * 10);
+			}
+			if (PChar->loc.p.zone != 1 && d / 2.4 * 10 > 100 && PChar->animation == ANIMATION_CHOCOBO)
+			{
+				const char* sql = "INSERT INTO speed_hacks (%u, '%s',%u,'%.3f',concat('%.3f',' ','%.3f',' ','%.3f','|','%.3f',' ','%.3f',' ','%.3f'),current_timestamp());";
+				int32 ret = Sql_Query(SqlHandle, sql, PChar->id, PChar->GetName(), map_port - 56000, d / 2.4 * 10, x, y, z, px, py, pz);
+				ShowDebug(CL_YELLOW"%s's Chocobo is on fire! %.3f\n" CL_RESET, PChar->GetName(), d / 2.4 * 10);
+			}
+			if (PChar->loc.p.zone == 1)
+			{
+				ShowDebug(CL_YELLOW"%s zoned, ignoring speed, unzoning.\n" CL_RESET, PChar->GetName());
+			}
+
+			PChar->loc.p.px = PChar->loc.p.x;
+			PChar->loc.p.py = PChar->loc.p.y;
+			PChar->loc.p.pz = PChar->loc.p.z;
+			PChar->loc.p.zone = 0;
+		});
+	});
+
+
+
+
+    //Speed Pos Hack End
 
     // weekly update for conquest (sunday at midnight)
     if (CVanaTime::getInstance()->getSysWeekDay() == 1  && CVanaTime::getInstance()->getSysHour() == 0 && CVanaTime::getInstance()->getSysMinute() == 0)
@@ -109,42 +166,7 @@ int32 time_server(time_point tick,CTaskMgr::CTask* PTask)
         if (tick > (CVanaTime::getInstance()->lastGilAnalytics + 1h))
         {
             //Total Gil
-		    int32 totalgil = 100;
-		    const char* Query = "SELECT SUM(quantity), bazaar, itemID  FROM `char_inventory` WHERE itemID = '65535'";
-		    int32 ret = Sql_Query(SqlHandle, Query);
-		    if (ret != SQL_ERROR && Sql_NumRows(SqlHandle) != 0 && Sql_NextRow(SqlHandle) == SQL_SUCCESS)
-		    {
-			    totalgil = (int32)Sql_GetIntData(SqlHandle, 0);
-			    //ahfees = ahfees / 1000000;
-			    ShowWarning(CL_CYAN"Running daily Gil analytics.  Total Gil is: %i \n" CL_RESET, totalgil);
-			    time_t calltime = time(nullptr);
-			    Sql_Query(SqlHandle, "INSERT INTO server_gil (call_date, gil_value) VALUES (%u, %u);",calltime, totalgil);
-
-			}
-
-            //Daily AH Fees
-			uint32 dailyahfees = 0;
-			const char* query = "SELECT value FROM server_variables WHERE name = '[AH]Daily_Fees';";
-			int reta = Sql_Query(SqlHandle, query);
-            if (reta != SQL_ERROR && Sql_NumRows(SqlHandle) == 1 && Sql_NextRow(SqlHandle) == SQL_SUCCESS)
-            {
-                dailyahfees = Sql_GetUIntData(SqlHandle, 0);
-                time_t calltime = time(nullptr);
-                Sql_Query(SqlHandle, "INSERT INTO daily_ah_fees (call_date, gil_value) VALUES (%u, %u);",calltime, dailyahfees);
-                Sql_Query(SqlHandle, "REPLACE INTO server_variables (name,value) VALUES('[AH]Daily_Fees', '0');");
-            }
-
-            //Daily Volume
-			uint32 dailyahvolume = 0;
-			const char* queryz = "SELECT value FROM server_variables WHERE name = '[AH]Daily_Volume';";
-			int retz = Sql_Query(SqlHandle, queryz);
-            if (retz != SQL_ERROR && Sql_NumRows(SqlHandle) == 1 && Sql_NextRow(SqlHandle) == SQL_SUCCESS)
-            {
-                dailyahvolume = Sql_GetUIntData(SqlHandle, 0);
-                time_t calltime = time(nullptr);
-                Sql_Query(SqlHandle, "INSERT INTO daily_ah_volume (call_date, gil_value) VALUES (%u, %u);",calltime, dailyahvolume);
-                Sql_Query(SqlHandle, "REPLACE INTO server_variables (name,value) VALUES('[AH]Daily_Volume', '0');");
-            }
+		    conquest::UpdateGilInfo();
             CVanaTime::getInstance()->lastGilAnalytics = tick;
 		}
         if (tick > (CVanaTime::getInstance()->lastMidnight + 1h))
