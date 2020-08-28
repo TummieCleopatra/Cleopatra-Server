@@ -36,6 +36,7 @@ This file is part of DarkStar-server source code.
 #include "../../entities/mobentity.h"
 #include "../../entities/trustentity.h"
 #include "../../utils/battleutils.h"
+#include "../../utils/mobutils.h"
 #include "../../../common/utils.h"
 #include "../../utils/petutils.h"
 #include "../../utils/charutils.h"
@@ -504,11 +505,48 @@ void CMobController::DoCombatTick(time_point tick)
 {
     HandleEnmity();
     PTarget = static_cast<CBattleEntity*>(PMob->GetEntity(PMob->GetBattleTargetID()));
+    int32 decay = 0;
+    int32 decayDivisor = 0;
 
     if (TryDeaggro())
     {
         Disengage();
         return;
+    }
+
+    if (PMob->health.maxsp != 0)
+    {
+
+        if (PMob->GetSPP() == 100 && PMob->StatusEffectContainer->HasStatusEffect(EFFECT_DAMAGE_BREAK1) == false)
+        {
+            //Do Stagger Animation
+            mobutils::WeaknessTrigger(PMob, WeaknessType::WHITE);
+
+            PMob->StatusEffectContainer->AddStatusEffect(new CStatusEffect(EFFECT_DAMAGE_BREAK1, EFFECT_DAMAGE_BREAK1, 0,3,21));
+            // Fast Decay
+
+
+        }
+        else if (PMob->StatusEffectContainer->HasStatusEffect(EFFECT_DAMAGE_BREAK1) == true)
+        {
+            decay = ((PMob->GetMaxHP() / 10) / 21);  //This should be 21 seconds
+
+            PMob->addSP(-decay);
+
+        }
+        else if (PMob->GetSPP() < 100 && PMob->StatusEffectContainer->HasStatusEffect(EFFECT_DAMAGE_BREAK1) == false)
+        {
+            //Decay Stagger Points
+            // Needs Decay mod set on amount of players for Dynamic Scaling
+            decay = ((PMob->GetMaxHP() / 10) / 120);
+
+            if (decay < 1)
+            {
+                decay = 1;
+            }
+            PMob->addSP(-decay);
+            ShowWarning(CL_GREEN"Regular Decay of %u \n" CL_RESET,decay);
+        }
     }
 
     TryLink();

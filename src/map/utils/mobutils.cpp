@@ -24,6 +24,7 @@
 #include "../../common/utils.h"
 
 #include <math.h>
+#include <algorithm>
 
 #include "battleutils.h"
 #include "../grades.h"
@@ -290,9 +291,14 @@ void CalculateStats(CMobEntity * PMob)
 
             // Set Max Stagger to 10% of mob HP
             PMob->health.maxsp = (int32)((PMob->health.maxhp * 2.0f) / 10.0f);
+            // Set Max Dmg of SP mult based on mob HP
+            PMob->health.maxspdmg = (int8)((PMob->health.maxhp * 2.0f) / 2000.0f);
+            PMob->health.maxspdmg = std::clamp<int8>(PMob->health.maxspdmg, 15, 99);
             if(mLvl > 75){
                 PMob->health.maxhp = (int32)(PMob->health.maxhp * 2.5f);
                 PMob->health.maxsp = (int32)((PMob->health.maxhp * 2.5f) / 10.0f);
+                PMob->health.maxspdmg = (int8)((PMob->health.maxhp * 2.0f) / 2000.0f);
+                PMob->health.maxspdmg = std::clamp<int8>(PMob->health.maxspdmg, 15, 99);
             }
         }
 
@@ -391,6 +397,8 @@ void CalculateStats(CMobEntity * PMob)
 
     PMob->health.tp = 0;
     PMob->health.sp = 0;
+
+
     PMob->health.hp = PMob->GetMaxHP();
     PMob->health.mp = PMob->GetMaxMP();
 

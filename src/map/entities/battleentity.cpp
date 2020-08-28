@@ -224,6 +224,16 @@ int32 CBattleEntity::GetMaxSP()
     return health.maxsp;
 }
 
+int32 CBattleEntity::GetSP()
+{
+    return health.sp;
+}
+
+int8 CBattleEntity::GetMaxSPDmg()
+{
+   return health.maxspdmg;
+}
+
 
 
 

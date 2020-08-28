@@ -707,7 +707,7 @@ INSERT INTO `status_effects` VALUES (849,'indi-gravity',32,0,0,0,0,0,0,0);
 INSERT INTO `status_effects` VALUES (850,'custom_effect',32,0,0,0,0,0,0,0);
 
 INSERT INTO `status_effects` VALUES (851,'resting_bonus',32,0,0,0,0,0,0,0);
-
+INSERT INTO `status_effects` VALUES (947,'damage_break1',32,0,0,0,0,0,0,0);
 INSERT INTO `status_effects` VALUES (950,'level_two_sc',512,0,0,2,0,0,0,0);
 INSERT INTO `status_effects` VALUES (951,'level_three_sc',512,0,0,2,0,0,0,0);
 INSERT INTO `status_effects` VALUES (952,'level_four_sc',512,0,0,2,0,0,0,0);

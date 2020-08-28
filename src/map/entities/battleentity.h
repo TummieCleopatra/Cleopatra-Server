@@ -464,6 +464,7 @@ struct health_t
     int32   modhp, modmp;       // модифицированные максимальные значения
     int32   sp;
     int32   maxsp;
+    int8    maxspdmg;
 };
 
 typedef std::vector<apAction_t> ActionList_t;
@@ -527,7 +528,9 @@ public:
     uint8		    GetMPP();					// количество mp в процентах
     int32           GetMaxMP();                 // максимальное количество mp
     uint8           GetSPP();
+    int32           GetSP();
     int32           GetMaxSP();
+    int8            GetMaxSPDmg();
     void            UpdateHealth();             // пересчет максимального количества hp и mp, а так же корректировка их текущих значений
 
     int16			GetWeaponDelay(bool tp);		//returns delay of combined weapons

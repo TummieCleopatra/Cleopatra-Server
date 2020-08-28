@@ -752,7 +752,7 @@ enum EFFECT
     EFFECT_RESTING_BONUS             = 851,
 
 
-
+    EFFECT_DAMAGE_BREAK1             = 947,
 	EFFECT_LEVEL_TWO_SC              = 950,
 	EFFECT_LEVEL_THREE_SC            = 951,
 	EFFECT_LEVEL_FOUR_SC             = 952,

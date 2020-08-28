@@ -110,12 +110,61 @@ CEntityUpdatePacket::CEntityUpdatePacket(CBaseEntity* PEntity, ENTITYUPDATE type
         }
         break;
         case TYPE_MOB:
+        {
+            CMobEntity* PMob = (CMobEntity*)PEntity;
+
+            {
+                if (updatemask & UPDATE_HP)
+                {
+                    ref<uint8>(0x1E) = PMob->GetHPP();
+                    ref<uint8>(0x1F) = PEntity->animation;
+                    ref<uint8>(0x2A) |= PEntity->animationsub;
+                    ref<uint32>(0x21) = PMob->m_flags;
+                    ref<uint8>(0x25) = PMob->health.hp > 0 ? 0x08 : 0;
+                    ref<uint8>(0x26) = PMob->GetSPP();
+                    //ref<uint8>(0x27) = PMob->m_name_prefix;
+                    //0x27 data hijack hack to show multiplier and not care about prefix if it is a NM otherwise just use normal prefix
+                    //ref<uint8>(0x27) = PMob->m_Type == MOBTYPE_NOTORIOUS ? 0xFF : PMob->m_name_prefix;
+                    if (PMob->m_Type == MOBTYPE_NOTORIOUS)
+                    {
+                        ref<uint8>(0x27) = 99;
+                    }
+                    else if (PMob->PMaster != nullptr && PMob->PMaster->objtype == TYPE_PC)
+                    {
+                        ref<uint8>(0x27) |= 0x08;
+                    }
+                    else
+                    {
+                        ref<uint8>(0x27) = PMob->m_name_prefix;
+                    }
+                    ref<uint8>(0x28) |= (PMob->StatusEffectContainer->HasStatusEffect(EFFECT_TERROR) ? 0x10 : 0x00);
+                    ref<uint8>(0x28) |= PMob->health.hp > 0 && PMob->animation == ANIMATION_DEATH ? 0x08 : 0;
+                    ref<uint8>(0x29) = PEntity->allegiance;
+                    ref<uint8>(0x2B) = PEntity->namevis;
+
+                }
+                if (updatemask & UPDATE_STATUS)
+                {
+                    ref<uint32>(0x2C) = PMob->m_OwnerID.id;
+                }
+            }
+            if (updatemask & UPDATE_NAME)
+            {
+                //depending on size of name, this can be 0x20, 0x22, or 0x24
+                this->size = 0x24;
+                if (PMob->packetName.empty())
+                    memcpy(data + (0x34), PEntity->GetName(), std::min<size_t>(PEntity->name.size(), PacketNameLength));
+                else
+                    memcpy(data + (0x34), PMob->packetName.c_str(), std::min<size_t>(PMob->packetName.size(), PacketNameLength));
+            }
+        }
+        break;
         case TYPE_PET:
         case TYPE_TRUST:
         {
             CMobEntity* PMob = (CMobEntity*)PEntity;
 
-            //if(PMob->PMaster != nullptr && PMob->PMaster->objtype == TYPE_PC && 
+            //if(PMob->PMaster != nullptr && PMob->PMaster->objtype == TYPE_PC &&
             //	PMob->PBattleAI->GetCurrentAction() == ACTION_FALL)
             //{
             //    ref<uint8>(data,(0x21)) = 0x99;
@@ -142,6 +191,7 @@ CEntityUpdatePacket::CEntityUpdatePacket(CBaseEntity* PEntity, ENTITYUPDATE type
                     ref<uint8>(0x28) |= PMob->health.hp > 0 && PMob->animation == ANIMATION_DEATH ? 0x08 : 0;
                     ref<uint8>(0x29) = PEntity->allegiance;
                     ref<uint8>(0x2B) = PEntity->namevis;
+                    ref<uint8>(0x2F) = 100;
                 }
                 if (updatemask & UPDATE_STATUS)
                 {
